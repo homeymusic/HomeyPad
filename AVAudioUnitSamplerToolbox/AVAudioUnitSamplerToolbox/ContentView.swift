@@ -12,6 +12,7 @@ struct ContentView: View {
     @State var knob4: Float = 0
     @State var knob5: Float = 63
     @State var knob6: Float = 0
+    @State var knob7: Float = 2
     @Environment(\.scenePhase) var scenePhase
     @State private var showingPopover = false
     
@@ -22,6 +23,7 @@ struct ContentView: View {
         knob4 = viewConductor.conductor.lowPassCutoff
         knob5 = Float(viewConductor.conductor.velocity)
         knob6 = viewConductor.conductor.instrument.overallGain
+        knob7 = Float(viewConductor.octaveCount)
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct ContentView: View {
             RadialGradient(gradient: Gradient(colors: [.pink, .black]), center: .center, startRadius: 2, endRadius: 650).edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
-                    SwiftUIRack(knob1: $knob1, knob2: $knob2, knob3: $knob3, knob4: $knob4, knob5: $knob5,  knob6: $knob6, updateMIDIFilter: viewConductor.updateMIDIFilter(Param:knobNumber:)).padding(20)
+                    SwiftUIRack(knob1: $knob1, knob2: $knob2, knob3: $knob3, knob4: $knob4, knob5: $knob5,  knob6: $knob6, knob7: $knob7, updateMIDIFilter: viewConductor.updateMIDIFilter(Param:knobNumber:)).padding(20)
                 }
                 Spacer()
                 SwiftUIKeyboard(firstOctave: viewConductor.firstOctave, octaveCount: viewConductor.octaveCount, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
@@ -83,6 +85,8 @@ struct ContentView: View {
                     knob5 = Float(info)
                 }else if knobnum == 6 {
                     knob6 = Float(info)
+                }else if knobnum == 7 {
+                    knob7 = Float(info)
                 }
             }
         })

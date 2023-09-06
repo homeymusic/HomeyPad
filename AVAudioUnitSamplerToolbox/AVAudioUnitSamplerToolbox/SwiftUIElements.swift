@@ -50,6 +50,7 @@ struct SwiftUIRack: View {
     @State var knob4: Binding<Float>
     @State var knob5: Binding<Float>
     @State var knob6: Binding<Float>
+    @State var knob7: Binding<Float>
     var updateMIDIFilter: (AUValue, Int)->Void = { _, _ in }
     
     var body: some View {
@@ -65,9 +66,11 @@ struct SwiftUIRack: View {
             SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 4 ,value: knob4, range: 0...127, title: "Filter", places: "0").frame(maxWidth: 120, maxHeight: 120)
             Group{
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 5 ,value: knob5, range: 0...127, title: "Velocity", places: "0").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 5, value: knob5, range: 0...127, title: "Velocity", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6 ,value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6, value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
+                Spacer()
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 1.0...4.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
             }
             

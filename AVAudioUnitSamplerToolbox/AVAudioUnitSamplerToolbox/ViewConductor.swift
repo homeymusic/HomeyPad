@@ -12,9 +12,9 @@ class ViewConductor: ObservableObject {
     
     // MIDI Manager (MIDI methods are in AVAudioUnitSampler+MIDI)
     let midiManager = MIDIManager(
-        clientName: "TestAppMIDIManager",
-        model: "TestApp",
-        manufacturer: "MyCompany"
+        clientName: "HomeyPadMIDIManager",
+        model: "HomeyPad",
+        manufacturer: "HomeyMusic"
     )
     
     init() {
@@ -47,6 +47,8 @@ class ViewConductor: ObservableObject {
             conductor.velocity = UInt8(Param)
         } else if knobNumber == 6 {
             conductor.instrument.overallGain = Param
+        } else if knobNumber == 7 {
+            octaveCount = Int(Param)
         }
     }
 }
