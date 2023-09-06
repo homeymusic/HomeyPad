@@ -11,7 +11,7 @@ struct SwiftUIKeyboard: View {
     var noteOff: (Pitch)->Void
     
     var body: some View {
-        Keyboard(layout: .piano(pitchRange: Pitch(intValue: firstOctave * 12 + 24)...Pitch(intValue: firstOctave * 12 + octaveCount * 12 + 24)),
+        Keyboard(layout: .dualistic(pitchRange: Pitch(intValue: firstOctave * 12 + 24)...Pitch(intValue: firstOctave * 12 + octaveCount * 12 + 24)),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                isActivated: isActivated)
