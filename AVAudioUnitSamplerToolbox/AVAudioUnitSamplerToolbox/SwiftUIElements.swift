@@ -69,7 +69,7 @@ struct SwiftUIRack: View {
                 Spacer()
                 SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6, value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...10.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...7.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
             }
             
