@@ -5,13 +5,12 @@ import Tonic
 import Controls
 import AVFoundation
 struct SwiftUIKeyboard: View {
-    var firstOctave: Int
     var octaveCount: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     
     var body: some View {
-        Keyboard(layout: .dualistic(pitchRange: Pitch(intValue: firstOctave * 12 + 24)...Pitch(intValue: firstOctave * 12 + octaveCount * 12 + 24)),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                isActivated: isActivated)
@@ -70,7 +69,7 @@ struct SwiftUIRack: View {
                 Spacer()
                 SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6, value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 1.0...4.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...10.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
             }
             

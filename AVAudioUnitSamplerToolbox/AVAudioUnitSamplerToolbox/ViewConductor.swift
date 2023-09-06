@@ -6,10 +6,6 @@ class ViewConductor: ObservableObject {
     // Audio Engine
     var conductor = Conductor()
     
-    // Keyboard options
-    @Published var firstOctave = 2
-    @Published var octaveCount = 2
-    
     // MIDI Manager (MIDI methods are in AVAudioUnitSampler+MIDI)
     let midiManager = MIDIManager(
         clientName: "HomeyPadMIDIManager",
@@ -17,12 +13,16 @@ class ViewConductor: ObservableObject {
         manufacturer: "HomeyMusic"
     )
     
+    @Published var octaveCount: Int
+    
     init() {
+        octaveCount = 2
+
         // Start the engine
         conductor.start()
         
         // Set up MIDI
-        MIDIConnect()
+        MIDIConnect()        
     }
     
     //Keyboard Events

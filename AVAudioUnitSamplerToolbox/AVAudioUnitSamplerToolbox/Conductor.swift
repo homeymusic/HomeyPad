@@ -14,7 +14,7 @@ class Conductor: ObservableObject {
             delay.delayTime = TimeInterval(delayTime)
         }
     }
-    var velocity: UInt8 = 63
+    var velocity: UInt8
     @Published var lowPassCutoff: AUValue = 127 {
         didSet {
             instrument.sendController(74, withValue: UInt8(lowPassCutoff), onChannel: 0)
@@ -49,6 +49,7 @@ class Conductor: ObservableObject {
         delay.wetDryMix = 0
         delay.delayTime = 0
         reverb.wetDryMix = 0
+        velocity = 63
     }
     
     func start() {
