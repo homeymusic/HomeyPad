@@ -16,7 +16,7 @@ class ViewConductor: ObservableObject {
     @Published var octaveCount: Int
     
     init() {
-        octaveCount = 2
+        octaveCount = 1
 
         // Start the engine
         conductor.start()

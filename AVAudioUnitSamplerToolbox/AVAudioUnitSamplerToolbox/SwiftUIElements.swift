@@ -4,6 +4,7 @@ import Keyboard
 import Tonic
 import Controls
 import AVFoundation
+
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var tonicPitchClass: Int = 0
@@ -76,7 +77,7 @@ struct SwiftUIRack: View {
                 Spacer()
                 SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6, value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...8.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 1...7, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
             }
             

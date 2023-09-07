@@ -36,7 +36,9 @@ struct ContentView: View {
                 // Spacer()
                 // SwiftUITonicSelector()
                 Spacer()
-                SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                VStack {
+                    SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                }
             }
         }.onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
