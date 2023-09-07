@@ -28,11 +28,13 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            RadialGradient(gradient: Gradient(colors: [.pink, .black]), center: .center, startRadius: 2, endRadius: 650).edgesIgnoringSafeArea(.all)
+            Color.black
             VStack {
                 HStack {
                     SwiftUIRack(knob1: $knob1, knob2: $knob2, knob3: $knob3, knob4: $knob4, knob5: $knob5,  knob6: $knob6, knob7: $knob7, updateMIDIFilter: viewConductor.updateMIDIFilter(Param:knobNumber:)).padding(20)
                 }
+                // Spacer()
+                // SwiftUITonicSelector()
                 Spacer()
                 SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
             }

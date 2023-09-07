@@ -6,13 +6,15 @@ import Controls
 import AVFoundation
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
+    var tonicPitchClass: Int = 0
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, tonicPitchClass: tonicPitchClass),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
+                               tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated)
         }.cornerRadius(5)
     }
@@ -21,18 +23,23 @@ struct SwiftUIKeyboard: View {
 struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     var pitch : Pitch
+    var tonicPitchClass : Int
     var isActivated : Bool
     
     var body: some View {
         VStack{
-            KeyboardKey(pitch: pitch,
-                        isActivated: isActivated,
-                        text: "",
-                        whiteKeyColor: .white,
-                        blackKeyColor: .black,
-                        pressedColor:  .pink,
-                        flatTop: true,
-                        isActivatedExternally: MIDIKeyPressed[pitch.intValue])
+            IntervallicKey(pitch: pitch,
+                           tonicPitchClass: tonicPitchClass,
+                           isActivated: isActivated,
+                           tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
+                           perfectColor: Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255),
+                           majorColor: Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255),
+                           minorColor: Color(red: 138 / 255, green: 197 / 255, blue: 320 / 255),
+                           tritoneColor: Color(red: 255 / 255, green: 85 / 255, blue: 0 / 255),
+                           keyColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
+                           tonicKeyColor: Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255),
+                           flatTop: true,
+                           isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in
             if let userInfo = obj.userInfo, let info = userInfo["info"] as? UInt8, let val = userInfo["bool"] as? Bool {
                 self.MIDIKeyPressed[Int(info)] = val
@@ -69,7 +76,7 @@ struct SwiftUIRack: View {
                 Spacer()
                 SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 6, value: knob6, range: -12.0...12.0, title: "Volume", places: "2").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
-                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...7.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
+                SwiftUIKnob(updateMIDI1: updateMIDIFilter, knobNumber: 7, value: knob7, range: 2.0...8.0, title: "Octaves", places: "0").frame(maxWidth: 120, maxHeight: 120)
                 Spacer()
             }
             
