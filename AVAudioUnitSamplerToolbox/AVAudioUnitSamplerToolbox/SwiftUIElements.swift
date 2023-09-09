@@ -5,16 +5,35 @@ import Tonic
 import Controls
 import AVFoundation
 
-struct SwiftUIKeyboard: View {
-    var octaveCount: Int
+struct SwiftUITonicSelector: View {
     var tonicPitchClass: Int = 0
+    let aspectRatio: CGFloat = 1.0
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, tonicPitchClass: tonicPitchClass),
+        Keyboard(layout: .dualistic(octaveCount: 1, tonicPitchClass: tonicPitchClass, aspectRatio: aspectRatio),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
+                               keyType: .text,
+                               tonicPitchClass: tonicPitchClass,
+                               isActivated: isActivated)
+        }.cornerRadius(5)
+    }
+}
+
+struct SwiftUIKeyboard: View {
+    var octaveCount: Int
+    var tonicPitchClass: Int = 0
+    let aspectRatio: CGFloat = 4.5
+    var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
+    var noteOff: (Pitch)->Void
+    
+    var body: some View {
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, tonicPitchClass: tonicPitchClass, aspectRatio: aspectRatio),
+                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
+            SwiftUIKeyboardKey(pitch: pitch,
+                               keyType: .symbol,
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated)
         }.cornerRadius(5)
@@ -24,12 +43,14 @@ struct SwiftUIKeyboard: View {
 struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     var pitch : Pitch
+    let keyType: KeyType
     var tonicPitchClass : Int
     var isActivated : Bool
     
     var body: some View {
         VStack{
             IntervallicKey(pitch: pitch,
+                           keyType: keyType,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
