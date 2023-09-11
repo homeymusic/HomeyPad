@@ -27,6 +27,8 @@ class ViewConductor: ObservableObject {
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
+        // TODO: make vertical velocity an option?
+        // conductor.instrument.startNote(UInt8(pitch.intValue), withVelocity: UInt8(point.y * 127), onChannel: 0)
         conductor.instrument.startNote(UInt8(pitch.intValue), withVelocity: conductor.velocity, onChannel: 0)
     }
     
