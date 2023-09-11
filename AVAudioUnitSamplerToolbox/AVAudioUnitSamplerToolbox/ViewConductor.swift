@@ -1,10 +1,12 @@
 import AVFoundation
 import Tonic
 import MIDIKit
+import Foundation
 
 class ViewConductor: ObservableObject {
     // Audio Engine
     var conductor = Conductor()
+    let defaults = UserDefaults.standard
     
     // MIDI Manager (MIDI methods are in AVAudioUnitSampler+MIDI)
     let midiManager = MIDIManager(
@@ -16,7 +18,8 @@ class ViewConductor: ObservableObject {
     @Published var octaveCount: Int
     
     init() {
-        octaveCount = 1
+        defaults.register(defaults: ["octaveCount": 1])
+        octaveCount = defaults.integer(forKey: "octaveCount")
 
         // Start the engine
         conductor.start()
@@ -51,6 +54,7 @@ class ViewConductor: ObservableObject {
             conductor.instrument.overallGain = Param
         } else if knobNumber == 7 {
             octaveCount = Int(Param)
+            defaults.set(octaveCount, forKey: "octaveCount")
         }
     }
 }
