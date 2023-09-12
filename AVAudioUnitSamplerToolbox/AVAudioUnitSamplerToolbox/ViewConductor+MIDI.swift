@@ -48,10 +48,6 @@ extension ViewConductor {
             NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": payload.note.number.uInt8Value, "bool": false])
         case .cc(let payload):
             print("CC:", payload.controller, payload.value, payload.channel)
-            if payload.controller == 74 {
-                conductor.instrument.sendController(74, withValue: payload.value.midi1Value.uInt8Value, onChannel: 0)
-                NotificationCenter.default.post(name: .knobUpdate, object: nil, userInfo: ["info": payload.value.midi1Value.uInt8Value, "knob": 4])
-            }
         case .programChange(let payload):
             print("Program Change:", payload.program, payload.channel)
         default:
