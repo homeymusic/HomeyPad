@@ -16,10 +16,12 @@ class ViewConductor: ObservableObject {
     )
     
     @Published var octaveCount: Int
-    
+    @Published var tonicSelector: Bool
+
     init() {
-        defaults.register(defaults: ["octaveCount": 3])
+        defaults.register(defaults: ["octaveCount": 3, "tonicSelector": false])
         octaveCount = defaults.integer(forKey: "octaveCount")
+        tonicSelector = defaults.bool(forKey: "tonicSelector")
 
         // Start the engine
         conductor.start()

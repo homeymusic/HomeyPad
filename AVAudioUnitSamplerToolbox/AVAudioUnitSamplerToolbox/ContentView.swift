@@ -8,33 +8,65 @@ struct ContentView: View {
     @StateObject var viewConductor = ViewConductor()
     @Environment(\.scenePhase) var scenePhase
     
+    @State private var value = 0
+    let colors: [Color] = [.orange, .red, .gray, .blue,
+                           .green, .purple, .pink]
+    
+    
+    func incrementStep() {
+        value += 1
+        if value >= colors.count { value = 0 }
+    }
+    
+    
+    func decrementStep() {
+        value -= 1
+        if value < 0 { value = colors.count - 1 }
+    }
+    
+    
     var body: some View {
+        
+        
         GeometryReader { proxy in
             
             let keysPerRow: Int = (proxy.size.width > 800) ? 25 : 13
             
             ZStack {
                 Color.black
-                VStack(spacing: 0) {
-                    HStack {
-                        Spacer()
-                        Menu {
-                            Text("Settings").foregroundColor(.white)
-                            Stepper(LocalizedStringKey(stringLiteral: "Octaves \(viewConductor.octaveCount)"), value: $viewConductor.octaveCount, in: 1...8, step: 1)
-                            //                        Button {
-                            //                            // Do something
-                            //                        } label: {
-                            //                            Label("Share", systemImage: "square.and.arrow.up")
-                            //                        }
-                        } label: {
-                            Image(systemName: "gear").foregroundColor(.white)
+                VStack(alignment: .trailing, spacing: 0) {
+                    Menu {
+                        Toggle(isOn: $viewConductor.tonicSelector) {
+                            Text("Home Selector")
                         }
+                        Button("1") {
+                            viewConductor.octaveCount = 1
+                        }
+                        Button("2") {
+                            viewConductor.octaveCount = 2
+                        }
+                        Button("3") {
+                            viewConductor.octaveCount = 3
+                        }
+                        Button("5") {
+                            viewConductor.octaveCount = 5
+                        }
+                        Button("8") {
+                            viewConductor.octaveCount = 8
+                        }
+                    } label: {
+                        Image(systemName: "gear").foregroundColor(.white)
                     }
+                    .padding([.top, .trailing, .bottom], 10)
                     Spacer()
-                    SwiftUITonicSelector(keysPerRow: keysPerRow, noteOff: viewConductor.noteOff)
-                        .aspectRatio(CGFloat(keysPerRow), contentMode: .fit)
+                    if (viewConductor.tonicSelector) {
+                        SwiftUITonicSelector(keysPerRow: keysPerRow, noteOff: viewConductor.noteOff)
+                            .aspectRatio(CGFloat(keysPerRow), contentMode: .fit)
+                            .padding(.bottom, 10)
+                    }
                     SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
+                        .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(keysPerRow)))
+//                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
                     Spacer()
                 }
             }.onChange(of: scenePhase) { newPhase in
