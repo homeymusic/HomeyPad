@@ -9,6 +9,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @State private var value = 0
+    @State private var showingPopover = false
     let colors: [Color] = [.orange, .red, .gray, .blue,
                            .green, .purple, .pink]
     
@@ -24,7 +25,6 @@ struct ContentView: View {
         if value < 0 { value = colors.count - 1 }
     }
     
-    
     var body: some View {
         
         
@@ -35,38 +35,41 @@ struct ContentView: View {
             ZStack {
                 Color.black
                 VStack(alignment: .trailing, spacing: 0) {
-                    Menu {
-                        Toggle(isOn: $viewConductor.tonicSelector) {
-                            Text("Home Selector")
-                        }
-                        Button("1") {
-                            viewConductor.octaveCount = 1
-                        }
-                        Button("2") {
-                            viewConductor.octaveCount = 2
-                        }
-                        Button("3") {
-                            viewConductor.octaveCount = 3
-                        }
-                        Button("5") {
-                            viewConductor.octaveCount = 5
-                        }
-                        Button("8") {
-                            viewConductor.octaveCount = 8
-                        }
+                    Button() {
+                        self.showingPopover = true
                     } label: {
                         Image(systemName: "gear").foregroundColor(.white)
+                    }
+                    .popover(isPresented: $showingPopover) {
+                        ZStack {
+                            VStack(spacing: 10) {
+                                Toggle(isOn: $viewConductor.tonicSelector) {
+                                    Text("Notes")
+                                }
+                                Stepper(value: $viewConductor.octaveCount,
+                                        in: 1...8,
+                                        step: 1) {
+                                    Text("Rows")
+                                }
+                                Stepper(value: $viewConductor.keysPerRow,
+                                        in: 13...25,
+                                        step: 2) {
+                                    Text("Columns")
+                                }
+                            }
+                            .padding(10)
+                        }
                     }
                     .padding([.top, .trailing, .bottom], 10)
                     Spacer()
                     if (viewConductor.tonicSelector) {
-                        SwiftUITonicSelector(keysPerRow: keysPerRow, noteOff: viewConductor.noteOff)
-                            .aspectRatio(CGFloat(keysPerRow), contentMode: .fit)
+                        SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, noteOff: viewConductor.noteOff)
+                            .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 10)
                     }
-                    SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                    SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                         .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(keysPerRow)))
-//                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
+                    //                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
                     Spacer()
                 }
             }.onChange(of: scenePhase) { newPhase in
