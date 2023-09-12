@@ -30,47 +30,74 @@ struct ContentView: View {
         
         GeometryReader { proxy in
             
-            let keysPerRow: Int = (proxy.size.width > 800) ? 25 : 13
-            
             ZStack {
                 Color.black
-                VStack(alignment: .trailing, spacing: 0) {
-                    Button() {
-                        self.showingPopover = true
-                    } label: {
-                        Image(systemName: "gear").foregroundColor(.white)
+                ZStack {
+                    VStack(spacing: 0) {
+                        Spacer()
+                        if (viewConductor.tonicSelector) {
+                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, noteOff: viewConductor.noteOff)
+                                .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
+                                .padding(.bottom, 5)
+                        }
+                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                            .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
+                        //                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
+                        Spacer()
                     }
-                    .popover(isPresented: $showingPopover) {
-                        ZStack {
-                            VStack(spacing: 10) {
-                                Toggle(isOn: $viewConductor.tonicSelector) {
-                                    Text("Notes")
-                                }
-                                Stepper(value: $viewConductor.octaveCount,
-                                        in: 1...8,
-                                        step: 1) {
-                                    Text("Rows")
-                                }
-                                Stepper(value: $viewConductor.keysPerRow,
-                                        in: 13...25,
-                                        step: 2) {
-                                    Text("Columns")
+                    .padding([.top, .bottom], 40)
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Spacer()
+                            Button() {
+                                self.showingPopover = true
+                            } label: {
+                                Image(systemName: "ellipsis.circle").foregroundColor(.white)
+                            }
+                            .popover(isPresented: $showingPopover) {
+                                NavigationView {
+                                    List {
+                                        Section {
+                                            Toggle(isOn: $viewConductor.tonicSelector) {
+                                                Label("Notes", systemImage: "music.quarternote.3")
+                                            }
+                                            Stepper(value: $viewConductor.octaveCount,
+                                                    in: 1...8,
+                                                    step: 1) {
+                                                Label("Rows", systemImage: "arrow.up.and.line.horizontal.and.arrow.down")
+                                            }
+                                            Stepper(value: $viewConductor.keysPerRow,
+                                                    in: 13...37,
+                                                    step: 2) {
+//                                                Label("Columns", systemImage: "arrow.left.and.line.vertical.and.arrow.right")
+                                                Label("Columns", systemImage: "arrow.left.and.line.vertical.and.arrow.right")
+                                            }
+                                        }
+                                        Section {
+                                            Button(role: .cancel, action: {
+                                                viewConductor.tonicSelector = false
+                                                viewConductor.octaveCount = 1
+                                                viewConductor.keysPerRow = 25
+                                                showingPopover = false
+                                            }) {
+                                                Label("Reset", systemImage: "gobackward")
+                                            }
+                                        }
+                                    }
+                                    .navigationViewStyle(StackNavigationViewStyle())
+                                    .navigationBarTitle("Settings", displayMode: .inline)
+                                    .toolbar {
+                                        Button("Done") {
+                                            showingPopover = false
+                                        }
+                                    }
                                 }
                             }
-                            .padding(10)
+                            .padding([.top, .trailing], 10)
                         }
+                        Spacer()
                     }
-                    .padding([.top, .trailing, .bottom], 10)
-                    Spacer()
-                    if (viewConductor.tonicSelector) {
-                        SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, noteOff: viewConductor.noteOff)
-                            .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
-                            .padding(.bottom, 10)
-                    }
-                    SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                        .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(keysPerRow)))
-                    //                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
-                    Spacer()
+                    .statusBar(hidden: true)
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
