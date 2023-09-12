@@ -26,10 +26,10 @@ struct ContentView: View {
                         Image(systemName: "gear").foregroundColor(.gray)
                     }
                 }
-                //                Spacer()
-                //                SwiftUITonicSelector(noteOff: viewConductor.noteOff)
-                //                Spacer()
+                Spacer()
+                SwiftUITonicSelector(noteOff: viewConductor.noteOff)
                 SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                Spacer()
             }
         }.onChange(of: scenePhase) { newPhase in
             if newPhase == .active {

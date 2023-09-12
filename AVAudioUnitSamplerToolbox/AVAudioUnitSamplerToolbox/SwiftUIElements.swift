@@ -5,22 +5,23 @@ import Tonic
 import Controls
 import AVFoundation
 
-//struct SwiftUITonicSelector: View {
-//    var tonicPitchClass: Int = 0
-//    var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
-//    var noteOff: (Pitch)->Void
-//
-//    var body: some View {
-//        Keyboard(layout: .dualistic(octaveCount: 1, tonicPitchClass: tonicPitchClass),
-//                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
-//            SwiftUIKeyboardKey(pitch: pitch,
-//                               keyType: .text,
-//                               tonicPitchClass: tonicPitchClass,
-//                               isActivated: isActivated)
-//        }.cornerRadius(5)
-//    }
-//}
-//
+struct SwiftUITonicSelector: View {
+    var tonicPitchClass: Int = 0
+    var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
+    var noteOff: (Pitch)->Void
+
+    var body: some View {
+        Keyboard(layout: .dualistic(octaveCount: 1, tonicPitchClass: tonicPitchClass),
+                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
+            SwiftUIKeyboardKey(pitch: pitch,
+                               labelType: .text,
+                               keyAspectRatio: 1.0,
+                               tonicPitchClass: tonicPitchClass,
+                               isActivated: isActivated)
+        }.cornerRadius(5)
+    }
+}
+
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var tonicPitchClass: Int = 0
@@ -31,7 +32,8 @@ struct SwiftUIKeyboard: View {
         Keyboard(layout: .dualistic(octaveCount: octaveCount, tonicPitchClass: tonicPitchClass),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
-                               keyType: .symbol,
+                               labelType: .symbol,
+                               keyAspectRatio: 0.25,
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated)
         }.cornerRadius(5)
@@ -41,14 +43,16 @@ struct SwiftUIKeyboard: View {
 struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     var pitch : Pitch
-    let keyType: KeyType
+    let labelType: LabelType
+    let keyAspectRatio: CGFloat
     var tonicPitchClass : Int
     var isActivated : Bool
     
     var body: some View {
         VStack{
             IntervallicKey(pitch: pitch,
-                           keyType: keyType,
+                           labelType: labelType,
+                           keyAspectRatio: keyAspectRatio,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
