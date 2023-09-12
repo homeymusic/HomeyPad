@@ -6,16 +6,16 @@ import Controls
 import AVFoundation
 
 struct SwiftUITonicSelector: View {
+    var keysPerRow: Int
     var tonicPitchClass: Int = 0
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
 
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, tonicPitchClass: tonicPitchClass),
+        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
-                               keyAspectRatio: 1.0,
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated)
         }.cornerRadius(5)
@@ -24,16 +24,16 @@ struct SwiftUITonicSelector: View {
 
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
+    var keysPerRow: Int
     var tonicPitchClass: Int = 0
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, tonicPitchClass: tonicPitchClass),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .symbol,
-                               keyAspectRatio: 0.25,
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated)
         }.cornerRadius(5)
@@ -44,7 +44,6 @@ struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     var pitch : Pitch
     let labelType: LabelType
-    let keyAspectRatio: CGFloat
     var tonicPitchClass : Int
     var isActivated : Bool
     
@@ -52,7 +51,6 @@ struct SwiftUIKeyboardKey: View {
         VStack{
             IntervallicKey(pitch: pitch,
                            labelType: labelType,
-                           keyAspectRatio: keyAspectRatio,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
