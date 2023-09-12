@@ -18,7 +18,7 @@ class ViewConductor: ObservableObject {
     @Published var octaveCount: Int
     
     init() {
-        defaults.register(defaults: ["octaveCount": 1])
+        defaults.register(defaults: ["octaveCount": 3])
         octaveCount = defaults.integer(forKey: "octaveCount")
 
         // Start the engine

@@ -15,7 +15,7 @@ struct ContentView: View {
             
             ZStack {
                 Color.black
-                VStack {
+                VStack(spacing: 0) {
                     HStack {
                         Spacer()
                         Menu {
@@ -31,19 +31,11 @@ struct ContentView: View {
                         }
                     }
                     Spacer()
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity
-                        )
                     SwiftUITonicSelector(keysPerRow: keysPerRow, noteOff: viewConductor.noteOff)
                         .aspectRatio(CGFloat(keysPerRow), contentMode: .fit)
                     SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                        .aspectRatio(CGFloat(keysPerRow) / 4.5, contentMode: .fit)
+                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
                     Spacer()
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity
-                        )
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
