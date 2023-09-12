@@ -8,22 +8,7 @@ struct ContentView: View {
     @StateObject var viewConductor = ViewConductor()
     @Environment(\.scenePhase) var scenePhase
     
-    @State private var value = 0
     @State private var showingPopover = false
-    let colors: [Color] = [.orange, .red, .gray, .blue,
-                           .green, .purple, .pink]
-    
-    
-    func incrementStep() {
-        value += 1
-        if value >= colors.count { value = 0 }
-    }
-    
-    
-    func decrementStep() {
-        value -= 1
-        if value < 0 { value = colors.count - 1 }
-    }
     
     var body: some View {
         
@@ -42,62 +27,25 @@ struct ContentView: View {
                         }
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
-                        //                        .aspectRatio(CGFloat(keysPerRow) / (CGFloat(viewConductor.octaveCount) * 4.5), contentMode: .fit)
                         Spacer()
                     }
                     .padding([.top, .bottom], 40)
                     VStack(alignment: .trailing) {
                         HStack {
                             Spacer()
-                            Button() {
-                                self.showingPopover = true
-                            } label: {
+                            Button(action: {
+                                self.showingPopover.toggle()
+                            }) {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
-                            }
-                            .popover(isPresented: $showingPopover) {
-                                NavigationView {
-                                    List {
-                                        Section {
-                                            Toggle(isOn: $viewConductor.tonicSelector) {
-                                                Label("Notes", systemImage: "music.quarternote.3")
-                                            }
-                                            Stepper(value: $viewConductor.octaveCount,
-                                                    in: 1...8,
-                                                    step: 1) {
-                                                Label("Rows", systemImage: "arrow.up.and.line.horizontal.and.arrow.down")
-                                            }
-                                            Stepper(value: $viewConductor.keysPerRow,
-                                                    in: 13...37,
-                                                    step: 2) {
-//                                                Label("Columns", systemImage: "arrow.left.and.line.vertical.and.arrow.right")
-                                                Label("Columns", systemImage: "arrow.left.and.line.vertical.and.arrow.right")
-                                            }
-                                        }
-                                        Section {
-                                            Button(role: .cancel, action: {
-                                                viewConductor.tonicSelector = false
-                                                viewConductor.octaveCount = 1
-                                                viewConductor.keysPerRow = 25
-                                                showingPopover = false
-                                            }) {
-                                                Label("Reset", systemImage: "gobackward")
-                                            }
-                                        }
-                                    }
-                                    .navigationViewStyle(StackNavigationViewStyle())
-                                    .navigationBarTitle("Settings", displayMode: .inline)
-                                    .toolbar {
-                                        Button("Done") {
-                                            showingPopover = false
-                                        }
-                                    }
-                                }
-                            }
-                            .padding([.top, .trailing], 10)
+                            }.popover(isPresented: $showingPopover,
+                                      content: {
+                                SettingsView(tonicSelector: $viewConductor.tonicSelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                    .presentationCompactAdaptation(.none)
+                            })
                         }
                         Spacer()
                     }
-                    .statusBar(hidden: true)
+                    .padding([.top, .trailing], 10)
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
@@ -137,6 +85,7 @@ struct ContentView: View {
             }
             .onDisappear() { self.viewConductor.conductor.engine.stop() }
             .environmentObject(viewConductor.midiManager)
+            .statusBar(hidden: true)
         }
     }
     func reloadAudio() {

@@ -20,7 +20,7 @@ class ViewConductor: ObservableObject {
     @Published var tonicSelector: Bool
 
     init() {
-        defaults.register(defaults: ["octaveCount": 3, "tonicSelector": false, "keysPerRow": 25])
+        defaults.register(defaults: ["octaveCount": 1, "tonicSelector": false, "keysPerRow": 13])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         tonicSelector = defaults.bool(forKey: "tonicSelector")
