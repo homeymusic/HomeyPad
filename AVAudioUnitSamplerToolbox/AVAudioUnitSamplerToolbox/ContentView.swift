@@ -7,8 +7,9 @@ import Controls
 struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     @StateObject var viewConductor = ViewConductor()
-    @State private var showingPopover = false
-    
+    @State private var showingSettingsPopover = false
+    @State private var showingHelpPopover = false
+
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -35,10 +36,10 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                self.showingPopover.toggle()
+                                self.showingSettingsPopover.toggle()
                             }) {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingPopover,
+                            }.popover(isPresented: $showingSettingsPopover,
                                       content: {
                                 SettingsView(tonicSelector: $viewConductor.tonicSelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
                                     .presentationCompactAdaptation(.none)
@@ -47,6 +48,24 @@ struct ContentView: View {
                         Spacer()
                     }
                     .padding([.top, .trailing], 10)
+                    // The help view
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Button(action: {
+                                self.showingHelpPopover.toggle()
+                            }) {
+                                Image(systemName: "questionmark.circle").foregroundColor(.white)
+                            }.popover(isPresented: $showingHelpPopover,
+                                      content: {
+                                HelpView()
+                                    .presentationCompactAdaptation(.none)
+                            })
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .padding([.top, .leading], 10)
+
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
