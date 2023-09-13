@@ -1,6 +1,5 @@
 //
 //  SettingsView.swift
-//  AVAudioUnitSamplerToolbox
 //
 //  Created by Brian McAuliff Mulloy on 9/12/23.
 //
@@ -28,7 +27,7 @@ struct SettingsView: View {
                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
                     Text("Rows")
                     Stepper("", value: $octaveCount,
-                            in: 1...8,
+                            in: 1...6,
                             step: 1)
                 }
                 GridRow {

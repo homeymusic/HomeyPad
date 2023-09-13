@@ -15,13 +15,29 @@ class ViewConductor: ObservableObject {
         manufacturer: "HomeyMusic"
     )
     
-    @Published var octaveCount: Int
-    @Published var keysPerRow: Int
-    @Published var tonicSelector: Bool
-    @Published var tonicPitchClass: Int
+    @Published var octaveCount: Int {
+        didSet {
+            defaults.set(self.octaveCount, forKey: "octaveCount")
+        }
+    }
+    @Published var keysPerRow: Int {
+        didSet {
+            defaults.set(self.keysPerRow, forKey: "keysPerRow")
+        }
+    }
+    @Published var tonicSelector: Bool {
+        didSet {
+            defaults.set(self.tonicSelector, forKey: "tonicSelector")
+        }
+    }
+    @Published var tonicPitchClass: Int {
+        didSet {
+            defaults.set(self.tonicPitchClass, forKey: "tonicPitchClass")
+        }
+    }
 
     init() {
-        defaults.register(defaults: ["octaveCount": 1, "tonicSelector": false, "keysPerRow": 13])
+        defaults.register(defaults: ["octaveCount": 1, "tonicSelector": false, "keysPerRow": 13, "tonicPitchClass": 0])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         tonicSelector = defaults.bool(forKey: "tonicSelector")
@@ -44,7 +60,6 @@ class ViewConductor: ObservableObject {
     }
     
     func selectTonic(pitch: Pitch, point: CGPoint) {
-        print("pitch \(pitch) pitch class \(pitch.intValue % 12)")
         self.tonicPitchClass = pitch.intValue % 12
     }
     

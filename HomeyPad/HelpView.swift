@@ -1,6 +1,5 @@
 //
 //  SettingsView.swift
-//  AVAudioUnitSamplerToolbox
 //
 //  Created by Brian McAuliff Mulloy on 9/12/23.
 //

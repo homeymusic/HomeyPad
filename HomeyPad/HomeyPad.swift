@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 
 @main
-struct AVAudioUnitSamplerToolboxApp: App {
+struct HomeyPad: App {
     init() {
 #if os(iOS)
         do {
