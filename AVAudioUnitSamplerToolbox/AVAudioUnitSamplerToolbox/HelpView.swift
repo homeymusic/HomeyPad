@@ -12,7 +12,7 @@ struct HelpView: View {
     
     var body: some View {
         VStack {
-            Text("Help")
+            Text("Homey Pad")
                 .font(.headline)
             Divider()
             Grid(alignment: .leading, verticalSpacing: 10) {
@@ -29,6 +29,19 @@ struct HelpView: View {
                     Link("Documentation", destination: URL(string: "https://homeymusic.com/products/homeypad")!)
                 }
             }
+            Divider()
+            Image("AppIcon100")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+            HStack {
+                (
+                    Text(Image(systemName: "c.circle")) +
+                    Text(" 2023 Homey Music, a trade name of Ballet, LLC. All rights reserved.")
+                )
+                .font(.footnote)
+            }
+            .frame(width: 150)
         }
         .padding(10)
     }
