@@ -50,6 +50,6 @@ struct SettingsView: View {
                 Label("Reset", systemImage: "gobackward")
             }
         }
-        .padding(25)
+        .padding(10)
     }
 }

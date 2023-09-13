@@ -5,31 +5,32 @@ import Tonic
 import Controls
 
 struct ContentView: View {
-    @StateObject var viewConductor = ViewConductor()
     @Environment(\.scenePhase) var scenePhase
-    
+    @StateObject var viewConductor = ViewConductor()
     @State private var showingPopover = false
     
     var body: some View {
-        
-        
         GeometryReader { proxy in
-            
             ZStack {
                 Color.black
                 ZStack {
                     VStack(spacing: 0) {
                         Spacer()
                         if (viewConductor.tonicSelector) {
-                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, noteOff: viewConductor.noteOff)
+                            // The tonic selector
+                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOff: viewConductor.selectTonic)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }
-                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                        // The main dualistic keyboard
+                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
-                    .padding([.top, .bottom], 40)
+                    // Padding to protect the settings icon
+                    // top and bottom for symmetry
+                    .padding([.top, .bottom], 30)
+                    // The settings view
                     VStack(alignment: .trailing) {
                         HStack {
                             Spacer()

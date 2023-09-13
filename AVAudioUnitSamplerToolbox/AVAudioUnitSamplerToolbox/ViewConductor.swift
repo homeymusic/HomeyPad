@@ -18,12 +18,14 @@ class ViewConductor: ObservableObject {
     @Published var octaveCount: Int
     @Published var keysPerRow: Int
     @Published var tonicSelector: Bool
+    @Published var tonicPitchClass: Int
 
     init() {
         defaults.register(defaults: ["octaveCount": 1, "tonicSelector": false, "keysPerRow": 13])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         tonicSelector = defaults.bool(forKey: "tonicSelector")
+        tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
 
         // Start the engine
         conductor.start()
@@ -39,6 +41,11 @@ class ViewConductor: ObservableObject {
     
     func noteOff(pitch: Pitch) {
         conductor.instrument.stopNote(UInt8(pitch.intValue), onChannel: 0)
+    }
+    
+    func selectTonic(pitch: Pitch) {
+        print("pitch \(pitch) pitch class \(pitch.intValue % 12)")
+        self.tonicPitchClass = pitch.intValue % 12
     }
     
     func updateMIDIFilter(Param: AUValue, knobNumber: Int){

@@ -7,7 +7,7 @@ import AVFoundation
 
 struct SwiftUITonicSelector: View {
     var keysPerRow: Int
-    var tonicPitchClass: Int = 0
+    var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
 
@@ -25,7 +25,7 @@ struct SwiftUITonicSelector: View {
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var keysPerRow: Int
-    var tonicPitchClass: Int = 0
+    var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     
