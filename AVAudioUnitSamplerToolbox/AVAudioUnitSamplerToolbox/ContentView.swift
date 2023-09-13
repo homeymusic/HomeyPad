@@ -18,7 +18,7 @@ struct ContentView: View {
                         Spacer()
                         if (viewConductor.tonicSelector) {
                             // The tonic selector
-                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOff: viewConductor.selectTonic)
+                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }

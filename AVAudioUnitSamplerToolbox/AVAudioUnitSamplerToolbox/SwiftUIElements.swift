@@ -9,11 +9,10 @@ struct SwiftUITonicSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
-    var noteOff: (Pitch)->Void
 
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
-                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
+                 noteOn: noteOn){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
                                tonicPitchClass: tonicPitchClass,

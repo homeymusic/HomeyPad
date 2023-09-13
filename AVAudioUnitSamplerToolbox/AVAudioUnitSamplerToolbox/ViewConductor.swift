@@ -43,7 +43,7 @@ class ViewConductor: ObservableObject {
         conductor.instrument.stopNote(UInt8(pitch.intValue), onChannel: 0)
     }
     
-    func selectTonic(pitch: Pitch) {
+    func selectTonic(pitch: Pitch, point: CGPoint) {
         print("pitch \(pitch) pitch class \(pitch.intValue % 12)")
         self.tonicPitchClass = pitch.intValue % 12
     }
