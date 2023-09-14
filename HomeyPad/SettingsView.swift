@@ -17,8 +17,6 @@ struct SettingsView: View {
             Text("Settings")
                 .font(.headline)
             Divider()
-            Text("Layout")
-                .font(.subheadline)
             Grid {
                 GridRow {
                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
@@ -41,7 +39,7 @@ struct SettingsView: View {
                     .gridCellAnchor(.trailing)
                 }
                 Divider()
-                Text("Notes")
+                Text("Home Note Selector")
                     .font(.subheadline)
                 GridRow {
                     Image(systemName: "music.note")
