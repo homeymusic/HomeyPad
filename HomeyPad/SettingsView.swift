@@ -17,26 +17,51 @@ struct SettingsView: View {
             Text("Settings")
                 .font(.headline)
             Divider()
-            Grid(alignment: .leading) {
-                GridRow {
-                    Image(systemName: "music.quarternote.3")
-                    Text("Notes")
-                    Toggle("", isOn: $tonicSelector)
-                }
+            Text("Layout")
+                .font(.subheadline)
+            Grid {
                 GridRow {
                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                        .gridCellAnchor(.center)
                     Text("Rows")
+                        .gridCellAnchor(.leading)
                     Stepper("", value: $octaveCount,
                             in: 1...6,
                             step: 1)
+                    .gridCellAnchor(.trailing)
                 }
                 GridRow {
                     Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                        .gridCellAnchor(.center)
                     Text("Columns")
-                        .padding(.trailing, 30)
+                        .gridCellAnchor(.leading)
                     Stepper("", value: $keysPerRow,
                             in: 13...37,
                             step: 2)
+                    .gridCellAnchor(.trailing)
+                }
+                Divider()
+                Text("Notes")
+                    .font(.subheadline)
+                GridRow {
+                    Image(systemName: "music.note")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Classical")
+                        .gridCellAnchor(.leading)
+                    
+                    Toggle("", isOn: $tonicSelector)
+                        .gridCellAnchor(.trailing)
+                }
+                GridRow {
+                    Image(systemName: "music.note.house")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Homey")
+                        .gridCellAnchor(.leading)
+                    
+                    Toggle("", isOn: $tonicSelector)
+                        .gridCellAnchor(.trailing)
                 }
             }
             Divider()
