@@ -2,6 +2,7 @@ import AVFoundation
 import Tonic
 import MIDIKit
 import Foundation
+import SwiftUI
 
 class ViewConductor: ObservableObject {
     // Audio Engine
@@ -15,14 +16,21 @@ class ViewConductor: ObservableObject {
         manufacturer: "HomeyMusic"
     )
     
+    func simpleSuccess() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+    }
+    
     @Published var octaveCount: Int {
         didSet {
             defaults.set(self.octaveCount, forKey: "octaveCount")
+            self.simpleSuccess()
         }
     }
     @Published var keysPerRow: Int {
         didSet {
             defaults.set(self.keysPerRow, forKey: "keysPerRow")
+            self.simpleSuccess()
         }
     }
     @Published var showClassicalSelector: Bool {
@@ -36,8 +44,10 @@ class ViewConductor: ObservableObject {
         }
     }
     @Published var tonicPitchClass: Int {
+        
         didSet {
             defaults.set(self.tonicPitchClass, forKey: "tonicPitchClass")
+            self.simpleSuccess()
         }
     }
 
@@ -66,7 +76,9 @@ class ViewConductor: ObservableObject {
     }
     
     func selectTonic(pitch: Pitch, point: CGPoint) {
-        self.tonicPitchClass = pitch.intValue % 12
+        if (pitch.intValue % 12 != self.tonicPitchClass) {
+            self.tonicPitchClass = pitch.intValue % 12
+        }
     }
     
     func updateMIDIFilter(Param: AUValue, knobNumber: Int){
