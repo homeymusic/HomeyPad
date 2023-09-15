@@ -13,9 +13,10 @@ struct SwiftUITonicSelector: View {
     var showHomeySelector: Bool
     var showPianoSelector: Bool
     var showIntervals: Bool
-
+    let initialC: Int = 60
+    
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: 48), latching: false,
+        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC), latching: false,
                  noteOn: noteOn){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
@@ -25,7 +26,7 @@ struct SwiftUITonicSelector: View {
                                showHomeySelector: showHomeySelector,
                                showPianoSelector: showPianoSelector,
                                showIntervals: false,
-                               initialC: 48)
+                               initialC: initialC)
         }.cornerRadius(5)
     }
 }
@@ -37,9 +38,10 @@ struct SwiftUIKeyboard: View {
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
+    let initialC: Int = 60
 
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: 48),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .symbol,
@@ -49,7 +51,7 @@ struct SwiftUIKeyboard: View {
                                showHomeySelector: false,
                                showPianoSelector: false,
                                showIntervals: showIntervals,
-                               initialC: 48)
+                               initialC: initialC)
         }.cornerRadius(5)
     }
 }

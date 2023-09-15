@@ -28,8 +28,8 @@ struct CustomizeView: View {
                         Text("Rows")
                             .gridCellAnchor(.leading)
                         Stepper("", value: $octaveCount,
-                                in: 1...6,
-                                step: 1)
+                                in: 1...7,
+                                step: 2)
                         .gridCellAnchor(.trailing)
                     }
                     GridRow {
