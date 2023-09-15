@@ -10,22 +10,22 @@ struct HelpView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Homey Pad")
                 .font(.headline)
             Divider()
             Grid(alignment: .leading, verticalSpacing: 10) {
                 GridRow {
                     Image(systemName: "questionmark.video")
-                    Link("Videos", destination: URL(string: "https://www.youtube.com/playlist?list=PLT8nHHGqWrpGq7QGQtpFAMaTafpUe8IUI")!)
+                    Link("Videos", destination: URL(string: "https://homeymusic.com/products/homeypad/videos")!)
                 }
                 GridRow {
                     Image(systemName: "person.crop.circle.badge.questionmark")
-                    Link("Forums", destination: URL(string: "https://groups.google.com/a/homeymusic.com/g/homey-pad")!)
+                    Link("Forums", destination: URL(string: "https://homeymusic.com/products/homeypad/forums")!)
                 }
                 GridRow {
                     Image(systemName: "questionmark.folder")
-                    Link("Documentation", destination: URL(string: "https://homeymusic.com/products/homeypad")!)
+                    Link("Guides", destination: URL(string: "https://homeymusic.com/products/homeypad/guides")!)
                 }
             }
             Divider()
@@ -38,7 +38,7 @@ struct HelpView: View {
                 }
                 Divider()
                 HStack {
-                    Text("The Yamaha Disklavier Pro soundfont was produced for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples), sourced via the [FreePats project](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) and is used here under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
+                    Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by [Homey Pad](https://homeymusic.com/products/homeypad) under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
                 }
             }
             .font(.footnote)

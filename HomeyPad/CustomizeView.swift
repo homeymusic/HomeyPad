@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct CustomizeView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var showClassicalSelector: Bool
     @Binding var showHomeySelector: Bool
@@ -15,7 +15,7 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            Text("Settings")
+            Text("Customize")
                 .font(.headline)
             Divider()
             Grid {
@@ -42,6 +42,7 @@ struct SettingsView: View {
                 Divider()
                 Text("Home Note Selector")
                     .font(.subheadline)
+                    .padding(.top, 10)
                 GridRow {
                     Image(systemName: "music.note")
                         .gridCellAnchor(.center)

@@ -41,7 +41,7 @@ struct ContentView: View {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                SettingsView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
                                     .presentationCompactAdaptation(.none)
                             })
                         }
