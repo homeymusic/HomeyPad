@@ -3,6 +3,8 @@ import AVFoundation
 import Tonic
 import MIDIKit
 
+// this is the midi branch
+
 extension ViewConductor {
     // Connect MIDI on init
     func MIDIConnect() {
