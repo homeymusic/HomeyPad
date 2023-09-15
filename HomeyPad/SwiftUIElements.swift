@@ -14,14 +14,18 @@ struct SwiftUITonicSelector: View {
     var showPianoSelector: Bool
     var showIntervals: Bool
     let initialC: Int = 60
+    let row: Int
+    let col: Int
     
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC), latching: false,
-                 noteOn: noteOn){ pitch, isActivated in
+                 noteOn: noteOn){ pitch, isActivated, row, col in
             SwiftUIKeyboardKey(pitch: pitch,
+                               isActivated: isActivated,
+                               row: row,
+                               col: col,
                                labelType: .text,
                                tonicPitchClass: tonicPitchClass,
-                               isActivated: isActivated,
                                showClassicalSelector: showClassicalSelector,
                                showHomeySelector: showHomeySelector,
                                showPianoSelector: showPianoSelector,
@@ -39,14 +43,18 @@ struct SwiftUIKeyboard: View {
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     let initialC: Int = 60
+    let row: Int
+    let col: Int
 
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
-                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
+                 noteOn: noteOn, noteOff: noteOff){ pitch, isActivated, row, col in
             SwiftUIKeyboardKey(pitch: pitch,
+                               isActivated: isActivated,
+                               row: row,
+                               col: col,
                                labelType: .symbol,
                                tonicPitchClass: tonicPitchClass,
-                               isActivated: isActivated,
                                showClassicalSelector: false,
                                showHomeySelector: false,
                                showPianoSelector: false,
@@ -60,9 +68,11 @@ struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     
     var pitch : Pitch
+    var isActivated : Bool
+    let row: Int
+    let col: Int
     let labelType: LabelType
     var tonicPitchClass : Int
-    var isActivated : Bool
     let showClassicalSelector: Bool
     let showHomeySelector: Bool
     let showPianoSelector: Bool
@@ -72,6 +82,9 @@ struct SwiftUIKeyboardKey: View {
     var body: some View {
         VStack{
             IntervallicKey(pitch: pitch,
+                           isActivated: isActivated,
+                           row: row,
+                           col: col,
                            labelType: labelType,
                            showClassicalSelector: showClassicalSelector,
                            showHomeySelector: showHomeySelector,
@@ -79,7 +92,6 @@ struct SwiftUIKeyboardKey: View {
                            showIntervals: showIntervals,
                            initialC: 48,
                            tonicPitchClass: tonicPitchClass,
-                           isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),
                            perfectColor: Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255),
                            majorColor: Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255),

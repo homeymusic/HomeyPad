@@ -57,16 +57,6 @@ struct CustomizeView: View {
                             .gridCellAnchor(.trailing)
                     }
                     GridRow {
-                        Image(systemName: "music.note.house")
-                            .gridCellAnchor(.center)
-                        
-                        Text("Homey")
-                            .gridCellAnchor(.leading)
-                        
-                        Toggle("", isOn: $showHomeySelector)
-                            .gridCellAnchor(.trailing)
-                    }
-                    GridRow {
                         Image(systemName: "pianokeys")
                             .gridCellAnchor(.center)
                         
@@ -76,18 +66,27 @@ struct CustomizeView: View {
                         Toggle("", isOn: $showPianoSelector)
                             .gridCellAnchor(.trailing)
                     }
-                    //                    TODO: still need to figure out intervals, keys do not know row or column they live in
-                    //                    Divider()
-                    //                    GridRow {
-                    //                        Image(systemName: "ruler")
-                    //                            .gridCellAnchor(.center)
-                    //
-                    //                        Text("Intervals")
-                    //                            .gridCellAnchor(.leading)
-                    //
-                    //                        Toggle("", isOn: $showIntervals)
-                    //                            .gridCellAnchor(.trailing)
-                    //                    }
+                    GridRow {
+                        Image(systemName: "music.note.house")
+                            .gridCellAnchor(.center)
+                        
+                        Text("Homey")
+                            .gridCellAnchor(.leading)
+                        
+                        Toggle("", isOn: $showHomeySelector)
+                            .gridCellAnchor(.trailing)
+                    }
+                    Divider()
+                    GridRow {
+                        Image(systemName: "ruler")
+                            .gridCellAnchor(.center)
+                        
+                        Text("Intervals")
+                            .gridCellAnchor(.leading)
+                        
+                        Toggle("", isOn: $showIntervals)
+                            .gridCellAnchor(.trailing)
+                    }
                 }
                 .padding([.leading, .trailing], 10)
             }
