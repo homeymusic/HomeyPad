@@ -11,16 +11,20 @@ struct SwiftUITonicSelector: View {
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var showClassicalSelector: Bool
     var showHomeySelector: Bool
+    var showPianoSelector: Bool
+    var showIntervals: Bool
 
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
+        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass), latching: false,
                  noteOn: noteOn){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated,
                                showClassicalSelector: showClassicalSelector,
-                               showHomeySelector: showHomeySelector)
+                               showHomeySelector: showHomeySelector,
+                               showPianoSelector: showPianoSelector,
+                               showIntervals: false)
         }.cornerRadius(5)
     }
 }
@@ -28,10 +32,11 @@ struct SwiftUITonicSelector: View {
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var keysPerRow: Int
+    var showIntervals: Bool
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
-    
+
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
@@ -40,7 +45,9 @@ struct SwiftUIKeyboard: View {
                                tonicPitchClass: tonicPitchClass,
                                isActivated: isActivated,
                                showClassicalSelector: false,
-                               showHomeySelector: false)
+                               showHomeySelector: false,
+                               showPianoSelector: false,
+                               showIntervals: showIntervals)
         }.cornerRadius(5)
     }
 }
@@ -54,6 +61,8 @@ struct SwiftUIKeyboardKey: View {
     var isActivated : Bool
     let showClassicalSelector: Bool
     let showHomeySelector: Bool
+    let showPianoSelector: Bool
+    let showIntervals: Bool
 
     var body: some View {
         VStack{
@@ -61,6 +70,8 @@ struct SwiftUIKeyboardKey: View {
                            labelType: labelType,
                            showClassicalSelector: showClassicalSelector,
                            showHomeySelector: showHomeySelector,
+                           showPianoSelector: showPianoSelector,
+                           showIntervals: showIntervals,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),

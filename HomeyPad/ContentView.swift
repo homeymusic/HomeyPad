@@ -17,14 +17,15 @@ struct ContentView: View {
                 ZStack {
                     VStack(spacing: 0) {
                         Spacer()
-                        if (viewConductor.showClassicalSelector || viewConductor.showHomeySelector) {
+                        if (viewConductor.showClassicalSelector || viewConductor.showHomeySelector || viewConductor.showPianoSelector) {
                             // The tonic selector
-                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic, showClassicalSelector: viewConductor.showClassicalSelector, showHomeySelector: viewConductor.showHomeySelector)
+                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic, showClassicalSelector: viewConductor.showClassicalSelector, showHomeySelector: viewConductor.showHomeySelector,
+                                                 showPianoSelector: viewConductor.showPianoSelector, showIntervals: viewConductor.showIntervals)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }
                         // The main dualistic keyboard
-                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, showIntervals: viewConductor.showIntervals, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
@@ -41,7 +42,7 @@ struct ContentView: View {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, showPianoSelector: $viewConductor.showPianoSelector, showIntervals: $viewConductor.showIntervals, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
                                     .presentationCompactAdaptation(.none)
                             })
                         }
