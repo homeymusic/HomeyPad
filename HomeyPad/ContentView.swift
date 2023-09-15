@@ -20,13 +20,19 @@ struct ContentView: View {
                         if (viewConductor.showClassicalSelector || viewConductor.showHomeySelector || viewConductor.showPianoSelector) {
                             // The tonic selector
                             SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic, showClassicalSelector: viewConductor.showClassicalSelector, showHomeySelector: viewConductor.showHomeySelector,
-                                                 showPianoSelector: viewConductor.showPianoSelector, showIntervals: viewConductor.showIntervals, row: 0, col: 0)
+                                                 showPianoSelector: viewConductor.showPianoSelector, row: 0, col: 0)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }
                         // The main dualistic keyboard
-                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, showIntervals: viewConductor.showIntervals, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)
+                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
+                        if (viewConductor.showIntervals) {
+                            // The tonic selector
+                            SwiftUIIntervals(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, row: 0, col: 0)
+                                .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
+                                .padding(.bottom, 5)
+                        }
                         Spacer()
                     }
                     // Padding to protect the settings icon

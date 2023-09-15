@@ -5,6 +5,30 @@ import Tonic
 import Controls
 import AVFoundation
 
+struct SwiftUIIntervals: View {
+    var keysPerRow: Int
+    var tonicPitchClass: Int
+    let initialC: Int = 60
+    let row: Int
+    let col: Int
+    
+    var body: some View {
+        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC), latching: false){ pitch, isActivated, row, col in
+            SwiftUIKeyboardKey(pitch: pitch,
+                               isActivated: isActivated,
+                               row: row,
+                               col: col,
+                               labelType: .text,
+                               tonicPitchClass: tonicPitchClass,
+                               showClassicalSelector: false,
+                               showHomeySelector: false,
+                               showPianoSelector: false,
+                               showIntervals: true,
+                               initialC: initialC)
+        }.cornerRadius(5)
+    }
+}
+
 struct SwiftUITonicSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
@@ -12,7 +36,6 @@ struct SwiftUITonicSelector: View {
     var showClassicalSelector: Bool
     var showHomeySelector: Bool
     var showPianoSelector: Bool
-    var showIntervals: Bool
     let initialC: Int = 60
     let row: Int
     let col: Int
@@ -38,7 +61,6 @@ struct SwiftUITonicSelector: View {
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var keysPerRow: Int
-    var showIntervals: Bool
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
@@ -58,7 +80,7 @@ struct SwiftUIKeyboard: View {
                                showClassicalSelector: false,
                                showHomeySelector: false,
                                showPianoSelector: false,
-                               showIntervals: showIntervals,
+                               showIntervals: false,
                                initialC: initialC)
         }.cornerRadius(5)
     }
