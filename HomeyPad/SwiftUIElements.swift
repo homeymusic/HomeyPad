@@ -15,7 +15,7 @@ struct SwiftUITonicSelector: View {
     var showIntervals: Bool
 
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass), latching: false,
+        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: 48), latching: false,
                  noteOn: noteOn){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
@@ -24,7 +24,8 @@ struct SwiftUITonicSelector: View {
                                showClassicalSelector: showClassicalSelector,
                                showHomeySelector: showHomeySelector,
                                showPianoSelector: showPianoSelector,
-                               showIntervals: false)
+                               showIntervals: false,
+                               initialC: 48)
         }.cornerRadius(5)
     }
 }
@@ -38,7 +39,7 @@ struct SwiftUIKeyboard: View {
     var noteOff: (Pitch)->Void
 
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: 48),
                  noteOn: noteOn, noteOff: noteOff){ pitch, isActivated in
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .symbol,
@@ -47,7 +48,8 @@ struct SwiftUIKeyboard: View {
                                showClassicalSelector: false,
                                showHomeySelector: false,
                                showPianoSelector: false,
-                               showIntervals: showIntervals)
+                               showIntervals: showIntervals,
+                               initialC: 48)
         }.cornerRadius(5)
     }
 }
@@ -63,6 +65,7 @@ struct SwiftUIKeyboardKey: View {
     let showHomeySelector: Bool
     let showPianoSelector: Bool
     let showIntervals: Bool
+    let initialC: Int
 
     var body: some View {
         VStack{
@@ -72,6 +75,7 @@ struct SwiftUIKeyboardKey: View {
                            showHomeySelector: showHomeySelector,
                            showPianoSelector: showPianoSelector,
                            showIntervals: showIntervals,
+                           initialC: 48,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),

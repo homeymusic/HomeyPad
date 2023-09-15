@@ -76,18 +76,18 @@ struct CustomizeView: View {
                         Toggle("", isOn: $showPianoSelector)
                             .gridCellAnchor(.trailing)
                     }
-//                    TODO: more thinking about intervals P8 etc.
-//                    Divider()
-//                    GridRow {
-//                        Image(systemName: "ruler")
-//                            .gridCellAnchor(.center)
-//
-//                        Text("Intervals")
-//                            .gridCellAnchor(.leading)
-//
-//                        Toggle("", isOn: $showIntervals)
-//                            .gridCellAnchor(.trailing)
-//                    }
+                    //                    TODO: still need to figure out intervals, keys do not know row or column they live in
+                    //                    Divider()
+                    //                    GridRow {
+                    //                        Image(systemName: "ruler")
+                    //                            .gridCellAnchor(.center)
+                    //
+                    //                        Text("Intervals")
+                    //                            .gridCellAnchor(.leading)
+                    //
+                    //                        Toggle("", isOn: $showIntervals)
+                    //                            .gridCellAnchor(.trailing)
+                    //                    }
                 }
                 .padding([.leading, .trailing], 10)
             }
