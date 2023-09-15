@@ -9,6 +9,8 @@ struct SwiftUITonicSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
+    var showClassicalSelector: Bool
+    var showHomeySelector: Bool
 
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass),
@@ -16,7 +18,9 @@ struct SwiftUITonicSelector: View {
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .text,
                                tonicPitchClass: tonicPitchClass,
-                               isActivated: isActivated)
+                               isActivated: isActivated,
+                               showClassicalSelector: showClassicalSelector,
+                               showHomeySelector: showHomeySelector)
         }.cornerRadius(5)
     }
 }
@@ -34,22 +38,29 @@ struct SwiftUIKeyboard: View {
             SwiftUIKeyboardKey(pitch: pitch,
                                labelType: .symbol,
                                tonicPitchClass: tonicPitchClass,
-                               isActivated: isActivated)
+                               isActivated: isActivated,
+                               showClassicalSelector: false,
+                               showHomeySelector: false)
         }.cornerRadius(5)
     }
 }
 
 struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
+    
     var pitch : Pitch
     let labelType: LabelType
     var tonicPitchClass : Int
     var isActivated : Bool
-    
+    let showClassicalSelector: Bool
+    let showHomeySelector: Bool
+
     var body: some View {
         VStack{
             IntervallicKey(pitch: pitch,
                            labelType: labelType,
+                           showClassicalSelector: showClassicalSelector,
+                           showHomeySelector: showHomeySelector,
                            tonicPitchClass: tonicPitchClass,
                            isActivated: isActivated,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),

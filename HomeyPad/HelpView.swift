@@ -38,7 +38,7 @@ struct HelpView: View {
                 }
                 Divider()
                 HStack {
-                    Text("The Yamaha Disklavier Pro soundfont was produced for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples), downloaded from the [FreePats project](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) and is used here under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
+                    Text("The Yamaha Disklavier Pro soundfont was produced for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples), sourced via the [FreePats project](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) and is used here under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
                 }
             }
             .font(.footnote)

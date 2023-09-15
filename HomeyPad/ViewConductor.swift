@@ -25,9 +25,14 @@ class ViewConductor: ObservableObject {
             defaults.set(self.keysPerRow, forKey: "keysPerRow")
         }
     }
-    @Published var tonicSelector: Bool {
+    @Published var showClassicalSelector: Bool {
         didSet {
-            defaults.set(self.tonicSelector, forKey: "tonicSelector")
+            defaults.set(self.showClassicalSelector, forKey: "showClassicalSelector")
+        }
+    }
+    @Published var showHomeySelector: Bool {
+        didSet {
+            defaults.set(self.showHomeySelector, forKey: "showHomeySelector")
         }
     }
     @Published var tonicPitchClass: Int {
@@ -37,10 +42,11 @@ class ViewConductor: ObservableObject {
     }
 
     init() {
-        defaults.register(defaults: ["octaveCount": 1, "tonicSelector": false, "keysPerRow": 13, "tonicPitchClass": 0])
+        defaults.register(defaults: ["octaveCount": 1, "showClassicalSelector": false, "showHomeySelector": false, "keysPerRow": 13, "tonicPitchClass": 0])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
-        tonicSelector = defaults.bool(forKey: "tonicSelector")
+        showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
+        showHomeySelector = defaults.bool(forKey: "showHomeySelector")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
 
         // Start the engine

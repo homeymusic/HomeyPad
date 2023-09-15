@@ -8,7 +8,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var tonicSelector: Bool
+    @Binding var showClassicalSelector: Bool
+    @Binding var showHomeySelector: Bool
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
     
@@ -48,7 +49,7 @@ struct SettingsView: View {
                     Text("Classical")
                         .gridCellAnchor(.leading)
                     
-                    Toggle("", isOn: $tonicSelector)
+                    Toggle("", isOn: $showClassicalSelector)
                         .gridCellAnchor(.trailing)
                 }
                 GridRow {
@@ -58,13 +59,14 @@ struct SettingsView: View {
                     Text("Homey")
                         .gridCellAnchor(.leading)
                     
-                    Toggle("", isOn: $tonicSelector)
+                    Toggle("", isOn: $showHomeySelector)
                         .gridCellAnchor(.trailing)
                 }
             }
             Divider()
             Button(role: .cancel, action: {
-                tonicSelector = false
+                showClassicalSelector = false
+                showHomeySelector = false
                 octaveCount = 1
                 keysPerRow = 13
                 dismiss()

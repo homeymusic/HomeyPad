@@ -17,9 +17,9 @@ struct ContentView: View {
                 ZStack {
                     VStack(spacing: 0) {
                         Spacer()
-                        if (viewConductor.tonicSelector) {
+                        if (viewConductor.showClassicalSelector || viewConductor.showHomeySelector) {
                             // The tonic selector
-                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic)
+                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic, showClassicalSelector: viewConductor.showClassicalSelector, showHomeySelector: viewConductor.showHomeySelector)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }
@@ -41,7 +41,7 @@ struct ContentView: View {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                SettingsView(tonicSelector: $viewConductor.tonicSelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                SettingsView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
                                     .presentationCompactAdaptation(.none)
                             })
                         }
