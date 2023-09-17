@@ -9,12 +9,64 @@ struct ContentView: View {
     @StateObject var viewConductor = ViewConductor()
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
+    @State private var showingPlayPopover = false
 
     var body: some View {
         GeometryReader { proxy in
             ZStack {
                 Color.black
                 ZStack {
+                    // The help view
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Button(action: {
+                                self.showingHelpPopover.toggle()
+                            }) {
+                                Image(systemName: "questionmark.circle").foregroundColor(.white)
+                            }.popover(isPresented: $showingHelpPopover,
+                                      content: {
+                                HelpView()
+                                    .presentationCompactAdaptation(.none)
+                            })
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 10)
+                    // The play view
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Button(action: {
+                                self.showingPlayPopover.toggle()
+                            }) {
+                                Image(systemName: "play.circle").foregroundColor(.white)
+                            }.popover(isPresented: $showingPlayPopover,
+                                      content: {
+                                PlayView()
+                                    .presentationCompactAdaptation(.none)
+                            })
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 37)
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.showingSettingsPopover.toggle()
+                            }) {
+                                Image(systemName: "ellipsis.circle").foregroundColor(.white)
+                            }.popover(isPresented: $showingSettingsPopover,
+                                      content: {
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, showPianoSelector: $viewConductor.showPianoSelector, showIntervals: $viewConductor.showIntervals, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                    .presentationCompactAdaptation(.none)
+                            })
+                        }
+                        Spacer()
+                    }
+                    .padding(.trailing, 10)
+                    // keyboard
                     VStack(spacing: 0) {
                         Spacer()
                         if (viewConductor.showClassicalSelector || viewConductor.showHomeySelector || viewConductor.showPianoSelector) {
@@ -35,44 +87,7 @@ struct ContentView: View {
                         }
                         Spacer()
                     }
-                    // Padding to protect the settings icon
-                    // top and bottom for symmetry
-                    .padding([.top, .bottom], 30)
-                    // The settings view
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.showingSettingsPopover.toggle()
-                            }) {
-                                Image(systemName: "ellipsis.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingSettingsPopover,
-                                      content: {
-                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showHomeySelector: $viewConductor.showHomeySelector, showPianoSelector: $viewConductor.showPianoSelector, showIntervals: $viewConductor.showIntervals, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
-                                    .presentationCompactAdaptation(.none)
-                            })
-                        }
-                        Spacer()
-                    }
-                    .padding([.top, .trailing], 10)
-                    // The help view
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Button(action: {
-                                self.showingHelpPopover.toggle()
-                            }) {
-                                Image(systemName: "questionmark.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingHelpPopover,
-                                      content: {
-                                HelpView()
-                                    .presentationCompactAdaptation(.none)
-                            })
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .padding([.top, .leading], 10)
-
+                    .padding([.top, .bottom], 25)
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
@@ -114,6 +129,7 @@ struct ContentView: View {
             .environmentObject(viewConductor.midiManager)
             .statusBar(hidden: true)
         }
+        .padding(.top, 25)
     }
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

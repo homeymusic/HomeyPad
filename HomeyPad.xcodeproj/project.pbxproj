@@ -22,6 +22,7 @@
 		B0574B872AB10E4E00D290D0 /* CustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0574B862AB10E4E00D290D0 /* CustomizeView.swift */; };
 		B076C26C2AB1F289008BA976 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B076C26B2AB1F289008BA976 /* HelpView.swift */; };
 		B0F04BC52AB3DD0800230CBA /* Monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0F04BC42AB3DD0800230CBA /* Monaco.ttf */; };
+		B0FF0C112AB7401800DC9C0D /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF0C102AB7401800DC9C0D /* PlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		B076C26B2AB1F289008BA976 /* HelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B0D266D12AB2099D000384D9 /* Keyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Keyboard; path = ../Keyboard; sourceTree = "<group>"; };
 		B0F04BC42AB3DD0800230CBA /* Monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Monaco.ttf; sourceTree = "<group>"; };
+		B0FF0C102AB7401800DC9C0D /* PlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				5A5A6CC3297EB26A0017A3C7 /* ContentView.swift */,
 				B0574B862AB10E4E00D290D0 /* CustomizeView.swift */,
 				B076C26B2AB1F289008BA976 /* HelpView.swift */,
+				B0FF0C102AB7401800DC9C0D /* PlayView.swift */,
 				5AA6E555298026EE0031C145 /* Conductor.swift */,
 				5AA6E551298010E90031C145 /* ViewConductor.swift */,
 				5AA6E553298011510031C145 /* ViewConductor+MIDI.swift */,
@@ -197,6 +200,7 @@
 				5AA6E554298011510031C145 /* ViewConductor+MIDI.swift in Sources */,
 				5A5A6CC2297EB26A0017A3C7 /* HomeyPad.swift in Sources */,
 				B076C26C2AB1F289008BA976 /* HelpView.swift in Sources */,
+				B0FF0C112AB7401800DC9C0D /* PlayView.swift in Sources */,
 				5A5A6CF1297EB96A0017A3C7 /* SwiftUIElements.swift in Sources */,
 				5AA6E552298010EA0031C145 /* ViewConductor.swift in Sources */,
 			);

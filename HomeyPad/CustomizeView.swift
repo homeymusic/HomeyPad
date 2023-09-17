@@ -67,10 +67,10 @@ struct CustomizeView: View {
                             .gridCellAnchor(.trailing)
                     }
                     GridRow {
-                        Image(systemName: "music.note.house")
+                        Image(systemName: "calendar")
                             .gridCellAnchor(.center)
                         
-                        Text("Homey")
+                        Text("Months")
                             .gridCellAnchor(.leading)
                         
                         Toggle("", isOn: $showHomeySelector)
@@ -92,12 +92,12 @@ struct CustomizeView: View {
             }
             Divider()
             Button(role: .cancel, action: {
-                showClassicalSelector = false
-                showHomeySelector = false
-                showPianoSelector = false
-                showIntervals = false
-                octaveCount = 1
-                keysPerRow = 13
+                showClassicalSelector = Default.showClassicalSelector
+                showHomeySelector = Default.showHomeySelector
+                showPianoSelector = Default.showPianoSelector
+                showIntervals = Default.showIntervals
+                octaveCount = Default.octaveCount
+                keysPerRow = Default.keysPerRow
                 dismiss()
             }) {
                 Label("Reset", systemImage: "gobackward")

@@ -62,7 +62,7 @@ class ViewConductor: ObservableObject {
     }
 
     init() {
-        defaults.register(defaults: ["octaveCount": 1, "showClassicalSelector": false, "showHomeySelector": false, "showPianoSelector": false, "showIntervals": false, "keysPerRow": 13, "tonicPitchClass": 0])
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showHomeySelector": Default.showHomeySelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
