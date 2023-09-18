@@ -7,25 +7,25 @@ import AVFoundation
 
 struct SwiftUIIntervals: View {
     var keysPerRow: Int
-    var tonicPitchClass: Int
-    let initialC: Int = 60
-    let row: Int
-    let col: Int
-    
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC), latching: false){ pitch, isActivated, row, col in
-            SwiftUIKeyboardKey(pitch: pitch,
-                               isActivated: isActivated,
-                               row: row,
-                               col: col,
-                               labelType: .text,
-                               tonicPitchClass: tonicPitchClass,
-                               showClassicalSelector: false,
-                               showMonthsSelector: false,
-                               showPianoSelector: false,
-                               showIntervals: true,
-                               initialC: initialC)
-        }.cornerRadius(5)
+        let extraColsPerSide : Int = Int(floor(CGFloat(keysPerRow - 13) / 2))
+        VStack(spacing: 0) {
+            HStack(spacing: 1) {
+                ForEach(-extraColsPerSide...(12+extraColsPerSide), id: \.self) { col in
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                        Text(intervalLabel(col))
+                            .font(.custom("Monaco", size: 20))
+                            .scaledToFit()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.01)
+                            .foregroundColor(homeyForegroundColor(col, reverseHomeColor: false))
+                            .padding(2)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -75,35 +75,6 @@ struct SwiftUIHomeSelector: View {
     }
 }
 
-struct SwiftUITonicSelector: View {
-    var keysPerRow: Int
-    var tonicPitchClass: Int
-    var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
-    var showClassicalSelector: Bool
-    var showMonthsSelector: Bool
-    var showPianoSelector: Bool
-    let initialC: Int = 60
-    let row: Int
-    let col: Int
-    
-    var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: 1, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC), latching: false,
-                 noteOn: noteOn){ pitch, isActivated, row, col in
-            SwiftUIKeyboardKey(pitch: pitch,
-                               isActivated: isActivated,
-                               row: row,
-                               col: col,
-                               labelType: .text,
-                               tonicPitchClass: tonicPitchClass,
-                               showClassicalSelector: showClassicalSelector,
-                               showMonthsSelector: showMonthsSelector,
-                               showPianoSelector: showPianoSelector,
-                               showIntervals: false,
-                               initialC: initialC)
-        }.cornerRadius(5)
-    }
-}
-
 struct SwiftUIKeyboard: View {
     var octaveCount: Int
     var keysPerRow: Int
@@ -123,10 +94,6 @@ struct SwiftUIKeyboard: View {
                                col: col,
                                labelType: .symbol,
                                tonicPitchClass: tonicPitchClass,
-                               showClassicalSelector: false,
-                               showMonthsSelector: false,
-                               showPianoSelector: false,
-                               showIntervals: false,
                                initialC: initialC)
         }.cornerRadius(5)
     }
@@ -141,10 +108,6 @@ struct SwiftUIKeyboardKey: View {
     let col: Int
     let labelType: LabelType
     var tonicPitchClass : Int
-    let showClassicalSelector: Bool
-    let showMonthsSelector: Bool
-    let showPianoSelector: Bool
-    let showIntervals: Bool
     let initialC: Int
     
     var body: some View {
@@ -154,10 +117,6 @@ struct SwiftUIKeyboardKey: View {
                            row: row,
                            col: col,
                            labelType: labelType,
-                           showClassicalSelector: showClassicalSelector,
-                           showMonthsSelector: showMonthsSelector,
-                           showPianoSelector: showPianoSelector,
-                           showIntervals: showIntervals,
                            initialC: 48,
                            tonicPitchClass: tonicPitchClass,
                            tonicColor: Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255),

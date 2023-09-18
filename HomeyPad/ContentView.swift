@@ -59,7 +59,12 @@ struct ContentView: View {
                                 Image(systemName: "ellipsis.circle").foregroundColor(.white)
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector, showMonthsSelector: $viewConductor.showMonthsSelector, showPianoSelector: $viewConductor.showPianoSelector, showIntervals: $viewConductor.showIntervals, octaveCount: $viewConductor.octaveCount,keysPerRow: $viewConductor.keysPerRow)
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                              showMonthsSelector: $viewConductor.showMonthsSelector,
+                                              showPianoSelector: $viewConductor.showPianoSelector,
+                                              showIntervals: $viewConductor.showIntervals,
+                                              octaveCount: $viewConductor.octaveCount,
+                                              keysPerRow: $viewConductor.keysPerRow)
                                     .presentationCompactAdaptation(.none)
                             })
                         }
@@ -68,15 +73,6 @@ struct ContentView: View {
                     .padding(.trailing, 10)
                     // keyboard
                     VStack(spacing: 0) {
-                        // tonic selector
-//                        Spacer()
-//                        if (viewConductor.showClassicalSelector || viewConductor.showMonthsSelector || viewConductor.showPianoSelector) {
-//                            // The tonic selector
-//                            SwiftUITonicSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.selectTonic, showClassicalSelector: viewConductor.showClassicalSelector, showMonthsSelector: viewConductor.showMonthsSelector,
-//                                                 showPianoSelector: viewConductor.showPianoSelector, row: 0, col: 0)
-//                                .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
-//                                .padding(.bottom, 5)
-//                        }
                         // home selector
                         Spacer()
                         if (viewConductor.showClassicalSelector || viewConductor.showMonthsSelector || viewConductor.showPianoSelector) {
@@ -92,7 +88,7 @@ struct ContentView: View {
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         if (viewConductor.showIntervals) {
                             // The tonic selector
-                            SwiftUIIntervals(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, row: 0, col: 0)
+                            SwiftUIIntervals(keysPerRow: viewConductor.keysPerRow)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
                         }

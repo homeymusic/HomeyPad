@@ -32,10 +32,10 @@ func homeyBackgroundColor(_ interval: Int) -> Color {
     }
 }
 
-func homeyForegroundColor(_ interval: Int) -> Color {
+func homeyForegroundColor(_ interval: Int, reverseHomeColor: Bool = true) -> Color {
     switch mod(interval, 12) {
     case 0:
-        return Default.homeComplementColor
+        return reverseHomeColor ? Default.homeComplementColor : Default.homeColor
     case 5, 7:
         return Default.homeColor
     case 1, 3, 8, 10:
@@ -127,6 +127,87 @@ func monthLabel(_ pitchClass: Int) -> String {
     default: return ""
     }
 
+}
+
+func intervalLabel(_ col: Int) -> String {
+    
+    switch col {
+    case -12:
+        return "P8'"
+    case -11:
+        return "m2'"
+    case -10:
+        return "M2'"
+    case -9:
+        return "m3'"
+    case -8:
+        return "M3'"
+    case -7:
+        return "P4'"
+    case -6:
+        return "tt'"
+    case -5:
+        return "P5'"
+    case -4:
+        return "m6'"
+    case -3:
+        return "M6'"
+    case -2:
+        return "m7'"
+    case -1:
+        return "M7'"
+    case 0:
+        return "P1"
+    case 1:
+        return "m1"
+    case 2:
+        return "M2"
+    case 3:
+        return "m3"
+    case 4:
+        return "M3"
+    case 5:
+        return "P4"
+    case 6:
+        return "tt"
+    case 7:
+        return "P5"
+    case 8:
+        return "m6"
+    case 9:
+        return "M6"
+    case 10:
+        return "m7"
+    case 11:
+        return "M7"
+    case 12:
+        return "P8"
+    case 13:
+        return "m9"
+    case 14:
+        return "M9"
+    case 15:
+        return "m10"
+    case 16:
+        return "M10"
+    case 17:
+        return "P11"
+    case 18:
+        return "tt"
+    case 19:
+        return "P12"
+    case 20:
+        return "m13"
+    case 21:
+        return "M13"
+    case 22:
+        return "m14"
+    case 23:
+        return "M12"
+    case 24:
+        return "P15"
+    default: return ""
+    }
 }
 
 @main
