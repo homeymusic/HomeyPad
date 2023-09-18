@@ -38,9 +38,9 @@ class ViewConductor: ObservableObject {
             defaults.set(self.showClassicalSelector, forKey: "showClassicalSelector")
         }
     }
-    @Published var showHomeySelector: Bool {
+    @Published var showMonthsSelector: Bool {
         didSet {
-            defaults.set(self.showHomeySelector, forKey: "showHomeySelector")
+            defaults.set(self.showMonthsSelector, forKey: "showMonthsSelector")
         }
     }
     @Published var showPianoSelector: Bool {
@@ -62,11 +62,11 @@ class ViewConductor: ObservableObject {
     }
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showHomeySelector": Default.showHomeySelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
-        showHomeySelector = defaults.bool(forKey: "showHomeySelector")
+        showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
@@ -86,6 +86,12 @@ class ViewConductor: ObservableObject {
     func noteOff(pitch: Pitch) {
         conductor.instrument.stopNote(UInt8(pitch.intValue), onChannel: 0)
     }
+    
+    func selectHome(pitchClass: Int) {
+        if (pitchClass % 12 != self.tonicPitchClass) {
+            self.tonicPitchClass = pitchClass % 12
+        }
+    }    
     
     func selectTonic(pitch: Pitch, point: CGPoint) {
         if (pitch.intValue % 12 != self.tonicPitchClass) {

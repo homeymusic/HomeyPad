@@ -9,7 +9,7 @@ import SwiftUI
 struct CustomizeView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var showClassicalSelector: Bool
-    @Binding var showHomeySelector: Bool
+    @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
     @Binding var showIntervals: Bool
     @Binding var octaveCount: Int
@@ -73,7 +73,7 @@ struct CustomizeView: View {
                         Text("Months")
                             .gridCellAnchor(.leading)
                         
-                        Toggle("", isOn: $showHomeySelector)
+                        Toggle("", isOn: $showMonthsSelector)
                             .gridCellAnchor(.trailing)
                     }
                     Divider()
@@ -93,7 +93,7 @@ struct CustomizeView: View {
             Divider()
             Button(role: .cancel, action: {
                 showClassicalSelector = Default.showClassicalSelector
-                showHomeySelector = Default.showHomeySelector
+                showMonthsSelector = Default.showMonthsSelector
                 showPianoSelector = Default.showPianoSelector
                 showIntervals = Default.showIntervals
                 octaveCount = Default.octaveCount
