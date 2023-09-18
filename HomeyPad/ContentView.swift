@@ -50,6 +50,7 @@ struct ContentView: View {
                         Spacer()
                     }
                     .padding(.leading, 37)
+                    //the customize view
                     VStack(alignment: .trailing) {
                         HStack {
                             Spacer()
@@ -87,7 +88,7 @@ struct ContentView: View {
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         if (viewConductor.showIntervals) {
-                            // The tonic selector
+                            // The intervals display
                             SwiftUIIntervals(keysPerRow: viewConductor.keysPerRow)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                                 .padding(.bottom, 5)
