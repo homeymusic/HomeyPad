@@ -159,7 +159,7 @@ func intervalLabel(_ col: Int) -> String {
     case 0:
         return "P1"
     case 1:
-        return "m1"
+        return "m2"
     case 2:
         return "M2"
     case 3:
@@ -203,7 +203,7 @@ func intervalLabel(_ col: Int) -> String {
     case 22:
         return "m14"
     case 23:
-        return "M12"
+        return "M14"
     case 24:
         return "P15"
     default: return ""
