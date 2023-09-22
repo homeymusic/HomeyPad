@@ -21,6 +21,8 @@
 		5AA6E556298026EE0031C145 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA6E555298026EE0031C145 /* Conductor.swift */; };
 		B0574B872AB10E4E00D290D0 /* CustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0574B862AB10E4E00D290D0 /* CustomizeView.swift */; };
 		B076C26C2AB1F289008BA976 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B076C26B2AB1F289008BA976 /* HelpView.swift */; };
+		B0870A102ABDFF8400CF15E6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0870A0F2ABDFF8400CF15E6 /* AudioKit */; };
+		B0870A1A2ABE035200CF15E6 /* Examples in Resources */ = {isa = PBXBuildFile; fileRef = B0870A192ABE035200CF15E6 /* Examples */; };
 		B0F04BC52AB3DD0800230CBA /* Monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0F04BC42AB3DD0800230CBA /* Monaco.ttf */; };
 		B0FF0C112AB7401800DC9C0D /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF0C102AB7401800DC9C0D /* PlayView.swift */; };
 		B0FF0C152AB8DEBF00DC9C0D /* SelectorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF0C142AB8DEBF00DC9C0D /* SelectorStyle.swift */; };
@@ -40,6 +42,7 @@
 		5AA6E555298026EE0031C145 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		B0574B862AB10E4E00D290D0 /* CustomizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeView.swift; sourceTree = "<group>"; };
 		B076C26B2AB1F289008BA976 /* HelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		B0870A192ABE035200CF15E6 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = "<group>"; };
 		B0D266D12AB2099D000384D9 /* Keyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Keyboard; path = ../Keyboard; sourceTree = "<group>"; };
 		B0F04BC42AB3DD0800230CBA /* Monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Monaco.ttf; sourceTree = "<group>"; };
 		B0FF0C102AB7401800DC9C0D /* PlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 			files = (
 				5A5A6CFF297EEB840017A3C7 /* MIDIKit in Frameworks */,
 				5A5A6CF4297ECE4D0017A3C7 /* Controls in Frameworks */,
+				B0870A102ABDFF8400CF15E6 /* AudioKit in Frameworks */,
 				5A5A6CEF297EB94B0017A3C7 /* Keyboard in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +85,7 @@
 		5A5A6CC0297EB26A0017A3C7 /* HomeyPad */ = {
 			isa = PBXGroup;
 			children = (
+				B0870A192ABE035200CF15E6 /* Examples */,
 				B0F04BC32AB3DCE300230CBA /* Fonts */,
 				5A5A6CF5297EDAA60017A3C7 /* Info.plist */,
 				5A5A6CC1297EB26A0017A3C7 /* HomeyPad.swift */,
@@ -135,6 +140,7 @@
 				5A5A6CEE297EB94B0017A3C7 /* Keyboard */,
 				5A5A6CF3297ECE4D0017A3C7 /* Controls */,
 				5A5A6CFE297EEB840017A3C7 /* MIDIKit */,
+				B0870A0F2ABDFF8400CF15E6 /* AudioKit */,
 			);
 			productName = AVAudioUnitSamplerToolbox;
 			productReference = 5A5A6CBE297EB26A0017A3C7 /* HomeyPad.app */;
@@ -168,6 +174,7 @@
 				5A5A6CED297EB94B0017A3C7 /* XCRemoteSwiftPackageReference "Keyboard" */,
 				5A5A6CF2297ECE4D0017A3C7 /* XCRemoteSwiftPackageReference "Controls" */,
 				5A5A6CFD297EEB840017A3C7 /* XCRemoteSwiftPackageReference "MIDIKit" */,
+				B0870A0E2ABDFF8400CF15E6 /* XCRemoteSwiftPackageReference "AudioKit" */,
 			);
 			productRefGroup = 5A5A6CBF297EB26A0017A3C7 /* Products */;
 			projectDirPath = "";
@@ -187,6 +194,7 @@
 				5A5A6CC9297EB26B0017A3C7 /* Preview Assets.xcassets in Resources */,
 				5A5A6CC6297EB26B0017A3C7 /* Assets.xcassets in Resources */,
 				B0F04BC52AB3DD0800230CBA /* Monaco.ttf in Resources */,
+				B0870A1A2ABE035200CF15E6 /* Examples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +451,14 @@
 				kind = branch;
 			};
 		};
+		B0870A0E2ABDFF8400CF15E6 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -460,6 +476,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5A5A6CFD297EEB840017A3C7 /* XCRemoteSwiftPackageReference "MIDIKit" */;
 			productName = MIDIKit;
+		};
+		B0870A0F2ABDFF8400CF15E6 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0870A0E2ABDFF8400CF15E6 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

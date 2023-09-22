@@ -80,11 +80,11 @@ class ViewConductor: ObservableObject {
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
-        conductor.instrument.startNote(UInt8(pitch.intValue), withVelocity: 127, onChannel: 0)
+        conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 127, channel: 0)
     }
     
     func noteOff(pitch: Pitch) {
-        conductor.instrument.stopNote(UInt8(pitch.intValue), onChannel: 0)
+        conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
     }
     
     func selectHome(pitchClass: Int) {
