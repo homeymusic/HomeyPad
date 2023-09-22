@@ -5,9 +5,29 @@
 //
 
 import SwiftUI
+import AudioKit
 
 struct PlayView: View {
     @Environment(\.dismiss) var dismiss
+    var conductor: Conductor
+    
+    func playMIDIFile(_ midiFile: String) {
+//        var midiCallback = MIDICallbackInstrument()
+//        var exampleTune: AppleSequencer!
+        
+//        midiCallback.callback = { status, note, velocity in
+//            print("midiCallback.callback status: \(status) note: \(note)")
+//        }
+
+        conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: "may_your_soul_rest", withExtension: "mid", subdirectory: "Examples")!)
+        print("track count:", conductor.sequencer.trackCount)
+        conductor.sequencer.tracks[0].setMIDIOutput(conductor.instrument.midiIn)
+        conductor.sequencer.stop()
+        conductor.sequencer.rewind()
+        conductor.sequencer.play()
+
+//        exampleTune.setGlobalMIDIOutput(midiCallback.midiIn)
+    }
     
     var body: some View {
         VStack {
@@ -75,6 +95,8 @@ struct PlayView: View {
                         }
                         Button {
                             print("play example")
+                            playMIDIFile("may_your_soul_rest")
+//                            dismiss()
                         } label: {
                             HStack {
                                 Text("May Your Soul Rest")
@@ -259,12 +281,5 @@ struct PlayView: View {
             }
         }
         .padding()
-    }
-}
-
-
-struct PlayView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlayView()
     }
 }

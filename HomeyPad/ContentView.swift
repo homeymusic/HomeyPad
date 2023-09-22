@@ -42,7 +42,7 @@ struct ContentView: View {
                                 Image(systemName: "play.circle").foregroundColor(.white)
                             }.popover(isPresented: $showingPlayPopover,
                                       content: {
-                                PlayView()
+                                PlayView(conductor: viewConductor.conductor)
                                     .presentationCompactAdaptation(.none)
                             })
                             Spacer()
