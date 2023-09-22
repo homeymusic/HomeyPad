@@ -34,22 +34,22 @@ struct ContentView: View {
                     }
                     .padding(.leading, 10)
                     // The play view
-//                    VStack(alignment: .leading) {
-//                        HStack {
-//                            Button(action: {
-//                                self.showingPlayPopover.toggle()
-//                            }) {
-//                                Image(systemName: "play.circle").foregroundColor(.white)
-//                            }.popover(isPresented: $showingPlayPopover,
-//                                      content: {
-//                                PlayView()
-//                                    .presentationCompactAdaptation(.none)
-//                            })
-//                            Spacer()
-//                        }
-//                        Spacer()
-//                    }
-//                    .padding(.leading, 37)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Button(action: {
+                                self.showingPlayPopover.toggle()
+                            }) {
+                                Image(systemName: "play.circle").foregroundColor(.white)
+                            }.popover(isPresented: $showingPlayPopover,
+                                      content: {
+                                PlayView()
+                                    .presentationCompactAdaptation(.none)
+                            })
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .padding(.leading, 37)
                     //the customize view
                     VStack(alignment: .trailing) {
                         HStack {
