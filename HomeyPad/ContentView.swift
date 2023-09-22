@@ -34,22 +34,22 @@ struct ContentView: View {
                     }
                     .padding(.leading, 10)
                     // The play view
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Button(action: {
-                                self.showingPlayPopover.toggle()
-                            }) {
-                                Image(systemName: "play.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingPlayPopover,
-                                      content: {
-                                PlayView()
-                                    .presentationCompactAdaptation(.none)
-                            })
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .padding(.leading, 37)
+//                    VStack(alignment: .leading) {
+//                        HStack {
+//                            Button(action: {
+//                                self.showingPlayPopover.toggle()
+//                            }) {
+//                                Image(systemName: "play.circle").foregroundColor(.white)
+//                            }.popover(isPresented: $showingPlayPopover,
+//                                      content: {
+//                                PlayView()
+//                                    .presentationCompactAdaptation(.none)
+//                            })
+//                            Spacer()
+//                        }
+//                        Spacer()
+//                    }
+//                    .padding(.leading, 37)
                     //the customize view
                     VStack(alignment: .trailing) {
                         HStack {
@@ -82,7 +82,7 @@ struct ContentView: View {
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showMonthsSelector: viewConductor.showMonthsSelector, showPianoSelector: viewConductor.showPianoSelector, selectorTapped: viewConductor.selectHome)
                                 .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
-                                .padding(.bottom, 5)
+                                .padding(.bottom, 7)
                         }
                         // The main dualistic keyboard
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)

@@ -16,10 +16,16 @@ struct SelectorStyle: View {
     
     var body: some View {
         let pitchClass = tonicPitchClass+col
+        let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col)
         ZStack {
             Rectangle()
-                .cornerRadius(5)
-                .foregroundColor(showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col))
+                .foregroundColor(fg)
+                .overlay(
+                        Rectangle()
+                            .stroke(fg, lineWidth: 3)
+                            .brightness(mod(col,12)==0 ? 0.06 : -0.03)
+                    )
+                .padding(2)
             VStack {
                 if showClassicalSelector {
                     Text(classicalLabel(pitchClass))
@@ -35,7 +41,7 @@ struct SelectorStyle: View {
             .lineLimit(1)
             .minimumScaleFactor(0.01)
             .foregroundColor(showPianoSelector ? pianoForegroundColor(pitchClass) : homeyForegroundColor(col))
-            .padding(2)
+            .padding(5)
         }
     }
 }

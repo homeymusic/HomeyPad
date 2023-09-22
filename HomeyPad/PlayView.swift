@@ -148,12 +148,31 @@ struct PlayView: View {
                             print("play example")
                         } label: {
                             HStack {
-                                Text("Aeolian (Minor)")
+                                Text("Aeolian (Natural Minor)")
                                     .foregroundColor(Default.minorColor)
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
                                         .foregroundColor(Default.minorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }
+                        }
+                        Button {
+                            print("play example")
+                        } label: {
+                            HStack {
+                                Text("Harmonic Minor")
+                                    .foregroundColor(Default.minorColor)
+                                Spacer()
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
                                     Image(systemName: "greaterthan.square")
                                         .foregroundColor(Default.majorColor)
                                 }
