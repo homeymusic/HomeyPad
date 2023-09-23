@@ -60,7 +60,7 @@ struct SwiftUIHomeSelector: View {
                                       tonicPitchClass: tonicPitchClass)
                     } else {
                         Button {
-                            selectorTapped(tonicPitchClass + col)
+                            selectorTapped(tonicPitchClass + col)                            
                         } label: {
                             SelectorStyle(col: col,
                                           showClassicalSelector: showClassicalSelector,

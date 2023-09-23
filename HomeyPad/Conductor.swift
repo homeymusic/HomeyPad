@@ -18,7 +18,6 @@ class Conductor: ObservableObject {
         try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
         
         sequencer = AppleSequencer()
-        sequencer.setGlobalMIDIOutput(instrument.midiIn)
     }
     
     func start() {

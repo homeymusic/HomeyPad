@@ -10,68 +10,83 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-
+    
     var body: some View {
         GeometryReader { proxy in
             ZStack {
                 Color.black
                 ZStack {
-                    // The help view
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Button(action: {
-                                self.showingHelpPopover.toggle()
-                            }) {
-                                Image(systemName: "questionmark.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingHelpPopover,
-                                      content: {
-                                HelpView()
-                                    .presentationCompactAdaptation(.none)
-                            })
+                    HStack(spacing: 0) {
+                        // The help view
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Button(action: {
+                                    self.showingHelpPopover.toggle()
+                                }) {
+                                    Image(systemName: "questionmark.circle").foregroundColor(.white)
+                                }.popover(isPresented: $showingHelpPopover,
+                                          content: {
+                                    HelpView()
+                                        .presentationCompactAdaptation(.none)
+                                })
+                            }
                             Spacer()
                         }
-                        Spacer()
-                    }
-                    .padding(.leading, 10)
-                    // The play view
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Button(action: {
-                                self.showingPlayPopover.toggle()
-                            }) {
-                                Image(systemName: "play.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingPlayPopover,
-                                      content: {
-                                PlayView(conductor: viewConductor.conductor)
-                                    .presentationCompactAdaptation(.none)
-                            })
+                        .padding(.leading, 10)
+                        // The play view
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Button(action: {
+                                    self.showingPlayPopover.toggle()
+                                }) {
+                                    Image(systemName: "play.circle").foregroundColor(.white)
+                                }.popover(isPresented: $showingPlayPopover,
+                                          content: {
+                                    PlayView(conductor: viewConductor.conductor)
+                                        .presentationCompactAdaptation(.none)
+                                })
+                            }
                             Spacer()
                         }
-                        Spacer()
-                    }
-                    .padding(.leading, 37)
-                    //the customize view
-                    VStack(alignment: .trailing) {
-                        HStack {
+                        .padding(.leading, 10)
+                        // The stop button
+                        VStack(alignment: .leading) {
+                            HStack(spacing: 0) {
+                                Button(action: {
+                                    viewConductor.conductor.sequencer.stop()
+                                }) {
+                                    Image(systemName: "stop.fill").foregroundColor(.white)
+                                }
+                                Text("May Your Soul Rest in Peace")
+                                    .padding(.leading, 5)
+                            }
                             Spacer()
-                            Button(action: {
-                                self.showingSettingsPopover.toggle()
-                            }) {
-                                Image(systemName: "ellipsis.circle").foregroundColor(.white)
-                            }.popover(isPresented: $showingSettingsPopover,
-                                      content: {
-                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
-                                              showMonthsSelector: $viewConductor.showMonthsSelector,
-                                              showPianoSelector: $viewConductor.showPianoSelector,
-                                              showIntervals: $viewConductor.showIntervals,
-                                              octaveCount: $viewConductor.octaveCount,
-                                              keysPerRow: $viewConductor.keysPerRow)
-                                    .presentationCompactAdaptation(.none)
-                            })
                         }
+                        .padding(.leading, 10)
                         Spacer()
+                        //the customize view
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    self.showingSettingsPopover.toggle()
+                                }) {
+                                    Image(systemName: "ellipsis.circle").foregroundColor(.white)
+                                }.popover(isPresented: $showingSettingsPopover,
+                                          content: {
+                                    CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                                  showMonthsSelector: $viewConductor.showMonthsSelector,
+                                                  showPianoSelector: $viewConductor.showPianoSelector,
+                                                  showIntervals: $viewConductor.showIntervals,
+                                                  octaveCount: $viewConductor.octaveCount,
+                                                  keysPerRow: $viewConductor.keysPerRow)
+                                    .presentationCompactAdaptation(.none)
+                                })
+                            }
+                            Spacer()
+                        }
+                        .padding(.trailing, 10)
                     }
-                    .padding(.trailing, 10)
                     // keyboard
                     VStack(spacing: 0) {
                         // home selector
@@ -81,8 +96,8 @@ struct ContentView: View {
                             SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showMonthsSelector: viewConductor.showMonthsSelector, showPianoSelector: viewConductor.showPianoSelector, selectorTapped: viewConductor.selectHome)
-                                .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
-                                .padding(.bottom, 7)
+                            .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
+                            .padding(.bottom, 7)
                         }
                         // The main dualistic keyboard
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)

@@ -10,20 +10,22 @@ import AudioKit
 struct PlayView: View {
     @Environment(\.dismiss) var dismiss
     var conductor: Conductor
-    
-    func playMIDIFile(_ midiFile: String) {
-//        var midiCallback = MIDICallbackInstrument()
-//        var exampleTune: AppleSequencer!
-        
-//        midiCallback.callback = { status, note, velocity in
-//            print("midiCallback.callback status: \(status) note: \(note)")
-//        }
+    var midiCallback = MIDICallbackInstrument()
 
+    func playMIDIFile(_ midiFile: String) {
+        dismiss()
         conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: "may_your_soul_rest", withExtension: "mid", subdirectory: "Examples")!)
         print("track count:", conductor.sequencer.trackCount)
         conductor.sequencer.tracks[0].setMIDIOutput(conductor.instrument.midiIn)
+//        print("after play function. async?")
+//        print("conductor.sequencer.isPlaying", conductor.sequencer.isPlaying)
+//        midiCallback.callback = { status, note, velocity in
+//            print("midiCallback.callback status: \(status) note: \(note)")
+//        }
+//        conductor.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
         conductor.sequencer.stop()
         conductor.sequencer.rewind()
+        conductor.sequencer.enableLooping()
         conductor.sequencer.play()
 
 //        exampleTune.setGlobalMIDIOutput(midiCallback.midiIn)
@@ -49,7 +51,8 @@ struct PlayView: View {
                         }
                         .padding(.bottom, 5)
                         Button {
-                            print("play example")
+                            print("play twinkle")
+                            print("conductor.sequencer.isPlaying", conductor.sequencer.isPlaying)
                         } label: {
                             HStack {
                                 Text("Twinkle Twinkle Little Star")
