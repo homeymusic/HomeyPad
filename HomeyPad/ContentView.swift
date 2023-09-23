@@ -17,7 +17,7 @@ struct ContentView: View {
                 Color.black
                 ZStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        HStack(spacing: 0) {
+                        HStack(alignment: .center, spacing: 0) {
                             // The help view
                             VStack(alignment: .leading) {
                                 HStack {
@@ -58,6 +58,12 @@ struct ContentView: View {
                                     }) {
                                         Image(systemName: "stop.fill").foregroundColor(.white)
                                     }
+                                    Button(action: {
+                                        viewConductor.conductor.sequencer.stop()
+                                    }) {
+                                        Image(systemName: "pause.fill").foregroundColor(.white)
+                                    }
+                                    .padding(.leading, 5)
                                     Text("May Your Soul Rest in Peace Little Star")
                                         .padding(.leading, 5)
                                         .lineLimit(1)
