@@ -10,6 +10,7 @@ import AudioKit
 struct PlayView: View {
     @Environment(\.dismiss) var dismiss
     var conductor: Conductor
+    @Binding var playerState: PlayerState
     var midiCallback = MIDICallbackInstrument()
 
     func playMIDIFile(_ midiFile: String) {
@@ -27,6 +28,7 @@ struct PlayView: View {
         conductor.sequencer.rewind()
         conductor.sequencer.enableLooping()
         conductor.sequencer.play()
+        playerState = .playing
 
 //        exampleTune.setGlobalMIDIOutput(midiCallback.midiIn)
     }

@@ -210,6 +210,12 @@ func intervalLabel(_ col: Int) -> String {
     }
 }
 
+enum PlayerState {
+    case playing
+    case paused
+    case stopped
+}
+
 @main
 struct HomeyPad: App {
     init() {

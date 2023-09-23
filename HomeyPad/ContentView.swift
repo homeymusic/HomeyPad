@@ -10,6 +10,7 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
+    @State private var playerState = PlayerState.stopped
     
     var body: some View {
         GeometryReader { proxy in
@@ -38,36 +39,54 @@ struct ContentView: View {
                                 HStack {
                                     Button(action: {
                                         self.showingPlayPopover.toggle()
+                                        if playerState != .stopped {
+                                            viewConductor.conductor.sequencer.stop()
+                                            playerState = .stopped
+                                        }
                                     }) {
                                         Image(systemName: "headphones").foregroundColor(.white)
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        PlayView(conductor: viewConductor.conductor)
+                                        PlayView(conductor: viewConductor.conductor, playerState: $playerState)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
                             }
                             .padding(.leading, 10)
-                            // The stop button
-                            VStack(alignment: .leading) {
-                                HStack(spacing: 0) {
-                                    Button(action: {
-                                        viewConductor.conductor.sequencer.stop()
-                                    }) {
-                                        Image(systemName: "stop.fill").foregroundColor(.white)
+                            // Stop play pause buttons
+                            if playerState == .playing || playerState == .paused {
+                                VStack(alignment: .leading) {
+                                    HStack(spacing: 0) {
+                                        Button(action: {
+                                            viewConductor.conductor.sequencer.stop()
+                                            playerState = .stopped
+                                        }) {
+                                            Image(systemName: "stop.fill").foregroundColor(.white)
+                                        }
+                                        if playerState == .playing {
+                                            Button(action: {
+                                                viewConductor.conductor.sequencer.stop()
+                                                playerState = .paused
+                                            }) {
+                                                Image(systemName: "pause.fill").foregroundColor(.white)
+                                            }
+                                            .padding(.leading, 5)
+                                        } else if playerState == .paused {
+                                            Button(action: {
+                                                viewConductor.conductor.sequencer.play()
+                                                playerState = .playing
+                                            }) {
+                                                Image(systemName: "play.fill").foregroundColor(.white)
+                                            }
+                                            .padding(.leading, 5)
+                                        }
+                                        Text("May Your Soul Rest in Peace Little Star")
+                                            .padding(.leading, 5)
+                                            .lineLimit(1)
                                     }
-                                    Button(action: {
-                                        viewConductor.conductor.sequencer.stop()
-                                    }) {
-                                        Image(systemName: "pause.fill").foregroundColor(.white)
-                                    }
-                                    .padding(.leading, 5)
-                                    Text("May Your Soul Rest in Peace Little Star")
-                                        .padding(.leading, 5)
-                                        .lineLimit(1)
                                 }
+                                .padding(.leading, 20)
                             }
-                            .padding(.leading, 10)
                             Spacer()
                             //the customize view
                             VStack(alignment: .trailing) {

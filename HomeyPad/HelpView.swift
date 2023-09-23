@@ -48,7 +48,7 @@ struct HelpView: View {
                             Image(systemName: "multiply.square.fill")
                                 .gridColumnAlignment(.center)
                             Text("Red")
-                            Text("wind, strange, tritone")
+                            Text("wind, diabolical, tritone")
                             
                         }
                         .foregroundColor(Default.tritoneColor)
