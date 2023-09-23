@@ -15,77 +15,79 @@ struct ContentView: View {
         GeometryReader { proxy in
             ZStack {
                 Color.black
-                ZStack {
-                    HStack(spacing: 0) {
-                        // The help view
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Button(action: {
-                                    self.showingHelpPopover.toggle()
-                                }) {
-                                    Image(systemName: "questionmark.circle").foregroundColor(.white)
-                                }.popover(isPresented: $showingHelpPopover,
-                                          content: {
-                                    HelpView()
-                                        .presentationCompactAdaptation(.none)
-                                })
-                            }
-                            Spacer()
-                        }
-                        .padding(.leading, 10)
-                        // The play view
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Button(action: {
-                                    self.showingPlayPopover.toggle()
-                                }) {
-                                    Image(systemName: "play.circle").foregroundColor(.white)
-                                }.popover(isPresented: $showingPlayPopover,
-                                          content: {
-                                    PlayView(conductor: viewConductor.conductor)
-                                        .presentationCompactAdaptation(.none)
-                                })
-                            }
-                            Spacer()
-                        }
-                        .padding(.leading, 10)
-                        // The stop button
-                        VStack(alignment: .leading) {
-                            HStack(spacing: 0) {
-                                Button(action: {
-                                    viewConductor.conductor.sequencer.stop()
-                                }) {
-                                    Image(systemName: "stop.fill").foregroundColor(.white)
+                ZStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 0) {
+                            // The help view
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Button(action: {
+                                        self.showingHelpPopover.toggle()
+                                    }) {
+                                        Image(systemName: "questionmark.circle").foregroundColor(.white)
+                                    }.popover(isPresented: $showingHelpPopover,
+                                              content: {
+                                        HelpView()
+                                            .presentationCompactAdaptation(.none)
+                                    })
                                 }
-                                Text("May Your Soul Rest in Peace")
-                                    .padding(.leading, 5)
-                            }
-                            Spacer()
-                        }
-                        .padding(.leading, 10)
-                        Spacer()
-                        //the customize view
-                        VStack(alignment: .trailing) {
-                            HStack {
                                 Spacer()
-                                Button(action: {
-                                    self.showingSettingsPopover.toggle()
-                                }) {
-                                    Image(systemName: "ellipsis.circle").foregroundColor(.white)
-                                }.popover(isPresented: $showingSettingsPopover,
-                                          content: {
-                                    CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
-                                                  showMonthsSelector: $viewConductor.showMonthsSelector,
-                                                  showPianoSelector: $viewConductor.showPianoSelector,
-                                                  showIntervals: $viewConductor.showIntervals,
-                                                  octaveCount: $viewConductor.octaveCount,
-                                                  keysPerRow: $viewConductor.keysPerRow)
-                                    .presentationCompactAdaptation(.none)
-                                })
                             }
+                            .padding(.leading, 10)
+                            // The play view
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Button(action: {
+                                        self.showingPlayPopover.toggle()
+                                    }) {
+                                        Image(systemName: "play.circle").foregroundColor(.white)
+                                    }.popover(isPresented: $showingPlayPopover,
+                                              content: {
+                                        PlayView(conductor: viewConductor.conductor)
+                                            .presentationCompactAdaptation(.none)
+                                    })
+                                }
+                                Spacer()
+                            }
+                            .padding(.leading, 10)
+                            // The stop button
+                            VStack(alignment: .leading) {
+                                HStack(spacing: 0) {
+                                    Button(action: {
+                                        viewConductor.conductor.sequencer.stop()
+                                    }) {
+                                        Image(systemName: "stop.fill").foregroundColor(.white)
+                                    }
+                                    Text("May Your Soul Rest in Peace Little Star")
+                                        .padding(.leading, 5)
+                                        .lineLimit(1)
+                                }
+                                Spacer()
+                            }
+                            .padding(.leading, 10)
                             Spacer()
+                            //the customize view
+                            VStack(alignment: .trailing) {
+                                HStack {
+                                    Button(action: {
+                                        self.showingSettingsPopover.toggle()
+                                    }) {
+                                        Image(systemName: "ellipsis.circle").foregroundColor(.white)
+                                    }.popover(isPresented: $showingSettingsPopover,
+                                              content: {
+                                        CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                                      showMonthsSelector: $viewConductor.showMonthsSelector,
+                                                      showPianoSelector: $viewConductor.showPianoSelector,
+                                                      showIntervals: $viewConductor.showIntervals,
+                                                      octaveCount: $viewConductor.octaveCount,
+                                                      keysPerRow: $viewConductor.keysPerRow)
+                                        .presentationCompactAdaptation(.none)
+                                    })
+                                }
+                                Spacer()
+                            }
+                            .padding(.trailing, 10)
                         }
-                        .padding(.trailing, 10)
                     }
                     // keyboard
                     VStack(spacing: 0) {
