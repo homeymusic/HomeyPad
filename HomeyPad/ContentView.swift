@@ -24,14 +24,13 @@ struct ContentView: View {
                                     Button(action: {
                                         self.showingHelpPopover.toggle()
                                     }) {
-                                        Image(systemName: "questionmark.circle").foregroundColor(.white)
+                                        Image(systemName: "house").foregroundColor(.white)
                                     }.popover(isPresented: $showingHelpPopover,
                                               content: {
                                         HelpView()
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
-                                Spacer()
                             }
                             .padding(.leading, 10)
                             // The play view
@@ -40,14 +39,13 @@ struct ContentView: View {
                                     Button(action: {
                                         self.showingPlayPopover.toggle()
                                     }) {
-                                        Image(systemName: "play.circle").foregroundColor(.white)
+                                        Image(systemName: "headphones").foregroundColor(.white)
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
                                         PlayView(conductor: viewConductor.conductor)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
-                                Spacer()
                             }
                             .padding(.leading, 10)
                             // The stop button
@@ -68,7 +66,6 @@ struct ContentView: View {
                                         .padding(.leading, 5)
                                         .lineLimit(1)
                                 }
-                                Spacer()
                             }
                             .padding(.leading, 10)
                             Spacer()
@@ -78,7 +75,7 @@ struct ContentView: View {
                                     Button(action: {
                                         self.showingSettingsPopover.toggle()
                                     }) {
-                                        Image(systemName: "ellipsis.circle").foregroundColor(.white)
+                                        Image(systemName: "ellipsis").foregroundColor(.white)
                                     }.popover(isPresented: $showingSettingsPopover,
                                               content: {
                                         CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
@@ -90,10 +87,10 @@ struct ContentView: View {
                                         .presentationCompactAdaptation(.none)
                                     })
                                 }
-                                Spacer()
                             }
                             .padding(.trailing, 10)
                         }
+                        Spacer()
                     }
                     // keyboard
                     VStack(spacing: 0) {

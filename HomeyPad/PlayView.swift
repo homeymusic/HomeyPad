@@ -35,7 +35,7 @@ struct PlayView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Play")
+                Text("Listen and Watch")
                     .font(.headline)
                 Spacer()
             }

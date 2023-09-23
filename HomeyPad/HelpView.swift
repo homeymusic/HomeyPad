@@ -30,62 +30,70 @@ struct HelpView: View {
                 HStack {
                     Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 10) {
                         GridRow {
-                            Image(systemName: "plus.square")
-                            Text("Gold")
+                            Image(systemName: "plus.square.fill")
+                                .gridColumnAlignment(.center)
+                            Text("Maize")
                             Text("sun, happy, major")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
-                            Image(systemName: "equal.square")
-                            Text("Cream")
-                            Text("shelter, comfy, neutral")
-                        }
-                        .foregroundColor(Default.homeColor)
-                        GridRow {
-                            Image(systemName: "minus.square")
+                            Image(systemName: "minus.square.fill")
+                                .gridColumnAlignment(.center)
                             Text("Blue")
                             Text("cloud, sad, minor")
                             
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
-                            Image(systemName: "multiply.square")
+                            Image(systemName: "multiply.square.fill")
+                                .gridColumnAlignment(.center)
                             Text("Red")
                             Text("wind, strange, tritone")
                             
                         }
                         .foregroundColor(Default.tritoneColor)
                         GridRow {
-                            Image(systemName: "house")
+                            Image(systemName: "equal.square.fill")
+                                .gridColumnAlignment(.center)
+                            Text("Cream")
+                            Text("shelter, comfy, neutral")
+                        }
+                        .foregroundColor(Default.homeColor)
+                        GridRow {
+                            Image(systemName: "house.fill")
+                                .gridColumnAlignment(.center)
                             Text("Home")
-                            Text("static, pure, tonic")
+                            Text("stable, pure, tonic")
                         }
                         .foregroundColor(.white)
                         GridRow {
-                            Image(systemName: "diamond")
+                            Image(systemName: "diamond.fill")
+                                .gridColumnAlignment(.center)
                             Text("Gem")
                             Text("tottering, rich, consonant")
                         }
                         .foregroundColor(.white)
                         GridRow {
-                            Image(systemName: "circle")
+                            Image(systemName: "circle.fill")
+                                .gridColumnAlignment(.center)
                             Text("Stone")
                             Text("rolling, harsh, dissonant")
                         }
                         .foregroundColor(.white)
                         GridRow {
-                            Image(systemName: "greaterthan.square")
+                            Image(systemName: "greaterthan.square.fill")
+                                .gridColumnAlignment(.center)
                             Text("Greater")
                             Text("higher, right, upward")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
-                            Image(systemName: "lessthan.square")
+                            Image(systemName: "lessthan.square.fill")
+                                .gridColumnAlignment(.center)
                             Text("Less")
                             Text("lower, left, downward")
                         }
                         .foregroundColor(Default.minorColor)
-
                     }
                 }
                 Divider()
