@@ -43,12 +43,12 @@ struct PlayView: View {
                     .font(.headline)
                 Spacer()
             }
+            .padding(.top, 10)
             Divider()
             ScrollView {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: 3) {
                     Group {
                         HStack {
-                            Spacer()
                             Text("Example Melodies")
                                 .font(.subheadline)
                             Spacer()
@@ -135,7 +135,6 @@ struct PlayView: View {
                         .padding(5)
                     Group {
                         HStack {
-                            Spacer()
                             Text("Example Harmonies")
                                 .font(.subheadline)
                             Spacer()
@@ -308,8 +307,7 @@ struct PlayView: View {
                     }
                 }
                 .padding()
-            }
+            } // ScrollView
         }
-        .padding()
     }
 }

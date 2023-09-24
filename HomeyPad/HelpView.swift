@@ -21,105 +21,121 @@ struct HelpView: View {
             Divider()
             ScrollView {
                 HStack {
-                    Spacer()
-                    Text("Legend")
-                        .font(.subheadline)
-                        .padding(.bottom, 5)
-                    Spacer()
-                }
-                HStack {
-                    Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 10) {
-                        GridRow {
-                            Image(systemName: "plus.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Maize")
-                            Text("sun, happy, major")
+                    Grid(alignment: .leading, horizontalSpacing: 1, verticalSpacing: 5) {
+                        Group {
+                            HStack {
+                                Text("Legend")
+                                    .font(.subheadline)
+                                    .padding(.bottom, 2)
+                                Spacer()
+                            }
+                            HStack {
+                                Text("Colors")
+                                    .font(.caption)
+                                Spacer()
+                            }
+                            GridRow {
+                                Image(systemName: "plus.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Maize")
+                                Text("sun, happy, major")
+                            }
+                            .foregroundColor(Default.majorColor)
+                            GridRow {
+                                Image(systemName: "minus.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Blue")
+                                Text("cloud, sad, minor")
+                                
+                            }
+                            .foregroundColor(Default.minorColor)
+                            GridRow {
+                                Image(systemName: "multiply.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Red")
+                                Text("wind, diabolical, tritone")
+                                
+                            }
+                            .foregroundColor(Default.tritoneColor)
+                            GridRow {
+                                Image(systemName: "equal.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Cream")
+                                Text("shelter, comfy, neutral")
+                            }
+                            .foregroundColor(Default.homeColor)
                         }
-                        .foregroundColor(Default.majorColor)
-                        GridRow {
-                            Image(systemName: "minus.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Blue")
-                            Text("cloud, sad, minor")
-                            
+                        Group {
+                            HStack {
+                                Text("Icons")
+                                    .font(.caption)
+                                Spacer()
+                            }
+                            GridRow {
+                                Image(systemName: "house.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Home")
+                                Text("stable, pure, tonic")
+                            }
+                            .foregroundColor(.white)
+                            GridRow {
+                                Image(systemName: "diamond.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Gem")
+                                Text("tottering, rich, consonant")
+                            }
+                            .foregroundColor(.white)
+                            GridRow {
+                                Image(systemName: "circle.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Stone")
+                                Text("rolling, harsh, dissonant")
+                            }
+                            .foregroundColor(.white)
                         }
-                        .foregroundColor(Default.minorColor)
-                        GridRow {
-                            Image(systemName: "multiply.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Red")
-                            Text("wind, diabolical, tritone")
-                            
+                        Group {
+                            HStack {
+                                Text("Directions")
+                                    .font(.caption)
+                                Spacer()
+                            }
+                            GridRow {
+                                Image(systemName: "greaterthan.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Higher")
+                                Text("right, up")
+                            }
+                            .foregroundColor(Default.majorColor)
+                            GridRow {
+                                Image(systemName: "lessthan.square.fill")
+                                    .gridColumnAlignment(.leading)
+                                Text("Lower")
+                                Text("left, down")
+                            }
+                            .foregroundColor(Default.minorColor)
                         }
-                        .foregroundColor(Default.tritoneColor)
-                        GridRow {
-                            Image(systemName: "equal.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Cream")
-                            Text("shelter, comfy, neutral")
+                        Divider()
+                        Group {
+                            HStack {
+                                Text("Help")
+                                    .font(.subheadline)
+                                    .padding(.bottom, 5)
+                                Spacer()
+                            }
+                            GridRow {
+                                Image(systemName: "questionmark.video")
+                                Link("Videos", destination: URL(string: "https://homeymusic.com/products/homeypad/videos")!)
+                            }
+                            GridRow {
+                                Image(systemName: "person.crop.circle.badge.questionmark")
+                                Link("Forums", destination: URL(string: "https://homeymusic.com/products/homeypad/forums")!)
+                            }
+                            GridRow {
+                                Image(systemName: "questionmark.folder")
+                                Link("Guides", destination: URL(string: "https://homeymusic.com/products/homeypad/guides")!)
+                            }
                         }
-                        .foregroundColor(Default.homeColor)
-                        GridRow {
-                            Image(systemName: "house.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Home")
-                            Text("stable, pure, tonic")
-                        }
-                        .foregroundColor(.white)
-                        GridRow {
-                            Image(systemName: "diamond.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Gem")
-                            Text("tottering, rich, consonant")
-                        }
-                        .foregroundColor(.white)
-                        GridRow {
-                            Image(systemName: "circle.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Stone")
-                            Text("rolling, harsh, dissonant")
-                        }
-                        .foregroundColor(.white)
-                        GridRow {
-                            Image(systemName: "greaterthan.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Greater")
-                            Text("higher, right, upward")
-                        }
-                        .foregroundColor(Default.majorColor)
-                        GridRow {
-                            Image(systemName: "lessthan.square.fill")
-                                .gridColumnAlignment(.center)
-                            Text("Less")
-                            Text("lower, left, downward")
-                        }
-                        .foregroundColor(Default.minorColor)
                     }
-                }
-                Divider()
-                HStack {
-                    Spacer()
-                    Text("Help")
-                        .font(.subheadline)
-                        .padding(.bottom, 5)
-                    Spacer()
-                }
-                VStack(alignment: .center) {
-                    Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 10) {
-                        GridRow {
-                            Image(systemName: "questionmark.video")
-                            Link("Videos", destination: URL(string: "https://homeymusic.com/products/homeypad/videos")!)
-                        }
-                        GridRow {
-                            Image(systemName: "person.crop.circle.badge.questionmark")
-                            Link("Forums", destination: URL(string: "https://homeymusic.com/products/homeypad/forums")!)
-                        }
-                        GridRow {
-                            Image(systemName: "questionmark.folder")
-                            Link("Guides", destination: URL(string: "https://homeymusic.com/products/homeypad/guides")!)
-                        }
-                    }
-                    Spacer()
                 }
                 Divider()
                 VStack(alignment: .leading) {
@@ -132,9 +148,10 @@ struct HelpView: View {
                     Spacer()
                 }
                 .font(.footnote)
-            }
-            .frame(width: 300)
-            .padding(10)
+                .padding()
+            } // ScrollView
+            .frame(width: 325)
+            .padding(.leading, 10)
         }
     }
 }
