@@ -306,7 +306,7 @@ struct PlayView: View {
                         }
                     }
                 }
-                .padding()
+                .padding([.trailing, .leading, .bottom], 10)
             } // ScrollView
         }
     }
