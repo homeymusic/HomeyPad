@@ -11,7 +11,8 @@ struct ContentView: View {
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
     @State private var playerState = PlayerState.stopped
-    
+    @State private var nowPlaying: any View = Text("")
+
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -47,7 +48,7 @@ struct ContentView: View {
                                         Image(systemName: "headphones").foregroundColor(.white)
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        PlayView(conductor: viewConductor.conductor, playerState: $playerState)
+                                        PlayView(conductor: viewConductor.conductor, playerState: $playerState, nowPlaying: $nowPlaying)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
@@ -80,9 +81,8 @@ struct ContentView: View {
                                             }
                                             .padding(.leading, 5)
                                         }
-                                        Text("May Your Soul Rest in Peace Little Star")
-                                            .padding(.leading, 5)
-                                            .lineLimit(1)
+                                        AnyView(nowPlaying)
+                                            .padding(.leading, 10)
                                     }
                                 }
                                 .padding(.leading, 20)
@@ -102,7 +102,9 @@ struct ContentView: View {
                                                       showPianoSelector: $viewConductor.showPianoSelector,
                                                       showIntervals: $viewConductor.showIntervals,
                                                       octaveCount: $viewConductor.octaveCount,
-                                                      keysPerRow: $viewConductor.keysPerRow)
+                                                      keysPerRow: $viewConductor.keysPerRow,
+                                                      playerState: $playerState,
+                                                      conductor: viewConductor.conductor)
                                         .presentationCompactAdaptation(.none)
                                     })
                                 }

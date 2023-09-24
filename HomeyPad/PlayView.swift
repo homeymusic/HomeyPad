@@ -11,6 +11,8 @@ struct PlayView: View {
     @Environment(\.dismiss) var dismiss
     var conductor: Conductor
     @Binding var playerState: PlayerState
+    @Binding var nowPlaying: any View
+
     var midiCallback = MIDICallbackInstrument()
 
     func playMIDIFile(_ midiFile: String) {
@@ -37,7 +39,7 @@ struct PlayView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Listen and Watch")
+                Text("Listen and Play Along")
                     .font(.headline)
                 Spacer()
             }
@@ -59,6 +61,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Twinkle Twinkle Little Star")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -74,6 +77,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Seven Nation Army")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -89,6 +93,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Happy Birthday")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -101,11 +106,21 @@ struct PlayView: View {
                         Button {
                             print("play example")
                             playMIDIFile("may_your_soul_rest")
-//                            dismiss()
+                            nowPlaying = HStack {
+                                Text("May Your Soul Rest")
+                                    .foregroundColor(Default.minorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }
                         } label: {
                             HStack {
                                 Text("May Your Soul Rest")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -132,6 +147,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Ionian (Major)")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -147,6 +163,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Phrygian")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -162,6 +179,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Mixolydian")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -177,6 +195,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Aeolian (Natural Minor)")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -192,6 +211,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Harmonic Minor")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -211,6 +231,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Dorian Down")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -230,6 +251,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Dorian Up")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -249,6 +271,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Lydian")
                                     .foregroundColor(Default.majorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
@@ -268,6 +291,7 @@ struct PlayView: View {
                             HStack {
                                 Text("Locrian")
                                     .foregroundColor(Default.minorColor)
+                                    .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
@@ -283,6 +307,7 @@ struct PlayView: View {
                         }
                     }
                 }
+                .padding()
             }
         }
         .padding()

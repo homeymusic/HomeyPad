@@ -14,7 +14,9 @@ struct CustomizeView: View {
     @Binding var showIntervals: Bool
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
-    
+    @Binding var playerState: PlayerState
+    var conductor: Conductor
+
     var body: some View {
         VStack {
             Text("Customize")
@@ -98,6 +100,8 @@ struct CustomizeView: View {
                 showIntervals = Default.showIntervals
                 octaveCount = Default.octaveCount
                 keysPerRow = Default.keysPerRow
+                conductor.sequencer.stop()
+                playerState = .stopped
                 dismiss()
             }) {
                 Label("Reset", systemImage: "gobackward")
