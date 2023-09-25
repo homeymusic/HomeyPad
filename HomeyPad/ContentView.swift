@@ -48,7 +48,7 @@ struct ContentView: View {
                                         Image(systemName: "headphones").foregroundColor(.white)
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        PlayView(conductor: viewConductor.conductor, playerState: $playerState, nowPlaying: $nowPlaying)
+                                        PlayView(viewConductor: viewConductor, playerState: $playerState, nowPlaying: $nowPlaying)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }

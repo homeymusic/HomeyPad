@@ -9,7 +9,7 @@ import AudioKit
 
 struct PlayView: View {
     @Environment(\.dismiss) var dismiss
-    var conductor: Conductor
+    var viewConductor: ViewConductor
     @Binding var playerState: PlayerState
     @Binding var nowPlaying: any View
 
@@ -17,19 +17,26 @@ struct PlayView: View {
 
     func playMIDIFile(_ midiFile: String) {
         dismiss()
-        conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: "may_your_soul_rest", withExtension: "mid", subdirectory: "Examples")!)
-        print("track count:", conductor.sequencer.trackCount)
-        conductor.sequencer.tracks[0].setMIDIOutput(conductor.instrument.midiIn)
+        viewConductor.conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: "may_your_soul_rest", withExtension: "mid", subdirectory: "Examples")!)
+        print("track count:", viewConductor.conductor.sequencer.trackCount)
+//        viewConductor.conductor.sequencer.tracks[0].setMIDIOutput(viewConductor.conductor.instrument.midiIn)
 //        print("after play function. async?")
-//        print("conductor.sequencer.isPlaying", conductor.sequencer.isPlaying)
-//        midiCallback.callback = { status, note, velocity in
-//            print("midiCallback.callback status: \(status) note: \(note)")
-//        }
-//        conductor.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
-        conductor.sequencer.stop()
-        conductor.sequencer.rewind()
-        conductor.sequencer.enableLooping()
-        conductor.sequencer.play()
+//        print("viewConductor.conductor.sequencer.isPlaying", viewConductor.conductor.sequencer.isPlaying)
+        midiCallback.callback = { status, note, velocity in
+            print("midiCallback.callback status: \(status) note: \(note)")
+            if status == 144 {
+                viewConductor.conductor.instrument.play(noteNumber: UInt8(note), velocity: 127, channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": UInt8(note), "bool": true])
+            } else if status == 128 {
+                viewConductor.conductor.instrument.stop(noteNumber: UInt8(note), channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": UInt8(note), "bool": false])
+            }
+        }
+        viewConductor.conductor.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
+        viewConductor.conductor.sequencer.stop()
+        viewConductor.conductor.sequencer.rewind()
+        viewConductor.conductor.sequencer.enableLooping()
+        viewConductor.conductor.sequencer.play()
         playerState = .playing
 
 //        exampleTune.setGlobalMIDIOutput(midiCallback.midiIn)
@@ -56,7 +63,7 @@ struct PlayView: View {
                         .padding(.bottom, 5)
                         Button {
                             print("play twinkle")
-                            print("conductor.sequencer.isPlaying", conductor.sequencer.isPlaying)
+                            print("viewConductor.conductor.sequencer.isPlaying", viewConductor.conductor.sequencer.isPlaying)
                         } label: {
                             HStack {
                                 Text("Twinkle Twinkle Little Star")
