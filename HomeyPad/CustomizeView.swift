@@ -102,6 +102,9 @@ struct CustomizeView: View {
                 keysPerRow = Default.keysPerRow
                 conductor.sequencer.stop()
                 playerState = .stopped
+                for midiNote in UInt8(0)...UInt8(127) {
+                    NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+                }
                 dismiss()
             }) {
                 Label("Reset", systemImage: "gobackward")

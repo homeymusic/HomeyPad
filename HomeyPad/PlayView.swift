@@ -17,19 +17,32 @@ struct PlayView: View {
 
     func playMIDIFile(_ midiFile: String) {
         dismiss()
-        viewConductor.conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: "may_your_soul_rest", withExtension: "mid", subdirectory: "Examples")!)
+        let songTonic: Int = 52
+        let songFile: String = "may_your_soul_rest"
+        let keysPerRow: Int = 23
+        let octaveCount: Int = 1
+
+        viewConductor.conductor.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: songFile, withExtension: "mid", subdirectory: "Examples")!)
+        if viewConductor.keysPerRow < keysPerRow {
+            viewConductor.keysPerRow = keysPerRow
+        }
+        if viewConductor.octaveCount < octaveCount {
+            viewConductor.octaveCount = octaveCount
+        }
         print("track count:", viewConductor.conductor.sequencer.trackCount)
 //        viewConductor.conductor.sequencer.tracks[0].setMIDIOutput(viewConductor.conductor.instrument.midiIn)
 //        print("after play function. async?")
 //        print("viewConductor.conductor.sequencer.isPlaying", viewConductor.conductor.sequencer.isPlaying)
         midiCallback.callback = { status, note, velocity in
             print("midiCallback.callback status: \(status) note: \(note)")
+            let midiNote = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
+            print("midiNote", midiNote)
             if status == 144 {
-                viewConductor.conductor.instrument.play(noteNumber: UInt8(note), velocity: 127, channel: 0)
-                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": UInt8(note), "bool": true])
+                viewConductor.conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
             } else if status == 128 {
-                viewConductor.conductor.instrument.stop(noteNumber: UInt8(note), channel: 0)
-                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": UInt8(note), "bool": false])
+                viewConductor.conductor.instrument.stop(noteNumber: midiNote, channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
             }
         }
         viewConductor.conductor.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)

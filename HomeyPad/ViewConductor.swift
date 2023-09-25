@@ -90,6 +90,9 @@ class ViewConductor: ObservableObject {
     func selectHome(pitchClass: Int) {
         if (pitchClass % 12 != self.tonicPitchClass) {
             self.tonicPitchClass = pitchClass % 12
+            for midiNote in UInt8(0)...UInt8(127) {
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+            }
         }
     }    
     

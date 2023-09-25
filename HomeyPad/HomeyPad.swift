@@ -16,6 +16,7 @@ enum Default {
     static let homeComplementColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)
     static let pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
+    static let initialC: Int = 60
 }
 
 func mod(_ a: Int, _ n: Int) -> Int {
