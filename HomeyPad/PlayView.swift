@@ -46,7 +46,7 @@ struct PlayView: View {
             .padding(.top, 10)
             Divider()
             ScrollView {
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 5) {
                     Group {
                         HStack {
                             Text("Example Melodies")
@@ -106,7 +106,7 @@ struct PlayView: View {
                         Button {
                             print("play example")
                             playMIDIFile("may_your_soul_rest")
-                            nowPlaying = HStack {
+                            nowPlaying = HStack(spacing: 4) {
                                 Text("May Your Soul Rest")
                                     .foregroundColor(Default.minorColor)
                                 HStack(spacing: 0) {
@@ -275,8 +275,8 @@ struct PlayView: View {
                                 HStack(spacing: 0) {
                                     Image(systemName: "plus.square.fill")
                                         .foregroundColor(Default.majorColor)
-                                    Image(systemName: "plus.square.fill")
-                                        .foregroundColor(Default.tritoneColor)
+                                    Image(systemName: "multiply.square.fill")
+                                        .foregroundColor(Default.majorColor)
                                     Image(systemName: "plus.square.fill")
                                         .foregroundColor(Default.majorColor)
                                     Image(systemName: "greaterthan.square")
@@ -295,8 +295,8 @@ struct PlayView: View {
                                 HStack(spacing: 0) {
                                     Image(systemName: "minus.square.fill")
                                         .foregroundColor(Default.minorColor)
-                                    Image(systemName: "minus.square.fill")
-                                        .foregroundColor(Default.tritoneColor)
+                                    Image(systemName: "multiply.square.fill")
+                                        .foregroundColor(Default.minorColor)
                                     Image(systemName: "minus.square.fill")
                                         .foregroundColor(Default.minorColor)
                                     Image(systemName: "lessthan.square")

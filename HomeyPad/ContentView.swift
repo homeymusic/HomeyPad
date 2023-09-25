@@ -59,33 +59,43 @@ struct ContentView: View {
                                 VStack(alignment: .leading) {
                                     HStack(spacing: 0) {
                                         Button(action: {
+                                            viewConductor.conductor.sequencer.rewind()
+                                            viewConductor.simpleSuccess()
+                                        }) {
+                                            Image(systemName: "backward.end.circle.fill").foregroundColor(.white)
+                                        }
+                                        Button(action: {
                                             viewConductor.conductor.sequencer.stop()
                                             playerState = .stopped
+                                            viewConductor.simpleSuccess()
                                         }) {
-                                            Image(systemName: "stop.fill").foregroundColor(.white)
+                                            Image(systemName: "stop.circle.fill").foregroundColor(.white)
                                         }
+                                        .padding(.leading, 5)
                                         if playerState == .playing {
                                             Button(action: {
                                                 viewConductor.conductor.sequencer.stop()
                                                 playerState = .paused
+                                                viewConductor.simpleSuccess()
                                             }) {
-                                                Image(systemName: "pause.fill").foregroundColor(.white)
+                                                Image(systemName: "pause.circle.fill").foregroundColor(.white)
                                             }
                                             .padding(.leading, 5)
                                         } else if playerState == .paused {
                                             Button(action: {
                                                 viewConductor.conductor.sequencer.play()
                                                 playerState = .playing
+                                                viewConductor.simpleSuccess()
                                             }) {
-                                                Image(systemName: "play.fill").foregroundColor(.white)
+                                                Image(systemName: "play.circle.fill").foregroundColor(.white)
                                             }
                                             .padding(.leading, 5)
                                         }
                                         AnyView(nowPlaying)
-                                            .padding(.leading, 10)
+                                            .padding(.leading, 8)
                                     }
                                 }
-                                .padding(.leading, 20)
+                                .padding(.leading, 16)
                             }
                             Spacer()
                             //the customize view
@@ -94,7 +104,10 @@ struct ContentView: View {
                                     Button(action: {
                                         self.showingSettingsPopover.toggle()
                                     }) {
-                                        Image(systemName: "ellipsis").foregroundColor(.white)
+                                        ZStack {
+                                            Image(systemName: "ellipsis").foregroundColor(.white)
+                                            Image(systemName: "square").foregroundColor(.clear)
+                                        }
                                     }.popover(isPresented: $showingSettingsPopover,
                                               content: {
                                         CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
