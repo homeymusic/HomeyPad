@@ -214,9 +214,19 @@ struct HelpView: View {
                         .gridCellUnsizedAxes(.horizontal)
                     Group {
                         GridRow {
+                            Text("The design of [Homey Pad](https://homeymusic.com/products/homeypad) including layout, color palette, user interactions and icon language is released under an [Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).")
+                            .gridCellColumns(3)
+                        }
+                        GridRow {
+                            (
+                                Text("The [Homey Pad](https://homeymusic.com/products/homeypad) software is released under an [MIT License](https://opensource.org/license/mit/) and is available on [GitHub](https://github.com/homeymusic/homeypad).")
+                            )
+                            .gridCellColumns(3)
+                        }
+                        GridRow {
                             (
                                 Text(Image(systemName: "c.circle")) +
-                                Text(" 2023 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All rights reserved. [Homey Pad](https://homeymusic.com/products/homeypad) is a product name and trademark of [Homey Music](https://homeymusic.com).")
+                                Text(" 2023 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. [Homey Pad](https://homeymusic.com/products/homeypad) is a product name and trademark of [Homey Music](https://homeymusic.com).")
                             )
                             .gridCellColumns(3)
                         }
