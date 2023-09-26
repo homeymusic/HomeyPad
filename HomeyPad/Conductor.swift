@@ -7,7 +7,6 @@ class Conductor: ObservableObject {
     
     // Sampler Instrument
     var instrument = MIDISampler()
-    var sequencer: AppleSequencer!
     
     init() {
         
@@ -17,7 +16,6 @@ class Conductor: ObservableObject {
         // Load AVAudioUnitSampler Instrument
         try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
         
-        sequencer = AppleSequencer()
     }
     
     func start() {

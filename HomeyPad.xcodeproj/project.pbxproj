@@ -21,6 +21,7 @@
 		5AA6E556298026EE0031C145 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA6E555298026EE0031C145 /* Conductor.swift */; };
 		B0574B872AB10E4E00D290D0 /* CustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0574B862AB10E4E00D290D0 /* CustomizeView.swift */; };
 		B076C26C2AB1F289008BA976 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B076C26B2AB1F289008BA976 /* HelpView.swift */; };
+		B079498D2AC328FC00F50DB1 /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079498C2AC328FC00F50DB1 /* MIDIPlayer.swift */; };
 		B0870A102ABDFF8400CF15E6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0870A0F2ABDFF8400CF15E6 /* AudioKit */; };
 		B0870A1A2ABE035200CF15E6 /* Examples in Resources */ = {isa = PBXBuildFile; fileRef = B0870A192ABE035200CF15E6 /* Examples */; };
 		B0F04BC52AB3DD0800230CBA /* Monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0F04BC42AB3DD0800230CBA /* Monaco.ttf */; };
@@ -42,6 +43,7 @@
 		5AA6E555298026EE0031C145 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		B0574B862AB10E4E00D290D0 /* CustomizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeView.swift; sourceTree = "<group>"; };
 		B076C26B2AB1F289008BA976 /* HelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		B079498C2AC328FC00F50DB1 /* MIDIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIPlayer.swift; sourceTree = "<group>"; };
 		B0870A192ABE035200CF15E6 /* Examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Examples; sourceTree = "<group>"; };
 		B0D266D12AB2099D000384D9 /* Keyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Keyboard; path = ../Keyboard; sourceTree = "<group>"; };
 		B0F04BC42AB3DD0800230CBA /* Monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Monaco.ttf; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				B0FF0C102AB7401800DC9C0D /* PlayView.swift */,
 				5AA6E555298026EE0031C145 /* Conductor.swift */,
 				5AA6E551298010E90031C145 /* ViewConductor.swift */,
+				B079498C2AC328FC00F50DB1 /* MIDIPlayer.swift */,
 				5AA6E553298011510031C145 /* ViewConductor+MIDI.swift */,
 				5A5A6CF0297EB96A0017A3C7 /* SwiftUIElements.swift */,
 				B0FF0C142AB8DEBF00DC9C0D /* SelectorStyle.swift */,
@@ -211,6 +214,7 @@
 				5AA6E554298011510031C145 /* ViewConductor+MIDI.swift in Sources */,
 				B0FF0C152AB8DEBF00DC9C0D /* SelectorStyle.swift in Sources */,
 				5A5A6CC2297EB26A0017A3C7 /* HomeyPad.swift in Sources */,
+				B079498D2AC328FC00F50DB1 /* MIDIPlayer.swift in Sources */,
 				B076C26C2AB1F289008BA976 /* HelpView.swift in Sources */,
 				B0FF0C112AB7401800DC9C0D /* PlayView.swift in Sources */,
 				5A5A6CF1297EB96A0017A3C7 /* SwiftUIElements.swift in Sources */,

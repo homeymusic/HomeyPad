@@ -14,7 +14,7 @@ struct CustomizeView: View {
     @Binding var showIntervals: Bool
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
-    @Binding var playerState: PlayerState
+    var midiPlayer: MIDIPlayer
     var conductor: Conductor
 
     var body: some View {
@@ -100,8 +100,7 @@ struct CustomizeView: View {
                 showIntervals = Default.showIntervals
                 octaveCount = Default.octaveCount
                 keysPerRow = Default.keysPerRow
-                conductor.sequencer.stop()
-                playerState = .stopped
+                midiPlayer.stop()
                 for midiNote in UInt8(0)...UInt8(127) {
                     NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
                 }

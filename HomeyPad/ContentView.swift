@@ -7,11 +7,10 @@ import Controls
 struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     @StateObject var viewConductor = ViewConductor()
+    @StateObject var midiPlayer = MIDIPlayer()
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-    @State private var playerState = PlayerState.stopped
-    @State private var nowPlaying: any View = Text("")
 
     var body: some View {
         GeometryReader { proxy in
@@ -45,9 +44,8 @@ struct ContentView: View {
                                 HStack {
                                     Button(action: {
                                         self.showingPlayPopover.toggle()
-                                        if playerState != .stopped {
-                                            viewConductor.conductor.sequencer.stop()
-                                            playerState = .stopped
+                                        if midiPlayer.state != .stopped {
+                                            midiPlayer.stop()
                                         }
                                     }) {
                                         ZStack {
@@ -58,47 +56,44 @@ struct ContentView: View {
                                         }
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        PlayView(viewConductor: viewConductor, playerState: $playerState, nowPlaying: $nowPlaying)
+                                        PlayView(viewConductor: viewConductor, midiPlayer: midiPlayer)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
                             }
                             .padding(.leading, 10)
                             // Stop play pause buttons
-                            if playerState == .playing || playerState == .paused {
+                            if midiPlayer.state == .playing || midiPlayer.state == .paused {
                                 VStack(alignment: .leading) {
                                     HStack(spacing: 0) {
                                         Button(action: {
-                                            viewConductor.conductor.sequencer.rewind()
+                                            midiPlayer.rewind()
                                             viewConductor.simpleSuccess()
                                         }) {
                                             Image(systemName: "backward.end.circle.fill").foregroundColor(.white)
                                         }
                                         Button(action: {
-                                            viewConductor.conductor.sequencer.stop()
-                                            playerState = .stopped
+                                            midiPlayer.stop()
                                         }) {
                                             Image(systemName: "stop.circle.fill").foregroundColor(.white)
                                         }
                                         .padding(.leading, 5)
-                                        if playerState == .playing {
+                                        if midiPlayer.state == .playing {
                                             Button(action: {
-                                                viewConductor.conductor.sequencer.stop()
-                                                playerState = .paused
+                                                midiPlayer.pause()
                                             }) {
                                                 Image(systemName: "pause.circle.fill").foregroundColor(.white)
                                             }
                                             .padding(.leading, 5)
-                                        } else if playerState == .paused {
+                                        } else if midiPlayer.state == .paused {
                                             Button(action: {
-                                                viewConductor.conductor.sequencer.play()
-                                                playerState = .playing
+                                                midiPlayer.play()
                                             }) {
                                                 Image(systemName: "play.circle.fill").foregroundColor(.white)
                                             }
                                             .padding(.leading, 5)
                                         }
-                                        AnyView(nowPlaying)
+                                        AnyView(midiPlayer.nowPlaying)
                                             .padding(.leading, 8)
                                     }
                                 }
@@ -123,7 +118,7 @@ struct ContentView: View {
                                                       showIntervals: $viewConductor.showIntervals,
                                                       octaveCount: $viewConductor.octaveCount,
                                                       keysPerRow: $viewConductor.keysPerRow,
-                                                      playerState: $playerState,
+                                                      midiPlayer: midiPlayer,
                                                       conductor: viewConductor.conductor)
                                         .presentationCompactAdaptation(.none)
                                     })
