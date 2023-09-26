@@ -14,6 +14,24 @@ struct PlayView: View {
     
     var midiCallback = MIDICallbackInstrument()
     
+    func initSequencer(nowPlaying: any View, filename: String, songTonic: Int) {
+        let midiCallback = MIDICallbackInstrument()
+        self.midiPlayer.nowPlaying = nowPlaying
+        midiCallback.callback = { status, note, velocity in
+            let midiNote = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
+            if status == 144 {
+                viewConductor.conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
+            } else if status == 128 {
+                viewConductor.conductor.instrument.stop(noteNumber: midiNote, channel: 0)
+                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+            }
+        }
+        midiPlayer.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: filename, withExtension: "mid", subdirectory: "Examples")!)
+        midiPlayer.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
+        midiPlayer.sequencer.enableLooping()
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -34,9 +52,10 @@ struct PlayView: View {
                         }
                         .padding(.bottom, 5)
                         Button {
-                            let filename: String = "twinkle_twinkle_little_star"
-                            let songTonic: Int = 48
-                            let title = HStack(spacing: 4) {
+                            dismiss()
+                            viewConductor.keysPerRow = 13
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
                                 Text("Twinkle Twinkle Little Star")
                                     .foregroundColor(Default.majorColor)
                                 HStack(spacing: 0) {
@@ -45,11 +64,7 @@ struct PlayView: View {
                                     Image(systemName: "greaterthan.square")
                                         .foregroundColor(Default.majorColor)
                                 }
-                            }
-                            viewConductor.keysPerRow = 13
-                            viewConductor.octaveCount = 1
-                            dismiss()
-                            midiPlayer.load(nowPlaying: title, filename: filename, songTonic: songTonic, keyboardTonic: self.viewConductor.tonicPitchClass, instrument: self.viewConductor.conductor.instrument)
+                            }, filename: "twinkle_twinkle_little_star", songTonic: 48)
                             midiPlayer.play()
                         } label: {
                             HStack {
@@ -66,9 +81,10 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            let filename: String = "seven_nation_army"
-                            let songTonic: Int = 52
-                            let title = HStack(spacing: 4) {
+                            dismiss()
+                            viewConductor.keysPerRow = 13
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
                                 Text("Seven Nation Army")
                                     .foregroundColor(Default.minorColor)
                                 HStack(spacing: 0) {
@@ -77,11 +93,7 @@ struct PlayView: View {
                                     Image(systemName: "lessthan.square")
                                         .foregroundColor(Default.minorColor)
                                 }
-                            }
-                            viewConductor.keysPerRow = 13
-                            viewConductor.octaveCount = 1
-                            dismiss()
-                            midiPlayer.load(nowPlaying: title, filename: filename, songTonic: songTonic, keyboardTonic: self.viewConductor.tonicPitchClass, instrument: self.viewConductor.conductor.instrument)
+                            }, filename: "seven_nation_army", songTonic: 52)
                             midiPlayer.play()
                         } label: {
                             HStack {
@@ -98,22 +110,19 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            let filename: String = "happy_birthday"
-                            let songTonic: Int = 60
-                            let title = HStack(spacing: 4) {
-                                Text("Happy Birthday")
-                                    .foregroundColor(Default.majorColor)
-                                HStack(spacing: 0) {
-                                    Image(systemName: "plus.square.fill")
-                                        .foregroundColor(Default.majorColor)
-                                    Image(systemName: "greaterthan.square")
-                                        .foregroundColor(Default.majorColor)
-                                }
-                            }
+                            dismiss()
                             viewConductor.keysPerRow = 23
                             viewConductor.octaveCount = 1
-                            dismiss()
-                            midiPlayer.load(nowPlaying: title, filename: filename, songTonic: songTonic, keyboardTonic: self.viewConductor.tonicPitchClass, instrument: self.viewConductor.conductor.instrument)
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Happy Birthday")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }, filename: "happy_birthday", songTonic: 60)
                             midiPlayer.play()
                         } label: {
                             HStack {
@@ -130,9 +139,10 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            let filename: String = "may_your_soul_rest"
-                            let songTonic: Int = 52
-                            let title = HStack(spacing: 4) {
+                            dismiss()
+                            viewConductor.keysPerRow = 23
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
                                 Text("May Your Soul Rest")
                                     .foregroundColor(Default.minorColor)
                                 HStack(spacing: 0) {
@@ -141,11 +151,7 @@ struct PlayView: View {
                                     Image(systemName: "lessthan.square")
                                         .foregroundColor(Default.minorColor)
                                 }
-                            }
-                            viewConductor.keysPerRow = 23
-                            viewConductor.octaveCount = 1
-                            dismiss()
-                            midiPlayer.load(nowPlaying: title, filename: filename, songTonic: songTonic, keyboardTonic: self.viewConductor.tonicPitchClass, instrument: self.viewConductor.conductor.instrument)
+                            }, filename: "may_your_soul_rest", songTonic: 52)
                             midiPlayer.play()
                         } label: {
                             HStack {
