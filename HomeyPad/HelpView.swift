@@ -20,39 +20,36 @@ struct HelpView: View {
             .padding(.top, 10)
             Divider()
             ScrollView {
-                Grid(alignment: .leading, horizontalSpacing: 3, verticalSpacing: 5) {
-                    GridRow {
-                        Text("Legend")
-                            .font(.subheadline)
-                            .padding(.bottom, 2)
-                            .gridCellUnsizedAxes(.horizontal)
-                            .gridCellColumns(3)
+                Grid(alignment: .leading, horizontalSpacing: 0, verticalSpacing: 5) {
+                    Group { // icons
+                        GridRow {
+                            Text("Legend")
+                                .font(.subheadline)
+                                .gridCellColumns(2)
+                        }
                     }
                     Group { // icons
                         GridRow {
                             Text("Icons: Consonance-Dissonance")
                                 .font(.caption)
-                                .gridCellUnsizedAxes(.horizontal)
-                                .gridCellColumns(3)
-                                .padding(.top, 10)
+                                .gridCellColumns(2)
                         }
                         GridRow {
-                            Image(systemName: "house")
+                            NitterHouse()
+                                .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
-                            Text("Home")
-                            Text("stable, pure, perfect")
+                                .frame(width: 17, height: 17)
+                            Text("stable, perfect")
                         }
                         .foregroundColor(.white)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("Gem")
-                            Text("tottering, rich, consonant")
+                            Text("tottering, pleasant")
                         }
                         .foregroundColor(.white)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("Stone")
-                            Text("rolling, harsh, dissonant")
+                            Text("rolling, unpleasant")
                         }
                         .foregroundColor(.white)
                     }
@@ -60,132 +57,108 @@ struct HelpView: View {
                         GridRow {
                             Text("Colors: Major-Minor")
                                 .font(.caption)
-                                .gridCellUnsizedAxes(.horizontal)
-                                .gridCellColumns(3)
-                                .padding(.top, 5)
+                                .gridCellColumns(2)
                         }
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("Cream")
-                            Text("sheltered, comfy, neutral")
+                            Text("sheltered, neutral")
                         }
                         .foregroundColor(Default.homeColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                                .gridColumnAlignment(.leading)
-                            Text("Maize")
-                                .gridColumnAlignment(.leading)
-                            Text("sunny, happy, major")
-                                .gridColumnAlignment(.leading)
+                            Text("sunny, major")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("Blue")
-                            Text("cloudy, sad, minor")
-                            
+                            Text("cloudy, minor")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("Red")
-                            Text("windy, diabolical, strange")
-                            
+                            Text("windy, strange")
                         }
                         .foregroundColor(Default.tritoneColor)
                     }
                     Group { //
                         GridRow {
-                            Text("Intervals: Major-Minor and Consonance-Dissonance")
+                            Text("Intervals")
                                 .font(.caption)
-                                .gridCellUnsizedAxes(.horizontal)
-                                .gridCellColumns(3)
-                                .padding(.top, 10)
+                                .gridCellColumns(2)
                         }
                         GridRow {
-                            Image(systemName: "house")
-                            Text("Cream Home")
+                            NitterHouse()
+                                .stroke(lineWidth: 2)
+                                .gridColumnAlignment(.center)
+                                .frame(width: 17, height: 17)
                             Text("neutral perfect")
                         }
                         .foregroundColor(Default.homeColor)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("Maize Gem")
-                            Text("major consonant")
+                            Text("major pleasant")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("Blue Gem")
-                            Text("minor consonant")
+                            Text("minor pleasant")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("Maize Stone")
-                            Text("major dissonant")
+                            Text("major unpleasant")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("Blue Stone")
-                            Text("minor dissonant")
+                            Text("minor unpleasant")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("Red Stone")
-                            Text("strange dissonant")
+                            Text("strange unpleasant")
                         }
                         .foregroundColor(Default.tritoneColor)
                     }
                     Group {
                         GridRow {
-                            Text("Chords and Progressions")
+                            Text("Chords")
                                 .font(.caption)
-                                .gridCellUnsizedAxes(.horizontal)
-                                .gridCellColumns(3)
-                                .padding(.top, 10)
+                                .gridCellColumns(2)
                         }
                         GridRow {
                             Image(systemName: "plus.square.fill")
-                                .gridColumnAlignment(.leading)
-                            Text("Maize Plus")
-                                .gridColumnAlignment(.leading)
-                            Text("major")
+                            Text("major chord")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "minus.square.fill")
-                            Text("Blue Minus")
-                            Text("minor")
+                            Text("minor chord")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "multiply.square.fill")
-                                .gridColumnAlignment(.leading)
-                            Text("Maize Multiply")
-                                .gridColumnAlignment(.leading)
-                            Text("inverted major")
+                            Text("inverted major chord")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "multiply.square.fill")
-                            Text("Blue Multiply")
-                            Text("inverted minor")
-                                .lineLimit(2)
+                            Text("inverted minor chord")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
+                            Text("Pitch Movements")
+                                .font(.caption)
+                                .gridCellColumns(2)
+                        }
+                        GridRow {
                             Image(systemName: "greaterthan.square.fill")
-                            Text("Higher")
-                            Text("right, upward emphasis")
+                            Text("upward emphasis")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "lessthan.square.fill")
-                            Text("Lower")
-                            Text("left, downward emphasis")
+                            Text("downward emphasis")
                         }
                         .foregroundColor(Default.minorColor)
                     }
@@ -195,7 +168,7 @@ struct HelpView: View {
                         GridRow {
                             Text("Help")
                                 .font(.subheadline)
-                                .padding(.bottom, 5)
+                                .gridCellColumns(2)
                         }
                         GridRow {
                             Image(systemName: "questionmark.video")
@@ -214,33 +187,37 @@ struct HelpView: View {
                         .gridCellUnsizedAxes(.horizontal)
                     Group {
                         GridRow {
+                            Text("Legal")
+                                .font(.subheadline)
+                                .gridCellColumns(2)
+                        }
+                        GridRow {
                             Text("The design of [Homey Pad](https://homeymusic.com/products/homeypad) including layout, color palette, user interactions and icon language is released under an [Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).")
-                            .gridCellColumns(3)
+                                .gridCellColumns(2)
                         }
                         GridRow {
                             (
                                 Text("The [Homey Pad](https://homeymusic.com/products/homeypad) software is released under an [MIT License](https://opensource.org/license/mit/) and is available on [GitHub](https://github.com/homeymusic/homeypad).")
                             )
-                            .gridCellColumns(3)
+                            .gridCellColumns(2)
                         }
                         GridRow {
                             (
                                 Text(Image(systemName: "c.circle")) +
                                 Text(" 2023 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. [Homey Pad](https://homeymusic.com/products/homeypad) is a product name and trademark of [Homey Music](https://homeymusic.com).")
                             )
-                            .gridCellColumns(3)
+                            .gridCellColumns(2)
                         }
                         GridRow {
                             Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by [Homey Pad](https://homeymusic.com/products/homeypad) under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
-                                .padding(.top, 3)
-                                .gridCellColumns(3)
+                                .gridCellColumns(2)
                         }
                     }
                     .font(.footnote)
                 }
-                .padding([.leading, .trailing], 10)
+                .padding([.leading, .trailing, .bottom], 10)
+                .frame(width: 250)
             }
-            .frame(width: 375)
         }
     }
 }

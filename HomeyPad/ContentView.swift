@@ -26,7 +26,12 @@ struct ContentView: View {
                                     Button(action: {
                                         self.showingHelpPopover.toggle()
                                     }) {
-                                        Image(systemName: "house").foregroundColor(.white)
+                                        ZStack {
+                                            Image(systemName: "house")
+                                                .foregroundColor(.white)
+                                            Image(systemName: "square")
+                                                .foregroundColor(.clear)
+                                        }
                                     }.popover(isPresented: $showingHelpPopover,
                                               content: {
                                         HelpView()
@@ -45,7 +50,12 @@ struct ContentView: View {
                                             playerState = .stopped
                                         }
                                     }) {
-                                        Image(systemName: "headphones").foregroundColor(.white)
+                                        ZStack {
+                                            Image(systemName: "music.note.list")
+                                                .foregroundColor(.white)
+                                            Image(systemName: "square")
+                                                .foregroundColor(.clear)
+                                        }
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
                                         PlayView(viewConductor: viewConductor, playerState: $playerState, nowPlaying: $nowPlaying)
@@ -67,7 +77,6 @@ struct ContentView: View {
                                         Button(action: {
                                             viewConductor.conductor.sequencer.stop()
                                             playerState = .stopped
-                                            viewConductor.simpleSuccess()
                                         }) {
                                             Image(systemName: "stop.circle.fill").foregroundColor(.white)
                                         }
@@ -76,7 +85,6 @@ struct ContentView: View {
                                             Button(action: {
                                                 viewConductor.conductor.sequencer.stop()
                                                 playerState = .paused
-                                                viewConductor.simpleSuccess()
                                             }) {
                                                 Image(systemName: "pause.circle.fill").foregroundColor(.white)
                                             }
@@ -85,7 +93,6 @@ struct ContentView: View {
                                             Button(action: {
                                                 viewConductor.conductor.sequencer.play()
                                                 playerState = .playing
-                                                viewConductor.simpleSuccess()
                                             }) {
                                                 Image(systemName: "play.circle.fill").foregroundColor(.white)
                                             }
@@ -105,7 +112,7 @@ struct ContentView: View {
                                         self.showingSettingsPopover.toggle()
                                     }) {
                                         ZStack {
-                                            Image(systemName: "ellipsis").foregroundColor(.white)
+                                            Image(systemName: "slider.horizontal.3").foregroundColor(.white)
                                             Image(systemName: "square").foregroundColor(.clear)
                                         }
                                     }.popover(isPresented: $showingSettingsPopover,
