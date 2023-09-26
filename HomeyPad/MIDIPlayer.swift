@@ -17,7 +17,8 @@ class MIDIPlayer: ObservableObject {
     init() {
     }
     
-    func loadSong(filename: String, songTonic: Int, keyboardTonic: Int, instrument: AppleSampler) {
+    func load(nowPlaying: any View, filename: String, songTonic: Int, keyboardTonic: Int, instrument: AppleSampler) {
+        self.nowPlaying = nowPlaying
         midiCallback.callback = { status, note, velocity in
             let midiNote = UInt8(Default.initialC - songTonic + keyboardTonic + Int(note))
             if status == 144 {
