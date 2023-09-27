@@ -37,7 +37,7 @@ struct PlayView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Example Tunes")
+                Text("Examples")
                     .font(.headline)
                 Spacer()
             }
