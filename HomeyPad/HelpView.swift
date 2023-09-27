@@ -147,6 +147,12 @@ struct HelpView: View {
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
+                            Image(systemName: "paintpalette")
+                                .symbolRenderingMode(.multicolor)
+                            Text("chromatic elements")
+                                .foregroundColor(Default.chromaticColor)
+                        }
+                        GridRow {
                             Text("Pitch Movements")
                                 .font(.caption)
                                 .gridCellColumns(2)

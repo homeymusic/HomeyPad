@@ -264,6 +264,8 @@ struct PlayView: View {
                                     Text("Nature Boy")
                                         .foregroundColor(Default.minorColor)
                                     HStack(spacing: 0) {
+                                        Image(systemName: "paintpalette")
+                                            .symbolRenderingMode(.multicolor)
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)
                                         Image(systemName: "greaterthan.square")
@@ -278,6 +280,8 @@ struct PlayView: View {
                                     .underline()
                                 Spacer()
                                 HStack(spacing: 0) {
+                                    Image(systemName: "paintpalette")
+                                        .symbolRenderingMode(.multicolor)
                                     Image(systemName: "minus.square.fill")
                                         .foregroundColor(Default.minorColor)
                                     Image(systemName: "greaterthan.square")
