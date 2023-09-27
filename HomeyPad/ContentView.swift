@@ -139,9 +139,13 @@ struct ContentView: View {
                         Spacer()
                         if (viewConductor.showClassicalSelector || viewConductor.showMonthsSelector || viewConductor.showPianoSelector) {
                             // The tonic selector
-                            SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass,
+                            SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
+                                                tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
-                                                showMonthsSelector: viewConductor.showMonthsSelector, showPianoSelector: viewConductor.showPianoSelector, selectorTapped: viewConductor.selectHome)
+                                                showMonthsSelector: viewConductor.showMonthsSelector,
+                                                showPianoSelector: viewConductor.showPianoSelector,
+                                                midiPlayer: midiPlayer,
+                                                selectorTapped: viewConductor.selectHome)
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                         }

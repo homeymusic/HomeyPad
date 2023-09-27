@@ -87,20 +87,18 @@ class ViewConductor: ObservableObject {
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
     }
     
-    func selectHome(pitchClass: Int) {
-        if (pitchClass % 12 != self.tonicPitchClass) {
-            self.tonicPitchClass = pitchClass % 12
-            for midiNote in UInt8(0)...UInt8(127) {
-                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+    func selectHome(pitchClass: Int, midiPlayer: MIDIPlayer) {
+        var newPitchClass = mod(pitchClass, 12)
+        if (newPitchClass != self.tonicPitchClass) {
+            if (midiPlayer.state == .playing) {
+                midiPlayer.pause()
+                self.tonicPitchClass = newPitchClass
+                midiPlayer.play()
+            } else {
+                self.tonicPitchClass = newPitchClass
             }
         }
     }    
-    
-    func selectTonic(pitch: Pitch, point: CGPoint) {
-        if (pitch.intValue % 12 != self.tonicPitchClass) {
-            self.tonicPitchClass = pitch.intValue % 12
-        }
-    }
     
     func updateMIDIFilter(Param: AUValue, knobNumber: Int){
     }

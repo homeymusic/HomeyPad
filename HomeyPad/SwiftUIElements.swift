@@ -32,12 +32,12 @@ struct SwiftUIIntervals: View {
 struct SwiftUIHomeSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
-    var buttonTapped: (Pitch, CGPoint) -> Void = { _, _ in }
     var showClassicalSelector: Bool
     var showMonthsSelector: Bool
     var showPianoSelector: Bool
-    var selectorTapped: (Int) -> Void = { _ in }
-    
+    var midiPlayer: MIDIPlayer
+    var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
+
     // safety valve
     func safeMIDI(_ p: Int) -> Int {
         if p > -1 && p < 128 {
@@ -60,7 +60,7 @@ struct SwiftUIHomeSelector: View {
                                       tonicPitchClass: tonicPitchClass)
                     } else {
                         Button {
-                            selectorTapped(tonicPitchClass + col)                            
+                            selectorTapped(Int(tonicPitchClass + col), midiPlayer)
                         } label: {
                             SelectorStyle(col: col,
                                           showClassicalSelector: showClassicalSelector,
