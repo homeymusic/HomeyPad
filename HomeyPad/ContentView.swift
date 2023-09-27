@@ -93,11 +93,16 @@ struct ContentView: View {
                                             }
                                             .padding(.leading, 5)
                                         }
-                                        AnyView(midiPlayer.nowPlaying)
-                                            .padding(.leading, 8)
+                                        Button( action: {
+                                            midiPlayer.stop()
+                                            self.showingPlayPopover.toggle()
+                                        }) {
+                                            AnyView(midiPlayer.nowPlaying)
+                                        }
+                                        .padding(.leading, 20)
                                     }
                                 }
-                                .padding(.leading, 16)
+                                .padding(.leading, 20)
                             }
                             Spacer()
                             //the customize view

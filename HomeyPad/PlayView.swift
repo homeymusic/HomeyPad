@@ -15,6 +15,7 @@ struct PlayView: View {
     var midiCallback = MIDICallbackInstrument()
     
     func initSequencer(nowPlaying: any View, filename: String, songTonic: Int) {
+        midiPlayer.stop()
         let midiCallback = MIDICallbackInstrument()
         self.midiPlayer.nowPlaying = nowPlaying
         midiCallback.callback = { status, note, velocity in
@@ -69,6 +70,64 @@ struct PlayView: View {
                         } label: {
                             HStack {
                                 Text("Twinkle Twinkle Little Star")
+                                    .foregroundColor(Default.majorColor)
+                                    .underline()
+                                Spacer()
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }
+                        }
+                        Button {
+                            dismiss()
+                            viewConductor.keysPerRow = 13
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Pulsing Pulsing Neutron Star")
+                                    .foregroundColor(Default.minorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }, filename: "pulsing_pulsing_neutron_star", songTonic: 40)
+                            midiPlayer.play()
+                        } label: {
+                            HStack {
+                                Text("Pulsing Pulsing Neutron Star")
+                                    .foregroundColor(Default.minorColor)
+                                    .underline()
+                                Spacer()
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }
+                        }
+                        Button {
+                            dismiss()
+                            viewConductor.keysPerRow = 13
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Seven Princess Party")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }, filename: "seven_princess_party", songTonic: 60)
+                            midiPlayer.play()
+                        } label: {
+                            HStack {
+                                Text("Seven Princess Party")
                                     .foregroundColor(Default.majorColor)
                                     .underline()
                                 Spacer()
@@ -178,7 +237,20 @@ struct PlayView: View {
                         }
                         .padding(.bottom, 5)
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Ionian (Major)")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }, filename: "ionian", songTonic: 48)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Ionian (Major)")
@@ -194,7 +266,20 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Phrygian")
+                                    .foregroundColor(Default.minorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }, filename: "phrygian", songTonic: 52)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Phrygian")
@@ -210,7 +295,20 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Mixolydian")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }, filename: "mixolydian", songTonic: 55)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Mixolydian")
@@ -226,7 +324,21 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying:
+                                HStack {
+                                    Text("Aeolian (Natural Minor)")
+                                        .foregroundColor(Default.minorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "aeolian", songTonic: 69)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Aeolian (Natural Minor)")
@@ -242,7 +354,25 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying:
+                                HStack {
+                                    Text("Harmonic Minor")
+                                        .foregroundColor(Default.minorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                                }, filename: "harmonic_minor", songTonic: 69)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Harmonic Minor")
@@ -262,7 +392,24 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack {
+                                Text("Dorian Down")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "lessthan.square")
+                                        .foregroundColor(Default.minorColor)
+                                }
+                            }, filename: "dorian_down", songTonic: 50)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Dorian Down")
@@ -282,7 +429,25 @@ struct PlayView: View {
                             }
                         }
                         Button {
-                            print("play example")
+                            dismiss()
+                            viewConductor.keysPerRow = 17
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying:
+                                HStack {
+                                    Text("Dorian Up")
+                                        .foregroundColor(Default.minorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "dorian_up", songTonic: 62)
+                            midiPlayer.play()
                         } label: {
                             HStack {
                                 Text("Dorian Up")
@@ -301,43 +466,80 @@ struct PlayView: View {
                                 }
                             }
                         }
-                        Button {
-                            print("play example")
-                        } label: {
-                            HStack {
-                                Text("Lydian")
-                                    .foregroundColor(Default.majorColor)
-                                    .underline()
-                                Spacer()
-                                HStack(spacing: 0) {
-                                    Image(systemName: "plus.square.fill")
+                        
+                        Group {
+                            Button {
+                                dismiss()
+                                viewConductor.keysPerRow = 17
+                                viewConductor.octaveCount = 1
+                                initSequencer(nowPlaying: HStack {
+                                    Text("Lydian")
                                         .foregroundColor(Default.majorColor)
-                                    Image(systemName: "multiply.square.fill")
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "multiply.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "lydian", songTonic: 65)
+                                midiPlayer.play()
+                            } label: {
+                                HStack {
+                                    Text("Lydian")
                                         .foregroundColor(Default.majorColor)
-                                    Image(systemName: "plus.square.fill")
-                                        .foregroundColor(Default.majorColor)
-                                    Image(systemName: "greaterthan.square")
-                                        .foregroundColor(Default.majorColor)
+                                        .underline()
+                                    Spacer()
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "multiply.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
                                 }
                             }
-                        }
-                        Button {
-                            print("play example")
-                        } label: {
-                            HStack {
-                                Text("Locrian")
-                                    .foregroundColor(Default.minorColor)
-                                    .underline()
-                                Spacer()
-                                HStack(spacing: 0) {
-                                    Image(systemName: "minus.square.fill")
+                            Button {
+                                dismiss()
+                                viewConductor.keysPerRow = 17
+                                viewConductor.octaveCount = 1
+                                initSequencer(nowPlaying: HStack {
+                                    Text("Locrian")
                                         .foregroundColor(Default.minorColor)
-                                    Image(systemName: "multiply.square.fill")
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "multiply.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "lessthan.square")
+                                            .foregroundColor(Default.minorColor)
+                                    }
+                                }, filename: "locrian", songTonic: 47)
+                                midiPlayer.play()
+                            } label: {
+                                HStack {
+                                    Text("Locrian")
                                         .foregroundColor(Default.minorColor)
-                                    Image(systemName: "minus.square.fill")
-                                        .foregroundColor(Default.minorColor)
-                                    Image(systemName: "lessthan.square")
-                                        .foregroundColor(Default.minorColor)
+                                        .underline()
+                                    Spacer()
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "multiply.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "lessthan.square")
+                                            .foregroundColor(Default.minorColor)
+                                    }
                                 }
                             }
                         }
