@@ -226,6 +226,65 @@ struct PlayView: View {
                                 }
                             }
                         }
+                        Button {
+                            dismiss()
+                            viewConductor.keysPerRow = 19
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying: HStack(spacing: 4) {
+                                Text("Somewhere Over the Rainbow")
+                                    .foregroundColor(Default.majorColor)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }, filename: "somewhere_over_the_rainbow", songTonic: 48)
+                            midiPlayer.play()
+                        } label: {
+                            HStack {
+                                Text("Somewhere Over the Rainbow")
+                                    .foregroundColor(Default.majorColor)
+                                    .underline()
+                                Spacer()
+                                HStack(spacing: 0) {
+                                    Image(systemName: "plus.square.fill")
+                                        .foregroundColor(Default.majorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }
+                        }
+                        Button {
+                            dismiss()
+                            viewConductor.keysPerRow = 23
+                            viewConductor.octaveCount = 1
+                            initSequencer(nowPlaying:
+                                HStack {
+                                    Text("Nature Boy")
+                                        .foregroundColor(Default.minorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "nature_boy", songTonic: 57)
+                            midiPlayer.play()
+                        } label: {
+                            HStack {
+                                Text("Nature Boy")
+                                    .foregroundColor(Default.minorColor)
+                                    .underline()
+                                Spacer()
+                                HStack(spacing: 0) {
+                                    Image(systemName: "minus.square.fill")
+                                        .foregroundColor(Default.minorColor)
+                                    Image(systemName: "greaterthan.square")
+                                        .foregroundColor(Default.majorColor)
+                                }
+                            }
+                        }
                     }
                     Divider()
                         .padding(5)
