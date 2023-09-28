@@ -578,7 +578,7 @@ struct PlayView: View {
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)
-                                        Image(systemName: "multiply.square.fill")
+                                        Image(systemName: "i.square.fill")
                                             .foregroundColor(Default.minorColor)
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)
@@ -596,7 +596,7 @@ struct PlayView: View {
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)
-                                        Image(systemName: "multiply.square.fill")
+                                        Image(systemName: "i.square.fill")
                                             .foregroundColor(Default.minorColor)
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)

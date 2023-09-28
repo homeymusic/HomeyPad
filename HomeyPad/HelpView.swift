@@ -142,7 +142,7 @@ struct HelpView: View {
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
-                            Image(systemName: "multiply.square.fill")
+                            Image(systemName: "i.square.fill")
                             Text("inverted minor chord")
                         }
                         .foregroundColor(Default.minorColor)
