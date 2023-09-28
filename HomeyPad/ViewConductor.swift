@@ -101,8 +101,8 @@ class ViewConductor: ObservableObject {
     }
     
     func resetNotes() {
-        for m in notesPlaying {
-            stopNote(m)
+        for midiNote in notesPlaying {
+            stopNote(midiNote)
         }
     }
     

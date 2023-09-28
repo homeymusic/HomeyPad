@@ -45,9 +45,6 @@ struct CustomizeView: View {
                         .gridCellAnchor(.trailing)
                     }
                     Divider()
-                    Text("Home Selector")
-                        .font(.subheadline)
-                        .padding(.top, 5)
                     GridRow {
                         Image(systemName: "music.note")
                             .gridCellAnchor(.center)
@@ -69,17 +66,6 @@ struct CustomizeView: View {
                             .gridCellAnchor(.trailing)
                     }
                     GridRow {
-                        Image(systemName: "calendar")
-                            .gridCellAnchor(.center)
-                        
-                        Text("Months")
-                            .gridCellAnchor(.leading)
-                        
-                        Toggle("", isOn: $showMonthsSelector)
-                            .gridCellAnchor(.trailing)
-                    }
-                    Divider()
-                    GridRow {
                         Image(systemName: "ruler")
                             .gridCellAnchor(.center)
                         
@@ -87,6 +73,16 @@ struct CustomizeView: View {
                             .gridCellAnchor(.leading)
                         
                         Toggle("", isOn: $showIntervals)
+                            .gridCellAnchor(.trailing)
+                    }
+                    GridRow {
+                        Image(systemName: "calendar")
+                            .gridCellAnchor(.center)
+                        
+                        Text("Months")
+                            .gridCellAnchor(.leading)
+                        
+                        Toggle("", isOn: $showMonthsSelector)
                             .gridCellAnchor(.trailing)
                     }
                 }

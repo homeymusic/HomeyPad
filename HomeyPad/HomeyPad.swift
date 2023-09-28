@@ -103,29 +103,29 @@ func classicalLabel(_ pitchClass: Int) -> String {
 func monthLabel(_ pitchClass: Int) -> String {
     switch mod(pitchClass, 12) {
     case 0:
-        return "Aug"
-    case 1:
-        return "Sep"
-    case 2:
-        return "Oct"
-    case 3:
-        return "Nov"
-    case 4:
-        return "Dec"
-    case 5:
-        return "Jan"
-    case 6:
-        return "Feb"
-    case 7:
-        return "Mar"
-    case 8:
         return "Apr"
-    case 9:
+    case 1:
         return "May"
-    case 10:
+    case 2:
         return "Jun"
-    case 11:
+    case 3:
         return "Jul"
+    case 4:
+        return "Aug"
+    case 5:
+        return "Sep"
+    case 6:
+        return "Oct"
+    case 7:
+        return "Nov"
+    case 8:
+        return "Dec"
+    case 9:
+        return "Jan"
+    case 10:
+        return "Feb"
+    case 11:
+        return "Mar"
     default: return ""
     }
 

@@ -34,7 +34,7 @@ struct PlayView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Examples")
+                Text("Play Music")
                     .font(.headline)
                 Spacer()
             }
@@ -44,7 +44,7 @@ struct PlayView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Group {
                         HStack {
-                            Text("Example Melodies")
+                            Text("Melodies")
                                 .font(.subheadline)
                             Spacer()
                         }
@@ -291,7 +291,7 @@ struct PlayView: View {
                         .padding(5)
                     Group {
                         HStack {
-                            Text("Example Harmonies")
+                            Text("Harmonies")
                                 .font(.subheadline)
                             Spacer()
                         }

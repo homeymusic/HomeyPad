@@ -153,7 +153,7 @@ struct HelpView: View {
                                 .foregroundColor(Default.chromaticColor)
                         }
                         GridRow {
-                            Text("Pitch Movements")
+                            Text("Pitch Movement")
                                 .font(.caption)
                                 .gridCellColumns(2)
                         }
