@@ -2,13 +2,27 @@ import SwiftUI
 import AVFoundation
 import Tonic
 
+func defaultKeysPerRow() -> Int {
+    //    iPad
+    //      UIScreen.main.bounds.size.width 1180.0
+    //      UIScreen.main.scale 2.0
+    //    iPhone
+    //      UIScreen.main.bounds.size.width 926.0
+    //      UIScreen.main.scale 3.0
+    if UIScreen.main.bounds.size.width > 1000 {
+        return 25
+    } else {
+        return 17
+    }
+}
+
 enum Default {
     static let showClassicalSelector: Bool = false
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
     static let octaveCount: Int = 1
-    static let keysPerRow: Int = 13
+    static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0
     static let majorColor: Color = Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255)
     static let minorColor: Color = Color(red: 138 / 255, green: 197 / 255, blue: 320 / 255)
@@ -97,7 +111,7 @@ func classicalLabel(_ pitchClass: Int) -> String {
         return NoteClass.B.description
     default: return NoteClass.C.description
     }
-
+    
 }
 
 func monthLabel(_ pitchClass: Int) -> String {
@@ -124,11 +138,11 @@ func monthLabel(_ pitchClass: Int) -> String {
         return "Jan"
     case 10:
         return "Feb"
-    case 11:
+    case 11 :
         return "Mar"
     default: return ""
     }
-
+    
 }
 
 func intervalLabel(_ col: Int) -> String {
@@ -237,7 +251,7 @@ struct HomeyPad: App {
     init() {
 #if os(iOS)
         do {
-//            try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(0.01)
+            //            try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(0.01)
             try AVAudioSession.sharedInstance().setCategory(.playback,
                                                             options: [.mixWithOthers, .allowBluetooth, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true)

@@ -46,10 +46,10 @@ struct CustomizeView: View {
                     }
                     Divider()
                     GridRow {
-                        Image(systemName: "music.note")
+                        Image(systemName: "character")
                             .gridCellAnchor(.center)
                         
-                        Text("Classical")
+                        Text("Letters")
                             .gridCellAnchor(.leading)
                         
                         Toggle("", isOn: $showClassicalSelector)
