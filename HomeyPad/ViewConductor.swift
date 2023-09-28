@@ -100,7 +100,7 @@ class ViewConductor: ObservableObject {
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
     }
     
-    func reset() {
+    func resetNotes() {
         for m in notesPlaying {
             stopNote(m)
         }
@@ -111,7 +111,7 @@ class ViewConductor: ObservableObject {
         if (newPitchClass != self.tonicPitchClass) {
             if (midiPlayer.state == .playing) {
                 midiPlayer.pause()
-                self.reset()
+                self.resetNotes()
                 self.tonicPitchClass = newPitchClass
                 midiPlayer.play()
             } else {

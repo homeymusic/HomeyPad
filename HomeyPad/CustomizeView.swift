@@ -101,7 +101,7 @@ struct CustomizeView: View {
                 octaveCount = Default.octaveCount
                 keysPerRow = Default.keysPerRow
                 midiPlayer.stop()
-                viewConductor.reset()
+                viewConductor.resetNotes()
                 dismiss()
             }) {
                 Label("Reset", systemImage: "gobackward")
