@@ -169,6 +169,7 @@ struct ContentView: View {
                         try? viewConductor.conductor.engine.start()
                     }
                 } else if newPhase == .background {
+                    midiPlayer.pause()
                     viewConductor.conductor.engine.stop()
                 }
             }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
@@ -187,6 +188,7 @@ struct ContentView: View {
                     return
                 }
                 if type == .began {
+                    midiPlayer.pause()
                     self.viewConductor.conductor.engine.stop()
                 } else if type == .ended {
                     guard let optionsValue =
@@ -198,7 +200,10 @@ struct ContentView: View {
                     }
                 }
             }
-            .onDisappear() { self.viewConductor.conductor.engine.stop() }
+            .onDisappear() {
+                midiPlayer.pause()
+                self.viewConductor.conductor.engine.stop()
+            }
             .environmentObject(viewConductor.midiManager)
             .statusBar(hidden: true)
         }
