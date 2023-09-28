@@ -12,20 +12,17 @@ struct PlayView: View {
     var viewConductor: ViewConductor
     let midiPlayer: MIDIPlayer
     
-    var midiCallback = MIDICallbackInstrument()
-    
     func initSequencer(nowPlaying: any View, filename: String, songTonic: Int) {
         midiPlayer.stop()
         let midiCallback = MIDICallbackInstrument()
+        
         self.midiPlayer.nowPlaying = nowPlaying
         midiCallback.callback = { status, note, velocity in
-            let midiNote = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
+            let midiNote: UInt8 = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
             if status == 144 {
-                viewConductor.conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
-                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
+                viewConductor.playNote(midiNote)
             } else if status == 128 {
-                viewConductor.conductor.instrument.stop(noteNumber: midiNote, channel: 0)
-                NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+                viewConductor.stopNote(midiNote)
             }
         }
         midiPlayer.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: filename, withExtension: "mid", subdirectory: "Examples")!)

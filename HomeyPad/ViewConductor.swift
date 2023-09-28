@@ -8,6 +8,7 @@ class ViewConductor: ObservableObject {
     // Audio Engine
     var conductor = Conductor()
     let defaults = UserDefaults.standard
+    var notesPlaying = Set<UInt8>()
     
     // MIDI Manager (MIDI methods are in AVAudioUnitSampler+MIDI)
     let midiManager = MIDIManager(
@@ -15,6 +16,18 @@ class ViewConductor: ObservableObject {
         model: "HomeyPad",
         manufacturer: "HomeyMusic"
     )
+    
+    func playNote(_ midiNote: UInt8) {
+        conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
+        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
+        notesPlaying.insert(midiNote)
+    }
+    
+    func stopNote(_ midiNote: UInt8){
+        conductor.instrument.stop(noteNumber: midiNote, channel: 0)
+        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+        notesPlaying.remove(midiNote)
+    }
     
     func simpleSuccess() {
         let generator = UINotificationFeedbackGenerator()
@@ -60,7 +73,7 @@ class ViewConductor: ObservableObject {
             self.simpleSuccess()
         }
     }
-
+    
     init() {
         defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
@@ -70,12 +83,12 @@ class ViewConductor: ObservableObject {
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
-
+        
         // Start the engine
         conductor.start()
         
         // Set up MIDI
-        MIDIConnect()        
+        MIDIConnect()
     }
     
     //Keyboard Events
@@ -87,11 +100,18 @@ class ViewConductor: ObservableObject {
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
     }
     
+    func reset() {
+        for m in notesPlaying {
+            stopNote(m)
+        }
+    }
+    
     func selectHome(pitchClass: Int, midiPlayer: MIDIPlayer) {
-        var newPitchClass = mod(pitchClass, 12)
+        let newPitchClass = mod(pitchClass, 12)
         if (newPitchClass != self.tonicPitchClass) {
             if (midiPlayer.state == .playing) {
                 midiPlayer.pause()
+                self.reset()
                 self.tonicPitchClass = newPitchClass
                 midiPlayer.play()
             } else {

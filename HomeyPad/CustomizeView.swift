@@ -15,7 +15,7 @@ struct CustomizeView: View {
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
     var midiPlayer: MIDIPlayer
-    var conductor: Conductor
+    var viewConductor: ViewConductor
 
     var body: some View {
         VStack {
@@ -101,6 +101,7 @@ struct CustomizeView: View {
                 octaveCount = Default.octaveCount
                 keysPerRow = Default.keysPerRow
                 midiPlayer.stop()
+                viewConductor.reset()
                 dismiss()
             }) {
                 Label("Reset", systemImage: "gobackward")

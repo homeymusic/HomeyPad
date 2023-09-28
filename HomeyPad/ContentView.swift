@@ -124,7 +124,7 @@ struct ContentView: View {
                                                       octaveCount: $viewConductor.octaveCount,
                                                       keysPerRow: $viewConductor.keysPerRow,
                                                       midiPlayer: midiPlayer,
-                                                      conductor: viewConductor.conductor)
+                                                      viewConductor: viewConductor)
                                         .presentationCompactAdaptation(.none)
                                     })
                                 }
