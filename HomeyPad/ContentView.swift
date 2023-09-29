@@ -174,7 +174,7 @@ struct ContentView: View {
                         try? viewConductor.conductor.engine.start()
                     }
                 } else if newPhase == .background {
-                    midiPlayer.pause()
+                    if midiPlayer.state == .playing {midiPlayer.pause()}
                     viewConductor.conductor.engine.stop()
                 }
             }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
@@ -193,7 +193,7 @@ struct ContentView: View {
                     return
                 }
                 if type == .began {
-                    midiPlayer.pause()
+                    if midiPlayer.state == .playing {midiPlayer.pause()}
                     self.viewConductor.conductor.engine.stop()
                 } else if type == .ended {
                     guard let optionsValue =
@@ -206,7 +206,7 @@ struct ContentView: View {
                 }
             }
             .onDisappear() {
-                midiPlayer.pause()
+                if midiPlayer.state == .playing {midiPlayer.pause()}
                 self.viewConductor.conductor.engine.stop()
             }
             .environmentObject(viewConductor.midiManager)
