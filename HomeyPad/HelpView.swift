@@ -172,50 +172,29 @@ struct HelpView: View {
                         .gridCellUnsizedAxes(.horizontal)
                     Group {
                         GridRow {
-                            Text("Help")
-                                .font(.subheadline)
-                                .gridCellColumns(2)
-                        }
-                        GridRow {
-                            Image(systemName: "questionmark.video")
-                            Link("Videos", destination: URL(string: "https://homeymusic.com/products/homeypad/videos")!)
-                        }
-                        GridRow {
-                            Image(systemName: "person.crop.circle.badge.questionmark")
-                            Link("Forums", destination: URL(string: "https://homeymusic.com/products/homeypad/forums")!)
-                        }
-                        GridRow {
-                            Image(systemName: "questionmark.folder")
-                            Link("Guides", destination: URL(string: "https://homeymusic.com/products/homeypad/guides")!)
-                        }
-                    }
-                    Divider()
-                        .gridCellUnsizedAxes(.horizontal)
-                    Group {
-                        GridRow {
                             Text("Legal")
                                 .font(.subheadline)
                                 .gridCellColumns(2)
                         }
                         GridRow {
-                            Text("The design of [Homey Pad](https://homeymusic.com/products/homeypad) including layout, color palette, user interactions and icon language is released under an [Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).")
+                            Text("The design of Homey Pad including layout, color palette, user interactions and icon language is released under an [Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).")
                                 .gridCellColumns(2)
                         }
                         GridRow {
                             (
-                                Text("The [Homey Pad](https://homeymusic.com/products/homeypad) software is released under an [MIT License](https://opensource.org/license/mit/) and is available on [GitHub](https://github.com/homeymusic/homeypad).")
+                                Text("The Homey Pad software is released under an [MIT License](https://opensource.org/license/mit/) and is available on [GitHub](https://github.com/homeymusic/homeypad).")
                             )
                             .gridCellColumns(2)
                         }
                         GridRow {
                             (
                                 Text(Image(systemName: "c.circle")) +
-                                Text(" 2023 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. [Homey Pad](https://homeymusic.com/products/homeypad) is a product name and trademark of [Homey Music](https://homeymusic.com).")
+                                Text(" 2023 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. Homey Pad is a product name and trademark of [Homey Music](https://homeymusic.com).")
                             )
                             .gridCellColumns(2)
                         }
                         GridRow {
-                            Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by [Homey Pad](https://homeymusic.com/products/homeypad) under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
+                            Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by Homey Pad under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
                                 .gridCellColumns(2)
                         }
                     }
