@@ -10,7 +10,7 @@ import AudioKit
 
 class MIDIPlayer: ObservableObject {
     @Published var state: PlayerState = .stopped
-    @Published var nowPlaying: any View = Text("")
+
     var sequencer: AppleSequencer  = AppleSequencer()
     
     func play()

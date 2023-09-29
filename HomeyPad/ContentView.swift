@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-
+    
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -56,7 +56,11 @@ struct ContentView: View {
                                         }
                                     }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        PlayView(viewConductor: viewConductor, midiPlayer: midiPlayer)
+                                        PlayView(viewConductor: viewConductor,
+                                                 midiPlayer: midiPlayer,
+                                                 nowPlayingTitle: $viewConductor.nowPlayingTitle,
+                                                 nowPlayingID: $viewConductor.nowPlayingID,
+                                                 scrollToID: $viewConductor.scrollToID)
                                             .presentationCompactAdaptation(.none)
                                     })
                                 }
@@ -96,8 +100,9 @@ struct ContentView: View {
                                         Button( action: {
                                             midiPlayer.stop()
                                             self.showingPlayPopover.toggle()
+                                            viewConductor.scrollToID = viewConductor.nowPlayingID
                                         }) {
-                                            AnyView(midiPlayer.nowPlaying)
+                                            AnyView(viewConductor.nowPlayingTitle)
                                         }
                                         .padding(.leading, 20)
                                     }

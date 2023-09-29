@@ -30,6 +30,7 @@ enum Default {
     static let homeComplementColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)
     static let pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
+    static let highlightGray: Color = Color(red: 45/255, green: 45/255, blue: 45/255)
     static let chromaticColor: Color = Color(red: 222/255, green: 187/255, blue: 147/255)
     static let initialC: Int = 60
 }

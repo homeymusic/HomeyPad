@@ -73,7 +73,10 @@ class ViewConductor: ObservableObject {
             self.simpleSuccess()
         }
     }
-    
+    @Published var nowPlayingTitle: any View = Text("")
+    @Published var nowPlayingID: Int = 0
+    @Published var scrollToID: Int = 0
+
     init() {
         defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
