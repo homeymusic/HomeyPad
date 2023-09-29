@@ -6,5 +6,5 @@
 
 ### iPad
 
-![alt tag](https://raw.githubusercontent.com/homeymusic/HomeyPad/master/ipad_screenshot.jpeg)
+![alt tag](https://raw.githubusercontent.com/homeymusic/HomeyPad/master/ipad_screenshot.png)
 
