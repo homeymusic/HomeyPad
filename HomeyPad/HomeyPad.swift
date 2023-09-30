@@ -2,18 +2,33 @@ import SwiftUI
 import AVFoundation
 import Tonic
 
+enum FormFactor {
+    case iPad
+    case iPhone
+}
+
+func formFactor() -> FormFactor {
+    return UIScreen.main.bounds.size.width > 1000 ? .iPad : .iPhone
+}
+
 func defaultKeysPerRow() -> Int {
-    //    iPad
-    //      UIScreen.main.bounds.size.width 1180.0
-    //      UIScreen.main.scale 2.0
-    //    iPhone
-    //      UIScreen.main.bounds.size.width 926.0
-    //      UIScreen.main.scale 3.0
-    if UIScreen.main.bounds.size.width > 1000 {
+    if  formFactor() == .iPad {
         return 25
     } else {
         return 17
     }
+}
+
+func maxKeysPerRow() -> Int {
+    if  formFactor() == .iPad {
+        return 37 + 24
+    } else {
+        return 37
+    }
+}
+
+func minKeysPerRow() -> Int {
+    return 13
 }
 
 enum Default {

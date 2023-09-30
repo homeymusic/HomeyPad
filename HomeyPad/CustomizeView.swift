@@ -40,7 +40,7 @@ struct CustomizeView: View {
                         Text("Columns")
                             .gridCellAnchor(.leading)
                         Stepper("", value: $keysPerRow,
-                                in: 13...37,
+                                in: minKeysPerRow()...maxKeysPerRow(),
                                 step: 2)
                         .gridCellAnchor(.trailing)
                     }
