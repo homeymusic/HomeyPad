@@ -337,7 +337,7 @@ struct PlayView: View {
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("J.S. Bach Italian Concerto BWV 971")
-                                        .foregroundColor(Default.minorColor)
+                                        .foregroundColor(Default.majorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "plus.square.fill")
                                             .foregroundColor(Default.majorColor)
@@ -351,7 +351,7 @@ struct PlayView: View {
                                     if self.scrollToID == 9 { Default.highlightGray }
                                     HStack {
                                         Text("J.S. Bach Italian Concerto BWV 971")
-                                            .foregroundColor(Default.minorColor)
+                                            .foregroundColor(Default.majorColor)
                                             .underline()
                                             .id(9)
                                         Spacer()

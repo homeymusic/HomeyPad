@@ -44,9 +44,7 @@ struct ContentView: View {
                                 HStack {
                                     Button(action: {
                                         self.showingPlayPopover.toggle()
-                                        if midiPlayer.state != .stopped {
-                                            midiPlayer.stop()
-                                        }
+                                        viewConductor.scrollToID = viewConductor.nowPlayingID
                                     }) {
                                         ZStack {
                                             Image(systemName: "music.note.list")
@@ -98,7 +96,6 @@ struct ContentView: View {
                                             .padding(.leading, 5)
                                         }
                                         Button( action: {
-                                            midiPlayer.stop()
                                             self.showingPlayPopover.toggle()
                                             viewConductor.scrollToID = viewConductor.nowPlayingID
                                         }) {
