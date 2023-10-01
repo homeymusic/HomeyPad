@@ -169,9 +169,6 @@ struct ContentView: View {
                     if !viewConductor.conductor.engine.avEngine.isRunning {
                         viewConductor.conductor.start()
                     }
-                } else if newPhase == .background {
-                    if midiPlayer.state == .playing {midiPlayer.pause()}
-                    viewConductor.conductor.engine.stop()
                 }
             }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
                 switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
