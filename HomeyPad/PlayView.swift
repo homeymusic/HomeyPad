@@ -328,13 +328,8 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                if  formFactor() == .iPad {
-                                    viewConductor.keysPerRow = maxKeysPerRow()
-                                    viewConductor.octaveCount = 1
-                                } else {
-                                    viewConductor.keysPerRow = minKeysPerRow()
-                                    viewConductor.octaveCount = 5
-                                }
+                                viewConductor.keysPerRow = minKeysPerRow()
+                                viewConductor.octaveCount = 5
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Goldberg Variations No. 13 BWV 988")
@@ -367,13 +362,8 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                if  formFactor() == .iPad {
-                                    viewConductor.keysPerRow = maxKeysPerRow()
-                                    viewConductor.octaveCount = 1
-                                } else {
-                                    viewConductor.keysPerRow = minKeysPerRow()
-                                    viewConductor.octaveCount = 5
-                                }
+                                viewConductor.keysPerRow = minKeysPerRow()
+                                viewConductor.octaveCount = 5
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Goldberg Variations No. 15 BWV 988")
