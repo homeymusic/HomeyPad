@@ -26,6 +26,7 @@ struct PlayView: View {
             let midiNote: UInt8 = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
             if status == 144 {
                 viewConductor.playNote(midiNote)
+                print(midiNote)
             } else if status == 128 {
                 viewConductor.stopNote(midiNote)
             }
@@ -336,7 +337,7 @@ struct PlayView: View {
                                 }
                                 initSequencer(nowPlaying:
                                                 HStack {
-                                    Text("J.S. Bach Italian Concerto BWV 971")
+                                    Text("Goldberg Variations No. 13 BWV 988")
                                         .foregroundColor(Default.majorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "plus.square.fill")
@@ -344,13 +345,13 @@ struct PlayView: View {
                                         Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "bach_italian_concerto", songTonic: 53, itemID: 9)
+                                }, filename: "bach_goldberg_variation_13", songTonic: 67, itemID: 9)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 9 { Default.highlightGray }
                                     HStack {
-                                        Text("J.S. Bach Italian Concerto BWV 971")
+                                        Text("Goldberg Variations No. 13 BWV 988")
                                             .foregroundColor(Default.majorColor)
                                             .underline()
                                             .id(9)
@@ -364,7 +365,45 @@ struct PlayView: View {
                                     }
                                 }
                             }
-
+                            Button {
+                                dismiss()
+                                if  formFactor() == .iPad {
+                                    viewConductor.keysPerRow = maxKeysPerRow()
+                                    viewConductor.octaveCount = 1
+                                } else {
+                                    viewConductor.keysPerRow = minKeysPerRow()
+                                    viewConductor.octaveCount = 5
+                                }
+                                initSequencer(nowPlaying:
+                                                HStack {
+                                    Text("Goldberg Variations No. 15 BWV 988")
+                                        .foregroundColor(Default.minorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "bach_goldberg_variation_15", songTonic: 67, itemID: 10)
+                                midiPlayer.play()
+                            } label: {
+                                ZStack {
+                                    if self.scrollToID == 10 { Default.highlightGray }
+                                    HStack {
+                                        Text("Goldberg Variations No. 15 BWV 988")
+                                            .foregroundColor(Default.minorColor)
+                                            .underline()
+                                            .id(10)
+                                        Spacer()
+                                        HStack(spacing: 0) {
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "greaterthan.square")
+                                                .foregroundColor(Default.majorColor)
+                                        }
+                                    }
+                                }
+                            }
                         }
                         Divider()
                             .padding(5)
@@ -388,16 +427,16 @@ struct PlayView: View {
                                         Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "ionian", songTonic: 48, itemID: 10)
+                                }, filename: "ionian", songTonic: 48, itemID: 11)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 10 { Default.highlightGray }
+                                    if self.scrollToID == 11 { Default.highlightGray }
                                     HStack {
                                         Text("Ionian (Major)")
                                             .foregroundColor(Default.majorColor)
                                             .underline()
-                                            .id(10)
+                                            .id(11)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "plus.square.fill")
@@ -421,16 +460,16 @@ struct PlayView: View {
                                         Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "phrygian", songTonic: 52, itemID: 11)
+                                }, filename: "phrygian", songTonic: 52, itemID: 12)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 11 { Default.highlightGray }
+                                    if self.scrollToID == 12 { Default.highlightGray }
                                     HStack {
                                         Text("Phrygian")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
-                                            .id(11)
+                                            .id(12)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
@@ -454,16 +493,16 @@ struct PlayView: View {
                                         Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "mixolydian", songTonic: 55, itemID: 12)
+                                }, filename: "mixolydian", songTonic: 55, itemID: 13)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 12 { Default.highlightGray }
+                                    if self.scrollToID == 13 { Default.highlightGray }
                                     HStack {
                                         Text("Mixolydian")
                                             .foregroundColor(Default.majorColor)
                                             .underline()
-                                            .id(12)
+                                            .id(13)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "plus.square.fill")
@@ -488,16 +527,16 @@ struct PlayView: View {
                                         Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "aeolian", songTonic: 69, itemID: 13)
+                                }, filename: "aeolian", songTonic: 69, itemID: 14)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 13 { Default.highlightGray }
+                                    if self.scrollToID == 14 { Default.highlightGray }
                                     HStack {
                                         Text("Aeolian (Natural Minor)")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
-                                            .id(13)
+                                            .id(14)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
@@ -526,16 +565,16 @@ struct PlayView: View {
                                         Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "harmonic_minor", songTonic: 69, itemID: 14)
+                                }, filename: "harmonic_minor", songTonic: 69, itemID: 15)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 14 { Default.highlightGray }
+                                    if self.scrollToID == 15 { Default.highlightGray }
                                     HStack {
                                         Text("Harmonic Minor")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
-                                            .id(14)
+                                            .id(15)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
@@ -567,16 +606,16 @@ struct PlayView: View {
                                         Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "dorian_down", songTonic: 50, itemID: 15)
+                                }, filename: "dorian_down", songTonic: 50, itemID: 16)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 15 { Default.highlightGray }
+                                    if self.scrollToID == 16 { Default.highlightGray }
                                     HStack {
                                         Text("Dorian Down")
                                             .foregroundColor(Default.majorColor)
                                             .underline()
-                                            .id(15)
+                                            .id(16)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "plus.square.fill")
@@ -609,16 +648,16 @@ struct PlayView: View {
                                         Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "dorian_up", songTonic: 62, itemID: 16)
+                                }, filename: "dorian_up", songTonic: 62, itemID: 17)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
-                                    if self.scrollToID == 16 { Default.highlightGray }
+                                    if self.scrollToID == 17 { Default.highlightGray }
                                     HStack {
                                         Text("Dorian Up")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
-                                            .id(16)
+                                            .id(17)
                                         Spacer()
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
@@ -652,16 +691,16 @@ struct PlayView: View {
                                             Image(systemName: "greaterthan.square")
                                                 .foregroundColor(Default.majorColor)
                                         }
-                                    }, filename: "lydian", songTonic: 65, itemID: 17)
+                                    }, filename: "lydian", songTonic: 65, itemID: 18)
                                     midiPlayer.play()
                                 } label: {
                                     ZStack {
-                                        if self.scrollToID == 17 { Default.highlightGray }
+                                        if self.scrollToID == 18 { Default.highlightGray }
                                         HStack {
                                             Text("Lydian")
                                                 .foregroundColor(Default.majorColor)
                                                 .underline()
-                                                .id(17)
+                                                .id(18)
                                             Spacer()
                                             HStack(spacing: 0) {
                                                 Image(systemName: "plus.square.fill")
@@ -693,16 +732,16 @@ struct PlayView: View {
                                             Image(systemName: "lessthan.square")
                                                 .foregroundColor(Default.minorColor)
                                         }
-                                    }, filename: "locrian", songTonic: 47, itemID: 18)
+                                    }, filename: "locrian", songTonic: 47, itemID: 19)
                                     midiPlayer.play()
                                 } label: {
                                     ZStack {
-                                        if self.scrollToID == 18 { Default.highlightGray }
+                                        if self.scrollToID == 19 { Default.highlightGray }
                                         HStack {
                                             Text("Locrian")
                                                 .foregroundColor(Default.minorColor)
                                                 .underline()
-                                                .id(18)
+                                                .id(19)
                                             Spacer()
                                             HStack(spacing: 0) {
                                                 Image(systemName: "minus.square.fill")

@@ -197,6 +197,10 @@ struct HelpView: View {
                             Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by Homey Pad under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
                                 .gridCellColumns(2)
                         }
+                        GridRow {
+                            Text("The Bach pieces were recorded as copyright-free works for the harpsichord in general MIDI format for free distribution on the Internet by [John Sankey](https://johnsankey.ca/harpsichord.html) and distributed by [Dave's J.S.Bach Page](http://www.jsbach.net/midi/midi_johnsankey.html).")
+                                .gridCellColumns(2)
+                        }
                     }
                     .font(.footnote)
                 }
