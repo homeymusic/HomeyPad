@@ -17,18 +17,6 @@ class ViewConductor: ObservableObject {
         manufacturer: "HomeyMusic"
     )
     
-    func playNote(_ midiNote: UInt8) {
-        conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
-        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
-        notesPlaying.insert(midiNote)
-    }
-    
-    func stopNote(_ midiNote: UInt8){
-        conductor.instrument.stop(noteNumber: midiNote, channel: 0)
-        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
-        notesPlaying.remove(midiNote)
-    }
-    
     func simpleSuccess() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
@@ -92,6 +80,18 @@ class ViewConductor: ObservableObject {
         
         // Set up MIDI
         MIDIConnect()
+    }
+    
+    func playNote(_ midiNote: UInt8) {
+        conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
+        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
+        notesPlaying.insert(midiNote)
+    }
+    
+    func stopNote(_ midiNote: UInt8){
+        conductor.instrument.stop(noteNumber: midiNote, channel: 0)
+        NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
+        notesPlaying.remove(midiNote)
     }
     
     //Keyboard Events

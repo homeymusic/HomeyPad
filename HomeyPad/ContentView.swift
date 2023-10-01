@@ -167,8 +167,7 @@ struct ContentView: View {
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     if !viewConductor.conductor.engine.avEngine.isRunning {
-                        try? viewConductor.conductor.instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
-                        try? viewConductor.conductor.engine.start()
+                        viewConductor.conductor.start()
                     }
                 } else if newPhase == .background {
                     if midiPlayer.state == .playing {midiPlayer.pause()}
@@ -214,7 +213,6 @@ struct ContentView: View {
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if !viewConductor.conductor.engine.avEngine.isRunning {
-                try? viewConductor.conductor.instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
                 viewConductor.conductor.start()
             }
         }

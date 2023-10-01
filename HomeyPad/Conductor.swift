@@ -12,13 +12,12 @@ class Conductor: ObservableObject {
         
         // Attach Nodes to the Engine
         engine.output = instrument
-        
-        // Load AVAudioUnitSampler Instrument
-        try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
-        
+                
     }
     
     func start() {
+        // Load AVAudioUnitSampler Instrument
+        try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
         try? engine.start()
     }
 }
