@@ -26,7 +26,6 @@ struct PlayView: View {
             let midiNote: UInt8 = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
             if status == 144 {
                 viewConductor.playNote(midiNote)
-                print(midiNote)
             } else if status == 128 {
                 viewConductor.stopNote(midiNote)
             }
@@ -34,6 +33,7 @@ struct PlayView: View {
         midiPlayer.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: filename, withExtension: "mid", subdirectory: "Examples")!)
         midiPlayer.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
         midiPlayer.sequencer.enableLooping()
+        midiPlayer.sequencer.preroll()
     }
     
     var body: some View {
