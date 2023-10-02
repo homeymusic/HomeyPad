@@ -94,7 +94,7 @@ struct PlayView: View {
                                 viewConductor.keysPerRow = 13
                                 viewConductor.octaveCount = 1
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
-                                    Text("Pulsing Pulsing Neutron Star")
+                                    Text("Twinkle Twinkle (transposed)")
                                         .foregroundColor(Default.minorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
@@ -102,13 +102,13 @@ struct PlayView: View {
                                         Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "pulsing_pulsing_neutron_star", songTonic: 40, itemID: 2)
+                                }, filename: "mirror_twinkle", songTonic: 40, itemID: 2)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 2 { Default.highlightGray }
                                     HStack {
-                                        Text("Pulsing Pulsing Neutron Star")
+                                        Text("Twinkle Twinkle (transposed)")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
                                             .id(2)
@@ -160,7 +160,7 @@ struct PlayView: View {
                                 viewConductor.keysPerRow = 23
                                 viewConductor.octaveCount = 1
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
-                                    Text("May Your Soul Rest")
+                                    Text("Happy Birthday (transposed)")
                                         .foregroundColor(Default.minorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
@@ -168,13 +168,13 @@ struct PlayView: View {
                                         Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "may_your_soul_rest", songTonic: 52, itemID: 6)
+                                }, filename: "mirror_birthday", songTonic: 52, itemID: 6)
                                 midiPlayer.play()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 6 { Default.highlightGray }
                                     HStack {
-                                        Text("May Your Soul Rest")
+                                        Text("Happy Birthday (transposed)")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
                                             .id(6)
