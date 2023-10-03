@@ -31,7 +31,6 @@ struct SelectorStyle: View {
                 if showIntervals {
                     Text(intervalLabel(col))
                         .font(.custom("Monaco", size: 20))
-                        .foregroundColor(homeyForegroundColor(col, reverseHomeColor: true))
                 }
                 if showClassicalSelector {
                     Text(classicalLabel(pitchClass))

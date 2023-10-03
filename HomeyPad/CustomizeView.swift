@@ -22,7 +22,6 @@ struct CustomizeView: View {
             Text("Labels")
                 .font(.headline)
             Divider()
-//            ScrollView {
                 Grid {
                     GridRow {
                         Image(systemName: "character")
@@ -72,21 +71,6 @@ struct CustomizeView: View {
                     }
                 }
                 .padding([.leading, .trailing], 10)
-//            }
-            Divider()
-            Button(role: .cancel, action: {
-                showClassicalSelector = Default.showClassicalSelector
-                showMonthsSelector = Default.showMonthsSelector
-                showPianoSelector = Default.showPianoSelector
-                showIntervals = Default.showIntervals
-                octaveCount = Default.octaveCount
-                keysPerRow = Default.keysPerRow
-                midiPlayer.stop()
-                viewConductor.resetNotes()
-                dismiss()
-            }) {
-                Label("Reset", systemImage: "gobackward")
-            }
         }
         .padding(10)
     }
