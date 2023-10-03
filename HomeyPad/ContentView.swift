@@ -21,9 +21,11 @@ struct ContentView: View {
                         HStack(alignment: .center, spacing: 0) {
                             Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
                                 .tint(Default.pianoGray)
+                                .padding(.leading, 10)
                             Button(action: {
                                 self.showingSettingsPopover.toggle()
                             }) {
+                                
                                 ZStack {
                                     Image(systemName: "slider.horizontal.3").foregroundColor(.white)
                                     Image(systemName: "square").foregroundColor(.clear)
@@ -131,7 +133,7 @@ struct ContentView: View {
                                                  nowPlayingTitle: $viewConductor.nowPlayingTitle,
                                                  nowPlayingID: $viewConductor.nowPlayingID,
                                                  scrollToID: $viewConductor.scrollToID)
-                                            .presentationCompactAdaptation(.none)
+                                        .presentationCompactAdaptation(.none)
                                     })
                                 }
                             }
