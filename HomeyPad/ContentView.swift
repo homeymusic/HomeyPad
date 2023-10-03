@@ -39,7 +39,7 @@ struct ContentView: View {
                                 .presentationCompactAdaptation(.none)
                             })
                             .padding(.leading, 10)
-                            Toggle("", isOn: $viewConductor.showPianoSelector).labelsHidden()
+                            Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
                                 .tint(Default.pianoGray)
                                 .padding(.leading, 10)
                             Spacer()
@@ -138,13 +138,14 @@ struct ContentView: View {
                     VStack(spacing: 0) {
                         // home selector
                         Spacer()
-                        if (viewConductor.showClassicalSelector || viewConductor.showMonthsSelector || viewConductor.showPianoSelector) {
+                        if (viewConductor.showSelector) {
                             // The tonic selector
                             SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showMonthsSelector: viewConductor.showMonthsSelector,
                                                 showPianoSelector: viewConductor.showPianoSelector,
+                                                showIntervals: viewConductor.showIntervals,
                                                 midiPlayer: midiPlayer,
                                                 selectorTapped: viewConductor.selectHome)
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
@@ -153,12 +154,6 @@ struct ContentView: View {
                         // The main dualistic keyboard
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
-                        if (viewConductor.showIntervals) {
-                            // The intervals display
-                            SwiftUIIntervals(keysPerRow: viewConductor.keysPerRow)
-                                .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
-                                .padding(.bottom, 5)
-                        }
                         Spacer()
                     }
                     .padding([.top, .bottom], 25)

@@ -12,6 +12,7 @@ struct SelectorStyle: View {
     let showClassicalSelector: Bool
     let showMonthsSelector: Bool
     let showPianoSelector: Bool
+    let showIntervals: Bool
     let tonicPitchClass: Int
     
     var body: some View {
@@ -27,6 +28,11 @@ struct SelectorStyle: View {
                     )
                 .padding(2)
             VStack {
+                if showIntervals {
+                    Text(intervalLabel(col))
+                        .font(.custom("Monaco", size: 20))
+                        .foregroundColor(homeyForegroundColor(col, reverseHomeColor: true))
+                }
                 if showClassicalSelector {
                     Text(classicalLabel(pitchClass))
                         .font(.title3)

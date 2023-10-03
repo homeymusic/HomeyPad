@@ -5,36 +5,13 @@ import Tonic
 import Controls
 import AVFoundation
 
-struct SwiftUIIntervals: View {
-    var keysPerRow: Int
-    var body: some View {
-        let extraColsPerSide : Int = Int(floor(CGFloat(keysPerRow - 13) / 2))
-        VStack(spacing: 0) {
-            HStack(spacing: 1) {
-                ForEach(-extraColsPerSide...(12+extraColsPerSide), id: \.self) { col in
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.clear)
-                        Text(intervalLabel(col))
-                            .font(.custom("Monaco", size: 20))
-                            .scaledToFit()
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.01)
-                            .foregroundColor(homeyForegroundColor(col, reverseHomeColor: false))
-                            .padding(2)
-                    }
-                }
-            }
-        }
-    }
-}
-
 struct SwiftUIHomeSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
     var showClassicalSelector: Bool
     var showMonthsSelector: Bool
     var showPianoSelector: Bool
+    var showIntervals: Bool
     var midiPlayer: MIDIPlayer
     var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
 
@@ -57,6 +34,7 @@ struct SwiftUIHomeSelector: View {
                                       showClassicalSelector: showClassicalSelector,
                                       showMonthsSelector: showMonthsSelector,
                                       showPianoSelector: showPianoSelector,
+                                      showIntervals: showIntervals,
                                       tonicPitchClass: tonicPitchClass)
                     } else {
                         Button {
@@ -66,6 +44,7 @@ struct SwiftUIHomeSelector: View {
                                           showClassicalSelector: showClassicalSelector,
                                           showMonthsSelector: showMonthsSelector,
                                           showPianoSelector: showPianoSelector,
+                                          showIntervals: showIntervals,
                                           tonicPitchClass: tonicPitchClass)
                         }
                     }

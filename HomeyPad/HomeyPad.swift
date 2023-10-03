@@ -32,10 +32,11 @@ func minKeysPerRow() -> Int {
 }
 
 enum Default {
+    static let showSelector: Bool = false
     static let showClassicalSelector: Bool = false
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
-    static let showIntervals: Bool = false
+    static let showIntervals: Bool = true
     static let octaveCount: Int = 1
     static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0

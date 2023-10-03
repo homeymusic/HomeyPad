@@ -34,6 +34,11 @@ class ViewConductor: ObservableObject {
             self.simpleSuccess()
         }
     }
+    @Published var showSelector: Bool {
+        didSet {
+            defaults.set(self.showSelector, forKey: "showSelector")
+        }
+    }
     @Published var showClassicalSelector: Bool {
         didSet {
             defaults.set(self.showClassicalSelector, forKey: "showClassicalSelector")
@@ -69,6 +74,7 @@ class ViewConductor: ObservableObject {
         defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
+        showSelector = defaults.bool(forKey: "showSelector")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
