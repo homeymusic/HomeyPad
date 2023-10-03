@@ -19,51 +19,32 @@ struct ContentView: View {
                 ZStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center, spacing: 0) {
-                            // The help view
-                            VStack(alignment: .leading) {
+                            //the customize view
+                            VStack(alignment: .trailing) {
                                 HStack {
                                     Button(action: {
-                                        self.showingHelpPopover.toggle()
+                                        self.showingSettingsPopover.toggle()
                                     }) {
                                         ZStack {
-                                            Image(systemName: "house")
-                                                .foregroundColor(.white)
-                                            Image(systemName: "square")
-                                                .foregroundColor(.clear)
+                                            Image(systemName: "slider.horizontal.3").foregroundColor(.white)
+                                            Image(systemName: "square").foregroundColor(.clear)
                                         }
-                                    }.popover(isPresented: $showingHelpPopover,
+                                    }.popover(isPresented: $showingSettingsPopover,
                                               content: {
-                                        HelpView()
-                                            .presentationCompactAdaptation(.none)
+                                        CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                                      showMonthsSelector: $viewConductor.showMonthsSelector,
+                                                      showPianoSelector: $viewConductor.showPianoSelector,
+                                                      showIntervals: $viewConductor.showIntervals,
+                                                      octaveCount: $viewConductor.octaveCount,
+                                                      keysPerRow: $viewConductor.keysPerRow,
+                                                      midiPlayer: midiPlayer,
+                                                      viewConductor: viewConductor)
+                                        .presentationCompactAdaptation(.none)
                                     })
                                 }
                             }
                             .padding(.leading, 10)
-                            // The play view
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Button(action: {
-                                        self.showingPlayPopover.toggle()
-                                        viewConductor.scrollToID = viewConductor.nowPlayingID
-                                    }) {
-                                        ZStack {
-                                            Image(systemName: "music.note.list")
-                                                .foregroundColor(.white)
-                                            Image(systemName: "square")
-                                                .foregroundColor(.clear)
-                                        }
-                                    }.popover(isPresented: $showingPlayPopover,
-                                              content: {
-                                        PlayView(viewConductor: viewConductor,
-                                                 midiPlayer: midiPlayer,
-                                                 nowPlayingTitle: $viewConductor.nowPlayingTitle,
-                                                 nowPlayingID: $viewConductor.nowPlayingID,
-                                                 scrollToID: $viewConductor.scrollToID)
-                                            .presentationCompactAdaptation(.none)
-                                    })
-                                }
-                            }
-                            .padding(.leading, 10)
+                            Spacer()
                             // Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
                                 VStack(alignment: .leading) {
@@ -105,30 +86,49 @@ struct ContentView: View {
                                         .padding(.leading, 20)
                                     }
                                 }
-                                .padding(.leading, 20)
+                                .padding(.trailing, 20)
                             }
-                            Spacer()
-                            //the customize view
-                            VStack(alignment: .trailing) {
+                            // The play view
+                            VStack(alignment: .leading) {
                                 HStack {
                                     Button(action: {
-                                        self.showingSettingsPopover.toggle()
+                                        self.showingPlayPopover.toggle()
+                                        viewConductor.scrollToID = viewConductor.nowPlayingID
                                     }) {
                                         ZStack {
-                                            Image(systemName: "slider.horizontal.3").foregroundColor(.white)
-                                            Image(systemName: "square").foregroundColor(.clear)
+                                            Image(systemName: "music.note.list")
+                                                .foregroundColor(.white)
+                                            Image(systemName: "square")
+                                                .foregroundColor(.clear)
                                         }
-                                    }.popover(isPresented: $showingSettingsPopover,
+                                    }.popover(isPresented: $showingPlayPopover,
                                               content: {
-                                        CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
-                                                      showMonthsSelector: $viewConductor.showMonthsSelector,
-                                                      showPianoSelector: $viewConductor.showPianoSelector,
-                                                      showIntervals: $viewConductor.showIntervals,
-                                                      octaveCount: $viewConductor.octaveCount,
-                                                      keysPerRow: $viewConductor.keysPerRow,
-                                                      midiPlayer: midiPlayer,
-                                                      viewConductor: viewConductor)
-                                        .presentationCompactAdaptation(.none)
+                                        PlayView(viewConductor: viewConductor,
+                                                 midiPlayer: midiPlayer,
+                                                 nowPlayingTitle: $viewConductor.nowPlayingTitle,
+                                                 nowPlayingID: $viewConductor.nowPlayingID,
+                                                 scrollToID: $viewConductor.scrollToID)
+                                            .presentationCompactAdaptation(.none)
+                                    })
+                                }
+                            }
+                            .padding(.trailing, 10)
+                            // The help view
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Button(action: {
+                                        self.showingHelpPopover.toggle()
+                                    }) {
+                                        ZStack {
+                                            Image(systemName: "questionmark.circle")
+                                                .foregroundColor(.white)
+                                            Image(systemName: "square")
+                                                .foregroundColor(.clear)
+                                        }
+                                    }.popover(isPresented: $showingHelpPopover,
+                                              content: {
+                                        HelpView()
+                                            .presentationCompactAdaptation(.none)
                                     })
                                 }
                             }
