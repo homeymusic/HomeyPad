@@ -19,31 +19,29 @@ struct ContentView: View {
                 ZStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center, spacing: 0) {
-                            //the customize view
-                            VStack(alignment: .trailing) {
-                                HStack {
-                                    Button(action: {
-                                        self.showingSettingsPopover.toggle()
-                                    }) {
-                                        ZStack {
-                                            Image(systemName: "slider.horizontal.3").foregroundColor(.white)
-                                            Image(systemName: "square").foregroundColor(.clear)
-                                        }
-                                    }.popover(isPresented: $showingSettingsPopover,
-                                              content: {
-                                        CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
-                                                      showMonthsSelector: $viewConductor.showMonthsSelector,
-                                                      showPianoSelector: $viewConductor.showPianoSelector,
-                                                      showIntervals: $viewConductor.showIntervals,
-                                                      octaveCount: $viewConductor.octaveCount,
-                                                      keysPerRow: $viewConductor.keysPerRow,
-                                                      midiPlayer: midiPlayer,
-                                                      viewConductor: viewConductor)
-                                        .presentationCompactAdaptation(.none)
-                                    })
+                            Button(action: {
+                                self.showingSettingsPopover.toggle()
+                            }) {
+                                ZStack {
+                                    Image(systemName: "slider.horizontal.3").foregroundColor(.white)
+                                    Image(systemName: "square").foregroundColor(.clear)
                                 }
-                            }
+                            }.popover(isPresented: $showingSettingsPopover,
+                                      content: {
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                              showMonthsSelector: $viewConductor.showMonthsSelector,
+                                              showPianoSelector: $viewConductor.showPianoSelector,
+                                              showIntervals: $viewConductor.showIntervals,
+                                              octaveCount: $viewConductor.octaveCount,
+                                              keysPerRow: $viewConductor.keysPerRow,
+                                              midiPlayer: midiPlayer,
+                                              viewConductor: viewConductor)
+                                .presentationCompactAdaptation(.none)
+                            })
                             .padding(.leading, 10)
+                            Toggle("", isOn: $viewConductor.showPianoSelector).labelsHidden()
+                                .tint(Default.pianoGray)
+                                .padding(.leading, 10)
                             Spacer()
                             // Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
