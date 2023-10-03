@@ -19,38 +19,19 @@ struct CustomizeView: View {
 
     var body: some View {
         VStack {
-            Text("Customize")
+            Text("Labels")
                 .font(.headline)
             Divider()
-            ScrollView {
+//            ScrollView {
                 Grid {
-                    GridRow {
-                        Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                            .gridCellAnchor(.center)
-                        Text("Rows")
-                            .gridCellAnchor(.leading)
-                        Stepper("", value: $octaveCount,
-                                in: 1...7,
-                                step: 2)
-                        .gridCellAnchor(.trailing)
-                    }
-                    GridRow {
-                        Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                            .gridCellAnchor(.center)
-                        Text("Columns")
-                            .gridCellAnchor(.leading)
-                        Stepper("", value: $keysPerRow,
-                                in: minKeysPerRow()...maxKeysPerRow(),
-                                step: 2)
-                        .gridCellAnchor(.trailing)
-                    }
-                    Divider()
                     GridRow {
                         Image(systemName: "character")
                             .gridCellAnchor(.center)
                         
                         Text("Letters")
                             .gridCellAnchor(.leading)
+                        Spacer()
+
                         
                         Toggle("", isOn: $showClassicalSelector)
                             .gridCellAnchor(.trailing)
@@ -61,6 +42,8 @@ struct CustomizeView: View {
                         
                         Text("Piano")
                             .gridCellAnchor(.leading)
+                        Spacer()
+
                         
                         Toggle("", isOn: $showPianoSelector)
                             .gridCellAnchor(.trailing)
@@ -71,7 +54,7 @@ struct CustomizeView: View {
                         
                         Text("Intervals")
                             .gridCellAnchor(.leading)
-                        
+                        Spacer()
                         Toggle("", isOn: $showIntervals)
                             .gridCellAnchor(.trailing)
                     }
@@ -82,12 +65,14 @@ struct CustomizeView: View {
                         Text("Months")
                             .gridCellAnchor(.leading)
                         
+                        Spacer()
+
                         Toggle("", isOn: $showMonthsSelector)
                             .gridCellAnchor(.trailing)
                     }
                 }
                 .padding([.leading, .trailing], 10)
-            }
+//            }
             Divider()
             Button(role: .cancel, action: {
                 showClassicalSelector = Default.showClassicalSelector

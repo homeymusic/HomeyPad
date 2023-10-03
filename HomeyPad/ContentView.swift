@@ -42,6 +42,24 @@ struct ContentView: View {
                             })
                             .padding(.leading, 10)
                             Spacer()
+                            HStack {
+                                HStack {
+                                    Stepper("", value: $viewConductor.keysPerRow,
+                                            in: minKeysPerRow()...maxKeysPerRow(),
+                                            step: 2).labelsHidden()
+                                    Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                                        .gridCellAnchor(.center)
+                                }
+                                HStack {
+                                    Stepper("", value: $viewConductor.octaveCount,
+                                            in: 1...7,
+                                            step: 2).labelsHidden()
+                                    Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                                        .gridCellAnchor(.center)
+                                }
+                                .padding(.leading, 32)
+                            }
+                            Spacer()
                             // Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
                                 VStack(alignment: .leading) {
