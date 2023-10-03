@@ -28,13 +28,13 @@ struct SelectorStyle: View {
                     )
                 .padding(2)
             VStack {
-                if showIntervals {
-                    Text(intervalLabel(col))
-                        .font(.custom("Monaco", size: 20))
-                }
                 if showClassicalSelector {
                     Text(classicalLabel(pitchClass))
                         .font(.title3)
+                }
+                if showIntervals {
+                    Text(intervalLabel(col))
+                        .font(.custom("Monaco", size: 20))
                 }
                 if showMonthsSelector {
                     Text(monthLabel(pitchClass))
