@@ -19,6 +19,8 @@ struct ContentView: View {
                 ZStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center, spacing: 0) {
+                            Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
+                                .tint(Default.pianoGray)
                             Button(action: {
                                 self.showingSettingsPopover.toggle()
                             }) {
@@ -39,9 +41,6 @@ struct ContentView: View {
                                 .presentationCompactAdaptation(.none)
                             })
                             .padding(.leading, 10)
-                            Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
-                                .tint(Default.pianoGray)
-                                .padding(.leading, 10)
                             Spacer()
                             // Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
@@ -156,7 +155,7 @@ struct ContentView: View {
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
-                    .padding([.top, .bottom], 25)
+                    .padding([.top, .bottom], 35)
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
