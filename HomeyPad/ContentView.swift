@@ -32,8 +32,7 @@ struct ContentView: View {
                                 }
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                CustomizeView(showRoll: $viewConductor.showRoll,
-                                              showClassicalSelector: $viewConductor.showClassicalSelector,
+                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
@@ -44,11 +43,19 @@ struct ContentView: View {
                                 .presentationCompactAdaptation(.none)
                             })
                             .padding(.leading, 10)
+                            Toggle(isOn: $viewConductor.showRoll) {
+                                Image(systemName: viewConductor.showRoll ? "scroll.fill" : "scroll")
+                                    .rotationEffect(Angle(degrees: -90))
+                                    .foregroundColor(.white)
+                            }
+                            .toggleStyle(.button)
+                            .tint(Default.pianoGray)
                             Spacer()
                             HStack {
                                 HStack {
                                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
                                         .gridCellAnchor(.center)
+                                        .foregroundColor(Default.pianoGray)
                                     Stepper("", value: $viewConductor.octaveCount,
                                             in: 1...7,
                                             step: 2).labelsHidden()
@@ -67,6 +74,7 @@ struct ContentView: View {
                                             step: 2).labelsHidden()
                                     Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
                                         .gridCellAnchor(.center)
+                                        .foregroundColor(Default.pianoGray)
                                 }
                                 .padding(.leading, 15)
                             }

@@ -8,7 +8,6 @@ import SwiftUI
 
 struct CustomizeView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var showRoll: Bool
     @Binding var showClassicalSelector: Bool
     @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
@@ -22,18 +21,6 @@ struct CustomizeView: View {
         VStack {
             Grid {
                 GridRow {
-                    Image(systemName: "scroll")
-                        .gridCellAnchor(.center)
-                        .rotationEffect(Angle(degrees: -90))
-                    
-                    Text("Roll")
-                        .gridCellAnchor(.leading)
-                    Spacer()
-                    
-                    Toggle("", isOn: $showRoll)
-                        .gridCellAnchor(.trailing)
-                }
-                GridRow {
                     Image(systemName: "character")
                         .gridCellAnchor(.center)
                     
@@ -44,18 +31,7 @@ struct CustomizeView: View {
                     
                     Toggle("", isOn: $showClassicalSelector)
                         .gridCellAnchor(.trailing)
-                }
-                GridRow {
-                    Image(systemName: "pianokeys")
-                        .gridCellAnchor(.center)
-                    
-                    Text("Piano")
-                        .gridCellAnchor(.leading)
-                    Spacer()
-                    
-                    
-                    Toggle("", isOn: $showPianoSelector)
-                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
                 }
                 GridRow {
                     Image(systemName: "ruler")
@@ -66,6 +42,7 @@ struct CustomizeView: View {
                     Spacer()
                     Toggle("", isOn: $showIntervals)
                         .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
                 }
                 GridRow {
                     Image(systemName: "calendar")
@@ -78,6 +55,20 @@ struct CustomizeView: View {
                     
                     Toggle("", isOn: $showMonthsSelector)
                         .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                GridRow {
+                    Image(systemName: "pianokeys")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Piano")
+                        .gridCellAnchor(.leading)
+                    Spacer()
+                    
+                    
+                    Toggle("", isOn: $showPianoSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
                 }
             }
             .padding([.leading, .trailing], 10)
