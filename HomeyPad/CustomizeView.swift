@@ -79,6 +79,7 @@ struct CustomizeView: View {
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
+                Divider()
                 GridRow {
                     Image(systemName: "pianokeys")
                         .gridCellAnchor(.center)

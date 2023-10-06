@@ -39,17 +39,17 @@ struct HelpView: View {
                                 .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
-                            Text("stable, perfect")
+                            Text("perfect")
                         }
                         .foregroundColor(.white)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("tottering, pleasant")
+                            Text("consonant")
                         }
                         .foregroundColor(.white)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("rolling, unpleasant")
+                            Text("dissonant")
                         }
                         .foregroundColor(.white)
                     }
@@ -61,22 +61,22 @@ struct HelpView: View {
                         }
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("sheltered, neutral")
+                            Text("neutral")
                         }
                         .foregroundColor(Default.homeColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("sunny, major")
+                            Text("major")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("cloudy, minor")
+                            Text("minor")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "paintbrush.pointed.fill")
-                            Text("windy, strange")
+                            Text("tritone")
                         }
                         .foregroundColor(Default.tritoneColor)
                     }
@@ -91,32 +91,32 @@ struct HelpView: View {
                                 .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
-                            Text("neutral perfect")
+                            Text("perfect")
                         }
                         .foregroundColor(Default.homeColor)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("major pleasant")
+                            Text("major consonant")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "diamond.fill")
-                            Text("minor pleasant")
+                            Text("minor consonant")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("major unpleasant")
+                            Text("major dissonant")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("minor unpleasant")
+                            Text("minor dissonant")
                         }
                         .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "circle.fill")
-                            Text("strange unpleasant")
+                            Text("tritone dissonant")
                         }
                         .foregroundColor(Default.tritoneColor)
                     }
@@ -132,15 +132,15 @@ struct HelpView: View {
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
-                            Image(systemName: "minus.square.fill")
-                            Text("minor chord")
-                        }
-                        .foregroundColor(Default.minorColor)
-                        GridRow {
                             Image(systemName: "multiply.square.fill")
                             Text("inverted major chord")
                         }
                         .foregroundColor(Default.majorColor)
+                        GridRow {
+                            Image(systemName: "minus.square.fill")
+                            Text("minor chord")
+                        }
+                        .foregroundColor(Default.minorColor)
                         GridRow {
                             Image(systemName: "i.square.fill")
                             Text("inverted minor chord")
