@@ -65,13 +65,15 @@ struct ContentView: View {
                                             step: 2).labelsHidden()
                                 }
                                 .padding(.trailing, 15)
+                                let defaultGeometry = viewConductor.octaveCount == Default.octaveCount && viewConductor.keysPerRow == Default.keysPerRow
                                 Button(role: .cancel, action: {
                                     viewConductor.octaveCount = Default.octaveCount
                                     viewConductor.keysPerRow = Default.keysPerRow
                                 }) {
                                     Label("", systemImage: "gobackward")
-                                        .foregroundColor(.white)
+                                        .foregroundColor(defaultGeometry ? Default.pianoGray : .white)
                                 }
+                                .disabled(defaultGeometry)
                                 HStack {
                                     Stepper("", value: $viewConductor.keysPerRow,
                                             in: minKeysPerRow()...maxKeysPerRow(),
