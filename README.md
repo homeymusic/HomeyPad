@@ -1,5 +1,7 @@
 # Homey Pad
 
+![alt tag](https://raw.githubusercontent.com/homeymusic/HomeyPad/master/homey_pads.png)
+
 ### iPhone
 
 ![alt tag](https://raw.githubusercontent.com/homeymusic/HomeyPad/master/iphone_screenshot.png)
