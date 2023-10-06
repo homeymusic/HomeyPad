@@ -47,13 +47,13 @@ struct ContentView: View {
                                 .presentationCompactAdaptation(.none)
                             })
                             .padding(.leading, 10)
-                            Toggle(isOn: $viewConductor.showRoll) {
-                                Image(systemName: viewConductor.showRoll ? "scroll.fill" : "scroll")
-                                    .rotationEffect(Angle(degrees: -90))
-                                    .foregroundColor(.white)
-                            }
-                            .toggleStyle(.button)
-                            .tint(Default.pianoGray)
+//                            Toggle(isOn: $viewConductor.showRoll) {
+//                                Image(systemName: viewConductor.showRoll ? "scroll.fill" : "scroll")
+//                                    .rotationEffect(Angle(degrees: -90))
+//                                    .foregroundColor(.white)
+//                            }
+//                            .toggleStyle(.button)
+//                            .tint(Default.pianoGray)
                             Spacer()
                             HStack {
                                 HStack {
