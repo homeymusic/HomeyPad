@@ -91,6 +91,17 @@ struct HelpView: View {
                                 .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
+                                .padding(3)
+                            Text("tonic")
+                                .padding(1)
+                        }
+                        .foregroundColor(Default.homeComplementColor)
+                        .background(Default.homeColor)
+                        GridRow {
+                            NitterHouse()
+                                .stroke(lineWidth: 2)
+                                .gridColumnAlignment(.center)
+                                .frame(width: 17, height: 17)
                             Text("perfect")
                         }
                         .foregroundColor(Default.homeColor)
