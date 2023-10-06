@@ -34,6 +34,11 @@ class ViewConductor: ObservableObject {
             self.simpleSuccess()
         }
     }
+    @Published var showRoll: Bool {
+        didSet {
+            defaults.set(self.showRoll, forKey: "showRoll")
+        }
+    }
     @Published var showSelector: Bool {
         didSet {
             defaults.set(self.showSelector, forKey: "showSelector")
@@ -71,10 +76,11 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showRoll": Default.showRoll, "showClassicalSelector": Default.showClassicalSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")
+        showRoll = defaults.bool(forKey: "showRoll")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")

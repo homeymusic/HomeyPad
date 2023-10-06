@@ -32,7 +32,8 @@ struct ContentView: View {
                                 }
                             }.popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                CustomizeView(showRoll: $viewConductor.showRoll,
+                                              showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,

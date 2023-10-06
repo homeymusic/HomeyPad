@@ -32,6 +32,7 @@ func minKeysPerRow() -> Int {
 }
 
 enum Default {
+    static let showRoll: Bool = false
     static let showSelector: Bool = false
     static let showClassicalSelector: Bool = true
     static let showMonthsSelector: Bool = false
