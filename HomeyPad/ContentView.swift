@@ -27,12 +27,16 @@ struct ContentView: View {
                             }) {
                                 
                                 ZStack {
-                                    Image(systemName: "slider.horizontal.3").foregroundColor(.white)
+                                    Image(systemName: "slider.horizontal.3")
+                                        .foregroundColor(viewConductor.showSelector ? .white : Default.pianoGray)
                                     Image(systemName: "square").foregroundColor(.clear)
                                 }
-                            }.popover(isPresented: $showingSettingsPopover,
+                            }
+                            .disabled(!viewConductor.showSelector)
+                            .popover(isPresented: $showingSettingsPopover,
                                       content: {
                                 CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
+                                              showIntegersSelector: $viewConductor.showIntegersSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
@@ -179,6 +183,7 @@ struct ContentView: View {
                             SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
+                                                showIntegersSelector: viewConductor.showIntegersSelector,
                                                 showMonthsSelector: viewConductor.showMonthsSelector,
                                                 showPianoSelector: viewConductor.showPianoSelector,
                                                 showIntervals: viewConductor.showIntervals,

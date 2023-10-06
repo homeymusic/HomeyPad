@@ -9,6 +9,7 @@ import SwiftUI
 struct CustomizeView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var showClassicalSelector: Bool
+    @Binding var showIntegersSelector: Bool
     @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
     @Binding var showIntervals: Bool
@@ -21,15 +22,32 @@ struct CustomizeView: View {
         VStack {
             Grid {
                 GridRow {
-                    Image(systemName: "character")
+                    Image(systemName: "a.square")
                         .gridCellAnchor(.center)
                     
                     Text("Letters")
                         .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
                     Spacer()
                     
                     
                     Toggle("", isOn: $showClassicalSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                GridRow {
+                    Image(systemName: "0.square")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Numbers")
+                        .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
+                    Spacer()
+                    
+                    
+                    Toggle("", isOn: $showIntegersSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -39,6 +57,8 @@ struct CustomizeView: View {
                     
                     Text("Intervals")
                         .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
                     Spacer()
                     Toggle("", isOn: $showIntervals)
                         .gridCellAnchor(.trailing)
@@ -50,7 +70,9 @@ struct CustomizeView: View {
                     
                     Text("Months")
                         .gridCellAnchor(.leading)
-                    
+                        .lineLimit(1)
+                        .fixedSize()
+
                     Spacer()
                     
                     Toggle("", isOn: $showMonthsSelector)
@@ -63,6 +85,9 @@ struct CustomizeView: View {
                     
                     Text("Piano")
                         .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
+
                     Spacer()
                     
                     

@@ -35,6 +35,7 @@ enum Default {
     static let showRoll: Bool = false
     static let showSelector: Bool = false
     static let showClassicalSelector: Bool = true
+    static let showIntegersSelector: Bool = false
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false

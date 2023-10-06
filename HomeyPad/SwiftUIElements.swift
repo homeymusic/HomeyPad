@@ -9,6 +9,7 @@ struct SwiftUIHomeSelector: View {
     var keysPerRow: Int
     var tonicPitchClass: Int
     var showClassicalSelector: Bool
+    var showIntegersSelector: Bool
     var showMonthsSelector: Bool
     var showPianoSelector: Bool
     var showIntervals: Bool
@@ -32,6 +33,7 @@ struct SwiftUIHomeSelector: View {
                     if mod(col, 12) == 0 {
                         SelectorStyle(col: col,
                                       showClassicalSelector: showClassicalSelector,
+                                      showIntegersSelector: showIntegersSelector,
                                       showMonthsSelector: showMonthsSelector,
                                       showPianoSelector: showPianoSelector,
                                       showIntervals: showIntervals,
@@ -42,6 +44,7 @@ struct SwiftUIHomeSelector: View {
                         } label: {
                             SelectorStyle(col: col,
                                           showClassicalSelector: showClassicalSelector,
+                                          showIntegersSelector: showIntegersSelector,
                                           showMonthsSelector: showMonthsSelector,
                                           showPianoSelector: showPianoSelector,
                                           showIntervals: showIntervals,

@@ -10,6 +10,7 @@ import SwiftUI
 struct SelectorStyle: View {
     let col: Int
     let showClassicalSelector: Bool
+    let showIntegersSelector: Bool
     let showMonthsSelector: Bool
     let showPianoSelector: Bool
     let showIntervals: Bool
@@ -31,6 +32,10 @@ struct SelectorStyle: View {
                 if showClassicalSelector {
                     Text(classicalLabel(pitchClass))
                         .font(.title3)
+                }
+                if showIntegersSelector {
+                    Text(String(col))
+                        .font(.custom("Monaco", size: 20))
                 }
                 if showIntervals {
                     Text(intervalLabel(col))
