@@ -15,6 +15,7 @@ struct CustomizeView: View {
     @Binding var showIntervals: Bool
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
+    @Binding var upwardPitchMovement: Bool
     var midiPlayer: MIDIPlayer
     var viewConductor: ViewConductor
     
@@ -96,6 +97,22 @@ struct CustomizeView: View {
                     Toggle("", isOn: $showIntervals)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
+                }
+                GridRow {
+                    let enableMovement = showIntervals || showIntegersSelector
+                    Image(systemName: "arrow.left.arrow.right")
+                        .gridCellAnchor(.center)
+                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
+                    Text("Direction")
+                        .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
+                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
+                    Spacer()
+                    Toggle("", isOn: $upwardPitchMovement)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                        .disabled(!enableMovement)
                 }
             }
             .padding([.leading, .trailing], 10)

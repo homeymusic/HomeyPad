@@ -51,6 +51,7 @@ enum Default {
     static let highlightGray: Color = Color(red: 45/255, green: 45/255, blue: 45/255)
     static let chromaticColor: Color = Color(red: 222/255, green: 187/255, blue: 147/255)
     static let initialC: Int = 60
+    static let upwardPitchMovement: Bool = true
 }
 
 func mod(_ a: Int, _ n: Int) -> Int {
@@ -167,6 +168,30 @@ func monthLabel(_ pitchClass: Int) -> String {
 func intervalLabel(_ col: Int) -> String {
     
     switch col {
+    case -36:
+        return "-P22"
+    case -35:
+        return "-M21"
+    case -34:
+        return "-m21"
+    case -33:
+        return "-M20"
+    case -32:
+        return "-m20"
+    case -31:
+        return "-P19"
+    case -30:
+        return "-tt"
+    case -29:
+        return "-P18"
+    case -28:
+        return "-M17"
+    case -27:
+        return "-m17"
+    case -26:
+        return "-M16"
+    case -25:
+        return "-m16"
     case -24:
         return "-P15"
     case -23:

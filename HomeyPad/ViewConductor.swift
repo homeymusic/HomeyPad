@@ -79,9 +79,15 @@ class ViewConductor: ObservableObject {
     @Published var nowPlayingTitle: any View = Text("")
     @Published var nowPlayingID: Int = 0
     @Published var scrollToID: Int = 0
+    @Published var upwardPitchMovement: Bool {
+        didSet {
+            defaults.set(self.upwardPitchMovement, forKey: "upwardPitchMovement")
+        }
+    }
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showRoll": Default.showRoll, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass])
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showRoll": Default.showRoll, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+                                     "upwardPitchMovement": Default.upwardPitchMovement])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")
@@ -92,6 +98,7 @@ class ViewConductor: ObservableObject {
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
+        upwardPitchMovement = defaults.bool(forKey: "upwardPitchMovement")
         
         // Start the engine
         conductor.start()

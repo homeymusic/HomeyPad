@@ -15,10 +15,12 @@ struct SelectorStyle: View {
     let showPianoSelector: Bool
     let showIntervals: Bool
     let tonicPitchClass: Int
+    let upwardPitchMovement: Bool
     
     var body: some View {
         let pitchClass = tonicPitchClass+col
         let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col)
+        let octaveAdjustment = upwardPitchMovement ? 0 : -12
         ZStack {
             Rectangle()
                 .foregroundColor(fg)
@@ -33,18 +35,18 @@ struct SelectorStyle: View {
                     Text(classicalLabel(pitchClass))
                         .font(.title3)
                 }
-                if showIntegersSelector {
-                    Text(String(col))
-                        .font(.custom("Monaco", size: 20))
-                }
-                if showIntervals {
-                    Text(intervalLabel(col))
-                        .font(.custom("Monaco", size: 20))
-                }
                 if showMonthsSelector {
                     Text(monthLabel(pitchClass))
                         .font(.custom("Monaco", size: 20))
                         .textCase(.uppercase)
+                }
+                if showIntegersSelector {
+                    Text(String(col + octaveAdjustment))
+                        .font(.custom("Monaco", size: 20))
+                }
+                if showIntervals {
+                    Text(intervalLabel(col + octaveAdjustment))
+                        .font(.custom("Monaco", size: 20))
                 }
             }
             .scaledToFit()

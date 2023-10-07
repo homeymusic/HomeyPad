@@ -15,6 +15,7 @@ struct SwiftUIHomeSelector: View {
     var showIntervals: Bool
     var midiPlayer: MIDIPlayer
     var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
+    var upwardPitchMovement: Bool
 
     // safety valve
     func safeMIDI(_ p: Int) -> Int {
@@ -37,7 +38,8 @@ struct SwiftUIHomeSelector: View {
                                       showMonthsSelector: showMonthsSelector,
                                       showPianoSelector: showPianoSelector,
                                       showIntervals: showIntervals,
-                                      tonicPitchClass: tonicPitchClass)
+                                      tonicPitchClass: tonicPitchClass,
+                                      upwardPitchMovement: upwardPitchMovement)
                     } else {
                         Button {
                             selectorTapped(Int(tonicPitchClass + col), midiPlayer)
@@ -48,7 +50,8 @@ struct SwiftUIHomeSelector: View {
                                           showMonthsSelector: showMonthsSelector,
                                           showPianoSelector: showPianoSelector,
                                           showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass)
+                                          tonicPitchClass: tonicPitchClass,
+                                          upwardPitchMovement: upwardPitchMovement)
                         }
                     }
                 }

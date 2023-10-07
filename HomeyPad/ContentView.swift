@@ -44,7 +44,7 @@ struct ContentView: View {
                                               showIntervals: $viewConductor.showIntervals,
                                               octaveCount: $viewConductor.octaveCount,
                                               keysPerRow: $viewConductor.keysPerRow,
-                                              midiPlayer: midiPlayer,
+                                              upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
                                               viewConductor: viewConductor)
                                 .presentationCompactAdaptation(.none)
                             })
@@ -184,7 +184,8 @@ struct ContentView: View {
                                                 showPianoSelector: viewConductor.showPianoSelector,
                                                 showIntervals: viewConductor.showIntervals,
                                                 midiPlayer: midiPlayer,
-                                                selectorTapped: viewConductor.selectHome)
+                                                selectorTapped: viewConductor.selectHome,
+                                                upwardPitchMovement: viewConductor.upwardPitchMovement)
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                         }
