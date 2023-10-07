@@ -58,8 +58,7 @@ struct PlayView: View {
                             .padding(.bottom, 5)
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 13
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle Little Star")
                                         .foregroundColor(Default.majorColor)
@@ -91,8 +90,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 13
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle (transposed)")
                                         .foregroundColor(Default.minorColor)
@@ -124,8 +122,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 23
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday")
                                         .foregroundColor(Default.majorColor)
@@ -157,8 +154,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 23
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday (transposed)")
                                         .foregroundColor(Default.minorColor)
@@ -200,8 +196,7 @@ struct PlayView: View {
                             .padding(.bottom, 5)
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Ionian (Major)")
                                         .foregroundColor(Default.majorColor)
@@ -233,8 +228,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Phrygian")
                                         .foregroundColor(Default.minorColor)
@@ -266,8 +260,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Mixolydian")
                                         .foregroundColor(Default.majorColor)
@@ -299,8 +292,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Aeolian (Natural Minor)")
@@ -333,8 +325,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Harmonic Minor")
@@ -375,8 +366,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack {
                                     Text("Dorian Down")
                                         .foregroundColor(Default.majorColor)
@@ -416,8 +406,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
-                                viewConductor.keysPerRow = 17
-                                viewConductor.octaveCount = 1
+                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Dorian Up")
@@ -460,8 +449,7 @@ struct PlayView: View {
                             Group {
                                 Button {
                                     dismiss()
-                                    viewConductor.keysPerRow = 17
-                                    viewConductor.octaveCount = 1
+                                    viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Lydian")
                                             .foregroundColor(Default.majorColor)
@@ -501,8 +489,7 @@ struct PlayView: View {
                                 }
                                 Button {
                                     dismiss()
-                                    viewConductor.keysPerRow = 17
-                                    viewConductor.octaveCount = 1
+                                    viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Locrian")
                                             .foregroundColor(Default.minorColor)

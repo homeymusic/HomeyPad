@@ -16,16 +16,17 @@ struct ContentView: View {
         GeometryReader { proxy in
             ZStack {
                 Color.black
-                ZStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
+                ZStack {
+                    VStack {
                         HStack(alignment: .center, spacing: 0) {
+                            // tonic selector toggle
                             Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
                                 .tint(Default.pianoGray)
                                 .padding(.leading, 10)
+                            // show or hide label picker for tonic selector
                             Button(action: {
                                 self.showingSettingsPopover.toggle()
                             }) {
-                                
                                 ZStack {
                                     Image(systemName: "slider.horizontal.3")
                                         .foregroundColor(viewConductor.showSelector ? .white : Default.pianoGray)
@@ -35,6 +36,7 @@ struct ContentView: View {
                             .disabled(!viewConductor.showSelector)
                             .popover(isPresented: $showingSettingsPopover,
                                       content: {
+                                // labels for tonic selector
                                 CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showIntegersSelector: $viewConductor.showIntegersSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
@@ -47,15 +49,9 @@ struct ContentView: View {
                                 .presentationCompactAdaptation(.none)
                             })
                             .padding(.leading, 10)
-//                            Toggle(isOn: $viewConductor.showRoll) {
-//                                Image(systemName: viewConductor.showRoll ? "scroll.fill" : "scroll")
-//                                    .rotationEffect(Angle(degrees: -90))
-//                                    .foregroundColor(.white)
-//                            }
-//                            .toggleStyle(.button)
-//                            .tint(Default.pianoGray)
                             Spacer()
-                            HStack {
+                            // stepper for rows and columns
+                            HStack(spacing: 10) {
                                 HStack {
                                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
                                         .gridCellAnchor(.center)
@@ -64,14 +60,16 @@ struct ContentView: View {
                                             in: 1...7,
                                             step: 2).labelsHidden()
                                 }
-                                .padding(.trailing, 15)
                                 let defaultGeometry = viewConductor.octaveCount == Default.octaveCount && viewConductor.keysPerRow == Default.keysPerRow
                                 Button(role: .cancel, action: {
                                     viewConductor.octaveCount = Default.octaveCount
                                     viewConductor.keysPerRow = Default.keysPerRow
                                 }) {
-                                    Label("", systemImage: "gobackward")
-                                        .foregroundColor(defaultGeometry ? Default.pianoGray : .white)
+                                    ZStack {
+                                        Image(systemName: "gobackward")
+                                            .foregroundColor(defaultGeometry ? Default.pianoGray : .white)
+                                        Image(systemName: "square").foregroundColor(.clear)
+                                    }
                                 }
                                 .disabled(defaultGeometry)
                                 HStack {
@@ -82,7 +80,6 @@ struct ContentView: View {
                                         .gridCellAnchor(.center)
                                         .foregroundColor(Default.pianoGray)
                                 }
-                                .padding(.leading, 15)
                             }
                             Spacer()
                             // Stop play pause buttons
@@ -95,27 +92,26 @@ struct ContentView: View {
                                         }) {
                                             Image(systemName: "backward.end.circle.fill").foregroundColor(.white)
                                         }
+                                        .padding(.trailing, 5)
                                         Button(action: {
                                             viewConductor.nowPlayingID = 0
                                             midiPlayer.stop()
                                         }) {
                                             Image(systemName: "stop.circle.fill").foregroundColor(.white)
                                         }
-                                        .padding(.leading, 5)
+                                        .padding(.trailing, 5)
                                         if midiPlayer.state == .playing {
                                             Button(action: {
                                                 midiPlayer.pause()
                                             }) {
                                                 Image(systemName: "pause.circle.fill").foregroundColor(.white)
                                             }
-                                            .padding(.leading, 5)
                                         } else if midiPlayer.state == .paused {
                                             Button(action: {
                                                 midiPlayer.play()
                                             }) {
                                                 Image(systemName: "play.circle.fill").foregroundColor(.white)
                                             }
-                                            .padding(.leading, 5)
                                         }
                                         Button( action: {
                                             self.showingPlayPopover.toggle()
@@ -123,10 +119,9 @@ struct ContentView: View {
                                         }) {
                                             AnyView(viewConductor.nowPlayingTitle)
                                         }
-                                        .padding(.leading, 20)
+                                        .padding([.leading, .trailing], 10)
                                     }
                                 }
-                                .padding(.trailing, 20)
                             }
                             // The play view
                             VStack(alignment: .leading) {
