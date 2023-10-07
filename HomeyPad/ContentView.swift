@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-    
+
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -19,11 +19,11 @@ struct ContentView: View {
                 ZStack {
                     VStack {
                         HStack(alignment: .center, spacing: 0) {
-                            // tonic selector toggle
+                            /// tonic selector toggle
                             Toggle("", isOn: $viewConductor.showSelector).labelsHidden()
                                 .tint(Default.pianoGray)
                                 .padding(.leading, 10)
-                            // show or hide label picker for tonic selector
+                            /// show or hide label picker for tonic selector
                             Button(action: {
                                 self.showingSettingsPopover.toggle()
                             }) {
@@ -36,7 +36,7 @@ struct ContentView: View {
                             .disabled(!viewConductor.showSelector)
                             .popover(isPresented: $showingSettingsPopover,
                                       content: {
-                                // labels for tonic selector
+                                /// labels for tonic selector
                                 CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showIntegersSelector: $viewConductor.showIntegersSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
@@ -50,7 +50,7 @@ struct ContentView: View {
                             })
                             .padding(.leading, 10)
                             Spacer()
-                            // stepper for rows and columns
+                            /// stepper for rows and columns
                             HStack(spacing: 10) {
                                 HStack {
                                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
@@ -82,7 +82,7 @@ struct ContentView: View {
                                 }
                             }
                             Spacer()
-                            // Stop play pause buttons
+                            /// Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
                                 VStack(alignment: .leading) {
                                     HStack(spacing: 0) {
@@ -123,7 +123,7 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            // The play view
+                            /// The play view
                             VStack(alignment: .leading) {
                                 HStack {
                                     Button(action: {
@@ -148,7 +148,7 @@ struct ContentView: View {
                                 }
                             }
                             .padding(.trailing, 10)
-                            // The help view
+                            /// The help view
                             VStack(alignment: .leading) {
                                 HStack {
                                     Button(action: {
@@ -171,12 +171,11 @@ struct ContentView: View {
                         }
                         Spacer()
                     }
-                    // keyboard
+                    /// keyboard
                     VStack(spacing: 0) {
-                        // home selector
+                        /// home selector
                         Spacer()
                         if (viewConductor.showSelector) {
-                            // The tonic selector
                             SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
@@ -189,7 +188,7 @@ struct ContentView: View {
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                         }
-                        // The main dualistic keyboard
+                        /// The main dualistic keyboard
                         SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, row: 0, col: 0)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()

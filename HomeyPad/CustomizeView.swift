@@ -22,6 +22,23 @@ struct CustomizeView: View {
         VStack {
             Grid {
                 GridRow {
+                    Image(systemName: "pianokeys")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Piano")
+                        .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
+
+                    Spacer()
+                    
+                    
+                    Toggle("", isOn: $showPianoSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                Divider()
+                GridRow {
                     Image(systemName: "a.square")
                         .gridCellAnchor(.center)
                     
@@ -36,6 +53,22 @@ struct CustomizeView: View {
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
+                GridRow {
+                    Image(systemName: "calendar")
+                        .gridCellAnchor(.center)
+                    
+                    Text("Months")
+                        .gridCellAnchor(.leading)
+                        .lineLimit(1)
+                        .fixedSize()
+
+                    Spacer()
+                    
+                    Toggle("", isOn: $showMonthsSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                Divider()
                 GridRow {
                     Image(systemName: "0.square")
                         .gridCellAnchor(.center)
@@ -61,38 +94,6 @@ struct CustomizeView: View {
                         .fixedSize()
                     Spacer()
                     Toggle("", isOn: $showIntervals)
-                        .gridCellAnchor(.trailing)
-                        .tint(Default.pianoGray)
-                }
-                GridRow {
-                    Image(systemName: "calendar")
-                        .gridCellAnchor(.center)
-                    
-                    Text("Months")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-
-                    Spacer()
-                    
-                    Toggle("", isOn: $showMonthsSelector)
-                        .gridCellAnchor(.trailing)
-                        .tint(Default.pianoGray)
-                }
-                Divider()
-                GridRow {
-                    Image(systemName: "pianokeys")
-                        .gridCellAnchor(.center)
-                    
-                    Text("Piano")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-
-                    Spacer()
-                    
-                    
-                    Toggle("", isOn: $showPianoSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
