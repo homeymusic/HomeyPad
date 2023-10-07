@@ -6,6 +6,13 @@
 
 import SwiftUI
 
+struct PitchDirection: ToggleStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        // Insert custom View code here.
+    }
+    
+}
 struct CustomizeView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var showClassicalSelector: Bool
@@ -113,6 +120,7 @@ struct CustomizeView: View {
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                         .disabled(!enableMovement)
+                        .toggleStyle(PitchDirection())
                 }
             }
             .padding([.leading, .trailing], 10)

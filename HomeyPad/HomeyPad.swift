@@ -171,13 +171,13 @@ func intervalLabel(_ col: Int) -> String {
     case -36:
         return "-P22"
     case -35:
-        return "-M21"
-    case -34:
         return "-m21"
+    case -34:
+        return "-M21"
     case -33:
-        return "-M20"
-    case -32:
         return "-m20"
+    case -32:
+        return "-M20"
     case -31:
         return "-P19"
     case -30:
@@ -185,23 +185,23 @@ func intervalLabel(_ col: Int) -> String {
     case -29:
         return "-P18"
     case -28:
-        return "-M17"
-    case -27:
         return "-m17"
+    case -27:
+        return "-M17"
     case -26:
-        return "-M16"
-    case -25:
         return "-m16"
+    case -25:
+        return "-M16"
     case -24:
         return "-P15"
     case -23:
-        return "-M14"
-    case -22:
         return "-m14"
+    case -22:
+        return "-M14"
     case -21:
-        return "-M13"
-    case -20:
         return "-m13"
+    case -20:
+        return "-M13"
     case -19:
         return "-P12"
     case -18:
@@ -209,23 +209,23 @@ func intervalLabel(_ col: Int) -> String {
     case -17:
         return "-P11"
     case -16:
-        return "-M10"
+        return "-m10"
     case -15:
-        return "-m19"
+        return "-M10"
     case -14:
-        return "-M9"
-    case -13:
         return "-m9"
+    case -13:
+        return "-M9"
     case -12:
         return "-P8"
     case -11:
-        return "-M7"
-    case -10:
         return "-m7"
+    case -10:
+        return "-M7"
     case -9:
-        return "-M6"
-    case -8:
         return "-m6"
+    case -8:
+        return "-M6"
     case -7:
         return "-P5"
     case -6:
@@ -233,13 +233,13 @@ func intervalLabel(_ col: Int) -> String {
     case -5:
         return "-P4"
     case -4:
-        return "-M3"
-    case -3:
         return "-m3"
+    case -3:
+        return "-M3"
     case -2:
-        return "-M2"
-    case -1:
         return "-m2"
+    case -1:
+        return "-M2"
     case 0:
         return "P1"
     case 1:
