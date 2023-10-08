@@ -58,6 +58,7 @@ struct PlayView: View {
                             .padding(.bottom, 5)
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle Little Star")
@@ -90,6 +91,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = false
                                 viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle (transposed)")
@@ -122,6 +124,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday")
@@ -154,6 +157,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = false
                                 viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday (transposed)")
@@ -196,6 +200,7 @@ struct PlayView: View {
                             .padding(.bottom, 5)
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Ionian (Major)")
@@ -228,6 +233,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = false
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Phrygian")
@@ -260,6 +266,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = false
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Mixolydian")
@@ -292,6 +299,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
@@ -325,6 +333,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
@@ -366,6 +375,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = false
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack {
                                     Text("Dorian Down")
@@ -406,6 +416,7 @@ struct PlayView: View {
                             }
                             Button {
                                 dismiss()
+                                viewConductor.upwardPitchMovement = true
                                 viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
@@ -449,6 +460,7 @@ struct PlayView: View {
                             Group {
                                 Button {
                                     dismiss()
+                                    viewConductor.upwardPitchMovement = true
                                     viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Lydian")
@@ -489,6 +501,7 @@ struct PlayView: View {
                                 }
                                 Button {
                                     dismiss()
+                                    viewConductor.upwardPitchMovement = false
                                     viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Locrian")
