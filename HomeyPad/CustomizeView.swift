@@ -33,15 +33,14 @@ struct CustomizeView: View {
                     Image(systemName: "pianokeys")
                         .gridCellAnchor(.center)
                     
-                    Text("Piano")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-
-                    Spacer()
-                    
-                    
-                    Toggle("", isOn: $showPianoSelector)
+//                    Text("Piano")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                    
+//                    Spacer()
+//                    
+                    Toggle("Piano", isOn: $showPianoSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -50,14 +49,14 @@ struct CustomizeView: View {
                     Image(systemName: "a.square")
                         .gridCellAnchor(.center)
                     
-                    Text("Letters")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-                    Spacer()
+//                    Text("Letters")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                    Spacer()
                     
                     
-                    Toggle("", isOn: $showClassicalSelector)
+                    Toggle("Letters", isOn: $showClassicalSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -65,14 +64,14 @@ struct CustomizeView: View {
                     Image(systemName: "calendar")
                         .gridCellAnchor(.center)
                     
-                    Text("Months")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-
-                    Spacer()
-                    
-                    Toggle("", isOn: $showMonthsSelector)
+//                    Text("Months")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                    
+//                    Spacer()
+//                    
+                    Toggle("Months", isOn: $showMonthsSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -81,14 +80,14 @@ struct CustomizeView: View {
                     Image(systemName: "0.square")
                         .gridCellAnchor(.center)
                     
-                    Text("Numbers")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-                    Spacer()
-                    
-                    
-                    Toggle("", isOn: $showIntegersSelector)
+//                    Text("Numbers")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                    Spacer()
+//                    
+//                    
+                    Toggle("Numbers", isOn: $showIntegersSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -96,31 +95,41 @@ struct CustomizeView: View {
                     Image(systemName: "ruler")
                         .gridCellAnchor(.center)
                     
-                    Text("Intervals")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-                    Spacer()
-                    Toggle("", isOn: $showIntervals)
+//                    Text("Intervals")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                    Spacer()
+                    Toggle("Intervals", isOn: $showIntervals)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
                 GridRow {
                     let enableMovement = showIntervals || showIntegersSelector
-                    Image(systemName: "arrow.left.arrow.right")
-                        .gridCellAnchor(.center)
-                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
-                    Text("Direction")
-                        .gridCellAnchor(.leading)
-                        .lineLimit(1)
-                        .fixedSize()
-                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
-                    Spacer()
-                    Toggle("", isOn: $upwardPitchMovement)
-                        .gridCellAnchor(.trailing)
-                        .tint(Default.pianoGray)
-                        .disabled(!enableMovement)
-                        .toggleStyle(PitchDirection())
+//                    Image(systemName: "arrow.left.arrow.right")
+//                        .gridCellAnchor(.center)
+//                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
+//                    Text("Direction")
+//                        .gridCellAnchor(.leading)
+//                        .lineLimit(1)
+//                        .fixedSize()
+//                        .foregroundColor(enableMovement ? .white : Default.pianoGray)
+//                    Spacer()
+                    Picker("", selection: $upwardPitchMovement) {
+                        Image(systemName: "lessthan.square.fill")
+                            .foregroundColor(Default.minorColor)
+                            .accentColor(Default.minorColor)
+                            .colorMultiply(Default.minorColor)
+                            .tag(false)
+                        Image(systemName: "greaterthan.square.fill")
+                            .foregroundColor(Default.majorColor)
+                            .accentColor(Default.majorColor)
+                            .colorMultiply(Default.majorColor)
+                            .tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    .disabled(!enableMovement)
+                    .gridCellColumns(2)
                 }
             }
             .padding([.leading, .trailing], 10)
