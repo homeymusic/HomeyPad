@@ -67,13 +67,11 @@ struct SwiftUIKeyboard: View {
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     let initialC: Int = Default.initialC
-    let row: Int
-    let col: Int
-    
+        
     var body: some View {
         Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
                  noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
-            SwiftUIKeyboardKey(keyboardCell: KeyboardCell(row: row, col: col),
+            SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                pitch: pitch,
                                isActivated: isActivated,
                                labelType: .symbol,
@@ -86,8 +84,8 @@ struct SwiftUIKeyboard: View {
 struct SwiftUIKeyboardKey: View {
     @State var MIDIKeyPressed = [Bool](repeating: false, count: 128)
     
-    let keyboardCell: KeyboardCell
-    var pitch : Pitch
+    var keyboardCell: KeyboardCell
+    var pitch: Pitch
     var isActivated : Bool
     let labelType: LabelType
     var tonicPitchClass : Int
@@ -95,8 +93,9 @@ struct SwiftUIKeyboardKey: View {
     
     var body: some View {
         VStack{
-            IntervallicKey(pitch: pitch,
-                           isActivated: isActivated,                           
+            IntervallicKey(keyboardCell: keyboardCell,
+                           pitch: pitch,
+                           isActivated: isActivated,
                            labelType: labelType,
                            initialC: 48,
                            tonicPitchClass: tonicPitchClass,
