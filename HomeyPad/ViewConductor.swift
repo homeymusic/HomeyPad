@@ -25,73 +25,73 @@ class ViewConductor: ObservableObject {
     @Published var octaveCount: Int {
         didSet {
             defaults.set(self.octaveCount, forKey: "octaveCount")
-            self.simpleSuccess()
+            if oldValue != self.octaveCount {self.simpleSuccess()}
         }
     }
     @Published var keysPerRow: Int {
         didSet {
             defaults.set(self.keysPerRow, forKey: "keysPerRow")
-            self.simpleSuccess()
-        }
-    }
-    @Published var showRoll: Bool {
-        didSet {
-            defaults.set(self.showRoll, forKey: "showRoll")
+            if oldValue != self.keysPerRow {self.simpleSuccess()}
         }
     }
     @Published var showSelector: Bool {
         didSet {
             defaults.set(self.showSelector, forKey: "showSelector")
+            if oldValue != self.showSelector {self.simpleSuccess()}
         }
     }
     @Published var showClassicalSelector: Bool {
         didSet {
             defaults.set(self.showClassicalSelector, forKey: "showClassicalSelector")
+            if oldValue != self.showClassicalSelector {self.simpleSuccess()}
         }
     }
     @Published var showIntegersSelector: Bool {
         didSet {
             defaults.set(self.showIntegersSelector, forKey: "showIntegersSelector")
+            if oldValue != self.showIntegersSelector {self.simpleSuccess()}
         }
     }
     @Published var showMonthsSelector: Bool {
         didSet {
             defaults.set(self.showMonthsSelector, forKey: "showMonthsSelector")
+            if oldValue != self.showMonthsSelector {self.simpleSuccess()}
         }
     }
     @Published var showPianoSelector: Bool {
         didSet {
             defaults.set(self.showPianoSelector, forKey: "showPianoSelector")
+            if oldValue != self.showPianoSelector {self.simpleSuccess()}
         }
     }
     @Published var showIntervals: Bool {
         didSet {
             defaults.set(self.showIntervals, forKey: "showIntervals")
+            if oldValue != self.showIntervals {self.simpleSuccess()}
         }
     }
     @Published var tonicPitchClass: Int {
-        
         didSet {
             defaults.set(self.tonicPitchClass, forKey: "tonicPitchClass")
-            self.simpleSuccess()
+            if oldValue != self.tonicPitchClass {self.simpleSuccess()}
+        }
+    }
+    @Published var upwardPitchMovement: Bool {
+        didSet {
+            defaults.set(self.upwardPitchMovement, forKey: "upwardPitchMovement")
+            if oldValue != self.upwardPitchMovement {self.simpleSuccess()}
         }
     }
     @Published var nowPlayingTitle: any View = Text("")
     @Published var nowPlayingID: Int = 0
     @Published var scrollToID: Int = 0
-    @Published var upwardPitchMovement: Bool {
-        didSet {
-            defaults.set(self.upwardPitchMovement, forKey: "upwardPitchMovement")
-        }
-    }
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showRoll": Default.showRoll, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")
-        showRoll = defaults.bool(forKey: "showRoll")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showIntegersSelector = defaults.bool(forKey: "showIntegersSelector")
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
