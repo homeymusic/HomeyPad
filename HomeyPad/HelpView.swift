@@ -36,7 +36,8 @@ struct HelpView: View {
                         }
                         GridRow {
                             NitterHouse()
-                                .stroke(lineWidth: 2)
+                                .stroke(style: StrokeStyle(lineWidth: 2, lineJoin: .round))
+                                .aspectRatio(1.0, contentMode: .fit)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
                             Text("tonic")
@@ -44,7 +45,8 @@ struct HelpView: View {
                         .foregroundColor(.white)
                         GridRow {
                             NitterTent()
-                                .stroke(lineWidth: 2)
+                                .stroke(style: StrokeStyle(lineWidth: 2, lineJoin: .round))
+                                .aspectRatio(1.0, contentMode: .fit)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
                             Text("perfect")
@@ -96,7 +98,8 @@ struct HelpView: View {
                         }
                         GridRow {
                             NitterHouse()
-                                .stroke(lineWidth: 2)
+                                .stroke(style: StrokeStyle(lineWidth: 2, lineJoin: .round))
+                                .aspectRatio(1.0, contentMode: .fit)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
                                 .padding(3)
@@ -107,7 +110,8 @@ struct HelpView: View {
                         .background(Default.homeColor)
                         GridRow {
                             NitterTent()
-                                .stroke(lineWidth: 2)
+                                .stroke(style: StrokeStyle(lineWidth: 2, lineJoin: .round))
+                                .aspectRatio(1.0, contentMode: .fit)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
                             Text("perfect")
