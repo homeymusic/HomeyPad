@@ -57,7 +57,7 @@ struct ContentView: View {
                                         .gridCellAnchor(.center)
                                         .foregroundColor(Default.pianoGray)
                                     Stepper("", value: $viewConductor.octaveCount,
-                                            in: 1...7,
+                                            in: 1...9,
                                             step: 2).labelsHidden()
                                 }
                                 let defaultGeometry = viewConductor.octaveCount == Default.octaveCount && viewConductor.keysPerRow == Default.keysPerRow

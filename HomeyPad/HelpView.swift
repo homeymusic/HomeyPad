@@ -39,6 +39,14 @@ struct HelpView: View {
                                 .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)
+                            Text("tonic")
+                        }
+                        .foregroundColor(.white)
+                        GridRow {
+                            NitterTent()
+                                .stroke(lineWidth: 2)
+                                .gridColumnAlignment(.center)
+                                .frame(width: 17, height: 17)
                             Text("perfect")
                         }
                         .foregroundColor(.white)
@@ -80,7 +88,7 @@ struct HelpView: View {
                         }
                         .foregroundColor(Default.tritoneColor)
                     }
-                    Group { //
+                    Group { // intervals
                         GridRow {
                             Text("Intervals")
                                 .font(.caption)
@@ -98,7 +106,7 @@ struct HelpView: View {
                         .foregroundColor(Default.homeComplementColor)
                         .background(Default.homeColor)
                         GridRow {
-                            NitterHouse()
+                            NitterTent()
                                 .stroke(lineWidth: 2)
                                 .gridColumnAlignment(.center)
                                 .frame(width: 17, height: 17)

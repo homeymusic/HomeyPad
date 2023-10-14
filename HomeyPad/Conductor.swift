@@ -17,7 +17,7 @@ class Conductor: ObservableObject {
     
     func start() {
         // Load AVAudioUnitSampler Instrument
-        try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2")!)
+        try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "exs")!)
         try? engine.start()
     }
 }
