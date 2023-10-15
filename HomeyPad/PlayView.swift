@@ -31,9 +31,11 @@ struct PlayView: View {
             }
         }
         midiPlayer.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: filename, withExtension: "mid", subdirectory: "Examples")!)
+        print("filename", filename)
         midiPlayer.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
         midiPlayer.sequencer.enableLooping()
         midiPlayer.sequencer.preroll()
+        midiPlayer.play()
     }
     
     var body: some View {
@@ -57,9 +59,6 @@ struct PlayView: View {
                             }
                             .padding(.bottom, 5)
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle Little Star")
                                         .foregroundColor(Default.majorColor)
@@ -70,7 +69,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "twinkle_twinkle_little_star", songTonic: 48, itemID: 1)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 1 { Default.highlightGray }
@@ -90,9 +91,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = false
-                                viewConductor.keysPerRow < 13 ? viewConductor.keysPerRow = 13 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Twinkle Twinkle (transposed)")
                                         .foregroundColor(Default.minorColor)
@@ -103,7 +101,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mirror_twinkle", songTonic: 40, itemID: 2)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = false
+                                if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 2 { Default.highlightGray }
@@ -123,9 +123,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday")
                                         .foregroundColor(Default.majorColor)
@@ -136,7 +133,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "happy_birthday", songTonic: 60, itemID: 5)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 5 { Default.highlightGray }
@@ -156,9 +155,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = false
-                                viewConductor.keysPerRow < 23 ? viewConductor.keysPerRow = 23 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Happy Birthday (transposed)")
                                         .foregroundColor(Default.minorColor)
@@ -169,7 +165,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mirror_birthday", songTonic: 52, itemID: 6)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = false
+                                if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 6 { Default.highlightGray }
@@ -199,9 +197,6 @@ struct PlayView: View {
                             }
                             .padding(.bottom, 5)
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Ionian (Major)")
                                         .foregroundColor(Default.majorColor)
@@ -212,7 +207,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "ionian", songTonic: 48, itemID: 11)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 11 { Default.highlightGray }
@@ -232,9 +229,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = false
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Phrygian")
                                         .foregroundColor(Default.minorColor)
@@ -245,7 +239,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "phrygian", songTonic: 52, itemID: 12)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = false
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 12 { Default.highlightGray }
@@ -265,9 +261,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = false
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
                                     Text("Mixolydian")
                                         .foregroundColor(Default.majorColor)
@@ -278,7 +271,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mixolydian", songTonic: 55, itemID: 13)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = false
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 13 { Default.highlightGray }
@@ -298,9 +293,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Aeolian (Natural Minor)")
@@ -312,7 +304,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "aeolian", songTonic: 69, itemID: 14)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 14 { Default.highlightGray }
@@ -332,9 +326,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Harmonic Minor")
@@ -350,7 +341,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "harmonic_minor", songTonic: 69, itemID: 15)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 15 { Default.highlightGray }
@@ -374,9 +367,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = false
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying: HStack {
                                     Text("Dorian Down")
                                         .foregroundColor(Default.majorColor)
@@ -391,7 +381,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "dorian_down", songTonic: 50, itemID: 16)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = false
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 16 { Default.highlightGray }
@@ -415,9 +407,6 @@ struct PlayView: View {
                                 }
                             }
                             Button {
-                                dismiss()
-                                viewConductor.upwardPitchMovement = true
-                                viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                 initSequencer(nowPlaying:
                                                 HStack {
                                     Text("Dorian Up")
@@ -433,7 +422,9 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "dorian_up", songTonic: 62, itemID: 17)
-                                midiPlayer.play()
+                                viewConductor.upwardPitchMovement = true
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 17 { Default.highlightGray }
@@ -459,9 +450,6 @@ struct PlayView: View {
                             
                             Group {
                                 Button {
-                                    dismiss()
-                                    viewConductor.upwardPitchMovement = true
-                                    viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Lydian")
                                             .foregroundColor(Default.majorColor)
@@ -476,7 +464,9 @@ struct PlayView: View {
                                                 .foregroundColor(Default.majorColor)
                                         }
                                     }, filename: "lydian", songTonic: 65, itemID: 18)
-                                    midiPlayer.play()
+                                    viewConductor.upwardPitchMovement = true
+                                    if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                    dismiss()
                                 } label: {
                                     ZStack {
                                         if self.scrollToID == 18 { Default.highlightGray }
@@ -500,9 +490,6 @@ struct PlayView: View {
                                     }
                                 }
                                 Button {
-                                    dismiss()
-                                    viewConductor.upwardPitchMovement = false
-                                    viewConductor.keysPerRow < 17 ? viewConductor.keysPerRow = 17 :
                                     initSequencer(nowPlaying: HStack {
                                         Text("Locrian")
                                             .foregroundColor(Default.minorColor)
@@ -517,7 +504,9 @@ struct PlayView: View {
                                                 .foregroundColor(Default.minorColor)
                                         }
                                     }, filename: "locrian", songTonic: 47, itemID: 19)
-                                    midiPlayer.play()
+                                    viewConductor.upwardPitchMovement = false
+                                    if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                    dismiss()
                                 } label: {
                                     ZStack {
                                         if self.scrollToID == 19 { Default.highlightGray }
