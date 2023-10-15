@@ -31,10 +31,10 @@ struct PlayView: View {
             }
         }
         midiPlayer.sequencer.loadMIDIFile(fromURL: Bundle.main.url(forResource: filename, withExtension: "mid", subdirectory: "Examples")!)
-        print("filename", filename)
         midiPlayer.sequencer.setGlobalMIDIOutput(midiCallback.midiIn)
         midiPlayer.sequencer.enableLooping()
         midiPlayer.sequencer.preroll()
+        midiPlayer.rewind()
         midiPlayer.play()
     }
     
