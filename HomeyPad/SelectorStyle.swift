@@ -41,7 +41,9 @@ struct SelectorStyle: View {
                         .textCase(.uppercase)
                 }
                 if showIntegersSelector {
-                    Text(String(col + octaveAdjustment))
+                    let value: Int = col + octaveAdjustment
+                    let prefix: String = value > 0 ? "+" : ""
+                    Text("\(String(prefix))\(String(value))")
                         .font(.custom("Monaco", size: 20))
                 }
                 if showIntervals {
