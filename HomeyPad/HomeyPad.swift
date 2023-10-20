@@ -180,7 +180,7 @@ func intervalLabel(_ col: Int) -> String {
     case -31:
         return "-P19"
     case -30:
-        return "-tt"
+        return "tt"
     case -29:
         return "-P18"
     case -28:
@@ -204,7 +204,7 @@ func intervalLabel(_ col: Int) -> String {
     case -19:
         return "-P12"
     case -18:
-        return "-tt"
+        return "tt"
     case -17:
         return "-P11"
     case -16:
@@ -228,7 +228,7 @@ func intervalLabel(_ col: Int) -> String {
     case -7:
         return "-P5"
     case -6:
-        return "-tt"
+        return "tt"
     case -5:
         return "-P4"
     case -4:
@@ -240,79 +240,79 @@ func intervalLabel(_ col: Int) -> String {
     case -1:
         return "-M2"
     case 0:
-        return "P1"
+        return "±P1"
     case 1:
-        return "m2"
+        return "+m2"
     case 2:
-        return "M2"
+        return "+M2"
     case 3:
-        return "m3"
+        return "+m3"
     case 4:
-        return "M3"
+        return "+M3"
     case 5:
-        return "P4"
+        return "+P4"
     case 6:
         return "tt"
     case 7:
-        return "P5"
+        return "+P5"
     case 8:
-        return "m6"
+        return "+m6"
     case 9:
-        return "M6"
+        return "+M6"
     case 10:
-        return "m7"
+        return "+m7"
     case 11:
-        return "M7"
+        return "+M7"
     case 12:
-        return "P8"
+        return "+P8"
     case 13:
-        return "m9"
+        return "+m9"
     case 14:
-        return "M9"
+        return "+M9"
     case 15:
-        return "m10"
+        return "+m10"
     case 16:
-        return "M10"
+        return "+M10"
     case 17:
-        return "P11"
+        return "+P11"
     case 18:
         return "tt"
     case 19:
-        return "P12"
+        return "+P12"
     case 20:
-        return "m13"
+        return "+m13"
     case 21:
-        return "M13"
+        return "+M13"
     case 22:
-        return "m14"
+        return "+m14"
     case 23:
-        return "M14"
+        return "+M14"
     case 24:
-        return "P15"
+        return "+P15"
     case 25:
-        return "m16"
+        return "+m16"
     case 26:
-        return "M16"
+        return "+M16"
     case 27:
-        return "m17"
+        return "+m17"
     case 28:
-        return "M17"
+        return "+M17"
     case 29:
-        return "P18"
+        return "+P18"
     case 30:
         return "tt"
     case 31:
-        return "P19"
+        return "+P19"
     case 32:
-        return "m20"
+        return "+m20"
     case 33:
-        return "M20"
+        return "+M20"
     case 34:
-        return "m21"
+        return "+m21"
     case 35:
-        return "M21"
+        return "+M21"
     case 36:
-        return "P22"
+        return "+P22"
     default: return ""
     }
 }
