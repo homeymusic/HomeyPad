@@ -38,6 +38,7 @@ enum Default {
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
+    static let showModes: Bool = false
     static let octaveCount: Int = 1
     static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0
@@ -129,6 +130,27 @@ func classicalLabel(_ pitchClass: Int) -> String {
     case 11:
         return NoteClass.B.description
     default: return NoteClass.C.description
+    }
+    
+}
+
+func modesLabel(_ pitchClass: Int) -> String {
+    switch mod(pitchClass, 12) {
+    case 0:
+        return "Ionian"
+    case 2:
+        return "Dorian"
+    case 4:
+        return "Phrygian"
+    case 5:
+        return "Lydian"
+    case 7:
+        return "Mixolydian"
+    case 9:
+        return "Aeolian"
+    case 11 :
+        return "Locrian"
+    default: return ""
     }
     
 }

@@ -14,6 +14,7 @@ struct SelectorStyle: View {
     let showMonthsSelector: Bool
     let showPianoSelector: Bool
     let showIntervals: Bool
+    let showModes: Bool
     let tonicPitchClass: Int
     let upwardPitchMovement: Bool
     
@@ -37,6 +38,11 @@ struct SelectorStyle: View {
                 }
                 if showMonthsSelector {
                     Text(monthLabel(pitchClass))
+                        .font(.custom("Monaco", size: 20))
+                        .textCase(.uppercase)
+                }
+                if showModes {
+                    Text(modesLabel(pitchClass))
                         .font(.custom("Monaco", size: 20))
                         .textCase(.uppercase)
                 }

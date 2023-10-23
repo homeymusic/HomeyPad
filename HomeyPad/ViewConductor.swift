@@ -70,6 +70,12 @@ class ViewConductor: ObservableObject {
             if oldValue != self.showIntervals {self.simpleSuccess()}
         }
     }
+    @Published var showModes: Bool {
+        didSet {
+            defaults.set(self.showModes, forKey: "showModes")
+            if oldValue != self.showModes {self.simpleSuccess()}
+        }
+    }
     @Published var tonicPitchClass: Int {
         didSet {
             defaults.set(self.tonicPitchClass, forKey: "tonicPitchClass")
@@ -87,7 +93,7 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "showModes": Default.showModes, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
@@ -97,6 +103,7 @@ class ViewConductor: ObservableObject {
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")
+        showModes  = defaults.bool(forKey: "showModes")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
         upwardPitchMovement = defaults.bool(forKey: "upwardPitchMovement")
         

@@ -42,6 +42,7 @@ struct ContentView: View {
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
+                                              showModes: $viewConductor.showModes,
                                               octaveCount: $viewConductor.octaveCount,
                                               keysPerRow: $viewConductor.keysPerRow,
                                               upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
@@ -183,6 +184,7 @@ struct ContentView: View {
                                                 showMonthsSelector: viewConductor.showMonthsSelector,
                                                 showPianoSelector: viewConductor.showPianoSelector,
                                                 showIntervals: viewConductor.showIntervals,
+                                                showModes: viewConductor.showModes,
                                                 midiPlayer: midiPlayer,
                                                 selectorTapped: viewConductor.selectHome,
                                                 upwardPitchMovement: viewConductor.upwardPitchMovement)
