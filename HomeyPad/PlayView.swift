@@ -191,7 +191,7 @@ struct PlayView: View {
                             .padding(5)
                         Group {
                             HStack {
-                                Text("Scales")
+                                Text("Progressions")
                                     .font(.subheadline)
                                 Spacer()
                             }
@@ -447,7 +447,6 @@ struct PlayView: View {
                                     }
                                 }
                             }
-                            
                             Group {
                                 Button {
                                     initSequencer(nowPlaying: HStack {
@@ -529,6 +528,95 @@ struct PlayView: View {
                                         }
                                     }
                                 }
+                                Button {
+                                    initSequencer(nowPlaying: HStack {
+                                        Text("Awesome")
+                                            .foregroundColor(Default.majorColor)
+                                        HStack(spacing: 0) {
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.majorColor)
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.majorColor)
+                                            Image(systemName: "minus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.majorColor)
+                                            Image(systemName: "greaterthan.square")
+                                                .foregroundColor(Default.majorColor)
+                                        }
+                                    }, filename: "awesome", songTonic: 48, itemID: 20)
+                                    viewConductor.upwardPitchMovement = true
+                                    if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
+                                    dismiss()
+                                } label: {
+                                    ZStack {
+                                        if self.scrollToID == 20 { Default.highlightGray }
+                                        HStack {
+                                            Text("Awesome")
+                                                .foregroundColor(Default.majorColor)
+                                                .underline()
+                                                .id(20)
+                                            Spacer()
+                                            HStack(spacing: 0) {
+                                                Image(systemName: "plus.square.fill")
+                                                    .foregroundColor(Default.majorColor)
+                                                Image(systemName: "plus.square.fill")
+                                                    .foregroundColor(Default.majorColor)
+                                                Image(systemName: "minus.square.fill")
+                                                    .foregroundColor(Default.minorColor)
+                                                Image(systemName: "plus.square.fill")
+                                                    .foregroundColor(Default.majorColor)
+                                                Image(systemName: "greaterthan.square")
+                                                    .foregroundColor(Default.majorColor)
+                                            }
+                                        }
+                                    }
+                                }
+                                Button {
+                                    initSequencer(nowPlaying: HStack {
+                                        Text("Awesome (transposed)")
+                                            .foregroundColor(Default.minorColor)
+                                        HStack(spacing: 0) {
+                                            Image(systemName: "minus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "minus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.majorColor)
+                                            Image(systemName: "minus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "lessthan.square")
+                                                .foregroundColor(Default.minorColor)
+                                        }
+                                    }, filename: "mirror_awesome", songTonic: 52, itemID: 21)
+                                    viewConductor.upwardPitchMovement = true
+                                    if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
+                                    dismiss()
+                                } label: {
+                                    ZStack {
+                                        if self.scrollToID == 21 { Default.highlightGray }
+                                        HStack {
+                                            Text("Awesome (transposed)")
+                                                .foregroundColor(Default.minorColor)
+                                                .underline()
+                                                .id(21)
+                                            Spacer()
+                                            HStack(spacing: 0) {
+                                                Image(systemName: "minus.square.fill")
+                                                    .foregroundColor(Default.minorColor)
+                                                Image(systemName: "minus.square.fill")
+                                                    .foregroundColor(Default.minorColor)
+                                                Image(systemName: "plus.square.fill")
+                                                    .foregroundColor(Default.majorColor)
+                                                Image(systemName: "minus.square.fill")
+                                                    .foregroundColor(Default.minorColor)
+                                                Image(systemName: "lessthan.square")
+                                                    .foregroundColor(Default.minorColor)
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
