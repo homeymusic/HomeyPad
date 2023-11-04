@@ -181,12 +181,12 @@ struct HelpView: View {
                                 .gridCellColumns(2)
                         }
                         GridRow {
-                            Image(systemName: "greaterthan.square.fill")
+                            Image(systemName: "greaterthan.square")
                             Text("upward emphasis")
                         }
                         .foregroundColor(Default.majorColor)
                         GridRow {
-                            Image(systemName: "lessthan.square.fill")
+                            Image(systemName: "lessthan.square")
                             Text("downward emphasis")
                         }
                         .foregroundColor(Default.minorColor)
