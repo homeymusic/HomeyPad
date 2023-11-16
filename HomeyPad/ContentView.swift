@@ -11,10 +11,13 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
+    @State private var orientation = UIDevice.current.orientation
 
     var body: some View {
         GeometryReader { proxy in
             ZStack {
+                var _ = if orientation.isLandscape {print("landscape: \(orientation)")} else {print("NOT landscape orientation: \(orientation)")}
+
                 Color.black
                 ZStack {
                     VStack {
@@ -82,92 +85,94 @@ struct ContentView: View {
                                 }
                             }
                             Spacer()
-                            /// Stop play pause buttons
-                            if midiPlayer.state == .playing || midiPlayer.state == .paused {
+                            if orientation.isLandscape {
+                                /// The MIDI player view
+                                /// Stop play pause buttons
+                                if midiPlayer.state == .playing || midiPlayer.state == .paused {
+                                    VStack(alignment: .leading) {
+                                        HStack(spacing: 0) {
+                                            Button(action: {
+                                                midiPlayer.rewind()
+                                                viewConductor.simpleSuccess()
+                                            }) {
+                                                Image(systemName: "backward.end.circle.fill").foregroundColor(.white)
+                                            }
+                                            .padding(.trailing, 5)
+                                            Button(action: {
+                                                viewConductor.nowPlayingID = 0
+                                                midiPlayer.stop()
+                                            }) {
+                                                Image(systemName: "stop.circle.fill").foregroundColor(.white)
+                                            }
+                                            .padding(.trailing, 5)
+                                            if midiPlayer.state == .playing {
+                                                Button(action: {
+                                                    midiPlayer.pause()
+                                                }) {
+                                                    Image(systemName: "pause.circle.fill").foregroundColor(.white)
+                                                }
+                                            } else if midiPlayer.state == .paused {
+                                                Button(action: {
+                                                    midiPlayer.play()
+                                                }) {
+                                                    Image(systemName: "play.circle.fill").foregroundColor(.white)
+                                                }
+                                            }
+                                            Button( action: {
+                                                self.showingPlayPopover.toggle()
+                                                viewConductor.scrollToID = viewConductor.nowPlayingID
+                                            }) {
+                                                AnyView(viewConductor.nowPlayingTitle)
+                                            }
+                                            .padding([.leading, .trailing], 10)
+                                        }
+                                    }
+                                }
                                 VStack(alignment: .leading) {
-                                    HStack(spacing: 0) {
+                                    HStack {
                                         Button(action: {
-                                            midiPlayer.rewind()
-                                            viewConductor.simpleSuccess()
-                                        }) {
-                                            Image(systemName: "backward.end.circle.fill").foregroundColor(.white)
-                                        }
-                                        .padding(.trailing, 5)
-                                        Button(action: {
-                                            viewConductor.nowPlayingID = 0
-                                            midiPlayer.stop()
-                                        }) {
-                                            Image(systemName: "stop.circle.fill").foregroundColor(.white)
-                                        }
-                                        .padding(.trailing, 5)
-                                        if midiPlayer.state == .playing {
-                                            Button(action: {
-                                                midiPlayer.pause()
-                                            }) {
-                                                Image(systemName: "pause.circle.fill").foregroundColor(.white)
-                                            }
-                                        } else if midiPlayer.state == .paused {
-                                            Button(action: {
-                                                midiPlayer.play()
-                                            }) {
-                                                Image(systemName: "play.circle.fill").foregroundColor(.white)
-                                            }
-                                        }
-                                        Button( action: {
                                             self.showingPlayPopover.toggle()
                                             viewConductor.scrollToID = viewConductor.nowPlayingID
                                         }) {
-                                            AnyView(viewConductor.nowPlayingTitle)
-                                        }
-                                        .padding([.leading, .trailing], 10)
+                                            ZStack {
+                                                Image(systemName: "music.note.list")
+                                                    .foregroundColor(.white)
+                                                Image(systemName: "square")
+                                                    .foregroundColor(.clear)
+                                            }
+                                        }.popover(isPresented: $showingPlayPopover,
+                                                  content: {
+                                            PlayView(viewConductor: viewConductor,
+                                                     midiPlayer: midiPlayer,
+                                                     nowPlayingTitle: $viewConductor.nowPlayingTitle,
+                                                     nowPlayingID: $viewConductor.nowPlayingID,
+                                                     scrollToID: $viewConductor.scrollToID)
+                                            .presentationCompactAdaptation(.none)
+                                        })
                                     }
                                 }
-                            }
-                            /// The play view
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Button(action: {
-                                        self.showingPlayPopover.toggle()
-                                        viewConductor.scrollToID = viewConductor.nowPlayingID
-                                    }) {
-                                        ZStack {
-                                            Image(systemName: "music.note.list")
-                                                .foregroundColor(.white)
-                                            Image(systemName: "square")
-                                                .foregroundColor(.clear)
-                                        }
-                                    }.popover(isPresented: $showingPlayPopover,
-                                              content: {
-                                        PlayView(viewConductor: viewConductor,
-                                                 midiPlayer: midiPlayer,
-                                                 nowPlayingTitle: $viewConductor.nowPlayingTitle,
-                                                 nowPlayingID: $viewConductor.nowPlayingID,
-                                                 scrollToID: $viewConductor.scrollToID)
-                                        .presentationCompactAdaptation(.none)
-                                    })
+                                .padding(.trailing, 10)
+                                /// The help view
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Button(action: {
+                                            self.showingHelpPopover.toggle()
+                                        }) {
+                                            ZStack {
+                                                Image(systemName: "questionmark.circle")
+                                                    .foregroundColor(.white)
+                                                Image(systemName: "square")
+                                                    .foregroundColor(.clear)
+                                            }
+                                        }.popover(isPresented: $showingHelpPopover,
+                                                  content: {
+                                            HelpView()
+                                                .presentationCompactAdaptation(.none)
+                                        })
+                                    }
                                 }
+                                .padding(.trailing, 10)
                             }
-                            .padding(.trailing, 10)
-                            /// The help view
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Button(action: {
-                                        self.showingHelpPopover.toggle()
-                                    }) {
-                                        ZStack {
-                                            Image(systemName: "questionmark.circle")
-                                                .foregroundColor(.white)
-                                            Image(systemName: "square")
-                                                .foregroundColor(.clear)
-                                        }
-                                    }.popover(isPresented: $showingHelpPopover,
-                                              content: {
-                                        HelpView()
-                                            .presentationCompactAdaptation(.none)
-                                    })
-                                }
-                            }
-                            .padding(.trailing, 10)
                         }
                         Spacer()
                     }
@@ -190,8 +195,18 @@ struct ContentView: View {
                             .padding(.bottom, 7)
                         }
                         /// The main dualistic keyboard
-                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                            .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
+                        let _maxHeight = if orientation.isLandscape {
+                            CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow))
+                        } else {
+                            proxy.size.height
+                        }
+                        let _maxWidth = if orientation.isLandscape {
+                            proxy.size.width
+                        } else {
+                            CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.height / CGFloat(viewConductor.keysPerRow))
+                        }
+                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff, orientation: orientation)
+                            .frame(maxWidth: _maxWidth, maxHeight: _maxHeight)
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
@@ -236,6 +251,7 @@ struct ContentView: View {
             }
             .environmentObject(viewConductor.midiManager)
             .statusBar(hidden: true)
+            .detectOrientation($orientation)
         }
         .padding(.top, 25)
     }
@@ -245,6 +261,24 @@ struct ContentView: View {
                 viewConductor.conductor.start()
             }
         }
+    }
+}
+
+struct DetectOrientation: ViewModifier {
+    @Binding var orientation: UIDeviceOrientation
+    
+    func body(content: Content) -> some View {
+        content
+            .onReceive(NotificationCenter.default
+                .publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                    orientation = UIDevice.current.orientation
+                }
+    }
+}
+
+extension View {
+    func detectOrientation(_ orientation: Binding<UIDeviceOrientation>) -> some View {
+        modifier(DetectOrientation(orientation: orientation))
     }
 }
 

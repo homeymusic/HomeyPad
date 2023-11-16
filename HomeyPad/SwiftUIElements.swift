@@ -66,10 +66,11 @@ struct SwiftUIKeyboard: View {
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
+    var orientation: UIDeviceOrientation
     let initialC: Int = Default.initialC
         
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC, orientation: orientation),
                  noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
             SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                pitch: pitch,
