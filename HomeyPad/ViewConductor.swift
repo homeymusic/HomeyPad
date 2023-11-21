@@ -108,7 +108,7 @@ class ViewConductor: ObservableObject {
     }
     
     func playNote(_ midiNote: UInt8) {
-        conductor.instrument.play(noteNumber: midiNote, velocity: 127, channel: 0)
+        conductor.instrument.play(noteNumber: midiNote, velocity: 63, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
         notesPlaying.insert(midiNote)
     }
@@ -121,7 +121,7 @@ class ViewConductor: ObservableObject {
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
-        conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 127, channel: 0)
+        conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
     }
     
     func noteOff(pitch: Pitch) {
