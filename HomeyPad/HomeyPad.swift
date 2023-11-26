@@ -35,6 +35,7 @@ enum Default {
     static let showSelector: Bool = false
     static let showClassicalSelector: Bool = true
     static let showIntegersSelector: Bool = false
+    static let showRomanSelector: Bool = false
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
@@ -160,6 +161,49 @@ func monthLabel(_ pitchClass: Int) -> String {
     case 11 :
         return "Mar"
     default: return ""
+    }
+    
+}
+
+func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
+    let primaryAccidental = upwardPitchMovement ? "♭" : "♯"
+    let secondaryAccidental = upwardPitchMovement ? "♯" : "♭"
+    let tritone = upwardPitchMovement ? "♯IV ♭V" : "-♯V -♭IV"
+    let sign = upwardPitchMovement ? "" : "-"
+    let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
+
+    if pitchClass == 0 && upwardPitchMovement {
+        return "I"
+    } else if pitchClass == 12 && !upwardPitchMovement {
+        return "-I"
+    } else {
+        switch mod(adjustedPitchClass, 12) {
+        case 1:
+            return "\(sign)\(primaryAccidental)II"
+        case 2:
+            return "\(sign)II"
+        case 3:
+            return "\(sign)\(primaryAccidental)III"
+        case 4:
+            return "\(sign)III"
+        case 5:
+            return "\(sign)IV"
+        case 6:
+            return tritone
+        case 7:
+            return "\(sign)V"
+        case 8:
+            return "\(sign)\(primaryAccidental)VI"
+        case 9:
+            return "\(sign)VI"
+        case 10:
+            return "\(sign)\(primaryAccidental)VII"
+        case 11 :
+            return "\(sign)VII"
+        case 0:
+            return "\(sign)VIII"
+        default: return ""
+        }
     }
     
 }

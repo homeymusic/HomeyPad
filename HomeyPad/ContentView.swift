@@ -39,6 +39,7 @@ struct ContentView: View {
                                 /// labels for tonic selector
                                 CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showIntegersSelector: $viewConductor.showIntegersSelector,
+                                              showRomanSelector: $viewConductor.showRomanSelector,
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
@@ -180,6 +181,7 @@ struct ContentView: View {
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showIntegersSelector: viewConductor.showIntegersSelector,
+                                                showRomanSelector: viewConductor.showRomanSelector,
                                                 showMonthsSelector: viewConductor.showMonthsSelector,
                                                 showPianoSelector: viewConductor.showPianoSelector,
                                                 showIntervals: viewConductor.showIntervals,

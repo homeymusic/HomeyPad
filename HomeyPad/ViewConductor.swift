@@ -52,6 +52,12 @@ class ViewConductor: ObservableObject {
             if oldValue != self.showIntegersSelector {self.simpleSuccess()}
         }
     }
+    @Published var showRomanSelector: Bool {
+        didSet {
+            defaults.set(self.showRomanSelector, forKey: "showRomanSelector")
+            if oldValue != self.showRomanSelector {self.simpleSuccess()}
+        }
+    }
     @Published var showMonthsSelector: Bool {
         didSet {
             defaults.set(self.showMonthsSelector, forKey: "showMonthsSelector")
@@ -87,13 +93,14 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showIntegersSelector = defaults.bool(forKey: "showIntegersSelector")
+        showRomanSelector = defaults.bool(forKey: "showRomanSelector")
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")

@@ -11,6 +11,7 @@ struct SelectorStyle: View {
     let col: Int
     let showClassicalSelector: Bool
     let showIntegersSelector: Bool
+    let showRomanSelector: Bool
     let showMonthsSelector: Bool
     let showPianoSelector: Bool
     let showIntervals: Bool
@@ -44,6 +45,10 @@ struct SelectorStyle: View {
                     let value: Int = col + octaveAdjustment
                     let prefix: String = value > 0 ? "+" : ""
                     Text("\(String(prefix))\(String(value))")
+                        .font(.custom("Monaco", size: 20))
+                }
+                if showRomanSelector {
+                    Text(romanLabel(pitchClass: col, upwardPitchMovement: upwardPitchMovement))
                         .font(.custom("Monaco", size: 20))
                 }
                 if showIntervals {

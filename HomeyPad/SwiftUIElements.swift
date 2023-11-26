@@ -10,6 +10,7 @@ struct SwiftUIHomeSelector: View {
     var tonicPitchClass: Int
     var showClassicalSelector: Bool
     var showIntegersSelector: Bool
+    var showRomanSelector: Bool
     var showMonthsSelector: Bool
     var showPianoSelector: Bool
     var showIntervals: Bool
@@ -35,6 +36,7 @@ struct SwiftUIHomeSelector: View {
                         SelectorStyle(col: col,
                                       showClassicalSelector: showClassicalSelector,
                                       showIntegersSelector: showIntegersSelector,
+                                      showRomanSelector: showRomanSelector,
                                       showMonthsSelector: showMonthsSelector,
                                       showPianoSelector: showPianoSelector,
                                       showIntervals: showIntervals,
@@ -47,6 +49,7 @@ struct SwiftUIHomeSelector: View {
                             SelectorStyle(col: col,
                                           showClassicalSelector: showClassicalSelector,
                                           showIntegersSelector: showIntegersSelector,
+                                          showRomanSelector: showRomanSelector,
                                           showMonthsSelector: showMonthsSelector,
                                           showPianoSelector: showPianoSelector,
                                           showIntervals: showIntervals,
