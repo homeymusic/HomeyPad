@@ -166,9 +166,8 @@ func monthLabel(_ pitchClass: Int) -> String {
 }
 
 func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
-    let primaryAccidental = upwardPitchMovement ? "♭" : "♯"
-    let secondaryAccidental = upwardPitchMovement ? "♯" : "♭"
-    let tritone = upwardPitchMovement ? "♯IV ♭V" : "-♯V -♭IV"
+    let accidental = upwardPitchMovement ? "♭" : "♯"
+    let tritone = upwardPitchMovement ? "♯IV♭V" : "-♯V♭IV"
     let sign = upwardPitchMovement ? "" : "-"
     let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
 
@@ -179,11 +178,11 @@ func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
     } else {
         switch mod(adjustedPitchClass, 12) {
         case 1:
-            return "\(sign)\(primaryAccidental)II"
+            return "\(sign)\(accidental)II"
         case 2:
             return "\(sign)II"
         case 3:
-            return "\(sign)\(primaryAccidental)III"
+            return "\(sign)\(accidental)III"
         case 4:
             return "\(sign)III"
         case 5:
@@ -193,11 +192,11 @@ func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
         case 7:
             return "\(sign)V"
         case 8:
-            return "\(sign)\(primaryAccidental)VI"
+            return "\(sign)\(accidental)VI"
         case 9:
             return "\(sign)VI"
         case 10:
-            return "\(sign)\(primaryAccidental)VII"
+            return "\(sign)\(accidental)VII"
         case 11 :
             return "\(sign)VII"
         case 0:
