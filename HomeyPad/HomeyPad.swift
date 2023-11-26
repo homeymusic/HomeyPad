@@ -167,12 +167,12 @@ func monthLabel(_ pitchClass: Int) -> String {
 
 func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
     let accidental = upwardPitchMovement ? "♭" : "♯"
-    let tritone = upwardPitchMovement ? "♯IV♭V" : "-♯V♭IV"
-    let sign = upwardPitchMovement ? "" : "-"
+    let tritone = upwardPitchMovement ? "+♯IV♭V" : "-♯V♭IV"
+    let sign = upwardPitchMovement ? "+" : "-"
     let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
 
     if pitchClass == 0 && upwardPitchMovement {
-        return "I"
+        return "+I"
     } else if pitchClass == 12 && !upwardPitchMovement {
         return "-I"
     } else {
