@@ -41,14 +41,14 @@ struct CustomizeView: View {
                 GridRow {
                     Image(systemName: "a.square")
                         .gridCellAnchor(.center)
-                    Toggle("Letters", isOn: $showClassicalSelector)
+                    Toggle("Letter", isOn: $showClassicalSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
                 GridRow {
                     Image(systemName: "calendar")
                         .gridCellAnchor(.center)
-                    Toggle("Months", isOn: $showMonthsSelector)
+                    Toggle("Month", isOn: $showMonthsSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -57,7 +57,7 @@ struct CustomizeView: View {
                     Image(systemName: "0.square")
                         .gridCellAnchor(.center)
                     
-                    Toggle("Numbers", isOn: $showIntegersSelector)
+                    Toggle("Integer", isOn: $showIntegersSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -65,7 +65,7 @@ struct CustomizeView: View {
                     Image(systemName: "ruler")
                         .gridCellAnchor(.center)
                     
-                    Toggle("Intervals", isOn: $showIntervals)
+                    Toggle("Interval", isOn: $showIntervals)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }

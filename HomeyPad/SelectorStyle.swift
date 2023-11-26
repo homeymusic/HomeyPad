@@ -38,22 +38,21 @@ struct SelectorStyle: View {
                 }
                 if showMonthsSelector {
                     Text(monthLabel(pitchClass))
-                        .font(.custom("Monaco", size: 20))
+                        .font(.custom("Courier", size: 20))
                         .textCase(.uppercase)
                 }
                 if showIntegersSelector {
                     let value: Int = col + octaveAdjustment
-                    let prefix: String = value > 0 ? "+" : ""
-                    Text("\(String(prefix))\(String(value))")
-                        .font(.custom("Monaco", size: 20))
+                    Text(String(value))
+                        .font(.custom("Courier", size: 20))
                 }
                 if showRomanSelector {
                     Text(romanLabel(pitchClass: col, upwardPitchMovement: upwardPitchMovement))
-                        .font(.custom("Monaco", size: 20))
+                        .font(.custom("Courier", size: 20))
                 }
                 if showIntervals {
                     Text(intervalLabel(col + octaveAdjustment))
-                        .font(.custom("Monaco", size: 20))
+                        .font(.custom("Courier", size: 20))
                 }
             }
             .scaledToFit()

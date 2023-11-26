@@ -167,40 +167,41 @@ func monthLabel(_ pitchClass: Int) -> String {
 
 func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
     let accidental = upwardPitchMovement ? "♭" : "♯"
-    let tritone = upwardPitchMovement ? "+♯IV♭V" : "-♯V♭IV"
-    let sign = upwardPitchMovement ? "+" : "-"
+    let leftSign = upwardPitchMovement ? "" : "<"
+    let rightSign = upwardPitchMovement ? "" : ""
+    let tritone = upwardPitchMovement ? "\(leftSign)♯IV♭V\(rightSign)" : "\(leftSign)♯V♭IV\(rightSign)"
     let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
 
     if pitchClass == 0 && upwardPitchMovement {
-        return "+I"
+        return "\(leftSign)I\(rightSign)"
     } else if pitchClass == 12 && !upwardPitchMovement {
-        return "-I"
+        return "\(leftSign)I\(rightSign)"
     } else {
         switch mod(adjustedPitchClass, 12) {
         case 1:
-            return "\(sign)\(accidental)II"
+            return "\(leftSign)\(accidental)II\(rightSign)"
         case 2:
-            return "\(sign)II"
+            return "\(leftSign)II\(rightSign)"
         case 3:
-            return "\(sign)\(accidental)III"
+            return "\(leftSign)\(accidental)III\(rightSign)"
         case 4:
-            return "\(sign)III"
+            return "\(leftSign)III\(rightSign)"
         case 5:
-            return "\(sign)IV"
+            return "\(leftSign)IV\(rightSign)"
         case 6:
             return tritone
         case 7:
-            return "\(sign)V"
+            return "\(leftSign)V\(rightSign)"
         case 8:
-            return "\(sign)\(accidental)VI"
+            return "\(leftSign)\(accidental)VI\(rightSign)"
         case 9:
-            return "\(sign)VI"
+            return "\(leftSign)VI\(rightSign)"
         case 10:
-            return "\(sign)\(accidental)VII"
+            return "\(leftSign)\(accidental)VII\(rightSign)"
         case 11 :
-            return "\(sign)VII"
+            return "\(leftSign)VII\(rightSign)"
         case 0:
-            return "\(sign)VIII"
+            return "\(leftSign)VIII\(rightSign)"
         default: return ""
         }
     }
@@ -211,151 +212,151 @@ func intervalLabel(_ col: Int) -> String {
     
     switch col {
     case -36:
-        return "-P22"
+        return "<P22"
     case -35:
-        return "-m21"
+        return "<m21"
     case -34:
-        return "-M21"
+        return "<M21"
     case -33:
-        return "-m20"
+        return "<m20"
     case -32:
-        return "-M20"
+        return "<M20"
     case -31:
-        return "-P19"
+        return "<P19"
     case -30:
-        return "tt"
+        return "<tt"
     case -29:
-        return "-P18"
+        return "<P18"
     case -28:
-        return "-m17"
+        return "<m17"
     case -27:
-        return "-M17"
+        return "<M17"
     case -26:
-        return "-m16"
+        return "<m16"
     case -25:
-        return "-M16"
+        return "<M16"
     case -24:
-        return "-P15"
+        return "<P15"
     case -23:
-        return "-m14"
+        return "<m14"
     case -22:
-        return "-M14"
+        return "<M14"
     case -21:
-        return "-m13"
+        return "<m13"
     case -20:
-        return "-M13"
+        return "<M13"
     case -19:
-        return "-P12"
+        return "<P12"
     case -18:
-        return "tt"
+        return "<tt"
     case -17:
-        return "-P11"
+        return "<P11"
     case -16:
-        return "-m10"
+        return "<m10"
     case -15:
-        return "-M10"
+        return "<M10"
     case -14:
-        return "-m9"
+        return "<m9"
     case -13:
-        return "-M9"
+        return "<M9"
     case -12:
-        return "-P8"
+        return "<P8"
     case -11:
-        return "-m7"
+        return "<m7"
     case -10:
-        return "-M7"
+        return "<M7"
     case -9:
-        return "-m6"
+        return "<m6"
     case -8:
-        return "-M6"
+        return "<M6"
     case -7:
-        return "-P5"
+        return "<P5"
     case -6:
-        return "tt"
+        return "<tt"
     case -5:
-        return "-P4"
+        return "<P4"
     case -4:
-        return "-m3"
+        return "<m3"
     case -3:
-        return "-M3"
+        return "<M3"
     case -2:
-        return "-m2"
+        return "<m2"
     case -1:
-        return "-M2"
+        return "<M2"
     case 0:
-        return "±P1"
+        return "P1"
     case 1:
-        return "+m2"
+        return "m2"
     case 2:
-        return "+M2"
+        return "M2"
     case 3:
-        return "+m3"
+        return "m3"
     case 4:
-        return "+M3"
+        return "M3"
     case 5:
-        return "+P4"
+        return "P4"
     case 6:
         return "tt"
     case 7:
-        return "+P5"
+        return "P5"
     case 8:
-        return "+m6"
+        return "m6"
     case 9:
-        return "+M6"
+        return "M6"
     case 10:
-        return "+m7"
+        return "m7"
     case 11:
-        return "+M7"
+        return "M7"
     case 12:
-        return "+P8"
+        return "P8"
     case 13:
-        return "+m9"
+        return "m9"
     case 14:
-        return "+M9"
+        return "M9"
     case 15:
-        return "+m10"
+        return "m10"
     case 16:
-        return "+M10"
+        return "M10"
     case 17:
-        return "+P11"
+        return "P11"
     case 18:
         return "tt"
     case 19:
-        return "+P12"
+        return "P12"
     case 20:
-        return "+m13"
+        return "m13"
     case 21:
-        return "+M13"
+        return "M13"
     case 22:
-        return "+m14"
+        return "m14"
     case 23:
-        return "+M14"
+        return "M14"
     case 24:
-        return "+P15"
+        return "P15"
     case 25:
-        return "+m16"
+        return "m16"
     case 26:
-        return "+M16"
+        return "M16"
     case 27:
-        return "+m17"
+        return "m17"
     case 28:
-        return "+M17"
+        return "M17"
     case 29:
-        return "+P18"
+        return "P18"
     case 30:
         return "tt"
     case 31:
-        return "+P19"
+        return "P19"
     case 32:
-        return "+m20"
+        return "m20"
     case 33:
-        return "+M20"
+        return "M20"
     case 34:
-        return "+m21"
+        return "m21"
     case 35:
-        return "+M21"
+        return "M21"
     case 36:
-        return "+P22"
+        return "P22"
     default: return ""
     }
 }
