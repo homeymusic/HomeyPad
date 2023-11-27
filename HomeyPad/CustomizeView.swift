@@ -87,7 +87,6 @@ struct CustomizeView: View {
                         .tint(Default.pianoGray)
                 }
                 GridRow {
-                    let enableMovement = showIntervals || showIntegersSelector || showRomanSelector || showDegreeSelector
                     Picker("", selection: $upwardPitchMovement) {
                         Image(systemName: "lessthan.square.fill")
                             .foregroundColor(Default.minorColor)
@@ -101,7 +100,7 @@ struct CustomizeView: View {
                             .tag(true)
                     }
                     .pickerStyle(.segmented)
-                    .disabled(!enableMovement)
+                    .disabled(!viewConductor.pitchMovementShowing())
                     .gridCellColumns(2)
                 }
             }

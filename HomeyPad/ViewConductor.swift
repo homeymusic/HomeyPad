@@ -164,6 +164,16 @@ class ViewConductor: ObservableObject {
     
     func updateMIDIFilter(Param: AUValue, knobNumber: Int){
     }
+    
+    func pitchMovementShowing() -> Bool {
+        return showIntervals || showIntegersSelector || showRomanSelector || showDegreeSelector
+    }
+    
+    func setPitchMovement(_ upward: Bool) {
+        if showSelector && pitchMovementShowing() {
+            upwardPitchMovement = upward
+        }
+    }
 }
 
 extension NSNotification.Name {

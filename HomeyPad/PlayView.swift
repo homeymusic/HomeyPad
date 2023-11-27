@@ -69,7 +69,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "twinkle_twinkle_little_star", songTonic: 48, itemID: 1)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
                                 dismiss()
                             } label: {
@@ -92,7 +92,7 @@ struct PlayView: View {
                             }
                             Button {
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
-                                    Text("Twinkle Twinkle (transposed)")
+                                    Text("Twinkle Twinkle (mirror)")
                                         .foregroundColor(Default.minorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
@@ -101,14 +101,14 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mirror_twinkle", songTonic: 40, itemID: 2)
-                                viewConductor.upwardPitchMovement = false
+                                viewConductor.setPitchMovement(false)
                                 if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
                                 dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 2 { Default.highlightGray }
                                     HStack {
-                                        Text("Twinkle Twinkle (transposed)")
+                                        Text("Twinkle Twinkle (mirror)")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
                                             .id(2)
@@ -133,7 +133,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "happy_birthday", songTonic: 60, itemID: 5)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
                                 dismiss()
                             } label: {
@@ -156,7 +156,7 @@ struct PlayView: View {
                             }
                             Button {
                                 initSequencer(nowPlaying: HStack(spacing: 4) {
-                                    Text("Happy Birthday (transposed)")
+                                    Text("Happy Birthday (mirror)")
                                         .foregroundColor(Default.minorColor)
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
@@ -165,14 +165,14 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mirror_birthday", songTonic: 52, itemID: 6)
-                                viewConductor.upwardPitchMovement = false
+                                viewConductor.setPitchMovement(false)
                                 if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
                                 dismiss()
                             } label: {
                                 ZStack {
                                     if self.scrollToID == 6 { Default.highlightGray }
                                     HStack {
-                                        Text("Happy Birthday (transposed)")
+                                        Text("Happy Birthday (mirror)")
                                             .foregroundColor(Default.minorColor)
                                             .underline()
                                             .id(6)
@@ -186,6 +186,80 @@ struct PlayView: View {
                                     }
                                 }
                             }
+                            /// Saint James
+                            Button {
+                                initSequencer(nowPlaying: HStack(spacing: 4) {
+                                    Text("Saint James")
+                                        .foregroundColor(Default.minorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "paintpalette")
+                                            .symbolRenderingMode(.multicolor)
+                                        Image(systemName: "minus.square.fill")
+                                            .foregroundColor(Default.minorColor)
+                                        Image(systemName: "greaterthan.square")
+                                            .foregroundColor(Default.majorColor)
+                                    }
+                                }, filename: "saint", songTonic: 60, itemID: 22)
+                                viewConductor.setPitchMovement(true)
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
+                            } label: {
+                                ZStack {
+                                    if self.scrollToID == 22 { Default.highlightGray }
+                                    HStack {
+                                        Text("Saint James")
+                                            .foregroundColor(Default.minorColor)
+                                            .underline()
+                                            .id(22)
+                                        Spacer()
+                                        HStack(spacing: 0) {
+                                            Image(systemName: "paintpalette")
+                                                .symbolRenderingMode(.multicolor)
+                                            Image(systemName: "minus.square.fill")
+                                                .foregroundColor(Default.minorColor)
+                                            Image(systemName: "greaterthan.square")
+                                                .foregroundColor(Default.majorColor)
+                                        }
+                                    }
+                                }
+                            }
+                            Button {
+                                initSequencer(nowPlaying: HStack(spacing: 4) {
+                                    Text("Saint James (mirror)")
+                                        .foregroundColor(Default.majorColor)
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "paintpalette")
+                                            .symbolRenderingMode(.multicolor)
+                                        Image(systemName: "plus.square.fill")
+                                            .foregroundColor(Default.majorColor)
+                                        Image(systemName: "lessthan.square")
+                                            .foregroundColor(Default.minorColor)
+                                    }
+                                }, filename: "mirror_saint", songTonic: 60, itemID: 23)
+                                viewConductor.setPitchMovement(false)
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                dismiss()
+                            } label: {
+                                ZStack {
+                                    if self.scrollToID == 23 { Default.highlightGray }
+                                    HStack {
+                                        Text("Saint James (mirror)")
+                                            .foregroundColor(Default.majorColor)
+                                            .underline()
+                                            .id(23)
+                                        Spacer()
+                                        HStack(spacing: 0) {
+                                            Image(systemName: "paintpalette")
+                                                .symbolRenderingMode(.multicolor)
+                                            Image(systemName: "plus.square.fill")
+                                                .foregroundColor(Default.majorColor)
+                                            Image(systemName: "lessthan.square")
+                                                .foregroundColor(Default.minorColor)
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                         Divider()
                             .padding(5)
@@ -207,7 +281,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "ionian", songTonic: 48, itemID: 11)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -239,7 +313,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "phrygian", songTonic: 52, itemID: 12)
-                                viewConductor.upwardPitchMovement = false
+                                viewConductor.setPitchMovement(false)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -271,7 +345,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "mixolydian", songTonic: 55, itemID: 13)
-                                viewConductor.upwardPitchMovement = false
+                                viewConductor.setPitchMovement(false)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -304,7 +378,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "aeolian", songTonic: 69, itemID: 14)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -341,7 +415,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "harmonic_minor", songTonic: 69, itemID: 15)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -381,7 +455,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.minorColor)
                                     }
                                 }, filename: "dorian_down", songTonic: 50, itemID: 16)
-                                viewConductor.upwardPitchMovement = false
+                                viewConductor.setPitchMovement(false)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -422,7 +496,7 @@ struct PlayView: View {
                                             .foregroundColor(Default.majorColor)
                                     }
                                 }, filename: "dorian_up", songTonic: 62, itemID: 17)
-                                viewConductor.upwardPitchMovement = true
+                                viewConductor.setPitchMovement(true)
                                 if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
@@ -463,7 +537,7 @@ struct PlayView: View {
                                                 .foregroundColor(Default.majorColor)
                                         }
                                     }, filename: "lydian", songTonic: 65, itemID: 18)
-                                    viewConductor.upwardPitchMovement = true
+                                    viewConductor.setPitchMovement(true)
                                     if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                     dismiss()
                                 } label: {
@@ -503,7 +577,7 @@ struct PlayView: View {
                                                 .foregroundColor(Default.minorColor)
                                         }
                                     }, filename: "locrian", songTonic: 47, itemID: 19)
-                                    viewConductor.upwardPitchMovement = false
+                                    viewConductor.setPitchMovement(false)
                                     if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                     dismiss()
                                 } label: {
@@ -545,7 +619,7 @@ struct PlayView: View {
                                                 .foregroundColor(Default.majorColor)
                                         }
                                     }, filename: "awesome", songTonic: 48, itemID: 20)
-                                    viewConductor.upwardPitchMovement = true
+                                    viewConductor.setPitchMovement(true)
                                     if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
                                     dismiss()
                                 } label: {
@@ -574,7 +648,7 @@ struct PlayView: View {
                                 }
                                 Button {
                                     initSequencer(nowPlaying: HStack {
-                                        Text("Awesome (transposed)")
+                                        Text("Awesome (mirror)")
                                             .foregroundColor(Default.minorColor)
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
@@ -589,14 +663,14 @@ struct PlayView: View {
                                                 .foregroundColor(Default.minorColor)
                                         }
                                     }, filename: "mirror_awesome", songTonic: 52, itemID: 21)
-                                    viewConductor.upwardPitchMovement = true
+                                    viewConductor.setPitchMovement(true)
                                     if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
                                     dismiss()
                                 } label: {
                                     ZStack {
                                         if self.scrollToID == 21 { Default.highlightGray }
                                         HStack {
-                                            Text("Awesome (transposed)")
+                                            Text("Awesome (mirror)")
                                                 .foregroundColor(Default.minorColor)
                                                 .underline()
                                                 .id(21)
