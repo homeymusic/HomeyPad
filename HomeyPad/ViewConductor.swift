@@ -58,6 +58,12 @@ class ViewConductor: ObservableObject {
             if oldValue != self.showRomanSelector {self.simpleSuccess()}
         }
     }
+    @Published var showDegreeSelector: Bool {
+        didSet {
+            defaults.set(self.showDegreeSelector, forKey: "showDegreeSelector")
+            if oldValue != self.showDegreeSelector {self.simpleSuccess()}
+        }
+    }
     @Published var showMonthsSelector: Bool {
         didSet {
             defaults.set(self.showMonthsSelector, forKey: "showMonthsSelector")
@@ -93,7 +99,7 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
@@ -101,6 +107,7 @@ class ViewConductor: ObservableObject {
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showIntegersSelector = defaults.bool(forKey: "showIntegersSelector")
         showRomanSelector = defaults.bool(forKey: "showRomanSelector")
+        showDegreeSelector = defaults.bool(forKey: "showDegreeSelector")
         showMonthsSelector = defaults.bool(forKey: "showMonthsSelector")
         showPianoSelector = defaults.bool(forKey: "showPianoSelector")
         showIntervals  = defaults.bool(forKey: "showIntervals")

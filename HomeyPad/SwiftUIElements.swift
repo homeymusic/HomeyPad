@@ -11,6 +11,7 @@ struct SwiftUIHomeSelector: View {
     var showClassicalSelector: Bool
     var showIntegersSelector: Bool
     var showRomanSelector: Bool
+    var showDegreeSelector: Bool
     var showMonthsSelector: Bool
     var showPianoSelector: Bool
     var showIntervals: Bool
@@ -37,6 +38,7 @@ struct SwiftUIHomeSelector: View {
                                       showClassicalSelector: showClassicalSelector,
                                       showIntegersSelector: showIntegersSelector,
                                       showRomanSelector: showRomanSelector,
+                                      showDegreeSelector: showDegreeSelector,
                                       showMonthsSelector: showMonthsSelector,
                                       showPianoSelector: showPianoSelector,
                                       showIntervals: showIntervals,
@@ -50,6 +52,7 @@ struct SwiftUIHomeSelector: View {
                                           showClassicalSelector: showClassicalSelector,
                                           showIntegersSelector: showIntegersSelector,
                                           showRomanSelector: showRomanSelector,
+                                          showDegreeSelector: showDegreeSelector,
                                           showMonthsSelector: showMonthsSelector,
                                           showPianoSelector: showPianoSelector,
                                           showIntervals: showIntervals,

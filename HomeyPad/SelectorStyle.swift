@@ -12,6 +12,7 @@ struct SelectorStyle: View {
     let showClassicalSelector: Bool
     let showIntegersSelector: Bool
     let showRomanSelector: Bool
+    let showDegreeSelector: Bool
     let showMonthsSelector: Bool
     let showPianoSelector: Bool
     let showIntervals: Bool
@@ -43,15 +44,20 @@ struct SelectorStyle: View {
                 }
                 if showIntegersSelector {
                     let value: Int = col + octaveAdjustment
-                    Text(String(value))
+                    let prefix = value < 0 || (value == 0 && !upwardPitchMovement) ? "<" : ""
+                    Text("\(prefix)\(String(abs(value)))")
                         .font(.custom("Courier", size: 20))
                 }
                 if showRomanSelector {
                     Text(romanLabel(pitchClass: col, upwardPitchMovement: upwardPitchMovement))
                         .font(.custom("Courier", size: 20))
                 }
+                if showDegreeSelector {
+                    Text(degreeLabel(pitchClass: col, upwardPitchMovement: upwardPitchMovement))
+                        .font(.custom("Courier", size: 20))
+                }
                 if showIntervals {
-                    Text(intervalLabel(col + octaveAdjustment))
+                    Text(intervalLabel(col + octaveAdjustment, upwardPitchMovement: upwardPitchMovement))
                         .font(.custom("Courier", size: 20))
                 }
             }

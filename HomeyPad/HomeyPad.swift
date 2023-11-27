@@ -36,6 +36,7 @@ enum Default {
     static let showClassicalSelector: Bool = true
     static let showIntegersSelector: Bool = false
     static let showRomanSelector: Bool = false
+    static let showDegreeSelector: Bool = false
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
@@ -167,48 +168,84 @@ func monthLabel(_ pitchClass: Int) -> String {
 
 func romanLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
     let accidental = upwardPitchMovement ? "♭" : "♯"
-    let leftSign = upwardPitchMovement ? "" : "<"
-    let rightSign = upwardPitchMovement ? "" : ""
-    let tritone = upwardPitchMovement ? "\(leftSign)♯IV♭V\(rightSign)" : "\(leftSign)♯V♭IV\(rightSign)"
+    let prefix = upwardPitchMovement ? "" : "<"
+    let tritone = upwardPitchMovement ? "\(prefix)♯IV♭V" : "\(prefix)♯V♭IV"
     let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
 
-    if pitchClass == 0 && upwardPitchMovement {
-        return "\(leftSign)I\(rightSign)"
-    } else if pitchClass == 12 && !upwardPitchMovement {
-        return "\(leftSign)I\(rightSign)"
+    if (pitchClass == 0 && upwardPitchMovement) || (pitchClass == 12 && !upwardPitchMovement) {
+        return "\(prefix)I"
     } else {
         switch mod(adjustedPitchClass, 12) {
         case 1:
-            return "\(leftSign)\(accidental)II\(rightSign)"
+            return "\(prefix)\(accidental)II"
         case 2:
-            return "\(leftSign)II\(rightSign)"
+            return "\(prefix)II"
         case 3:
-            return "\(leftSign)\(accidental)III\(rightSign)"
+            return "\(prefix)\(accidental)III"
         case 4:
-            return "\(leftSign)III\(rightSign)"
+            return "\(prefix)III"
         case 5:
-            return "\(leftSign)IV\(rightSign)"
+            return "\(prefix)IV"
         case 6:
             return tritone
         case 7:
-            return "\(leftSign)V\(rightSign)"
+            return "\(prefix)V"
         case 8:
-            return "\(leftSign)\(accidental)VI\(rightSign)"
+            return "\(prefix)\(accidental)VI"
         case 9:
-            return "\(leftSign)VI\(rightSign)"
+            return "\(prefix)VI"
         case 10:
-            return "\(leftSign)\(accidental)VII\(rightSign)"
+            return "\(prefix)\(accidental)VII"
         case 11 :
-            return "\(leftSign)VII\(rightSign)"
+            return "\(prefix)VII"
         case 0:
-            return "\(leftSign)VIII\(rightSign)"
+            return "\(prefix)VIII"
         default: return ""
         }
     }
-    
 }
 
-func intervalLabel(_ col: Int) -> String {
+func degreeLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
+    let accidental = upwardPitchMovement ? "♭" : "♯"
+    let prefix = upwardPitchMovement ? "" : "<"
+    let caret = "\u{0302}"
+    let tritone = upwardPitchMovement ? "\(prefix)♯4\(caret)♭5\(caret)" : "\(prefix)♯5\(caret)♭4\(caret)"
+    let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
+    
+    if (pitchClass == 0 && upwardPitchMovement) || (pitchClass == 12 && !upwardPitchMovement) {
+        return "\(prefix)1\(caret)"
+    } else {
+        switch mod(adjustedPitchClass, 12) {
+        case 1:
+            return "\(prefix)\(accidental)2\(caret)"
+        case 2:
+            return "\(prefix)2\(caret)"
+        case 3:
+            return "\(prefix)\(accidental)3\(caret)"
+        case 4:
+            return "\(prefix)3\(caret)"
+        case 5:
+            return "\(prefix)4\(caret)"
+        case 6:
+            return tritone
+        case 7:
+            return "\(prefix)5\(caret)"
+        case 8:
+            return "\(prefix)\(accidental)6\(caret)"
+        case 9:
+            return "\(prefix)6\(caret)"
+        case 10:
+            return "\(prefix)\(accidental)7\(caret)"
+        case 11 :
+            return "\(prefix)7\(caret)"
+        case 0:
+            return "\(prefix)8\(caret)"
+        default: return ""
+        }
+    }
+}
+
+func intervalLabel(_ col: Int, upwardPitchMovement: Bool) -> String {
     
     switch col {
     case -36:
@@ -284,7 +321,7 @@ func intervalLabel(_ col: Int) -> String {
     case -1:
         return "<M2"
     case 0:
-        return "P1"
+        return "\(upwardPitchMovement ? "" : "<")P1"
     case 1:
         return "m2"
     case 2:

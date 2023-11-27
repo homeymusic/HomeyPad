@@ -18,6 +18,7 @@ struct CustomizeView: View {
     @Binding var showClassicalSelector: Bool
     @Binding var showIntegersSelector: Bool
     @Binding var showRomanSelector: Bool
+    @Binding var showDegreeSelector: Bool
     @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
     @Binding var showIntervals: Bool
@@ -39,7 +40,7 @@ struct CustomizeView: View {
                 }
                 Divider()
                 GridRow {
-                    Image(systemName: "a.square")
+                    Image(systemName: "c.square")
                         .gridCellAnchor(.center)
                     Toggle("Letter", isOn: $showClassicalSelector)
                         .gridCellAnchor(.trailing)
@@ -53,14 +54,6 @@ struct CustomizeView: View {
                         .tint(Default.pianoGray)
                 }
                 Divider()
-                GridRow {
-                    Image(systemName: "0.square")
-                        .gridCellAnchor(.center)
-                    
-                    Toggle("Integer", isOn: $showIntegersSelector)
-                        .gridCellAnchor(.trailing)
-                        .tint(Default.pianoGray)
-                }
                 GridRow {
                     Image(systemName: "ruler")
                         .gridCellAnchor(.center)
@@ -78,7 +71,23 @@ struct CustomizeView: View {
                         .tint(Default.pianoGray)
                 }
                 GridRow {
-                    let enableMovement = showIntervals || showIntegersSelector || showRomanSelector
+                    Image(systemName: "chevron.up")
+                        .gridCellAnchor(.center)
+                    
+                    Toggle("Degree", isOn: $showDegreeSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                GridRow {
+                    Image(systemName: "0.square")
+                        .gridCellAnchor(.center)
+                    
+                    Toggle("Integer", isOn: $showIntegersSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                GridRow {
+                    let enableMovement = showIntervals || showIntegersSelector || showRomanSelector || showDegreeSelector
                     Picker("", selection: $upwardPitchMovement) {
                         Image(systemName: "lessthan.square.fill")
                             .foregroundColor(Default.minorColor)
