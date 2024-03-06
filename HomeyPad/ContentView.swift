@@ -150,6 +150,7 @@ struct ContentView: View {
                                         Button(action: {
                                             viewConductor.nowPlayingID = 0
                                             midiPlayer.stop()
+                                            viewConductor.simpleSuccess()
                                         }) {
                                             Image(systemName: "stop.circle.fill").foregroundColor(.white)
                                         }
