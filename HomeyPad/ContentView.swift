@@ -268,6 +268,7 @@ struct ContentView: View {
                                     .font(Font.system(.body, design: .monospaced))
                                     .fixedSize(horizontal: true, vertical: false)
                                     .frame(width: 15, alignment: .center)
+                                    .foregroundStyle(Color(UIColor.systemGray))
                                 Button(action: {
                                     viewConductor.octaveShift += 1
                                 }, label: {
