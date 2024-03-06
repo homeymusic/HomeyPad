@@ -129,12 +129,12 @@ struct PlayView: View {
                                     HStack(spacing: 0) {
                                         Image(systemName: "plus.square.fill")
                                             .foregroundColor(Default.majorColor)
-                                        Image(systemName: "greaterthan.square")
+                                        Image(systemName: "lessthan.square")
                                             .foregroundColor(Default.majorColor)
                                     }
-                                }, filename: "happy_birthday", songTonic: 60, itemID: 5)
+                                }, filename: "happy_birthday", songTonic: 55, itemID: 5)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -148,7 +148,7 @@ struct PlayView: View {
                                         HStack(spacing: 0) {
                                             Image(systemName: "plus.square.fill")
                                                 .foregroundColor(Default.majorColor)
-                                            Image(systemName: "greaterthan.square")
+                                            Image(systemName: "lessthan.square")
                                                 .foregroundColor(Default.majorColor)
                                         }
                                     }
@@ -161,12 +161,12 @@ struct PlayView: View {
                                     HStack(spacing: 0) {
                                         Image(systemName: "minus.square.fill")
                                             .foregroundColor(Default.minorColor)
-                                        Image(systemName: "lessthan.square")
+                                        Image(systemName: "greaterthan.square")
                                             .foregroundColor(Default.minorColor)
                                     }
-                                }, filename: "mirror_birthday", songTonic: 52, itemID: 6)
+                                }, filename: "mirror_birthday", songTonic: 57, itemID: 6)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 23 {viewConductor.keysPerRow = 23}
+                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -180,7 +180,7 @@ struct PlayView: View {
                                         HStack(spacing: 0) {
                                             Image(systemName: "minus.square.fill")
                                                 .foregroundColor(Default.minorColor)
-                                            Image(systemName: "lessthan.square")
+                                            Image(systemName: "greaterthan.square")
                                                 .foregroundColor(Default.minorColor)
                                         }
                                     }
