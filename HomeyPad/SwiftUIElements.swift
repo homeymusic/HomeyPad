@@ -67,6 +67,7 @@ struct SwiftUIHomeSelector: View {
 }
 
 struct SwiftUIKeyboard: View {
+    var octaveShift: Int
     var octaveCount: Int
     var keysPerRow: Int
     var tonicPitchClass: Int
@@ -75,7 +76,7 @@ struct SwiftUIKeyboard: View {
     let initialC: Int = Default.initialC
         
     var body: some View {
-        Keyboard(layout: .dualistic(octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+        Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
                  noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
             SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                pitch: pitch,

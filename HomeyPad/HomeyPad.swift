@@ -40,6 +40,7 @@ enum Default {
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
+    static let octaveShift: Int = 0
     static let octaveCount: Int = 1
     static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0

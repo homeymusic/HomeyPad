@@ -22,6 +22,7 @@ struct CustomizeView: View {
     @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
     @Binding var showIntervals: Bool
+    @Binding var octaveShift: Int
     @Binding var octaveCount: Int
     @Binding var keysPerRow: Int
     @Binding var upwardPitchMovement: Bool

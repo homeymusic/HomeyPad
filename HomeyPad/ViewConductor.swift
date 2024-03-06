@@ -21,7 +21,13 @@ class ViewConductor: ObservableObject {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
     }
-    
+        
+    @Published var octaveShift: Int {
+        didSet {
+            defaults.set(self.octaveShift, forKey: "octaveShift")
+            if oldValue != self.octaveShift {self.simpleSuccess()}
+        }
+    }
     @Published var octaveCount: Int {
         didSet {
             defaults.set(self.octaveCount, forKey: "octaveCount")
@@ -99,8 +105,9 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["octaveShift": Default.octaveShift, "octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
+        octaveShift = defaults.integer(forKey: "octaveShift")
         octaveCount = defaults.integer(forKey: "octaveCount")
         keysPerRow = defaults.integer(forKey: "keysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")

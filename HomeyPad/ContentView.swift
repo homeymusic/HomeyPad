@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-
+    
     var body: some View {
         
         GeometryReader { proxy in
@@ -45,6 +45,7 @@ struct ContentView: View {
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
+                                              octaveShift: $viewConductor.octaveShift,
                                               octaveCount: $viewConductor.octaveCount,
                                               keysPerRow: $viewConductor.keysPerRow,
                                               upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
@@ -245,11 +246,48 @@ struct ContentView: View {
                             .padding(.bottom, 7)
                         }
                         /// The main dualistic keyboard
-                        SwiftUIKeyboard(octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                        SwiftUIKeyboard(octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
+                    VStack {
+                        Spacer()
+                        HStack(alignment: .center, spacing: 0) {
+                            /// octave shift
+                            HStack(spacing: 10) {
+                                Button(action: {
+                                    viewConductor.octaveShift -= 1
+                                }, label: {
+                                    Image(systemName: "water.waves.and.arrow.down")
+                                        .foregroundColor(viewConductor.octaveShift <= -4 ? Color(UIColor.systemGray4) : .white)
+                                        .padding([.leading, .trailing], 3)
+                                })
+                                .disabled(viewConductor.octaveShift <= -4)
+                                Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+                                    .font(Font.system(.body, design: .monospaced))
+                                    .fixedSize(horizontal: true, vertical: false)
+                                    .frame(width: 15, alignment: .center)
+                                Button(action: {
+                                    viewConductor.octaveShift += 1
+                                }, label: {
+                                    Image(systemName: "water.waves.and.arrow.up")
+                                        .foregroundColor(viewConductor.octaveShift >= 4 ? Color(UIColor.systemGray4) : .white)
+                                        .padding([.leading, .trailing], 4)
+                                })
+                                .disabled(viewConductor.octaveShift  >= 4)
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 4 * 2)
+                            .foregroundColor(.white)
+                            .background {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(Color(UIColor.systemGray6))
+                            }
+
+                        }
+                    }
                 }
             }.onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
