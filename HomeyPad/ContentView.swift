@@ -261,20 +261,18 @@ struct ContentView: View {
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.down")
                                         .foregroundColor(viewConductor.octaveShift <= -4 ? Color(UIColor.systemGray4) : .white)
-                                        .padding([.leading, .trailing], 3)
                                 })
                                 .disabled(viewConductor.octaveShift <= -4)
                                 Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                                     .font(Font.system(.body, design: .monospaced))
                                     .fixedSize(horizontal: true, vertical: false)
-                                    .frame(width: 15, alignment: .center)
+                                    .frame(width: 53, alignment: .center)
                                     .foregroundStyle(Color(UIColor.systemGray))
                                 Button(action: {
                                     viewConductor.octaveShift += 1
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.up")
                                         .foregroundColor(viewConductor.octaveShift >= 4 ? Color(UIColor.systemGray4) : .white)
-                                        .padding([.leading, .trailing], 4)
                                 })
                                 .disabled(viewConductor.octaveShift  >= 4)
                             }
