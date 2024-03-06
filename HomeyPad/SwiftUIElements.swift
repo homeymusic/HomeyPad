@@ -117,7 +117,9 @@ struct SwiftUIKeyboardKey: View {
                            isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in
             if let userInfo = obj.userInfo, let info = userInfo["info"] as? UInt8, let val = userInfo["bool"] as? Bool {
-                self.MIDIKeyPressed[Int(info)] = val
+                if (info >= 0 && info <= 127) {
+                    self.MIDIKeyPressed[Int(info)] = val
+                }
             }
         })
     }

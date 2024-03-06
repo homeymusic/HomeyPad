@@ -326,7 +326,7 @@ struct ContentView: View {
                 if midiPlayer.state == .playing {midiPlayer.pause()}
                 self.viewConductor.conductor.engine.stop()
             }
-            .environmentObject(viewConductor.midiManager)
+//            .environmentObject(viewConductor.midiManager)
             .statusBar(hidden: true)
         }
         .padding(.top, 25)

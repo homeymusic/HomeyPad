@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/AudioKit/AudioKit.git",
         "state": {
           "branch": null,
-          "revision": "c30a151fea40696ad0a45c60c2bba29112bb4279",
-          "version": "5.6.1"
+          "revision": "b2dbaed8cd38077092b6b6e311699ddf5d94dbd7",
+          "version": "5.6.3"
         }
       },
       {
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/AudioKit/Controls",
         "state": {
           "branch": "main",
-          "revision": "6861a9380963378115856f0b9b54414a9ec5f1ad",
+          "revision": "4dd10370125af7f1e26d7a71b2c5929bb3c95087",
           "version": null
         }
       },
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/orchetect/MIDIKit",
         "state": {
           "branch": "main",
-          "revision": "2ec386d13acbbee7581834982d295cb222560cf8",
+          "revision": "59864bfbd14a9c883136859eb64d232332892312",
           "version": null
         }
       },
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/orchetect/TimecodeKit",
         "state": {
           "branch": null,
-          "revision": "a81074199873696ad5e06d2f67a24dd1a9bd7dd2",
-          "version": "1.6.5"
+          "revision": "63ba241b35675a23802f0937c5b938e74e4f9aea",
+          "version": "2.0.10"
         }
       },
       {

@@ -23,7 +23,7 @@ struct PlayView: View {
         self.nowPlayingID = itemID
         
         midiCallback.callback = { status, note, velocity in
-            let midiNote: UInt8 = UInt8(Default.initialC - songTonic + viewConductor.tonicPitchClass + Int(note))
+            let midiNote: UInt8 = UInt8(Default.initialC - songTonic + viewConductor.octaveShift * 12 + viewConductor.tonicPitchClass + Int(note))
             if status == 144 {
                 viewConductor.playNote(midiNote)
             } else if status == 128 {
