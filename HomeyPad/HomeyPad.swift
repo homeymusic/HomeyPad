@@ -44,7 +44,7 @@ enum Default {
     static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0
     static let majorColor: Color = Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255)
-    static let minorColor: Color = Color(red: 138 / 255, green: 197 / 255, blue: 320 / 255)
+    static let minorColor: Color = Color(red: 138 / 255, green: 197 / 255, blue: 230 / 255)
     static let tritoneColor: Color = Color(red: 255 / 255, green: 85 / 255, blue: 0 / 255)
     static let homeComplementColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)

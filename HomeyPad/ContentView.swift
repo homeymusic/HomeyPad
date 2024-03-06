@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var showingPlayPopover = false
 
     var body: some View {
+        
         GeometryReader { proxy in
             ZStack {
                 Color.black
@@ -53,15 +54,39 @@ struct ContentView: View {
                             .padding(.leading, 10)
                             Spacer()
                             /// stepper for rows and columns
-                            HStack(spacing: 10) {
-                                HStack {
-                                    Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                                        .gridCellAnchor(.center)
-                                        .foregroundColor(Default.pianoGray)
-                                    Stepper("", value: $viewConductor.octaveCount,
-                                            in: 1...9,
-                                            step: 2).labelsHidden()
+                            HStack {
+                                /// columns
+                                HStack(spacing: 10) {
+                                    Button(action: {
+                                        viewConductor.octaveCount -= 2
+                                    }, label: {
+                                        Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
+                                            .foregroundColor(viewConductor.octaveCount <= 1 ? Color(UIColor.systemGray4) : .white)
+                                            .padding([.leading, .trailing], 3)
+                                    })
+                                    .disabled(viewConductor.octaveCount <= 1)
+                                    Divider()
+                                        .frame(width: 2)
+                                        .overlay(Color(UIColor.systemGray4))
+                                    Button(action: {
+                                        viewConductor.octaveCount += 2
+                                    }, label: {
+                                        Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                                            .foregroundColor(viewConductor.octaveCount >= 9 ? Color(UIColor.systemGray4) : .white)
+                                            .padding([.leading, .trailing], 4)
+                                    })
+                                    .disabled(viewConductor.octaveCount  >= 9)
                                 }
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 4 * 2)
+                                .foregroundColor(.white)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .fill(Color(UIColor.systemGray6))
+                                }
+
+                                /// reset
                                 let defaultGeometry = viewConductor.octaveCount == Default.octaveCount && viewConductor.keysPerRow == Default.keysPerRow
                                 Button(role: .cancel, action: {
                                     viewConductor.octaveCount = Default.octaveCount
@@ -74,15 +99,41 @@ struct ContentView: View {
                                     }
                                 }
                                 .disabled(defaultGeometry)
-                                HStack {
-                                    Stepper("", value: $viewConductor.keysPerRow,
-                                            in: minKeysPerRow()...maxKeysPerRow(),
-                                            step: 2).labelsHidden()
-                                    Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                                        .gridCellAnchor(.center)
-                                        .foregroundColor(Default.pianoGray)
+                                
+                                /// columns
+                                HStack(spacing: 10) {
+                                    HStack {
+                                        Button(action: {
+                                            viewConductor.keysPerRow -= 2
+                                        }, label: {
+                                            Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
+                                                .foregroundColor(viewConductor.keysPerRow <= minKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .padding([.top, .bottom], 2)
+                                        })
+                                        .disabled(viewConductor.keysPerRow <= minKeysPerRow())
+                                        Divider()
+                                            .frame(width: 2)
+                                            .overlay(Color(UIColor.systemGray4))
+                                        Button(action: {
+                                            viewConductor.keysPerRow += 2
+                                        }, label: {
+                                            Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                                                .foregroundColor(viewConductor.keysPerRow >= maxKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .padding([.top, .bottom], 2)
+                                        })
+                                        .disabled(viewConductor.keysPerRow >= maxKeysPerRow())
+                                    }
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 4 * 2)
+                                    .foregroundColor(.white)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .fill(Color(UIColor.systemGray6))
+                                    }
                                 }
                             }
+                            .padding(.trailing, 28)
                             Spacer()
                             /// Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
