@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
+    @State private var linearLayout = true
     
     var body: some View {
         
@@ -134,7 +135,7 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            .padding(.trailing, 28)
+                            .padding(.leading, 57)
                             Spacer()
                             /// Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
@@ -178,6 +179,15 @@ struct ContentView: View {
                                     }
                                 }
                             }
+                            Picker("", selection: self.$linearLayout) {
+                                Image(systemName: "rectangle.split.2x1.fill")
+                                    .tag(true)
+                                Image(systemName: "rectangle.split.2x2.fill")
+                                    .tag(false)
+                            }
+                            .pickerStyle(.segmented)
+                            .frame(width: 75)
+                            .padding(.trailing, 10)
                             /// The play view
                             VStack(alignment: .leading) {
                                 HStack {

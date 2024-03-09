@@ -90,14 +90,8 @@ struct CustomizeView: View {
                 GridRow {
                     Picker("", selection: $upwardPitchMovement) {
                         Image(systemName: "lessthan.square.fill")
-                            .foregroundColor(Default.minorColor)
-                            .accentColor(Default.minorColor)
-                            .colorMultiply(Default.minorColor)
                             .tag(false)
                         Image(systemName: "greaterthan.square.fill")
-                            .foregroundColor(Default.majorColor)
-                            .accentColor(Default.majorColor)
-                            .colorMultiply(Default.majorColor)
                             .tag(true)
                     }
                     .pickerStyle(.segmented)
