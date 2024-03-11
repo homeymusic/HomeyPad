@@ -44,11 +44,16 @@ enum Default {
     static let octaveCount: Int = 1
     static let keysPerRow: Int = defaultKeysPerRow()
     static let tonicPitchClass: Int = 0
+    static let homeColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
+    static let homeColorDark: Color = Color(red: 76 / 255, green: 51 / 255, blue: 38 / 255)
+    static let perfectColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)
+    static let perfectColorDark: Color = Color(red: 214 / 255, green: 198 / 255, blue: 158 / 255)
     static let majorColor: Color = Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255)
-    static let minorColor: Color = Color(red: 138 / 255, green: 197 / 255, blue: 230 / 255)
+    static let majorColorDark: Color = Color(red: 219 / 255, green: 161 / 255, blue: 56 / 255)
+    static let minorColor: Color = Color(red: 138 / 255, green: 197 / 255, blue: 255 / 255)
+    static let minorColorDark: Color = Color(red: 135 / 255, green: 176 / 255, blue: 224 / 255)
     static let tritoneColor: Color = Color(red: 255 / 255, green: 85 / 255, blue: 0 / 255)
-    static let homeComplementColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
-    static let homeColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)
+    static let tritoneColorDark: Color = Color(red: 212 / 255, green: 87 / 255, blue: 38 / 255)
     static let pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
     static let highlightGray: Color = Color(red: 45/255, green: 45/255, blue: 45/255)
     static let chromaticColor: Color = Color(red: 222/255, green: 187/255, blue: 147/255)
@@ -63,19 +68,11 @@ func mod(_ a: Int, _ n: Int) -> Int {
 }
 
 func homeyBackgroundColor(_ interval: Int) -> Color {
-    if (mod(interval, 12) == 0) {
-        return Default.homeColor
-    } else {
-        return Default.homeComplementColor
-    }
-}
-
-func homeyForegroundColor(_ interval: Int, reverseHomeColor: Bool = true) -> Color {
     switch mod(interval, 12) {
     case 0:
-        return reverseHomeColor ? Default.homeComplementColor : Default.homeColor
-    case 5, 7:
         return Default.homeColor
+    case 5, 7:
+        return Default.perfectColor
     case 1, 3, 8, 10:
         return Default.minorColor
     case 2, 4, 9, 11:
@@ -85,6 +82,27 @@ func homeyForegroundColor(_ interval: Int, reverseHomeColor: Bool = true) -> Col
     default:
         return Default.homeColor
     }
+}
+
+func homeyForegroundColor(_ interval: Int) -> Color {
+    switch mod(interval, 12) {
+    case 0:
+        return Default.homeColorDark
+    case 5, 7:
+        return Default.perfectColorDark
+    case 1, 3, 8, 10:
+        return Default.minorColorDark
+    case 2, 4, 9, 11:
+        return Default.majorColorDark
+    case 6:
+        return Default.tritoneColorDark
+    default:
+        return Default.homeColorDark
+    }
+}
+
+func homeyFontColor(_ interval: Int) -> Color {
+    return mod(interval, 12) == 0 ? Default.perfectColor : Default.homeColor
 }
 
 func pianoForegroundColor(_ pitchClass: Int) -> Color {

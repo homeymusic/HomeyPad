@@ -106,7 +106,7 @@ struct HelpView: View {
                             Text("tonic")
                                 .padding(1)
                         }
-                        .foregroundColor(Default.homeComplementColor)
+                        .foregroundColor(Default.perfectColor)
                         .background(Default.homeColor)
                         GridRow {
                             NitterTent()
