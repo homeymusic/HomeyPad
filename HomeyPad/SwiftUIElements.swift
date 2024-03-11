@@ -85,7 +85,18 @@ struct SwiftUIKeyboard: View {
                                    isActivated: isActivated,
                                    labelType: .symbol,
                                    tonicPitchClass: tonicPitchClass,
-                                   initialC: initialC)
+                                   initialC: initialC,
+                                   homeColor: Default.perfectColor,
+                                   homeColorDark: Default.homeColor,
+                                   perfectColor: Default.homeColor,
+                                   perfectColorDark: Default.perfectColor,
+                                   majorColor: Default.homeColor,
+                                   majorColorDark: Default.majorColor,
+                                   minorColor: Default.homeColor,
+                                   minorColorDark: Default.minorColor,
+                                   tritoneColor: Default.homeColor,
+                                   tritoneColorDark: Default.tritoneColor,
+                                   mostKeysAreLight: false)
             }.cornerRadius(5)
         } else {
             Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
@@ -95,7 +106,18 @@ struct SwiftUIKeyboard: View {
                                    isActivated: isActivated,
                                    labelType: .symbol,
                                    tonicPitchClass: tonicPitchClass,
-                                   initialC: initialC)
+                                   initialC: initialC,
+                                   homeColor: Default.homeColor,
+                                   homeColorDark: Default.homeColorDark,
+                                   perfectColor: Default.perfectColor,
+                                   perfectColorDark: Default.perfectColorDark,
+                                   majorColor: Default.majorColor,
+                                   majorColorDark: Default.majorColorDark,
+                                   minorColor: Default.minorColor,
+                                   minorColorDark: Default.minorColorDark,
+                                   tritoneColor: Default.tritoneColor,
+                                   tritoneColorDark: Default.tritoneColorDark,
+                                   mostKeysAreLight: true)
             }.cornerRadius(5)
         }
     }
@@ -110,7 +132,18 @@ struct SwiftUIKeyboardKey: View {
     let labelType: LabelType
     var tonicPitchClass : Int
     let initialC: Int
-    
+    let homeColor: Color
+    let homeColorDark: Color
+    let perfectColor: Color
+    let perfectColorDark: Color
+    let majorColor: Color
+    let majorColorDark: Color
+    let minorColor: Color
+    let minorColorDark: Color
+    let tritoneColor: Color
+    let tritoneColorDark: Color
+    let mostKeysAreLight: Bool
+
     var body: some View {
         VStack{
             IntervallicKey(keyboardCell: keyboardCell,
@@ -119,16 +152,17 @@ struct SwiftUIKeyboardKey: View {
                            labelType: labelType,
                            initialC: 48,
                            tonicPitchClass: tonicPitchClass,
-                           homeColor: Default.homeColor,
-                           homeColorDark: Default.homeColorDark,
-                           perfectColor: Default.perfectColor,
-                           perfectColorDark: Default.perfectColorDark,
-                           majorColor: Default.majorColor,
-                           majorColorDark: Default.majorColorDark,
-                           minorColor: Default.minorColor,
-                           minorColorDark: Default.minorColorDark,
-                           tritoneColor: Default.tritoneColor,
-                           tritoneColorDark: Default.tritoneColorDark,
+                           homeColor: homeColor,
+                           homeColorDark: homeColorDark,
+                           perfectColor: perfectColor,
+                           perfectColorDark: perfectColorDark,
+                           majorColor: majorColor,
+                           majorColorDark: majorColorDark,
+                           minorColor: minorColor,
+                           minorColorDark: minorColorDark,
+                           tritoneColor: tritoneColor,
+                           tritoneColorDark: tritoneColorDark,
+                           mostKeysAreLight: mostKeysAreLight,
                            flatTop: true,
                            isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in
