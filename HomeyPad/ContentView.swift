@@ -11,7 +11,6 @@ struct ContentView: View {
     @State private var showingSettingsPopover = false
     @State private var showingHelpPopover = false
     @State private var showingPlayPopover = false
-    @State private var linearLayout = true
     
     var body: some View {
         
@@ -46,7 +45,6 @@ struct ContentView: View {
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
-                                              octaveShift: $viewConductor.octaveShift,
                                               octaveCount: $viewConductor.octaveCount,
                                               keysPerRow: $viewConductor.keysPerRow,
                                               upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
@@ -179,11 +177,11 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            Picker("", selection: self.$linearLayout) {
-                                Image(systemName: "rectangle.split.2x1.fill")
-                                    .tag(true)
+                            Picker("", selection: $viewConductor.linearLayout) {
                                 Image(systemName: "rectangle.split.2x2.fill")
                                     .tag(false)
+                                Image(systemName: "rectangle.split.2x1.fill")
+                                    .tag(true)
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 75)
@@ -257,7 +255,7 @@ struct ContentView: View {
                             .padding(.bottom, 7)
                         }
                         /// The main  keyboard
-                        SwiftUIKeyboard(linearLayout: self.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                        SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
