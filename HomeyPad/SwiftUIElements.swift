@@ -67,6 +67,7 @@ struct SwiftUIHomeSelector: View {
 }
 
 struct SwiftUIKeyboard: View {
+    var linearLayout: Bool
     var octaveShift: Int
     var octaveCount: Int
     var keysPerRow: Int
@@ -76,15 +77,27 @@ struct SwiftUIKeyboard: View {
     let initialC: Int = Default.initialC
         
     var body: some View {
-        Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
-                 noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
-            SwiftUIKeyboardKey(keyboardCell: keyboardCell,
-                               pitch: pitch,
-                               isActivated: isActivated,
-                               labelType: .symbol,
-                               tonicPitchClass: tonicPitchClass,
-                               initialC: initialC)
-        }.cornerRadius(5)
+        if (linearLayout) {
+            Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+                     noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
+                SwiftUIKeyboardKey(keyboardCell: keyboardCell,
+                                   pitch: pitch,
+                                   isActivated: isActivated,
+                                   labelType: .symbol,
+                                   tonicPitchClass: tonicPitchClass,
+                                   initialC: initialC)
+            }.cornerRadius(5)
+        } else {
+            Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+                     noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
+                SwiftUIKeyboardKey(keyboardCell: keyboardCell,
+                                   pitch: pitch,
+                                   isActivated: isActivated,
+                                   labelType: .symbol,
+                                   tonicPitchClass: tonicPitchClass,
+                                   initialC: initialC)
+            }.cornerRadius(5)
+        }
     }
 }
 

@@ -256,8 +256,8 @@ struct ContentView: View {
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                         }
-                        /// The main dualistic keyboard
-                        SwiftUIKeyboard(octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                        /// The main  keyboard
+                        SwiftUIKeyboard(linearLayout: self.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.5 * (proxy.size.width / CGFloat(viewConductor.keysPerRow)))
                         Spacer()
                     }
