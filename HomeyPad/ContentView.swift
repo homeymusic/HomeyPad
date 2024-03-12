@@ -254,7 +254,7 @@ struct ContentView: View {
                                                 upwardPitchMovement: viewConductor.upwardPitchMovement,
                                                 linearLayout: viewConductor.linearLayout
                             )
-                            .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
+                            .aspectRatio(selectorRatio * CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                             .frame(width: proxy.size.width * CGFloat(selectorRatio))
 //                            .frame(width: proxy.size.width * CGFloat(12 / viewConductor.keysPerRow))
