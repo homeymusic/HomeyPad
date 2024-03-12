@@ -257,9 +257,6 @@ struct ContentView: View {
                             .aspectRatio(selectorRatio * CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                             .frame(width: proxy.size.width * CGFloat(selectorRatio))
-//                            .frame(width: proxy.size.width * CGFloat(12 / viewConductor.keysPerRow))
-                            let _foo = print("viewConductor.keysPerRow", viewConductor.keysPerRow)
-                            let _bar = print("selectorRatio", selectorRatio)
                         }
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
