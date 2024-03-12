@@ -47,6 +47,8 @@ enum Default {
     static let tonicPitchClass: Int = 0
     static let homeColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColorDark: Color = Color(red: 76 / 255, green: 51 / 255, blue: 38 / 255)
+    static let homeColorLight: Color = Color(red: 153 / 255, green: 102 / 255, blue: 76 / 255)
+    static let homeColorMedium: Color = Color(red: 128 / 255, green: 85 / 255, blue: 64 / 255)
     static let perfectColor: Color = Color(red: 243 / 255, green: 221 / 255, blue: 171 / 255)
     static let perfectColorDark: Color = Color(red: 214 / 255, green: 198 / 255, blue: 158 / 255)
     static let majorColor: Color = Color(red: 255 / 255, green: 176 / 255, blue: 0 / 255)
@@ -68,7 +70,7 @@ func mod(_ a: Int, _ n: Int) -> Int {
     return r >= 0 ? r : r + n
 }
 
-func homeyBackgroundColor(_ interval: Int) -> Color {
+func homeyBackgroundColor(_ interval: Int, linearLayout: Bool) -> Color {
     switch mod(interval, 12) {
     case 0:
         return Default.homeColor

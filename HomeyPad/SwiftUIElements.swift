@@ -18,6 +18,7 @@ struct SwiftUIHomeSelector: View {
     var midiPlayer: MIDIPlayer
     var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
     var upwardPitchMovement: Bool
+    var linearLayout: Bool
 
     // safety valve
     func safeMIDI(_ p: Int) -> Int {
@@ -29,10 +30,9 @@ struct SwiftUIHomeSelector: View {
     }
     
     var body: some View {
-        let extraColsPerSide : Int = Int(floor(CGFloat(keysPerRow - 13) / 2))
         VStack(spacing: 0) {
             HStack(spacing: 1) {
-                ForEach(-extraColsPerSide...(12+extraColsPerSide), id: \.self) { col in
+                ForEach(0...12, id: \.self) { col in
                     if mod(col, 12) == 0 {
                         SelectorStyle(col: col,
                                       showClassicalSelector: showClassicalSelector,
@@ -43,7 +43,8 @@ struct SwiftUIHomeSelector: View {
                                       showPianoSelector: showPianoSelector,
                                       showIntervals: showIntervals,
                                       tonicPitchClass: tonicPitchClass,
-                                      upwardPitchMovement: upwardPitchMovement)
+                                      upwardPitchMovement: upwardPitchMovement,
+                                      linearLayout: linearLayout)
                     } else {
                         Button {
                             selectorTapped(Int(tonicPitchClass + col), midiPlayer)
@@ -57,7 +58,8 @@ struct SwiftUIHomeSelector: View {
                                           showPianoSelector: showPianoSelector,
                                           showIntervals: showIntervals,
                                           tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement)
+                                          upwardPitchMovement: upwardPitchMovement,
+                                          linearLayout: linearLayout)
                         }
                     }
                 }
@@ -86,17 +88,31 @@ struct SwiftUIKeyboard: View {
                                    labelType: .symbol,
                                    tonicPitchClass: tonicPitchClass,
                                    initialC: initialC,
-                                   homeColor: Default.perfectColor,
-                                   homeColorDark: Default.homeColor,
-                                   perfectColor: Default.homeColor,
-                                   perfectColorDark: Default.perfectColor,
-                                   majorColor: Default.homeColor,
+                                   homeColor: Default.homeColor,
+                                   homeColorDark: Default.perfectColor,
+                                   perfectColor:  Default.perfectColor,
+                                   perfectColorDark: Default.homeColor,
+                                   majorColor: Default.perfectColor,
                                    majorColorDark: Default.majorColor,
-                                   minorColor: Default.homeColor,
+                                   minorColor: Default.perfectColor,
                                    minorColorDark: Default.minorColor,
-                                   tritoneColor: Default.homeColor,
+                                   tritoneColor: Default.perfectColor,
                                    tritoneColorDark: Default.tritoneColor,
-                                   mostKeysAreLight: false)
+                                   mostKeysAreLight: true,
+                                   homeKeyIsLight: false
+                                   //                                   homeColor: Default.perfectColor,
+                                   //                                   homeColorDark: Default.homeColor,
+                                   //                                   perfectColor: Default.homeColor,
+                                   //                                   perfectColorDark: Default.perfectColor,
+                                   //                                   majorColor: Default.homeColor,
+                                   //                                   majorColorDark: Default.majorColor,
+                                   //                                   minorColor: Default.homeColor,
+                                   //                                   minorColorDark: Default.minorColor,
+                                   //                                   tritoneColor: Default.homeColor,
+                                   //                                   tritoneColorDark: Default.tritoneColor,
+                                   //                                   mostKeysAreLight: false,
+                                   //                                   homeKeyIsLight: true
+                )
             }.cornerRadius(5)
         } else {
             Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
@@ -117,7 +133,8 @@ struct SwiftUIKeyboard: View {
                                    minorColorDark: Default.minorColorDark,
                                    tritoneColor: Default.tritoneColor,
                                    tritoneColorDark: Default.tritoneColorDark,
-                                   mostKeysAreLight: true)
+                                   mostKeysAreLight: true,
+                                   homeKeyIsLight: false)
             }.cornerRadius(5)
         }
     }
@@ -143,6 +160,7 @@ struct SwiftUIKeyboardKey: View {
     let tritoneColor: Color
     let tritoneColorDark: Color
     let mostKeysAreLight: Bool
+    let homeKeyIsLight: Bool
 
     var body: some View {
         VStack{
@@ -163,6 +181,7 @@ struct SwiftUIKeyboardKey: View {
                            tritoneColor: tritoneColor,
                            tritoneColorDark: tritoneColorDark,
                            mostKeysAreLight: mostKeysAreLight,
+                           homeKeyIsLight: homeKeyIsLight,
                            flatTop: true,
                            isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in

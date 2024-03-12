@@ -18,10 +18,11 @@ struct SelectorStyle: View {
     let showIntervals: Bool
     let tonicPitchClass: Int
     let upwardPitchMovement: Bool
+    let linearLayout: Bool
     
     var body: some View {
         let pitchClass = tonicPitchClass+col
-        let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col)
+        let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col, linearLayout: linearLayout)
         let octaveAdjustment = upwardPitchMovement ? 0 : -12
         ZStack {
             Rectangle()

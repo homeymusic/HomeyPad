@@ -239,6 +239,7 @@ struct ContentView: View {
                         /// home selector
                         Spacer()
                         if (viewConductor.showSelector) {
+                            let selectorRatio: CGFloat = (viewConductor.linearLayout ? 13.0 : 8.0) / CGFloat(viewConductor.linearLayout ? viewConductor.keysPerRow : viewConductor.keysPerRow * 8 / 13)
                             SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
@@ -250,9 +251,15 @@ struct ContentView: View {
                                                 showIntervals: viewConductor.showIntervals,
                                                 midiPlayer: midiPlayer,
                                                 selectorTapped: viewConductor.selectHome,
-                                                upwardPitchMovement: viewConductor.upwardPitchMovement)
+                                                upwardPitchMovement: viewConductor.upwardPitchMovement,
+                                                linearLayout: viewConductor.linearLayout
+                            )
                             .aspectRatio(CGFloat(viewConductor.keysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
+                            .frame(width: proxy.size.width * CGFloat(selectorRatio))
+//                            .frame(width: proxy.size.width * CGFloat(12 / viewConductor.keysPerRow))
+                            let _foo = print("viewConductor.keysPerRow", viewConductor.keysPerRow)
+                            let _bar = print("selectorRatio", selectorRatio)
                         }
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
