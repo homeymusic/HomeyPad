@@ -135,6 +135,16 @@ struct ContentView: View {
                             }
                             .padding(.leading, 57)
                             Spacer()
+                            /// select layout
+                            Picker("", selection: $viewConductor.linearLayout) {
+                                Image(systemName: "rectangle.split.2x2.fill")
+                                    .tag(false)
+                                Image(systemName: "rectangle.split.2x1.fill")
+                                    .tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                            .frame(width: 75)
+                            .padding(.trailing, 10)
                             /// Stop play pause buttons
                             if midiPlayer.state == .playing || midiPlayer.state == .paused {
                                 VStack(alignment: .leading) {
@@ -177,15 +187,6 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            Picker("", selection: $viewConductor.linearLayout) {
-                                Image(systemName: "rectangle.split.2x2.fill")
-                                    .tag(false)
-                                Image(systemName: "rectangle.split.2x1.fill")
-                                    .tag(true)
-                            }
-                            .pickerStyle(.segmented)
-                            .frame(width: 75)
-                            .padding(.trailing, 10)
                             /// The play view
                             VStack(alignment: .leading) {
                                 HStack {
