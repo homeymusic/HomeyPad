@@ -99,19 +99,8 @@ struct SwiftUIKeyboard: View {
                                    tritoneColor: Default.perfectColor,
                                    tritoneColorDark: Default.tritoneColor,
                                    mostKeysAreLight: true,
-                                   homeKeyIsLight: false
-                                   //                                   homeColor: Default.perfectColor,
-                                   //                                   homeColorDark: Default.homeColor,
-                                   //                                   perfectColor: Default.homeColor,
-                                   //                                   perfectColorDark: Default.perfectColor,
-                                   //                                   majorColor: Default.homeColor,
-                                   //                                   majorColorDark: Default.majorColor,
-                                   //                                   minorColor: Default.homeColor,
-                                   //                                   minorColorDark: Default.minorColor,
-                                   //                                   tritoneColor: Default.homeColor,
-                                   //                                   tritoneColorDark: Default.tritoneColor,
-                                   //                                   mostKeysAreLight: false,
-                                   //                                   homeKeyIsLight: true
+                                   homeKeyIsLight: false,
+                                   linearLayout: linearLayout
                 )
             }.cornerRadius(5)
         } else {
@@ -134,7 +123,8 @@ struct SwiftUIKeyboard: View {
                                    tritoneColor: Default.tritoneColor,
                                    tritoneColorDark: Default.tritoneColorDark,
                                    mostKeysAreLight: true,
-                                   homeKeyIsLight: false)
+                                   homeKeyIsLight: false,
+                                   linearLayout: linearLayout)
             }.cornerRadius(5)
         }
     }
@@ -161,6 +151,7 @@ struct SwiftUIKeyboardKey: View {
     let tritoneColorDark: Color
     let mostKeysAreLight: Bool
     let homeKeyIsLight: Bool
+    let linearLayout: Bool
 
     var body: some View {
         VStack{
@@ -182,6 +173,7 @@ struct SwiftUIKeyboardKey: View {
                            tritoneColorDark: tritoneColorDark,
                            mostKeysAreLight: mostKeysAreLight,
                            homeKeyIsLight: homeKeyIsLight,
+                           linearLayout: linearLayout,
                            flatTop: true,
                            isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in
