@@ -27,11 +27,19 @@ func defaultKeysPerRow(linearLayout: Bool) -> Int {
     }
 }
 
-func maxKeysPerRow() -> Int {
-    if  formFactor() == .iPad {
-        return 37 + 24
+func maxKeysPerRow(linearLayout: Bool) -> Int {
+    if linearLayout {
+        if  formFactor() == .iPad {
+            return 37 + 24
+        } else {
+            return 37
+        }
     } else {
-        return 37
+        if  formFactor() == .iPad {
+            return 37 + 24
+        } else {
+            return 37
+        }
     }
 }
 

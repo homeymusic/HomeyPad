@@ -59,7 +59,7 @@ struct ContentView: View {
                             HStack {
                                 /// rows
                                 let fewerRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount <= 1) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount <= 1))
-                                let moreRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount >= 9) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount >= 3))
+                                let moreRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount >= 9) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount >= 5))
                                 HStack(spacing: 10) {
                                     Button(action: {
                                         if (viewConductor.linearLayout) {
@@ -119,27 +119,37 @@ struct ContentView: View {
                                 .disabled(defaultGeometry)
                                 
                                 /// columns
+                                let fewerColsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutKeysPerRow <= minKeysPerRow()) || (!viewConductor.linearLayout && viewConductor.gridLayoutKeysPerRow <= minKeysPerRow()))
+                                let moreColsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow(linearLayout: viewConductor.linearLayout)) || (!viewConductor.linearLayout && viewConductor.gridLayoutKeysPerRow >= maxKeysPerRow(linearLayout: viewConductor.linearLayout)))
                                 HStack(spacing: 10) {
                                     HStack {
                                         Button(action: {
-                                            viewConductor.linearLayoutKeysPerRow -= 2
+                                            if (viewConductor.linearLayout) {
+                                                viewConductor.linearLayoutKeysPerRow -= 2
+                                            } else {
+                                                viewConductor.gridLayoutKeysPerRow -= 2
+                                            }
                                         }, label: {
                                             Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                                                .foregroundColor(viewConductor.linearLayoutKeysPerRow <= minKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .foregroundColor(fewerColsDisabled ? Color(UIColor.systemGray4) : .white)
                                                 .padding([.top, .bottom], 2)
                                         })
-                                        .disabled(viewConductor.linearLayoutKeysPerRow <= minKeysPerRow())
+                                        .disabled(fewerColsDisabled)
                                         Divider()
                                             .frame(width: 2)
                                             .overlay(Color(UIColor.systemGray4))
                                         Button(action: {
-                                            viewConductor.linearLayoutKeysPerRow += 2
+                                            if (viewConductor.linearLayout) {
+                                                viewConductor.linearLayoutKeysPerRow += 2
+                                            } else {
+                                                viewConductor.gridLayoutKeysPerRow += 2
+                                            }
                                         }, label: {
                                             Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                                                .foregroundColor(viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .foregroundColor(moreColsDisabled ? Color(UIColor.systemGray4) : .white)
                                                 .padding([.top, .bottom], 2)
                                         })
-                                        .disabled(viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow())
+                                        .disabled(moreColsDisabled)
                                     }
                                     .fixedSize(horizontal: false, vertical: true)
                                     .padding(.vertical, 4)
@@ -362,7 +372,13 @@ struct ContentView: View {
                 self.viewConductor.conductor.engine.stop()
             }
             .statusBar(hidden: true)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity
+            )
+            .ignoresSafeArea(edges:.horizontal)
         }
+        
         .padding(.top, 25)
     }
     func reloadAudio() {
