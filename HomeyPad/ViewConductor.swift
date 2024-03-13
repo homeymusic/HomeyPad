@@ -149,6 +149,18 @@ class ViewConductor: ObservableObject {
         MIDIConnect()
     }
     
+    func colsPerRow() -> Int {
+        if (self.linearLayout) {
+            return self.linearLayoutKeysPerRow
+        } else {
+            switch self.linearLayoutKeysPerRow {
+            case 13:
+                return 8
+            default:
+                return 8
+            }
+        }
+    }
     func playNote(_ midiNote: UInt8) {
         conductor.instrument.play(noteNumber: midiNote, velocity: 63, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])

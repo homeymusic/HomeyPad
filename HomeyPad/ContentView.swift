@@ -267,14 +267,14 @@ struct ContentView: View {
                     VStack(spacing: 0) {
                         /// home selector
                         Spacer()
-                        let _p = print("viewConductor.gridLayoutKeysPerRow", viewConductor.gridLayoutKeysPerRow)
                         if (viewConductor.showSelector) {
                             let selectorRatio: CGFloat = if (viewConductor.linearLayout) {
                                 13.0 / CGFloat(viewConductor.linearLayoutKeysPerRow)
                             } else {
-                                
-                                8.0 / (CGFloat(viewConductor.gridLayoutKeysPerRow) * (8.0 / 13.0))
+                                8.0 / CGFloat(viewConductor.colsPerRow())
                             }
+                            let _p = print("selectorRatio", selectorRatio)
+                            let _w = print("proxy.size.width", proxy.size.width)
                             SwiftUIHomeSelector(linearLayout: viewConductor.linearLayout,
                                                 linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,
                                                 gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow,
@@ -337,52 +337,51 @@ struct ContentView: View {
                         }
                     }
                 }
-                .onChange(of: scenePhase) { newPhase in
-                    if newPhase == .active {
-                        if !viewConductor.conductor.engine.avEngine.isRunning {
-                            viewConductor.conductor.start()
-                        }
-                    }
-                }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
-                    switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
-                    case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
-                        reloadAudio()
-                    case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
-                        reloadAudio()
-                    default:
-                        break
-                    }
-                }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { event in
-                    guard let info = event.userInfo,
-                          let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-                          let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-                        return
-                    }
-                    if type == .began {
-                        if midiPlayer.state == .playing {midiPlayer.pause()}
-                        self.viewConductor.conductor.engine.stop()
-                    } else if type == .ended {
-                        guard let optionsValue =
-                                info[AVAudioSessionInterruptionOptionKey] as? UInt else {
-                            return
-                        }
-                        if AVAudioSession.InterruptionOptions(rawValue: optionsValue).contains(.shouldResume) {
-                            reloadAudio()
-                        }
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    if !viewConductor.conductor.engine.avEngine.isRunning {
+                        viewConductor.conductor.start()
                     }
                 }
-                .onDisappear() {
+            }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
+                switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
+                case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
+                    reloadAudio()
+                case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
+                    reloadAudio()
+                default:
+                    break
+                }
+            }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { event in
+                guard let info = event.userInfo,
+                      let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+                      let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+                    return
+                }
+                if type == .began {
                     if midiPlayer.state == .playing {midiPlayer.pause()}
                     self.viewConductor.conductor.engine.stop()
+                } else if type == .ended {
+                    guard let optionsValue =
+                            info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                        return
+                    }
+                    if AVAudioSession.InterruptionOptions(rawValue: optionsValue).contains(.shouldResume) {
+                        reloadAudio()
+                    }
                 }
-                .statusBar(hidden: true)
-                .frame(
-                    maxWidth: .infinity,
-                    maxHeight: .infinity
-                )
-                .padding(.top, 25)
-
             }
+            .onDisappear() {
+                if midiPlayer.state == .playing {midiPlayer.pause()}
+                self.viewConductor.conductor.engine.stop()
+            }
+            .statusBar(hidden: true)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity
+            )
+            .padding(.top, 25)
         }
         .ignoresSafeArea(edges:.horizontal)
     }
