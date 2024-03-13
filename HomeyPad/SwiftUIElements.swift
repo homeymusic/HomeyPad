@@ -6,7 +6,9 @@ import Controls
 import AVFoundation
 
 struct SwiftUIHomeSelector: View {
-    var keysPerRow: Int
+    var linearLayout: Bool
+    var linearLayoutKeysPerRow: Int
+    var gridLayoutKeysPerRow: Int
     var tonicPitchClass: Int
     var showClassicalSelector: Bool
     var showIntegersSelector: Bool
@@ -18,7 +20,6 @@ struct SwiftUIHomeSelector: View {
     var midiPlayer: MIDIPlayer
     var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
     var upwardPitchMovement: Bool
-    var linearLayout: Bool
 
     // safety valve
     func safeMIDI(_ p: Int) -> Int {

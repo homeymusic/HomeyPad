@@ -14,9 +14,9 @@ struct ContentView: View {
     
     var body: some View {
         
-        GeometryReader { proxy in
-            ZStack {
-                Color.black
+        ZStack {
+            Color.black
+            GeometryReader { proxy in
                 ZStack {
                     VStack {
                         HStack(alignment: .center, spacing: 0) {
@@ -36,7 +36,7 @@ struct ContentView: View {
                             }
                             .disabled(!viewConductor.showSelector)
                             .popover(isPresented: $showingSettingsPopover,
-                                      content: {
+                                     content: {
                                 /// labels for tonic selector
                                 CustomizeView(showClassicalSelector: $viewConductor.showClassicalSelector,
                                               showIntegersSelector: $viewConductor.showIntegersSelector,
@@ -97,7 +97,7 @@ struct ContentView: View {
                                     RoundedRectangle(cornerRadius: 5)
                                         .fill(Color(UIColor.systemGray6))
                                 }
-
+                                
                                 /// reset
                                 let defaultGeometry : Bool = (viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow) ||
                                 (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount == Default.gridLayoutOctaveCount && viewConductor.gridLayoutKeysPerRow == Default.gridLayoutKeysPerRow)
@@ -267,9 +267,17 @@ struct ContentView: View {
                     VStack(spacing: 0) {
                         /// home selector
                         Spacer()
+                        let _p = print("viewConductor.gridLayoutKeysPerRow", viewConductor.gridLayoutKeysPerRow)
                         if (viewConductor.showSelector) {
-                            let selectorRatio: CGFloat = (viewConductor.linearLayout ? 13.0 : 8.0) / CGFloat(viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : viewConductor.linearLayoutKeysPerRow * 8 / 13)
-                            SwiftUIHomeSelector(keysPerRow: viewConductor.linearLayoutKeysPerRow,
+                            let selectorRatio: CGFloat = if (viewConductor.linearLayout) {
+                                13.0 / CGFloat(viewConductor.linearLayoutKeysPerRow)
+                            } else {
+                                
+                                8.0 / (CGFloat(viewConductor.gridLayoutKeysPerRow) * (8.0 / 13.0))
+                            }
+                            SwiftUIHomeSelector(linearLayout: viewConductor.linearLayout,
+                                                linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,
+                                                gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showIntegersSelector: viewConductor.showIntegersSelector,
@@ -280,22 +288,18 @@ struct ContentView: View {
                                                 showIntervals: viewConductor.showIntervals,
                                                 midiPlayer: midiPlayer,
                                                 selectorTapped: viewConductor.selectHome,
-                                                upwardPitchMovement: viewConductor.upwardPitchMovement,
-                                                linearLayout: viewConductor.linearLayout
+                                                upwardPitchMovement: viewConductor.upwardPitchMovement
                             )
-                            .aspectRatio(selectorRatio * CGFloat(viewConductor.linearLayoutKeysPerRow), contentMode: .fit)
+                            .aspectRatio(selectorRatio * CGFloat(viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : viewConductor.gridLayoutKeysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
-                            .frame(width: proxy.size.width * CGFloat(selectorRatio))
+                            .frame(width: proxy.size.width * selectorRatio)
                         }
-                        
-                        let _bang1 = print("ContentView: viewConductor.gridLayoutOctaveCount", viewConductor.gridLayoutOctaveCount)
-                        let _bang2 = print("ContentView: viewConductor.linearLayoutOctaveCount", viewConductor.linearLayoutOctaveCount)
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                            .frame(maxHeight: CGFloat(viewConductor.linearLayoutOctaveCount) * 4.0 * (proxy.size.width / CGFloat((viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : (viewConductor.linearLayoutKeysPerRow * 8 / 13)))))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
+                    
                     VStack {
                         Spacer()
                         HStack(alignment: .center, spacing: 0) {
@@ -329,57 +333,58 @@ struct ContentView: View {
                                 RoundedRectangle(cornerRadius: 5)
                                     .fill(Color(UIColor.systemGray6))
                             }
-
+                            
                         }
                     }
                 }
-            }.onChange(of: scenePhase) { newPhase in
-                if newPhase == .active {
-                    if !viewConductor.conductor.engine.avEngine.isRunning {
-                        viewConductor.conductor.start()
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .active {
+                        if !viewConductor.conductor.engine.avEngine.isRunning {
+                            viewConductor.conductor.start()
+                        }
                     }
-                }
-            }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
-                switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
-                case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
-                    reloadAudio()
-                case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
-                    reloadAudio()
-                default:
-                    break
-                }
-            }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { event in
-                guard let info = event.userInfo,
-                      let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-                      let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-                    return
-                }
-                if type == .began {
-                    if midiPlayer.state == .playing {midiPlayer.pause()}
-                    self.viewConductor.conductor.engine.stop()
-                } else if type == .ended {
-                    guard let optionsValue =
-                            info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
+                    switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
+                    case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
+                        reloadAudio()
+                    case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
+                        reloadAudio()
+                    default:
+                        break
+                    }
+                }.onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { event in
+                    guard let info = event.userInfo,
+                          let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+                          let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
                         return
                     }
-                    if AVAudioSession.InterruptionOptions(rawValue: optionsValue).contains(.shouldResume) {
-                        reloadAudio()
+                    if type == .began {
+                        if midiPlayer.state == .playing {midiPlayer.pause()}
+                        self.viewConductor.conductor.engine.stop()
+                    } else if type == .ended {
+                        guard let optionsValue =
+                                info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                            return
+                        }
+                        if AVAudioSession.InterruptionOptions(rawValue: optionsValue).contains(.shouldResume) {
+                            reloadAudio()
+                        }
                     }
                 }
+                .onDisappear() {
+                    if midiPlayer.state == .playing {midiPlayer.pause()}
+                    self.viewConductor.conductor.engine.stop()
+                }
+                .statusBar(hidden: true)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity
+                )
+                .padding(.top, 25)
+
             }
-            .onDisappear() {
-                if midiPlayer.state == .playing {midiPlayer.pause()}
-                self.viewConductor.conductor.engine.stop()
-            }
-            .statusBar(hidden: true)
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity
-            )
-            .ignoresSafeArea(edges:.horizontal)
         }
-        
-        .padding(.top, 25)
+        .ignoresSafeArea(edges:.horizontal)
     }
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
