@@ -319,6 +319,7 @@ struct ContentView: View {
                         }
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                            .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 6.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
