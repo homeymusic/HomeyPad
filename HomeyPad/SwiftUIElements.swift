@@ -6,6 +6,7 @@ import Controls
 import AVFoundation
 
 struct SwiftUIHomeSelector: View {
+    var viewConductor: ViewConductor
     var linearLayout: Bool
     var linearLayoutKeysPerRow: Int
     var gridLayoutKeysPerRow: Int
@@ -32,59 +33,54 @@ struct SwiftUIHomeSelector: View {
     
     var body: some View {
         if (linearLayout) {
-            HStack(spacing: 0) {
-                ForEach(0...12, id: \.self) { col in
-                    if mod(col, 12) == 0 {
-                        SelectorStyle(col: col,
-                                      showClassicalSelector: showClassicalSelector,
-                                      showIntegersSelector: showIntegersSelector,
-                                      showRomanSelector: showRomanSelector,
-                                      showDegreeSelector: showDegreeSelector,
-                                      showMonthsSelector: showMonthsSelector,
-                                      showPianoSelector: showPianoSelector,
-                                      showIntervals: showIntervals,
-                                      tonicPitchClass: tonicPitchClass,
-                                      upwardPitchMovement: upwardPitchMovement,
-                                      linearLayout: linearLayout)
-                    } else {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + col), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: col,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
+            GeometryReader { proxy in
+                HStack(spacing: 0) {
+                    ForEach(0...12, id: \.self) { col in
+                        if mod(col, 12) == 0 {
+                            HStack(spacing: 0) {
+                                SelectorStyle(col: col,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        } else {
+                            HStack(spacing: 0) {
+                                Button {
+                                    selectorTapped(Int(tonicPitchClass + col), midiPlayer)
+                                } label: {
+                                    SelectorStyle(col: col,
+                                                  showClassicalSelector: showClassicalSelector,
+                                                  showIntegersSelector: showIntegersSelector,
+                                                  showRomanSelector: showRomanSelector,
+                                                  showDegreeSelector: showDegreeSelector,
+                                                  showMonthsSelector: showMonthsSelector,
+                                                  showPianoSelector: showPianoSelector,
+                                                  showIntervals: showIntervals,
+                                                  tonicPitchClass: tonicPitchClass,
+                                                  upwardPitchMovement: upwardPitchMovement,
+                                                  linearLayout: linearLayout)
+                                }
+                            }
+                            .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         }
                     }
                 }
+                .frame(maxWidth: .infinity)
             }
         } else {
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                GridRow {
-                    SelectorStyle(col: 0,
-                                  showClassicalSelector: showClassicalSelector,
-                                  showIntegersSelector: showIntegersSelector,
-                                  showRomanSelector: showRomanSelector,
-                                  showDegreeSelector: showDegreeSelector,
-                                  showMonthsSelector: showMonthsSelector,
-                                  showPianoSelector: showPianoSelector,
-                                  showIntervals: showIntervals,
-                                  tonicPitchClass: tonicPitchClass,
-                                  upwardPitchMovement: upwardPitchMovement,
-                                  linearLayout: linearLayout)
-                    
-                    VStack(spacing: 0) {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 2), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 2,
+            GeometryReader { proxy in
+                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                    GridRow {
+                        HStack(spacing: 0) {
+                            SelectorStyle(col: 0,
                                           showClassicalSelector: showClassicalSelector,
                                           showIntegersSelector: showIntegersSelector,
                                           showRomanSelector: showRomanSelector,
@@ -96,10 +92,190 @@ struct SwiftUIHomeSelector: View {
                                           upwardPitchMovement: upwardPitchMovement,
                                           linearLayout: linearLayout)
                         }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 1), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 1,
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        VStack(spacing: 0) {
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 2), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 2,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 1), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 1,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                        }
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        VStack(spacing: 0) {
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 4), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 4,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 3), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 3,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                        }
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        HStack(spacing: 0) {
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 5), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 5,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 6), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 6,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 7), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 7,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                        }
+                        .gridCellColumns(2)
+                        .frame(width: proxy.size.width * 2.0 / CGFloat(viewConductor.colsPerRow()))
+                        VStack(spacing: 0) {
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 9), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 9,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 8), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 8,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                        }
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        VStack(spacing: 0) {
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 11), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 11,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            Button {
+                                selectorTapped(Int(tonicPitchClass + 10), midiPlayer)
+                            } label: {
+                                SelectorStyle(col: 10,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                        }
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        HStack(spacing: 0) {
+                            SelectorStyle(col: 12,
                                           showClassicalSelector: showClassicalSelector,
                                           showIntegersSelector: showIntegersSelector,
                                           showRomanSelector: showRomanSelector,
@@ -111,163 +287,10 @@ struct SwiftUIHomeSelector: View {
                                           upwardPitchMovement: upwardPitchMovement,
                                           linearLayout: linearLayout)
                         }
+                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                     }
-                    VStack(spacing: 0) {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 4), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 4,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 3), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 3,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                    }
-                    HStack(spacing: 0) {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 5), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 5,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 6), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 6,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 7), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 7,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                    }
-                    .gridCellColumns(2)
-                    VStack(spacing: 0) {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 9), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 9,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 8), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 8,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                    }
-                    VStack(spacing: 0) {
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 11), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 11,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                        Button {
-                            selectorTapped(Int(tonicPitchClass + 10), midiPlayer)
-                        } label: {
-                            SelectorStyle(col: 10,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
-                        }
-                    }
-                    SelectorStyle(col: 12,
-                                  showClassicalSelector: showClassicalSelector,
-                                  showIntegersSelector: showIntegersSelector,
-                                  showRomanSelector: showRomanSelector,
-                                  showDegreeSelector: showDegreeSelector,
-                                  showMonthsSelector: showMonthsSelector,
-                                  showPianoSelector: showPianoSelector,
-                                  showIntervals: showIntervals,
-                                  tonicPitchClass: tonicPitchClass,
-                                  upwardPitchMovement: upwardPitchMovement,
-                                  linearLayout: linearLayout)
                 }
+                .frame(maxWidth: .infinity)
             }
         }
     }

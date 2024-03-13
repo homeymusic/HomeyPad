@@ -153,11 +153,23 @@ class ViewConductor: ObservableObject {
         if (self.linearLayout) {
             return self.linearLayoutKeysPerRow
         } else {
-            switch self.linearLayoutKeysPerRow {
+            switch self.gridLayoutKeysPerRow {
+            case 37:
+                return 22
+            case 35:
+                return 20
+            case 31:
+                return 18
+            case 27:
+                return 16
+            case 21:
+                return 12
+            case 17:
+                return 10
             case 13:
                 return 8
             default:
-                return 8
+                return 22
             }
         }
     }

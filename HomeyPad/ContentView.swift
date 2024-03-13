@@ -268,14 +268,8 @@ struct ContentView: View {
                         /// home selector
                         Spacer()
                         if (viewConductor.showSelector) {
-                            let selectorRatio: CGFloat = if (viewConductor.linearLayout) {
-                                13.0 / CGFloat(viewConductor.linearLayoutKeysPerRow)
-                            } else {
-                                8.0 / CGFloat(viewConductor.colsPerRow())
-                            }
-                            let _p = print("selectorRatio", selectorRatio)
-                            let _w = print("proxy.size.width", proxy.size.width)
-                            SwiftUIHomeSelector(linearLayout: viewConductor.linearLayout,
+                            SwiftUIHomeSelector(viewConductor: viewConductor,
+                                                linearLayout: viewConductor.linearLayout,
                                                 linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,
                                                 gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
@@ -290,9 +284,8 @@ struct ContentView: View {
                                                 selectorTapped: viewConductor.selectHome,
                                                 upwardPitchMovement: viewConductor.upwardPitchMovement
                             )
-                            .aspectRatio(selectorRatio * CGFloat(viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : viewConductor.gridLayoutKeysPerRow), contentMode: .fit)
+                            .aspectRatio(CGFloat(viewConductor.colsPerRow()), contentMode: .fit)
                             .padding(.bottom, 7)
-                            .frame(width: proxy.size.width * selectorRatio)
                         }
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
