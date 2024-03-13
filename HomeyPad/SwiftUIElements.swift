@@ -71,8 +71,10 @@ struct SwiftUIHomeSelector: View {
 struct SwiftUIKeyboard: View {
     var linearLayout: Bool
     var octaveShift: Int
-    var octaveCount: Int
-    var keysPerRow: Int
+    var linearLayoutOctaveCount: Int
+    var linearLayoutKeysPerRow: Int
+    var gridLayoutOctaveCount: Int
+    var gridLayoutKeysPerRow: Int
     var tonicPitchClass: Int
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
@@ -80,7 +82,7 @@ struct SwiftUIKeyboard: View {
         
     var body: some View {
         if (linearLayout) {
-            Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+            Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: linearLayoutOctaveCount, keysPerRow: linearLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                    pitch: pitch,
@@ -98,13 +100,14 @@ struct SwiftUIKeyboard: View {
                                    minorColorDark: Default.minorColor,
                                    tritoneColor: Default.homeColor,
                                    tritoneColorDark: Default.tritoneColor,
-                                   mostKeysAreLight: true,
-                                   homeKeyIsLight: false,
+                                   mostKeysAreLight: false,
+                                   homeKeyIsLight: true,
                                    linearLayout: linearLayout
                 )
             }.cornerRadius(5)
         } else {
-            Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: octaveCount, keysPerRow: keysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+            let _baz = print("in SwiftUI Elements gridLayoutOctaveCount", gridLayoutOctaveCount)
+            Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: gridLayoutOctaveCount, keysPerRow: gridLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                    pitch: pitch,

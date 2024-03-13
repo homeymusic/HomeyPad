@@ -70,7 +70,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "twinkle_twinkle_little_star", songTonic: 48, itemID: 1)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
+                                if viewConductor.gridLayoutKeysPerRow < 13 {viewConductor.gridLayoutKeysPerRow = 13}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -102,7 +102,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "mirror_twinkle", songTonic: 40, itemID: 2)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 13 {viewConductor.keysPerRow = 13}
+                                if viewConductor.gridLayoutKeysPerRow < 13 {viewConductor.gridLayoutKeysPerRow = 13}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -134,7 +134,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "happy_birthday", songTonic: 55, itemID: 5)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -166,7 +166,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "mirror_birthday", songTonic: 57, itemID: 6)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -201,7 +201,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "saint", songTonic: 60, itemID: 22)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -237,7 +237,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "mirror_saint", songTonic: 60, itemID: 23)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -282,7 +282,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "ionian", songTonic: 48, itemID: 11)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -314,7 +314,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "phrygian", songTonic: 52, itemID: 12)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -346,7 +346,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "mixolydian", songTonic: 55, itemID: 13)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -379,7 +379,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "aeolian", songTonic: 69, itemID: 14)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -416,7 +416,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "harmonic_minor", songTonic: 69, itemID: 15)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -456,7 +456,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "dorian_down", songTonic: 50, itemID: 16)
                                 viewConductor.setPitchMovement(false)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -497,7 +497,7 @@ struct PlayView: View {
                                     }
                                 }, filename: "dorian_up", songTonic: 62, itemID: 17)
                                 viewConductor.setPitchMovement(true)
-                                if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                 dismiss()
                             } label: {
                                 ZStack {
@@ -538,7 +538,7 @@ struct PlayView: View {
                                         }
                                     }, filename: "lydian", songTonic: 65, itemID: 18)
                                     viewConductor.setPitchMovement(true)
-                                    if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                    if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                     dismiss()
                                 } label: {
                                     ZStack {
@@ -578,7 +578,7 @@ struct PlayView: View {
                                         }
                                     }, filename: "locrian", songTonic: 47, itemID: 19)
                                     viewConductor.setPitchMovement(false)
-                                    if viewConductor.keysPerRow < 17 {viewConductor.keysPerRow = 17}
+                                    if viewConductor.gridLayoutKeysPerRow < 17 {viewConductor.gridLayoutKeysPerRow = 17}
                                     dismiss()
                                 } label: {
                                     ZStack {
@@ -620,7 +620,7 @@ struct PlayView: View {
                                         }
                                     }, filename: "awesome", songTonic: 48, itemID: 20)
                                     viewConductor.setPitchMovement(true)
-                                    if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
+                                    if viewConductor.gridLayoutKeysPerRow < 21 {viewConductor.gridLayoutKeysPerRow = 21}
                                     dismiss()
                                 } label: {
                                     ZStack {
@@ -664,7 +664,7 @@ struct PlayView: View {
                                         }
                                     }, filename: "mirror_awesome", songTonic: 52, itemID: 21)
                                     viewConductor.setPitchMovement(true)
-                                    if viewConductor.keysPerRow < 21 {viewConductor.keysPerRow = 21}
+                                    if viewConductor.gridLayoutKeysPerRow < 21 {viewConductor.gridLayoutKeysPerRow = 21}
                                     dismiss()
                                 } label: {
                                     ZStack {

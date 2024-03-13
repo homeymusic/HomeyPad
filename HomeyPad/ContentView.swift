@@ -45,8 +45,10 @@ struct ContentView: View {
                                               showMonthsSelector: $viewConductor.showMonthsSelector,
                                               showPianoSelector: $viewConductor.showPianoSelector,
                                               showIntervals: $viewConductor.showIntervals,
-                                              octaveCount: $viewConductor.octaveCount,
-                                              keysPerRow: $viewConductor.keysPerRow,
+                                              linearLayoutOctaveCount: $viewConductor.linearLayoutOctaveCount,
+                                              linearLayoutKeysPerRow: $viewConductor.linearLayoutKeysPerRow,
+                                              gridLayoutOctaveCount: $viewConductor.gridLayoutOctaveCount,
+                                              gridLayoutKeysPerRow: $viewConductor.gridLayoutKeysPerRow,
                                               upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
                                               viewConductor: viewConductor)
                                 .presentationCompactAdaptation(.none)
@@ -58,24 +60,24 @@ struct ContentView: View {
                                 /// columns
                                 HStack(spacing: 10) {
                                     Button(action: {
-                                        viewConductor.octaveCount -= 2
+                                        viewConductor.linearLayoutOctaveCount -= 2
                                     }, label: {
                                         Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                                            .foregroundColor(viewConductor.octaveCount <= 1 ? Color(UIColor.systemGray4) : .white)
+                                            .foregroundColor(viewConductor.linearLayoutOctaveCount <= 1 ? Color(UIColor.systemGray4) : .white)
                                             .padding([.leading, .trailing], 3)
                                     })
-                                    .disabled(viewConductor.octaveCount <= 1)
+                                    .disabled(viewConductor.linearLayoutOctaveCount <= 1)
                                     Divider()
                                         .frame(width: 2)
                                         .overlay(Color(UIColor.systemGray4))
                                     Button(action: {
-                                        viewConductor.octaveCount += 2
+                                        viewConductor.linearLayoutOctaveCount += 2
                                     }, label: {
                                         Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                                            .foregroundColor(viewConductor.octaveCount >= 9 ? Color(UIColor.systemGray4) : .white)
+                                            .foregroundColor(viewConductor.linearLayoutOctaveCount >= 9 ? Color(UIColor.systemGray4) : .white)
                                             .padding([.leading, .trailing], 4)
                                     })
-                                    .disabled(viewConductor.octaveCount  >= 9)
+                                    .disabled(viewConductor.linearLayoutOctaveCount  >= 9)
                                 }
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.vertical, 4)
@@ -87,10 +89,11 @@ struct ContentView: View {
                                 }
 
                                 /// reset
-                                let defaultGeometry = viewConductor.octaveCount == Default.octaveCount && viewConductor.keysPerRow == Default.keysPerRow
+                                let defaultGeometry = viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow
                                 Button(role: .cancel, action: {
-                                    viewConductor.octaveCount = Default.octaveCount
-                                    viewConductor.keysPerRow = Default.keysPerRow
+                                    let _foo1 = print("Default.linearLayoutKeysPerRow", Default.linearLayoutKeysPerRow)
+                                    viewConductor.linearLayoutOctaveCount = Default.linearLayoutOctaveCount
+                                    viewConductor.linearLayoutKeysPerRow = Default.linearLayoutKeysPerRow
                                 }) {
                                     ZStack {
                                         Image(systemName: "gobackward")
@@ -104,24 +107,24 @@ struct ContentView: View {
                                 HStack(spacing: 10) {
                                     HStack {
                                         Button(action: {
-                                            viewConductor.keysPerRow -= 2
+                                            viewConductor.linearLayoutKeysPerRow -= 2
                                         }, label: {
                                             Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                                                .foregroundColor(viewConductor.keysPerRow <= minKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .foregroundColor(viewConductor.linearLayoutKeysPerRow <= minKeysPerRow() ? Color(UIColor.systemGray4) : .white)
                                                 .padding([.top, .bottom], 2)
                                         })
-                                        .disabled(viewConductor.keysPerRow <= minKeysPerRow())
+                                        .disabled(viewConductor.linearLayoutKeysPerRow <= minKeysPerRow())
                                         Divider()
                                             .frame(width: 2)
                                             .overlay(Color(UIColor.systemGray4))
                                         Button(action: {
-                                            viewConductor.keysPerRow += 2
+                                            viewConductor.linearLayoutKeysPerRow += 2
                                         }, label: {
                                             Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                                                .foregroundColor(viewConductor.keysPerRow >= maxKeysPerRow() ? Color(UIColor.systemGray4) : .white)
+                                                .foregroundColor(viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow() ? Color(UIColor.systemGray4) : .white)
                                                 .padding([.top, .bottom], 2)
                                         })
-                                        .disabled(viewConductor.keysPerRow >= maxKeysPerRow())
+                                        .disabled(viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow())
                                     }
                                     .fixedSize(horizontal: false, vertical: true)
                                     .padding(.vertical, 4)
@@ -240,8 +243,8 @@ struct ContentView: View {
                         /// home selector
                         Spacer()
                         if (viewConductor.showSelector) {
-                            let selectorRatio: CGFloat = (viewConductor.linearLayout ? 13.0 : 8.0) / CGFloat(viewConductor.linearLayout ? viewConductor.keysPerRow : viewConductor.keysPerRow * 8 / 13)
-                            SwiftUIHomeSelector(keysPerRow: viewConductor.keysPerRow,
+                            let selectorRatio: CGFloat = (viewConductor.linearLayout ? 13.0 : 8.0) / CGFloat(viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : viewConductor.linearLayoutKeysPerRow * 8 / 13)
+                            SwiftUIHomeSelector(keysPerRow: viewConductor.linearLayoutKeysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
                                                 showClassicalSelector: viewConductor.showClassicalSelector,
                                                 showIntegersSelector: viewConductor.showIntegersSelector,
@@ -255,13 +258,16 @@ struct ContentView: View {
                                                 upwardPitchMovement: viewConductor.upwardPitchMovement,
                                                 linearLayout: viewConductor.linearLayout
                             )
-                            .aspectRatio(selectorRatio * CGFloat(viewConductor.keysPerRow), contentMode: .fit)
+                            .aspectRatio(selectorRatio * CGFloat(viewConductor.linearLayoutKeysPerRow), contentMode: .fit)
                             .padding(.bottom, 7)
                             .frame(width: proxy.size.width * CGFloat(selectorRatio))
                         }
+                        
+                        let _bang1 = print("ContentView: viewConductor.gridLayoutOctaveCount", viewConductor.gridLayoutOctaveCount)
+                        let _bang2 = print("ContentView: viewConductor.linearLayoutOctaveCount", viewConductor.linearLayoutOctaveCount)
                         /// The main  keyboard
-                        SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, octaveCount: viewConductor.octaveCount, keysPerRow: viewConductor.keysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                            .frame(maxHeight: CGFloat(viewConductor.octaveCount) * 4.0 * (proxy.size.width / CGFloat((viewConductor.linearLayout ? viewConductor.keysPerRow : (viewConductor.keysPerRow * 8 / 13)))))
+                        SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
+                            .frame(maxHeight: CGFloat(viewConductor.linearLayoutOctaveCount) * 4.0 * (proxy.size.width / CGFloat((viewConductor.linearLayout ? viewConductor.linearLayoutKeysPerRow : (viewConductor.linearLayoutKeysPerRow * 8 / 13)))))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)

@@ -22,8 +22,10 @@ struct CustomizeView: View {
     @Binding var showMonthsSelector: Bool
     @Binding var showPianoSelector: Bool
     @Binding var showIntervals: Bool
-    @Binding var octaveCount: Int
-    @Binding var keysPerRow: Int
+    @Binding var linearLayoutOctaveCount: Int
+    @Binding var linearLayoutKeysPerRow: Int
+    @Binding var gridLayoutOctaveCount: Int
+    @Binding var gridLayoutKeysPerRow: Int
     @Binding var upwardPitchMovement: Bool
     var midiPlayer: MIDIPlayer
     var viewConductor: ViewConductor

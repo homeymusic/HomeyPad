@@ -11,11 +11,19 @@ func formFactor() -> FormFactor {
     return UIScreen.main.bounds.size.width > 1000 ? .iPad : .iPhone
 }
 
-func defaultKeysPerRow() -> Int {
-    if  formFactor() == .iPad {
-        return 25
+func defaultKeysPerRow(linearLayout: Bool) -> Int {
+    if linearLayout {
+        if  formFactor() == .iPad {
+            return 17 + 8
+        } else {
+            return 17
+        }
     } else {
-        return 17
+        if  formFactor() == .iPad {
+            return 27 + 13
+        } else {
+            return 27
+        }
     }
 }
 
@@ -42,8 +50,10 @@ enum Default {
     static let showIntervals: Bool = false
     static let linearLayout: Bool = false
     static let octaveShift: Int = 0
-    static let octaveCount: Int = 1
-    static let keysPerRow: Int = defaultKeysPerRow()
+    static let linearLayoutOctaveCount: Int = 1
+    static let gridLayoutOctaveCount: Int = 1
+    static let linearLayoutKeysPerRow: Int = defaultKeysPerRow(linearLayout: true)
+    static let gridLayoutKeysPerRow: Int = defaultKeysPerRow(linearLayout: false)
     static let tonicPitchClass: Int = 0
     static let homeColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColorDark: Color = Color(red: 76 / 255, green: 51 / 255, blue: 38 / 255)

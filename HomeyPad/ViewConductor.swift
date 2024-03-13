@@ -34,16 +34,28 @@ class ViewConductor: ObservableObject {
             if oldValue != self.octaveShift {self.simpleSuccess()}
         }
     }
-    @Published var octaveCount: Int {
+    @Published var linearLayoutOctaveCount: Int {
         didSet {
-            defaults.set(self.octaveCount, forKey: "octaveCount")
-            if oldValue != self.octaveCount {self.simpleSuccess()}
+            defaults.set(self.linearLayoutOctaveCount, forKey: "linearLayoutOctaveCount")
+            if oldValue != self.linearLayoutOctaveCount {self.simpleSuccess()}
         }
     }
-    @Published var keysPerRow: Int {
+    @Published var gridLayoutOctaveCount: Int {
         didSet {
-            defaults.set(self.keysPerRow, forKey: "keysPerRow")
-            if oldValue != self.keysPerRow {self.simpleSuccess()}
+            defaults.set(self.gridLayoutOctaveCount, forKey: "gridLayoutOctaveCount")
+            if oldValue != self.gridLayoutOctaveCount {self.simpleSuccess()}
+        }
+    }
+    @Published var linearLayoutKeysPerRow: Int {
+        didSet {
+            defaults.set(self.linearLayoutKeysPerRow, forKey: "linearLayoutKeysPerRow")
+            if oldValue != self.linearLayoutKeysPerRow {self.simpleSuccess()}
+        }
+    }
+    @Published var gridLayoutKeysPerRow: Int {
+        didSet {
+            defaults.set(self.gridLayoutKeysPerRow, forKey: "gridLayoutKeysPerRow")
+            if oldValue != self.gridLayoutKeysPerRow {self.simpleSuccess()}
         }
     }
     @Published var showSelector: Bool {
@@ -111,12 +123,14 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
 
     init() {
-        defaults.register(defaults: ["linearLayout": Default.linearLayout, "octaveShift": Default.octaveShift, "octaveCount": Default.octaveCount, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "keysPerRow": Default.keysPerRow, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["linearLayout": Default.linearLayout, "octaveShift": Default.octaveShift, "linearLayoutOctaveCount": Default.linearLayoutOctaveCount, "gridLayoutOctaveCount": Default.gridLayoutOctaveCount, "linearLayoutKeysPerRow": Default.linearLayoutKeysPerRow, "gridLayoutKeysPerRow": Default.gridLayoutKeysPerRow, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
         linearLayout = defaults.bool(forKey: "linearLayout")
         octaveShift = defaults.integer(forKey: "octaveShift")
-        octaveCount = defaults.integer(forKey: "octaveCount")
-        keysPerRow = defaults.integer(forKey: "keysPerRow")
+        linearLayoutOctaveCount = defaults.integer(forKey: "linearLayoutOctaveCount")
+        gridLayoutOctaveCount = defaults.integer(forKey: "gridLayoutOctaveCount")
+        linearLayoutKeysPerRow = defaults.integer(forKey: "linearLayoutKeysPerRow")
+        gridLayoutKeysPerRow = defaults.integer(forKey: "gridLayoutKeysPerRow")
         showSelector = defaults.bool(forKey: "showSelector")
         showClassicalSelector = defaults.bool(forKey: "showClassicalSelector")
         showIntegersSelector = defaults.bool(forKey: "showIntegersSelector")
