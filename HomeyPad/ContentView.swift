@@ -65,7 +65,7 @@ struct ContentView: View {
                                         if (viewConductor.linearLayout) {
                                             viewConductor.linearLayoutOctaveCount -= 2
                                         } else {
-                                            viewConductor.gridLayoutOctaveCount -= 1
+                                            viewConductor.gridLayoutOctaveCount -= 2
                                         }
                                     }, label: {
                                         Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
@@ -80,7 +80,7 @@ struct ContentView: View {
                                         if (viewConductor.linearLayout) {
                                             viewConductor.linearLayoutOctaveCount += 2
                                         } else {
-                                            viewConductor.gridLayoutOctaveCount += 1
+                                            viewConductor.gridLayoutOctaveCount += 2
                                         }
                                     }, label: {
                                         Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
@@ -127,7 +127,22 @@ struct ContentView: View {
                                             if (viewConductor.linearLayout) {
                                                 viewConductor.linearLayoutKeysPerRow -= 2
                                             } else {
-                                                viewConductor.gridLayoutKeysPerRow -= 2
+                                                switch viewConductor.colsPerRow() {
+                                                case 22: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 2
+                                                case 20: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 18: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 16: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 6
+                                                case 12: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 10: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                default:
+                                                    viewConductor.gridLayoutKeysPerRow -= 2
+                                                }
                                             }
                                         }, label: {
                                             Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
@@ -142,7 +157,22 @@ struct ContentView: View {
                                             if (viewConductor.linearLayout) {
                                                 viewConductor.linearLayoutKeysPerRow += 2
                                             } else {
-                                                viewConductor.gridLayoutKeysPerRow += 2
+                                                switch viewConductor.colsPerRow() {
+                                                case 8: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 10: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 12: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 6
+                                                case 16: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 18: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 20: // keys per row
+                                                    viewConductor.gridLayoutKeysPerRow += 2
+                                                default:
+                                                    viewConductor.gridLayoutKeysPerRow += 2
+                                                }
                                             }
                                         }, label: {
                                             Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")

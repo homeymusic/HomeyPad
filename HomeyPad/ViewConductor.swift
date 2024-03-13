@@ -154,8 +154,8 @@ class ViewConductor: ObservableObject {
             return self.linearLayoutKeysPerRow
         } else {
             switch self.gridLayoutKeysPerRow {
-            case 37:
-                return 22
+            case 37: // keys per row
+                return 22 // columns per row
             case 35:
                 return 20
             case 31:

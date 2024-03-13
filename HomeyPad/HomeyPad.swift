@@ -14,9 +14,9 @@ func formFactor() -> FormFactor {
 func defaultKeysPerRow(linearLayout: Bool) -> Int {
     if linearLayout {
         if  formFactor() == .iPad {
-            return 17 + 8
+            return 19 + 8
         } else {
-            return 17
+            return 19
         }
     } else {
         if  formFactor() == .iPad {
