@@ -57,27 +57,37 @@ struct ContentView: View {
                             Spacer()
                             /// stepper for rows and columns
                             HStack {
-                                /// columns
+                                /// rows
+                                let fewerRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount <= 1) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount <= 1))
+                                let moreRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount >= 9) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount >= 3))
                                 HStack(spacing: 10) {
                                     Button(action: {
-                                        viewConductor.linearLayoutOctaveCount -= 2
+                                        if (viewConductor.linearLayout) {
+                                            viewConductor.linearLayoutOctaveCount -= 2
+                                        } else {
+                                            viewConductor.gridLayoutOctaveCount -= 1
+                                        }
                                     }, label: {
                                         Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                                            .foregroundColor(viewConductor.linearLayoutOctaveCount <= 1 ? Color(UIColor.systemGray4) : .white)
+                                            .foregroundColor(fewerRowsDisabled ? Color(UIColor.systemGray4) : .white)
                                             .padding([.leading, .trailing], 3)
                                     })
-                                    .disabled(viewConductor.linearLayoutOctaveCount <= 1)
+                                    .disabled(fewerRowsDisabled)
                                     Divider()
                                         .frame(width: 2)
                                         .overlay(Color(UIColor.systemGray4))
                                     Button(action: {
-                                        viewConductor.linearLayoutOctaveCount += 2
+                                        if (viewConductor.linearLayout) {
+                                            viewConductor.linearLayoutOctaveCount += 2
+                                        } else {
+                                            viewConductor.gridLayoutOctaveCount += 1
+                                        }
                                     }, label: {
                                         Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                                            .foregroundColor(viewConductor.linearLayoutOctaveCount >= 9 ? Color(UIColor.systemGray4) : .white)
+                                            .foregroundColor(moreRowsDisabled ? Color(UIColor.systemGray4) : .white)
                                             .padding([.leading, .trailing], 4)
                                     })
-                                    .disabled(viewConductor.linearLayoutOctaveCount  >= 9)
+                                    .disabled(moreRowsDisabled)
                                 }
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.vertical, 4)
@@ -89,11 +99,16 @@ struct ContentView: View {
                                 }
 
                                 /// reset
-                                let defaultGeometry = viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow
+                                let defaultGeometry : Bool = (viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow) ||
+                                (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount == Default.gridLayoutOctaveCount && viewConductor.gridLayoutKeysPerRow == Default.gridLayoutKeysPerRow)
                                 Button(role: .cancel, action: {
-                                    let _foo1 = print("Default.linearLayoutKeysPerRow", Default.linearLayoutKeysPerRow)
-                                    viewConductor.linearLayoutOctaveCount = Default.linearLayoutOctaveCount
-                                    viewConductor.linearLayoutKeysPerRow = Default.linearLayoutKeysPerRow
+                                    if viewConductor.linearLayout {
+                                        viewConductor.linearLayoutOctaveCount = Default.linearLayoutOctaveCount
+                                        viewConductor.linearLayoutKeysPerRow = Default.linearLayoutKeysPerRow
+                                    } else {
+                                        viewConductor.gridLayoutOctaveCount = Default.gridLayoutOctaveCount
+                                        viewConductor.gridLayoutKeysPerRow = Default.gridLayoutKeysPerRow
+                                    }
                                 }) {
                                     ZStack {
                                         Image(systemName: "gobackward")
