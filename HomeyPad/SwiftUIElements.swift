@@ -342,7 +342,7 @@ struct SwiftUIKeyboard: View {
                                    labelType: .symbol,
                                    tonicPitchClass: tonicPitchClass,
                                    initialC: initialC,
-                                   homeColor: Default.homeColor,
+                                   homeColor: Default.homeColorLight,
                                    homeColorDark: Default.homeColorDark,
                                    perfectColor: Default.perfectColor,
                                    perfectColorDark: Default.perfectColorDark,
@@ -353,7 +353,7 @@ struct SwiftUIKeyboard: View {
                                    tritoneColor: Default.tritoneColor,
                                    tritoneColorDark: Default.tritoneColorDark,
                                    mostKeysAreLight: true,
-                                   homeKeyIsLight: false,
+                                   homeKeyIsLight: true,
                                    linearLayout: linearLayout)
             }.cornerRadius(5)
         }

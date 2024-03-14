@@ -56,7 +56,7 @@ enum Default {
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
-    static let linearLayout: Bool = false
+    static let linearLayout: Bool = true
     static let octaveShift: Int = 0
     static let linearLayoutOctaveCount: Int = 1
     static let gridLayoutOctaveCount: Int = 1

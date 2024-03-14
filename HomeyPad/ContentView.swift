@@ -219,10 +219,10 @@ struct ContentView: View {
                             Spacer()
                             /// select layout
                             Picker("", selection: $viewConductor.linearLayout) {
-                                Image(systemName: "rectangle.split.2x2.fill")
-                                    .tag(false)
                                 Image(systemName: "rectangle.split.2x1.fill")
                                     .tag(true)
+                                Image(systemName: "rectangle.split.2x2.fill")
+                                    .tag(false)
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 75)
@@ -341,10 +341,6 @@ struct ContentView: View {
                             .aspectRatio(CGFloat(viewConductor.colsPerRow()), contentMode: .fit)
                             .padding(.bottom, 7)
                         }
-                        let _foo = print("proxy.size.width", proxy.size.width)
-                        let _bar = print("viewConductor.octaveCount()", viewConductor.octaveCount())
-                        let _baz = print("viewConductor.colsPerRow()", viewConductor.colsPerRow())
-                        let _buz = print("maxHeight", CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
                             .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
