@@ -20,7 +20,7 @@ func defaultKeysPerRow(linearLayout: Bool) -> Int {
         }
     } else {
         if  formFactor() == .iPad {
-            return 27 + 11
+            return 27 + 10
         } else {
             return 27
         }

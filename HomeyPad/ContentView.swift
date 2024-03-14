@@ -128,18 +128,30 @@ struct ContentView: View {
                                                 viewConductor.linearLayoutKeysPerRow -= 2
                                             } else {
                                                 switch viewConductor.colsPerRow() {
-                                                case 22: // keys per row
-                                                    viewConductor.gridLayoutKeysPerRow -= 2
-                                                case 20: // keys per row
+                                                case 10:
                                                     viewConductor.gridLayoutKeysPerRow -= 4
-                                                case 18: // keys per row
+                                                case 12:
                                                     viewConductor.gridLayoutKeysPerRow -= 4
-                                                case 16: // keys per row
+                                                case 16:
                                                     viewConductor.gridLayoutKeysPerRow -= 6
-                                                case 12: // keys per row
+                                                case 18:
                                                     viewConductor.gridLayoutKeysPerRow -= 4
-                                                case 10: // keys per row
+                                                case 20:
                                                     viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 22:
+                                                    viewConductor.gridLayoutKeysPerRow -= 2
+                                                case 27:
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 29:
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 33:
+                                                    viewConductor.gridLayoutKeysPerRow -= 6
+                                                case 35:
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 37:
+                                                    viewConductor.gridLayoutKeysPerRow -= 4
+                                                case 39:
+                                                    viewConductor.gridLayoutKeysPerRow -= 2
                                                 default:
                                                     viewConductor.gridLayoutKeysPerRow -= 2
                                                 }
@@ -158,20 +170,32 @@ struct ContentView: View {
                                                 viewConductor.linearLayoutKeysPerRow += 2
                                             } else {
                                                 switch viewConductor.colsPerRow() {
-                                                case 8: // keys per row
+                                                case 8: 
                                                     viewConductor.gridLayoutKeysPerRow += 4
-                                                case 10: // keys per row
+                                                case 10: 
                                                     viewConductor.gridLayoutKeysPerRow += 4
-                                                case 12: // keys per row
+                                                case 12: 
                                                     viewConductor.gridLayoutKeysPerRow += 6
-                                                case 16: // keys per row
+                                                case 16: 
                                                     viewConductor.gridLayoutKeysPerRow += 4
-                                                case 18: // keys per row
+                                                case 18: 
                                                     viewConductor.gridLayoutKeysPerRow += 4
-                                                case 20: // keys per row
+                                                case 20: 
+                                                    viewConductor.gridLayoutKeysPerRow += 2
+                                                case 22: 
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 27: 
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 29: 
+                                                    viewConductor.gridLayoutKeysPerRow += 6
+                                                case 33: 
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 35: 
+                                                    viewConductor.gridLayoutKeysPerRow += 4
+                                                case 37: 
                                                     viewConductor.gridLayoutKeysPerRow += 2
                                                 default:
-                                                    viewConductor.gridLayoutKeysPerRow += 2
+                                                    viewConductor.gridLayoutKeysPerRow += 0
                                                 }
                                             }
                                         }, label: {
@@ -317,9 +341,13 @@ struct ContentView: View {
                             .aspectRatio(CGFloat(viewConductor.colsPerRow()), contentMode: .fit)
                             .padding(.bottom, 7)
                         }
+                        let _foo = print("proxy.size.width", proxy.size.width)
+                        let _bar = print("viewConductor.octaveCount()", viewConductor.octaveCount())
+                        let _baz = print("viewConductor.colsPerRow()", viewConductor.colsPerRow())
+                        let _buz = print("maxHeight", CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
                         /// The main  keyboard
                         SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                            .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 6.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
+                            .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
