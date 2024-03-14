@@ -343,7 +343,7 @@ struct SwiftUIKeyboard: View {
                                    tonicPitchClass: tonicPitchClass,
                                    initialC: initialC,
                                    homeColor: Default.homeColorLight,
-                                   homeColorDark: Default.homeColorDark,
+                                   homeColorDark: Default.homeColor,
                                    perfectColor: Default.perfectColor,
                                    perfectColorDark: Default.perfectColorDark,
                                    majorColor: Default.majorColor,
