@@ -2,42 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "AudioKit",
-        "repositoryURL": "https://github.com/AudioKit/AudioKit.git",
-        "state": {
-          "branch": null,
-          "revision": "b2dbaed8cd38077092b6b6e311699ddf5d94dbd7",
-          "version": "5.6.3"
-        }
-      },
-      {
-        "package": "Controls",
-        "repositoryURL": "https://github.com/AudioKit/Controls",
-        "state": {
-          "branch": "main",
-          "revision": "4dd10370125af7f1e26d7a71b2c5929bb3c95087",
-          "version": null
-        }
-      },
-      {
-        "package": "MIDIKit",
-        "repositoryURL": "https://github.com/orchetect/MIDIKit",
-        "state": {
-          "branch": "main",
-          "revision": "59864bfbd14a9c883136859eb64d232332892312",
-          "version": null
-        }
-      },
-      {
-        "package": "TimecodeKit",
-        "repositoryURL": "https://github.com/orchetect/TimecodeKit",
-        "state": {
-          "branch": null,
-          "revision": "63ba241b35675a23802f0937c5b938e74e4f9aea",
-          "version": "2.0.10"
-        }
-      },
-      {
         "package": "Tonic",
         "repositoryURL": "https://github.com/AudioKit/Tonic.git",
         "state": {
