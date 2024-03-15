@@ -11,11 +11,13 @@ class ViewConductor: ObservableObject {
     var notesPlaying = Set<UInt8>()
     
     // MIDI Manager (MIDI methods are in AVAudioUnitSampler+MIDI)
-    let midiManager = MIDIManager(
-        clientName: "HomeyPadMIDIManager",
-        model: "HomeyPad",
-        manufacturer: "HomeyMusic"
+    let midiManager = ObservableMIDIManager(
+        clientName: "Homey Pad",
+        model: "iOS",
+        manufacturer: "Homey Music"
     )
+    
+    @ObservedObject var midiHelper = MIDIHelper()
     
     func simpleSuccess() {
         let generator = UINotificationFeedbackGenerator()
@@ -121,7 +123,7 @@ class ViewConductor: ObservableObject {
     @Published var nowPlayingTitle: any View = Text("")
     @Published var nowPlayingID: Int = 0
     @Published var scrollToID: Int = 0
-
+    
     init() {
         defaults.register(defaults: ["linearLayout": Default.linearLayout, "octaveShift": Default.octaveShift, "linearLayoutOctaveCount": Default.linearLayoutOctaveCount, "gridLayoutOctaveCount": Default.gridLayoutOctaveCount, "linearLayoutKeysPerRow": Default.linearLayoutKeysPerRow, "gridLayoutKeysPerRow": Default.gridLayoutKeysPerRow, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
@@ -142,11 +144,11 @@ class ViewConductor: ObservableObject {
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
         upwardPitchMovement = defaults.bool(forKey: "upwardPitchMovement")
         
+        midiHelper.setup(midiManager: midiManager)
+        
         // Start the engine
         conductor.start()
         
-        // Set up MIDI
-        MIDIConnect()
     }
     
     func colsPerRow() -> Int {
@@ -194,21 +196,27 @@ class ViewConductor: ObservableObject {
         conductor.instrument.play(noteNumber: midiNote, velocity: 63, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
         notesPlaying.insert(midiNote)
+        midiHelper.sendNoteOn(noteNumber: midiNote)
     }
     
     func stopNote(_ midiNote: UInt8){
         conductor.instrument.stop(noteNumber: midiNote, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
         notesPlaying.remove(midiNote)
+        midiHelper.sendNoteOff(noteNumber: midiNote)
     }
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
+        print("note on")
         conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
+        midiHelper.sendNoteOn(noteNumber: UInt8(pitch.intValue))
     }
     
     func noteOff(pitch: Pitch) {
+        print("note off")
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
+        midiHelper.sendNoteOff(noteNumber: UInt8(pitch.intValue))
     }
     
     func resetNotes() {
