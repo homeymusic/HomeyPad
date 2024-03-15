@@ -249,7 +249,7 @@ func degreeLabel(pitchClass: Int, upwardPitchMovement: Bool) -> String {
     let accidental = upwardPitchMovement ? "♭" : "♯"
     let prefix = upwardPitchMovement ? "" : "<"
     let caret = "\u{0302}"
-    let tritone = upwardPitchMovement ? "\(prefix)♯4\(caret)♭5\(caret)" : "\(prefix)♯5\(caret)♭4\(caret)"
+    let tritone = upwardPitchMovement ? "\(prefix)♭5\(caret)" : "\(prefix)♯5\(caret)"
     let adjustedPitchClass = upwardPitchMovement ? pitchClass : -pitchClass
     
     if (pitchClass == 0 && upwardPitchMovement) || (pitchClass == 12 && !upwardPitchMovement) {
