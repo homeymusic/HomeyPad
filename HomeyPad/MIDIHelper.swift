@@ -66,20 +66,29 @@ final class MIDIHelper: ObservableObject {
         midiManager?.managedOutputConnections[Self.outputConnectionName]
     }
     
-    func sendNoteOn(noteNumber: UInt8) {
+    func sendNoteOn(noteNumber: UInt7) {
         try? outputConnection?.send(event: .noteOn(
-            UInt7(noteNumber),
+            noteNumber,
             velocity: .midi1(63),
             channel: 0
         ))
     }
     
-    func sendNoteOff(noteNumber: UInt8) {
+    func sendNoteOff(noteNumber: UInt7) {
         try? outputConnection?.send(event: .noteOff(
-            UInt7(noteNumber),
+            noteNumber,
             velocity: .midi1(0),
             channel: 0
         ))
     }
     
+    func sendTonic(noteNumber: UInt7) {
+        try? outputConnection?.send(event: .cc(
+            85,
+            value: .midi1(noteNumber),
+            channel: 0
+        ))
+
+    }
+
 }

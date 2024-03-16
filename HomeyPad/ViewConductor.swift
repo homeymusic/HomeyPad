@@ -30,12 +30,6 @@ class ViewConductor: ObservableObject {
             if oldValue != self.linearLayout {self.simpleSuccess()}
         }
     }
-    @Published var octaveShift: Int {
-        didSet {
-            defaults.set(self.octaveShift, forKey: "octaveShift")
-            if oldValue != self.octaveShift {self.simpleSuccess()}
-        }
-    }
     @Published var linearLayoutOctaveCount: Int {
         didSet {
             defaults.set(self.linearLayoutOctaveCount, forKey: "linearLayoutOctaveCount")
@@ -111,7 +105,19 @@ class ViewConductor: ObservableObject {
     @Published var tonicPitchClass: Int {
         didSet {
             defaults.set(self.tonicPitchClass, forKey: "tonicPitchClass")
-            if oldValue != self.tonicPitchClass {self.simpleSuccess()}
+            if oldValue != self.tonicPitchClass {
+                midiHelper.sendTonic(noteNumber: UInt7(tonicNote()))
+                self.simpleSuccess()
+            }
+        }
+    }
+    @Published var octaveShift: Int {
+        didSet {
+            defaults.set(self.octaveShift, forKey: "octaveShift")
+            if oldValue != self.octaveShift {
+                midiHelper.sendTonic(noteNumber: UInt7(tonicNote()))
+                self.simpleSuccess()
+            }
         }
     }
     @Published var upwardPitchMovement: Bool {
@@ -143,7 +149,6 @@ class ViewConductor: ObservableObject {
         showIntervals  = defaults.bool(forKey: "showIntervals")
         tonicPitchClass = defaults.integer(forKey: "tonicPitchClass")
         upwardPitchMovement = defaults.bool(forKey: "upwardPitchMovement")
-        
         midiHelper.setup(midiManager: midiManager)
         
         // Start the engine
@@ -196,27 +201,27 @@ class ViewConductor: ObservableObject {
         conductor.instrument.play(noteNumber: midiNote, velocity: 63, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": true])
         notesPlaying.insert(midiNote)
-        midiHelper.sendNoteOn(noteNumber: midiNote)
+        midiHelper.sendNoteOn(noteNumber: UInt7(midiNote))
     }
     
     func stopNote(_ midiNote: UInt8){
         conductor.instrument.stop(noteNumber: midiNote, channel: 0)
         NotificationCenter.default.post(name: .MIDIKey, object: nil, userInfo: ["info": midiNote, "bool": false])
         notesPlaying.remove(midiNote)
-        midiHelper.sendNoteOff(noteNumber: midiNote)
+        midiHelper.sendNoteOff(noteNumber: UInt7(midiNote))
     }
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
         print("note on")
         conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
-        midiHelper.sendNoteOn(noteNumber: UInt8(pitch.intValue))
+        midiHelper.sendNoteOn(noteNumber: UInt7(pitch.intValue))
     }
     
     func noteOff(pitch: Pitch) {
         print("note off")
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
-        midiHelper.sendNoteOff(noteNumber: UInt8(pitch.intValue))
+        midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
     }
     
     func resetNotes() {
@@ -251,6 +256,11 @@ class ViewConductor: ObservableObject {
             upwardPitchMovement = upward
         }
     }
+    func tonicNote() -> Int {
+        return self.tonicPitchClass + self.octaveShift * 12 + Default.initialC
+    }
+
+
 }
 
 extension NSNotification.Name {
