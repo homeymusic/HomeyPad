@@ -217,6 +217,7 @@ class ViewConductor: ObservableObject {
     func noteOn(pitch: Pitch, point: CGPoint) {
         conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
         midiHelper.sendNoteOn(noteNumber: UInt7(pitch.intValue))
+        midiHelper.sendTonic(noteNumber: UInt7(tonicNote()))
     }
     
     func noteOff(pitch: Pitch) {
