@@ -251,7 +251,8 @@ class ViewConductor: ObservableObject {
         } else {
             print("pitchClass", pitchClass)
             print("col", col)
-            newPitchClass = self.upwardPitchMovement ? (pitchClass + col) : ((pitchClass - (12 - col)))
+            newPitchClass = mod(self.upwardPitchMovement ? (pitchClass + col) : ((pitchClass - (12 - col))), 12)
+            if !self.upwardPitchMovement && newPitchClass == 0 {newPitchClass = 12}
         }
         
         if (newPitchClass != self.tonicPitchClass) {

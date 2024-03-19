@@ -356,9 +356,9 @@ struct ContentView: View {
                                     viewConductor.octaveShift -= 1
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.down")
-                                        .foregroundColor(viewConductor.octaveShift <= -4 ? Color(UIColor.systemGray4) : .white)
+                                        .foregroundColor(viewConductor.octaveShift <= -3 ? Color(UIColor.systemGray4) : .white)
                                 })
-                                .disabled(viewConductor.octaveShift <= -4)
+                                .disabled(viewConductor.octaveShift <= -3)
                                 Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                                     .font(Font.system(.body, design: .monospaced))
                                     .fixedSize(horizontal: true, vertical: false)
@@ -368,9 +368,9 @@ struct ContentView: View {
                                     viewConductor.octaveShift += 1
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.up")
-                                        .foregroundColor(viewConductor.octaveShift >= 4 ? Color(UIColor.systemGray4) : .white)
+                                        .foregroundColor(viewConductor.octaveShift >= 3 ? Color(UIColor.systemGray4) : .white)
                                 })
-                                .disabled(viewConductor.octaveShift  >= 4)
+                                .disabled(viewConductor.octaveShift  >= 3)
                             }
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.vertical, 4)
