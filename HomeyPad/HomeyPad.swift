@@ -144,30 +144,30 @@ func pianoBackgroundColor(_ pitchClass: Int) -> Color {
     }
 }
 
-func classicalLabel(_ pitchClass: Int) -> String {
+func classicalLabel(_ pitchClass: Int, upwardPitchMovement: Bool) -> String {
     switch mod(pitchClass, 12) {
     case 0:
         return NoteClass.C.description
     case 1:
-        return "\(NoteClass.Cs.description) \(NoteClass.Db.description)"
+        return upwardPitchMovement ? NoteClass.Db.description : NoteClass.Cs.description
     case 2:
         return NoteClass.D.description
     case 3:
-        return "\(NoteClass.Ds.description) \(NoteClass.Eb.description)"
+        return upwardPitchMovement ? NoteClass.Eb.description : NoteClass.Ds.description
     case 4:
         return NoteClass.E.description
     case 5:
         return NoteClass.F.description
     case 6:
-        return "\(NoteClass.Fs.description) \(NoteClass.Gb.description)"
+        return upwardPitchMovement ? NoteClass.Gb.description : NoteClass.Fs.description
     case 7:
         return NoteClass.G.description
     case 8:
-        return "\(NoteClass.Gs.description) \(NoteClass.Ab.description)"
+        return upwardPitchMovement ? NoteClass.Ab.description : NoteClass.Gs.description
     case 9:
         return NoteClass.A.description
     case 10:
-        return "\(NoteClass.As.description) \(NoteClass.Bb.description)"
+        return upwardPitchMovement ? NoteClass.Bb.description : NoteClass.As.description
     case 11:
         return NoteClass.B.description
     default: return NoteClass.C.description
