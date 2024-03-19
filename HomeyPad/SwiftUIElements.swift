@@ -26,7 +26,7 @@ struct SwiftUIHomeSelector: View {
             GeometryReader { proxy in
                 HStack(spacing: 0) {
                     ForEach(0...12, id: \.self) { col in
-                        if mod(col, 12) == 0 {
+                        if !viewConductor.isPressable(col: col) {
                             HStack(spacing: 0) {
                                 SelectorStyle(col: col,
                                               showClassicalSelector: showClassicalSelector,

@@ -229,9 +229,19 @@ class ViewConductor: ObservableObject {
             stopNote(midiNote)
         }
     }
+    func isPressable(col: Int) -> Bool {
+        if col == 0 && self.upwardPitchMovement {
+            return false
+        } else if col == 12 && !self.upwardPitchMovement {
+            return false
+        } else {
+            return true
+        }
+        
+    }
     
     func selectHome(_ pitchClass: Int, _ col: Int, _ midiPlayer: MIDIPlayer) {
-        let newPitchClass = pitchClass + col
+        let newPitchClass = pitchClass + mod(col, 12)
         if (newPitchClass != self.tonicPitchClass) {
             if (midiPlayer.state == .playing) {
                 midiPlayer.pause()
@@ -241,13 +251,13 @@ class ViewConductor: ObservableObject {
             } else {
                 self.tonicPitchClass = newPitchClass
             }
-            if col == 0 {
-                self.upwardPitchMovement = true
-            } else if col == 12 {
-                self.upwardPitchMovement = false
-            }
         }
-    }    
+        if col == 0 {
+            self.upwardPitchMovement = true
+        } else if col == 12 {
+            self.upwardPitchMovement = false
+        }
+    }
     
     func updateMIDIFilter(Param: AUValue, knobNumber: Int){
     }
