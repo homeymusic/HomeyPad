@@ -49,7 +49,7 @@ struct ContentView: View {
                                               linearLayoutKeysPerRow: $viewConductor.linearLayoutKeysPerRow,
                                               gridLayoutOctaveCount: $viewConductor.gridLayoutOctaveCount,
                                               gridLayoutKeysPerRow: $viewConductor.gridLayoutKeysPerRow,
-                                              upwardPitchMovement: $viewConductor.upwardPitchMovement, midiPlayer: midiPlayer,
+                                              midiPlayer: midiPlayer,
                                               viewConductor: viewConductor)
                                 .presentationCompactAdaptation(.none)
                             })
@@ -341,8 +341,18 @@ struct ContentView: View {
                             .padding(.bottom, 7)
                         }
                         /// The main  keyboard
-                        SwiftUIKeyboard(linearLayout: viewConductor.linearLayout, octaveShift: viewConductor.octaveShift, linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow, gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount, gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow, tonicPitchClass: viewConductor.tonicPitchClass, noteOn: viewConductor.noteOn(pitch:point:), noteOff: viewConductor.noteOff)
-                            .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
+                        SwiftUIKeyboard(
+                            linearLayout: viewConductor.linearLayout,
+                            octaveShift: viewConductor.octaveShift,
+                            linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, 
+                            linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,
+                            gridLayoutOctaveCount: viewConductor.gridLayoutOctaveCount,
+                            gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow,
+                            tonicPitchClass: viewConductor.tonicPitchClass,
+                            upwardPitchMovement: viewConductor.upwardPitchMovement,
+                            noteOn: viewConductor.noteOn(pitch:point:),
+                            noteOff: viewConductor.noteOff)
+                        .frame(maxHeight: CGFloat(viewConductor.octaveCount()) * 5.0 * (proxy.size.width / CGFloat(viewConductor.colsPerRow())))
                         Spacer()
                     }
                     .padding([.top, .bottom], 35)
@@ -356,9 +366,9 @@ struct ContentView: View {
                                     viewConductor.octaveShift -= 1
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.down")
-                                        .foregroundColor(viewConductor.octaveShift <= -3 ? Color(UIColor.systemGray4) : .white)
+                                        .foregroundColor(viewConductor.octaveShift <= -4 ? Color(UIColor.systemGray4) : .white)
                                 })
-                                .disabled(viewConductor.octaveShift <= -3)
+                                .disabled(viewConductor.octaveShift <= -4)
                                 Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                                     .font(Font.system(.body, design: .monospaced))
                                     .fixedSize(horizontal: true, vertical: false)
@@ -368,9 +378,9 @@ struct ContentView: View {
                                     viewConductor.octaveShift += 1
                                 }, label: {
                                     Image(systemName: "water.waves.and.arrow.up")
-                                        .foregroundColor(viewConductor.octaveShift >= 3 ? Color(UIColor.systemGray4) : .white)
+                                        .foregroundColor(viewConductor.octaveShift >= 4 ? Color(UIColor.systemGray4) : .white)
                                 })
-                                .disabled(viewConductor.octaveShift  >= 3)
+                                .disabled(viewConductor.octaveShift  >= 4)
                             }
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.vertical, 4)

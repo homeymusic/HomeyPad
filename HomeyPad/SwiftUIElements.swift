@@ -350,13 +350,14 @@ struct SwiftUIKeyboard: View {
     var gridLayoutOctaveCount: Int
     var gridLayoutKeysPerRow: Int
     var tonicPitchClass: Int
+    var upwardPitchMovement: Bool
     var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
     var noteOff: (Pitch)->Void
     let initialC: Int = Default.initialC
     
     var body: some View {
         if (linearLayout) {
-            Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: linearLayoutOctaveCount, keysPerRow: linearLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+            Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: linearLayoutOctaveCount, keysPerRow: linearLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, upwardPitchMovement: upwardPitchMovement, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                    pitch: pitch,
@@ -380,7 +381,7 @@ struct SwiftUIKeyboard: View {
                 )
             }.cornerRadius(5)
         } else {
-            Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: gridLayoutOctaveCount, keysPerRow: gridLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, initialC: initialC),
+            Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: gridLayoutOctaveCount, keysPerRow: gridLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, upwardPitchMovement: upwardPitchMovement, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
                                    pitch: pitch,

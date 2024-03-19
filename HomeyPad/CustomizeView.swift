@@ -26,7 +26,7 @@ struct CustomizeView: View {
     @Binding var linearLayoutKeysPerRow: Int
     @Binding var gridLayoutOctaveCount: Int
     @Binding var gridLayoutKeysPerRow: Int
-    @Binding var upwardPitchMovement: Bool
+
     var midiPlayer: MIDIPlayer
     var viewConductor: ViewConductor
     
@@ -34,17 +34,16 @@ struct CustomizeView: View {
         VStack {
             Grid {
                 GridRow {
-                    Image(systemName: "pianokeys")
-                        .gridCellAnchor(.center)
-                    Toggle("Piano", isOn: $showPianoSelector)
-                        .gridCellAnchor(.trailing)
-                        .tint(Default.pianoGray)
-                }
-                Divider()
-                GridRow {
                     Image(systemName: "c.square")
                         .gridCellAnchor(.center)
                     Toggle("Letter", isOn: $showClassicalSelector)
+                        .gridCellAnchor(.trailing)
+                        .tint(Default.pianoGray)
+                }
+                GridRow {
+                    Image(systemName: "pianokeys")
+                        .gridCellAnchor(.center)
+                    Toggle("Piano", isOn: $showPianoSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
                 }
@@ -87,17 +86,6 @@ struct CustomizeView: View {
                     Toggle("Integer", isOn: $showIntegersSelector)
                         .gridCellAnchor(.trailing)
                         .tint(Default.pianoGray)
-                }
-                GridRow {
-                    Picker("", selection: $upwardPitchMovement) {
-                        Image(systemName: "lessthan.square.fill")
-                            .tag(false)
-                        Image(systemName: "greaterthan.square.fill")
-                            .tag(true)
-                    }
-                    .pickerStyle(.segmented)
-                    .disabled(!viewConductor.pitchMovementShowing())
-                    .gridCellColumns(2)
                 }
             }
             .padding([.leading, .trailing], 10)

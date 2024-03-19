@@ -25,12 +25,13 @@ struct SelectorStyle: View {
         let pitchClass = tonicPitchClass+col
         let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col, linearLayout: linearLayout)
         let octaveAdjustment = upwardPitchMovement ? 0 : -12
+        let unpressableStrokeColor = showPianoSelector ? pianoForegroundColor(pitchClass) : Default.perfectColor
         ZStack {
             Rectangle()
                 .foregroundColor(fg)
                 .overlay(
                         Rectangle()
-                            .stroke(viewConductor.isPressable(col: col) ? fg : Default.perfectColor, lineWidth: 3)
+                            .stroke(viewConductor.isPressable(col: col) ? fg : unpressableStrokeColor, lineWidth: 3)
                             .brightness(mod(col,12)==0 ? 0.06 : -0.03)
                     )
                 .padding(2)
