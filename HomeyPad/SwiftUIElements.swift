@@ -21,15 +21,6 @@ struct SwiftUIHomeSelector: View {
     var midiPlayer: MIDIPlayer
     var upwardPitchMovement: Bool
     
-    // safety valve
-    func safeMIDI(_ p: Int) -> Int {
-        if p > -1 && p < 128 {
-            return p
-        } else {
-            return p % 12
-        }
-    }
-    
     var body: some View {
         if (linearLayout) {
             GeometryReader { proxy in
