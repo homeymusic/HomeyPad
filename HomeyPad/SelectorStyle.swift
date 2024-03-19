@@ -37,7 +37,7 @@ struct SelectorStyle: View {
                 .padding(2)
             VStack {
                 if showClassicalSelector {
-                    Text(classicalLabel(pitchClass, upwardPitchMovement: upwardPitchMovement))
+                    Text(classicalLabel(pitchClass))
                         .font(.title3)
                 }
                 if showMonthsSelector {
