@@ -123,7 +123,9 @@ class ViewConductor: ObservableObject {
     @Published var upwardPitchMovement: Bool {
         didSet {
             defaults.set(self.upwardPitchMovement, forKey: "upwardPitchMovement")
-            if oldValue != self.upwardPitchMovement {self.simpleSuccess()}
+            if oldValue != self.upwardPitchMovement {
+                self.simpleSuccess()
+            }
         }
     }
     @Published var nowPlayingTitle: any View = Text("")
@@ -213,13 +215,11 @@ class ViewConductor: ObservableObject {
     
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
-        print("note on")
         conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
         midiHelper.sendNoteOn(noteNumber: UInt7(pitch.intValue))
     }
     
     func noteOff(pitch: Pitch) {
-        print("note off")
         conductor.instrument.stop(noteNumber: UInt8(pitch.intValue), channel: 0)
         midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
     }
@@ -237,11 +237,23 @@ class ViewConductor: ObservableObject {
         } else {
             return true
         }
-        
     }
     
     func selectHome(_ pitchClass: Int, _ col: Int, _ midiPlayer: MIDIPlayer) {
-        let newPitchClass = pitchClass + mod(col, 12)
+        var newPitchClass: Int
+        
+        if col == 0 {
+            self.upwardPitchMovement = true
+            newPitchClass = pitchClass - 12
+        } else if col == 12 {
+            self.upwardPitchMovement = false
+            newPitchClass = pitchClass + 12
+        } else {
+            print("pitchClass", pitchClass)
+            print("col", col)
+            newPitchClass = self.upwardPitchMovement ? (pitchClass + col) : ((pitchClass - (12 - col)))
+        }
+        
         if (newPitchClass != self.tonicPitchClass) {
             if (midiPlayer.state == .playing) {
                 midiPlayer.pause()
@@ -251,11 +263,6 @@ class ViewConductor: ObservableObject {
             } else {
                 self.tonicPitchClass = newPitchClass
             }
-        }
-        if col == 0 {
-            self.upwardPitchMovement = true
-        } else if col == 12 {
-            self.upwardPitchMovement = false
         }
     }
     

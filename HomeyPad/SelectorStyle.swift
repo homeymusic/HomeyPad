@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SelectorStyle: View {
     let col: Int
+    let viewConductor: ViewConductor
     let showClassicalSelector: Bool
     let showIntegersSelector: Bool
     let showRomanSelector: Bool
@@ -29,7 +30,7 @@ struct SelectorStyle: View {
                 .foregroundColor(fg)
                 .overlay(
                         Rectangle()
-                            .stroke(fg, lineWidth: 3)
+                            .stroke(viewConductor.isPressable(col: col) ? fg : Default.perfectColor, lineWidth: 3)
                             .brightness(mod(col,12)==0 ? 0.06 : -0.03)
                     )
                 .padding(2)

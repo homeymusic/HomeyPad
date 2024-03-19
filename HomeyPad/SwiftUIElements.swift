@@ -29,6 +29,7 @@ struct SwiftUIHomeSelector: View {
                         if !viewConductor.isPressable(col: col) {
                             HStack(spacing: 0) {
                                 SelectorStyle(col: col,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -47,6 +48,7 @@ struct SwiftUIHomeSelector: View {
                                     viewConductor.selectHome(tonicPitchClass, col, midiPlayer)
                                 } label: {
                                     SelectorStyle(col: col,
+                                                  viewConductor: viewConductor,
                                                   showClassicalSelector: showClassicalSelector,
                                                   showIntegersSelector: showIntegersSelector,
                                                   showRomanSelector: showRomanSelector,
@@ -70,17 +72,37 @@ struct SwiftUIHomeSelector: View {
                 Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                     GridRow {
                         HStack(spacing: 0) {
-                            SelectorStyle(col: 0,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
+                            if !viewConductor.isPressable(col: 0) {
+                                SelectorStyle(col: 0,
+                                              viewConductor: viewConductor,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            } else {
+                                Button {
+                                    viewConductor.selectHome(tonicPitchClass, 0, midiPlayer)
+                                } label: {
+                                    SelectorStyle(col: 0,
+                                                  viewConductor: viewConductor,
+                                                  showClassicalSelector: showClassicalSelector,
+                                                  showIntegersSelector: showIntegersSelector,
+                                                  showRomanSelector: showRomanSelector,
+                                                  showDegreeSelector: showDegreeSelector,
+                                                  showMonthsSelector: showMonthsSelector,
+                                                  showPianoSelector: showPianoSelector,
+                                                  showIntervals: showIntervals,
+                                                  tonicPitchClass: tonicPitchClass,
+                                                  upwardPitchMovement: upwardPitchMovement,
+                                                  linearLayout: linearLayout)
+                                }
+                            }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         VStack(spacing: 0) {
@@ -88,6 +110,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 2, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 2,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -103,6 +126,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 1, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 1,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -121,6 +145,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 4, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 4,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -136,6 +161,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 3, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 3,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -154,6 +180,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 5, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 5,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -169,6 +196,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 6, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 6,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -184,6 +212,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 7, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 7,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -203,6 +232,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 9, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 9,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -218,6 +248,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 8, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 8,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -236,6 +267,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 11, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 11,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -251,6 +283,7 @@ struct SwiftUIHomeSelector: View {
                                 viewConductor.selectHome(tonicPitchClass, 10, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 10,
+                                              viewConductor: viewConductor,
                                               showClassicalSelector: showClassicalSelector,
                                               showIntegersSelector: showIntegersSelector,
                                               showRomanSelector: showRomanSelector,
@@ -264,20 +297,43 @@ struct SwiftUIHomeSelector: View {
                             }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
-                        HStack(spacing: 0) {
-                            SelectorStyle(col: 12,
-                                          showClassicalSelector: showClassicalSelector,
-                                          showIntegersSelector: showIntegersSelector,
-                                          showRomanSelector: showRomanSelector,
-                                          showDegreeSelector: showDegreeSelector,
-                                          showMonthsSelector: showMonthsSelector,
-                                          showPianoSelector: showPianoSelector,
-                                          showIntervals: showIntervals,
-                                          tonicPitchClass: tonicPitchClass,
-                                          upwardPitchMovement: upwardPitchMovement,
-                                          linearLayout: linearLayout)
+                        if !viewConductor.isPressable(col: 12) {
+                            HStack(spacing: 0) {
+                                SelectorStyle(col: 12,
+                                              viewConductor: viewConductor,
+                                              showClassicalSelector: showClassicalSelector,
+                                              showIntegersSelector: showIntegersSelector,
+                                              showRomanSelector: showRomanSelector,
+                                              showDegreeSelector: showDegreeSelector,
+                                              showMonthsSelector: showMonthsSelector,
+                                              showPianoSelector: showPianoSelector,
+                                              showIntervals: showIntervals,
+                                              tonicPitchClass: tonicPitchClass,
+                                              upwardPitchMovement: upwardPitchMovement,
+                                              linearLayout: linearLayout)
+                            }
+                            .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                        } else {
+                            Button {
+                                viewConductor.selectHome(tonicPitchClass, 12, midiPlayer)
+                            } label: {
+                                HStack(spacing: 0) {
+                                    SelectorStyle(col: 12,
+                                                  viewConductor: viewConductor,
+                                                  showClassicalSelector: showClassicalSelector,
+                                                  showIntegersSelector: showIntegersSelector,
+                                                  showRomanSelector: showRomanSelector,
+                                                  showDegreeSelector: showDegreeSelector,
+                                                  showMonthsSelector: showMonthsSelector,
+                                                  showPianoSelector: showPianoSelector,
+                                                  showIntervals: showIntervals,
+                                                  tonicPitchClass: tonicPitchClass,
+                                                  upwardPitchMovement: upwardPitchMovement,
+                                                  linearLayout: linearLayout)
+                                }
+                                .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
+                            }
                         }
-                        .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                     }
                 }
                 .frame(maxWidth: .infinity)
