@@ -335,7 +335,6 @@ struct ContentView: View {
                                                 showPianoSelector: viewConductor.showPianoSelector,
                                                 showIntervals: viewConductor.showIntervals,
                                                 midiPlayer: midiPlayer,
-                                                selectorTapped: viewConductor.selectHome,
                                                 upwardPitchMovement: viewConductor.upwardPitchMovement
                             )
                             .aspectRatio(CGFloat(viewConductor.colsPerRow()), contentMode: .fit)

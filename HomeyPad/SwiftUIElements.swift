@@ -19,7 +19,6 @@ struct SwiftUIHomeSelector: View {
     var showPianoSelector: Bool
     var showIntervals: Bool
     var midiPlayer: MIDIPlayer
-    var selectorTapped: (Int, MIDIPlayer) -> Void = {_, _  in }
     var upwardPitchMovement: Bool
     
     // safety valve
@@ -54,7 +53,7 @@ struct SwiftUIHomeSelector: View {
                         } else {
                             HStack(spacing: 0) {
                                 Button {
-                                    selectorTapped(Int(tonicPitchClass + col), midiPlayer)
+                                    viewConductor.selectHome(tonicPitchClass, col, midiPlayer)
                                 } label: {
                                     SelectorStyle(col: col,
                                                   showClassicalSelector: showClassicalSelector,
@@ -95,7 +94,7 @@ struct SwiftUIHomeSelector: View {
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         VStack(spacing: 0) {
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 2), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 2, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 2,
                                               showClassicalSelector: showClassicalSelector,
@@ -110,7 +109,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 1), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 1, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 1,
                                               showClassicalSelector: showClassicalSelector,
@@ -128,7 +127,7 @@ struct SwiftUIHomeSelector: View {
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         VStack(spacing: 0) {
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 4), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 4, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 4,
                                               showClassicalSelector: showClassicalSelector,
@@ -143,7 +142,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 3), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 3, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 3,
                                               showClassicalSelector: showClassicalSelector,
@@ -161,7 +160,7 @@ struct SwiftUIHomeSelector: View {
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         HStack(spacing: 0) {
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 5), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 5, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 5,
                                               showClassicalSelector: showClassicalSelector,
@@ -176,7 +175,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 6), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 6, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 6,
                                               showClassicalSelector: showClassicalSelector,
@@ -191,7 +190,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 7), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 7, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 7,
                                               showClassicalSelector: showClassicalSelector,
@@ -210,7 +209,7 @@ struct SwiftUIHomeSelector: View {
                         .frame(width: proxy.size.width * 2.0 / CGFloat(viewConductor.colsPerRow()))
                         VStack(spacing: 0) {
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 9), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 9, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 9,
                                               showClassicalSelector: showClassicalSelector,
@@ -225,7 +224,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 8), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 8, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 8,
                                               showClassicalSelector: showClassicalSelector,
@@ -243,7 +242,7 @@ struct SwiftUIHomeSelector: View {
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         VStack(spacing: 0) {
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 11), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 11, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 11,
                                               showClassicalSelector: showClassicalSelector,
@@ -258,7 +257,7 @@ struct SwiftUIHomeSelector: View {
                                               linearLayout: linearLayout)
                             }
                             Button {
-                                selectorTapped(Int(tonicPitchClass + 10), midiPlayer)
+                                viewConductor.selectHome(tonicPitchClass, 10, midiPlayer)
                             } label: {
                                 SelectorStyle(col: 10,
                                               showClassicalSelector: showClassicalSelector,

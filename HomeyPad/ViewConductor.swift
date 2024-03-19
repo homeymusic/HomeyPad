@@ -230,8 +230,8 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    func selectHome(pitchClass: Int, midiPlayer: MIDIPlayer) {
-        let newPitchClass = mod(pitchClass, 12)
+    func selectHome(_ pitchClass: Int, _ col: Int, _ midiPlayer: MIDIPlayer) {
+        let newPitchClass = pitchClass + col
         if (newPitchClass != self.tonicPitchClass) {
             if (midiPlayer.state == .playing) {
                 midiPlayer.pause()
@@ -240,6 +240,11 @@ class ViewConductor: ObservableObject {
                 midiPlayer.play()
             } else {
                 self.tonicPitchClass = newPitchClass
+            }
+            if col == 0 {
+                self.upwardPitchMovement = true
+            } else if col == 12 {
+                self.upwardPitchMovement = false
             }
         }
     }    
