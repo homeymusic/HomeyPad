@@ -68,7 +68,8 @@ struct SelectorStyle: View {
             .lineLimit(1)
             .minimumScaleFactor(0.01)
             .foregroundColor(showPianoSelector ? pianoForegroundColor(pitchClass) : homeyFontColor(col))
-            .padding(5)
+            .padding([.leading, .trailing], 8)
+            .padding([.top, .bottom], 5)
         }
     }
 }
