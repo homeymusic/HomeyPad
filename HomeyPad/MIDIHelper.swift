@@ -84,7 +84,7 @@ final class MIDIHelper: ObservableObject {
     
     func sendTonic(noteNumber: UInt7) {
         try? outputConnection?.send(event: .cc(
-            85,
+            MIDIEvent.CC.Controller.generalPurpose1,
             value: .midi1(noteNumber),
             channel: 0
         ))
@@ -93,7 +93,7 @@ final class MIDIHelper: ObservableObject {
 
     func sendPitchDirection(upwardPitchMovement: Bool) {
         try? outputConnection?.send(event: .cc(
-            86,
+            MIDIEvent.CC.Controller.generalPurpose2,
             value: .midi1(upwardPitchMovement ? 1 : 0),
             channel: 0
         ))
