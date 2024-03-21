@@ -91,4 +91,12 @@ final class MIDIHelper: ObservableObject {
 
     }
 
+    func sendPitchDirection(upwardPitchMovement: Bool) {
+        try? outputConnection?.send(event: .cc(
+            86,
+            value: .midi1(upwardPitchMovement ? 1 : 0),
+            channel: 0
+        ))
+
+    }
 }

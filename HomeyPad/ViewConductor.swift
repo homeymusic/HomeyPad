@@ -124,6 +124,7 @@ class ViewConductor: ObservableObject {
         didSet {
             defaults.set(self.upwardPitchMovement, forKey: "upwardPitchMovement")
             if oldValue != self.upwardPitchMovement {
+                midiHelper.sendPitchDirection(upwardPitchMovement: self.upwardPitchMovement)
                 self.simpleSuccess()
             }
         }
@@ -216,8 +217,9 @@ class ViewConductor: ObservableObject {
     //Keyboard Events
     func noteOn(pitch: Pitch, point: CGPoint) {
         conductor.instrument.play(noteNumber: UInt8(pitch.intValue), velocity: 63, channel: 0)
-        midiHelper.sendNoteOn(noteNumber: UInt7(pitch.intValue))
         midiHelper.sendTonic(noteNumber: UInt7(tonicNote()))
+        midiHelper.sendPitchDirection(upwardPitchMovement: self.upwardPitchMovement)
+        midiHelper.sendNoteOn(noteNumber: UInt7(pitch.intValue))
     }
     
     func noteOff(pitch: Pitch) {
