@@ -7,39 +7,52 @@ enum FormFactor {
     case iPhone
 }
 
+enum HomeyLayout: Int, Equatable, CaseIterable {
+    case grid = 1
+    case linear = 2
+    case piano = 3
+    case guitar = 4
+}
+
 func formFactor() -> FormFactor {
     return UIScreen.main.bounds.size.width > 1000 ? .iPad : .iPhone
 }
 
-func defaultKeysPerRow(linearLayout: Bool) -> Int {
-    if linearLayout {
+func defaultKeysPerRow(layout: HomeyLayout) -> Int {
+    switch layout {
+    case .linear:
         if  formFactor() == .iPad {
             return 19 + 8
         } else {
             return 19
         }
-    } else {
+    case .grid:
         if  formFactor() == .iPad {
             return 27 + 10
         } else {
             return 27
         }
+    default:
+        return 13
     }
 }
 
-func maxKeysPerRow(linearLayout: Bool) -> Int {
-    if linearLayout {
+func maxKeysPerRow(layout: HomeyLayout) -> Int {
+    switch layout {
+    case .linear:
         if  formFactor() == .iPad {
             return 37 + 24
         } else {
             return 37
         }
-    } else {
+    case .grid:
         if  formFactor() == .iPad {
             return 37 + 24
         } else {
             return 37
         }
+    default:
+        return 25
     }
 }
 
@@ -56,12 +69,12 @@ enum Default {
     static let showMonthsSelector: Bool = false
     static let showPianoSelector: Bool = false
     static let showIntervals: Bool = false
-    static let linearLayout: Bool = true
+    static let layout: HomeyLayout = .grid
     static let octaveShift: Int = 0
     static let linearLayoutOctaveCount: Int = 1
     static let gridLayoutOctaveCount: Int = 1
-    static let linearLayoutKeysPerRow: Int = defaultKeysPerRow(linearLayout: true)
-    static let gridLayoutKeysPerRow: Int = defaultKeysPerRow(linearLayout: false)
+    static let linearLayoutKeysPerRow: Int = defaultKeysPerRow(layout: .linear)
+    static let gridLayoutKeysPerRow: Int = defaultKeysPerRow(layout: .grid)
     static let tonicPitchClass: Int = 0
     static let homeColor: Color = Color(red: 102 / 255, green: 68 / 255, blue: 51 / 255)
     static let homeColorDark: Color = Color(red: 76 / 255, green: 51 / 255, blue: 38 / 255)
@@ -88,7 +101,7 @@ func mod(_ a: Int, _ n: Int) -> Int {
     return r >= 0 ? r : r + n
 }
 
-func homeyBackgroundColor(_ interval: Int, linearLayout: Bool) -> Color {
+func homeyBackgroundColor(_ interval: Int) -> Color {
     switch mod(interval, 12) {
     case 0:
         return Default.homeColor

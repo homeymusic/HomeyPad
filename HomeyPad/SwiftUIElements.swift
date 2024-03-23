@@ -7,7 +7,7 @@ import AVFoundation
 
 struct SwiftUIHomeSelector: View {
     var viewConductor: ViewConductor
-    var linearLayout: Bool
+    var layout: HomeyLayout
     var linearLayoutKeysPerRow: Int
     var gridLayoutKeysPerRow: Int
     var tonicPitchClass: Int
@@ -22,7 +22,7 @@ struct SwiftUIHomeSelector: View {
     var upwardPitchMovement: Bool
     
     var body: some View {
-        if (linearLayout) {
+        if (layout == .linear) {
             GeometryReader { proxy in
                 HStack(spacing: 0) {
                     ForEach(0...12, id: \.self) { col in
@@ -39,7 +39,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         } else {
@@ -58,7 +58,7 @@ struct SwiftUIHomeSelector: View {
                                                   showIntervals: showIntervals,
                                                   tonicPitchClass: tonicPitchClass,
                                                   upwardPitchMovement: upwardPitchMovement,
-                                                  linearLayout: linearLayout)
+                                                  layout: layout)
                                 }
                             }
                             .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
@@ -67,7 +67,7 @@ struct SwiftUIHomeSelector: View {
                 }
                 .frame(maxWidth: .infinity)
             }
-        } else {
+        } else if layout == .grid {
             GeometryReader { proxy in
                 Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                     GridRow {
@@ -84,7 +84,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             } else {
                                 Button {
                                     viewConductor.selectHome(tonicPitchClass, 0, midiPlayer)
@@ -100,7 +100,7 @@ struct SwiftUIHomeSelector: View {
                                                   showIntervals: showIntervals,
                                                   tonicPitchClass: tonicPitchClass,
                                                   upwardPitchMovement: upwardPitchMovement,
-                                                  linearLayout: linearLayout)
+                                                  layout: layout)
                                 }
                             }
                         }
@@ -120,7 +120,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 1, midiPlayer)
@@ -136,7 +136,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
@@ -155,7 +155,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 3, midiPlayer)
@@ -171,7 +171,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
@@ -190,7 +190,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 6, midiPlayer)
@@ -206,7 +206,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 7, midiPlayer)
@@ -222,7 +222,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                         }
                         .gridCellColumns(2)
@@ -242,7 +242,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 8, midiPlayer)
@@ -258,7 +258,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
@@ -277,7 +277,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             Button {
                                 viewConductor.selectHome(tonicPitchClass, 10, midiPlayer)
@@ -293,7 +293,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                         }
                         .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
@@ -310,7 +310,7 @@ struct SwiftUIHomeSelector: View {
                                               showIntervals: showIntervals,
                                               tonicPitchClass: tonicPitchClass,
                                               upwardPitchMovement: upwardPitchMovement,
-                                              linearLayout: linearLayout)
+                                              layout: layout)
                             }
                             .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                         } else {
@@ -329,7 +329,7 @@ struct SwiftUIHomeSelector: View {
                                                   showIntervals: showIntervals,
                                                   tonicPitchClass: tonicPitchClass,
                                                   upwardPitchMovement: upwardPitchMovement,
-                                                  linearLayout: linearLayout)
+                                                  layout: layout)
                                 }
                                 .frame(width: proxy.size.width * 1.0 / CGFloat(viewConductor.colsPerRow()))
                             }
@@ -343,7 +343,7 @@ struct SwiftUIHomeSelector: View {
 }
 
 struct SwiftUIKeyboard: View {
-    var linearLayout: Bool
+    var layout: HomeyLayout
     var octaveShift: Int
     var linearLayoutOctaveCount: Int
     var linearLayoutKeysPerRow: Int
@@ -356,7 +356,7 @@ struct SwiftUIKeyboard: View {
     let initialC: Int = Default.initialC
     
     var body: some View {
-        if (linearLayout) {
+        if layout == .linear {
             Keyboard(layout: .dualistic(octaveShift: octaveShift, octaveCount: linearLayoutOctaveCount, keysPerRow: linearLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, upwardPitchMovement: upwardPitchMovement, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
@@ -377,10 +377,10 @@ struct SwiftUIKeyboard: View {
                                    tritoneColorDark: Default.tritoneColor,
                                    mostKeysAreLight: false,
                                    homeKeyIsLight: true,
-                                   linearLayout: linearLayout
+                                   layout: layout
                 )
             }.cornerRadius(5)
-        } else {
+        } else if layout == .grid {
             Keyboard(layout: .grid(octaveShift: octaveShift, octaveCount: gridLayoutOctaveCount, keysPerRow: gridLayoutKeysPerRow, tonicPitchClass: tonicPitchClass, upwardPitchMovement: upwardPitchMovement, initialC: initialC),
                      noteOn: noteOn, noteOff: noteOff){ keyboardCell, pitch, isActivated in
                 SwiftUIKeyboardKey(keyboardCell: keyboardCell,
@@ -401,7 +401,7 @@ struct SwiftUIKeyboard: View {
                                    tritoneColorDark: Default.tritoneColorDark,
                                    mostKeysAreLight: true,
                                    homeKeyIsLight: true,
-                                   linearLayout: linearLayout)
+                                   layout: layout)
             }.cornerRadius(5)
         }
     }
@@ -428,7 +428,7 @@ struct SwiftUIKeyboardKey: View {
     let tritoneColorDark: Color
     let mostKeysAreLight: Bool
     let homeKeyIsLight: Bool
-    let linearLayout: Bool
+    let layout: Keyboard.HomeyLayout
     
     var body: some View {
         VStack{
@@ -450,7 +450,7 @@ struct SwiftUIKeyboardKey: View {
                            tritoneColorDark: tritoneColorDark,
                            mostKeysAreLight: mostKeysAreLight,
                            homeKeyIsLight: homeKeyIsLight,
-                           linearLayout: linearLayout,
+                           homeyLayout: Keyboard.HomeyLayout(rawValue: layout.rawValue)!,
                            flatTop: true,
                            isActivatedExternally: MIDIKeyPressed[pitch.intValue])
         }.onReceive(NotificationCenter.default.publisher(for: .MIDIKey), perform: { obj in

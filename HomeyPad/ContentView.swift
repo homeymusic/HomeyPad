@@ -58,14 +58,17 @@ struct ContentView: View {
                             /// stepper for rows and columns
                             HStack {
                                 /// rows
-                                let fewerRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount <= 1) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount <= 1))
-                                let moreRowsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount >= 9) || (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount >= 5))
+                                let fewerRowsDisabled : Bool = (((viewConductor.layout == .linear) && viewConductor.linearLayoutOctaveCount <= 1) || ((viewConductor.layout == .grid) && viewConductor.gridLayoutOctaveCount <= 1))
+                                let moreRowsDisabled : Bool = (((viewConductor.layout == .linear) && viewConductor.linearLayoutOctaveCount >= 9) || ((viewConductor.layout == .grid) && viewConductor.gridLayoutOctaveCount >= 5))
                                 HStack(spacing: 10) {
                                     Button(action: {
-                                        if (viewConductor.linearLayout) {
+                                        switch viewConductor.layout {
+                                        case .linear:
                                             viewConductor.linearLayoutOctaveCount -= 2
-                                        } else {
+                                        case .grid:
                                             viewConductor.gridLayoutOctaveCount -= 2
+                                        default:
+                                            print("not implemented yet")
                                         }
                                     }, label: {
                                         Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
@@ -77,10 +80,13 @@ struct ContentView: View {
                                         .frame(width: 2)
                                         .overlay(Color(UIColor.systemGray4))
                                     Button(action: {
-                                        if (viewConductor.linearLayout) {
+                                        switch viewConductor.layout {
+                                        case .linear:
                                             viewConductor.linearLayoutOctaveCount += 2
-                                        } else {
+                                        case .grid:
                                             viewConductor.gridLayoutOctaveCount += 2
+                                        default:
+                                            print("not implemented yet")
                                         }
                                     }, label: {
                                         Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
@@ -99,15 +105,18 @@ struct ContentView: View {
                                 }
                                 
                                 /// reset
-                                let defaultGeometry : Bool = (viewConductor.linearLayout && viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow) ||
-                                (!viewConductor.linearLayout && viewConductor.gridLayoutOctaveCount == Default.gridLayoutOctaveCount && viewConductor.gridLayoutKeysPerRow == Default.gridLayoutKeysPerRow)
+                                let defaultGeometry : Bool = ((viewConductor.layout == .linear) && viewConductor.linearLayoutOctaveCount == Default.linearLayoutOctaveCount && viewConductor.linearLayoutKeysPerRow == Default.linearLayoutKeysPerRow) ||
+                                ((viewConductor.layout == .grid) && viewConductor.gridLayoutOctaveCount == Default.gridLayoutOctaveCount && viewConductor.gridLayoutKeysPerRow == Default.gridLayoutKeysPerRow)
                                 Button(role: .cancel, action: {
-                                    if viewConductor.linearLayout {
+                                    switch viewConductor.layout {
+                                    case .linear:
                                         viewConductor.linearLayoutOctaveCount = Default.linearLayoutOctaveCount
                                         viewConductor.linearLayoutKeysPerRow = Default.linearLayoutKeysPerRow
-                                    } else {
+                                    case .grid:
                                         viewConductor.gridLayoutOctaveCount = Default.gridLayoutOctaveCount
                                         viewConductor.gridLayoutKeysPerRow = Default.gridLayoutKeysPerRow
+                                    default:
+                                        print("not implemented yet")
                                     }
                                 }) {
                                     ZStack {
@@ -119,14 +128,17 @@ struct ContentView: View {
                                 .disabled(defaultGeometry)
                                 
                                 /// columns
-                                let fewerColsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutKeysPerRow <= minKeysPerRow()) || (!viewConductor.linearLayout && viewConductor.gridLayoutKeysPerRow <= minKeysPerRow()))
-                                let moreColsDisabled : Bool = ((viewConductor.linearLayout && viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow(linearLayout: viewConductor.linearLayout)) || (!viewConductor.linearLayout && viewConductor.gridLayoutKeysPerRow >= maxKeysPerRow(linearLayout: viewConductor.linearLayout)))
+                                let fewerColsDisabled : Bool = (((viewConductor.layout == .linear) && viewConductor.linearLayoutKeysPerRow <= minKeysPerRow()) ||
+                                                                ((viewConductor.layout == .grid) && viewConductor.gridLayoutKeysPerRow <= minKeysPerRow()))
+                                let moreColsDisabled : Bool = (((viewConductor.layout == .linear) && viewConductor.linearLayoutKeysPerRow >= maxKeysPerRow(layout: viewConductor.layout)) ||
+                                                               ((viewConductor.layout == .grid) && viewConductor.gridLayoutKeysPerRow >= maxKeysPerRow(layout: viewConductor.layout)))
                                 HStack(spacing: 10) {
                                     HStack {
                                         Button(action: {
-                                            if (viewConductor.linearLayout) {
+                                            switch viewConductor.layout {
+                                            case .linear:
                                                 viewConductor.linearLayoutKeysPerRow -= 2
-                                            } else {
+                                            case .grid:
                                                 switch viewConductor.colsPerRow() {
                                                 case 10:
                                                     viewConductor.gridLayoutKeysPerRow -= 4
@@ -155,6 +167,8 @@ struct ContentView: View {
                                                 default:
                                                     viewConductor.gridLayoutKeysPerRow -= 2
                                                 }
+                                            default:
+                                                print("not implemented yet")
                                             }
                                         }, label: {
                                             Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
@@ -166,9 +180,10 @@ struct ContentView: View {
                                             .frame(width: 2)
                                             .overlay(Color(UIColor.systemGray4))
                                         Button(action: {
-                                            if (viewConductor.linearLayout) {
+                                            switch viewConductor.layout {
+                                            case .linear:
                                                 viewConductor.linearLayoutKeysPerRow += 2
-                                            } else {
+                                            case .grid:
                                                 switch viewConductor.colsPerRow() {
                                                 case 8: 
                                                     viewConductor.gridLayoutKeysPerRow += 4
@@ -197,6 +212,8 @@ struct ContentView: View {
                                                 default:
                                                     viewConductor.gridLayoutKeysPerRow += 0
                                                 }
+                                            default:
+                                                print("not implemented yet")
                                             }
                                         }, label: {
                                             Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
@@ -218,11 +235,11 @@ struct ContentView: View {
                             .padding(.leading, 57)
                             Spacer()
                             /// select layout
-                            Picker("", selection: $viewConductor.linearLayout) {
+                            Picker("", selection: $viewConductor.layout) {
                                 Image(systemName: "rectangle.split.2x1.fill")
-                                    .tag(true)
+                                    .tag(HomeyLayout.linear.rawValue)
                                 Image(systemName: "rectangle.split.2x2.fill")
-                                    .tag(false)
+                                    .tag(HomeyLayout.grid.rawValue)
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 75)
@@ -323,7 +340,7 @@ struct ContentView: View {
                         Spacer()
                         if (viewConductor.showSelector) {
                             SwiftUIHomeSelector(viewConductor: viewConductor,
-                                                linearLayout: viewConductor.linearLayout,
+                                                layout: viewConductor.layout,
                                                 linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,
                                                 gridLayoutKeysPerRow: viewConductor.gridLayoutKeysPerRow,
                                                 tonicPitchClass: viewConductor.tonicPitchClass,
@@ -342,7 +359,7 @@ struct ContentView: View {
                         }
                         /// The main  keyboard
                         SwiftUIKeyboard(
-                            linearLayout: viewConductor.linearLayout,
+                            layout: viewConductor.layout,
                             octaveShift: viewConductor.octaveShift,
                             linearLayoutOctaveCount: viewConductor.linearLayoutOctaveCount, 
                             linearLayoutKeysPerRow: viewConductor.linearLayoutKeysPerRow,

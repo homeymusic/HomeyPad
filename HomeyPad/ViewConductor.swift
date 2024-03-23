@@ -24,10 +24,10 @@ class ViewConductor: ObservableObject {
         generator.notificationOccurred(.success)
     }
         
-    @Published var linearLayout: Bool {
+    @Published var layout: HomeyLayout {
         didSet {
-            defaults.set(self.linearLayout, forKey: "linearLayout")
-            if oldValue != self.linearLayout {self.simpleSuccess()}
+            defaults.set(self.layout.rawValue, forKey: "layout")
+            if oldValue != self.layout {self.simpleSuccess()}
         }
     }
     @Published var linearLayoutOctaveCount: Int {
@@ -134,9 +134,9 @@ class ViewConductor: ObservableObject {
     @Published var scrollToID: Int = 0
     
     init() {
-        defaults.register(defaults: ["linearLayout": Default.linearLayout, "octaveShift": Default.octaveShift, "linearLayoutOctaveCount": Default.linearLayoutOctaveCount, "gridLayoutOctaveCount": Default.gridLayoutOctaveCount, "linearLayoutKeysPerRow": Default.linearLayoutKeysPerRow, "gridLayoutKeysPerRow": Default.gridLayoutKeysPerRow, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "tonicPitchClass": Default.tonicPitchClass,
+        defaults.register(defaults: ["layout": Default.layout, "octaveShift": Default.octaveShift, "linearLayoutOctaveCount": Default.linearLayoutOctaveCount, "gridLayoutOctaveCount": Default.gridLayoutOctaveCount, "linearLayoutKeysPerRow": Default.linearLayoutKeysPerRow, "gridLayoutKeysPerRow": Default.gridLayoutKeysPerRow, "showClassicalSelector": Default.showClassicalSelector, "showIntegersSelector": Default.showIntegersSelector, "showRomanSelector": Default.showRomanSelector, "showDegreeSelector": Default.showDegreeSelector, "showMonthsSelector": Default.showMonthsSelector, "showPianoSelector": Default.showPianoSelector, "showIntervals": Default.showIntervals, "tonicPitchClass": Default.tonicPitchClass,
                                      "upwardPitchMovement": Default.upwardPitchMovement])
-        linearLayout = defaults.bool(forKey: "linearLayout")
+        layout = Layout(rawValue: defaults.integer(forKey: "layout"))!
         octaveShift = defaults.integer(forKey: "octaveShift")
         linearLayoutOctaveCount = defaults.integer(forKey: "linearLayoutOctaveCount")
         gridLayoutOctaveCount = defaults.integer(forKey: "gridLayoutOctaveCount")
@@ -160,9 +160,10 @@ class ViewConductor: ObservableObject {
     }
     
     func colsPerRow() -> Int {
-        if (self.linearLayout) {
+        switch self.layout {
+        case .linear:
             return self.linearLayoutKeysPerRow
-        } else {
+        case .grid:
             switch self.gridLayoutKeysPerRow {
             case 61:
                 return 39
@@ -193,11 +194,13 @@ class ViewConductor: ObservableObject {
             default:
                 return 1
             }
+        default:
+            return 13
         }
     }
     
     func octaveCount() -> Int {
-        return self.linearLayout ? self.linearLayoutOctaveCount : self.gridLayoutOctaveCount
+        return (self.layout == .linear) ? self.linearLayoutOctaveCount : self.gridLayoutOctaveCount
     }
     
     func playNote(_ midiNote: UInt8) {

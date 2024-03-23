@@ -19,11 +19,11 @@ struct SelectorStyle: View {
     let showIntervals: Bool
     let tonicPitchClass: Int
     let upwardPitchMovement: Bool
-    let linearLayout: Bool
+    let layout: Layout
     
     var body: some View {
         let pitchClass = tonicPitchClass+col
-        let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col, linearLayout: linearLayout)
+        let fg = showPianoSelector ? pianoBackgroundColor(pitchClass) : homeyBackgroundColor(col)
         let octaveAdjustment = upwardPitchMovement ? 0 : -12
         let unpressableStrokeColor = showPianoSelector ? pianoForegroundColor(pitchClass) : Default.perfectColor
         ZStack {
