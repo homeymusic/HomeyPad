@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Tonic",
+        "repositoryURL": "https://github.com/AudioKit/Tonic.git",
+        "state": {
+          "branch": null,
+          "revision": "239093da801e580239d2d78ce4f70de54db753fc",
+          "version": "1.3.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
