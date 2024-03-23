@@ -83,6 +83,8 @@
 			dependencies = (
 			);
 			name = HomeyPad;
+			packageProductDependencies = (
+			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +113,8 @@
 				Base,
 			);
 			mainGroup = B02673372BAF6C7C00DDFA62;
+			packageReferences = (
+			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
