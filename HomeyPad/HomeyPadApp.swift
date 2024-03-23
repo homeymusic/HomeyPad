@@ -1,10 +1,3 @@
-//
-//  HomeyPadApp.swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 3/23/24.
-//
-
 import SwiftUI
 
 @main

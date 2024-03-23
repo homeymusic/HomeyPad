@@ -3,14 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B02440192BAF71710058EABF /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B02440182BAF71710058EABF /* Tonic */; };
+		B024401C2BAF71870058EABF /* Keyboard in Frameworks */ = {isa = PBXBuildFile; productRef = B024401B2BAF71870058EABF /* Keyboard */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
 		B026734B2BAF6C7D00DDFA62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */; };
+		B05097262BAF7096005F62EC /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B05097252BAF7096005F62EC /* Tonic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,8 @@
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B05097222BAF6FDB005F62EC /* HomeyKeyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyKeyboard; path = ../../../HomeyKeyboard; sourceTree = "<group>"; };
+		B05097232BAF6FDB005F62EC /* HomeyTonic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyTonic; path = ../../../HomeyTonic; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +31,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B024401C2BAF71870058EABF /* Keyboard in Frameworks */,
+				B02440192BAF71710058EABF /* Tonic in Frameworks */,
+				B05097262BAF7096005F62EC /* Tonic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +70,8 @@
 		B02673492BAF6C7D00DDFA62 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				B05097222BAF6FDB005F62EC /* HomeyKeyboard */,
+				B05097232BAF6FDB005F62EC /* HomeyTonic */,
 				B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -84,6 +94,9 @@
 			);
 			name = HomeyPad;
 			packageProductDependencies = (
+				B05097252BAF7096005F62EC /* Tonic */,
+				B02440182BAF71710058EABF /* Tonic */,
+				B024401B2BAF71870058EABF /* Keyboard */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -114,6 +127,8 @@
 			);
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
+				B02440172BAF71710058EABF /* XCLocalSwiftPackageReference "../Tonic" */,
+				B024401A2BAF71870058EABF /* XCLocalSwiftPackageReference "../Keyboard" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -350,6 +365,32 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B02440172BAF71710058EABF /* XCLocalSwiftPackageReference "../Tonic" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Tonic;
+		};
+		B024401A2BAF71870058EABF /* XCLocalSwiftPackageReference "../Keyboard" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Keyboard;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B02440182BAF71710058EABF /* Tonic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Tonic;
+		};
+		B024401B2BAF71870058EABF /* Keyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Keyboard;
+		};
+		B05097252BAF7096005F62EC /* Tonic */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Tonic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B02673382BAF6C7C00DDFA62 /* Project object */;
 }
