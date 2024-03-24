@@ -8,9 +8,6 @@ struct ContentView: View {
 
     var body: some View {
         let keyboards: [Keyboard] = [
-            Keyboard(layout: .piano(pitchRange: Pitch(intValue: viewConductor.lowNote) ... Pitch(intValue: viewConductor.highNote)),
-                     icon: Image(systemName: "pianokeys"),
-                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff),
             Keyboard(layout: .isomorphic(pitchRange:
                                             Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
                                          root: viewConductor.root,
@@ -18,6 +15,9 @@ struct ContentView: View {
                      icon: Image(systemName: "rectangle.split.3x1"),
                      noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
                      noteOff: viewConductor.noteOff),
+            Keyboard(layout: .piano(pitchRange: Pitch(intValue: viewConductor.lowNote) ... Pitch(intValue: viewConductor.highNote)),
+                     icon: Image(systemName: "pianokeys"),
+                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff),
             Keyboard(layout: .guitar(),
                      icon: Image(systemName: "guitars"),
                      noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
@@ -39,18 +39,7 @@ struct ContentView: View {
 
         HStack {
             VStack {
-                HStack {
-                    /// select layout
-                    Picker("", selection: $viewConductor.keyboardIndex) {
-                        ForEach(keyboards.indices) { i in
-                            keyboards[i].icon
-                                .tag(i)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: 75)
-                    .padding(.trailing, 10)
-                }
+                KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
                 NoteRangeStepperView(viewConductor: viewConductor)
                 HStack {
                     RootStepperView(viewConductor: viewConductor)
