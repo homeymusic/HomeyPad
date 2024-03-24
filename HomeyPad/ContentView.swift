@@ -15,7 +15,10 @@ struct ContentView: View {
                          noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)
                 .frame(minWidth: 100, minHeight: 100)
 
-                RootStepperView(viewConductor: viewConductor)
+                HStack {
+                    RootStepperView(viewConductor: viewConductor)
+                    ScaleStepperView(viewConductor: viewConductor)
+                }
                 Keyboard(layout: .isomorphic(pitchRange:
                                                 Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
                                              root: viewConductor.root,
