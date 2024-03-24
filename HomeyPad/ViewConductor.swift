@@ -25,6 +25,8 @@ class ViewConductor: ObservableObject {
     @Published var root: NoteClass = .C
     @Published var rootIndex = 0
 
+    @Published var keyboardIndex: Int = 0
+
     let evenSpacingInitialSpacerRatio: [Letter: CGFloat] = [
         .C: 0.0,
         .D: 2.0 / 12.0,
