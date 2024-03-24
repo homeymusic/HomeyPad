@@ -5,7 +5,8 @@ import Tonic
 struct ContentView: View {
     @StateObject var viewConductor = ViewConductor()
     @Environment(\.colorScheme) var colorScheme
-
+    
+    
     var body: some View {
         let keyboards: [Keyboard] = [
             Keyboard(layout: .isomorphic(pitchRange:
@@ -27,6 +28,18 @@ struct ContentView: View {
                                      pressedColor: Color(PitchColor.newtonian[Int(pitch.pitchClass)]),
                                      alignment: .center)
                      },
+            Keyboard(layout: .guitar(),
+                     icon: Image(systemName: "guitars.fill"),
+                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: pitch.note(in: .F).description,
+                                     intervallicKeyColors: PitchColor.homey,
+                                     pressedColor: Color(PitchColor.newtonian[Int(pitch.pitchClass)]),
+                                     alignment: .center)
+                     },
             Keyboard(layout: .isomorphic(pitchRange: Pitch(48) ... Pitch(65)),
                      icon: Image(systemName: "rectangle.split.3x1")) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
@@ -36,7 +49,7 @@ struct ContentView: View {
                      }
         ]
         
-
+        
         HStack {
             VStack {
                 KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)

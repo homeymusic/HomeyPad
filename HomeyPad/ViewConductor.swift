@@ -25,6 +25,7 @@ class ViewConductor: ObservableObject {
     @Published var scale: Scale = .chromatic
     @Published var root: NoteClass = .C
     @Published var rootIndex = 0
+    @Published var tonicPitch: Pitch = Pitch(60)
     
     @Published var keyboardIndex: Int = 0
     
