@@ -13,23 +13,45 @@ struct ContentView: View {
                                             Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
                                          root: viewConductor.root,
                                          scale: viewConductor.scale),
-                     icon: Image(systemName: "rectangle.split.3x1"),
+                     icon: Image(systemName: "rectangle.split.2x1"),
                      noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
-                     noteOff: viewConductor.noteOff),
-            Keyboard(layout: .piano(pitchRange: Pitch(intValue: viewConductor.lowNote) ... Pitch(intValue: viewConductor.highNote)),
-                     icon: Image(systemName: "pianokeys"),
-                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff),
-            Keyboard(layout: .guitar(),
-                     icon: Image(systemName: "guitars"),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+                     noteOff: viewConductor.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
                                      text: pitch.note(in: .F).description,
-                                     pressedColor: Color(PitchColor.newtonian[Int(pitch.pitchClass)]),
+                                     intervallicKeyColors: PitchColor.homey,
+                                     alignment: .center)
+                     },
+            Keyboard(layout: .isomorphic(pitchRange:
+                                            Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
+                                         root: viewConductor.root,
+                                         scale: viewConductor.scale),
+                     icon: Image(systemName: "rectangle.split.2x2"),
+                     noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
+                     noteOff: viewConductor.noteOff)  { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: pitch.note(in: .F).description,
+                                     intervallicKeyColors: PitchColor.homey,
+                                     alignment: .center)
+                     },
+            Keyboard(layout: .piano(pitchRange: Pitch(intValue: viewConductor.lowNote) ... Pitch(intValue: viewConductor.highNote)),
+                     icon: Image(systemName: "pianokeys"),
+                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: pitch.note(in: .F).description,
+                                     intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      },
             Keyboard(layout: .guitar(),
-                     icon: Image(systemName: "guitars.fill"),
+                     icon: Image(systemName: "guitars"),
                      noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
@@ -37,15 +59,7 @@ struct ContentView: View {
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: pitch.note(in: .F).description,
                                      intervallicKeyColors: PitchColor.homey,
-                                     pressedColor: Color(PitchColor.newtonian[Int(pitch.pitchClass)]),
                                      alignment: .center)
-                     },
-            Keyboard(layout: .isomorphic(pitchRange: Pitch(48) ... Pitch(65)),
-                     icon: Image(systemName: "rectangle.split.3x1")) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     text: pitch.note(in: .F).description,
-                                     pressedColor: Color(PitchColor.newtonian[Int(pitch.pitchClass)]))
                      }
         ]
         

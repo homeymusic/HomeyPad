@@ -74,3 +74,4 @@ class ViewConductor: ObservableObject {
     }
     
 }
+
