@@ -10,9 +10,6 @@
 		B02440192BAF71710058EABF /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B02440182BAF71710058EABF /* Tonic */; };
 		B024401C2BAF71870058EABF /* Keyboard in Frameworks */ = {isa = PBXBuildFile; productRef = B024401B2BAF71870058EABF /* Keyboard */; };
 		B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401D2BB0644D0058EABF /* ViewConductor.swift */; };
-		B02440202BB069440058EABF /* NoteRangeStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401F2BB069440058EABF /* NoteRangeStepperView.swift */; };
-		B02440222BB069EE0058EABF /* RootStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02440212BB069EE0058EABF /* RootStepperView.swift */; };
-		B02440242BB06A830058EABF /* ScaleStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02440232BB06A830058EABF /* ScaleStepperView.swift */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
@@ -23,9 +20,6 @@
 
 /* Begin PBXFileReference section */
 		B024401D2BB0644D0058EABF /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
-		B024401F2BB069440058EABF /* NoteRangeStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRangeStepperView.swift; sourceTree = "<group>"; };
-		B02440212BB069EE0058EABF /* RootStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootStepperView.swift; sourceTree = "<group>"; };
-		B02440232BB06A830058EABF /* ScaleStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleStepperView.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,9 +69,6 @@
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
 				B02673492BAF6C7D00DDFA62 /* Preview Content */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
-				B024401F2BB069440058EABF /* NoteRangeStepperView.swift */,
-				B02440212BB069EE0058EABF /* RootStepperView.swift */,
-				B02440232BB06A830058EABF /* ScaleStepperView.swift */,
 			);
 			path = HomeyPad;
 			sourceTree = "<group>";
@@ -171,12 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B02440202BB069440058EABF /* NoteRangeStepperView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* KeyboardLayoutPickerView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
-				B02440242BB06A830058EABF /* ScaleStepperView.swift in Sources */,
-				B02440222BB069EE0058EABF /* RootStepperView.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

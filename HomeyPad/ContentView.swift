@@ -20,7 +20,7 @@ struct ContentView: View {
                                      isActivated: isActivated,
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
-                                     text: pitch.note(in: .F).description,
+                                     text: "",
                                      intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      },
@@ -35,7 +35,7 @@ struct ContentView: View {
                                      isActivated: isActivated,
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
-                                     text: pitch.note(in: .F).description,
+                                     text: "",
                                      intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      },
@@ -46,7 +46,7 @@ struct ContentView: View {
                                      isActivated: isActivated,
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
-                                     text: pitch.note(in: .F).description,
+                                     text: "",
                                      intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      },
@@ -57,7 +57,7 @@ struct ContentView: View {
                                      isActivated: isActivated,
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
-                                     text: pitch.note(in: .F).description,
+                                     text: "",
                                      intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      }
@@ -67,11 +67,6 @@ struct ContentView: View {
         HStack {
             VStack {
                 KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
-                NoteRangeStepperView(viewConductor: viewConductor)
-                HStack {
-                    RootStepperView(viewConductor: viewConductor)
-                    ScaleStepperView(viewConductor: viewConductor)
-                }
                 VStack {
                     Spacer()
                     keyboards[viewConductor.keyboardIndex]
