@@ -24,8 +24,8 @@ struct ContentView: View {
                                      intervallicKeyColors: PitchColor.homey,
                                      alignment: .center)
                      },
-            Keyboard(layout: .isomorphic(pitchRange:
-                                            Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
+            Keyboard(layout: .symmetric(pitchRange:
+                                            Pitch(intValue: 60) ... Pitch(intValue: 72),
                                          root: viewConductor.root,
                                          scale: viewConductor.scale),
                      icon: Image(systemName: "rectangle.split.2x2"),
@@ -72,10 +72,13 @@ struct ContentView: View {
                     RootStepperView(viewConductor: viewConductor)
                     ScaleStepperView(viewConductor: viewConductor)
                 }
-                Spacer()
-                keyboards[viewConductor.keyboardIndex]
-                    .frame(maxHeight: 300)
-                Spacer()
+                VStack {
+                    Spacer()
+                    keyboards[viewConductor.keyboardIndex]
+                        .frame(maxHeight: 300)
+                    Spacer()
+                }
+                .background(Color.black)
             }
         }
         .ignoresSafeArea(edges:.horizontal)
