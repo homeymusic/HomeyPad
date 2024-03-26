@@ -28,6 +28,7 @@ class ViewConductor: ObservableObject {
     @Published var tonicPitch: Pitch = Pitch(60)
     
     @Published var keyboardIndex: Int = 0
+    @Published var backgroundColor: Color = Color(UIColor.darkGray)
     
     let evenSpacingInitialSpacerRatio: [Letter: CGFloat] = [
         .C: 0.0,

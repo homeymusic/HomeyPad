@@ -23,8 +23,7 @@ struct KeyboardLayoutPickerView: View {
                 }
             }
             .pickerStyle(.segmented)
-            .frame(width: 75)
-            .padding(.trailing, 10)
+            .padding([.leading, .trailing], 300)
         }
     }
 }
