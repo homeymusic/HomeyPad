@@ -9,7 +9,7 @@ struct ContentView: View {
     
     var body: some View {
         let keyboards: [Keyboard] = [
-            Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 60) ... Pitch(intValue: 72),
+            Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 57) ... Pitch(intValue: 75),
                                          root: viewConductor.root,
                                          scale: viewConductor.scale),
                      icon: Image(systemName: "rectangle.split.2x1"),
@@ -24,8 +24,7 @@ struct ContentView: View {
                                      intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
-            Keyboard(layout: .symmetric(pitchRange:
-                                            Pitch(intValue: 60) ... Pitch(intValue: 72),
+            Keyboard(layout: .symmetric(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79),
                                          root: viewConductor.root,
                                          scale: viewConductor.scale),
                      icon: Image(systemName: "rectangle.split.2x2"),
@@ -40,7 +39,7 @@ struct ContentView: View {
                                      intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
-            Keyboard(layout: .piano(pitchRange: Pitch(intValue: 60) ... Pitch(intValue: 72)),
+            Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
                      icon: Image(systemName: "pianokeys"),
                      noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
