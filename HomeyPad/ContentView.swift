@@ -22,6 +22,7 @@ struct ContentView: View {
                                      text: "",
                                      intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
+                                     twoSymbolsOnPerfects: true,
                                      alignment: .center)
                      },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
