@@ -9,24 +9,9 @@ struct ContentView: View {
     
     var body: some View {
         let keyboards: [Keyboard] = [
-            Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 57) ... Pitch(intValue: 75),
-                                         root: viewConductor.root,
-                                         scale: viewConductor.scale),
-                     icon: Image(systemName: "rectangle.split.2x1"),
-                     noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
-                     noteOff: viewConductor.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     viewpoint: .intervallic,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     text: "",
-                                     intervallicKeyColors: IntervalColor.homeySubtle,
-                                     intervallicSymbolColors: IntervalColor.homey,
-                                     alignment: .center)
-                     },
             Keyboard(layout: .symmetric(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79),
-                                         root: viewConductor.root,
-                                         scale: viewConductor.scale),
+                                        root: viewConductor.root,
+                                        scale: viewConductor.scale),
                      icon: Image(systemName: "rectangle.split.2x2"),
                      noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
                      noteOff: viewConductor.noteOff)  { pitch, isActivated in
@@ -49,6 +34,21 @@ struct ContentView: View {
                                      text: "",
                                      intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
+                                     flatTop: true)
+                     },
+            Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 57) ... Pitch(intValue: 75),
+                                         root: viewConductor.root,
+                                         scale: viewConductor.scale),
+                     icon: Image(systemName: "rectangle.split.2x1"),
+                     noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
+                     noteOff: viewConductor.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: "",
+                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
             Keyboard(layout: .guitar(),
@@ -66,17 +66,15 @@ struct ContentView: View {
         ]
         
         
-        HStack {
-            VStack {
-                KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
-                VStack {
-                    Spacer()
-                    keyboards[viewConductor.keyboardIndex]
-                        .frame(maxHeight: 300)
-                    Spacer()
-                }
-                .background(Color.black)
+        VStack(spacing: 0) {
+            KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
+            VStack(spacing: 0) {
+                Spacer()
+                keyboards[viewConductor.keyboardIndex]
+                    .frame(maxHeight: 300)
+                Spacer()
             }
+            .background(Color.black)
         }
         .ignoresSafeArea(edges:.horizontal)
         .background(Color.gray)

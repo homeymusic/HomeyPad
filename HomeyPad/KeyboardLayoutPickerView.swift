@@ -14,7 +14,7 @@ struct KeyboardLayoutPickerView: View {
 
 
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             /// select layout
             Picker("", selection: $viewConductor.keyboardIndex) {
                 ForEach(keyboards.indices) { i in
