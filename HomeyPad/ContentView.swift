@@ -37,6 +37,7 @@ struct ContentView: View {
                                      viewpoint: .diatonic,
                                      text: "",
                                      backgroundColor: viewConductor.backgroundColor,
+                                     blackKeyColor: viewConductor.pianoGray,
                                      alignment: .center)
                      },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
@@ -61,6 +62,7 @@ struct ContentView: View {
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
                                      backgroundColor: viewConductor.backgroundColor,
+                                     blackKeyColor: viewConductor.pianoGray,
                                      flatTop: true)
                      },
             Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 57) ... Pitch(intValue: 75),
@@ -90,6 +92,7 @@ struct ContentView: View {
                                      viewpoint: .diatonic,
                                      text: "",
                                      backgroundColor: viewConductor.backgroundColor,
+                                     blackKeyColor: viewConductor.pianoGray,
                                      alignment: .center)
                      },
             Keyboard(layout: .guitar(),
@@ -112,6 +115,7 @@ struct ContentView: View {
                                      isActivated: isActivated,
                                      text: "",
                                      backgroundColor: viewConductor.backgroundColor,
+                                     blackKeyColor: viewConductor.pianoGray,
                                      alignment: .center)
                      }
         ]
@@ -128,6 +132,6 @@ struct ContentView: View {
             .background(viewConductor.backgroundColor)
         }
         .ignoresSafeArea(edges:.horizontal)
-        .background(Color.gray)
+        .background(viewConductor.backgroundColor)
     }
 }
