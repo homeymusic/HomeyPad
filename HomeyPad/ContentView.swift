@@ -9,8 +9,7 @@ struct ContentView: View {
     
     var body: some View {
         let keyboards: [Keyboard] = [
-            Keyboard(layout: .isomorphic(pitchRange:
-                                            Pitch(intValue: 12 + viewConductor.rootIndex) ... Pitch(intValue: 84 + viewConductor.rootIndex),
+            Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 60) ... Pitch(intValue: 72),
                                          root: viewConductor.root,
                                          scale: viewConductor.scale),
                      icon: Image(systemName: "rectangle.split.2x1"),
@@ -21,7 +20,8 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: PitchColor.homey,
+                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
             Keyboard(layout: .symmetric(pitchRange:
@@ -36,10 +36,11 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: PitchColor.homey,
+                                     intervallicKeyColors: IntervalColor.homey,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
-            Keyboard(layout: .piano(pitchRange: Pitch(intValue: viewConductor.lowNote) ... Pitch(intValue: viewConductor.highNote)),
+            Keyboard(layout: .piano(pitchRange: Pitch(intValue: 60) ... Pitch(intValue: 72)),
                      icon: Image(systemName: "pianokeys"),
                      noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
@@ -47,7 +48,8 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: PitchColor.homey,
+                                     intervallicKeyColors: IntervalColor.homey,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      },
             Keyboard(layout: .guitar(),
@@ -58,7 +60,8 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: PitchColor.homey,
+                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      alignment: .center)
                      }
         ]
