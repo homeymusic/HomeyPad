@@ -82,18 +82,18 @@ struct ContentView: View {
                      }
         ]
         
-        
-        VStack(spacing: 0) {
-            KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
+        ZStack {
+            viewConductor.backgroundColor
             VStack(spacing: 0) {
                 Spacer()
                 keyboards[viewConductor.keyboardIndex]
                     .frame(maxHeight: 300)
                 Spacer()
+                KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
+                Spacer()
             }
-            .background(viewConductor.backgroundColor)
+            .statusBarHidden(true)
+            .ignoresSafeArea(edges:.horizontal)
         }
-        .ignoresSafeArea(edges:.horizontal)
-        .background(viewConductor.backgroundColor)
     }
 }

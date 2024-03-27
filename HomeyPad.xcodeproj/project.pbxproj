@@ -25,8 +25,6 @@
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B05097222BAF6FDB005F62EC /* HomeyKeyboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyKeyboard; path = ../../../HomeyKeyboard; sourceTree = "<group>"; };
-		B05097232BAF6FDB005F62EC /* HomeyTonic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyTonic; path = ../../../HomeyTonic; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* KeyboardLayoutPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,8 +74,6 @@
 		B02673492BAF6C7D00DDFA62 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				B05097222BAF6FDB005F62EC /* HomeyKeyboard */,
-				B05097232BAF6FDB005F62EC /* HomeyTonic */,
 				B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
