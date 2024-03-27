@@ -85,12 +85,13 @@ struct ContentView: View {
         ZStack {
             viewConductor.backgroundColor
             VStack(spacing: 0) {
-                Spacer()
+                /// Header
+                HeaderView(viewConductor: viewConductor)
+                /// Keyboard
                 keyboards[viewConductor.keyboardIndex]
                     .frame(maxHeight: 300)
-                Spacer()
-                KeyboardLayoutPickerView(keyboards: keyboards, viewConductor: viewConductor)
-                Spacer()
+                /// Footer
+                FooterView(keyboards: keyboards, viewConductor: viewConductor)
             }
             .statusBarHidden(true)
             .ignoresSafeArea(edges:.horizontal)

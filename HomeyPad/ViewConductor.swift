@@ -30,6 +30,7 @@ class ViewConductor: ObservableObject {
     @Published var keyboardIndex: Int = 0
     @Published var backgroundColor: Color = .black
     @Published var pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
+    @Published var showHomePicker: Bool = false
     
     let evenSpacingInitialSpacerRatio: [Letter: CGFloat] = [
         .C: 0.0,

@@ -8,7 +8,7 @@
 import SwiftUI
 import Keyboard
 
-struct KeyboardLayoutPickerView: View {
+struct FooterView: View {
     let keyboards: [Keyboard<KeyboardKey>]
     @StateObject var viewConductor: ViewConductor
 
