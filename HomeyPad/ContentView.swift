@@ -12,7 +12,7 @@ struct ContentView: View {
             Keyboard(layout: .symmetric(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79),
                                         root: viewConductor.root,
                                         scale: viewConductor.scale),
-                     icon: Image(systemName: "rectangle.split.2x2.fill"),
+                     icon: Image(systemName: "rectangle.split.2x2"),
                      noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
                      noteOff: viewConductor.noteOff)  { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
@@ -62,7 +62,7 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
@@ -75,7 +75,7 @@ struct ContentView: View {
                                      viewpoint: .intervallic,
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
-                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
@@ -93,8 +93,9 @@ struct ContentView: View {
                 /// Footer
                 FooterView(keyboards: keyboards, viewConductor: viewConductor)
             }
-            .statusBarHidden(true)
-            .ignoresSafeArea(edges:.horizontal)
         }
+        .statusBarHidden(true)
+        .ignoresSafeArea(edges:.horizontal)
+        .background(viewConductor.backgroundColor)
     }
 }

@@ -23,7 +23,7 @@ struct HomePickerView: View {
                  content: {
             /// labels for tonic selector
             HomePickerSettingsView(viewConductor: viewConductor)
-            .presentationCompactAdaptation(.none)
+//            .presentationCompactAdaptation(.none)
         })
         .padding(.leading, 10)
     }
