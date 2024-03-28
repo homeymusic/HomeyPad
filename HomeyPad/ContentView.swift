@@ -26,23 +26,6 @@ struct ContentView: View {
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
                      },
-            Keyboard(layout: .symmetric(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79),
-                                        root: viewConductor.root,
-                                        scale: viewConductor.scale),
-                     icon: Image(systemName: "rectangle.split.2x2.fill"),
-                     noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
-                     noteOff: viewConductor.noteOff)  { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     viewpoint: .intervallic,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     text: "",
-                                     intervallicKeyColors: IntervalColor.homeySubtle,
-                                     intervallicSymbolColors: IntervalColor.homeySubtleComplement,
-                                     centeredTritone: true,
-                                     backgroundColor: viewConductor.backgroundColor,
-                                     alignment: .center)
-                     },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
                      icon: Image(systemName: "pianokeys.inverse"),
                      noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
@@ -54,20 +37,8 @@ struct ContentView: View {
                                      intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
-                                     flatTop: true)
-                     },
-            Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
-                     icon: Image(systemName: "pianokeys.inverse"),
-                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     viewpoint: .intervallic,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     text: "",
-                                     intervallicKeyColors: IntervalColor.homeySubtle,
-                                     intervallicSymbolColors: IntervalColor.homeySubtleComplement,
-                                     backgroundColor: viewConductor.backgroundColor,
-                                     flatTop: true)
+                                     flatTop: true,
+                                     isPianoLayout: true)
                      },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
                      icon: Image(systemName: "pianokeys"),
@@ -78,8 +49,8 @@ struct ContentView: View {
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
                                      backgroundColor: viewConductor.backgroundColor,
-                                     blackKeyColor: viewConductor.pianoGray,
-                                     flatTop: true)
+                                     flatTop: true,
+                                     isPianoLayout: true)
                      },
             Keyboard(layout: .isomorphic(pitchRange: Pitch(intValue: 57) ... Pitch(intValue: 75),
                                          root: viewConductor.root,
@@ -93,19 +64,6 @@ struct ContentView: View {
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
                                      intervallicKeyColors: IntervalColor.homeySubtle,
-                                     intervallicSymbolColors: IntervalColor.homeySubtleComplement,
-                                     backgroundColor: viewConductor.backgroundColor,
-                                     alignment: .center)
-                     },
-            Keyboard(layout: .guitar(),
-                     icon: Image(systemName: "guitars.fill"),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     viewpoint: .intervallic,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     text: "",
-                                     intervallicKeyColors: IntervalColor.homey,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
@@ -119,7 +77,7 @@ struct ContentView: View {
                                      tonicPitch: viewConductor.tonicPitch,
                                      text: "",
                                      intervallicKeyColors: IntervalColor.homeySubtle,
-                                     intervallicSymbolColors: IntervalColor.homeySubtleComplement,
+                                     intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
                      }
