@@ -27,7 +27,7 @@ class ViewConductor: ObservableObject {
     @Published var rootIndex = 0
     @Published var tonicPitch: Pitch = Pitch(60)
     
-    @Published var keyboardIndex: Int = 0
+    @Published var keyboardIndex: Int = 1
 
     @Published var backgroundColor: Color = .black
 
