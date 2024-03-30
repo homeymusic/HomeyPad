@@ -49,7 +49,7 @@ class ViewConductor: ObservableObject {
     
     @Published var showHomePicker: Bool = false
     
-    func pitchRange() -> ClosedRange<Pitch> {
+    var pitchRange: ClosedRange<Pitch> {
         lowPitches[self.pad]!...highPitches[self.pad]!
     }
 
@@ -64,14 +64,14 @@ class ViewConductor: ObservableObject {
     var keyboard: Keyboard<KeyboardKey> {
         switch self.pad {
         case .isomorphic:
-            Keyboard(layout: .isomorphic(pitchRange: self.pitchRange()),
+            Keyboard(layout: .isomorphic(pitchRange: self.pitchRange),
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
                                      tonicPitch: self.tonicPitch)
                      }
         case .symmetric:
-            Keyboard(layout: .symmetric(pitchRange: self.pitchRange()),
+            Keyboard(layout: .symmetric(pitchRange: self.pitchRange),
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
@@ -79,7 +79,7 @@ class ViewConductor: ObservableObject {
                                      centeredTritone: true)
                      }
         case .piano:
-            Keyboard(layout: .piano(pitchRange: self.pitchRange()),
+            Keyboard(layout: .piano(pitchRange: self.pitchRange),
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
