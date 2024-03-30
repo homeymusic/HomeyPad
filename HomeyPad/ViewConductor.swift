@@ -28,7 +28,7 @@ class ViewConductor: ObservableObject {
     @Published var tonicPitch: Pitch = Pitch(60)
     
     @Published var keyboardIndex: Int = 0
-//    @Published var backgroundColor: Color = Color(#colorLiteral(red: 0.2024475524, green: 0.134965035, blue: 0.1012237762, alpha: 1))
+
     @Published var backgroundColor: Color = .black
 
     @Published var pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
