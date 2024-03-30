@@ -68,6 +68,7 @@ class ViewConductor: ObservableObject {
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
+                                     formFactor: .isomorphic,
                                      tonicPitch: self.tonicPitch)
                      }
         case .symmetric:
@@ -75,24 +76,23 @@ class ViewConductor: ObservableObject {
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     tonicPitch: self.tonicPitch,
-                                     centeredTritone: true)
+                                     formFactor: .symmetric,
+                                     tonicPitch: self.tonicPitch)
                      }
         case .piano:
             Keyboard(layout: .piano(pitchRange: self.pitchRange),
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     tonicPitch: self.tonicPitch,
-                                     flatTop: true,
-                                     alignment: .bottom,
-                                     isPianoLayout: true)
+                                     formFactor: .piano,
+                                     tonicPitch: self.tonicPitch)
                      }
         case .guitar:
             Keyboard(layout: .guitar(),
                      noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
+                                     formFactor: .guitar,
                                      tonicPitch: self.tonicPitch)
                      }
         }
