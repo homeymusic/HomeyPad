@@ -26,6 +26,24 @@ struct ContentView: View {
                                      backgroundColor: viewConductor.backgroundColor,
                                      alignment: .center)
                      },
+            Keyboard(layout: .symmetric(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79),
+                                        root: viewConductor.root,
+                                        scale: viewConductor.scale),
+                     icon: Image(systemName: "rectangle.split.2x2"),
+                     noteOn: viewConductor.noteOnWithReversedVerticalVelocity(pitch:point:),
+                     noteOff: viewConductor.noteOff)  { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: "",
+                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicSymbolColors: IntervalColor.homey,
+                                     centeredTritone: true,
+                                     backgroundColor: viewConductor.backgroundColor,
+                                     alignment: .center,
+                                     subtle: true)
+                     },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
                      icon: Image(systemName: "pianokeys.inverse"),
                      noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
@@ -39,6 +57,21 @@ struct ContentView: View {
                                      backgroundColor: viewConductor.backgroundColor,
                                      flatTop: true,
                                      isPianoLayout: true)
+                     },
+            Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
+                     icon: Image(systemName: "pianokeys.inverse"),
+                     noteOn: viewConductor.noteOnWithVerticalVelocity(pitch:point:), noteOff: viewConductor.noteOff)  { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     viewpoint: .intervallic,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     text: "",
+                                     intervallicKeyColors: IntervalColor.homeySubtle,
+                                     intervallicSymbolColors: IntervalColor.homey,
+                                     backgroundColor: viewConductor.backgroundColor,
+                                     flatTop: true,
+                                     isPianoLayout: true,
+                                     subtle: true)
                      },
             Keyboard(layout: .piano(pitchRange: Pitch(intValue: 53) ... Pitch(intValue: 79)),
                      icon: Image(systemName: "pianokeys"),
@@ -66,7 +99,8 @@ struct ContentView: View {
                                      intervallicKeyColors: IntervalColor.homeySubtle,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
-                                     alignment: .center)
+                                     alignment: .center,
+                                     subtle: true)
                      },
             Keyboard(layout: .guitar(),
                      icon: Image(systemName: "guitars"),
@@ -79,7 +113,8 @@ struct ContentView: View {
                                      intervallicKeyColors: IntervalColor.homeySubtle,
                                      intervallicSymbolColors: IntervalColor.homey,
                                      backgroundColor: viewConductor.backgroundColor,
-                                     alignment: .center)
+                                     alignment: .center,
+                                     subtle: true)
                      }
         ]
         
