@@ -10,7 +10,7 @@ struct ContentView: View {
             Color.black
             VStack(spacing: 0) {
                 HeaderView(viewConductor: viewConductor)
-                viewConductor.keyboard
+                KeyboardView(viewConductor: viewConductor)
                     .frame(maxHeight: 300)
                 FooterView(viewConductor: viewConductor)
             }

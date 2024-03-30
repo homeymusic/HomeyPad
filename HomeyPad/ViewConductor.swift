@@ -61,41 +61,5 @@ class ViewConductor: ObservableObject {
         print("note off \(pitch)")
     }
     
-    var keyboard: Keyboard<KeyboardKey> {
-        switch self.pad {
-        case .isomorphic:
-            Keyboard(layout: .isomorphic(pitchRange: self.pitchRange),
-                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     formFactor: .isomorphic,
-                                     tonicPitch: self.tonicPitch)
-                     }
-        case .symmetric:
-            Keyboard(layout: .symmetric(pitchRange: self.pitchRange),
-                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     formFactor: .symmetric,
-                                     tonicPitch: self.tonicPitch)
-                     }
-        case .piano:
-            Keyboard(layout: .piano(pitchRange: self.pitchRange),
-                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     formFactor: .piano,
-                                     tonicPitch: self.tonicPitch)
-                     }
-        case .guitar:
-            Keyboard(layout: .guitar(),
-                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     formFactor: .guitar,
-                                     tonicPitch: self.tonicPitch)
-                     }
-        }
-    }
 }
 

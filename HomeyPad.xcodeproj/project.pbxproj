@@ -16,6 +16,7 @@
 		B026734B2BAF6C7D00DDFA62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */; };
 		B05097262BAF7096005F62EC /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B05097252BAF7096005F62EC /* Tonic */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
+		B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C088042BB8B08200E454A0 /* KeyboardView.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7D2BB4AE9100B1437F /* HomePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7C2BB4AE9100B1437F /* HomePickerView.swift */; };
@@ -30,6 +31,7 @@
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B026734A2BAF6C7D00DDFA62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B0EF9F7C2BB4AE9100B1437F /* HomePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePickerView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
 				B02673492BAF6C7D00DDFA62 /* Preview Content */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
+				B0C088042BB8B08200E454A0 /* KeyboardView.swift */,
 			);
 			path = HomeyPad;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */,
+				B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
