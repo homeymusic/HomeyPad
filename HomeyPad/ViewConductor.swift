@@ -9,59 +9,50 @@ import SwiftUI
 import Keyboard
 import Tonic
 
-class ViewConductor: ObservableObject {
-    
-    @Published var lowNote = 24
-    @Published var highNote = 48
-    
-    @Published var scaleIndex = Scale.allCases.firstIndex(of: .chromatic) ?? 0 {
-        didSet {
-            if scaleIndex >= Scale.allCases.count { scaleIndex = 0 }
-            if scaleIndex < 0 { scaleIndex = Scale.allCases.count - 1 }
-            scale = Scale.allCases[scaleIndex]
+enum Pad: String, CaseIterable, Identifiable {
+    case isomorphic = "isomorphic"
+    case symmetric = "symmetric"
+    case piano = "piano"
+    case guitar = "guitar"
+
+    var id: String { self.rawValue }
+
+    var icon: String {
+        switch self {
+            case .isomorphic: return "rectangle.split.2x1"
+            case .symmetric: return "rectangle.split.2x2"
+            case .piano: return "pianokeys"
+            case .guitar: return "guitars"
         }
     }
+}
+
+class ViewConductor: ObservableObject {
     
-    @Published var scale: Scale = .chromatic
-    @Published var root: NoteClass = .C
-    @Published var rootIndex = 0
+    @Published var pad: Pad = .symmetric
+
+    @Published var lowPitches = [
+        Pad.isomorphic: Pitch(57),
+        Pad.symmetric:  Pitch(53),
+        Pad.piano:      Pitch(53),
+        Pad.guitar:     Pitch(40)
+    ]
+    
+    @Published var highPitches = [
+        Pad.isomorphic: Pitch(75),
+        Pad.symmetric:  Pitch(79),
+        Pad.piano:      Pitch(79),
+        Pad.guitar:     Pitch(86)
+    ]
+    
     @Published var tonicPitch: Pitch = Pitch(60)
     
-    @Published var keyboardIndex: Int = 1
-
-    @Published var backgroundColor: Color = .black
-
-    @Published var pianoGray: Color = Color(red: 96/255, green: 96/255, blue: 96/255)
     @Published var showHomePicker: Bool = false
     
-    let evenSpacingInitialSpacerRatio: [Letter: CGFloat] = [
-        .C: 0.0,
-        .D: 2.0 / 12.0,
-        .E: 4.0 / 12.0,
-        .F: 0.0 / 12.0,
-        .G: 1.0 / 12.0,
-        .A: 3.0 / 12.0,
-        .B: 5.0 / 12.0
-    ]
-    
-    let evenSpacingSpacerRatio: [Letter: CGFloat] = [
-        .C: 7.0 / 12.0,
-        .D: 7.0 / 12.0,
-        .E: 7.0 / 12.0,
-        .F: 7.0 / 12.0,
-        .G: 7.0 / 12.0,
-        .A: 7.0 / 12.0,
-        .B: 7.0 / 12.0
-    ]
-    
-    let evenSpacingRelativeBlackKeyWidth: CGFloat = 7.0 / 12.0
-    
-    var randomColors: [Color] = (0 ... 12).map { _ in
-        Color(red: Double.random(in: 0 ... 1),
-              green: Double.random(in: 0 ... 1),
-              blue: Double.random(in: 0 ... 1), opacity: 1)
+    func pitchRange() -> ClosedRange<Pitch> {
+        lowPitches[self.pad]!...highPitches[self.pad]!
     }
-    
+
     func noteOn(pitch: Pitch, point: CGPoint) {
         print("note on \(pitch)")
     }
@@ -70,13 +61,41 @@ class ViewConductor: ObservableObject {
         print("note off \(pitch)")
     }
     
-    func noteOnWithVerticalVelocity(pitch: Pitch, point: CGPoint) {
-        print("note on \(pitch), midiVelocity: \(Int(point.y * 127))")
+    var keyboard: Keyboard<KeyboardKey> {
+        switch self.pad {
+        case .isomorphic:
+            Keyboard(layout: .isomorphic(pitchRange: self.pitchRange()),
+                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     tonicPitch: self.tonicPitch)
+                     }
+        case .symmetric:
+            Keyboard(layout: .symmetric(pitchRange: self.pitchRange()),
+                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     tonicPitch: self.tonicPitch,
+                                     centeredTritone: true)
+                     }
+        case .piano:
+            Keyboard(layout: .piano(pitchRange: self.pitchRange()),
+                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     tonicPitch: self.tonicPitch,
+                                     flatTop: true,
+                                     alignment: .bottom,
+                                     isPianoLayout: true)
+                     }
+        case .guitar:
+            Keyboard(layout: .guitar(),
+                     noteOn: self.noteOn, noteOff: self.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     tonicPitch: self.tonicPitch)
+                     }
+        }
     }
-    
-    func noteOnWithReversedVerticalVelocity(pitch: Pitch, point: CGPoint) {
-        print("note on \(pitch), midiVelocity: \(Int((1.0 - point.y) * 127))")
-    }
-    
 }
 
