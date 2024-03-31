@@ -29,6 +29,17 @@ struct KeyboardView: View {
                                      formFactor: .symmetric,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
+        case .symmetricLoud:
+            Keyboard(layout: .symmetric(pitchRange: viewConductor.pitchRange),
+                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+                         KeyboardKey(pitch: pitch,
+                                     isActivated: isActivated,
+                                     formFactor: .symmetric,
+                                     tonicPitch: viewConductor.tonicPitch,
+                                     intervallicKeyColors: IntervalColor.homey,
+                                     intervallicSymbolColors: IntervalColor.homey,
+                                     subtle: false)
+                     }
         case .piano:
             Keyboard(layout: .piano(pitchRange: viewConductor.pitchRange),
                      noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in

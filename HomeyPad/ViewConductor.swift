@@ -9,24 +9,6 @@ import SwiftUI
 import Keyboard
 import Tonic
 
-enum Pad: String, CaseIterable, Identifiable {
-    case isomorphic = "isomorphic"
-    case symmetric = "symmetric"
-    case piano = "piano"
-    case guitar = "guitar"
-
-    var id: String { self.rawValue }
-
-    var icon: String {
-        switch self {
-            case .isomorphic: return "rectangle.split.2x1"
-            case .symmetric: return "rectangle.split.2x2"
-            case .piano: return "pianokeys"
-            case .guitar: return "guitars"
-        }
-    }
-}
-
 class ViewConductor: ObservableObject {
     
     @Published var pad: Pad = .symmetric
@@ -34,6 +16,7 @@ class ViewConductor: ObservableObject {
     @Published var lowPitches = [
         Pad.isomorphic: Pitch(57),
         Pad.symmetric:  Pitch(53),
+        Pad.symmetricLoud:  Pitch(53),
         Pad.piano:      Pitch(53),
         Pad.guitar:     Pitch(40)
     ]
@@ -41,6 +24,7 @@ class ViewConductor: ObservableObject {
     @Published var highPitches = [
         Pad.isomorphic: Pitch(75),
         Pad.symmetric:  Pitch(79),
+        Pad.symmetricLoud:  Pitch(79),
         Pad.piano:      Pitch(79),
         Pad.guitar:     Pitch(86)
     ]

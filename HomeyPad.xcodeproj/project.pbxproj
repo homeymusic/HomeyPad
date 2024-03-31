@@ -13,6 +13,7 @@
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
+		B041FF222BB9933E00490B19 /* Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041FF212BB9933E00490B19 /* Pad.swift */; };
 		B05097262BAF7096005F62EC /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B05097252BAF7096005F62EC /* Tonic */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C088042BB8B08200E454A0 /* KeyboardView.swift */; };
@@ -28,6 +29,7 @@
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B041FF212BB9933E00490B19 /* Pad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pad.swift; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			children = (
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
+				B041FF212BB9933E00490B19 /* Pad.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
@@ -173,6 +176,7 @@
 				B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */,
 				B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
+				B041FF222BB9933E00490B19 /* Pad.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
