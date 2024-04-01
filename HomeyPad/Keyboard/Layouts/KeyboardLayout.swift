@@ -22,3 +22,4 @@ public enum KeyboardLayout: Equatable, Hashable {
     case guitar(openPitches: [Pitch] = [Pitch(64), Pitch(59), Pitch(55), Pitch(50), Pitch(45), Pitch(40)], fretcount: Int = 22)
     
 }
+
