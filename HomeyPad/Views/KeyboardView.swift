@@ -36,8 +36,6 @@ struct KeyboardView: View {
                                      isActivated: isActivated,
                                      formFactor: .symmetric,
                                      tonicPitch: viewConductor.tonicPitch,
-                                     intervallicKeyColors: IntervalColor.homey,
-                                     intervallicSymbolColors: IntervalColor.homey,
                                      subtle: false)
                      }
         case .piano:
