@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00AB7DA2BBAD3C400FB4DA3 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00AB7D92BBAD3C400FB4DA3 /* Palette.swift */; };
 		B02440192BAF71710058EABF /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = B02440182BAF71710058EABF /* Tonic */; };
 		B024401C2BAF71870058EABF /* Keyboard in Frameworks */ = {isa = PBXBuildFile; productRef = B024401B2BAF71870058EABF /* Keyboard */; };
 		B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401D2BB0644D0058EABF /* ViewConductor.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B00AB7D92BBAD3C400FB4DA3 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		B024401D2BB0644D0058EABF /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
 				B041FF212BB9933E00490B19 /* Pad.swift */,
+				B00AB7D92BBAD3C400FB4DA3 /* Palette.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
@@ -180,6 +183,7 @@
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
+				B00AB7DA2BBAD3C400FB4DA3 /* Palette.swift in Sources */,
 				B0EF9F7F2BB4B04F00B1437F /* HomePickerSettingsView.swift in Sources */,
 				B0EF9F7D2BB4AE9100B1437F /* HomePickerView.swift in Sources */,
 			);
