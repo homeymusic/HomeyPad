@@ -29,7 +29,7 @@ struct Piano<Content>: View where Content: View {
                             if pitch.accidental {
                                 ZStack {
                                     KeyContainer(model: keyboard,
-                                                 pitch: Pitch(intValue: pitch.intValue),
+                                                 pitch: pitch,
                                                  zIndex: 1,
                                                  content: content)
                                 }

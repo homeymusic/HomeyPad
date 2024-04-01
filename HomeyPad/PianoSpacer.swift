@@ -15,9 +15,9 @@ public struct PianoSpacer {
     public static let defaultSpacerRatio: [IntegerNotation: CGFloat] = [
         .zero: 10.0 / 16.0,
         .two: 10.0 / 16.0,
-        .three: 10.0 / 16.0,
+        .four: 10.0 / 16.0,
         .five: 10.0 / 16.0,
-        .six: 8.5 / 16.0,
+        .seven: 8.5 / 16.0,
         .nine: 8.5 / 16.0,
         .eleven: 10.0 / 16.0
     ]

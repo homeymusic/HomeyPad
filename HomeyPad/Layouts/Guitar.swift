@@ -17,7 +17,7 @@ struct Guitar<Content>: View where Content: View {
                 HStack(spacing: 0) {
                     ForEach(0 ..< fretCount + 1, id: \.self) { fret in
                         KeyContainer(model: model,
-                                     pitch: Pitch(intValue: openPitches[string].intValue + fret),
+                                     pitch: Pitch(Int8(openPitches[string].intValue + fret)),
                                      content: content)
                     }
                 }
