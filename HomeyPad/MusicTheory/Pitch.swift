@@ -1,6 +1,3 @@
-import SwiftUI
-import CoreGraphics
-
 public struct Pitch: Equatable, Hashable, Comparable, Strideable {
     
     public var midiNote: Int8

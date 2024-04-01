@@ -46,7 +46,7 @@ class ViewConductor: ObservableObject {
     @Published var tonicPitch: Pitch = Pitch(60)
     
     @Published var showHomePicker: Bool = false
-    
+        
     var pitchRange: ClosedRange<Pitch> {
         lowPitches[self.pad]!...highPitches[self.pad]!
     }

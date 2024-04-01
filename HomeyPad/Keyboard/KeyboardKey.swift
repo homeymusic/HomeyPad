@@ -44,6 +44,7 @@ public struct KeyboardKey: View {
     var subtle: Bool
     var isActivatedExternally: Bool
     var interval: Interval
+    var mainColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     
     public var body: some View {
         GeometryReader { proxy in
@@ -68,7 +69,7 @@ public struct KeyboardKey: View {
             }
         case .intervallic:
             let majorMinorColor = Color(interval.majorMinor.color)
-            let keyColor = Color(interval.mainColor)
+            let keyColor = Color(mainColor)
             let pianoColor = isSmall ? keyColor.adjust(brightness: -0.1) : keyColor.adjust(brightness: +0.1)
             if subtle {
                 if activated {
@@ -100,7 +101,7 @@ public struct KeyboardKey: View {
                 if viewpoint ==  .diatonic {
                     return isWhite ? .white : .black
                 } else {
-                    return Color(interval.mainColor)
+                    return Color(mainColor)
                 }
             } else {
                 return Color(interval.majorMinor.color)
