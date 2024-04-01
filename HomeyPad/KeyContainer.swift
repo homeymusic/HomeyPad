@@ -37,7 +37,7 @@ public struct KeyContainer<Content: View>: View {
                     if model.externallyActivatedPitches.contains(pitch) {
                         model.externallyActivatedPitches.remove(pitch)
                     } else {
-                        model.externallyActivatedPitches.add(pitch)
+                        model.externallyActivatedPitches.insert(pitch)
                     }
                 }
             )

@@ -3,23 +3,23 @@
 import SwiftUI
 
 public struct PianoSpacer {
-    public static let defaultInitialSpacerRatio: [Letter: CGFloat] = [
-        .C: 0.0,
-        .D: 3.0 / 16.0,
-        .E: 6.0 / 16.0,
-        .F: 0.0 / 16.0,
-        .G: 3.0 / 16.0,
-        .A: 4.5 / 16.0,
-        .B: 6.0 / 16.0
+    public static let defaultInitialSpacerRatio: [IntegerNotation: CGFloat] = [
+        .zero: 0.0,
+        .two: 3.0 / 16.0,
+        .four: 6.0 / 16.0,
+        .five: 0.0 / 16.0,
+        .seven: 3.0 / 16.0,
+        .nine: 4.5 / 16.0,
+        .eleven: 6.0 / 16.0
     ]
-    public static let defaultSpacerRatio: [Letter: CGFloat] = [
-        .C: 10.0 / 16.0,
-        .D: 10.0 / 16.0,
-        .E: 10.0 / 16.0,
-        .F: 10.0 / 16.0,
-        .G: 8.5 / 16.0,
-        .A: 8.5 / 16.0,
-        .B: 10.0 / 16.0
+    public static let defaultSpacerRatio: [IntegerNotation: CGFloat] = [
+        .zero: 10.0 / 16.0,
+        .two: 10.0 / 16.0,
+        .three: 10.0 / 16.0,
+        .five: 10.0 / 16.0,
+        .six: 8.5 / 16.0,
+        .nine: 8.5 / 16.0,
+        .eleven: 10.0 / 16.0
     ]
     public static let defaultRelativeBlackKeyWidth: CGFloat = 9.0 / 16.0
     
@@ -27,8 +27,8 @@ public struct PianoSpacer {
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
     public var pitchRange: ClosedRange<Pitch>
-    public var initialSpacerRatio: [Letter: CGFloat]
-    public var spacerRatio: [Letter: CGFloat]
+    public var initialSpacerRatio: [IntegerNotation: CGFloat]
+    public var spacerRatio: [IntegerNotation: CGFloat]
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
     /// The smaller the number, the shorter the black keys appear. A value of 1 approximates an isomorphic keyboard
     public var relativeBlackKeyHeight: CGFloat = PianoSpacer.defaultRelativeBlackKeyHeight
@@ -37,26 +37,26 @@ public struct PianoSpacer {
 extension PianoSpacer {
     public var whiteKeys: [Pitch] {
         var returnValue: [Pitch] = []
-        for pitch in pitchRangeBoundedByNaturals where pitch.note(in: .C).accidental == .natural {
+        for pitch in pitchRangeBoundedByNaturals where !pitch.accidental {
             returnValue.append(pitch)
         }
         return returnValue
     }
 
     public func isBlackKey(_ pitch: Pitch) -> Bool {
-        pitch.note(in: .C).accidental != .natural
+        pitch.accidental
     }
 
     // NOTE: The magic numbers here come from the canonical piano layout
     // Probably instead of using HStacks we should just lay things out on a canvas
     public var initialSpacer: CGFloat {
-        let note = pitchRangeBoundedByNaturals.lowerBound.note(in: .C)
-        return initialSpacerRatio[note.letter] ?? 0
+        let pitchClass = pitchRangeBoundedByNaturals.lowerBound.pitchClass
+        return initialSpacerRatio[pitchClass] ?? 0
     }
 
     public func space(pitch: Pitch) -> CGFloat {
-        let note = pitch.note(in: .C)
-        return spacerRatio[note.letter] ?? 0
+        let pitchClass = pitch.pitchClass
+        return spacerRatio[pitchClass] ?? 0
     }
 
     public func whiteKeyWidth(_ width: CGFloat) -> CGFloat {
@@ -69,12 +69,12 @@ extension PianoSpacer {
 
     public var pitchRangeBoundedByNaturals: ClosedRange<Pitch> {
         var lowerBound = pitchRange.lowerBound
-        if lowerBound.note(in: .C).accidental != .natural {
-            lowerBound = Pitch(intValue: lowerBound.intValue - 1)
+        if lowerBound.accidental {
+            lowerBound = Pitch(Int8(lowerBound.intValue - 1))
         }
         var upperBound = pitchRange.upperBound
-        if upperBound.note(in: .C).accidental != .natural {
-            upperBound = Pitch(intValue: upperBound.intValue + 1)
+        if upperBound.accidental {
+            upperBound = Pitch(Int8(upperBound.intValue + 1))
         }
         return lowerBound ... upperBound
     }

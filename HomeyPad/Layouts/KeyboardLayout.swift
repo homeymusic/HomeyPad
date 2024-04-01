@@ -6,19 +6,15 @@ import SwiftUI
 public enum KeyboardLayout: Equatable, Hashable {
     
     /// All notes linearly right after one another
-    case isomorphic(pitchRange: ClosedRange<Pitch>,
-                    root: NoteClass = .C,
-                    scale: Scale = .chromatic)
+    case isomorphic(pitchRange: ClosedRange<Pitch>)
     
     /// All notes linearly right after one another
-    case symmetric(pitchRange: ClosedRange<Pitch>,
-                    root: NoteClass = .C,
-                    scale: Scale = .chromatic)
+    case symmetric(pitchRange: ClosedRange<Pitch>)
     
     /// Traditional Piano layout with raised black keys over white keys
     case piano(pitchRange: ClosedRange<Pitch>,
-               initialSpacerRatio: [Letter: CGFloat] = PianoSpacer.defaultInitialSpacerRatio,
-               spacerRatio: [Letter: CGFloat] = PianoSpacer.defaultSpacerRatio,
+               initialSpacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultInitialSpacerRatio,
+               spacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultSpacerRatio,
                relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth,
                relativeBlackKeyHeight: CGFloat = PianoSpacer.defaultRelativeBlackKeyHeight)
     

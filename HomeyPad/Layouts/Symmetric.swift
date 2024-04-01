@@ -4,8 +4,6 @@ struct Symmetric<Content>: View where Content: View {
     let content: (Pitch, Bool) -> Content
     var model: KeyboardModel
     var pitchRange: ClosedRange<Pitch>
-    var root: NoteClass
-    var scale: Scale
     
     var body: some View {
         HStack(spacing: 0) {

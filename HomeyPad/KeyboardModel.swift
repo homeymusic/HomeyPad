@@ -11,7 +11,7 @@ public class KeyboardModel: ObservableObject {
 
     var touchLocations: [CGPoint] = [] {
         didSet {
-            var newPitches = PitchSet()
+            var newPitches = Set<Pitch>()
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
@@ -25,35 +25,35 @@ public class KeyboardModel: ObservableObject {
                     }
                 }
                 if let p = pitch {
-                    newPitches.add(p)
+                    newPitches.insert(p)
                     normalizedPoints[p.intValue] = normalizedPoint
                 }
             }
-            if touchedPitches.array != newPitches.array {
+            if touchedPitches != newPitches {
                 touchedPitches = newPitches
             }
         }
     }
 
     /// all touched notes
-    @Published public var touchedPitches = PitchSet() {
+    @Published public var touchedPitches = Set<Pitch>() {
         willSet { triggerEvents(from: touchedPitches, to: newValue) }
     }
 
     /// Either latched keys or keys active due to external MIDI events.
-    @Published public var externallyActivatedPitches = PitchSet() {
+    @Published public var externallyActivatedPitches = Set<Pitch>() {
         willSet { triggerEvents(from: externallyActivatedPitches, to: newValue) }
     }
 
-    func triggerEvents(from oldValue: PitchSet, to newValue: PitchSet) {
+    func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
         let removedPitches = oldValue.subtracting(newValue)
 
-        for pitch in removedPitches.array {
+        for pitch in removedPitches {
             noteOff(pitch)
         }
 
-        for pitch in newPitches.array {
+        for pitch in newPitches {
             noteOn(pitch, normalizedPoints[pitch.intValue])
         }
     }

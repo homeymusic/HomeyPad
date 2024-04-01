@@ -14,9 +14,9 @@ struct KeyView: View {
     var body: some View {
         ZStack(alignment: keyboardKey.formFactor == .piano ? .top : .center) {
             let borderSize = keyboardKey.isSmall ? 1.0 : 3.0
-            let borderWidthApparentSize = (keyboardKey.formFactor == .symmetric && Int(keyboardKey.pitch.intervalClass(to: keyboardKey.tonicPitch)) == 6) || keyboardKey.isSmall ? 2.0 * borderSize : borderSize
+            let borderWidthApparentSize = keyboardKey.formFactor == .symmetric && keyboardKey.pitch.pitchClass == .six || keyboardKey.isSmall ? 2.0 * borderSize : borderSize
             let borderHeightApparentSize = keyboardKey.formFactor == .piano && keyboardKey.viewpoint == .intervallic ? borderWidthApparentSize / 2 : borderWidthApparentSize
-            let outlineTonic: Bool = Int(keyboardKey.pitch.intervalClass(to: keyboardKey.tonicPitch)) == 0 && keyboardKey.viewpoint == .intervallic
+            let outlineTonic: Bool = keyboardKey.pitch.pitchClass == .zero && keyboardKey.viewpoint == .intervallic
             Rectangle()
                 .fill(keyboardKey.backgroundColor)
                 .padding(.top, keyboardKey.topPadding(proxySize))

@@ -26,7 +26,7 @@ struct Piano<Content>: View where Content: View {
                             Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
                         }
                         ForEach(spacer.pitchRange, id: \.self) { pitch in
-                            if spacer.isBlackKey(Pitch(intValue: pitch.intValue)) {
+                            if pitch.accidental {
                                 ZStack {
                                     KeyContainer(model: keyboard,
                                                  pitch: Pitch(intValue: pitch.intValue),

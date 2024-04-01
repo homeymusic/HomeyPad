@@ -1,132 +1,93 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/Tonic/
+import CoreGraphics
 
-import Foundation
-
-public typealias PitchSet = BitSetAdapter<Pitch, BitSet128>
-
-public extension PitchSet {
-    init(pitches: [Pitch]) {
-        self.init()
-        for pitch in pitches {
-            add(pitch)
+public struct Pitch: Equatable, Hashable, Comparable, Strideable {
+    
+    public var midiNote: Int8
+    public var pitchClass: IntegerNotation
+    
+    public init(_ midiNote: Int8) {
+        self.midiNote = midiNote
+        self.pitchClass = IntegerNotation(rawValue: modulo(self.midiNote, 12))!
+    }
+    
+    public var accidental: Bool {
+        switch self.pitchClass {
+        case .one, .three, .six, .eight, .ten:
+            return true
+        case .zero, .two, .four, .five, .seven, .nine, .eleven:
+            return false
         }
     }
-
-    func chord(in key: Key) -> Chord? {
-        var notes = NoteSet()
-        forEach { notes.add($0.note(in: key)) }
-        return Chord(noteSet: notes)
-    }
-
-    func contains(pitchClass: Int8) -> Bool {
-        array.first { pitch in pitch.pitchClass == pitchClass } != nil
-    }
-
-    var closedVoicing: PitchSet {
-        var pitchArray: [Pitch] = []
-        self.forEach { pitch in
-            // if this is a new note
-            if !pitchArray.map({ $0.midiNoteNumber % 12 }).contains(pitch.midiNoteNumber % 12) {
-                // add the new note in the closes octave to the bass note
-                if let bassNote = pitchArray.first {
-                    var pitchCopy = pitch
-                    while pitchCopy.midiNoteNumber > bassNote.midiNoteNumber + 12 {
-                        pitchCopy = Pitch(pitchCopy.midiNoteNumber - 12)
-                    }
-                    pitchArray.append(pitchCopy)
-                } else {
-                    pitchArray.append(pitch)
-                }
-
-            }
-        }
-
-        return PitchSet(pitches: pitchArray)
-    }
-
-    func transposedBassNoteTo(octave: Int) -> PitchSet {
-        guard let bass = self.array.first,
-              let targetOctave = Octave(rawValue: octave),
-              let bassOctave = Octave(of: bass) else {
-            return PitchSet()
-        }
-
-        let octaveDifference = targetOctave.rawValue - bassOctave.rawValue
-        return PitchSet(pitches: self.array.map { Pitch($0.midiNoteNumber + Int8(octaveDifference * 12)) })
-    }
-
-}
-
-/// Essentially a midi note number.
-///
-/// We want to use a notion of pitch that lends itself to combinatorial algorithms,
-/// as opposed to using e.g. a fundamental frequency.
-public struct Pitch: Equatable, Hashable, Codable {
-    /// MIDI Note Number 0-127
-    public var midiNoteNumber: Int8
-
-    /// Initialize from a MIDI Note Number
-    /// - Parameter midiNoteNumber: MIDI Note Number 0-127
-    public init(_ midiNoteNumber: Int8) {
-        self.midiNoteNumber = midiNoteNumber
-    }
-
-    /// If we have a Key, we can turn a Pitch into a Note.
-    /// - Parameter key: Key to find the note in
-    public func note(in key: Key) -> Note {
-        Note(pitch: self, key: key)
-    }
-
-    /// Returns the distance between Pitches in semitones.
-    /// - Parameter to: Pitch to which you want to know the distance
+    
     public func semitones(to next: Pitch) -> Int8 {
-        midiNoteNumber - next.midiNoteNumber
+            midiNote - next.midiNote
     }
 
-    /// Returns the interval class between Pitches in integer notation.
-    /// - Parameter to: Pitch to which you want to know the interval class
-    public func intervalClass(to next: Pitch) -> Int8 {
-        modulo(semitones(to: next), 12)
-    }
-
-    /// Equivalence classes of pitches modulo octave.
-    public var pitchClass: Int8 {
-        midiNoteNumber % 12
-    }
-
-    public func existsNaturally(in key: Key) -> Bool {
-        key.noteSet.array.map({ $0.noteClass }).contains(note(in: key).noteClass)
-    }
-}
-
-extension Pitch: IntRepresentable {
     public var intValue: Int {
-        Int(midiNoteNumber)
+        Int(midiNote)
     }
 
-    public init(intValue: Int) {
-        midiNoteNumber = Int8(intValue)
-    }
-}
-
-extension Pitch: Comparable {
     public static func < (lhs: Pitch, rhs: Pitch) -> Bool {
-        lhs.midiNoteNumber < rhs.midiNoteNumber
+        lhs.midiNote < rhs.midiNote
     }
-}
 
-extension Pitch: Strideable {
     public func distance(to other: Pitch) -> Int8 {
         semitones(to: other)
     }
 
     public func advanced(by n: Int8) -> Pitch {
-        Pitch(midiNoteNumber + n)
+        Pitch(midiNote + n)
     }
 }
 
-func modulo(_ a: Int8, _ n: Int8) -> Int8 {
-    precondition(n > 0, "modulus must be positive")
-    let r = a % n
-    return r >= 0 ? r : r + n
+struct Interval {
+    public var pitch: Pitch
+    public var tonicPitch: Pitch
+    public var semitones: Int8
+    public var intervalClass: IntegerNotation
+    public var octaveDistance: Int8
+    
+    public init(pitch: Pitch, tonicPitch: Pitch) {
+        self.pitch = pitch
+        self.tonicPitch = tonicPitch
+        self.semitones = pitch.semitones(to: tonicPitch)
+        self.intervalClass = IntegerNotation(rawValue: modulo(self.semitones, 12))!
+        self.octaveDistance = Int8(self.semitones / 12)
+    }
+    
+    public var mainColor: CGColor {
+        #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
+    }
+    
+    public var majorMinor: MajorMinor {
+        switch intervalClass {
+        case .one, .three, .eight, .ten: return .minor
+        case .zero, .five, .six, .seven: return .neutral
+        case .two, .four, .nine, .eleven: return .major
+        }
+    }
+    
+    public var consonanceDissonance: ConsonanceDissonance {
+        if pitch == tonicPitch {
+            return .tonic
+        } else {
+            switch intervalClass {
+            case .zero: return .octave
+            case .five, .seven: return .perfect
+            case .three, .four, .eight, .nine: return .consonant
+            case .one, .two, .six, .ten, .eleven: return .dissonant
+            }
+        }
+    }
+    
+    public var pitchDirection: PitchDirection {
+        var pitchDirection: PitchDirection = .ambiguous
+        if self.semitones < 0 {
+            pitchDirection = .downward
+        } else if self.semitones > 0 {
+            pitchDirection = .upward
+        }
+        return pitchDirection
+    }
+    
 }

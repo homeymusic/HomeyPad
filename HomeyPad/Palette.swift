@@ -32,15 +32,19 @@ enum MajorMinor: String, CaseIterable, Identifiable {
     }
 }
 
-enum ConsonanceDissonance: String, CaseIterable, Identifiable {
-    case tonic = "tonic"
-    case octave = "octave"
-    case perfect = "perfect"
-    case consonant = "consonant"
-    case dissonant = "dissonant"
-
-    var id: String { self.rawValue }
-
+enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable {
+    static func < (lhs: ConsonanceDissonance, rhs: ConsonanceDissonance) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+    
+    case dissonant = 0
+    case consonant = 1
+    case perfect = 2
+    case octave = 3
+    case tonic = 4
+    
+    var id: Int { self.rawValue }
+    
     var symbol: any Shape {
         switch self {
         case .tonic: return NitterHouseWithDoor()
@@ -65,7 +69,7 @@ enum ConsonanceDissonance: String, CaseIterable, Identifiable {
         case .dissonant: return circle
         }
     }
-
+    
     struct NitterHouse: Shape {
         func path(in rect: CGRect) -> Path {
             Path { path in
@@ -79,7 +83,7 @@ enum ConsonanceDissonance: String, CaseIterable, Identifiable {
             }
         }
     }
-
+    
     struct NitterHouseWithDoor: Shape {
         func path(in rect: CGRect) -> Path {
             let doorWidth = 0.125
@@ -97,7 +101,7 @@ enum ConsonanceDissonance: String, CaseIterable, Identifiable {
             }
         }
     }
-
+    
     struct NitterTurret: Shape {
         func path(in rect: CGRect) -> Path {
             Path { path in
@@ -109,7 +113,7 @@ enum ConsonanceDissonance: String, CaseIterable, Identifiable {
             }
         }
     }
-
+    
     struct NitterDiamond: Shape {
         func path(in rect: CGRect) -> Path {
             Path { path in
@@ -121,10 +125,10 @@ enum ConsonanceDissonance: String, CaseIterable, Identifiable {
             }
         }
     }
-
+    
 }
 
-enum IntervalClass: Int8, CaseIterable, Identifiable {
+public enum IntegerNotation: Int8, CaseIterable, Identifiable {
     case zero   = 0
     case one    = 1
     case two    = 2
@@ -138,7 +142,7 @@ enum IntervalClass: Int8, CaseIterable, Identifiable {
     case ten    = 10
     case eleven = 11
     
-    var id: Int8 { self.rawValue }
+    public var id: Int8 { self.rawValue }
 
 }
 
@@ -148,54 +152,6 @@ enum PitchDirection: Int8, CaseIterable, Identifiable {
     case downward  = -1
     
     var id: Int8 { self.rawValue }
-}
-
-struct PitchInterval {
-    public var pitch: Pitch
-    public var tonicPitch: Pitch
-    public var semitoneDistance: Int8
-    public var intervalClass: IntervalClass
-    public var octaveDistance: Int8
-    
-    public init(pitch: Pitch, tonicPitch: Pitch) {
-        self.pitch = pitch
-        self.tonicPitch = tonicPitch
-        self.semitoneDistance = pitch.midiNoteNumber - tonicPitch.midiNoteNumber
-        self.intervalClass = IntervalClass(rawValue: modulo(self.semitoneDistance, 12))!
-        self.octaveDistance = Int8(self.semitoneDistance / 12)
-    }
-    
-    public var majorMinor: MajorMinor {
-        switch intervalClass {
-        case .one, .three, .eight, .ten: return .minor
-        case .zero, .five, .six, .seven: return .neutral
-        case .two, .four, .nine, .eleven: return .major
-        }
-    }
-    
-    public var consonanceDissonance: ConsonanceDissonance {
-        if pitch == tonicPitch {
-            return .tonic
-        } else {
-            switch intervalClass {
-            case .zero: return .octave
-            case .five, .seven: return .perfect
-            case .three, .four, .eight, .nine: return .consonant
-            case .one, .two, .six, .ten, .eleven: return .dissonant
-            }
-        }
-    }
-    
-    public var pitchDirection: PitchDirection {
-        var pitchDirection: PitchDirection = .ambiguous
-        if self.semitoneDistance < 0 {
-            pitchDirection = .downward
-        } else if self.semitoneDistance > 0 {
-            pitchDirection = .upward
-        }
-        return pitchDirection
-    }
-    
 }
 
 extension Color {
