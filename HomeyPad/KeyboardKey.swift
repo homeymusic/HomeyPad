@@ -22,9 +22,6 @@ public struct KeyboardKey: View {
                 tonicPitch: Pitch = Pitch(60),
                 text: String = "",
                 intervallicKeyColors: [CGColor] = IntervalColor.homeySubtle,
-                intervallicKeySymbols: [any Shape] = IntervalSymbol.homey,
-                intervallicSymbolColors: [CGColor] = IntervalColor.homey,
-                intervallicSymbolSize: [CGFloat] = IntervalSymbolSize.homey,
                 backgroundColor: Color = .black,
                 subtle: Bool = true,
                 isActivatedExternally: Bool = false)
@@ -45,13 +42,11 @@ public struct KeyboardKey: View {
             self.text = text
         }
         self.intervallicKeyColors = intervallicKeyColors
-        self.intervallicKeySymbols = intervallicKeySymbols
-        self.intervallicSymbolColors = intervallicSymbolColors
-        self.intervallicSymbolSize = intervallicSymbolSize
         self.formFactor = formFactor
         self.backgroundColor = backgroundColor
         self.subtle = subtle
         self.isActivatedExternally = isActivatedExternally
+        self.pitchInterval = PitchInterval(pitch: self.pitch, tonicPitch: self.tonicPitch)
     }
     
     var pitch: Pitch
@@ -60,13 +55,11 @@ public struct KeyboardKey: View {
     var tonicPitch: Pitch
     var text: String
     var intervallicKeyColors: [CGColor]
-    var intervallicKeySymbols: [any Shape]
-    var intervallicSymbolColors: [CGColor]
-    var intervallicSymbolSize: [CGFloat]
     var formFactor: FormFactor
     var backgroundColor: Color
     var subtle: Bool
     var isActivatedExternally: Bool
+    var pitchInterval: PitchInterval
     
     public var body: some View {
         GeometryReader { proxy in
@@ -89,12 +82,12 @@ public struct KeyboardKey: View {
         switch viewpoint {
         case .diatonic:
             if activated {
-                return Color(intervallicSymbolColors[Int(pitch.intervalClass(to: tonicPitch))])
+                return Color(pitchInterval.majorMinor.color)
             } else {
                 return isWhite ? .white : .black
             }
         case .intervallic:
-            let majorMinorColor = Color(intervallicSymbolColors[Int(pitch.intervalClass(to: tonicPitch))])
+            let majorMinorColor = Color(pitchInterval.majorMinor.color)
             let keyColor = Color(intervallicKeyColors[Int(pitch.intervalClass(to: tonicPitch))])
             let pianoColor = isSmall ? keyColor.adjust(brightness: -0.1) : keyColor.adjust(brightness: +0.1)
             if subtle {
@@ -130,10 +123,10 @@ public struct KeyboardKey: View {
                     return Color(intervallicKeyColors[Int(pitch.intervalClass(to: tonicPitch))])
                 }
             } else {
-                return Color(intervallicSymbolColors[Int(pitch.intervalClass(to: tonicPitch))])
+                return Color(pitchInterval.majorMinor.color)
             }
         } else {
-            let color =  Color(intervallicSymbolColors[Int(pitch.intervalClass(to: tonicPitch))])
+            let color =  Color(pitchInterval.majorMinor.color)
             if activated {
                 return color.adjust(brightness: +0.2)
             } else {
@@ -143,11 +136,11 @@ public struct KeyboardKey: View {
     }
     
     var keySymbol: any Shape {
-        return intervallicKeySymbols[pitch == tonicPitch ? 12 : Int(pitch.intervalClass(to: tonicPitch))]
+        return pitchInterval.consonanceDissonance.symbol
     }
     
     func symbolLength(_ size: CGSize) -> CGFloat {
-        return minDimension(size) * intervallicSymbolSize[Int(pitch.intervalClass(to: tonicPitch))]
+        return minDimension(size) * pitchInterval.consonanceDissonance.symbolLength
     }
     
     var isWhite: Bool {

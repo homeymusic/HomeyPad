@@ -138,6 +138,7 @@
 		B02673422BAF6C7C00DDFA62 /* HomeyPad */ = {
 			isa = PBXGroup;
 			children = (
+				B04CE2262BBAFE5800E8787D /* Layouts */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
 				B041FF212BB9933E00490B19 /* Pad.swift */,
@@ -149,12 +150,7 @@
 				B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */,
 				B0C7FD2B2BBAFB16006FF26F /* KeyView.swift */,
 				B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */,
-				B0C7FD202BBAFB16006FF26F /* Guitar.swift */,
-				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
-				B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */,
-				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
 				B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */,
-				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD2A2BBAFB16006FF26F /* MultitouchView.swift */,
 				B0C7FD2C2BBAFB16006FF26F /* PreferenceKeys.swift */,
 				B0C7FD542BBAFB7F006FF26F /* Accidental.swift */,
@@ -194,6 +190,18 @@
 				B0C088042BB8B08200E454A0 /* KeyboardView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B04CE2262BBAFE5800E8787D /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */,
+				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
+				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
+				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
+				B0C7FD202BBAFB16006FF26F /* Guitar.swift */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
