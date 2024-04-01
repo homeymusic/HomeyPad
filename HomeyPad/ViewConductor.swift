@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import Keyboard
-import Tonic
 
 class ViewConductor: ObservableObject {
     
@@ -16,7 +14,6 @@ class ViewConductor: ObservableObject {
     @Published var lowPitches = [
         Pad.isomorphic: Pitch(57),
         Pad.symmetric:  Pitch(53),
-        Pad.symmetricLoud:  Pitch(53),
         Pad.piano:      Pitch(53),
         Pad.guitar:     Pitch(40)
     ]
@@ -24,7 +21,6 @@ class ViewConductor: ObservableObject {
     @Published var highPitches = [
         Pad.isomorphic: Pitch(75),
         Pad.symmetric:  Pitch(79),
-        Pad.symmetricLoud:  Pitch(79),
         Pad.piano:      Pitch(79),
         Pad.guitar:     Pitch(86)
     ]

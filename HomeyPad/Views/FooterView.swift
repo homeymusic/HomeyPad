@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Keyboard
 
 struct FooterView: View {
     @StateObject var viewConductor: ViewConductor

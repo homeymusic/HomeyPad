@@ -1,6 +1,5 @@
 import CoreGraphics
 import SwiftUI
-import Tonic
 
 enum Palette: String, CaseIterable, Identifiable {
     case subtle = "subtle"
@@ -25,16 +24,6 @@ enum Palette: String, CaseIterable, Identifiable {
     
     public static var cream: CGColor {
         #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-    }
-    
-    func keyColor(pitch: Pitch, tonicPitch: Pitch, activated: Bool, highlightDiatonic: Bool) -> CGColor {
-        let interval = PitchInterval(pitch: pitch, tonicPitch: tonicPitch)
-        switch self {
-        case .subtle: 
-            return activated ? : Palette.brown
-        case .loud:
-            return Palette.majorMinor
-        }
     }
     
 }
@@ -203,21 +192,15 @@ struct PitchInterval {
     }
     
     public var pitchDirection: PitchDirection {
+        var pitchDirection: PitchDirection = .ambiguous
         if self.semitoneDistance < 0 {
-            return .downward
-        } else if self.semitoneDistance == 0 {
-            return .ambiguous
+            pitchDirection = .downward
         } else if self.semitoneDistance > 0 {
-            return .upward
+            pitchDirection = .upward
         }
+        return pitchDirection
     }
     
-}
-
-func modulo(_ a: Int8, _ n: Int8) -> Int8 {
-    precondition(n > 0, "modulus must be positive")
-    let r = a % n
-    return r >= 0 ? r : r + n
 }
 
 extension Color {

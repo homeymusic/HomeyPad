@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Keyboard
 
 struct KeyboardView: View {
     @StateObject var viewConductor: ViewConductor
@@ -28,15 +27,6 @@ struct KeyboardView: View {
                                      isActivated: isActivated,
                                      formFactor: .symmetric,
                                      tonicPitch: viewConductor.tonicPitch)
-                     }
-        case .symmetricLoud:
-            Keyboard(layout: .symmetric(pitchRange: viewConductor.pitchRange),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
-                         KeyboardKey(pitch: pitch,
-                                     isActivated: isActivated,
-                                     formFactor: .symmetric,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     subtle: false)
                      }
         case .piano:
             Keyboard(layout: .piano(pitchRange: viewConductor.pitchRange),
