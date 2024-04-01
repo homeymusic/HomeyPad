@@ -172,9 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				B04CE2272BBB09D900E8787D /* Pitch.swift */,
-				B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */,
 				B04CE2322BBB3AB000E8787D /* Interval.swift */,
 				B04CE2362BBB3B6F00E8787D /* MajorMinor.swift */,
+				B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */,
 				B04CE2342BBB3B0700E8787D /* IntegerNotation.swift */,
 			);
 			path = MusicTheory;

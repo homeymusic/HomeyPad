@@ -1,10 +1,6 @@
 import SwiftUI
 
-enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable {
-    static func < (lhs: ConsonanceDissonance, rhs: ConsonanceDissonance) -> Bool {
-        lhs.rawValue < rhs.rawValue
-    }
-    
+enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatable {
     case dissonant = 0
     case consonant = 1
     case perfect = 2
@@ -92,6 +88,10 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable {
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
             }
         }
+    }
+    
+    static func < (lhs: ConsonanceDissonance, rhs: ConsonanceDissonance) -> Bool {
+        lhs.rawValue < rhs.rawValue
     }
     
 }

@@ -1,4 +1,4 @@
-struct Interval {
+struct Interval: Comparable, Equatable {
     public var pitch: Pitch
     public var tonicPitch: Pitch
     public var semitones: Int8
@@ -43,4 +43,9 @@ struct Interval {
         }
         return pitchDirection
     }
+    
+    static func < (lhs: Interval, rhs: Interval) -> Bool {
+        lhs.consonanceDissonance < rhs.consonanceDissonance && lhs.majorMinor < rhs.majorMinor
+    }
+    
 }
