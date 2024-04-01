@@ -1,11 +1,11 @@
 public struct Pitch: Equatable, Hashable, Comparable, Strideable {
     
-    public var midiNote: Int8
+    public var midi: Int8
     public var pitchClass: IntegerNotation
     
-    public init(_ midiNote: Int8) {
-        self.midiNote = midiNote
-        self.pitchClass = IntegerNotation(rawValue: modulo(self.midiNote, 12))!
+    public init(_ midi: Int8) {
+        self.midi = midi
+        self.pitchClass = IntegerNotation(rawValue: modulo(self.midi, 12))!
     }
     
     public var accidental: Bool {
@@ -18,15 +18,15 @@ public struct Pitch: Equatable, Hashable, Comparable, Strideable {
     }
     
     public func semitones(to next: Pitch) -> Int8 {
-            midiNote - next.midiNote
+            midi - next.midi
     }
 
     public var intValue: Int {
-        Int(midiNote)
+        Int(midi)
     }
 
     public static func < (lhs: Pitch, rhs: Pitch) -> Bool {
-        lhs.midiNote < rhs.midiNote
+        lhs.midi < rhs.midi
     }
 
     public func distance(to other: Pitch) -> Int8 {
@@ -34,15 +34,6 @@ public struct Pitch: Equatable, Hashable, Comparable, Strideable {
     }
 
     public func advanced(by n: Int8) -> Pitch {
-        Pitch(midiNote + n)
+        Pitch(midi + n)
     }
 }
-
-enum PitchDirection: Int8, CaseIterable, Identifiable {
-    case upward    = 1
-    case ambiguous = 0
-    case downward  = -1
-    
-    var id: Int8 { self.rawValue }
-}
-

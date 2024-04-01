@@ -1,13 +1,6 @@
-//
-//  swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 3/24/24.
-//
-
 import SwiftUI
 
-enum Pad: String, CaseIterable, Identifiable {
+enum LayoutChoice: String, CaseIterable, Identifiable {
     case isomorphic = "isomorphic"
     case symmetric = "symmetric"
     case piano = "piano"
@@ -27,20 +20,20 @@ enum Pad: String, CaseIterable, Identifiable {
 
 class ViewConductor: ObservableObject {
     
-    @Published var pad: Pad = .symmetric
+    @Published var layoutChoice: LayoutChoice = .symmetric
 
     @Published var lowPitches = [
-        Pad.isomorphic: Pitch(57),
-        Pad.symmetric:  Pitch(53),
-        Pad.piano:      Pitch(53),
-        Pad.guitar:     Pitch(40)
+        LayoutChoice.isomorphic: Pitch(57),
+        LayoutChoice.symmetric:  Pitch(53),
+        LayoutChoice.piano:      Pitch(53),
+        LayoutChoice.guitar:     Pitch(40)
     ]
     
     @Published var highPitches = [
-        Pad.isomorphic: Pitch(75),
-        Pad.symmetric:  Pitch(79),
-        Pad.piano:      Pitch(79),
-        Pad.guitar:     Pitch(86)
+        LayoutChoice.isomorphic: Pitch(75),
+        LayoutChoice.symmetric:  Pitch(79),
+        LayoutChoice.piano:      Pitch(79),
+        LayoutChoice.guitar:     Pitch(86)
     ]
     
     @Published var tonicPitch: Pitch = Pitch(60)
@@ -48,7 +41,7 @@ class ViewConductor: ObservableObject {
     @Published var showHomePicker: Bool = false
         
     var pitchRange: ClosedRange<Pitch> {
-        lowPitches[self.pad]!...highPitches[self.pad]!
+        lowPitches[self.layoutChoice]!...highPitches[self.layoutChoice]!
     }
 
     func noteOn(pitch: Pitch, point: CGPoint) {

@@ -11,7 +11,7 @@ struct KeyboardView: View {
     @StateObject var viewConductor: ViewConductor
 
     var body: some View {
-        switch viewConductor.pad {
+        switch viewConductor.layoutChoice {
         case .isomorphic:
             Keyboard(layout: .isomorphic(pitchRange: viewConductor.pitchRange),
                      noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in

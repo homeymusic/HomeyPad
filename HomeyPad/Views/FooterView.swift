@@ -12,10 +12,10 @@ struct FooterView: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            Picker("", selection: $viewConductor.pad) {
-                ForEach(Pad.allCases) { pad in
-                    Image(systemName: pad.icon)
-                        .tag(pad)
+            Picker("", selection: $viewConductor.layoutChoice) {
+                ForEach(LayoutChoice.allCases) { layoutChoice in
+                    Image(systemName: layoutChoice.icon)
+                        .tag(layoutChoice)
                 }
             }
             .pickerStyle(.segmented)

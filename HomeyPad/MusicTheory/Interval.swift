@@ -49,3 +49,11 @@ struct Interval: Comparable, Equatable {
     }
     
 }
+
+enum PitchDirection: Int8, CaseIterable, Identifiable {
+    case upward    = 1
+    case ambiguous = 0
+    case downward  = -1
+    
+    var id: Int8 { self.rawValue }
+}
