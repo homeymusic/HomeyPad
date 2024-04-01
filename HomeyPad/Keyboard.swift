@@ -62,19 +62,6 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                                           relativeBlackKeyHeight: relativeBlackKeyHeight))
             case let .guitar(openPitches, fretCount):
                 Guitar(content: content, model: model, openPitches: openPitches, fretCount: fretCount)
-            case let .verticalIsomorphic(pitchRange, root, scale):
-                VerticalIsomorphic(content: content,
-                                   model: model,
-                                   pitchRange: pitchRange,
-                                   root: root,
-                                   scale: scale)
-            case let .verticalPiano(pitchRange, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth):
-                VerticalPiano(content: content,
-                              keyboard: model,
-                              spacer: PianoSpacer(pitchRange: pitchRange,
-                                                  initialSpacerRatio: initialSpacerRatio,
-                                                  spacerRatio: spacerRatio,
-                                                  relativeBlackKeyWidth: relativeBlackKeyWidth))
             }
 
             if !latching {
@@ -121,11 +108,6 @@ public extension Keyboard where Content == KeyboardKey {
             flatTop = true
         case .guitar:
             alignment = .center
-        case .verticalIsomorphic:
-            alignment = .trailing
-        case .verticalPiano:
-            flatTop = true
-            alignment = .trailing
         }
         content = {
             KeyboardKey(
