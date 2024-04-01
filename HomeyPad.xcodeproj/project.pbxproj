@@ -14,6 +14,8 @@
 		B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2272BBB09D900E8787D /* Pitch.swift */; };
 		B04CE22A2BBB0B9D00E8787D /* Modulo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2292BBB0B9D00E8787D /* Modulo.swift */; };
 		B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE22E2BBB38AB00E8787D /* Color.swift */; };
+		B04CE2332BBB3AB000E8787D /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2322BBB3AB000E8787D /* Interval.swift */; };
+		B04CE2352BBB3B0700E8787D /* IntegerNotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2342BBB3B0700E8787D /* IntegerNotation.swift */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C088042BB8B08200E454A0 /* KeyboardView.swift */; };
 		B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */; };
@@ -45,6 +47,8 @@
 		B04CE2272BBB09D900E8787D /* Pitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch.swift; sourceTree = "<group>"; };
 		B04CE2292BBB0B9D00E8787D /* Modulo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modulo.swift; sourceTree = "<group>"; };
 		B04CE22E2BBB38AB00E8787D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		B04CE2322BBB3AB000E8787D /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
+		B04CE2342BBB3B0700E8787D /* IntegerNotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerNotation.swift; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				B04CE2272BBB09D900E8787D /* Pitch.swift */,
+				B04CE2342BBB3B0700E8787D /* IntegerNotation.swift */,
+				B04CE2322BBB3AB000E8787D /* Interval.swift */,
 			);
 			path = MusicTheory;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 				B0C7FD382BBAFB29006FF26F /* PianoSpacer.swift in Sources */,
 				B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */,
 				B04CE22A2BBB0B9D00E8787D /* Modulo.swift in Sources */,
+				B04CE2332BBB3AB000E8787D /* Interval.swift in Sources */,
 				B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */,
 				B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
@@ -254,6 +261,7 @@
 				B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */,
 				B0C7FD312BBAFB16006FF26F /* KeyView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
+				B04CE2352BBB3B0700E8787D /* IntegerNotation.swift in Sources */,
 				B0C7FD332BBAFB16006FF26F /* KeyboardKey.swift in Sources */,
 				B0C7FD3A2BBAFB29006FF26F /* Piano.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
