@@ -1,56 +1,41 @@
 import SwiftUI
 
-enum LayoutChoice: String, CaseIterable, Identifiable {
-    case isomorphic = "isomorphic"
-    case symmetric = "symmetric"
-    case piano = "piano"
-    case guitar = "guitar"
-
-    var id: String { self.rawValue }
-
-    var icon: String {
-        switch self {
-            case .isomorphic: return "rectangle.split.2x1"
-            case .symmetric: return "rectangle.split.2x2"
-            case .piano: return "pianokeys"
-            case .guitar: return "guitars"
-        }
-    }
-}
-
 class ViewConductor: ObservableObject {
+    
+    @Published var showTonicPicker: Bool = false
+        
+    @Published var allPitches = [Pitch]()
+        
+    @Published var tonicMIDI: Int = 60
+
+    @Published var lowMIDI: [LayoutChoice: Int] = [
+        LayoutChoice.isomorphic: 57,
+        LayoutChoice.symmetric:  53,
+        LayoutChoice.piano:      53,
+        LayoutChoice.guitar:     40
+    ]
+    
+    @Published var highMIDI: [LayoutChoice: Int] = [
+        LayoutChoice.isomorphic: 75,
+        LayoutChoice.symmetric:  79,
+        LayoutChoice.piano:      79,
+        LayoutChoice.guitar:     86
+    ]
     
     @Published var layoutChoice: LayoutChoice = .symmetric
 
-    @Published var lowPitches = [
-        LayoutChoice.isomorphic: Pitch(57),
-        LayoutChoice.symmetric:  Pitch(53),
-        LayoutChoice.piano:      Pitch(53),
-        LayoutChoice.guitar:     Pitch(40)
-    ]
-    
-    @Published var highPitches = [
-        LayoutChoice.isomorphic: Pitch(75),
-        LayoutChoice.symmetric:  Pitch(79),
-        LayoutChoice.piano:      Pitch(79),
-        LayoutChoice.guitar:     Pitch(86)
-    ]
-    
-    @Published var tonicPitch: Pitch = Pitch(60)
-    
-    @Published var showHomePicker: Bool = false
-        
-    var pitchRange: ClosedRange<Pitch> {
-        lowPitches[self.layoutChoice]!...highPitches[self.layoutChoice]!
+    init() {
+        for midi: Int8 in 0...127 {
+            allPitches.append(Pitch(midi))
+        }
     }
 
-    func noteOn(pitch: Pitch, point: CGPoint) {
-        print("note on \(pitch)")
+    var tonicPitch: Pitch {
+        self.allPitches[self.tonicMIDI]
     }
     
-    func noteOff(pitch: Pitch) {
-        print("note off \(pitch)")
+    var pitches: ArraySlice<Pitch> {
+        return allPitches[lowMIDI[self.layoutChoice]!...highMIDI[self.layoutChoice]!]
     }
-    
+
 }
-

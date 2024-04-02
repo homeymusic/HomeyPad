@@ -7,18 +7,11 @@ public enum Viewpoint {
     case intervallic
 }
 
-public enum FormFactor {
-    case isomorphic
-    case symmetric
-    case piano
-    case guitar
-}
-
 public struct KeyboardKey: View {
     public init(pitch: Pitch,
                 isActivated: Bool,
                 viewpoint: Viewpoint = .intervallic,
-                formFactor: FormFactor = .symmetric,
+                layoutChoice: LayoutChoice = .symmetric,
                 tonicPitch: Pitch = Pitch(60),
                 backgroundColor: Color = .black,
                 subtle: Bool = true,
@@ -28,7 +21,7 @@ public struct KeyboardKey: View {
         self.isActivated = isActivated
         self.viewpoint = viewpoint
         self.tonicPitch = tonicPitch
-        self.formFactor = formFactor
+        self.layoutChoice = layoutChoice
         self.backgroundColor = backgroundColor
         self.subtle = subtle
         self.isActivatedExternally = isActivatedExternally
@@ -39,7 +32,7 @@ public struct KeyboardKey: View {
     var isActivated: Bool
     var viewpoint: Viewpoint
     var tonicPitch: Pitch
-    var formFactor: FormFactor
+    var layoutChoice: LayoutChoice
     var backgroundColor: Color
     var subtle: Bool
     var isActivatedExternally: Bool
@@ -48,7 +41,7 @@ public struct KeyboardKey: View {
     
     public var body: some View {
         GeometryReader { proxy in
-            ZStack(alignment: formFactor == .piano ? .bottom : .center) {
+            ZStack(alignment: layoutChoice == .piano ? .bottom : .center) {
                 KeyView(keyboardKey: self, proxySize: proxy.size)
                 LabelView(keyboardKey: self, proxySize: proxy.size)
             }
@@ -75,7 +68,7 @@ public struct KeyboardKey: View {
                 if activated {
                     return majorMinorColor
                 } else {
-                    if formFactor == .piano {
+                    if layoutChoice == .piano {
                         return pianoColor
                     } else {
                         return keyColor
@@ -83,7 +76,7 @@ public struct KeyboardKey: View {
                 }
             } else {
                 if activated {
-                    if formFactor == .piano {
+                    if layoutChoice == .piano {
                         return pianoColor
                     } else {
                         return keyColor
@@ -125,11 +118,11 @@ public struct KeyboardKey: View {
     }
     
     var isWhite: Bool {
-        viewpoint == .diatonic && formFactor == .piano && !isSmall
+        viewpoint == .diatonic && layoutChoice == .piano && !isSmall
     }
     
     var isSmall: Bool {
-        pitch.accidental && formFactor == .piano
+        pitch.accidental && layoutChoice == .piano
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {
@@ -150,7 +143,7 @@ public struct KeyboardKey: View {
     }
     
     func topPadding(_ size: CGSize) -> CGFloat {
-        formFactor == .piano ? relativeCornerRadius(in: size) : 0
+        layoutChoice == .piano ? relativeCornerRadius(in: size) : 0
     }
     
     func leadingPadding(_ size: CGSize) -> CGFloat {
@@ -158,7 +151,7 @@ public struct KeyboardKey: View {
     }
     
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
-        formFactor == .piano ? -relativeCornerRadius(in: size) : (isSmall ? 0.5 : 0)
+        layoutChoice == .piano ? -relativeCornerRadius(in: size) : (isSmall ? 0.5 : 0)
     }
     
     func negativeLeadingPadding(_ size: CGSize) -> CGFloat {

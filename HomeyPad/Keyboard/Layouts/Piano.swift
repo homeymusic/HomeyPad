@@ -22,10 +22,10 @@ struct Piano<Content>: View where Content: View {
                     HStack(spacing: 0) {
                         Rectangle().opacity(0)
                             .frame(width: spacer.initialSpacerWidth(geo.size.width))
-                        if spacer.pitchRange.lowerBound != spacer.pitchRangeBoundedByNaturals.lowerBound {
+                        if spacer.pitches.first != spacer.pitchesBoundedByNaturals.first {
                             Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
                         }
-                        ForEach(spacer.pitchRange, id: \.self) { pitch in
+                        ForEach(spacer.pitches, id: \.self) { pitch in
                             if pitch.accidental {
                                 ZStack {
                                     KeyContainer(model: keyboard,

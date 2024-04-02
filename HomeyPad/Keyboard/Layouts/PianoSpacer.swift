@@ -26,7 +26,7 @@ public struct PianoSpacer {
     /// Default value for Black Key Height
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
-    public var pitchRange: ClosedRange<Pitch>
+    public var pitches: ArraySlice<Pitch>
     public var initialSpacerRatio: [IntegerNotation: CGFloat]
     public var spacerRatio: [IntegerNotation: CGFloat]
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
@@ -35,9 +35,9 @@ public struct PianoSpacer {
 }
 
 extension PianoSpacer {
-    public var whiteKeys: [Pitch] {
-        var returnValue: [Pitch] = []
-        for pitch in pitchRangeBoundedByNaturals where !pitch.accidental {
+    public var whiteKeys: ArraySlice<Pitch> {
+        var returnValue: ArraySlice<Pitch> = []
+        for pitch in pitchesBoundedByNaturals where !pitch.accidental {
             returnValue.append(pitch)
         }
         return returnValue
@@ -47,10 +47,8 @@ extension PianoSpacer {
         pitch.accidental
     }
 
-    // NOTE: The magic numbers here come from the canonical piano layout
-    // Probably instead of using HStacks we should just lay things out on a canvas
     public var initialSpacer: CGFloat {
-        let pitchClass = pitchRangeBoundedByNaturals.lowerBound.pitchClass
+        let pitchClass = pitches[pitches.startIndex].pitchClass
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
@@ -67,16 +65,18 @@ extension PianoSpacer {
         whiteKeyWidth(width) * relativeBlackKeyWidth
     }
 
-    public var pitchRangeBoundedByNaturals: ClosedRange<Pitch> {
-        var lowerBound = pitchRange.lowerBound
-        if lowerBound.accidental {
-            lowerBound = Pitch(Int8(lowerBound.intValue - 1))
+    public var pitchesBoundedByNaturals: ArraySlice<Pitch> {
+        var lowestIndex = pitches.startIndex
+        let lowestPitch = pitches[lowestIndex]
+        if lowestPitch.accidental {
+            lowestIndex = lowestIndex - 1
         }
-        var upperBound = pitchRange.upperBound
-        if upperBound.accidental {
-            upperBound = Pitch(Int8(upperBound.intValue + 1))
+        var highestIndex = pitches.endIndex - 1
+        let highestPitch = pitches[highestIndex]
+        if highestPitch.accidental {
+            highestIndex = highestIndex + 1
         }
-        return lowerBound ... upperBound
+        return pitches[lowestIndex...highestIndex]
     }
 
     public func initialSpacerWidth(_ width: CGFloat) -> CGFloat {
@@ -84,7 +84,7 @@ extension PianoSpacer {
     }
 
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
-        whiteKeyWidth(width) * space(pitch: pitchRange.lowerBound)
+        whiteKeyWidth(width) * space(pitch: pitches[pitches.startIndex])
     }
 
     public func blackKeySpacerWidth(_ width: CGFloat, pitch: Pitch) -> CGFloat {

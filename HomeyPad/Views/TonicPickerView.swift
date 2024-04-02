@@ -1,12 +1,11 @@
 import SwiftUI
 
-struct HomePickerView: View {
+struct TonicPickerView: View {
     @StateObject var viewConductor: ViewConductor
     @State private var showSettings = false
     
     var body: some View {
-        /// tonic selector toggle
-        Toggle("", isOn: $viewConductor.showHomePicker).labelsHidden()
+        Toggle("", isOn: $viewConductor.showTonicPicker).labelsHidden()
             .tint(Color(UIColor.darkGray))
             .padding(.leading, 10)
         Button(action: {
@@ -14,16 +13,14 @@ struct HomePickerView: View {
         }) {
             ZStack {
                 Image(systemName: "slider.horizontal.3")
-                    .foregroundColor(viewConductor.showHomePicker ? .white : Color(UIColor.darkGray))
+                    .foregroundColor(viewConductor.showTonicPicker ? .white : Color(UIColor.darkGray))
                 Image(systemName: "square").foregroundColor(.clear)
             }
         }
-        .disabled(!viewConductor.showHomePicker)
+        .disabled(!viewConductor.showTonicPicker)
         .popover(isPresented: $showSettings,
                  content: {
-            /// labels for tonic selector
-            HomePickerSettingsView(viewConductor: viewConductor)
-//            .presentationCompactAdaptation(.none)
+            TonicPickerSettingsView(viewConductor: viewConductor)
         })
         .padding(.leading, 10)
     }

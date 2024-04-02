@@ -2,13 +2,10 @@
 
 import SwiftUI
 
-/// Observable model calling back on noteOn and noteOff and storing the touch locations
 public class KeyboardModel: ObservableObject {
     var keyRectInfos: [KeyRectInfo] = []
-    var noteOn: (Pitch, CGPoint) -> Void = { _, _ in }
-    var noteOff: (Pitch) -> Void = { _ in }
     var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
-
+    
     var touchLocations: [CGPoint] = [] {
         didSet {
             var newPitches = Set<Pitch>()
@@ -34,27 +31,28 @@ public class KeyboardModel: ObservableObject {
             }
         }
     }
-
+    
     /// all touched notes
     @Published public var touchedPitches = Set<Pitch>() {
         willSet { triggerEvents(from: touchedPitches, to: newValue) }
     }
-
+    
     /// Either latched keys or keys active due to external MIDI events.
     @Published public var externallyActivatedPitches = Set<Pitch>() {
         willSet { triggerEvents(from: externallyActivatedPitches, to: newValue) }
     }
-
+    
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
-        let removedPitches = oldValue.subtracting(newValue)
-
-        for pitch in removedPitches {
-            noteOff(pitch)
-        }
-
+        let oldPitches = oldValue.subtracting(newValue)
+        
         for pitch in newPitches {
-            noteOn(pitch, normalizedPoints[pitch.intValue])
+            pitch.noteOn()
         }
+        
+        for pitch in oldPitches {
+            pitch.noteOff()
+        }
+        
     }
 }

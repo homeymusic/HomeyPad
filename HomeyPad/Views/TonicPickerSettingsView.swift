@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomePickerSettingsView: View {
+struct TonicPickerSettingsView: View {
     @StateObject var viewConductor: ViewConductor
 
     var body: some View {

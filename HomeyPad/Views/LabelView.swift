@@ -6,7 +6,7 @@ public struct LabelView: View {
     
     public var body: some View {
         let symbolAdjustedLength = keyboardKey.symbolLength(proxySize) * (keyboardKey.isSmall ? 1.25 : 1.0)
-        if keyboardKey.formFactor == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+        if keyboardKey.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
             VStack(spacing: 0) {
                 let offset = proxySize.height * 0.25 + 0.5 * symbolAdjustedLength
                 ZStack {
@@ -19,7 +19,7 @@ public struct LabelView: View {
                 .offset(y: -offset)
             }
         } else  {
-            let offset = keyboardKey.formFactor == .piano ? -proxySize.height * (keyboardKey.isSmall ? 0.3 : 0.2) : 0
+            let offset = keyboardKey.layoutChoice == .piano ? -proxySize.height * (keyboardKey.isSmall ? 0.3 : 0.2) : 0
             ZStack {
                 SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
                     .offset(y: offset)

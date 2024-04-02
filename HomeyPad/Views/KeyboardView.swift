@@ -13,37 +13,39 @@ struct KeyboardView: View {
     var body: some View {
         switch viewConductor.layoutChoice {
         case .isomorphic:
-            Keyboard(layout: .isomorphic(pitchRange: viewConductor.pitchRange),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+            Keyboard(layout: .isomorphic(pitches: viewConductor.pitches)) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     formFactor: .isomorphic,
+                                     layoutChoice: .isomorphic,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
         case .symmetric:
-            Keyboard(layout: .symmetric(pitchRange: viewConductor.pitchRange),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+            Keyboard(layout: .symmetric(pitches: viewConductor.pitches)) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     formFactor: .symmetric,
+                                     layoutChoice: .symmetric,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
         case .piano:
-            Keyboard(layout: .piano(pitchRange: viewConductor.pitchRange),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+            Keyboard(layout: .piano(pitches: viewConductor.pitches)) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     formFactor: .piano,
+                                     layoutChoice: .piano,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
         case .guitar:
-            Keyboard(layout: .guitar(),
-                     noteOn: viewConductor.noteOn, noteOff: viewConductor.noteOff) { pitch, isActivated in
+            Keyboard(layout: .piano(pitches: viewConductor.pitches)) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     formFactor: .guitar,
+                                     layoutChoice: .piano,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
+//            Keyboard(layout: .guitar(openPitches: viewConductor.allPitches[64, 59, 55, 50, 45, 40])) { pitch, isActivated in
+//                         KeyboardKey(pitch: pitch,
+//                                     isActivated: isActivated,
+//                                     layoutChoice: .guitar,
+//                                     tonicPitch: viewConductor.tonicPitch)
+//                     }
         }
     }
 }

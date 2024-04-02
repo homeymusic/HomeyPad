@@ -3,51 +3,51 @@ import SwiftUI
 struct Symmetric<Content>: View where Content: View {
     let content: (Pitch, Bool) -> Content
     var model: KeyboardModel
-    var pitchRange: ClosedRange<Pitch>
+    var pitches: ArraySlice<Pitch>
     
     var body: some View {
         HStack(spacing: 0) {
-            let dP5 = pitchRange.startIndex
-            let dtt = pitchRange.index(after: dP5)
-            let dP4 = pitchRange.index(after: dtt)
-            let dm3 = pitchRange.index(after: dP4)
-            let dM3 = pitchRange.index(after: dm3)
-            let dm2 = pitchRange.index(after: dM3)
-            let dM2 = pitchRange.index(after: dm2)
-            let P1 = pitchRange.index(after: dM2)
-            let m2 = pitchRange.index(after: P1)
-            let M2 = pitchRange.index(after: m2)
-            let m3 = pitchRange.index(after: M2)
-            let M3 = pitchRange.index(after: m3)
-            let P4 = pitchRange.index(after: M3)
-            let tt = pitchRange.index(after: P4)
-            let P5 = pitchRange.index(after: tt)
-            let m6 = pitchRange.index(after: P5)
-            let M6 = pitchRange.index(after: m6)
-            let m7 = pitchRange.index(after: M6)
-            let M7 = pitchRange.index(after: m7)
-            let P8 = pitchRange.index(after: M7)
-            let m9 = pitchRange.index(after: P8)
-            let M9 = pitchRange.index(after: m9)
-            let m10 = pitchRange.index(after: M9)
-            let M10 = pitchRange.index(after: m10)
-            let P11 = pitchRange.index(after: M10)
-            let ttt = pitchRange.index(after: P11)
-            let P12 = pitchRange.index(after: ttt)
+            let dP5 = pitches.startIndex
+            let dtt = pitches.index(after: dP5)
+            let dP4 = pitches.index(after: dtt)
+            let dm3 = pitches.index(after: dP4)
+            let dM3 = pitches.index(after: dm3)
+            let dm2 = pitches.index(after: dM3)
+            let dM2 = pitches.index(after: dm2)
+            let P1 = pitches.index(after: dM2)
+            let m2 = pitches.index(after: P1)
+            let M2 = pitches.index(after: m2)
+            let m3 = pitches.index(after: M2)
+            let M3 = pitches.index(after: m3)
+            let P4 = pitches.index(after: M3)
+            let tt = pitches.index(after: P4)
+            let P5 = pitches.index(after: tt)
+            let m6 = pitches.index(after: P5)
+            let M6 = pitches.index(after: m6)
+            let m7 = pitches.index(after: M6)
+            let M7 = pitches.index(after: m7)
+            let P8 = pitches.index(after: M7)
+            let m9 = pitches.index(after: P8)
+            let M9 = pitches.index(after: m9)
+            let m10 = pitches.index(after: M9)
+            let M10 = pitches.index(after: m10)
+            let P11 = pitches.index(after: M10)
+            let ttt = pitches.index(after: P11)
+            let P12 = pitches.index(after: ttt)
             
             // below main
             KeyContainer(model: model,
-                         pitch: pitchRange[dP5],
+                         pitch: pitches[dP5],
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitchRange[dP4],
+                         pitch: pitches[dP4],
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitchRange[dtt],
+                                     pitch: pitches[dtt],
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)
@@ -57,52 +57,52 @@ struct Symmetric<Content>: View where Content: View {
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[dM3],
+                             pitch: pitches[dM3],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[dm3],
+                             pitch: pitches[dm3],
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[dM2],
+                             pitch: pitches[dM2],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[dm2],
+                             pitch: pitches[dm2],
                              content: content)
             }
             // main octave
             KeyContainer(model: model,
-                         pitch: pitchRange[P1],
+                         pitch: pitches[P1],
                          content: content)
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M2],
+                             pitch: pitches[M2],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m2],
+                             pitch: pitches[m2],
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M3],
+                             pitch: pitches[M3],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m3],
+                             pitch: pitches[m3],
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitchRange[P4],
+                         pitch: pitches[P4],
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitchRange[P5],
+                         pitch: pitches[P5],
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitchRange[tt],
+                                     pitch: pitches[tt],
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)
@@ -112,52 +112,52 @@ struct Symmetric<Content>: View where Content: View {
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M6],
+                             pitch: pitches[M6],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m6],
+                             pitch: pitches[m6],
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M7],
+                             pitch: pitches[M7],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m7],
+                             pitch: pitches[m7],
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitchRange[P8],
+                         pitch: pitches[P8],
                          content: content)
             // above main
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M9],
+                             pitch: pitches[M9],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m9],
+                             pitch: pitches[m9],
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitchRange[M10],
+                             pitch: pitches[M10],
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitchRange[m10],
+                             pitch: pitches[m10],
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitchRange[P11],
+                         pitch: pitches[P11],
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitchRange[P12],
+                         pitch: pitches[P12],
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitchRange[ttt],
+                                     pitch: pitches[ttt],
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)
