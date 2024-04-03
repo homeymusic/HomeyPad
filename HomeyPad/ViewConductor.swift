@@ -2,10 +2,10 @@ import SwiftUI
 
 class ViewConductor: ObservableObject {
     
+    var allPitches = [Pitch]()
+
     @Published var showTonicPicker: Bool = false
-        
-    @Published var allPitches = [Pitch]()
-        
+                
     @Published var tonicMIDI: Int = 60
 
     @Published var lowMIDI: [LayoutChoice: Int] = [

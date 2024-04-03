@@ -49,7 +49,8 @@ public struct KeyboardKey: View {
     }
 
     var activated: Bool {
-        isActivatedExternally || isActivated
+//        isActivatedExternally || isActivated
+        pitch.midiState == .on ? true : false
     }
     
     var keyColor: Color {

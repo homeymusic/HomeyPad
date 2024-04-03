@@ -1,12 +1,14 @@
+import SwiftUI
+
 public enum MIDIState {
     case on, off
 }
 
-public struct Pitch: Equatable, Hashable, Comparable {
+public class Pitch: ObservableObject, Equatable {
     
     public var midi: Int8
     public var pitchClass: IntegerNotation
-    public var midiState: MIDIState = .off
+    @Published public var midiState: MIDIState = .off
     
     public init(_ midi: Int8) {
         self.midi = midi
@@ -39,11 +41,36 @@ public struct Pitch: Equatable, Hashable, Comparable {
     }
     
     public func noteOn() {
-        print("Pitch: note on \(self.midi)")
+        print("midi state (without func noteOn): \(self.midiState)")
+        if self.midiState == .off {
+            self.midiState = .on
+            print("Pitch: note on \(self.midi)")
+            print("midi state (within func noteOn): \(self.midiState)")
+        }
     }
     
     public func noteOff() {
-        print("Pitch: note off \(self.midi)")
+        print("midi state (func noteOff): \(self.midiState)")
+        if self.midiState == .on {
+            self.midiState = .off
+            print("Pitch: note off \(self.midi)")
+            print("midi state (within func noteOff): \(self.midiState)")
+        }
+    }
+    
+    public static func == (lhs: Pitch, rhs: Pitch) -> Bool {
+        lhs.midi == rhs.midi
+    }
+
+}
+
+extension Pitch: Identifiable, Hashable, Comparable  {
+    public var id: UUID {
+        return UUID()
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
     }
     
 }
