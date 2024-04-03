@@ -41,32 +41,25 @@ public class Pitch: ObservableObject, Equatable {
     }
     
     public func noteOn() {
-        print("midi state (without func noteOn): \(self.midiState)")
-        if self.midiState == .off {
-            self.midiState = .on
-            print("Pitch: note on \(self.midi)")
-            print("midi state (within func noteOn): \(self.midiState)")
-        }
+        self.midiState = .on
+        print("Pitch: note on \(self.midi)")
     }
     
     public func noteOff() {
-        print("midi state (func noteOff): \(self.midiState)")
-        if self.midiState == .on {
-            self.midiState = .off
-            print("Pitch: note off \(self.midi)")
-            print("midi state (within func noteOff): \(self.midiState)")
-        }
+        self.midiState = .off
+        print("Pitch: note off \(self.midi)")
     }
+    
     
     public static func == (lhs: Pitch, rhs: Pitch) -> Bool {
         lhs.midi == rhs.midi
     }
-
+    
 }
 
 extension Pitch: Identifiable, Hashable, Comparable  {
-    public var id: UUID {
-        return UUID()
+    public var id: Int8 {
+        return self.midi
     }
     
     public func hash(into hasher: inout Hasher) {
