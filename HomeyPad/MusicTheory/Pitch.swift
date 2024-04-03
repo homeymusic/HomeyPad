@@ -2,7 +2,7 @@ public enum MIDIState {
     case on, off
 }
 
-public struct Pitch: Equatable, Hashable, Comparable, Strideable {
+public struct Pitch: Equatable, Hashable, Comparable {
     
     public var midi: Int8
     public var pitchClass: IntegerNotation
@@ -38,18 +38,12 @@ public struct Pitch: Equatable, Hashable, Comparable, Strideable {
         semitones(to: other)
     }
     
-    public func advanced(by n: Int8) -> Pitch {
-        Pitch(midi + n)
-    }
-    
     public func noteOn() {
         print("Pitch: note on \(self.midi)")
-//        midiState = .on
     }
     
     public func noteOff() {
         print("Pitch: note off \(self.midi)")
-//        midiState = .off
     }
     
 }
