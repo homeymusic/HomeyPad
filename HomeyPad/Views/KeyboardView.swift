@@ -34,18 +34,12 @@ struct KeyboardView: View {
                                      tonicPitch: viewConductor.tonicPitch)
                      }
         case .guitar:
-            Keyboard(layout: .piano(pitches: viewConductor.pitches)) { pitch, isActivated in
+            Keyboard(layout: .guitar(allPitches: viewConductor.allPitches, openStringsMIDI: [64, 59, 55, 50, 45, 40])) { pitch, isActivated in
                          KeyboardKey(pitch: pitch,
                                      isActivated: isActivated,
-                                     layoutChoice: .piano,
+                                     layoutChoice: .guitar,
                                      tonicPitch: viewConductor.tonicPitch)
                      }
-//            Keyboard(layout: .guitar(openPitches: viewConductor.allPitches[64, 59, 55, 50, 45, 40])) { pitch, isActivated in
-//                         KeyboardKey(pitch: pitch,
-//                                     isActivated: isActivated,
-//                                     layoutChoice: .guitar,
-//                                     tonicPitch: viewConductor.tonicPitch)
-//                     }
         }
     }
 }

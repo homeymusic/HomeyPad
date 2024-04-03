@@ -48,8 +48,8 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                                           spacerRatio: spacerRatio,
                                           relativeBlackKeyWidth: relativeBlackKeyWidth,
                                           relativeBlackKeyHeight: relativeBlackKeyHeight))
-            case let .guitar(openPitches, fretCount):
-                Guitar(content: content, model: model, openPitches: openPitches, fretCount: fretCount)
+            case let .guitar(allPitches, openStringsMIDI, fretCount):
+                Guitar(content: content, model: model, allPitches: allPitches, openStringsMIDI: openStringsMIDI, fretCount: fretCount)
             }
             
             if !latching {

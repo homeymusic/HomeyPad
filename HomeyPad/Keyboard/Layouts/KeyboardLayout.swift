@@ -20,7 +20,7 @@ public enum KeyboardLayout: Equatable, Hashable {
     
     /// Guitar in arbitrary tuning, from first string (highest) to loweset string
     /// [Pitch(64), Pitch(59), Pitch(55), Pitch(50), Pitch(45), Pitch(40)]
-    case guitar(openPitches: ArraySlice<Pitch>, fretcount: Int = 22)
+    case guitar(allPitches: [Pitch], openStringsMIDI: [Int], fretcount: Int = 22)
     
 }
 

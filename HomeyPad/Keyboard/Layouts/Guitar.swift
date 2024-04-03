@@ -5,18 +5,19 @@ import SwiftUI
 struct Guitar<Content>: View where Content: View {
     let content: (Pitch, Bool) -> Content
     var model: KeyboardModel
-    var openPitches: ArraySlice<Pitch>
+    var allPitches: [Pitch]
+    var openStringsMIDI: [Int]
     var fretCount: Int
 
     var body: some View {
         // Loop through the keys and add rows (strings)
         // Each row has a 5 note offset tuning them to 4ths
         VStack(spacing: 0) {
-            ForEach(0 ..< openPitches.count, id: \.self) { string in
+            ForEach(0 ..< openStringsMIDI.count, id: \.self) { string in
                 HStack(spacing: 0) {
                     ForEach(0 ..< fretCount + 1, id: \.self) { fret in
                         KeyContainer(model: model,
-                                     pitch: Pitch(Int8(openPitches[string].intValue + fret)),
+                                     pitch: allPitches[openStringsMIDI[string] + fret],
                                      content: content)
                     }
                 }
