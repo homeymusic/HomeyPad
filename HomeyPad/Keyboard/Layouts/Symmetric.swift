@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct Symmetric<Content>: View where Content: View {
-    let content: (Pitch, Bool) -> Content
+    let content: (Pitch, Pitch, Bool) -> Content
     var model: KeyboardModel
     var pitches: ArraySlice<Pitch>
+    var tonicPitch: Pitch
     
     var body: some View {
         HStack(spacing: 0) {
@@ -38,9 +39,11 @@ struct Symmetric<Content>: View where Content: View {
             // below main
             KeyContainer(model: model,
                          pitch: pitches[dP5],
+                         tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
                          pitch: pitches[dP4],
+                         tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
@@ -48,6 +51,7 @@ struct Symmetric<Content>: View where Content: View {
                     ZStack {
                         KeyContainer(model: model,
                                      pitch: pitches[dtt],
+                                     tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)
@@ -58,44 +62,55 @@ struct Symmetric<Content>: View where Content: View {
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[dM3],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[dm3],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[dM2],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[dm2],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             // main octave
             KeyContainer(model: model,
                          pitch: pitches[P1],
+                         tonicPitch: tonicPitch,
                          content: content)
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M2],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m2],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M3],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m3],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
                          pitch: pitches[P4],
+                         tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
                          pitch: pitches[P5],
+                         tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
@@ -103,6 +118,7 @@ struct Symmetric<Content>: View where Content: View {
                     ZStack {
                         KeyContainer(model: model,
                                      pitch: pitches[tt],
+                                     tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)
@@ -113,44 +129,55 @@ struct Symmetric<Content>: View where Content: View {
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M6],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m6],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M7],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m7],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
                          pitch: pitches[P8],
+                         tonicPitch: tonicPitch,
                          content: content)
             // above main
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M9],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m9],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
                              pitch: pitches[M10],
+                             tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
                              pitch: pitches[m10],
+                             tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
                          pitch: pitches[P11],
+                         tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
                          pitch: pitches[P12],
+                         tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
                 GeometryReader { proxy in
@@ -158,6 +185,7 @@ struct Symmetric<Content>: View where Content: View {
                     ZStack {
                         KeyContainer(model: model,
                                      pitch: pitches[ttt],
+                                     tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)
                         .frame(width: ttLength, height: ttLength)

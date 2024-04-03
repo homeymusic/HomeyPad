@@ -3,8 +3,9 @@
 import SwiftUI
 
 struct Piano<Content>: View where Content: View {
-    let content: (Pitch, Bool) -> Content
+    let content: (Pitch, Pitch, Bool) -> Content
     let keyboard: KeyboardModel
+    var tonicPitch: Pitch
     let spacer: PianoSpacer
 
     var body: some View {
@@ -12,7 +13,7 @@ struct Piano<Content>: View where Content: View {
             ZStack(alignment: .topLeading) {
                 HStack(spacing: 0) {
                     ForEach(spacer.whiteKeys, id: \.self) { pitch in
-                        KeyContainer(model: keyboard, pitch: pitch, content: content)
+                        KeyContainer(model: keyboard, pitch: pitch, tonicPitch: tonicPitch, content: content)
                             .frame(width: spacer.whiteKeyWidth(geo.size.width))
                     }
                 }
@@ -30,6 +31,7 @@ struct Piano<Content>: View where Content: View {
                                 ZStack {
                                     KeyContainer(model: keyboard,
                                                  pitch: pitch,
+                                                 tonicPitch: tonicPitch,
                                                  zIndex: 1,
                                                  content: content)
                                 }

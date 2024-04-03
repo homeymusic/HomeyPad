@@ -6,11 +6,12 @@ import SwiftUI
 public struct Keyboard<Content>: Identifiable, View where Content: View {
     public let id = UUID()
     
-    let content: (Pitch, Bool) -> Content
+    let content: (Pitch, Pitch, Bool) -> Content
     
     /// model  contains the keys, their status and touches
     @StateObject public var model: KeyboardModel = .init()
     
+    var tonicPitch: Pitch
     var layout: KeyboardLayout
     var latching: Bool
     
@@ -19,12 +20,14 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
     ///   - layout: The geometry of the keys
     ///   - latching: Latched keys stay on until they are pressed again
     ///   - content: View defining how to render a specific key
-    public init(layout: KeyboardLayout,
+    public init(tonicPitch: Pitch,
+                layout: KeyboardLayout,
                 latching: Bool = false,
-                @ViewBuilder content: @escaping (Pitch, Bool) -> Content)
+                @ViewBuilder content: @escaping (Pitch, Pitch, Bool) -> Content)
     {
-        self.latching = latching
+        self.tonicPitch = tonicPitch
         self.layout = layout
+        self.latching = latching
         self.content = content
     }
     
@@ -32,24 +35,28 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
     public var body: some View {
         ZStack {
             switch layout {
-            case let .isomorphic(pitches):
+            case let .isomorphic(pitches, tonicPitch):
                 Isomorphic(content: content,
                            model: model,
-                           pitches: pitches)
-            case let .symmetric(pitches):
+                           pitches: pitches,
+                           tonicPitch: tonicPitch)
+            case let .symmetric(pitches, tonicPitch):
                 Symmetric(content: content,
                           model: model,
-                          pitches: pitches)
-            case let .piano(pitches, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth, relativeBlackKeyHeight):
+                          pitches: pitches,
+                          tonicPitch: tonicPitch)
+            case let .piano(pitches, tonicPitch, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth, relativeBlackKeyHeight):
                 Piano(content: content,
                       keyboard: model,
+                      tonicPitch: tonicPitch,
                       spacer: PianoSpacer(pitches: pitches,
+                                          tonicPitch: tonicPitch,
                                           initialSpacerRatio: initialSpacerRatio,
                                           spacerRatio: spacerRatio,
                                           relativeBlackKeyWidth: relativeBlackKeyWidth,
                                           relativeBlackKeyHeight: relativeBlackKeyHeight))
-            case let .guitar(allPitches, openStringsMIDI, fretCount):
-                Guitar(content: content, model: model, allPitches: allPitches, openStringsMIDI: openStringsMIDI, fretCount: fretCount)
+            case let .guitar(allPitches, tonicPitch, openStringsMIDI, fretCount):
+                Guitar(content: content, model: model, allPitches: allPitches, tonicPitch: tonicPitch, openStringsMIDI: openStringsMIDI, fretCount: fretCount)
             }
             
             if !latching {
@@ -69,15 +76,17 @@ public extension Keyboard where Content == KeyboardKey {
     /// - Parameters:
     ///   - layout: The geometry of the keys
     ///   - latching: Latched keys stay on until they are pressed again
-    init(layout: KeyboardLayout, latching: Bool)
+    init(tonicPitch: Pitch, layout: KeyboardLayout, latching: Bool)
     {
+        self.tonicPitch = tonicPitch
         self.layout = layout
         self.latching = latching
         
         content = {
             KeyboardKey(
                 pitch: $0,
-                isActivated: $1
+                tonicPitch: $1,
+                isActivated: $2
             )
         }
     }

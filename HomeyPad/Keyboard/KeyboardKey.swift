@@ -9,10 +9,10 @@ public enum Viewpoint {
 
 public struct KeyboardKey: View {
     public init(pitch: Pitch,
+                tonicPitch: Pitch,
                 isActivated: Bool,
                 viewpoint: Viewpoint = .intervallic,
                 layoutChoice: LayoutChoice = .symmetric,
-                tonicPitch: Pitch = Pitch(60),
                 backgroundColor: Color = .black,
                 subtle: Bool = true,
                 isActivatedExternally: Bool = false)

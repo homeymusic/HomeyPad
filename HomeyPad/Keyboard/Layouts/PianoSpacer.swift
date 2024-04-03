@@ -27,6 +27,7 @@ public struct PianoSpacer {
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
     public var pitches: ArraySlice<Pitch>
+    public var tonicPitch: Pitch
     public var initialSpacerRatio: [IntegerNotation: CGFloat]
     public var spacerRatio: [IntegerNotation: CGFloat]
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
