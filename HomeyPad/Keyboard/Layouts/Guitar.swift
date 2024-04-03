@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct Guitar<Content>: View where Content: View {
-    let content: (Pitch, Pitch, Bool) -> Content
+    let content: (Pitch, Pitch) -> Content
     var model: KeyboardModel
     var allPitches: [Pitch]
     var tonicPitch: Pitch

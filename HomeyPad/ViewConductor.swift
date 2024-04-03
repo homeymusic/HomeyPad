@@ -22,7 +22,9 @@ class ViewConductor: ObservableObject {
         LayoutChoice.guitar:     86
     ]
     
-    @Published var layoutChoice: LayoutChoice = .symmetric
+    @Published var layoutChoice: LayoutChoice = .symmetric  {
+        willSet { turnOffAllPitches() }
+    }
 
     init() {
         for midi: Int8 in 0...127 {
@@ -38,4 +40,10 @@ class ViewConductor: ObservableObject {
         return allPitches[lowMIDI[self.layoutChoice]!...highMIDI[self.layoutChoice]!]
     }
 
+    func turnOffAllPitches() {
+        self.allPitches.forEach {pitch in
+            pitch.noteOff()
+        }
+    }
+    
 }

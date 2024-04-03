@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct Piano<Content>: View where Content: View {
-    let content: (Pitch, Pitch, Bool) -> Content
+    let content: (Pitch, Pitch) -> Content
     let keyboard: KeyboardModel
     var tonicPitch: Pitch
     let spacer: PianoSpacer

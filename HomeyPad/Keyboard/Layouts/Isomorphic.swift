@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {
-    let content: (Pitch, Pitch, Bool) -> Content
+    let content: (Pitch, Pitch) -> Content
     var model: KeyboardModel
     var pitches: ArraySlice<Pitch>
     var tonicPitch: Pitch

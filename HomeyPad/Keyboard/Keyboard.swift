@@ -6,7 +6,7 @@ import SwiftUI
 public struct Keyboard<Content>: Identifiable, View where Content: View {
     public let id = UUID()
     
-    let content: (Pitch, Pitch, Bool) -> Content
+    let content: (Pitch, Pitch) -> Content
     
     /// model  contains the keys, their status and touches
     @StateObject public var model: KeyboardModel = .init()
@@ -23,7 +23,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
     public init(tonicPitch: Pitch,
                 layout: KeyboardLayout,
                 latching: Bool = false,
-                @ViewBuilder content: @escaping (Pitch, Pitch, Bool) -> Content)
+                @ViewBuilder content: @escaping (Pitch, Pitch) -> Content)
     {
         self.tonicPitch = tonicPitch
         self.layout = layout
@@ -85,8 +85,7 @@ public extension Keyboard where Content == KeyboardKey {
         content = {
             KeyboardKey(
                 pitch: $0,
-                tonicPitch: $1,
-                isActivated: $2
+                tonicPitch: $1
             )
         }
     }

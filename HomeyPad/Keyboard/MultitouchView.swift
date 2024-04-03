@@ -14,24 +14,20 @@ class MultitouchViewIOS: UIView {
     var touches = Set<UITouch>()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
         self.touches.formUnion(touches)
         callback(self.touches.map { $0.location(in: nil)})
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesMoved")
         callback(self.touches.map { $0.location(in: nil)})
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesEnded")
         self.touches.subtract(touches)
         callback(self.touches.map { $0.location(in: nil)})
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesCancelled")
         self.touches.subtract(touches)
         callback(self.touches.map { $0.location(in: nil)})
     }

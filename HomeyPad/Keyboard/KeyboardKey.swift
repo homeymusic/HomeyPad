@@ -10,32 +10,26 @@ public enum Viewpoint {
 public struct KeyboardKey: View {
     public init(pitch: Pitch,
                 tonicPitch: Pitch,
-                isActivated: Bool,
                 viewpoint: Viewpoint = .intervallic,
                 layoutChoice: LayoutChoice = .symmetric,
                 backgroundColor: Color = .black,
-                subtle: Bool = true,
-                isActivatedExternally: Bool = false)
+                subtle: Bool = true)
     {
         self.pitch = pitch
-        self.isActivated = isActivated
         self.viewpoint = viewpoint
         self.tonicPitch = tonicPitch
         self.layoutChoice = layoutChoice
         self.backgroundColor = backgroundColor
         self.subtle = subtle
-        self.isActivatedExternally = isActivatedExternally
         self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
     }
     
     var pitch: Pitch
-    var isActivated: Bool
     var viewpoint: Viewpoint
     var tonicPitch: Pitch
     var layoutChoice: LayoutChoice
     var backgroundColor: Color
     var subtle: Bool
-    var isActivatedExternally: Bool
     var interval: Interval
     var mainColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     
@@ -49,7 +43,6 @@ public struct KeyboardKey: View {
     }
 
     var activated: Bool {
-//        isActivatedExternally || isActivated
         pitch.midiState == .on ? true : false
     }
     
