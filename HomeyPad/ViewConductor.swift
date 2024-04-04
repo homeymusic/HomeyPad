@@ -22,8 +22,8 @@ class ViewConductor: ObservableObject {
 
     @Published var paletteChoice: [LayoutChoice: PaletteChoice] = [
         .isomorphic: .subtle,
-        .symmetric:  .loud,
-        .piano:      .ebonyIvory,
+        .symmetric:  .subtle,
+        .piano:      .subtle,
         .guitar:     .subtle
     ]
     

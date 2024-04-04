@@ -13,7 +13,6 @@ struct KeyboardView: View {
     var body: some View {
         switch viewConductor.layoutChoice {
         case .isomorphic:
-            let _foo = print("$viewConductor.paletteChoice[.isomorpic] \($viewConductor.paletteChoice[.isomorphic])")
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .isomorphic(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
