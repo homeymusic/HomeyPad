@@ -5,9 +5,6 @@ struct TonicPickerView: View {
     @State private var showSettings = false
     
     var body: some View {
-        Toggle("", isOn: $viewConductor.showTonicPicker).labelsHidden()
-            .tint(Color(UIColor.darkGray))
-            .padding(.leading, 10)
         Button(action: {
             self.showSettings.toggle()
         }) {
@@ -23,5 +20,8 @@ struct TonicPickerView: View {
             TonicPickerSettingsView(viewConductor: viewConductor)
         })
         .padding(.leading, 10)
+        Toggle("", isOn: $viewConductor.showTonicPicker).labelsHidden()
+            .tint(Color(UIColor.darkGray))
+            .padding(.leading, 10)
     }
 }

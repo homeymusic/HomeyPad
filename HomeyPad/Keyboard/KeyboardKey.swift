@@ -12,19 +12,22 @@ public struct KeyboardKey: View {
     var pitch: Pitch
     var tonicPitch: Pitch
     var layoutChoice: LayoutChoice
+    var paletteChoice: PaletteChoice
     var backgroundColor: Color
     var interval: Interval
-    var mainColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
-    var accentColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
+    var brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
+    var creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
 
     public init(pitch: Pitch,
                 tonicPitch: Pitch,
                 layoutChoice: LayoutChoice = .symmetric,
+                paletteChoice: PaletteChoice = .subtle,
                 backgroundColor: Color = .black)
     {
         self.pitch = pitch
         self.tonicPitch = tonicPitch
         self.layoutChoice = layoutChoice
+        self.paletteChoice = paletteChoice
         self.backgroundColor = backgroundColor
         self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
     }
@@ -38,30 +41,64 @@ public struct KeyboardKey: View {
         }
     }
 
+    var mainColor: Color {
+        return Color(brownColor)
+    }
+    var accentColor: Color {
+        switch paletteChoice {
+        case .subtle:
+            Color(creamColor)
+        case .loud:
+            Color(brownColor)
+        case .ebonyIvory:
+            Color(brownColor)
+        }
+    }
+
     var activated: Bool {
         pitch.midiState == .on
     }
     
+    func darkenSmallKeys(color: Color) -> Color {
+        return layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
+    }
+    
     var keyColor: Color {
-        let majorMinorColor = Color(interval.majorMinor.color)
-        let keyColor = Color(mainColor)
-        if activated {
-            return majorMinorColor
-        } else {
-            if layoutChoice == .piano {
-                return isSmall ? keyColor.adjust(brightness: -0.1) : keyColor.adjust(brightness: +0.1)
-            } else {
-                return keyColor
-            }
+        let activeColor: Color
+        let inactiveColor: Color
+
+        switch paletteChoice {
+        case .subtle:
+            activeColor = Color(interval.majorMinor.color)
+            inactiveColor = Color(mainColor)
+            return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
+        case .loud:
+            activeColor = Color(mainColor)
+            inactiveColor = Color(interval.majorMinor.color)
+            return activated ? activeColor : inactiveColor
+        case .ebonyIvory:
+            inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
+            activeColor = inactiveColor.adjust(brightness: -0.2)
+            return activated ? activeColor : inactiveColor
         }
     }
     
     var symbolColor: Color {
-        if activated {
-            return Color(mainColor)
-        } else {
-            return Color(interval.majorMinor.color)
+        let activeColor: Color
+        let inactiveColor: Color
+
+        switch paletteChoice {
+        case .subtle:
+            activeColor = Color(mainColor)
+            inactiveColor = Color(interval.majorMinor.color)
+        case .loud:
+            activeColor = Color(interval.majorMinor.color)
+            inactiveColor = Color(mainColor)
+        case .ebonyIvory:
+            inactiveColor = Color(pitch.accidental ? interval.majorMinor.color : interval.majorMinor.colorOnWhite)
+            activeColor = inactiveColor
         }
+        return activated ? activeColor : inactiveColor
     }
     
     var keySymbol: any Shape {

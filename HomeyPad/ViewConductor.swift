@@ -14,6 +14,8 @@ class ViewConductor: ObservableObject {
         willSet { allPitchesNoteOff() }
     }
 
+    @Published var paletteChoice: PaletteChoice = .subtle
+
     func allPitchesNoteOff() {
         self.allPitches.forEach {pitch in
             pitch.noteOff()

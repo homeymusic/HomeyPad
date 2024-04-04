@@ -19,6 +19,7 @@
 		B04CE2372BBB3B6F00E8787D /* MajorMinor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2362BBB3B6F00E8787D /* MajorMinor.swift */; };
 		B04CE2392BBB3B9500E8787D /* ConsonanceDissonance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */; };
 		B04CE23B2BBB51F200E8787D /* LayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */; };
+		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C088042BB8B08200E454A0 /* KeyboardView.swift */; };
 		B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */; };
@@ -55,6 +56,7 @@
 		B04CE2362BBB3B6F00E8787D /* MajorMinor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorMinor.swift; sourceTree = "<group>"; };
 		B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsonanceDissonance.swift; sourceTree = "<group>"; };
 		B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutChoice.swift; sourceTree = "<group>"; };
+		B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoice.swift; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
+				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 				B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
@@ -287,6 +290,7 @@
 				B0C7FD372BBAFB16006FF26F /* KeyboardModel.swift in Sources */,
 				B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */,
 				B0C7FD322BBAFB16006FF26F /* KeyContainer.swift in Sources */,
+				B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

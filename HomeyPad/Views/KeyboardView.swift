@@ -16,25 +16,29 @@ struct KeyboardView: View {
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .isomorphic(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
-                            layoutChoice: .isomorphic)
+                            layoutChoice: .isomorphic,
+                            paletteChoice: viewConductor.paletteChoice)
             }
         case .symmetric:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .symmetric(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
-                            layoutChoice: .symmetric)
+                            layoutChoice: .symmetric,
+                            paletteChoice: viewConductor.paletteChoice)
             }
         case .piano:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .piano(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
-                            layoutChoice: .piano)
+                            layoutChoice: .piano,
+                            paletteChoice: viewConductor.paletteChoice)
             }
         case .guitar:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .guitar(allPitches: viewConductor.allPitches, tonicPitch: viewConductor.tonicPitch, openStringsMIDI: [64, 59, 55, 50, 45, 40])) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
-                            layoutChoice: .guitar)
+                            layoutChoice: .guitar,
+                            paletteChoice: viewConductor.paletteChoice)
             }
         }
     }

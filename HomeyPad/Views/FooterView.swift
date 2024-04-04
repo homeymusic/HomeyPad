@@ -12,14 +12,27 @@ struct FooterView: View {
 
     var body: some View {
         HStack(spacing: 0) {
+            Image(systemName: "slider.horizontal.3")
+
             Picker("", selection: $viewConductor.layoutChoice) {
                 ForEach(LayoutChoice.allCases) { layoutChoice in
                     Image(systemName: layoutChoice.icon)
                         .tag(layoutChoice)
                 }
             }
+            
+            .frame(maxWidth: 300)
             .pickerStyle(.segmented)
-            .padding([.leading, .trailing], 300)
+            Spacer()
+            Picker("", selection: $viewConductor.paletteChoice) {
+                ForEach(PaletteChoice.allCases) { paletteChoice in
+                    Image(systemName: paletteChoice.icon)
+                        .tag(paletteChoice)
+                }
+            }
+            .frame(maxWidth: 300)
+            .pickerStyle(.segmented)
         }
+        .frame(maxWidth: .infinity)
     }
 }

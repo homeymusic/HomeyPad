@@ -10,7 +10,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
         switch self {
             case .isomorphic: return "rectangle.split.2x1"
             case .symmetric: return "rectangle.split.2x2"
-            case .piano: return "pianokeys"
+            case .piano: return "pianokeys.inverse"
             case .guitar: return "guitars"
         }
     }
