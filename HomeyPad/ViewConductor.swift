@@ -14,30 +14,35 @@ class ViewConductor: ObservableObject {
         willSet { allPitchesNoteOff() }
     }
 
-    @Published var paletteChoice: PaletteChoice = .subtle
-
     func allPitchesNoteOff() {
         self.allPitches.forEach {pitch in
             pitch.noteOff()
         }
     }
 
+    @Published var paletteChoice: [LayoutChoice: PaletteChoice] = [
+        .isomorphic: .subtle,
+        .symmetric:  .loud,
+        .piano:      .ebonyIvory,
+        .guitar:     .subtle
+    ]
+    
     @Published var showTonicPicker: Bool = false
                 
     @Published var tonicMIDI: Int = 60
 
     @Published var lowMIDI: [LayoutChoice: Int] = [
-        LayoutChoice.isomorphic: 57,
-        LayoutChoice.symmetric:  53,
-        LayoutChoice.piano:      53,
-        LayoutChoice.guitar:     40
+        .isomorphic: 57,
+        .symmetric:  53,
+        .piano:      53,
+        .guitar:     40
     ]
     
     @Published var highMIDI: [LayoutChoice: Int] = [
-        LayoutChoice.isomorphic: 75,
-        LayoutChoice.symmetric:  79,
-        LayoutChoice.piano:      79,
-        LayoutChoice.guitar:     86
+        .isomorphic: 75,
+        .symmetric:  79,
+        .piano:      79,
+        .guitar:     86
     ]
     
     var tonicPitch: Pitch {

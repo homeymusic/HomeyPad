@@ -24,14 +24,18 @@ struct FooterView: View {
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
             Spacer()
-            Picker("", selection: $viewConductor.paletteChoice) {
-                ForEach(PaletteChoice.allCases) { paletteChoice in
-                    Image(systemName: paletteChoice.icon)
-                        .tag(paletteChoice)
+            ForEach(LayoutChoice.allCases) {
+                if $0 == viewConductor.layoutChoice {
+                    Picker("", selection: $viewConductor.paletteChoice[$0]) {
+                        ForEach(PaletteChoice.allCases) { paletteChoice in
+                            Image(systemName: paletteChoice.icon)
+                                .tag(paletteChoice as PaletteChoice?)
+                        }
+                    }
+                    .frame(maxWidth: 300)
+                    .pickerStyle(.segmented)
                 }
             }
-            .frame(maxWidth: 300)
-            .pickerStyle(.segmented)
         }
         .frame(maxWidth: .infinity)
     }
