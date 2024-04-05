@@ -107,6 +107,15 @@ public struct KeyboardKey: View {
         return activated ? activeColor : inactiveColor
     }
     
+    var textColor: Color {
+        switch paletteChoice {
+        case .ebonyIvory:
+            return pitch.accidental ? .white : .black
+        default:
+            return symbolColor
+        }
+    }
+    
     var keySymbol: any Shape {
         return interval.consonanceDissonance.symbol
     }

@@ -8,6 +8,7 @@ public struct LabelView: View {
         VStack {
             if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.interval]! {
                 Text(String(keyboardKey.interval.interval))
+                    
             }
             if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.roman]! {
                 Text(String(keyboardKey.interval.roman))
@@ -54,6 +55,7 @@ public struct LabelView: View {
                      format: .number.notation(.compactName).precision(.fractionLength(1)))
             }
         }
+        .foregroundColor(keyboardKey.textColor)
     }
 }
 
