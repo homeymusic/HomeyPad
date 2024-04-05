@@ -13,7 +13,7 @@ struct KeyView: View {
             let borderSize = 3.0
             let borderWidthApparentSize = overlayKey ? 2.0 * borderSize : borderSize
             let borderHeightApparentSize = keyboardKey.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-            let outlineTonic: Bool = keyboardKey.pitch.pitchClass == .zero
+            let outlineTonic: Bool = keyboardKey.paletteChoice == .subtle && keyboardKey.pitch.pitchClass == .zero
             KeyRectangle(fillColor: keyboardKey.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
             if outlineTonic {
                 KeyRectangle(fillColor: Color(keyboardKey.accentColor), keyboardKey: keyboardKey, proxySize: proxySize)
