@@ -18,10 +18,12 @@ struct FooterView: View {
                     viewConductor.showKeyLabelsPopover.toggle()
                 }) {
                     ZStack {
-                        Image(systemName: "tag")
-                            .foregroundColor(.white)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-                        Image(systemName: "square").foregroundColor(.clear)
+                        Color.clear.overlay(
+                            Image(systemName: "tag")
+                                .foregroundColor(.white)
+                                .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                        )
+                        .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .popover(isPresented: $viewConductor.showKeyLabelsPopover,
@@ -45,10 +47,12 @@ struct FooterView: View {
                     viewConductor.showPalettePopover.toggle()
                 }) {
                     ZStack {
-                        Image(systemName: viewConductor.paletteChoice[viewConductor.layoutChoice]!.icon)
-                            .foregroundColor(.white)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-                        Image(systemName: "square").foregroundColor(.clear)
+                        Color.clear.overlay(
+                            Image(systemName: viewConductor.paletteChoice[viewConductor.layoutChoice]!.icon)
+                                .foregroundColor(.white)
+                                .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                        )
+                        .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .popover(isPresented: $viewConductor.showPalettePopover,

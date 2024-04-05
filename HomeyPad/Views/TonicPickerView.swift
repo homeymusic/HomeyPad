@@ -11,7 +11,6 @@ struct TonicPickerView: View {
             ZStack {
                 Image(systemName: "slider.horizontal.3")
                     .foregroundColor(viewConductor.showTonicPicker ? .white : Color(UIColor.darkGray))
-                Image(systemName: "square").foregroundColor(.clear)
             }
         }
         .disabled(!viewConductor.showTonicPicker)

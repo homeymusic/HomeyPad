@@ -124,6 +124,10 @@ public struct KeyboardKey: View {
         return minDimension(size) * interval.consonanceDissonance.symbolLength * (isSmall ? 1.25 : 1.0)
     }
     
+    func maxSymbolLength(_ size: CGSize) -> CGFloat {
+        return minDimension(size) * interval.consonanceDissonance.maxSymbolLength * (isSmall ? 1.25 : 1.0)
+    }
+
     var isSmall: Bool {
         layoutChoice == .piano && pitch.accidental
     }

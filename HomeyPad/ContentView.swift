@@ -4,12 +4,24 @@ struct ContentView: View {
     @StateObject var viewConductor = ViewConductor()
     
     var body: some View {
+        let settingsHeight = 30.0
         ZStack {
             Color.black
-            VStack(spacing: 0) {
-                HeaderView(viewConductor: viewConductor)
-                KeyboardView(viewConductor: viewConductor).frame(maxHeight: 300)
-                FooterView(viewConductor: viewConductor)
+            ZStack() {
+                VStack {
+                    HeaderView(viewConductor: viewConductor)
+                        .frame(height: settingsHeight)
+                    Spacer()
+                }
+                KeyboardView(viewConductor: viewConductor)
+                    .frame(height: .infinity)
+                    .padding([.top, .bottom], settingsHeight + 5.0)
+                VStack {
+                    Spacer()
+                    FooterView(viewConductor: viewConductor)
+                        .frame(height: settingsHeight)
+                }
+
             }
         }
         .statusBarHidden(true)

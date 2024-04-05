@@ -21,10 +21,10 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
     
     var symbolLength: CGFloat {
         let coefficient = 0.0225
-        let home        = coefficient * 16
-        let tent        = coefficient * 14
-        let diamond     = coefficient * 12
-        let circle      = coefficient * 10
+        let home        = coefficient * 16.0
+        let tent        = coefficient * 14.0
+        let diamond     = coefficient * 12.0
+        let circle      = coefficient * 10.0
         switch self {
         case .tonic: return home
         case .octave: return home
@@ -32,6 +32,11 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
         case .consonant: return diamond
         case .dissonant: return circle
         }
+    }
+    
+    var maxSymbolLength: CGFloat {
+        let coefficient = 0.0225
+        return coefficient * 16.0
     }
     
     struct NitterHouse: Shape {

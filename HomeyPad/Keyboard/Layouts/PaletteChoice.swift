@@ -9,7 +9,8 @@ public enum PaletteChoice: String, CaseIterable, Identifiable {
         switch self {
         case .subtle: return "paintpalette"
         case .loud: return "paintpalette.fill"
-        case .ebonyIvory: return "rectangle.righthalf.filled"
+//        case .ebonyIvory: return "rectangle.portrait.righthalf.filled"
+        case .ebonyIvory: return "circle.lefthalf.filled"
         }
     }
     
