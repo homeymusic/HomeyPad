@@ -22,6 +22,7 @@
 		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */; };
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
+		B0A0FFC12BC0200A00FFB98C /* KeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C088042BB8B08200E454A0 /* KeyboardView.swift */; };
 		B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */; };
@@ -61,6 +62,7 @@
 		B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoice.swift; sourceTree = "<group>"; };
 		B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLabelChoice.swift; sourceTree = "<group>"; };
 		B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalLabelChoice.swift; sourceTree = "<group>"; };
+		B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */,
 				B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */,
 				B0C088042BB8B08200E454A0 /* KeyboardView.swift */,
+				B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B04CE23B2BBB51F200E8787D /* LayoutChoice.swift in Sources */,
+				B0A0FFC12BC0200A00FFB98C /* KeyLabelsPopoverView.swift in Sources */,
 				B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */,
 				B0C7FD382BBAFB29006FF26F /* PianoSpacer.swift in Sources */,
 				B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */,

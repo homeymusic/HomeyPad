@@ -62,9 +62,10 @@ class ViewConductor: ObservableObject {
             }
         )
     }
-    @Published var showTonicPicker: Bool = false
+
+    @Published var showKeyLabelsPopover: Bool = false
     
-    @Published var showSymbols: Bool = true
+    @Published var showTonicPicker: Bool = false
     
     @Published var tonicMIDI: Int = 60
     
