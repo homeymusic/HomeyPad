@@ -13,21 +13,22 @@ public struct LabelView: View {
             }
             Color.clear.overlay(
                 VStack(spacing: 1.0) {
-                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.interval]! {
-                        Text(String(keyboardKey.interval.interval))
+                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.letter]! {
+                        Text(keyboardKey.pitch.letter)
                             .scaledToFit()
                     }
-                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.roman]! {
-                        Text(String(keyboardKey.interval.roman))
+                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
+                        Text(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].uppercased())
                             .scaledToFit()
                     }
-                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.degree]! {
-                        Text(String(keyboardKey.interval.degree))
+                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.midi]! {
+                        Text(String(keyboardKey.pitch.midi))
                             .scaledToFit()
                     }
-                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.integer]! {
-                        Text(String(keyboardKey.interval.semitones))
-                            .scaledToFit()
+                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.frequency]! {
+                        Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                             format: .number.notation(.compactName).precision(.fractionLength(1)))
+                        .scaledToFit()
                     }
                 }
                     .padding(5.0)
@@ -54,22 +55,21 @@ public struct LabelView: View {
             }
             Color.clear.overlay(
                 VStack(spacing: 1.0) {
-                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.letter]! {
-                        Text(keyboardKey.pitch.letter)
+                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.interval]! {
+                        Text(String(keyboardKey.interval.interval))
                             .scaledToFit()
                     }
-                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
-                        Text(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].uppercased())
+                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.roman]! {
+                        Text(String(keyboardKey.interval.roman))
                             .scaledToFit()
                     }
-                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.midi]! {
-                        Text(String(keyboardKey.pitch.midi))
+                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.degree]! {
+                        Text(String(keyboardKey.interval.degree))
                             .scaledToFit()
                     }
-                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.frequency]! {
-                        Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                             format: .number.notation(.compactName).precision(.fractionLength(1)))
-                        .scaledToFit()
+                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.integer]! {
+                        Text(String(keyboardKey.interval.semitones))
+                            .scaledToFit()
                     }
                 }
                     .padding(5.0)
@@ -77,7 +77,7 @@ public struct LabelView: View {
         }
         .lineLimit(1)
         .minimumScaleFactor(0.01)
-        .font(.custom("Courier", size: 20))
+        .font(.custom("Courier", size: 28))
         .foregroundColor(keyboardKey.textColor)
     }
 }

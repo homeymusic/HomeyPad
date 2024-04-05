@@ -13,24 +13,25 @@ struct KeyLabelsPopoverView: View {
     var body: some View {
         let spacing = 3.0
         VStack(spacing: spacing) {
-            VStack(spacing: spacing) {
-                ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
-                    Toggle(key.label,
-                           systemImage: key.icon,
-                           isOn: viewConductor.intervalLabelBinding(for: key))
-                    .tint(Color.gray)
-                    if key == .integer {Divider()}
-                }
-            }
 
-            Divider()
-            
             VStack(spacing: spacing) {
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                     Toggle(key.label,
                            systemImage: key.icon,
                            isOn: viewConductor.noteLabelBinding(for: key))
                     .tint(Color.gray)
+                }
+            }
+
+            Divider()
+            
+            VStack(spacing: spacing) {
+                ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
+                    Toggle(key.label,
+                           systemImage: key.icon,
+                           isOn: viewConductor.intervalLabelBinding(for: key))
+                    .tint(Color.gray)
+                    if key == .symbol {Divider()}
                 }
             }
         }
