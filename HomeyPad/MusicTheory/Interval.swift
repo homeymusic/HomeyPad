@@ -35,13 +35,7 @@ struct Interval: Comparable, Equatable {
     }
     
     public var pitchDirection: PitchDirection {
-        var pitchDirection: PitchDirection = .ambiguous
-        if self.semitones < 0 {
-            pitchDirection = .downward
-        } else if self.semitones > 0 {
-            pitchDirection = .upward
-        }
-        return pitchDirection
+        return .upward
     }
     
     static func < (lhs: Interval, rhs: Interval) -> Bool {
