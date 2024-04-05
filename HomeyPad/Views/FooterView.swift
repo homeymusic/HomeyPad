@@ -20,10 +20,11 @@ struct FooterView: View {
                         .tag(layoutChoice)
                 }
             }
-            
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
+
             Spacer()
+
             Picker("", selection: $viewConductor.paletteChoice[viewConductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
@@ -32,6 +33,16 @@ struct FooterView: View {
             }
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
+            
+            Spacer()
+            
+            let labelChoices = viewConductor.showLabels.filter({$0.layout == viewConductor.layoutChoice}).first!
+            ForEach(labelChoices.allIntervalKeys, id: \.self) {key in
+                Toggle(isOn: labelChoices.intervalBinding(for: key)) {
+                    Text("\(key): \(labelChoices.intervalLabels[key]!)")
+                }
+            }            
+
         }
         .frame(maxWidth: .infinity)
     }

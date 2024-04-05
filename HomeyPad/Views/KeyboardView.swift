@@ -17,28 +17,32 @@ struct KeyboardView: View {
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .isomorphic,
-                            paletteChoice: viewConductor.paletteChoice[.isomorphic]!)
+                            paletteChoice: viewConductor.paletteChoice[.isomorphic]!,
+                            showLabels: viewConductor.showLabels)
             }
         case .symmetric:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .symmetric(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .symmetric,
-                            paletteChoice: viewConductor.paletteChoice[.symmetric]!)
+                            paletteChoice: viewConductor.paletteChoice[.symmetric]!,
+                            showLabels: viewConductor.showLabels)
             }
         case .piano:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .piano(pitches: viewConductor.pitches, tonicPitch: viewConductor.tonicPitch)) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .piano,
-                            paletteChoice: viewConductor.paletteChoice[.piano]!)
+                            paletteChoice: viewConductor.paletteChoice[.piano]!,
+                            showLabels: viewConductor.showLabels)
             }
         case .guitar:
             Keyboard(tonicPitch: viewConductor.tonicPitch, layout: .guitar(allPitches: viewConductor.allPitches, tonicPitch: viewConductor.tonicPitch, openStringsMIDI: [64, 59, 55, 50, 45, 40])) { pitch, tonicPitch in
                 KeyboardKey(pitch: pitch,
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .guitar,
-                            paletteChoice: viewConductor.paletteChoice[.guitar]!)
+                            paletteChoice: viewConductor.paletteChoice[.guitar]!,
+                            showLabels: viewConductor.showLabels)
             }
         }
     }
