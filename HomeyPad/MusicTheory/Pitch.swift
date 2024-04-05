@@ -84,6 +84,35 @@ public class Pitch: ObservableObject, Equatable {
         }
     }
     
+    var fixedDo: String {
+        switch pitchClass {
+        case .zero:
+            "Do"
+        case .one:
+            "Do♯Re♭"
+        case .two:
+            "Re"
+        case .three:
+            "Re♯Mi♭"
+        case .four:
+            "Mi"
+        case .five:
+            "Fa"
+        case .six:
+            "Fa♯Sol♭"
+        case .seven:
+            "Sol"
+        case .eight:
+            "Sol♯La♭"
+        case .nine:
+            "La"
+        case .ten:
+            "La♯Si♭"
+        case .eleven:
+            "Si"
+        }
+    }
+    
 }
 
 extension Pitch: Identifiable, Hashable, Comparable  {

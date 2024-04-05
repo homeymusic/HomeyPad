@@ -28,8 +28,10 @@ struct FooterView: View {
                 }
                 .popover(isPresented: $viewConductor.showKeyLabelsPopover,
                          content: {
-                    KeyLabelsPopoverView(viewConductor: viewConductor)
-                        .presentationCompactAdaptation(.none)
+                    ScrollView {
+                        KeyLabelsPopoverView(viewConductor: viewConductor)
+                            .presentationCompactAdaptation(.popover)
+                    }
                 })
                 .padding(.trailing, 10)
                 
@@ -58,7 +60,7 @@ struct FooterView: View {
                 .popover(isPresented: $viewConductor.showPalettePopover,
                          content: {
                     PalettePopoverView(viewConductor: viewConductor)
-                        .presentationCompactAdaptation(.none)
+                        .presentationCompactAdaptation(.popover)
                 })
                 .padding(.leading, 10)
             }

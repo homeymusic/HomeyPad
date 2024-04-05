@@ -141,6 +141,36 @@ struct Interval: Comparable, Equatable {
             return "M7"
         }
     }
+    
+    var movableDo: String {
+        switch intervalClass {
+        case .zero:
+            "Do"
+        case .one:
+            "Di Ra"
+        case .two:
+            "Re"
+        case .three:
+            "Ri Me"
+        case .four:
+            "Mi"
+        case .five:
+            "Fa"
+        case .six:
+            "Fi Se"
+        case .seven:
+            "Sol"
+        case .eight:
+            "Si Le"
+        case .nine:
+            "La"
+        case .ten:
+            "Li Te"
+        case .eleven:
+            "Ti"
+        }
+    }
+
 }
 
 enum PitchDirection: Int8, CaseIterable, Identifiable {

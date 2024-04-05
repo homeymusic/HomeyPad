@@ -5,6 +5,8 @@ public struct LabelView: View {
     var proxySize: CGSize
     
     public var body: some View {
+        let padding = 2.0
+        
         VStack(spacing: 0) {
             if keyboardKey.layoutChoice == .piano {
                 Color.clear
@@ -15,6 +17,10 @@ public struct LabelView: View {
                 VStack(spacing: 1.0) {
                     if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.letter]! {
                         Text(keyboardKey.pitch.letter)
+                            .scaledToFit()
+                    }
+                    if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.fixedDo]! {
+                        Text(keyboardKey.pitch.fixedDo)
                             .scaledToFit()
                     }
                     if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
@@ -31,11 +37,11 @@ public struct LabelView: View {
                         .scaledToFit()
                     }
                 }
-                    .padding(5.0)
+                    .padding(padding)
             )
             VStack(spacing: 0) {
                 let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
-                if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.symbol]! {
+                if keyboardKey.showSymbols {
                     VStack(spacing: 0) {
                         if keyboardKey.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
                             SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
@@ -59,6 +65,10 @@ public struct LabelView: View {
                         Text(String(keyboardKey.interval.interval))
                             .scaledToFit()
                     }
+                    if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.movableDo]! {
+                        Text(keyboardKey.interval.movableDo)
+                            .scaledToFit()
+                    }
                     if keyboardKey.intervalLabels[keyboardKey.layoutChoice]![.roman]! {
                         Text(String(keyboardKey.interval.roman))
                             .scaledToFit()
@@ -72,7 +82,7 @@ public struct LabelView: View {
                             .scaledToFit()
                     }
                 }
-                    .padding(5.0)
+                    .padding(padding)
             )
         }
         .lineLimit(1)

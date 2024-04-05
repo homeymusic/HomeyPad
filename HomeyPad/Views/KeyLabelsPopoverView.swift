@@ -11,32 +11,43 @@ struct KeyLabelsPopoverView: View {
     @StateObject var viewConductor: ViewConductor
     
     var body: some View {
-        let spacing = 3.0
+        let spacing = 0.0
         VStack(spacing: spacing) {
-
-            VStack(spacing: spacing) {
+            Grid {
+                
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
-                    Toggle(key.label,
-                           systemImage: key.icon,
-                           isOn: viewConductor.noteLabelBinding(for: key))
+                    GridRow {
+                        Image(systemName: key.icon)
+                            .gridCellAnchor(.center)
+                        Toggle(key.label,
+                               isOn: viewConductor.noteLabelBinding(for: key))
+                        .tint(Color.gray)
+                    }
+                }
+
+                Divider()
+                GridRow {
+                    Image(systemName: "house.fill")
+                        .gridCellAnchor(.center)
+                    Toggle("Symbols",
+                           isOn: $viewConductor.showSymbols)
                     .tint(Color.gray)
                 }
-            }
-
-            Divider()
-            
-            VStack(spacing: spacing) {
+                Divider()
+                
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
-                    Toggle(key.label,
-                           systemImage: key.icon,
-                           isOn: viewConductor.intervalLabelBinding(for: key))
-                    .tint(Color.gray)
-                    if key == .symbol {Divider()}
+                    GridRow {
+                        Image(systemName: key.icon)
+                            .gridCellAnchor(.center)
+                        Toggle(key.label,
+                               isOn: viewConductor.intervalLabelBinding(for: key))
+                        .tint(Color.gray)
+                    }
                 }
             }
         }
         .padding(10)
     }
-        
+    
 }
 
