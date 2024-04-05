@@ -26,15 +26,34 @@ class ViewConductor: ObservableObject {
         .piano:      .subtle,
         .guitar:     .subtle
     ]
-    
-    @Published var showLabels: [ShowLabels] = [
-        ShowLabels(layout: .isomorphic,
-          intervalLabels: [.symbol: true, .interval: false],
-          noteLabels: [.letter: false]),
-        ShowLabels(layout: .symmetric,
-          intervalLabels: [.symbol: true, .interval: false],
-          noteLabels: [.letter: false])
+
+    @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
+        .isomorphic: [.symbol: true, .interval: false],
+        .symmetric: [.symbol: true, .interval: false],
+        .piano: [.symbol: true, .interval: false],
+        .guitar: [.symbol: true, .interval: false]
     ]
+    
+    var allIntervalLabelKeys: [IntervalLabelChoice] {
+        return Array(intervalLabels[layoutChoice]!.keys)
+    }
+    
+    var currentIntervalLabels: [IntervalLabelChoice: Bool] {
+        return intervalLabels[layoutChoice]!
+    }
+
+    public func intervalLabelBinding(for key: IntervalLabelChoice) -> Binding<Bool> {
+        return Binding(
+            get: {
+                print("get here! \(key)")
+                return self.intervalLabels[self.layoutChoice]![key] ?? false
+            },
+            set: {
+                print("set here! \(key) \($0)")
+                self.intervalLabels[self.layoutChoice]![key] = $0
+            }
+        )
+    }
     
     @Published var showTonicPicker: Bool = false
     

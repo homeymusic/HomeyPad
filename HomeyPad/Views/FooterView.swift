@@ -36,12 +36,11 @@ struct FooterView: View {
             
             Spacer()
             
-            let labelChoices = viewConductor.showLabels.filter({$0.layout == viewConductor.layoutChoice}).first!
-            ForEach(labelChoices.allIntervalKeys, id: \.self) {key in
-                Toggle(isOn: labelChoices.intervalBinding(for: key)) {
-                    Text("\(key): \(labelChoices.intervalLabels[key]!)")
+            ForEach(viewConductor.allIntervalLabelKeys, id: \.self) {key in
+                Toggle(isOn: viewConductor.intervalLabelBinding(for: key)) {
+                    Text("\(key): \(viewConductor.currentIntervalLabels[key]!)")
                 }
-            }            
+            }
 
         }
         .frame(maxWidth: .infinity)

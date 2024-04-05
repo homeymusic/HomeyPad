@@ -14,7 +14,7 @@ public struct KeyboardKey: View {
     var layoutChoice: LayoutChoice
     var paletteChoice: PaletteChoice
     var backgroundColor: Color
-    var showLabels: [ShowLabels]
+    var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]]
     var interval: Interval
     var brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     var creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
@@ -24,14 +24,14 @@ public struct KeyboardKey: View {
                 layoutChoice: LayoutChoice = .symmetric,
                 paletteChoice: PaletteChoice = .subtle,
                 backgroundColor: Color = .black,
-                showLabels: [ShowLabels] = [])
+                intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [:])
     {
         self.pitch = pitch
         self.tonicPitch = tonicPitch
         self.layoutChoice = layoutChoice
         self.paletteChoice = paletteChoice
         self.backgroundColor = backgroundColor
-        self.showLabels = showLabels
+        self.intervalLabels = intervalLabels
         self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
     }
     
