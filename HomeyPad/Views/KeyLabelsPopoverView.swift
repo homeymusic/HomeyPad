@@ -19,7 +19,7 @@ struct KeyLabelsPopoverView: View {
                            systemImage: key.icon,
                            isOn: viewConductor.intervalLabelBinding(for: key))
                     .tint(Color.gray)
-                    if key == .symbol {Divider()}
+                    if key == .integer {Divider()}
                 }
             }
 

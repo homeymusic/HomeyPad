@@ -65,6 +65,8 @@ class ViewConductor: ObservableObject {
 
     @Published var showKeyLabelsPopover: Bool = false
     
+    @Published var showPalettePopover: Bool = false
+    
     @Published var showTonicPicker: Bool = false
     
     @Published var tonicMIDI: Int = 60
