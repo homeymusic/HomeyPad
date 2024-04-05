@@ -27,34 +27,41 @@ class ViewConductor: ObservableObject {
         .guitar:     .subtle
     ]
 
+    @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
+        .isomorphic: [.letter: false, .month: false, .midi: false, .frequency: false],
+        .symmetric: [.letter: false, .month: false, .midi: false, .frequency: false],
+        .piano: [.letter: false, .month: false, .midi: false, .frequency: false],
+        .guitar: [.letter: false, .month: false, .midi: false, .frequency: false]
+    ]
+
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .isomorphic: [.symbol: true, .interval: false],
-        .symmetric: [.symbol: true, .interval: false],
-        .piano: [.symbol: true, .interval: false],
-        .guitar: [.symbol: true, .interval: false]
+        .isomorphic: [.symbol: true, .interval: false, .roman: false, .degree: false, .integer: false],
+        .symmetric: [.symbol: true, .interval: false, .roman: false, .degree: false, .integer: false],
+        .piano: [.symbol: true, .interval: false, .roman: false, .degree: false, .integer: false],
+        .guitar: [.symbol: true, .interval: false, .roman: false, .degree: false, .integer: false]
     ]
     
-    var allIntervalLabelKeys: [IntervalLabelChoice] {
-        return Array(intervalLabels[layoutChoice]!.keys)
-    }
-    
-    var currentIntervalLabels: [IntervalLabelChoice: Bool] {
-        return intervalLabels[layoutChoice]!
+    public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {
+        return Binding(
+            get: {
+                return self.noteLabels[self.layoutChoice]![key] ?? false
+            },
+            set: {
+                self.noteLabels[self.layoutChoice]![key] = $0
+            }
+        )
     }
 
     public func intervalLabelBinding(for key: IntervalLabelChoice) -> Binding<Bool> {
         return Binding(
             get: {
-                print("get here! \(key)")
                 return self.intervalLabels[self.layoutChoice]![key] ?? false
             },
             set: {
-                print("set here! \(key) \($0)")
                 self.intervalLabels[self.layoutChoice]![key] = $0
             }
         )
     }
-    
     @Published var showTonicPicker: Bool = false
     
     @Published var showSymbols: Bool = true

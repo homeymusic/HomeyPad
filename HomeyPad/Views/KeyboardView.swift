@@ -18,6 +18,7 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .isomorphic,
                             paletteChoice: viewConductor.paletteChoice[.isomorphic]!,
+                            noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
         case .symmetric:
@@ -26,6 +27,7 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .symmetric,
                             paletteChoice: viewConductor.paletteChoice[.symmetric]!,
+                            noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
         case .piano:
@@ -34,6 +36,7 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .piano,
                             paletteChoice: viewConductor.paletteChoice[.piano]!,
+                            noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
         case .guitar:
@@ -42,6 +45,7 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .guitar,
                             paletteChoice: viewConductor.paletteChoice[.guitar]!,
+                            noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
         }

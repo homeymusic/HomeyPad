@@ -14,4 +14,8 @@ public enum IntegerNotation: Int8, CaseIterable, Identifiable {
     
     public var id: Int8 { self.rawValue }
 
+    public var intValue: Int { Int(self.rawValue) }
+    
+    public var stringValue: String {String(self.rawValue)}
+
 }

@@ -14,6 +14,7 @@ public struct KeyboardKey: View {
     var layoutChoice: LayoutChoice
     var paletteChoice: PaletteChoice
     var backgroundColor: Color
+    var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]]
     var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]]
     var interval: Interval
     var brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -24,6 +25,7 @@ public struct KeyboardKey: View {
                 layoutChoice: LayoutChoice = .symmetric,
                 paletteChoice: PaletteChoice = .subtle,
                 backgroundColor: Color = .black,
+                noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [:],
                 intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [:])
     {
         self.pitch = pitch
@@ -32,6 +34,7 @@ public struct KeyboardKey: View {
         self.paletteChoice = paletteChoice
         self.backgroundColor = backgroundColor
         self.intervalLabels = intervalLabels
+        self.noteLabels = noteLabels
         self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
     }
     
@@ -109,7 +112,7 @@ public struct KeyboardKey: View {
     }
     
     func symbolLength(_ size: CGSize) -> CGFloat {
-        return minDimension(size) * interval.consonanceDissonance.symbolLength
+        return minDimension(size) * interval.consonanceDissonance.symbolLength * (isSmall ? 1.25 : 1.0)
     }
     
     var isSmall: Bool {

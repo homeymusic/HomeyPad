@@ -55,6 +55,35 @@ public class Pitch: ObservableObject, Equatable {
         lhs.midi == rhs.midi
     }
     
+    var letter: String {
+        switch pitchClass {
+        case .zero:
+            "C"
+        case .one:
+            "C♯D♭"
+        case .two:
+            "D"
+        case .three:
+            "D♯E♭"
+        case .four:
+            "E"
+        case .five:
+            "F"
+        case .six:
+            "F♯G♭"
+        case .seven:
+            "G"
+        case .eight:
+            "G♯A♭"
+        case .nine:
+            "A"
+        case .ten:
+            "A♯B♭"
+        case .eleven:
+            "B"
+        }
+    }
+    
 }
 
 extension Pitch: Identifiable, Hashable, Comparable  {

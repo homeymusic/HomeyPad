@@ -48,6 +48,105 @@ struct Interval: Comparable, Equatable {
         lhs.consonanceDissonance < rhs.consonanceDissonance && lhs.majorMinor < rhs.majorMinor
     }
     
+    var upwardPitchMovement: Bool {
+        pitchDirection == .upward
+    }
+    
+    var degree: String {
+        let accidental = upwardPitchMovement ? "♭" : "♯"
+        let prefix = upwardPitchMovement ? "" : "<"
+        let caret = "\u{0302}"
+        let tritone = upwardPitchMovement ? "\(prefix)♭5\(caret)" : "\(prefix)♯5\(caret)"
+        
+        switch intervalClass {
+        case .zero:
+            return "\(prefix)1\(caret)"
+        case .one:
+            return "\(prefix)\(accidental)2\(caret)"
+        case .two:
+            return "\(prefix)2\(caret)"
+        case .three:
+            return "\(prefix)\(accidental)3\(caret)"
+        case .four:
+            return "\(prefix)3\(caret)"
+        case .five:
+            return "\(prefix)4\(caret)"
+        case .six:
+            return tritone
+        case .seven:
+            return "\(prefix)5\(caret)"
+        case .eight:
+            return "\(prefix)\(accidental)6\(caret)"
+        case .nine:
+            return "\(prefix)6\(caret)"
+        case .ten:
+            return "\(prefix)\(accidental)7\(caret)"
+        case .eleven :
+            return "\(prefix)7\(caret)"
+        }
+    }
+    
+    var roman: String {
+        let accidental = upwardPitchMovement ? "♭" : "♯"
+        let prefix = upwardPitchMovement ? "" : "<"
+        let tritone = upwardPitchMovement ? "\(prefix)♯IV♭V" : "\(prefix)♯V♭IV"
+        
+        switch intervalClass {
+        case .zero:
+            return "\(prefix)I"
+        case .one:
+            return "\(prefix)\(accidental)II"
+        case .two:
+            return "\(prefix)II"
+        case .three:
+            return "\(prefix)\(accidental)III"
+        case .four:
+            return "\(prefix)III"
+        case .five:
+            return "\(prefix)IV"
+        case .six:
+            return tritone
+        case .seven:
+            return "\(prefix)V"
+        case .eight:
+            return "\(prefix)\(accidental)VI"
+        case .nine:
+            return "\(prefix)VI"
+        case .ten:
+            return "\(prefix)\(accidental)VII"
+        case .eleven :
+            return "\(prefix)VII"
+        }
+    }
+    
+    var interval: String {
+        switch intervalClass {
+        case .zero:
+            return "\(upwardPitchMovement ? "" : "<")P1"
+        case .one:
+            return "m2"
+        case .two:
+            return "M2"
+        case .three:
+            return "m3"
+        case .four:
+            return "M3"
+        case .five:
+            return "P4"
+        case .six:
+            return "tt"
+        case .seven:
+            return "P5"
+        case .eight:
+            return "m6"
+        case .nine:
+            return "M6"
+        case .ten:
+            return "m7"
+        case .eleven:
+            return "M7"
+        }
+    }
 }
 
 enum PitchDirection: Int8, CaseIterable, Identifiable {

@@ -1,8 +1,8 @@
 public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     case letter    = "letter"
+    case month     = "month"
     case midi      = "midi"
     case frequency = "frequency"
-    case month     = "month"
 
     public var id: String { self.rawValue }
 
