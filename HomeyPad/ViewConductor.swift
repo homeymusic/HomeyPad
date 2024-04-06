@@ -28,14 +28,14 @@ class ViewConductor: ObservableObject {
     ]
 
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .isomorphic: [.letter: true, .fixedDo: false, .month: false, .midi: false, .frequency: false],
+        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .midi: false, .frequency: false],
         .guitar: [.letter: false, .fixedDo: false, .month: false, .midi: false, .frequency: false]
     ]
 
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .isomorphic: [.interval: true, .movableDo: false, .roman: false, .degree: false, .integer: false],
+        .isomorphic: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .guitar: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
