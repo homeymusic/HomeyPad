@@ -10,7 +10,7 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     public var icon: String {
         switch self {
         case .letter:    return "c.square"
-        case .fixedDo:   return "figure.wave"
+        case .fixedDo:   return "person.2.wave.2"
         case .midi:      return "48.square"
         case .frequency: return "water.waves"
         case .month:     return "calendar"

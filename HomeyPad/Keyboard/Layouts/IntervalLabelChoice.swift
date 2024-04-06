@@ -10,7 +10,7 @@ public enum IntervalLabelChoice: String, CaseIterable, Identifiable {
     public var icon: String {
         switch self {
         case .interval:   return "p1.button.horizontal"
-        case .movableDo: return "figure.dance"
+        case .movableDo:  return "person.wave.2"
         case .roman:      return "building.columns.fill"
         case .degree:     return "control"
         case .integer:    return "0.square"

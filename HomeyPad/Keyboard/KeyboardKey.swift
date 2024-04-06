@@ -122,6 +122,11 @@ public struct KeyboardKey: View {
         return interval.consonanceDissonance.symbol
     }
     
+    
+    var outlineTonic: Bool {
+        paletteChoice == .subtle && interval.intervalClass == .zero
+    }
+
     func symbolLength(_ size: CGSize) -> CGFloat {
         return minDimension(size) * interval.consonanceDissonance.symbolLength * (isSmall ? 1.25 : 1.0)
     }

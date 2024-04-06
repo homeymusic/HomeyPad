@@ -13,14 +13,13 @@ struct KeyView: View {
             let borderSize = 3.0
             let borderWidthApparentSize = overlayKey ? 2.0 * borderSize : borderSize
             let borderHeightApparentSize = keyboardKey.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-            let outlineTonic: Bool = keyboardKey.paletteChoice == .subtle && keyboardKey.pitch.pitchClass == .zero
             KeyRectangle(fillColor: keyboardKey.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
-            if outlineTonic {
+            if keyboardKey.outlineTonic {
                 KeyRectangle(fillColor: Color(keyboardKey.accentColor), keyboardKey: keyboardKey, proxySize: proxySize)
                     .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
             }
             KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                .frame(width: proxySize.width - (outlineTonic ? 2.0 * borderWidthApparentSize: borderWidthApparentSize), height: proxySize.height - (outlineTonic ? 2.0 * borderHeightApparentSize: borderHeightApparentSize))
+                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? 2.0 * borderWidthApparentSize: borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? 2.0 * borderHeightApparentSize: borderHeightApparentSize))
                 .overlay(LabelView(keyboardKey: keyboardKey, proxySize: proxySize))
         }
     }
