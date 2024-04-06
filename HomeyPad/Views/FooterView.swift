@@ -32,6 +32,7 @@ struct FooterView: View {
                         KeyLabelsPopoverView(viewConductor: viewConductor)
                             .presentationCompactAdaptation(.popover)
                     }
+                    .scrollIndicatorsFlash(onAppear: true)
                 })
                 .padding(.trailing, 10)
                 
