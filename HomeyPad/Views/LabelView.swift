@@ -25,6 +25,7 @@ public struct LabelView: View {
         var proxySize: CGSize
         
         var body: some View {
+            let labelPadding: CGFloat = 2.0
             let anyIntervalLabels: Bool = keyboardKey.whichIntervalLabels.values.contains(true)
             let anyNoteLabels: Bool = keyboardKey.whichNoteLabels.values.contains(true)
             
@@ -63,7 +64,9 @@ public struct LabelView: View {
                                      format: .number.notation(.compactName).precision(.fractionLength(1)))
                             )
                         }
-                    }.frame(maxHeight: .infinity)
+                    }
+                    .frame(maxHeight: .infinity)
+                    .padding(labelPadding)
                 }
                 
                 if keyboardKey.showSymbols {
@@ -105,6 +108,7 @@ public struct LabelView: View {
                         }
                     }
                     .frame(maxHeight: .infinity)
+                    .padding(labelPadding)
                 }
                 
             }
@@ -112,7 +116,6 @@ public struct LabelView: View {
             .foregroundColor(keyboardKey.textColor)
             .lineLimit(1)
             .minimumScaleFactor(0.01)
-            .padding(3.0)
         }
         
     }
