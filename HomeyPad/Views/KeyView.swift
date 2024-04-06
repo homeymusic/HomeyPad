@@ -18,7 +18,7 @@ struct KeyView: View {
                     .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
             }
             KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? 2.0 * borderWidthApparentSize: borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? 2.0 * borderHeightApparentSize: borderHeightApparentSize))
+                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? 2.0 * borderWidthApparentSize : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? 2.0 * borderHeightApparentSize : borderHeightApparentSize))
                 .overlay(LabelView(keyboardKey: keyboardKey, proxySize: proxySize)
                     .frame(maxWidth: .infinity, maxHeight: .infinity))
         }

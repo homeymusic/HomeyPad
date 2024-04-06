@@ -49,6 +49,7 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
                 path.addLine(to: CGPoint(x: rect.maxX, y: 0.4*rect.maxY))
                 path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+                path.closeSubpath()
             }
         }
     }
@@ -67,6 +68,7 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
                 path.addLine(to: CGPoint(x: rect.midX + doorWidth * rect.maxX, y: 0.65*rect.maxY))
                 path.addLine(to: CGPoint(x: rect.midX - doorWidth * rect.maxX, y: 0.65*rect.maxY))
                 path.addLine(to: CGPoint(x: rect.midX - doorWidth * rect.maxX, y: rect.maxY))
+                path.closeSubpath()
             }
         }
     }
@@ -79,6 +81,7 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.minY)) // the tent peak
                 path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+                path.closeSubpath()
             }
         }
     }
@@ -91,6 +94,7 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
                 path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
                 path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+                path.closeSubpath()
             }
         }
     }

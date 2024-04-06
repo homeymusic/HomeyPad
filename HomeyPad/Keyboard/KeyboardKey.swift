@@ -112,7 +112,7 @@ public struct KeyboardKey: View {
     var textColor: Color {
         switch paletteChoice {
         case .ebonyIvory:
-            return pitch.accidental ? .white : .black
+            return pitch.accidental ? Color(creamColor) : Color(brownColor)
         default:
             return symbolColor
         }
@@ -139,10 +139,8 @@ public struct KeyboardKey: View {
         layoutChoice == .piano && pitch.accidental
     }
     
-    let backgroundBorderSize = 3.0
-    
-    var outlineBorderSize: CGFloat {
-        backgroundBorderSize
+    var backgroundBorderSize: CGFloat {
+        isSmall ? 1.0 : 3.0
     }
     
     var whichIntervalLabels: [IntervalLabelChoice: Bool] {

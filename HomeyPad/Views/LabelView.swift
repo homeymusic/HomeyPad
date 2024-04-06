@@ -128,8 +128,9 @@ public struct LabelView: View {
                     .frame(width: keyboardKey.maxSymbolLength(proxySize))
                     .overlay(
                         AnyShape(keyboardKey.keySymbol)
+                            .stroke(keyboardKey.textColor, lineWidth: keyboardKey.paletteChoice == .ebonyIvory ? width * 0.1 : 0.0)
+                            .fill(keyboardKey.symbolColor)
                             .aspectRatio(1.0, contentMode: .fit)
-                            .foregroundColor(keyboardKey.symbolColor)
                             .frame(width: width)
                     )
             }
