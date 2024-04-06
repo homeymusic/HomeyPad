@@ -139,6 +139,20 @@ public struct KeyboardKey: View {
         layoutChoice == .piano && pitch.accidental
     }
     
+    let backgroundBorderSize = 3.0
+    
+    var outlineBorderSize: CGFloat {
+        backgroundBorderSize
+    }
+    
+    var whichIntervalLabels: [IntervalLabelChoice: Bool] {
+        intervalLabels[layoutChoice]!
+    }
+    
+    var whichNoteLabels: [NoteLabelChoice: Bool] {
+        noteLabels[layoutChoice]!
+    }
+    
     func minDimension(_ size: CGSize) -> CGFloat {
         return min(size.width, size.height)
     }
