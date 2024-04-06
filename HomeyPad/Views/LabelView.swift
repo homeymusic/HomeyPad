@@ -5,8 +5,25 @@ public struct LabelView: View {
     var proxySize: CGSize
     
     public var body: some View {
-        let padding = 2.0
         
+        if keyboardKey.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+            VStack {
+                AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+                AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+            }
+        } else {
+            AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+        }
+    }
+}
+
+struct AllSymbolsView: View {
+    
+    var keyboardKey: KeyboardKey
+    var proxySize: CGSize
+    let padding = 2.0
+
+    var body: some View {
         VStack(spacing: 0) {
             if keyboardKey.layoutChoice == .piano {
                 Color.clear
@@ -43,16 +60,16 @@ public struct LabelView: View {
                 let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
                 if keyboardKey.showSymbols {
                     VStack(spacing: 0) {
-                        if keyboardKey.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+                        //                        if keyboardKey.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+                        //                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
+                        //                                .frame(height: proxySize.height / 2)
+                        //                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
+                        //                                .frame(height: proxySize.height / 2)
+                        //                        } else  {
+                        ZStack {
                             SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
-                                .frame(height: proxySize.height / 2)
-                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
-                                .frame(height: proxySize.height / 2)
-                        } else  {
-                            ZStack {
-                                SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
-                            }
                         }
+                        //                        }
                     }
                 } else {
                     Color.clear
@@ -90,8 +107,8 @@ public struct LabelView: View {
         .font(.custom("Courier", size: 28))
         .foregroundColor(keyboardKey.textColor)
     }
+    
 }
-
 
 struct SymbolView: View {
     var keyboardKey: KeyboardKey
