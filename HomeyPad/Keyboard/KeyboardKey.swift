@@ -14,7 +14,6 @@ public struct KeyboardKey: View {
     var layoutChoice: LayoutChoice
     var paletteChoice: PaletteChoice
     var backgroundColor: Color
-    var showSymbols: Bool
     var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]]
     var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]]
     var interval: Interval
@@ -26,7 +25,6 @@ public struct KeyboardKey: View {
                 layoutChoice: LayoutChoice = .symmetric,
                 paletteChoice: PaletteChoice = .subtle,
                 backgroundColor: Color = .black,
-                showSymbols: Bool = true,
                 noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [:],
                 intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [:])
     {
@@ -35,7 +33,6 @@ public struct KeyboardKey: View {
         self.layoutChoice = layoutChoice
         self.paletteChoice = paletteChoice
         self.backgroundColor = backgroundColor
-        self.showSymbols = showSymbols
         self.intervalLabels = intervalLabels
         self.noteLabels = noteLabels
         self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
@@ -48,7 +45,11 @@ public struct KeyboardKey: View {
             }
         }
     }
-
+    
+    var showSymbols: Bool {
+        intervalLabels[layoutChoice]![.symbol]!
+    }
+    
     var mainColor: Color {
         return Color(brownColor)
     }

@@ -35,10 +35,10 @@ class ViewConductor: ObservableObject {
     ]
 
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .isomorphic: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .symmetric: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .piano: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .guitar: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
+        .isomorphic: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true],
+        .symmetric: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true],
+        .piano: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true],
+        .guitar: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true]
     ]
     
     public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {

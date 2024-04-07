@@ -24,6 +24,11 @@ struct KeyLabelsPopoverView: View {
             Grid {
                 
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
+                    
+                    if key == .symbol {
+                        Divider()
+                    }
+                    
                     GridRow {
                         Image(systemName: key.icon)
                             .gridCellAnchor(.center)
@@ -31,16 +36,6 @@ struct KeyLabelsPopoverView: View {
                                isOn: viewConductor.intervalLabelBinding(for: key))
                         .tint(Color.gray)
                     }
-                }
-
-                Divider()
-                
-                GridRow {
-                    Image(systemName: "diamond")
-                        .gridCellAnchor(.center)
-                    Toggle("Symbols",
-                           isOn: $viewConductor.showSymbols)
-                    .tint(Color.gray)
                 }
 
                 Divider()

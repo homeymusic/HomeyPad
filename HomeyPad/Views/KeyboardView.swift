@@ -18,7 +18,6 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .isomorphic,
                             paletteChoice: viewConductor.paletteChoice[.isomorphic]!,
-                            showSymbols: viewConductor.showSymbols,
                             noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
@@ -28,7 +27,6 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .symmetric,
                             paletteChoice: viewConductor.paletteChoice[.symmetric]!,
-                            showSymbols: viewConductor.showSymbols,
                             noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
@@ -38,7 +36,6 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .piano,
                             paletteChoice: viewConductor.paletteChoice[.piano]!,
-                            showSymbols: viewConductor.showSymbols,
                             noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
@@ -48,7 +45,6 @@ struct KeyboardView: View {
                             tonicPitch: viewConductor.tonicPitch,
                             layoutChoice: .guitar,
                             paletteChoice: viewConductor.paletteChoice[.guitar]!,
-                            showSymbols: viewConductor.showSymbols,
                             noteLabels: viewConductor.noteLabels,
                             intervalLabels: viewConductor.intervalLabels)
             }
