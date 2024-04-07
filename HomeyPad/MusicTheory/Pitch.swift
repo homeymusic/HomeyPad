@@ -28,6 +28,10 @@ public class Pitch: ObservableObject, Equatable {
         midi - next.midi
     }
     
+    public var octave: Int {
+        Int(self.midi / 12) - 1
+    }
+
     public var intValue: Int {
         Int(midi)
     }

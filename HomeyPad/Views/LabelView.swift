@@ -23,7 +23,7 @@ public struct LabelView: View {
         
         var keyboardKey: KeyboardKey
         var proxySize: CGSize
-        
+    
         var body: some View {
             let labelPadding: CGFloat = 2.0
             let anyIntervalLabels: Bool = keyboardKey.whichIntervalLabels.values.contains(true)
@@ -34,49 +34,6 @@ public struct LabelView: View {
                     Color.clear
                     Color.clear
                     Color.clear
-                }
-                
-                if anyNoteLabels || keyboardKey.showSymbols {
-                    VStack(spacing: 1.0) {
-                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.letter]! {
-                            Color.clear.overlay(
-                                Text(keyboardKey.pitch.letter)
-                            )
-                        }
-                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.fixedDo]! {
-                            Color.clear.overlay(
-                                Text(keyboardKey.pitch.fixedDo)
-                            )
-                        }
-                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
-                            Color.clear.overlay(
-                                Text(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)
-                            )
-                        }
-                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.midi]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.pitch.midi))
-                            )
-                        }
-                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.frequency]! {
-                            Color.clear.overlay(
-                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
-                            )
-                        }
-                    }
-                    .frame(maxHeight: .infinity)
-                    .padding(labelPadding)
-                }
-                
-                if keyboardKey.showSymbols {
-                    let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
-                    VStack(spacing: 0) {
-                        VStack(spacing: 0) {
-                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
-                        }
-                    }
-                    .frame(height: keyboardKey.maxSymbolLength(proxySize))
                 }
                 
                 if anyIntervalLabels  || keyboardKey.showSymbols {
@@ -109,6 +66,49 @@ public struct LabelView: View {
                     }
                     .frame(maxHeight: .infinity)
                     .padding(labelPadding)
+                }                
+
+                if keyboardKey.showSymbols {
+                    let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
+                    VStack(spacing: 0) {
+                        VStack(spacing: 0) {
+                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
+                        }
+                    }
+                    .frame(height: keyboardKey.maxSymbolLength(proxySize))
+                }
+                
+                if anyNoteLabels || keyboardKey.showSymbols {
+                    VStack(spacing: 1.0) {
+                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.letter]! {
+                            Color.clear.overlay(
+                                Text("\(keyboardKey.pitch.letter)\(octave)")
+                            )
+                        }
+                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.fixedDo]! {
+                            Color.clear.overlay(
+                                Text("\(keyboardKey.pitch.fixedDo)\(octave)")
+                            )
+                        }
+                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
+                            Color.clear.overlay(
+                                Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
+                            )
+                        }
+                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.midi]! {
+                            Color.clear.overlay(
+                                Text(String(keyboardKey.pitch.midi))
+                            )
+                        }
+                        if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.frequency]! {
+                            Color.clear.overlay(
+                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
+                            )
+                        }
+                    }
+                    .frame(maxHeight: .infinity)
+                    .padding(labelPadding)
                 }
                 
             }
@@ -118,6 +118,9 @@ public struct LabelView: View {
             .minimumScaleFactor(0.01)
         }
         
+        var octave: String {
+            keyboardKey.noteLabels[keyboardKey.layoutChoice]![.octave]! ? String(keyboardKey.pitch.octave) : ""
+        }
     }
     
     struct SymbolView: View {

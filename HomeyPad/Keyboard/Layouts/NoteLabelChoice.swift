@@ -2,6 +2,7 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     case letter    = "letter"
     case fixedDo   = "fixed do"
     case month     = "month"
+    case octave    = "octave"
     case midi      = "midi"
     case frequency = "frequency"
 
@@ -11,9 +12,10 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
         switch self {
         case .letter:    return "c.square"
         case .fixedDo:   return "person.2.wave.2"
+        case .month:     return "calendar"
+        case .octave:    return "3.square"
         case .midi:      return "48.square"
         case .frequency: return "water.waves"
-        case .month:     return "calendar"
         }
     }
     
