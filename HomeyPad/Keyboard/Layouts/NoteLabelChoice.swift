@@ -13,8 +13,8 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
         case .letter:    return "c.square"
         case .fixedDo:   return "person.2.wave.2"
         case .month:     return "calendar"
-        case .octave:    return "3.square"
-        case .midi:      return "48.square"
+        case .octave:    return "4.square"
+        case .midi:      return "60.square"
         case .frequency: return "water.waves"
         }
     }

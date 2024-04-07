@@ -45,9 +45,17 @@ struct KeyLabelsPopoverView: View {
 
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                         GridRow {
-                            Image(systemName: key.icon)
-                                .gridCellAnchor(.center)
-                                .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                            // SwiftUI has a different key signature for system versus custom images
+                            // so we need this conditional to look for our custom image
+                            if key == .midi {
+                                Image(key.icon)
+                                    .gridCellAnchor(.center)
+                                    .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                            } else {
+                                Image(systemName: key.icon)
+                                    .gridCellAnchor(.center)
+                                    .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                            }
                             Toggle(key.label,
                                    isOn: viewConductor.noteLabelBinding(for: key))
                             .tint(Color.gray)
