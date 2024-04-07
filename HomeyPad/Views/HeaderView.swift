@@ -53,7 +53,7 @@ struct HeaderView: View {
                 Image(systemName: "tag")
                     .foregroundColor(.white)
                     .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-                Image(systemName: "house.fill")
+                Image(systemName: "house")
                     .padding(30.0)
                 Image(systemName: "paintpalette")
                     .foregroundColor(.white)

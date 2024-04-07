@@ -30,7 +30,7 @@ struct FooterView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: viewConductor.latching ? "pin" : "pin.slash")
+                        Image(systemName: viewConductor.latching ? "pin.fill" : "pin.slash")
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.latching ? .black : .thin))
                     )
