@@ -17,8 +17,10 @@ struct KeyLabelsPopoverView: View {
     }
     
     var body: some View {
-        let spacing = 0.0
-        VStack(spacing: spacing) {
+        VStack(spacing: 0.0) {
+            Image(systemName: viewConductor.layoutChoice.icon)
+            Divider()
+                .padding([.top, .bottom], 5)
             Grid {
                 
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in

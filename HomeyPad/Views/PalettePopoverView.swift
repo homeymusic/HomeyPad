@@ -10,13 +10,19 @@ import SwiftUI
 struct PalettePopoverView: View {
     @StateObject var viewConductor: ViewConductor
     var body: some View {
-        Picker("", selection: $viewConductor.paletteChoice[viewConductor.layoutChoice]) {
-            ForEach(PaletteChoice.allCases) { paletteChoice in
-                Image(systemName: paletteChoice.icon)
-                    .tag(paletteChoice as PaletteChoice?)
+        VStack(spacing: 0.0) {
+            Image(systemName: viewConductor.layoutChoice.icon)
+                .padding(.top, 7)
+                .padding(.bottom, 5)
+            Divider()
+            Picker("", selection: $viewConductor.paletteChoice[viewConductor.layoutChoice]) {
+                ForEach(PaletteChoice.allCases) { paletteChoice in
+                    Image(systemName: paletteChoice.icon)
+                        .tag(paletteChoice as PaletteChoice?)
+                }
             }
+            .pickerStyle(.segmented)
+            .padding(10)
         }
-        .pickerStyle(.segmented)
-        .padding(10)
     }
 }
