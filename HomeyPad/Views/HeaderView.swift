@@ -13,14 +13,39 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             HStack {
-                Image(systemName: "water.waves.and.arrow.down")
-                    .foregroundColor(.white)
-                    .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-                Text("0")
-                    .font(.custom("Courier", size: 20.0))
-                Image(systemName: "water.waves.and.arrow.up")
-                    .foregroundColor(.white)
-                    .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                HStack(spacing: 10) {
+                    let newDownwardOctaveShift = viewConductor.octaveShift - 1
+                    Button(action: {
+                        viewConductor.octaveShift = newDownwardOctaveShift
+                    }, label: {
+                        Image(systemName: "water.waves.and.arrow.down")
+                            .foregroundColor(viewConductor.octaveShiftRange.contains(newDownwardOctaveShift) ? .white : Color(UIColor.systemGray4))
+                    })
+                    .disabled(!viewConductor.octaveShiftRange.contains(newDownwardOctaveShift))
+                    
+                    Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+                        .foregroundColor(.white)
+                        .font(Font.system(.body, design: .monospaced))
+                        .fixedSize(horizontal: true, vertical: false)
+                        .frame(width: 53, alignment: .center)
+                    
+                    let newUpwardOctaveShift = viewConductor.octaveShift + 1
+                    Button(action: {
+                        viewConductor.octaveShift = newUpwardOctaveShift
+                    }, label: {
+                        Image(systemName: "water.waves.and.arrow.up")
+                            .foregroundColor(viewConductor.octaveShiftRange.contains(newUpwardOctaveShift) ? .white : Color(UIColor.systemGray4))
+                    })
+                    .disabled(!viewConductor.octaveShiftRange.contains(newUpwardOctaveShift))
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 4 * 2)
+                .foregroundColor(.white)
+                .background {
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(Color(UIColor.systemGray6))
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, viewConductor.headerFooterPadding)

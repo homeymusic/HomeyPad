@@ -79,29 +79,55 @@ class ViewConductor: ObservableObject {
     
     @Published var headerFooterPadding: CGFloat = 35.0
     
-    @Published var tonicMIDI: Int = 60
+    @Published var pitchDirection: PitchDirection = .upward
+            
     
-    @Published var lowMIDI: [LayoutChoice: Int] = [
-        .isomorphic: 57,
-        .symmetric:  53,
-        .piano:      53,
-        .guitar:     40
-    ]
+    let initialCenterMIDI: Int8 = 66
+
+    let octaveShiftRange: ClosedRange<Int8> = Int8(-4)...Int8(+4)
     
-    @Published var highMIDI: [LayoutChoice: Int] = [
-        .isomorphic: 75,
-        .symmetric:  79,
-        .piano:      79,
-        .guitar:     86
-    ]
+    @Published var octaveShift: Int8 = 0 {
+        willSet(newOctaveShift) {assert(octaveShiftRange.contains(newOctaveShift))}
+    }
+
+    var centerMIDI: Int8
+    {
+        initialCenterMIDI + octaveShift * 12
+    }
     
+    var tonicMIDI: Int8 {
+        centerMIDI + (pitchDirection == .upward ? -6 : +6)
+    }
+
     var tonicPitch: Pitch {
-        self.allPitches[self.tonicMIDI]
+        self.allPitches[Int(self.tonicMIDI)]
+    }
+    
+    @Published var midiPerSide: [LayoutChoice: Int8] = [
+        .isomorphic: 9,
+        .symmetric:  13,
+        .piano:      13,
+        .guitar:     26
+    ]
+    
+    var lowMIDI: Int8 {
+        centerMIDI - midiPerSide[self.layoutChoice]!
+    }
+    
+    var highMIDI: Int8 {
+        centerMIDI + midiPerSide[self.layoutChoice]!
     }
     
     var pitches: ArraySlice<Pitch> {
-        return allPitches[lowMIDI[self.layoutChoice]!...highMIDI[self.layoutChoice]!]
+        return allPitches[Int(lowMIDI)...Int(highMIDI)]
     }
     
 }
 
+enum PitchDirection: Int8, CaseIterable, Identifiable {
+    case upward    = 1
+    case ambiguous = 0
+    case downward  = -1
+    
+    var id: Int8 { self.rawValue }
+}
