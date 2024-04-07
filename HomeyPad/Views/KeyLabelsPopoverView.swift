@@ -24,10 +24,10 @@ struct KeyLabelsPopoverView: View {
                         .tint(Color.gray)
                     }
                 }
-
+                
                 Divider()
                 GridRow {
-                    Image(systemName: "house.fill")
+                    Image(systemName: "diamond")
                         .gridCellAnchor(.center)
                     Toggle("Symbols",
                            isOn: $viewConductor.showSymbols)

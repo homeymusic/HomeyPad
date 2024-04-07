@@ -11,7 +11,7 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var layoutChoice: LayoutChoice = .isomorphic  {
-        willSet { allPitchesNoteOff() }
+        willSet { if !self.latching {allPitchesNoteOff()}}
     }
     
     func allPitchesNoteOff() {
@@ -62,7 +62,7 @@ class ViewConductor: ObservableObject {
             }
         )
     }
-
+    
     @Published var showSymbols: Bool = true
     
     @Published var showKeyLabelsPopover: Bool = false
@@ -70,6 +70,14 @@ class ViewConductor: ObservableObject {
     @Published var showPalettePopover: Bool = false
     
     @Published var showTonicPicker: Bool = false
+    
+    @Published var latching: Bool = false {
+        willSet(newValue) {
+            if !newValue {allPitchesNoteOff()}
+        }
+    }
+    
+    @Published var headerFooterPadding: CGFloat = 35.0
     
     @Published var tonicMIDI: Int = 60
     

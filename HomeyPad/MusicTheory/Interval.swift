@@ -3,14 +3,12 @@ struct Interval: Comparable, Equatable {
     public var tonicPitch: Pitch
     public var semitones: Int8
     public var intervalClass: IntegerNotation
-    public var octaveDistance: Int8
     
     public init(pitch: Pitch, tonicPitch: Pitch) {
         self.pitch = pitch
         self.tonicPitch = tonicPitch
         self.semitones = pitch.semitones(to: tonicPitch)
         self.intervalClass = IntegerNotation(rawValue: modulo(self.semitones, 12))!
-        self.octaveDistance = Int8(self.semitones / 12)
     }
     
     public var majorMinor: MajorMinor {

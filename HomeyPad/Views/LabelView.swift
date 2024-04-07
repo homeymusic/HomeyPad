@@ -50,7 +50,7 @@ public struct LabelView: View {
                         }
                         if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.month]! {
                             Color.clear.overlay(
-                                Text(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].uppercased())
+                                Text(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)
                             )
                         }
                         if keyboardKey.noteLabels[keyboardKey.layoutChoice]![.midi]! {
