@@ -12,9 +12,13 @@ struct Piano<Content>: View where Content: View {
         GeometryReader { geo in
             ZStack(alignment: .topLeading) {
                 HStack(spacing: 0) {
-                    ForEach(spacer.whiteKeys, id: \.self) { pitch in
-                        KeyContainer(model: keyboard, pitch: pitch, tonicPitch: tonicPitch, content: content)
-                            .frame(width: spacer.whiteKeyWidth(geo.size.width))
+                    ForEach(spacer.whiteMIDI, id: \.self) { midi in
+                        if midi < 0 || midi > 127 {
+                            Color.clear
+                        } else {
+                            KeyContainer(model: keyboard, pitch: spacer.allPitches[midi], tonicPitch: tonicPitch, content: content)
+                                .frame(width: spacer.whiteKeyWidth(geo.size.width))
+                        }
                     }
                 }
 
@@ -23,22 +27,26 @@ struct Piano<Content>: View where Content: View {
                     HStack(spacing: 0) {
                         Rectangle().opacity(0)
                             .frame(width: spacer.initialSpacerWidth(geo.size.width))
-                        if spacer.allPitches.first != spacer.pitchesBoundedByNaturals.first {
+                        if spacer.lowMIDI != spacer.midiBoundedByNaturals.first {
                             Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
                         }
-                        ForEach(spacer.allPitches, id: \.self) { pitch in
-                            if pitch.accidental {
-                                ZStack {
-                                    KeyContainer(model: keyboard,
-                                                 pitch: pitch,
-                                                 tonicPitch: tonicPitch,
-                                                 zIndex: 1,
-                                                 content: content)
-                                }
-                                .frame(width: spacer.blackKeyWidth(geo.size.width))
+                        ForEach(spacer.midiBoundedByNaturals, id: \.self) { midi in
+                            if midi < 0 || midi > 127 {
+                                Color.clear
                             } else {
-                                Rectangle().opacity(0)
-                                    .frame(width: spacer.blackKeySpacerWidth(geo.size.width, pitch: pitch))
+                                if Pitch.accidental(midi: midi) {
+                                    ZStack {
+                                        KeyContainer(model: keyboard,
+                                                     pitch: spacer.allPitches[midi],
+                                                     tonicPitch: tonicPitch,
+                                                     zIndex: 1,
+                                                     content: content)
+                                    }
+                                    .frame(width: spacer.blackKeyWidth(geo.size.width))
+                                } else {
+                                    Rectangle().opacity(0)
+                                        .frame(width: spacer.blackKeySpacerWidth(geo.size.width, midi: midi))
+                                }
                             }
                         }
                     }

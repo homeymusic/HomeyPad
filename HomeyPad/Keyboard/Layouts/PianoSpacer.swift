@@ -38,48 +38,47 @@ public struct PianoSpacer {
 }
 
 extension PianoSpacer {
-    public var whiteKeys: ArraySlice<Pitch> {
-        var returnValue: ArraySlice<Pitch> = []
-        for pitch in pitchesBoundedByNaturals where !pitch.accidental {
-            returnValue.append(pitch)
+    public var whiteMIDI: [Int] {
+        var naturalMIDI: [Int] = []
+        for midi in midiBoundedByNaturals where !Pitch.accidental(midi: midi) {
+            naturalMIDI.append(midi)
         }
-        return returnValue
+        return naturalMIDI
     }
 
-    public func isBlackKey(_ pitch: Pitch) -> Bool {
-        pitch.accidental
+    public func isBlackKey(_ midi: Int) -> Bool {
+        Pitch.accidental(midi: midi)
     }
 
     public var initialSpacer: CGFloat {
-        let pitchClass = allPitches[lowMIDI].pitchClass
+        let pitchClass = Pitch.pitchClass(midi: lowMIDI)
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
-    public func space(pitch: Pitch) -> CGFloat {
-        let pitchClass = pitch.pitchClass
+    public func space(midi: Int) -> CGFloat {
+        let pitchClass = Pitch.pitchClass(midi: lowMIDI)
         return spacerRatio[pitchClass] ?? 0
     }
 
     public func whiteKeyWidth(_ width: CGFloat) -> CGFloat {
-        width / CGFloat(whiteKeys.count)
+        width / CGFloat(whiteMIDI.count)
     }
 
     public func blackKeyWidth(_ width: CGFloat) -> CGFloat {
         whiteKeyWidth(width) * relativeBlackKeyWidth
     }
 
-    public var pitchesBoundedByNaturals: ArraySlice<Pitch> {
-        var lowestIndex = allPitches.startIndex
-        let lowestPitch = allPitches[lowestIndex]
-        if lowestPitch.accidental {
-            lowestIndex = lowestIndex - 1
+    public var midiBoundedByNaturals: ClosedRange<Int> {
+        var lowIndex: Int = lowMIDI
+        if Pitch.accidental(midi: lowIndex) {
+            lowIndex = lowIndex - 1
         }
-        var highestIndex = allPitches.endIndex - 1
-        let highestPitch = allPitches[highestIndex]
-        if highestPitch.accidental {
-            highestIndex = highestIndex + 1
+        
+        var highIndex: Int = highMIDI
+        if Pitch.accidental(midi: lowIndex) {
+            highIndex = highIndex + 1
         }
-        return allPitches[lowestIndex...highestIndex]
+        return lowIndex...highIndex
     }
 
     public func initialSpacerWidth(_ width: CGFloat) -> CGFloat {
@@ -87,10 +86,10 @@ extension PianoSpacer {
     }
 
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
-        whiteKeyWidth(width) * space(pitch: allPitches[allPitches.startIndex])
+        whiteKeyWidth(width) * space(midi: lowMIDI)
     }
 
-    public func blackKeySpacerWidth(_ width: CGFloat, pitch: Pitch) -> CGFloat {
-        whiteKeyWidth(width) * space(pitch: pitch)
+    public func blackKeySpacerWidth(_ width: CGFloat, midi: Int) -> CGFloat {
+        whiteKeyWidth(width) * space(midi: midi)
     }
 }

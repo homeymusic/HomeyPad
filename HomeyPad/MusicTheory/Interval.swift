@@ -8,7 +8,7 @@ struct Interval: Comparable, Equatable {
         self.pitch = pitch
         self.tonicPitch = tonicPitch
         self.semitones = pitch.semitones(to: tonicPitch)
-        self.intervalClass = IntegerNotation(rawValue: modulo(self.semitones, 12))!
+        self.intervalClass = IntegerNotation(rawValue: Int8(modulo(Int(self.semitones), 12)))!
     }
     
     public var majorMinor: MajorMinor {

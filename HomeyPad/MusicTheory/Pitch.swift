@@ -12,11 +12,19 @@ public class Pitch: ObservableObject, Equatable {
     
     public init(_ midi: Int8) {
         self.midi = midi
-        self.pitchClass = IntegerNotation(rawValue: modulo(self.midi, 12))!
+        self.pitchClass = Pitch.pitchClass(midi: Int(self.midi))
+    }
+    
+    class func pitchClass(midi: Int) -> IntegerNotation {
+        IntegerNotation(rawValue: Int8(modulo(Int(midi), 12)))!
     }
     
     public var accidental: Bool {
-        switch self.pitchClass {
+        Pitch.accidental(midi: Int(self.midi))
+    }
+    
+    class func accidental(midi: Int) -> Bool {
+        switch IntegerNotation(rawValue: Int8(modulo(midi, 12)))! {
         case .one, .three, .six, .eight, .ten:
             return true
         case .zero, .two, .four, .five, .seven, .nine, .eleven:
