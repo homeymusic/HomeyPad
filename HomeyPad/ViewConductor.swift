@@ -84,7 +84,7 @@ class ViewConductor: ObservableObject {
     
     let initialCenterMIDI: Int8 = 66
 
-    let octaveShiftRange: ClosedRange<Int8> = Int8(-4)...Int8(+4)
+    let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
     
     @Published var octaveShift: Int8 = 0 {
         willSet(newOctaveShift) {assert(octaveShiftRange.contains(newOctaveShift))}
@@ -103,23 +103,23 @@ class ViewConductor: ObservableObject {
         self.allPitches[Int(self.tonicMIDI)]
     }
     
-    @Published var midiPerSide: [LayoutChoice: Int8] = [
+    @Published var midiPerSide: [LayoutChoice: Int] = [
         .isomorphic: 9,
         .symmetric:  13,
         .piano:      13,
         .guitar:     26
     ]
     
-    var lowMIDI: Int8 {
-        centerMIDI - midiPerSide[self.layoutChoice]!
+    var lowMIDI: Int {
+        Int(centerMIDI) - midiPerSide[self.layoutChoice]!
     }
     
-    var highMIDI: Int8 {
-        centerMIDI + midiPerSide[self.layoutChoice]!
+    var highMIDI: Int {
+        Int(centerMIDI) + midiPerSide[self.layoutChoice]!
     }
     
     var pitches: ArraySlice<Pitch> {
-        return allPitches[Int(lowMIDI)...Int(highMIDI)]
+        return allPitches[lowMIDI...highMIDI]
     }
     
 }

@@ -35,27 +35,33 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
     public var body: some View {
         ZStack {
             switch layout {
-            case let .isomorphic(pitches, tonicPitch):
+            case let .isomorphic(allPitches, tonicPitch, lowMIDI, highMIDI):
                 Isomorphic(content: content,
                            model: model,
-                           pitches: pitches,
-                           tonicPitch: tonicPitch)
-            case let .symmetric(pitches, tonicPitch):
+                           allPitches: allPitches,
+                           tonicPitch: tonicPitch,
+                           lowMIDI: lowMIDI,
+                           highMIDI: highMIDI)
+            case let .symmetric(allPitches, tonicPitch, lowMIDI, highMIDI):
                 Symmetric(content: content,
                           model: model,
-                          pitches: pitches,
-                          tonicPitch: tonicPitch)
-            case let .piano(pitches, tonicPitch, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth, relativeBlackKeyHeight):
+                          allPitches: allPitches,
+                          tonicPitch: tonicPitch,
+                          lowMIDI: lowMIDI,
+                          highMIDI: highMIDI)
+            case let .piano(allPitches, tonicPitch, lowMIDI, highMIDI, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth, relativeBlackKeyHeight):
                 Piano(content: content,
                       keyboard: model,
                       tonicPitch: tonicPitch,
-                      spacer: PianoSpacer(pitches: pitches,
+                      spacer: PianoSpacer(allPitches: allPitches,
                                           tonicPitch: tonicPitch,
+                                          lowMIDI: lowMIDI,
+                                          highMIDI: highMIDI,
                                           initialSpacerRatio: initialSpacerRatio,
                                           spacerRatio: spacerRatio,
                                           relativeBlackKeyWidth: relativeBlackKeyWidth,
                                           relativeBlackKeyHeight: relativeBlackKeyHeight))
-            case let .guitar(allPitches, tonicPitch, openStringsMIDI, fretCount):
+            case let .guitar(allPitches, tonicPitch, lowMIDI, highMIDI, openStringsMIDI, fretCount):
                 Guitar(content: content, model: model, allPitches: allPitches, tonicPitch: tonicPitch, openStringsMIDI: openStringsMIDI, fretCount: fretCount)
             }
             

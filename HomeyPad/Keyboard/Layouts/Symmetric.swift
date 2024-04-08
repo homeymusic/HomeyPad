@@ -3,46 +3,48 @@ import SwiftUI
 struct Symmetric<Content>: View where Content: View {
     let content: (Pitch, Pitch) -> Content
     var model: KeyboardModel
-    var pitches: ArraySlice<Pitch>
+    var allPitches: [Pitch]
     var tonicPitch: Pitch
-    
+    var lowMIDI: Int
+    var highMIDI: Int
+
     var body: some View {
         HStack(spacing: 0) {
-            let dP5 = pitches.startIndex
-            let dtt = pitches.index(after: dP5)
-            let dP4 = pitches.index(after: dtt)
-            let dm3 = pitches.index(after: dP4)
-            let dM3 = pitches.index(after: dm3)
-            let dm2 = pitches.index(after: dM3)
-            let dM2 = pitches.index(after: dm2)
-            let P1 = pitches.index(after: dM2)
-            let m2 = pitches.index(after: P1)
-            let M2 = pitches.index(after: m2)
-            let m3 = pitches.index(after: M2)
-            let M3 = pitches.index(after: m3)
-            let P4 = pitches.index(after: M3)
-            let tt = pitches.index(after: P4)
-            let P5 = pitches.index(after: tt)
-            let m6 = pitches.index(after: P5)
-            let M6 = pitches.index(after: m6)
-            let m7 = pitches.index(after: M6)
-            let M7 = pitches.index(after: m7)
-            let P8 = pitches.index(after: M7)
-            let m9 = pitches.index(after: P8)
-            let M9 = pitches.index(after: m9)
-            let m10 = pitches.index(after: M9)
-            let M10 = pitches.index(after: m10)
-            let P11 = pitches.index(after: M10)
-            let ttt = pitches.index(after: P11)
-            let P12 = pitches.index(after: ttt)
+            let dP5 = allPitches.startIndex
+            let dtt = allPitches.index(after: dP5)
+            let dP4 = allPitches.index(after: dtt)
+            let dm3 = allPitches.index(after: dP4)
+            let dM3 = allPitches.index(after: dm3)
+            let dm2 = allPitches.index(after: dM3)
+            let dM2 = allPitches.index(after: dm2)
+            let P1 = allPitches.index(after: dM2)
+            let m2 = allPitches.index(after: P1)
+            let M2 = allPitches.index(after: m2)
+            let m3 = allPitches.index(after: M2)
+            let M3 = allPitches.index(after: m3)
+            let P4 = allPitches.index(after: M3)
+            let tt = allPitches.index(after: P4)
+            let P5 = allPitches.index(after: tt)
+            let m6 = allPitches.index(after: P5)
+            let M6 = allPitches.index(after: m6)
+            let m7 = allPitches.index(after: M6)
+            let M7 = allPitches.index(after: m7)
+            let P8 = allPitches.index(after: M7)
+            let m9 = allPitches.index(after: P8)
+            let M9 = allPitches.index(after: m9)
+            let m10 = allPitches.index(after: M9)
+            let M10 = allPitches.index(after: m10)
+            let P11 = allPitches.index(after: M10)
+            let ttt = allPitches.index(after: P11)
+            let P12 = allPitches.index(after: ttt)
             
             // below main
             KeyContainer(model: model,
-                         pitch: pitches[dP5],
+                         pitch: allPitches[dP5],
                          tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitches[dP4],
+                         pitch: allPitches[dP4],
                          tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
@@ -50,7 +52,7 @@ struct Symmetric<Content>: View where Content: View {
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitches[dtt],
+                                     pitch: allPitches[dtt],
                                      tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)
@@ -61,55 +63,55 @@ struct Symmetric<Content>: View where Content: View {
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[dM3],
+                             pitch: allPitches[dM3],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[dm3],
+                             pitch: allPitches[dm3],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[dM2],
+                             pitch: allPitches[dM2],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[dm2],
+                             pitch: allPitches[dm2],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             // main octave
             KeyContainer(model: model,
-                         pitch: pitches[P1],
+                         pitch: allPitches[P1],
                          tonicPitch: tonicPitch,
                          content: content)
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M2],
+                             pitch: allPitches[M2],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m2],
+                             pitch: allPitches[m2],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M3],
+                             pitch: allPitches[M3],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m3],
+                             pitch: allPitches[m3],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitches[P4],
+                         pitch: allPitches[P4],
                          tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitches[P5],
+                         pitch: allPitches[P5],
                          tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
@@ -117,7 +119,7 @@ struct Symmetric<Content>: View where Content: View {
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitches[tt],
+                                     pitch: allPitches[tt],
                                      tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)
@@ -128,55 +130,55 @@ struct Symmetric<Content>: View where Content: View {
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M6],
+                             pitch: allPitches[M6],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m6],
+                             pitch: allPitches[m6],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M7],
+                             pitch: allPitches[M7],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m7],
+                             pitch: allPitches[m7],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitches[P8],
+                         pitch: allPitches[P8],
                          tonicPitch: tonicPitch,
                          content: content)
             // above main
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M9],
+                             pitch: allPitches[M9],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m9],
+                             pitch: allPitches[m9],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             VStack(spacing: 0){
                 KeyContainer(model: model,
-                             pitch: pitches[M10],
+                             pitch: allPitches[M10],
                              tonicPitch: tonicPitch,
                              content: content)
                 KeyContainer(model: model,
-                             pitch: pitches[m10],
+                             pitch: allPitches[m10],
                              tonicPitch: tonicPitch,
                              content: content)
             }
             KeyContainer(model: model,
-                         pitch: pitches[P11],
+                         pitch: allPitches[P11],
                          tonicPitch: tonicPitch,
                          content: content)
             KeyContainer(model: model,
-                         pitch: pitches[P12],
+                         pitch: allPitches[P12],
                          tonicPitch: tonicPitch,
                          content: content)
             .overlay() {
@@ -184,7 +186,7 @@ struct Symmetric<Content>: View where Content: View {
                     let ttLength = tritoneLength(proxy.size)
                     ZStack {
                         KeyContainer(model: model,
-                                     pitch: pitches[ttt],
+                                     pitch: allPitches[ttt],
                                      tonicPitch: tonicPitch,
                                      zIndex: 1,
                                      content: content)

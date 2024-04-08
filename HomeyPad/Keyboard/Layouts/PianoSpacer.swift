@@ -26,8 +26,10 @@ public struct PianoSpacer {
     /// Default value for Black Key Height
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
-    public var pitches: ArraySlice<Pitch>
-    public var tonicPitch: Pitch
+    var allPitches: [Pitch]
+    var tonicPitch: Pitch
+    var lowMIDI: Int
+    var highMIDI: Int
     public var initialSpacerRatio: [IntegerNotation: CGFloat]
     public var spacerRatio: [IntegerNotation: CGFloat]
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
@@ -49,7 +51,7 @@ extension PianoSpacer {
     }
 
     public var initialSpacer: CGFloat {
-        let pitchClass = pitches[pitches.startIndex].pitchClass
+        let pitchClass = allPitches[lowMIDI].pitchClass
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
@@ -67,17 +69,17 @@ extension PianoSpacer {
     }
 
     public var pitchesBoundedByNaturals: ArraySlice<Pitch> {
-        var lowestIndex = pitches.startIndex
-        let lowestPitch = pitches[lowestIndex]
+        var lowestIndex = allPitches.startIndex
+        let lowestPitch = allPitches[lowestIndex]
         if lowestPitch.accidental {
             lowestIndex = lowestIndex - 1
         }
-        var highestIndex = pitches.endIndex - 1
-        let highestPitch = pitches[highestIndex]
+        var highestIndex = allPitches.endIndex - 1
+        let highestPitch = allPitches[highestIndex]
         if highestPitch.accidental {
             highestIndex = highestIndex + 1
         }
-        return pitches[lowestIndex...highestIndex]
+        return allPitches[lowestIndex...highestIndex]
     }
 
     public func initialSpacerWidth(_ width: CGFloat) -> CGFloat {
@@ -85,7 +87,7 @@ extension PianoSpacer {
     }
 
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
-        whiteKeyWidth(width) * space(pitch: pitches[pitches.startIndex])
+        whiteKeyWidth(width) * space(pitch: allPitches[allPitches.startIndex])
     }
 
     public func blackKeySpacerWidth(_ width: CGFloat, pitch: Pitch) -> CGFloat {
