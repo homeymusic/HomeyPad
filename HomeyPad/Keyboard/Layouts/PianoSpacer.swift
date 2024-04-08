@@ -51,12 +51,12 @@ extension PianoSpacer {
     }
 
     public var initialSpacer: CGFloat {
-        let pitchClass = Pitch.pitchClass(midi: lowMIDI)
+        let pitchClass = Pitch.pitchClass(midi: midiBoundedByNaturals.first!)
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
     public func space(midi: Int) -> CGFloat {
-        let pitchClass = Pitch.pitchClass(midi: lowMIDI)
+        let pitchClass = Pitch.pitchClass(midi: midi)
         return spacerRatio[pitchClass] ?? 0
     }
 
