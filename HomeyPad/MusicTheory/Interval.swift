@@ -19,6 +19,20 @@ struct Interval: Comparable, Equatable {
         }
     }
     
+    static func majorMinor(midi: Int, tonicMIDI: Int) -> MajorMinor {
+        let intervalClass = IntegerNotation(rawValue: Int8(modulo(Int(midi - tonicMIDI), 12)))!
+
+        switch intervalClass {
+        case .one, .three, .eight, .ten: return .minor
+        case .zero, .five, .six, .seven: return .neutral
+        case .two, .four, .nine, .eleven: return .major
+        }
+    }
+    
+    static func intervalClass(midi: Int, tonicMIDI: Int) -> IntegerNotation {
+        return IntegerNotation(rawValue: Int8(modulo(midi - tonicMIDI, 12)))!
+    }
+    
     public var consonanceDissonance: ConsonanceDissonance {
         if pitch == tonicPitch {
             return .tonic
