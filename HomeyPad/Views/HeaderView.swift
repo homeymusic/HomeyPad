@@ -36,6 +36,7 @@ struct HeaderView: View {
                             .foregroundColor(viewConductor.octaveShiftRange.contains(newUpwardOctaveShift) ? .white : Color(UIColor.systemGray4))
                     })
                     .disabled(!viewConductor.octaveShiftRange.contains(newUpwardOctaveShift))
+                    
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.vertical, 5)

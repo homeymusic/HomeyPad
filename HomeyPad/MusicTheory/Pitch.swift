@@ -67,30 +67,30 @@ public class Pitch: ObservableObject, Equatable {
         lhs.midi == rhs.midi
     }
     
-    var letter: String {
+    func letter(_ accidental: AccidentalChoice) -> String {
         switch pitchClass {
         case .zero:
             "C"
         case .one:
-            "C♯D♭"
+            accidental == .sharp ? "C♯" : "D♭"
         case .two:
             "D"
         case .three:
-            "D♯E♭"
+            accidental == .sharp ? "D♯" : "E♭"
         case .four:
             "E"
         case .five:
             "F"
         case .six:
-            "F♯G♭"
+            accidental == .sharp ? "F♯" : "G♭"
         case .seven:
             "G"
         case .eight:
-            "G♯A♭"
+            accidental == .sharp ? "G♯" : "A♭"
         case .nine:
             "A"
         case .ten:
-            "A♯B♭"
+            accidental == .sharp ? "A♯" : "B♭"
         case .eleven:
             "B"
         }

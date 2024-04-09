@@ -14,7 +14,7 @@ struct TonicPickerView: View {
                     viewConductor.mainColor
                         .aspectRatio(1.0, contentMode: .fit)
                         .overlay(
-                            Text(pitch.letter)
+                            Text(pitch.letter(viewConductor.accidentalChoice))
                                 .foregroundColor(Color(interval.majorMinor.color))
                                 .font(Font.system(size: 20, weight: .thin, design: .monospaced))
                         )

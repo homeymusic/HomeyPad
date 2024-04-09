@@ -11,10 +11,6 @@ struct PalettePopoverView: View {
     @StateObject var viewConductor: ViewConductor
     var body: some View {
         VStack(spacing: 0.0) {
-            Image(systemName: viewConductor.layoutChoice.icon)
-                .padding(.top, 7)
-                .padding(.bottom, 5)
-            Divider()
             Picker("", selection: $viewConductor.paletteChoices[viewConductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)

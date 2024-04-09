@@ -10,17 +10,8 @@ import SwiftUI
 struct KeyLabelsPopoverView: View {
     @StateObject var viewConductor: ViewConductor
     
-    var enableOctave: Bool {
-        viewConductor.noteLabels[viewConductor.layoutChoice]![NoteLabelChoice.letter]! ||
-        viewConductor.noteLabels[viewConductor.layoutChoice]![NoteLabelChoice.fixedDo]! ||
-        viewConductor.noteLabels[viewConductor.layoutChoice]![NoteLabelChoice.month]!
-    }
-    
     var body: some View {
         VStack(spacing: 0.0) {
-            Image(systemName: viewConductor.layoutChoice.icon)
-            Divider()
-                .padding([.top, .bottom], 9)
             Grid {
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                     if key != .octave && key != .accidentals {
@@ -39,31 +30,33 @@ struct KeyLabelsPopoverView: View {
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
-                    } else if key == .accidentals && viewConductor.showLetters {
-                        GridRow {
-                            let _: Void = UISegmentedControl.appearance().setTitleTextAttributes(
-                                [.font: UIFont.systemFont(ofSize: 25)], for: .normal)
-                            Image(systemName: key.icon)
-                                .gridCellAnchor(.center)
-                                .foregroundColor(.white)
-                            Picker("", selection: $viewConductor.accidentalChoices[viewConductor.layoutChoice]) {
-                                ForEach(AccidentalChoice.allCases) { accidentalChoice in
-                                    Text(accidentalChoice.icon)
-                                        .tag(accidentalChoice as AccidentalChoice?)
-                                        .font(.title)
+                        if key == .letter {
+                            GridRow {
+                                let _: Void = UISegmentedControl.appearance().setTitleTextAttributes(
+                                    [.font: UIFont.systemFont(ofSize: 25)], for: .normal)
+                                Image(systemName: "arrow.down.left.arrow.up.right.square")
+                                    .gridCellAnchor(.center)
+                                    .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
+                                Picker("", selection: $viewConductor.accidentalChoices[viewConductor.layoutChoice]) {
+                                    ForEach(AccidentalChoice.allCases) { accidentalChoice in
+                                        Text(accidentalChoice.icon)
+                                            .tag(accidentalChoice as AccidentalChoice?)
+                                            .font(.title)
+                                    }
                                 }
+                                .pickerStyle(.segmented)
+                                .disabled(!viewConductor.showLetters)
                             }
-                            .pickerStyle(.segmented)
-                        }
-                    } else if key == .octave  && viewConductor.showLetters {
-                        GridRow {
-                            Image(systemName: key.icon)
-                                .gridCellAnchor(.center)
-                                .foregroundColor(.white)
-                            Toggle(key.label,
-                                   isOn: viewConductor.noteLabelBinding(for: key))
-                            .tint(Color.gray)
-                            .foregroundColor(.white)
+                            GridRow {
+                                Image(systemName: "4.square")
+                                    .gridCellAnchor(.center)
+                                    .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
+                                Toggle(NoteLabelChoice.octave.label,
+                                       isOn: viewConductor.noteLabelBinding(for: .octave))
+                                .tint(Color.gray)
+                                .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
+                                .disabled(!viewConductor.showLetters)
+                            }
                         }
                     }
                 }

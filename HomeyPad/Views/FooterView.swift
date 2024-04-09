@@ -62,11 +62,16 @@ struct LayoutAndPalletePickerView: View {
             }
             .popover(isPresented: $viewConductor.showKeyLabelsPopover,
                      content: {
-                ScrollView {
-                    KeyLabelsPopoverView(viewConductor: viewConductor)
-                        .presentationCompactAdaptation(.popover)
+                VStack(spacing: 0) {
+                    Image(systemName: viewConductor.layoutChoice.icon)
+                        .padding([.top, .bottom], 7)
+                    Divider()
+                    ScrollView {
+                        KeyLabelsPopoverView(viewConductor: viewConductor)
+                            .presentationCompactAdaptation(.popover)
+                    }
+                    .scrollIndicatorsFlash(onAppear: true)
                 }
-                .scrollIndicatorsFlash(onAppear: true)
             })
             .padding(.trailing, 10)
             
@@ -94,8 +99,13 @@ struct LayoutAndPalletePickerView: View {
             }
             .popover(isPresented: $viewConductor.showPalettePopover,
                      content: {
-                PalettePopoverView(viewConductor: viewConductor)
-                    .presentationCompactAdaptation(.popover)
+                VStack(spacing: 0) {
+                    Image(systemName: viewConductor.layoutChoice.icon)
+                        .padding([.top, .bottom], 7)
+                    Divider()
+                    PalettePopoverView(viewConductor: viewConductor)
+                        .presentationCompactAdaptation(.popover)
+                }
             })
             .padding(.leading, 10)
         }
