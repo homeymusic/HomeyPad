@@ -5,22 +5,14 @@ struct TonicPickerView: View {
     @State private var showSettings = false
     
     var body: some View {
-        Button(action: {
-            self.showSettings.toggle()
-        }) {
-            ZStack {
-                Image(systemName: "slider.horizontal.3")
-                    .foregroundColor(viewConductor.showTonicPicker ? .white : Color(UIColor.darkGray))
+        HStack {
+            ForEach(0...12, id: \.self) { tonicClass in
+                Button {
+                } label: {
+                    Color.pink
+                        .aspectRatio(1.0, contentMode: .fit)
+                }
             }
         }
-        .disabled(!viewConductor.showTonicPicker)
-        .popover(isPresented: $showSettings,
-                 content: {
-            TonicPickerSettingsView(viewConductor: viewConductor)
-        })
-        .padding(.leading, 10)
-        Toggle("", isOn: $viewConductor.showTonicPicker).labelsHidden()
-            .tint(Color(UIColor.darkGray))
-            .padding(.leading, 10)
     }
 }

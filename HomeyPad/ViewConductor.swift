@@ -77,12 +77,9 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var headerFooterPadding: CGFloat = 35.0
+    @Published var pitchDirection: PitchDirection = .upward            
     
-    @Published var pitchDirection: PitchDirection = .upward
-            
-    
-    let initialCenterMIDI: Int8 = 66
+    let initialCenterMIDI: Int = 66
 
     let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
     
@@ -90,12 +87,12 @@ class ViewConductor: ObservableObject {
         willSet(newOctaveShift) {assert(octaveShiftRange.contains(newOctaveShift))}
     }
 
-    var centerMIDI: Int8
+    var centerMIDI: Int
     {
-        initialCenterMIDI + octaveShift * 12
+        initialCenterMIDI + Int(octaveShift) * 12
     }
     
-    var tonicMIDI: Int8 {
+    var tonicMIDI: Int {
         centerMIDI + (pitchDirection == .upward ? -6 : +6)
     }
 

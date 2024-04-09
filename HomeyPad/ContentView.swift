@@ -5,27 +5,32 @@ struct ContentView: View {
     
     var body: some View {
         let settingsHeight = 30.0
-        ZStack {
-            Color.black
-            ZStack() {
-                VStack {
-                    HeaderView(viewConductor: viewConductor)
-                        .frame(height: settingsHeight)
-                    Spacer()
-                }
-                KeyboardView(viewConductor: viewConductor)
+        GeometryReader { proxy in
+            ZStack {
+                Color.black
+                ZStack() {
+                    VStack {
+                        HeaderView(viewConductor: viewConductor)
+                            .frame(height: settingsHeight)
+                        Spacer()
+                    }
+                    VStack {
+                        TonicPickerView(viewConductor: viewConductor)
+                        KeyboardView(viewConductor: viewConductor)
+                            .ignoresSafeArea(edges:.horizontal)
+                    }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
-                VStack {
-                    Spacer()
-                    FooterView(viewConductor: viewConductor)
-                        .frame(height: settingsHeight)
+                    VStack {
+                        Spacer()
+                        FooterView(viewConductor: viewConductor)
+                            .frame(height: settingsHeight)
+                    }
+                    
                 }
-
             }
+            .statusBarHidden(true)
+            .background(.black)
         }
-        .statusBarHidden(true)
-        .ignoresSafeArea(edges:.horizontal)
-        .background(.black)
     }
 }

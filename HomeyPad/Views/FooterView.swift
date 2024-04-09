@@ -22,7 +22,6 @@ struct FooterView: View {
             .foregroundColor(.white)
             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, viewConductor.headerFooterPadding)
 
             LayoutAndPalletePickerView(viewConductor: viewConductor)
             Button(action: {
@@ -38,7 +37,6 @@ struct FooterView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing, viewConductor.headerFooterPadding)
         }
     }
 }

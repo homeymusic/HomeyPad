@@ -37,35 +37,34 @@ struct Symmetric<Content>: View where Content: View {
                     }
                 } else if majorMinor == .neutral {
                     let intervalClass: IntegerNotation = Interval.intervalClass(midi: midi, tonicMIDI: Int(tonicPitch.midi))
-                    if intervalClass == .seven {
+                    if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
                         if safeMIDI(midi: midi) {
                             KeyContainer(model: model,
                                          pitch: allPitches[midi],
                                          tonicPitch: tonicPitch,
                                          content: content)
-                            .overlay() {
-                                GeometryReader { proxy in
-                                    let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
-                                    ZStack {
-                                        if safeMIDI(midi: midi-1) {
+                            .overlay() { // render tritone as overlay
+                                // only render tritone if P4, tt and P5 are safe
+                                if safeMIDI(midi: midi - 1) && safeMIDI(midi: midi - 2) {
+                                    GeometryReader { proxy in
+                                        let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
+                                        ZStack {
                                             KeyContainer(model: model,
-                                                         pitch: allPitches[midi-1],
+                                                         pitch: allPitches[midi-1], // tritone
                                                          tonicPitch: tonicPitch,
                                                          zIndex: 1,
                                                          content: content)
                                             .frame(width: ttLength, height: ttLength)
-                                        } else {
-                                            Color.clear
                                         }
+                                        .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
                                     }
-                                    .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
                                 }
                             }
                         } else {
                             Color.clear
                         }
                         
-                    } else if intervalClass != .six {
+                    } else if intervalClass != .six { // skip tritone
                         if safeMIDI(midi: midi) {
                             
                             KeyContainer(model: model,

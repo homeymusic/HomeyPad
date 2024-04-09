@@ -48,7 +48,6 @@ struct HeaderView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, viewConductor.headerFooterPadding)
             HStack {
                 Image(systemName: "tag")
                     .foregroundColor(.white)
@@ -65,7 +64,6 @@ struct HeaderView: View {
                     .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing, viewConductor.headerFooterPadding)
         }
     }
 }
