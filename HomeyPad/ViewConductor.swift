@@ -38,6 +38,17 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    var accidentalChoice: AccidentalChoice {
+        accidentalChoices[layoutChoice]!
+    }
+    
+    @Published var accidentalChoices: [LayoutChoice: AccidentalChoice] = [
+        .isomorphic: .flat,
+        .symmetric:  .flat,
+        .piano:      .flat,
+        .guitar:     .flat
+    ]
+    
     var paletteChoice: PaletteChoice {
         paletteChoices[layoutChoice]!
     }
@@ -89,6 +100,9 @@ class ViewConductor: ObservableObject {
         intervalLabels[layoutChoice]![.symbol]!
     }
     
+    var showLetters: Bool {
+        noteLabels[layoutChoice]![.letter]!
+    }
     @Published var showKeyLabelsPopover: Bool = false
     
     @Published var showPalettePopover: Bool = false

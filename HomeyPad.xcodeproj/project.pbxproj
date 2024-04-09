@@ -40,6 +40,7 @@
 		B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* Guitar.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* Symmetric.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
+		B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */; };
 		B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */; };
@@ -80,6 +81,7 @@
 		B0C7FD2D2BBAFB16006FF26F /* KeyboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
 		B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalChoice.swift; sourceTree = "<group>"; };
 		B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
 		B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerSettingsView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
 				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
+				B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
@@ -292,6 +295,7 @@
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
 				B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */,
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,
+				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* Keyboard.swift in Sources */,
 				B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */,
 				B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */,

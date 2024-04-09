@@ -22,28 +22,51 @@ struct KeyLabelsPopoverView: View {
             Divider()
                 .padding([.top, .bottom], 9)
             Grid {
-                
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
+                    if key != .octave && key != .accidentals {
                         GridRow {
-                            // SwiftUI has a different key signature for system versus custom images
-                            // so we need this conditional to look for our custom image
                             if key == .midi {
                                 Image(key.icon)
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                                    .foregroundColor(.white)
                             } else {
                                 Image(systemName: key.icon)
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                                    .foregroundColor(.white)
                             }
                             Toggle(key.label,
                                    isOn: viewConductor.noteLabelBinding(for: key))
                             .tint(Color.gray)
-                            .foregroundColor(key == .octave && !enableOctave ? Color(UIColor.darkGray) : .white)
+                            .foregroundColor(.white)
                         }
-                        .disabled(key == .octave && !enableOctave)
+                    } else if key == .accidentals && viewConductor.showLetters {
+                        GridRow {
+                            let _: Void = UISegmentedControl.appearance().setTitleTextAttributes(
+                                [.font: UIFont.systemFont(ofSize: 25)], for: .normal)
+                            Image(systemName: key.icon)
+                                .gridCellAnchor(.center)
+                                .foregroundColor(.white)
+                            Picker("", selection: $viewConductor.accidentalChoices[viewConductor.layoutChoice]) {
+                                ForEach(AccidentalChoice.allCases) { accidentalChoice in
+                                    Text(accidentalChoice.icon)
+                                        .tag(accidentalChoice as AccidentalChoice?)
+                                        .font(.title)
+                                }
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                    } else if key == .octave  && viewConductor.showLetters {
+                        GridRow {
+                            Image(systemName: key.icon)
+                                .gridCellAnchor(.center)
+                                .foregroundColor(.white)
+                            Toggle(key.label,
+                                   isOn: viewConductor.noteLabelBinding(for: key))
+                            .tint(Color.gray)
+                            .foregroundColor(.white)
+                        }
+                    }
                 }
-
                 Divider()
                 
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
@@ -56,12 +79,10 @@ struct KeyLabelsPopoverView: View {
                     }
                     if key == .symbol {
                         Divider()
-                    }                
+                    }
                 }
             }
+            .padding(10)
         }
-        .padding(10)
     }
-    
 }
-
