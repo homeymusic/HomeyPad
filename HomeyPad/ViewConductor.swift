@@ -100,9 +100,17 @@ class ViewConductor: ObservableObject {
         intervalLabels[layoutChoice]![.symbol]!
     }
     
-    var showLetters: Bool {
-        noteLabels[layoutChoice]![.letter]!
+    var enableAccidentalPicker: Bool {
+        noteLabels[layoutChoice]![.letter]! ||
+        noteLabels[layoutChoice]![.fixedDo]!
     }
+    
+    var enableOctavePicker: Bool {
+        noteLabels[layoutChoice]![.letter]! ||
+        noteLabels[layoutChoice]![.fixedDo]! ||
+        noteLabels[layoutChoice]![.month]!
+    }
+
     @Published var showKeyLabelsPopover: Bool = false
     
     @Published var showPalettePopover: Bool = false

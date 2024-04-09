@@ -44,7 +44,7 @@ public struct LabelView: View {
                         }
                         if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo)\(octave)")
+                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.viewConductor.accidentalChoice))\(octave)")
                             )
                         }
                         if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {

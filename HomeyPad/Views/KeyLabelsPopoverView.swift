@@ -30,13 +30,13 @@ struct KeyLabelsPopoverView: View {
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
-                        if key == .letter {
+                        if key == .fixedDo {
                             GridRow {
                                 let _: Void = UISegmentedControl.appearance().setTitleTextAttributes(
                                     [.font: UIFont.systemFont(ofSize: 25)], for: .normal)
                                 Image(systemName: "arrow.down.left.arrow.up.right.square")
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
+                                    .foregroundColor(viewConductor.enableAccidentalPicker ? .white : Color(UIColor.darkGray))
                                 Picker("", selection: $viewConductor.accidentalChoices[viewConductor.layoutChoice]) {
                                     ForEach(AccidentalChoice.allCases) { accidentalChoice in
                                         Text(accidentalChoice.icon)
@@ -45,17 +45,19 @@ struct KeyLabelsPopoverView: View {
                                     }
                                 }
                                 .pickerStyle(.segmented)
-                                .disabled(!viewConductor.showLetters)
+                                .disabled(!viewConductor.enableAccidentalPicker)
                             }
+                        }
+                        if key == .month {
                             GridRow {
                                 Image(systemName: "4.square")
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
+                                    .foregroundColor(viewConductor.enableOctavePicker ? .white : Color(UIColor.darkGray))
                                 Toggle(NoteLabelChoice.octave.label,
                                        isOn: viewConductor.noteLabelBinding(for: .octave))
                                 .tint(Color.gray)
-                                .foregroundColor(viewConductor.showLetters ? .white : Color(UIColor.darkGray))
-                                .disabled(!viewConductor.showLetters)
+                                .foregroundColor(viewConductor.enableOctavePicker ? .white : Color(UIColor.darkGray))
+                                .disabled(!viewConductor.enableOctavePicker)
                             }
                         }
                     }

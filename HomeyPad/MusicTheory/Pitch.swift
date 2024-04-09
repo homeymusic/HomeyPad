@@ -96,30 +96,30 @@ public class Pitch: ObservableObject, Equatable {
         }
     }
     
-    var fixedDo: String {
+    func fixedDo(_ accidental: AccidentalChoice) -> String {
         switch pitchClass {
         case .zero:
             "Do"
         case .one:
-            "Do♯Re♭"
+            accidental == .sharp ? "Do♯" : "Re♭"
         case .two:
             "Re"
         case .three:
-            "Re♯Mi♭"
+            accidental == .sharp ? "Re♯" : "Mi♭"
         case .four:
             "Mi"
         case .five:
             "Fa"
         case .six:
-            "Fa♯Sol♭"
+            accidental == .sharp ? "Fa♯" : "Sol♭"
         case .seven:
             "Sol"
         case .eight:
-            "Sol♯La♭"
+            accidental == .sharp ? "Sol♯" : "La♭"
         case .nine:
             "La"
         case .ten:
-            "La♯Si♭"
+            accidental == .sharp ? "La♯" : "Si♭"
         case .eleven:
             "Si"
         }
