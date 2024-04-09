@@ -5,16 +5,16 @@ struct KeyView: View {
     var proxySize: CGSize
 
     var overlayKey: Bool {
-        (keyboardKey.layoutChoice == .symmetric && keyboardKey.pitch.pitchClass == .six) || keyboardKey.isSmall
+        (keyboardKey.viewConductor.layoutChoice == .symmetric && keyboardKey.pitch.pitchClass == .six) || keyboardKey.isSmall
     }
     
     var body: some View {
-        ZStack(alignment: keyboardKey.layoutChoice == .piano ? .top : .center) {
+        ZStack(alignment: keyboardKey.viewConductor.layoutChoice == .piano ? .top : .center) {
             let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize
-            let borderHeightApparentSize = keyboardKey.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-            KeyRectangle(fillColor: keyboardKey.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
+            let borderHeightApparentSize = keyboardKey.viewConductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
+            KeyRectangle(fillColor: keyboardKey.viewConductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
             if keyboardKey.outlineTonic {
-                KeyRectangle(fillColor: Color(keyboardKey.accentColor), keyboardKey: keyboardKey, proxySize: proxySize)
+                KeyRectangle(fillColor: Color(keyboardKey.viewConductor.accentColor), keyboardKey: keyboardKey, proxySize: proxySize)
                     .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
             }
             KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)

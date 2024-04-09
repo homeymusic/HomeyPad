@@ -15,7 +15,7 @@ struct PalettePopoverView: View {
                 .padding(.top, 7)
                 .padding(.bottom, 5)
             Divider()
-            Picker("", selection: $viewConductor.paletteChoice[viewConductor.layoutChoice]) {
+            Picker("", selection: $viewConductor.paletteChoices[viewConductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
                         .tag(paletteChoice as PaletteChoice?)

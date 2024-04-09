@@ -9,80 +9,41 @@ public enum Viewpoint {
 
 public struct KeyboardKey: View {
 
-    var pitch: Pitch
-    var tonicPitch: Pitch
-    var layoutChoice: LayoutChoice
-    var paletteChoice: PaletteChoice
-    var backgroundColor: Color
-    var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]]
-    var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]]
-    var interval: Interval
-    var brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
-    var creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-
-    public init(pitch: Pitch,
-                tonicPitch: Pitch,
-                layoutChoice: LayoutChoice = .symmetric,
-                paletteChoice: PaletteChoice = .subtle,
-                backgroundColor: Color = .black,
-                noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [:],
-                intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [:])
-    {
-        self.pitch = pitch
-        self.tonicPitch = tonicPitch
-        self.layoutChoice = layoutChoice
-        self.paletteChoice = paletteChoice
-        self.backgroundColor = backgroundColor
-        self.intervalLabels = intervalLabels
-        self.noteLabels = noteLabels
-        self.interval = Interval(pitch: self.pitch, tonicPitch: self.tonicPitch)
-    }
+    @StateObject var pitch: Pitch
+    @StateObject var viewConductor: ViewConductor
     
     public var body: some View {
         GeometryReader { proxy in
-            ZStack(alignment: layoutChoice == .piano ? .bottom : .center) {
+            ZStack(alignment: viewConductor.layoutChoice == .piano ? .bottom : .center) {
                 KeyView(keyboardKey: self, proxySize: proxy.size)
             }
         }
     }
     
-    var showSymbols: Bool {
-        intervalLabels[layoutChoice]![.symbol]!
-    }
-    
-    var mainColor: Color {
-        return Color(brownColor)
-    }
-    var accentColor: Color {
-        switch paletteChoice {
-        case .subtle:
-            Color(creamColor)
-        case .loud:
-            Color(brownColor)
-        case .ebonyIvory:
-            Color(brownColor)
-        }
+    var interval: Interval {
+        Interval(pitch: pitch, tonicPitch: viewConductor.tonicPitch)
     }
 
     var activated: Bool {
-        pitch.midiState == .on
+        print("pitch.midiState \(pitch.midiState)")
+        return pitch.midiState == .on
     }
     
     func darkenSmallKeys(color: Color) -> Color {
-        return layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
+        return viewConductor.layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
     }
     
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
 
-        switch paletteChoice {
+        switch viewConductor.paletteChoice {
         case .subtle:
             activeColor = Color(interval.majorMinor.color)
-            inactiveColor = Color(mainColor)
+            inactiveColor = Color(viewConductor.mainColor)
             return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
         case .loud:
-            activeColor = Color(mainColor)
+            activeColor = Color(viewConductor.mainColor)
             inactiveColor = Color(interval.majorMinor.color)
             return activated ? activeColor : inactiveColor
         case .ebonyIvory:
@@ -96,13 +57,13 @@ public struct KeyboardKey: View {
         let activeColor: Color
         let inactiveColor: Color
 
-        switch paletteChoice {
+        switch viewConductor.paletteChoice {
         case .subtle:
-            activeColor = Color(mainColor)
+            activeColor = Color(viewConductor.mainColor)
             inactiveColor = Color(interval.majorMinor.color)
         case .loud:
             activeColor = Color(interval.majorMinor.color)
-            inactiveColor = Color(mainColor)
+            inactiveColor = Color(viewConductor.mainColor)
         case .ebonyIvory:
             inactiveColor = Color(pitch.accidental ? interval.majorMinor.color : interval.majorMinor.colorOnWhite)
             activeColor = inactiveColor
@@ -111,9 +72,9 @@ public struct KeyboardKey: View {
     }
     
     var textColor: Color {
-        switch paletteChoice {
+        switch viewConductor.paletteChoice {
         case .ebonyIvory:
-            return pitch.accidental ? Color(creamColor) : Color(brownColor)
+            return pitch.accidental ? Color(viewConductor.creamColor) : Color(viewConductor.brownColor)
         default:
             return symbolColor
         }
@@ -125,7 +86,7 @@ public struct KeyboardKey: View {
     
     
     var outlineTonic: Bool {
-        paletteChoice == .subtle && interval.intervalClass == .zero
+        viewConductor.paletteChoice == .subtle && interval.intervalClass == .zero
     }
 
     func symbolLength(_ size: CGSize) -> CGFloat {
@@ -137,7 +98,7 @@ public struct KeyboardKey: View {
     }
 
     var isSmall: Bool {
-        layoutChoice == .piano && pitch.accidental
+        viewConductor.layoutChoice == .piano && pitch.accidental
     }
     
     var backgroundBorderSize: CGFloat {
@@ -145,11 +106,11 @@ public struct KeyboardKey: View {
     }
     
     var whichIntervalLabels: [IntervalLabelChoice: Bool] {
-        intervalLabels[layoutChoice]!
+        viewConductor.intervalLabels[viewConductor.layoutChoice]!
     }
     
     var whichNoteLabels: [NoteLabelChoice: Bool] {
-        noteLabels[layoutChoice]!
+        viewConductor.noteLabels[viewConductor.layoutChoice]!
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {
@@ -166,7 +127,7 @@ public struct KeyboardKey: View {
     }
     
     func topPadding(_ size: CGSize) -> CGFloat {
-        layoutChoice == .piano ? relativeCornerRadius(in: size) : 0.0
+        viewConductor.layoutChoice == .piano ? relativeCornerRadius(in: size) : 0.0
     }
     
     func leadingPadding(_ size: CGSize) -> CGFloat {
@@ -174,7 +135,7 @@ public struct KeyboardKey: View {
     }
     
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
-        layoutChoice == .piano ? -relativeCornerRadius(in: size) : (isSmall ? 0.5 : 0.0)
+        viewConductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : (isSmall ? 0.5 : 0.0)
     }
     
     func negativeLeadingPadding(_ size: CGSize) -> CGFloat {

@@ -6,66 +6,44 @@ import SwiftUI
 public struct Keyboard<Content>: Identifiable, View where Content: View {
     public let id = UUID()
     
-    let content: (Pitch, Pitch) -> Content
+    let content: (Pitch) -> Content
     
     /// model  contains the keys, their status and touches
     @StateObject public var model: KeyboardModel = .init()
+        
+    var viewConductor: ViewConductor
     
-    var tonicPitch: Pitch
-    var layout: KeyboardLayout
-    var latching: Bool
-    
-    /// Initialize the keyboard
-    /// - Parameters:
-    ///   - layout: The geometry of the keys
-    ///   - latching: Latched keys stay on until they are pressed again
-    ///   - content: View defining how to render a specific key
-    public init(tonicPitch: Pitch,
-                layout: KeyboardLayout,
-                latching: Bool = false,
-                @ViewBuilder content: @escaping (Pitch, Pitch) -> Content)
+    init(viewConductor: ViewConductor,
+         @ViewBuilder content: @escaping (Pitch) -> Content)
     {
-        self.tonicPitch = tonicPitch
-        self.layout = layout
-        self.latching = latching
+        self.viewConductor = viewConductor
         self.content = content
     }
     
     /// Body enclosing the various layout views
     public var body: some View {
         ZStack {
-            switch layout {
-            case let .isomorphic(allPitches, tonicPitch, lowMIDI, highMIDI):
+            switch viewConductor.layoutChoice {
+            case .isomorphic:
                 Isomorphic(content: content,
                            model: model,
-                           allPitches: allPitches,
-                           tonicPitch: tonicPitch,
-                           lowMIDI: lowMIDI,
-                           highMIDI: highMIDI)
-            case let .symmetric(allPitches, tonicPitch, lowMIDI, highMIDI):
+                           viewConductor: viewConductor)
+            case .symmetric:
                 Symmetric(content: content,
                           model: model,
-                          allPitches: allPitches,
-                          tonicPitch: tonicPitch,
-                          lowMIDI: lowMIDI,
-                          highMIDI: highMIDI)
-            case let .piano(allPitches, tonicPitch, lowMIDI, highMIDI, initialSpacerRatio, spacerRatio, relativeBlackKeyWidth, relativeBlackKeyHeight):
+                          viewConductor: viewConductor)
+            case .piano:
                 Piano(content: content,
-                      keyboard: model,
-                      tonicPitch: tonicPitch,
-                      spacer: PianoSpacer(allPitches: allPitches,
-                                          tonicPitch: tonicPitch,
-                                          lowMIDI: lowMIDI,
-                                          highMIDI: highMIDI,
-                                          initialSpacerRatio: initialSpacerRatio,
-                                          spacerRatio: spacerRatio,
-                                          relativeBlackKeyWidth: relativeBlackKeyWidth,
-                                          relativeBlackKeyHeight: relativeBlackKeyHeight))
-            case let .guitar(allPitches, tonicPitch, lowMIDI, highMIDI, openStringsMIDI, fretCount):
-                Guitar(content: content, model: model, allPitches: allPitches, tonicPitch: tonicPitch, openStringsMIDI: openStringsMIDI, fretCount: fretCount)
+                      model: model,
+                      viewConductor: viewConductor,
+                      spacer: PianoSpacer(viewConductor: viewConductor))
+            case .guitar:
+                Guitar(content: content, 
+                       model: model,
+                       viewConductor: viewConductor)
             }
             
-            if !latching {
+            if !viewConductor.latching {
                 MultitouchView { touches in
                     model.touchLocations = touches
                 }
@@ -78,20 +56,13 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
 }
 
 public extension Keyboard where Content == KeyboardKey {
-    /// Initialize the Keyboard with KeyboardKey as its content
-    /// - Parameters:
-    ///   - layout: The geometry of the keys
-    ///   - latching: Latched keys stay on until they are pressed again
-    init(tonicPitch: Pitch, layout: KeyboardLayout, latching: Bool)
+    internal init(viewConductor: ViewConductor)
     {
-        self.tonicPitch = tonicPitch
-        self.layout = layout
-        self.latching = latching
-        
+        self.viewConductor = viewConductor
         content = {
             KeyboardKey(
                 pitch: $0,
-                tonicPitch: $1
+                viewConductor: viewConductor
             )
         }
     }

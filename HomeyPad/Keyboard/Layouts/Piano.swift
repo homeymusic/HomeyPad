@@ -3,9 +3,9 @@
 import SwiftUI
 
 struct Piano<Content>: View where Content: View {
-    let content: (Pitch, Pitch) -> Content
-    let keyboard: KeyboardModel
-    var tonicPitch: Pitch
+    let content: (Pitch) -> Content
+    let model: KeyboardModel
+    @StateObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
     
     var body: some View {
@@ -17,7 +17,7 @@ struct Piano<Content>: View where Content: View {
                             Color.clear
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         } else {
-                            KeyContainer(model: keyboard, pitch: spacer.allPitches[midi], tonicPitch: tonicPitch, content: content)
+                            KeyContainer(model: model, pitch: viewConductor.allPitches[midi], tonicPitch: viewConductor.tonicPitch, content: content)
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         }
                     }
@@ -28,7 +28,7 @@ struct Piano<Content>: View where Content: View {
                     HStack(spacing: 0) {
                         Rectangle().opacity(0)
                             .frame(width: spacer.initialSpacerWidth(geo.size.width))
-                        if spacer.lowMIDI != spacer.midiBoundedByNaturals.first! {
+                        if viewConductor.lowMIDI != spacer.midiBoundedByNaturals.first! {
                             Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
                         }
                         ForEach(spacer.midiBoundedByNaturals, id: \.self) { midi in
@@ -37,9 +37,9 @@ struct Piano<Content>: View where Content: View {
                                     if midi < 0 || midi > 127 {
                                         Color.clear
                                     } else {
-                                        KeyContainer(model: keyboard,
-                                                     pitch: spacer.allPitches[midi],
-                                                     tonicPitch: tonicPitch,
+                                        KeyContainer(model: model,
+                                                     pitch: viewConductor.allPitches[midi],
+                                                     tonicPitch: viewConductor.tonicPitch,
                                                      zIndex: 1,
                                                      content: content)
                                     }

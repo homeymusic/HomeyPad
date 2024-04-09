@@ -5,7 +5,7 @@ import SwiftUI
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.
 public struct KeyContainer<Content: View>: View {
-    let content: (Pitch, Pitch) -> Content
+    let content: (Pitch) -> Content
 
     var pitch: Pitch
     var tonicPitch: Pitch
@@ -23,7 +23,7 @@ public struct KeyContainer<Content: View>: View {
          pitch: Pitch,
          tonicPitch: Pitch,
          zIndex: Int = 0,
-         @ViewBuilder content: @escaping (Pitch, Pitch) -> Content)
+         @ViewBuilder content: @escaping (Pitch) -> Content)
     {
         self.model = model
         self.pitch = pitch
@@ -33,7 +33,7 @@ public struct KeyContainer<Content: View>: View {
     }
 
     func rect(rect: CGRect) -> some View {
-        content(pitch, tonicPitch)
+        content(pitch)
             .contentShape(Rectangle()) // Added to improve tap/click reliability
             .gesture(
                 TapGesture().onEnded { _ in

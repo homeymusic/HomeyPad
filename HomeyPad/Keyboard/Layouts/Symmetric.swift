@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct Symmetric<Content>: View where Content: View {
-    let content: (Pitch, Pitch) -> Content
+    let content: (Pitch) -> Content
     var model: KeyboardModel
-    var allPitches: [Pitch]
-    var tonicPitch: Pitch
-    var lowMIDI: Int
-    var highMIDI: Int
+    @StateObject var viewConductor: ViewConductor
     
     func safeMIDI(midi: Int) -> Bool {
         midi >= 0 && midi <= 127
@@ -14,34 +11,34 @@ struct Symmetric<Content>: View where Content: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(lowMIDI...highMIDI, id: \.self) { midi in
-                let majorMinor: MajorMinor = Interval.majorMinor(midi: midi, tonicMIDI: Int(tonicPitch.midi))
+            ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { midi in
+                let majorMinor: MajorMinor = Interval.majorMinor(midi: midi, tonicMIDI: Int(viewConductor.tonicPitch.midi))
                 if majorMinor == .minor {
                     VStack(spacing: 0.0)  {
                         if safeMIDI(midi: midi + 1) {
                             KeyContainer(model: model,
-                                         pitch: allPitches[midi + 1],
-                                         tonicPitch: tonicPitch,
+                                         pitch: viewConductor.allPitches[midi + 1],
+                                         tonicPitch: viewConductor.tonicPitch,
                                          content: content)
                         } else {
                             Color.clear
                         }
                         if safeMIDI(midi: midi) {
                             KeyContainer(model: model,
-                                         pitch: allPitches[midi],
-                                         tonicPitch: tonicPitch,
+                                         pitch: viewConductor.allPitches[midi],
+                                         tonicPitch: viewConductor.tonicPitch,
                                          content: content)
                         } else {
                             Color.clear
                         }
                     }
                 } else if majorMinor == .neutral {
-                    let intervalClass: IntegerNotation = Interval.intervalClass(midi: midi, tonicMIDI: Int(tonicPitch.midi))
+                    let intervalClass: IntegerNotation = Interval.intervalClass(midi: midi, tonicMIDI: Int(viewConductor.tonicPitch.midi))
                     if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
                         if safeMIDI(midi: midi) {
                             KeyContainer(model: model,
-                                         pitch: allPitches[midi],
-                                         tonicPitch: tonicPitch,
+                                         pitch: viewConductor.allPitches[midi],
+                                         tonicPitch: viewConductor.tonicPitch,
                                          content: content)
                             .overlay() { // render tritone as overlay
                                 // only render tritone if P4, tt and P5 are safe
@@ -50,8 +47,8 @@ struct Symmetric<Content>: View where Content: View {
                                         let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
                                         ZStack {
                                             KeyContainer(model: model,
-                                                         pitch: allPitches[midi-1], // tritone
-                                                         tonicPitch: tonicPitch,
+                                                         pitch: viewConductor.allPitches[midi-1], // tritone
+                                                         tonicPitch: viewConductor.tonicPitch,
                                                          zIndex: 1,
                                                          content: content)
                                             .frame(width: ttLength, height: ttLength)
@@ -68,8 +65,8 @@ struct Symmetric<Content>: View where Content: View {
                         if safeMIDI(midi: midi) {
                             
                             KeyContainer(model: model,
-                                         pitch: allPitches[midi],
-                                         tonicPitch: tonicPitch,
+                                         pitch: viewConductor.allPitches[midi],
+                                         tonicPitch: viewConductor.tonicPitch,
                                          content: content)
                         } else {
                             Color.clear

@@ -3,22 +3,19 @@
 import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {
-    let content: (Pitch, Pitch) -> Content
+    let content: (Pitch) -> Content
     var model: KeyboardModel
-    var allPitches: [Pitch]
-    var tonicPitch: Pitch
-    var lowMIDI: Int
-    var highMIDI: Int
+    @StateObject var viewConductor: ViewConductor
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(lowMIDI...highMIDI, id: \.self) { midi in
+            ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { midi in
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {
                     KeyContainer(model: model,
-                                 pitch: allPitches[midi],
-                                 tonicPitch: tonicPitch,
+                                 pitch: viewConductor.allPitches[midi],
+                                 tonicPitch: viewConductor.tonicPitch,
                                  content: content)
                 }
             }

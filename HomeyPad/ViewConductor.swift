@@ -3,12 +3,30 @@ import SwiftUI
 class ViewConductor: ObservableObject {
     
     var allPitches = [Pitch]()
-    
+    let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
+    let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
+
     init() {
         for midi: Int8 in 0...127 {
             allPitches.append(Pitch(midi))
         }
     }
+    
+    var mainColor: Color {
+        return Color(brownColor)
+    }
+    var accentColor: Color {
+        switch paletteChoice {
+        case .subtle:
+            Color(creamColor)
+        case .loud:
+            Color(brownColor)
+        case .ebonyIvory:
+            Color(brownColor)
+        }
+    }
+
+    let backgroundColor: Color = .black
     
     @Published var layoutChoice: LayoutChoice = .isomorphic  {
         willSet { if !self.latching {allPitchesNoteOff()}}
@@ -20,20 +38,24 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var paletteChoice: [LayoutChoice: PaletteChoice] = [
+    var paletteChoice: PaletteChoice {
+        paletteChoices[layoutChoice]!
+    }
+    
+    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = [
         .isomorphic: .subtle,
         .symmetric:  .subtle,
         .piano:      .subtle,
         .guitar:     .subtle
     ]
-
+    
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
         .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: true, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave: true, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave: true, .midi: false, .frequency: false],
         .guitar: [.letter: false, .fixedDo: false, .month: false, .octave: true, .midi: false, .frequency: false]
     ]
-
+    
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
         .isomorphic: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true],
         .symmetric: [.interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .symbol: true],
@@ -51,7 +73,7 @@ class ViewConductor: ObservableObject {
             }
         )
     }
-
+    
     public func intervalLabelBinding(for key: IntervalLabelChoice) -> Binding<Bool> {
         return Binding(
             get: {
@@ -63,7 +85,9 @@ class ViewConductor: ObservableObject {
         )
     }
     
-    @Published var showSymbols: Bool = true
+    var showSymbols: Bool {
+        intervalLabels[layoutChoice]![.symbol]!
+    }
     
     @Published var showKeyLabelsPopover: Bool = false
     
@@ -77,16 +101,16 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var pitchDirection: PitchDirection = .upward            
+    @Published var pitchDirection: PitchDirection = .upward
     
     let initialCenterMIDI: Int = 66
-
+    
     let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
     
     @Published var octaveShift: Int8 = 0 {
         willSet(newOctaveShift) {assert(octaveShiftRange.contains(newOctaveShift))}
     }
-
+    
     var centerMIDI: Int
     {
         initialCenterMIDI + Int(octaveShift) * 12
@@ -95,7 +119,7 @@ class ViewConductor: ObservableObject {
     var tonicMIDI: Int {
         centerMIDI + (pitchDirection == .upward ? -6 : +6)
     }
-
+    
     var tonicPitch: Pitch {
         self.allPitches[Int(self.tonicMIDI)]
     }
@@ -118,6 +142,7 @@ class ViewConductor: ObservableObject {
     var pitches: ArraySlice<Pitch> {
         return allPitches[lowMIDI...highMIDI]
     }
+    
     
 }
 

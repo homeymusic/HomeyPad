@@ -39,7 +39,6 @@
 		B0C7FD3B2BBAFB29006FF26F /* Isomorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */; };
 		B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* Guitar.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* Symmetric.swift */; };
-		B0C7FD3E2BBAFB29006FF26F /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */; };
@@ -71,7 +70,6 @@
 		B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
 		B0C7FD202BBAFB16006FF26F /* Guitar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guitar.swift; sourceTree = "<group>"; };
 		B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorphic.swift; sourceTree = "<group>"; };
-		B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
 		B0C7FD232BBAFB16006FF26F /* Piano.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piano.swift; sourceTree = "<group>"; };
 		B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoSpacer.swift; sourceTree = "<group>"; };
 		B0C7FD252BBAFB16006FF26F /* Symmetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symmetric.swift; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 			children = (
 				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
 				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
-				B0C7FD222BBAFB16006FF26F /* KeyboardLayout.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
@@ -285,7 +282,6 @@
 				B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
-				B0C7FD3E2BBAFB29006FF26F /* KeyboardLayout.swift in Sources */,
 				B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */,
 				B0C7FD312BBAFB16006FF26F /* KeyView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,

@@ -26,14 +26,10 @@ public struct PianoSpacer {
     /// Default value for Black Key Height
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
-    var allPitches: [Pitch]
-    var tonicPitch: Pitch
-    var lowMIDI: Int
-    var highMIDI: Int
-    public var initialSpacerRatio: [IntegerNotation: CGFloat]
-    public var spacerRatio: [IntegerNotation: CGFloat]
+    @StateObject var viewConductor: ViewConductor
+    public var initialSpacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultInitialSpacerRatio
+    public var spacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultSpacerRatio
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
-    /// The smaller the number, the shorter the black keys appear. A value of 1 approximates an isomorphic keyboard
     public var relativeBlackKeyHeight: CGFloat = PianoSpacer.defaultRelativeBlackKeyHeight
 }
 
@@ -69,12 +65,12 @@ extension PianoSpacer {
     }
 
     public var midiBoundedByNaturals: ClosedRange<Int> {
-        var lowIndex: Int = lowMIDI
+        var lowIndex: Int = viewConductor.lowMIDI
         if Pitch.accidental(midi: lowIndex) {
             lowIndex = lowIndex - 1
         }
         
-        var highIndex: Int = highMIDI
+        var highIndex: Int = viewConductor.highMIDI
         if Pitch.accidental(midi: lowIndex) {
             highIndex = highIndex + 1
         }
@@ -86,7 +82,7 @@ extension PianoSpacer {
     }
 
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
-        whiteKeyWidth(width) * space(midi: lowMIDI)
+        whiteKeyWidth(width) * space(midi: viewConductor.lowMIDI)
     }
 
     public func blackKeySpacerWidth(_ width: CGFloat, midi: Int) -> CGFloat {

@@ -84,7 +84,7 @@ struct LayoutAndPalletePickerView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: viewConductor.paletteChoice[viewConductor.layoutChoice]!.icon)
+                        Image(systemName: viewConductor.paletteChoice.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
