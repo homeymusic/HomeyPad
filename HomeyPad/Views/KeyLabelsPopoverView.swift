@@ -23,23 +23,6 @@ struct KeyLabelsPopoverView: View {
                 .padding([.top, .bottom], 9)
             Grid {
                 
-                ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
-                    
-                    if key == .symbol {
-                        Divider()
-                    }
-                    
-                    GridRow {
-                        Image(systemName: key.icon)
-                            .gridCellAnchor(.center)
-                        Toggle(key.label,
-                               isOn: viewConductor.intervalLabelBinding(for: key))
-                        .tint(Color.gray)
-                    }
-                }
-
-                Divider()
-
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                         GridRow {
                             // SwiftUI has a different key signature for system versus custom images
@@ -60,7 +43,21 @@ struct KeyLabelsPopoverView: View {
                         }
                         .disabled(key == .octave && !enableOctave)
                 }
+
+                Divider()
                 
+                ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
+                    GridRow {
+                        Image(systemName: key.icon)
+                            .gridCellAnchor(.center)
+                        Toggle(key.label,
+                               isOn: viewConductor.intervalLabelBinding(for: key))
+                        .tint(Color.gray)
+                    }
+                    if key == .symbol {
+                        Divider()
+                    }                
+                }
             }
         }
         .padding(10)

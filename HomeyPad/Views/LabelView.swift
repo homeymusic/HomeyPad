@@ -26,14 +26,56 @@ public struct LabelView: View {
     
         var body: some View {
             let labelPadding: CGFloat = 2.0
-            let anyIntervalLabels: Bool = keyboardKey.whichIntervalLabels.values.contains(true)
-            let anyNoteLabels: Bool = keyboardKey.whichNoteLabels.values.contains(true)
+            let anyIntervalLabels: Bool = keyboardKey.whichIntervalLabels.filter({ $0.key != .symbol}).values.contains(true)
+            let anyNoteLabels: Bool = keyboardKey.whichNoteLabels.filter({ $0.key != .octave}).values.contains(true)
             
             VStack(spacing: 0) {
                 if keyboardKey.viewConductor.layoutChoice == .piano {
                     Color.clear
                     Color.clear
                     Color.clear
+                }
+                if anyNoteLabels || keyboardKey.viewConductor.showSymbols {
+                    VStack(spacing: 1.0) {
+                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.letter]! {
+                            Color.clear.overlay(
+                                Text("\(keyboardKey.pitch.letter)\(octave)")
+                            )
+                        }
+                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
+                            Color.clear.overlay(
+                                Text("\(keyboardKey.pitch.fixedDo)\(octave)")
+                            )
+                        }
+                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {
+                            Color.clear.overlay(
+                                Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
+                            )
+                        }
+                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.midi]! {
+                            Color.clear.overlay(
+                                Text(String(keyboardKey.pitch.midi))
+                            )
+                        }
+                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.frequency]! {
+                            Color.clear.overlay(
+                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
+                            )
+                        }
+                    }
+                    .frame(maxHeight: .infinity)
+                    .padding(labelPadding)
+                }
+
+                if keyboardKey.viewConductor.showSymbols {
+                    let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
+                    VStack(spacing: 0) {
+                        VStack(spacing: 0) {
+                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
+                        }
+                    }
+                    .frame(height: keyboardKey.maxSymbolLength(proxySize))
                 }
                 
                 if anyIntervalLabels  || keyboardKey.viewConductor.showSymbols {
@@ -61,49 +103,6 @@ public struct LabelView: View {
                         if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.integer]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.interval.semitones))
-                            )
-                        }
-                    }
-                    .frame(maxHeight: .infinity)
-                    .padding(labelPadding)
-                }                
-
-                if keyboardKey.viewConductor.showSymbols {
-                    let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
-                    VStack(spacing: 0) {
-                        VStack(spacing: 0) {
-                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
-                        }
-                    }
-                    .frame(height: keyboardKey.maxSymbolLength(proxySize))
-                }
-                
-                if anyNoteLabels || keyboardKey.viewConductor.showSymbols {
-                    VStack(spacing: 1.0) {
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.letter]! {
-                            Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.letter)\(octave)")
-                            )
-                        }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
-                            Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo)\(octave)")
-                            )
-                        }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {
-                            Color.clear.overlay(
-                                Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
-                            )
-                        }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.midi]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.pitch.midi))
-                            )
-                        }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.frequency]! {
-                            Color.clear.overlay(
-                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
                             )
                         }
                     }
