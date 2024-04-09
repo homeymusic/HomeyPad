@@ -6,19 +6,6 @@ struct TonicPickerView: View {
     
     var body: some View {
         HStack(spacing: 3.0) {
-            Color.clear
-                .aspectRatio(1.0, contentMode: .fit)
-                .overlay(
-                    GeometryReader { proxy in
-                        VStack {
-                            ConsonanceDissonance.NitterHouseWithDoor()
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .foregroundColor(.black)
-                                .frame(height: proxy.size.height * 0.4)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                )
             ForEach(-6...6, id: \.self) { tonic in
                 Button {
                 } label: {
@@ -29,22 +16,10 @@ struct TonicPickerView: View {
                         .overlay(
                             Text(pitch.letter)
                                 .foregroundColor(Color(interval.majorMinor.color))
+                                .font(Font.system(size: 20, weight: .thin, design: .monospaced))
                         )
                 }
             }
-            Color.clear
-                .aspectRatio(1.0, contentMode: .fit)
-                .overlay(
-                    GeometryReader { proxy in
-                        VStack {
-                            ConsonanceDissonance.NitterHouse()
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .foregroundColor(.black)
-                                .frame(height: proxy.size.height * 0.4)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                )
         }
         .padding(4.0)
         .background {
