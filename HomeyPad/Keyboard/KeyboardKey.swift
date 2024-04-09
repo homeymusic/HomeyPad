@@ -25,7 +25,6 @@ public struct KeyboardKey: View {
     }
 
     var activated: Bool {
-        print("pitch.midiState \(pitch.midiState)")
         return pitch.midiState == .on
     }
     

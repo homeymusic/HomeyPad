@@ -103,7 +103,7 @@ class ViewConductor: ObservableObject {
     
     @Published var pitchDirection: PitchDirection = .upward
     
-    let initialCenterMIDI: Int = 66
+    @Published var initialCenterMIDI: Int = 66
     
     let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
     

@@ -6,13 +6,24 @@ struct TonicPickerView: View {
     
     var body: some View {
         HStack {
-            ForEach(0...12, id: \.self) { tonicClass in
+            ForEach(-6...6, id: \.self) { tonic in
                 Button {
                 } label: {
-                    Color.pink
+                    let pitch = viewConductor.allPitches[viewConductor.centerMIDI + tonic]
+                    let interval = Interval(pitch: pitch, tonicPitch: viewConductor.tonicPitch)
+                    viewConductor.mainColor
                         .aspectRatio(1.0, contentMode: .fit)
+                        .overlay(
+                            Text(pitch.letter)
+                                .foregroundColor(Color(interval.majorMinor.color))
+                        )
                 }
             }
+        }
+        .padding(10)
+        .background {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Color(UIColor.systemGray5))
         }
     }
 }

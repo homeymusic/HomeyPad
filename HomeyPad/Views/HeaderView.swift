@@ -13,7 +13,7 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             HStack {
-                HStack(spacing: 10) {
+                HStack(spacing: 5) {
                     let newDownwardOctaveShift = viewConductor.octaveShift - 1
                     Button(action: {
                         viewConductor.octaveShift = newDownwardOctaveShift
@@ -39,13 +39,8 @@ struct HeaderView: View {
                     .disabled(!viewConductor.octaveShiftRange.contains(newUpwardOctaveShift))
                 }
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 4 * 2)
+                .padding(.vertical, 5)
                 .foregroundColor(.white)
-                .background {
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(Color(UIColor.systemGray6))
-                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
