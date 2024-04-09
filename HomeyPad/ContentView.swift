@@ -15,7 +15,10 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack {
-                        TonicPickerView(viewConductor: viewConductor)
+                        if viewConductor.showTonicPicker {
+                            TonicPickerView(viewConductor: viewConductor)
+                                .transition(.scale)
+                        }
                         KeyboardView(viewConductor: viewConductor)
                             .ignoresSafeArea(edges:.horizontal)
                     }

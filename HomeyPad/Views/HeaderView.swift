@@ -25,9 +25,8 @@ struct HeaderView: View {
                     
                     Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                         .foregroundColor(.white)
-                        .font(Font.system(.body, design: .monospaced))
                         .fixedSize(horizontal: true, vertical: false)
-                        .frame(width: 53, alignment: .center)
+                        .frame(width: 41, alignment: .center)
                     
                     let newUpwardOctaveShift = viewConductor.octaveShift + 1
                     Button(action: {
@@ -41,14 +40,30 @@ struct HeaderView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.vertical, 5)
                 .foregroundColor(.white)
+                .font(Font.system(size: 17, weight: viewConductor.octaveShift == 0 ? .thin : .regular, design: .monospaced))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Image(systemName: "tag")
                     .foregroundColor(.white)
                     .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-                Image(systemName: "house")
+                
+                Button(action: {
+                    withAnimation {
+                        viewConductor.showTonicPicker.toggle()
+                    }
+                }) {
+                    ZStack {
+                        Color.clear.overlay(
+                            Image(systemName: viewConductor.showTonicPicker ? "house.fill" : "house")
+                                .foregroundColor(.white)
+                                .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                        )
+                        .aspectRatio(1.0, contentMode: .fit)
+                    }
                     .padding(30.0)
+                }
+                
                 Image(systemName: "paintpalette")
                     .foregroundColor(.white)
                     .font(Font.system(size: .leastNormalMagnitude, weight: .thin))

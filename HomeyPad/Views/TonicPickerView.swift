@@ -5,7 +5,7 @@ struct TonicPickerView: View {
     @State private var showSettings = false
     
     var body: some View {
-        HStack {
+        HStack(spacing: 3.0) {
             ForEach(-6...6, id: \.self) { tonic in
                 Button {
                 } label: {
@@ -20,9 +20,10 @@ struct TonicPickerView: View {
                 }
             }
         }
-        .padding(10)
+        .padding(4.0)
         .background {
-            RoundedRectangle(cornerRadius: 5)
+            RoundedRectangle(cornerRadius: 5.0)
+                .stroke(Color(UIColor.systemGray6), lineWidth: 3.0)
                 .fill(Color(UIColor.systemGray5))
         }
     }

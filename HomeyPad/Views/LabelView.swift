@@ -112,7 +112,7 @@ public struct LabelView: View {
                 }
                 
             }
-            .font(.custom("Courier", size: 28))
+            .font(Font.system(size: 17, weight: .thin, design: .monospaced))
             .foregroundColor(keyboardKey.textColor)
             .lineLimit(1)
             .minimumScaleFactor(0.01)

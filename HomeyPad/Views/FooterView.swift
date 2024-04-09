@@ -24,6 +24,7 @@ struct FooterView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             LayoutAndPalletePickerView(viewConductor: viewConductor)
+            
             Button(action: {
                 viewConductor.latching.toggle()
             }) {
