@@ -42,7 +42,7 @@ struct TonicPickerSettingsView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: viewConductor.showTonicPicker ? viewConductor.houseIcon + ".fill" : viewConductor.houseIcon)
+                        Image(systemName: viewConductor.showTonicPicker ? LayoutChoice.home.icon + ".fill" : LayoutChoice.home.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )

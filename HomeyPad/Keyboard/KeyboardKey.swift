@@ -84,7 +84,6 @@ public struct KeyboardKey: View {
         return interval.consonanceDissonance.symbol
     }
     
-    
     var outlineTonic: Bool {
         viewConductor.paletteChoice == .subtle && interval.intervalClass == .zero
     }

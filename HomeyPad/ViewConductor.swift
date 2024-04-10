@@ -12,10 +12,6 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    var houseIcon: String {
-        "house"
-    }
-    
     var mainColor: Color {
         return Color(brownColor)
     }
