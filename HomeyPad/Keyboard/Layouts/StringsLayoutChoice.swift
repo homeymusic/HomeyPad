@@ -2,6 +2,7 @@ public enum StringsLayoutChoice: String, CaseIterable, Identifiable {
     case guitar = "guitar"
     case bass   = "bass"
     case violin = "violin"
+    case cello  = "cello"
 
     public var id: String { self.rawValue }
     
@@ -17,6 +18,8 @@ public enum StringsLayoutChoice: String, CaseIterable, Identifiable {
             [55, 50, 45, 40]
         case .violin:
             [76, 69, 62, 55]
+        case .cello:
+            [69, 62, 55, 48]
         }
     }
 }

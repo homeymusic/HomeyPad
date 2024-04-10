@@ -44,6 +44,11 @@ struct KeyboardView: View {
                     KeyboardKey(pitch: pitch,
                                 viewConductor: viewConductor)
                 }
+            case .cello:
+                Keyboard(viewConductor: viewConductor) { pitch in
+                    KeyboardKey(pitch: pitch,
+                                viewConductor: viewConductor)
+                }
             }
         default:
             Color.clear

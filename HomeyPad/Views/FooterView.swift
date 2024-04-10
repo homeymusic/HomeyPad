@@ -38,7 +38,7 @@ struct FooterView: View {
                                 .font(Font.system(size: 17))
                         }
                     }
-                    .frame(maxWidth: 150)
+                    .frame(maxWidth: 200)
                     .pickerStyle(.segmented)
                 } else {
                     Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
