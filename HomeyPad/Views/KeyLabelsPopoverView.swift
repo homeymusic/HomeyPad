@@ -76,6 +76,21 @@ struct KeyLabelsPopoverView: View {
                         Divider()
                     }
                 }
+
+                Divider()
+                
+                GridRow {
+                    Button(action: {
+                        viewConductor.resetLabels()
+                    }, label: {
+                        Image(systemName: "gobackward")
+                            .gridCellAnchor(.center)
+                            .foregroundColor(.white)
+                    })
+                    .gridCellColumns(2)
+                }
+                .padding(.top, 3)
+
             }
             .padding(10)
         }

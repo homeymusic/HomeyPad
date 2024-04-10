@@ -60,14 +60,31 @@ class ViewConductor: ObservableObject {
         .guitar:     .subtle
     ]
     
-    @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
+    func resetLabels() {
+        resetNoteLabels()
+        resetIntervalLabels()
+    }
+
+    func resetNoteLabels() {
+        noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
+    }
+    
+    func resetIntervalLabels() {
+        intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
+    }
+    
+    @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
+    
+    static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
         .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .guitar: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
     ]
     
-    @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
+    @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels
+    
+    static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
         .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
