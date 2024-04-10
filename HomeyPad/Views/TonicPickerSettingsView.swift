@@ -1,16 +1,77 @@
-//
-//  HomePickerSettingsView.swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 3/27/24.
-//
-
 import SwiftUI
 
 struct TonicPickerSettingsView: View {
     @StateObject var viewConductor: ViewConductor
-
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+
+            Button(action: {
+                viewConductor.showTonicKeyLabelsPopover.toggle()
+            }) {
+                ZStack {
+                    Color.clear.overlay(
+                        Image(systemName: "tag")
+                            .foregroundColor(.white)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                    )
+                    .aspectRatio(1.0, contentMode: .fit)
+                }
+            }
+            .popover(isPresented: $viewConductor.showTonicKeyLabelsPopover,
+                     content: {
+                VStack(spacing: 0) {
+                    Image(systemName: LayoutChoice.home.icon)
+                        .padding([.top, .bottom], 7)
+                    Divider()
+                    ScrollView {
+                        KeyLabelsPopoverView(viewConductor: viewConductor, homeLayout: true)
+                            .presentationCompactAdaptation(.popover)
+                    }
+                    .scrollIndicatorsFlash(onAppear: true)
+                }
+            })
+            .padding(.trailing, 10)        
+
+            Button(action: {
+                withAnimation {
+                    viewConductor.showTonicPicker.toggle()
+                }
+            }) {
+                ZStack {
+                    Color.clear.overlay(
+                        Image(systemName: viewConductor.showTonicPicker ? viewConductor.houseIcon + ".fill" : viewConductor.houseIcon)
+                            .foregroundColor(.white)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                    )
+                    .aspectRatio(1.0, contentMode: .fit)
+                }
+                .padding(30.0)
+            }
+            
+            Button(action: {
+                viewConductor.showTonicPalettePopover.toggle()
+            }) {
+                ZStack {
+                    Color.clear.overlay(
+                        Image(systemName: viewConductor.paletteChoices[.home]!.icon)
+                            .foregroundColor(.white)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
+                    )
+                    .aspectRatio(1.0, contentMode: .fit)
+                }
+            }
+            .popover(isPresented: $viewConductor.showTonicPalettePopover,
+                     content: {
+                VStack(spacing: 0) {
+                    Image(systemName: LayoutChoice.home.icon)
+                        .padding([.top, .bottom], 7)
+                    Divider()
+                    PalettePopoverView(viewConductor: viewConductor, homeLayout: true)
+                        .presentationCompactAdaptation(.popover)
+                }
+            })
+            
+        }
     }
 }

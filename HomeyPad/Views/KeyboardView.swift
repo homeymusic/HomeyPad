@@ -32,6 +32,8 @@ struct KeyboardView: View {
                 KeyboardKey(pitch: pitch,
                             viewConductor: viewConductor)
             }
+        default:
+            Color.clear
         }
     }
 }

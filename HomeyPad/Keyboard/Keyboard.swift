@@ -41,6 +41,8 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                 Guitar(content: content, 
                        model: model,
                        viewConductor: viewConductor)
+            default:
+                Color.clear
             }
             
             if !viewConductor.latching {

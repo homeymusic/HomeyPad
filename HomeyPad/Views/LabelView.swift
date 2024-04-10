@@ -39,12 +39,12 @@ public struct LabelView: View {
                     VStack(spacing: 1.0) {
                         if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.letter]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.letter(keyboardKey.viewConductor.accidentalChoice))\(octave)")
+                                Text("\(keyboardKey.pitch.letter(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
                             )
                         }
                         if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.viewConductor.accidentalChoice))\(octave)")
+                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
                             )
                         }
                         if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {
