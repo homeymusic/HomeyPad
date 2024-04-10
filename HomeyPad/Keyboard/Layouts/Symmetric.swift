@@ -3,7 +3,7 @@ import SwiftUI
 struct Symmetric<Content>: View where Content: View {
     let content: (Pitch) -> Content
     var model: KeyboardModel
-    @StateObject var viewConductor: ViewConductor
+    var viewConductor: ViewConductor
     
     func safeMIDI(midi: Int) -> Bool {
         midi >= 0 && midi <= 127

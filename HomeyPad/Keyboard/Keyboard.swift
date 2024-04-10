@@ -4,23 +4,15 @@ import SwiftUI
 
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
+    @StateObject var viewConductor: ViewConductor
+
     public let id = UUID()
     
     let content: (Pitch) -> Content
     
     /// model  contains the keys, their status and touches
-    public var model: KeyboardModel = .init()
+    @StateObject public var model: KeyboardModel = .init()
 
-    var viewConductor: ViewConductor
-    
-    init(viewConductor: ViewConductor,
-         @ViewBuilder content: @escaping (Pitch) -> Content)
-    {
-        self.viewConductor = viewConductor
-        self.content = content
-    }
-    
-    /// Body enclosing the various layout views
     public var body: some View {
         ZStack {
             switch viewConductor.layoutChoice {
@@ -68,21 +60,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
             }
             
         }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in
-            print("onPreferenceChange")
             model.keyRectInfos = keyRectInfos
-        }
-    }
-}
-
-public extension Keyboard where Content == KeyboardKey {
-    internal init(viewConductor: ViewConductor)
-    {
-        self.viewConductor = viewConductor
-        content = {
-            KeyboardKey(
-                pitch: $0,
-                viewConductor: viewConductor
-            )
         }
     }
 }
