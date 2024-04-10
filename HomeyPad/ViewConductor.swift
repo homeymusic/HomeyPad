@@ -37,12 +37,36 @@ class ViewConductor: ObservableObject {
             pitch.noteOff()
         }
     }
+    
+    func resetLabels() {
+        resetNoteLabels()
+        resetIntervalLabels()
+        resetAccidentalChoice()
+    }
+
+    func resetPaletteChoice() {
+        paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
+    }
+
+    func resetAccidentalChoice() {
+        accidentalChoices[layoutChoice] = ViewConductor.defaultAccidentalChoices[layoutChoice]
+    }
+
+    func resetNoteLabels() {
+        noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
+    }
+    
+    func resetIntervalLabels() {
+        intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
+    }
 
     var accidentalChoice: AccidentalChoice {
         accidentalChoices[layoutChoice]!
     }
+
+    @Published var accidentalChoices: [LayoutChoice: AccidentalChoice] = defaultAccidentalChoices
     
-    @Published var accidentalChoices: [LayoutChoice: AccidentalChoice] = [
+    static let defaultAccidentalChoices: [LayoutChoice: AccidentalChoice] = [
         .isomorphic: .flat,
         .symmetric:  .flat,
         .piano:      .flat,
@@ -53,25 +77,14 @@ class ViewConductor: ObservableObject {
         paletteChoices[layoutChoice]!
     }
     
-    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = [
+    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = defaultPaletteChoices
+    
+    static let defaultPaletteChoices: [LayoutChoice: PaletteChoice] = [
         .isomorphic: .subtle,
         .symmetric:  .subtle,
         .piano:      .subtle,
         .guitar:     .subtle
     ]
-    
-    func resetLabels() {
-        resetNoteLabels()
-        resetIntervalLabels()
-    }
-
-    func resetNoteLabels() {
-        noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
-    }
-    
-    func resetIntervalLabels() {
-        intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
-    }
     
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     

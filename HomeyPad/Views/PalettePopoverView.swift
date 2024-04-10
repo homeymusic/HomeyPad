@@ -19,6 +19,18 @@ struct PalettePopoverView: View {
             }
             .pickerStyle(.segmented)
             .padding(10)
+            
+            Divider()
+            
+            Button(action: {
+                viewConductor.resetPaletteChoice()
+            }, label: {
+                Image(systemName: "gobackward")
+                    .gridCellAnchor(.center)
+                    .foregroundColor(.white)
+            })
+            .padding([.top, .bottom], 7)
+            
         }
     }
 }

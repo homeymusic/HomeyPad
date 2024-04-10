@@ -111,7 +111,7 @@ public struct LabelView: View {
                 }
                 
             }
-            .font(Font.system(size: 17, weight: .thin, design: .monospaced))
+            .font(Font.system(size: 17, design: .monospaced))
             .foregroundColor(keyboardKey.textColor)
             .lineLimit(1)
             .minimumScaleFactor(0.01)
