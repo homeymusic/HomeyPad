@@ -31,7 +31,6 @@ struct TonicPickerSettingsView: View {
                     .scrollIndicatorsFlash(onAppear: true)
                 }
             })
-            .padding(.trailing, 10)        
 
             Button(action: {
                 withAnimation {
