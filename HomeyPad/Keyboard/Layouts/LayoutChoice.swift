@@ -9,7 +9,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
     
     public var icon: String {
         switch self {
-        case .home: return "house"
+        case .home: return "house.fill"
         case .isomorphic: return "rectangle.split.2x1"
         case .symmetric: return "rectangle.split.2x2"
         case .piano: return "pianokeys.inverse"

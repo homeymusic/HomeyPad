@@ -89,15 +89,13 @@ struct LayoutAndPalletePickerView: View {
             .padding(.trailing, 10)
             
             Picker("", selection: $viewConductor.layoutChoice) {
-                ForEach(LayoutChoice.allCases) { layoutChoice in
+                ForEach(LayoutChoice.allCases, id:\.self) { layoutChoice in
                     Image(systemName: layoutChoice.icon)
                         .tag(layoutChoice)
                 }
             }
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
-            
-            
             Button(action: {
                 viewConductor.showPalettePopover.toggle()
             }) {
