@@ -38,9 +38,25 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                       viewConductor: viewConductor,
                       spacer: PianoSpacer(viewConductor: viewConductor))
             case .strings:
-                Strings(content: content,
-                        model: model,
-                        viewConductor: viewConductor)
+                switch viewConductor.stringsLayoutChoice {
+                case .guitar:
+                    Strings(content: content,
+                            model: model,
+                            viewConductor: viewConductor)
+                case .bass:
+                    Strings(content: content,
+                            model: model,
+                            viewConductor: viewConductor)
+                case .violin:
+                    Strings(content: content,
+                            model: model,
+                            viewConductor: viewConductor)
+                case .cello:
+                    Strings(content: content,
+                            model: model,
+                            viewConductor: viewConductor)
+                }
+                                        
             default:
                 Color.clear
             }
@@ -52,6 +68,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
             }
             
         }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in
+            print("onPreferenceChange")
             model.keyRectInfos = keyRectInfos
         }
     }

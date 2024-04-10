@@ -19,7 +19,10 @@ struct ContentView: View {
                             TonicPickerView(viewConductor: viewConductor)
                                 .transition(.scale)
                         }
-                        KeyboardView(viewConductor: viewConductor)
+                        Keyboard(viewConductor: viewConductor) { pitch in
+                            KeyboardKey(pitch: pitch,
+                                        viewConductor: viewConductor)
+                        }
                             .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)
