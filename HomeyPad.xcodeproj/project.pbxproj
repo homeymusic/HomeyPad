@@ -37,12 +37,13 @@
 		B0C7FD382BBAFB29006FF26F /* PianoSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */; };
 		B0C7FD3A2BBAFB29006FF26F /* Piano.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD232BBAFB16006FF26F /* Piano.swift */; };
 		B0C7FD3B2BBAFB29006FF26F /* Isomorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */; };
-		B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* Guitar.swift */; };
+		B0C7FD3C2BBAFB29006FF26F /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* Strings.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* Symmetric.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
 		B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */; };
 		B0E25F782BC630C30072A09A /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F772BC630C30072A09A /* OctaveShiftView.swift */; };
 		B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F792BC630DE0072A09A /* HelpView.swift */; };
+		B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */; };
 		B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */; };
@@ -71,7 +72,7 @@
 		B0C088042BB8B08200E454A0 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
 		B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
-		B0C7FD202BBAFB16006FF26F /* Guitar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guitar.swift; sourceTree = "<group>"; };
+		B0C7FD202BBAFB16006FF26F /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorphic.swift; sourceTree = "<group>"; };
 		B0C7FD232BBAFB16006FF26F /* Piano.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piano.swift; sourceTree = "<group>"; };
 		B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoSpacer.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalChoice.swift; sourceTree = "<group>"; };
 		B0E25F772BC630C30072A09A /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
 		B0E25F792BC630DE0072A09A /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLayoutChoice.swift; sourceTree = "<group>"; };
 		B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
 		B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerSettingsView.swift; sourceTree = "<group>"; };
@@ -156,13 +158,14 @@
 			isa = PBXGroup;
 			children = (
 				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
+				B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */,
 				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 				B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
 				B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */,
-				B0C7FD202BBAFB16006FF26F /* Guitar.swift */,
+				B0C7FD202BBAFB16006FF26F /* Strings.swift */,
 				B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */,
 				B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */,
 			);
@@ -288,7 +291,7 @@
 				B0C088052BB8B08200E454A0 /* KeyboardView.swift in Sources */,
 				B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */,
 				B0A0FFC32BC0341500FFB98C /* PalettePopoverView.swift in Sources */,
-				B0C7FD3C2BBAFB29006FF26F /* Guitar.swift in Sources */,
+				B0C7FD3C2BBAFB29006FF26F /* Strings.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */,
@@ -299,6 +302,7 @@
 				B04CE2352BBB3B0700E8787D /* IntegerNotation.swift in Sources */,
 				B0C7FD332BBAFB16006FF26F /* KeyboardKey.swift in Sources */,
 				B0C7FD3A2BBAFB29006FF26F /* Piano.swift in Sources */,
+				B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
 				B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */,
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,

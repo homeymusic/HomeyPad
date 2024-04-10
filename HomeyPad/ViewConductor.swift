@@ -33,8 +33,16 @@ class ViewConductor: ObservableObject {
 
     let backgroundColor: Color = .black
     
-    @Published var layoutChoice: LayoutChoice = .isomorphic  {
+    @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet { if !self.latching {allPitchesNoteOff()}}
+    }
+    
+    @Published var stringsLayoutChoice: StringsLayoutChoice = .guitar {
+        willSet { if !self.latching {allPitchesNoteOff()}}
+    }
+
+    var openStringsMIDI: [Int] {
+        stringsLayoutChoice.openStringsMIDI
     }
     
     func allPitchesNoteOff() {
@@ -81,7 +89,7 @@ class ViewConductor: ObservableObject {
         .isomorphic: .flat,
         .symmetric:  .flat,
         .piano:      .flat,
-        .guitar:     .flat
+        .strings:     .flat
     ]
     
     var paletteChoice: PaletteChoice {
@@ -95,7 +103,7 @@ class ViewConductor: ObservableObject {
         .isomorphic: .subtle,
         .symmetric:  .subtle,
         .piano:      .subtle,
-        .guitar:     .subtle
+        .strings:     .subtle
     ]
     
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
@@ -105,7 +113,7 @@ class ViewConductor: ObservableObject {
         .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
-        .guitar: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
+        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
     ]
     
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels
@@ -115,7 +123,7 @@ class ViewConductor: ObservableObject {
         .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .guitar: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
+        .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
     ]
     
     public func noteLabelBinding(for key: NoteLabelChoice, homeLayout: Bool = false) -> Binding<Bool> {
@@ -203,7 +211,7 @@ class ViewConductor: ObservableObject {
         .isomorphic: 9,
         .symmetric:  13,
         .piano:      13,
-        .guitar:     26
+        .strings:     26
     ]
     
     var lowMIDI: Int {

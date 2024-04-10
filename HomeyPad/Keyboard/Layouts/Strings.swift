@@ -2,24 +2,22 @@
 
 import SwiftUI
 
-struct Guitar<Content>: View where Content: View {
+struct Strings<Content>: View where Content: View {
     let content: (Pitch) -> Content
     var model: KeyboardModel
     @StateObject var viewConductor: ViewConductor
 
-    let openStringsMIDI: [Int8] = [64, 59, 55, 50, 45, 40]
-
     let fretCount: Int = 22
     
     var body: some View {
-        // Loop through the keys and add rows (strings)
-        // Each row has a 5 note offset tuning them to 4ths
         VStack(spacing: 0) {
-            ForEach(0 ..< openStringsMIDI.count, id: \.self) { string in
+            ForEach(0 ..< viewConductor.openStringsMIDI.count, id: \.self) { string in
                 HStack(spacing: 0) {
                     ForEach(0 ..< fretCount + 1, id: \.self) { fret in
+                        let midi = viewConductor.openStringsMIDI[string] + fret
+                        let pitch = viewConductor.allPitches[midi]
                         KeyContainer(model: model,
-                                     pitch: viewConductor.allPitches[Int(openStringsMIDI[string]) + fret],
+                                     pitch: pitch,
                                      tonicPitch: viewConductor.tonicPitch,
                                      content: content)
                     }

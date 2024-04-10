@@ -30,11 +30,23 @@ struct FooterView: View {
             LayoutAndPalletePickerView(viewConductor: viewConductor)            
 
             HStack {
-                Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                Image(systemName: "gobackward")
-                Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                if viewConductor.layoutChoice == .strings {
+                    Picker("", selection: $viewConductor.stringsLayoutChoice) {
+                        ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
+                            Text(stringsLayoutChoice.icon.capitalized)
+                                .tag(stringsLayoutChoice)
+                                .font(Font.system(size: 17))
+                        }
+                    }
+                    .frame(maxWidth: 150)
+                    .pickerStyle(.segmented)
+                } else {
+                    Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
+                    Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                    Image(systemName: "gobackward")
+                    Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
+                    Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                }
             }
             .foregroundColor(.white)
             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))

@@ -9,8 +9,8 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
     let content: (Pitch) -> Content
     
     /// model  contains the keys, their status and touches
-    @StateObject public var model: KeyboardModel = .init()
-        
+    public var model: KeyboardModel = .init()
+
     var viewConductor: ViewConductor
     
     init(viewConductor: ViewConductor,
@@ -37,10 +37,10 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                       model: model,
                       viewConductor: viewConductor,
                       spacer: PianoSpacer(viewConductor: viewConductor))
-            case .guitar:
-                Guitar(content: content, 
-                       model: model,
-                       viewConductor: viewConductor)
+            case .strings:
+                Strings(content: content,
+                        model: model,
+                        viewConductor: viewConductor)
             default:
                 Color.clear
             }

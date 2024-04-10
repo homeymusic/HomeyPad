@@ -27,10 +27,23 @@ struct KeyboardView: View {
                 KeyboardKey(pitch: pitch,
                             viewConductor: viewConductor)
             }
-        case .guitar:
-            Keyboard(viewConductor: viewConductor) { pitch in
-                KeyboardKey(pitch: pitch,
-                            viewConductor: viewConductor)
+        case .strings:
+            switch viewConductor.stringsLayoutChoice {
+            case .guitar:
+                Keyboard(viewConductor: viewConductor) { pitch in
+                    KeyboardKey(pitch: pitch,
+                                viewConductor: viewConductor)
+                }
+            case .bass:
+                Keyboard(viewConductor: viewConductor) { pitch in
+                    KeyboardKey(pitch: pitch,
+                                viewConductor: viewConductor)
+                }
+            case .violin:
+                Keyboard(viewConductor: viewConductor) { pitch in
+                    KeyboardKey(pitch: pitch,
+                                viewConductor: viewConductor)
+                }
             }
         default:
             Color.clear

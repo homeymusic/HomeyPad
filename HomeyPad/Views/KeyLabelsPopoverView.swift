@@ -34,8 +34,6 @@ struct KeyLabelsPopoverView: View {
                         }
                         if key == .fixedDo {
                             GridRow {
-                                let _: Void = UISegmentedControl.appearance().setTitleTextAttributes(
-                                    [.font: UIFont.systemFont(ofSize: 25)], for: .normal)
                                 Image(systemName: "arrow.down.left.arrow.up.right.square")
                                     .gridCellAnchor(.center)
                                     .foregroundColor(viewConductor.enableAccidentalPicker(homeLayout: homeLayout) ? .white : Color(UIColor.darkGray))

@@ -3,7 +3,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
     case isomorphic = "isomorphic"
     case symmetric = "symmetric"
     case piano = "piano"
-    case guitar = "guitar"
+    case strings = "strings"
     
     public var id: String { self.rawValue }
     
@@ -13,11 +13,11 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
         case .isomorphic: return "rectangle.split.2x1"
         case .symmetric: return "rectangle.split.2x2"
         case .piano: return "pianokeys.inverse"
-        case .guitar: return "guitars"
+        case .strings: return "guitars"
         }
     }
     
     public static var allCases: [LayoutChoice] {
-        return [.isomorphic, .symmetric, .piano, .guitar]
+        return [.isomorphic, .symmetric, .piano, .strings]
     }
 }

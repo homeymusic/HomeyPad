@@ -10,6 +10,7 @@ public enum Viewpoint {
 public struct KeyboardKey: View {
 
     @StateObject var pitch: Pitch
+//    var pitch: Pitch
     @StateObject var viewConductor: ViewConductor
     
     public var body: some View {
