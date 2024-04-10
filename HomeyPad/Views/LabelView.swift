@@ -1,65 +1,132 @@
 import SwiftUI
 
 public struct LabelView: View {
-    var keyboardKey: KeyboardKey
+    var viewConductor: ViewConductor
+    var pitch: Pitch
+    var interval: Interval
     var proxySize: CGSize
     
     public var body: some View {
-        let topBottomPadding = keyboardKey.viewConductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
-        if keyboardKey.viewConductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+        let topBottomPadding = viewConductor.layoutChoice == .symmetric && interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
+        if viewConductor.layoutChoice == .symmetric && interval.consonanceDissonance > .consonant {
             VStack(spacing: 0.0) {
-                AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+                AllSymbolsView(viewConductor: viewConductor,
+                               pitch: pitch,
+                               interval: interval,
+                               proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding)
-                AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+                AllSymbolsView(viewConductor: viewConductor,
+                               pitch: pitch,
+                               interval: interval,
+                               proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding)
             }
         } else {
-            AllSymbolsView(keyboardKey: keyboardKey, proxySize: proxySize)
+            AllSymbolsView(viewConductor: viewConductor,
+                           pitch: pitch,
+                           interval: interval,
+                           proxySize: proxySize)
                 .padding([.top, .bottom], topBottomPadding)
         }
     }
     
     struct AllSymbolsView: View {
-        
-        var keyboardKey: KeyboardKey
+        var viewConductor: ViewConductor
+        var pitch: Pitch
+        var interval: Interval
         var proxySize: CGSize
-    
+
+        var whichIntervalLabels: [IntervalLabelChoice: Bool] {
+            viewConductor.intervalLabels[viewConductor.layoutChoice]!
+        }
+        
+        var whichNoteLabels: [NoteLabelChoice: Bool] {
+            viewConductor.noteLabels[viewConductor.layoutChoice]!
+        }
+        
+        func symbolLength(_ size: CGSize) -> CGFloat {
+            return minDimension(size) * interval.consonanceDissonance.symbolLength/* * (isSmall ? 1.25 : 1.0)*/
+        }
+        
+        func maxSymbolLength(_ size: CGSize) -> CGFloat {
+            return minDimension(size) * interval.consonanceDissonance.maxSymbolLength/* * (isSmall ? 1.25 : 1.0)*/
+        }
+        
+        func minDimension(_ size: CGSize) -> CGFloat {
+            return min(size.width, size.height)
+        }
+        
+        var textColor: Color {
+            switch viewConductor.paletteChoice {
+            case .ebonyIvory:
+                return pitch.accidental ? Color(viewConductor.creamColor) : Color(viewConductor.brownColor)
+            default:
+                return symbolColor
+            }
+        }
+
+        var activated: Bool {
+            return pitch.midiState == .on
+        }
+        
+        var symbolColor: Color {
+            let activeColor: Color
+            let inactiveColor: Color
+
+            switch viewConductor.paletteChoice {
+            case .subtle:
+                activeColor = Color(viewConductor.mainColor)
+                inactiveColor = Color(interval.majorMinor.color)
+            case .loud:
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(viewConductor.mainColor)
+            case .ebonyIvory:
+                inactiveColor = Color(pitch.accidental ? interval.majorMinor.color : interval.majorMinor.colorOnWhite)
+                activeColor = inactiveColor
+            }
+            return activated ? activeColor : inactiveColor
+        }
+        
+        var keySymbol: any Shape {
+            return interval.consonanceDissonance.symbol
+        }
+
         var body: some View {
             let labelPadding: CGFloat = 2.0
-            let anyIntervalLabels: Bool = keyboardKey.whichIntervalLabels.filter({ $0.key != .symbol}).values.contains(true)
-            let anyNoteLabels: Bool = keyboardKey.whichNoteLabels.filter({ $0.key != .octave}).values.contains(true)
+            let anyIntervalLabels: Bool = whichIntervalLabels.filter({ $0.key != IntervalLabelChoice.symbol}).values.contains(true)
+            let anyNoteLabels: Bool = whichNoteLabels.filter({ $0.key != .octave}).values.contains(true)
             
             VStack(spacing: 0) {
-                if keyboardKey.viewConductor.layoutChoice == .piano {
+                if viewConductor.layoutChoice == .piano {
                     Color.clear
                     Color.clear
                     Color.clear
                 }
-                if anyNoteLabels || keyboardKey.viewConductor.showSymbols {
+                if anyNoteLabels || viewConductor.showSymbols {
                     VStack(spacing: 1.0) {
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.letter]! {
+                        if viewConductor.noteLabels[viewConductor.layoutChoice]![.letter]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.letter(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
+                                Text("\(pitch.letter(viewConductor.accidentalChoice()))\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
+                        if viewConductor.noteLabels[viewConductor.layoutChoice]![.fixedDo]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
+                                Text("\(pitch.fixedDo(viewConductor.accidentalChoice()))\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {
+                        if viewConductor.noteLabels[viewConductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
-                                Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
+                                Text("\(Calendar.current.shortMonthSymbols[(pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.midi]! {
+                        if viewConductor.noteLabels[viewConductor.layoutChoice]![.midi]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.pitch.midi))
+                                Text(String(pitch.midi))
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.frequency]! {
+                        if viewConductor.noteLabels[viewConductor.layoutChoice]![.frequency]! {
                             Color.clear.overlay(
-                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                                Text(pow(2, CGFloat(pitch.midi - 69) / 12.0) * 440.0,
                                      format: .number.notation(.compactName).precision(.fractionLength(1)))
                             )
                         }
@@ -67,42 +134,53 @@ public struct LabelView: View {
                     .frame(maxHeight: .infinity)
                     .padding(labelPadding)
                 }
-
-                if keyboardKey.viewConductor.showSymbols {
-                    let symbolAdjustedLength = keyboardKey.symbolLength(proxySize)
+                
+                if viewConductor.showSymbols {
+                    let symbolAdjustedLength = symbolLength(proxySize)
                     VStack(spacing: 0) {
                         VStack(spacing: 0) {
-                            SymbolView(keyboardKey: keyboardKey, proxySize: proxySize, width: symbolAdjustedLength)
+                            ZStack {
+                                Color.clear
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .frame(width: maxSymbolLength(proxySize))
+                                    .overlay(
+                                        AnyShape(keySymbol)
+                                            .stroke(textColor, lineWidth: viewConductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
+                                            .fill(symbolColor)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                            .frame(width: symbolAdjustedLength)
+                                    )
+                            }
                         }
                     }
-                    .frame(height: keyboardKey.maxSymbolLength(proxySize))
+                    .frame(height: maxSymbolLength(proxySize))
                 }
                 
-                if anyIntervalLabels  || keyboardKey.viewConductor.showSymbols {
+                if anyIntervalLabels  || viewConductor.showSymbols {
                     VStack(spacing: 1.0) {
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.interval]! {
+                        if viewConductor.intervalLabels[viewConductor.layoutChoice]![.interval]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.interval))
+                                Text(String(interval.interval))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.movableDo]! {
+                        if viewConductor.intervalLabels[viewConductor.layoutChoice]![.movableDo]! {
                             Color.clear.overlay(
-                                Text(keyboardKey.interval.movableDo)
+                                Text(interval.movableDo)
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.roman]! {
+                        if viewConductor.intervalLabels[viewConductor.layoutChoice]![.roman]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.roman))
+                                Text(String(interval.roman))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.degree]! {
+                        if viewConductor.intervalLabels[viewConductor.layoutChoice]![.degree]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.degree))
+                                Text(String(interval.degree))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.integer]! {
+                        if viewConductor.intervalLabels[viewConductor.layoutChoice]![.integer]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.semitones))
+                                Text(String(interval.semitones))
                             )
                         }
                     }
@@ -112,33 +190,13 @@ public struct LabelView: View {
                 
             }
             .font(Font.system(size: 17, design: .monospaced))
-            .foregroundColor(keyboardKey.textColor)
+            .foregroundColor(textColor)
             .lineLimit(1)
             .minimumScaleFactor(0.01)
         }
         
         var octave: String {
-            keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.octave]! ? String(keyboardKey.pitch.octave) : ""
-        }
-    }
-    
-    struct SymbolView: View {
-        var keyboardKey: KeyboardKey
-        var proxySize: CGSize
-        var width: CGFloat
-        var body: some View {
-            ZStack {
-                Color.clear
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: keyboardKey.maxSymbolLength(proxySize))
-                    .overlay(
-                        AnyShape(keyboardKey.keySymbol)
-                            .stroke(keyboardKey.textColor, lineWidth: keyboardKey.viewConductor.paletteChoice == .ebonyIvory ? width * 0.1 : 0.0)
-                            .fill(keyboardKey.symbolColor)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: width)
-                    )
-            }
+            viewConductor.noteLabels[viewConductor.layoutChoice]![.octave]! ? String(pitch.octave) : ""
         }
     }
 }

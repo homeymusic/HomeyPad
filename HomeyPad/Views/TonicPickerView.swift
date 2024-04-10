@@ -13,11 +13,11 @@ struct TonicPickerView: View {
                     let interval = Interval(pitch: pitch, tonicPitch: viewConductor.tonicPitch)
                     viewConductor.mainColor
                         .aspectRatio(1.0, contentMode: .fit)
-                        .overlay(
-                            Text(pitch.letter(viewConductor.accidentalChoice(homeLayout: true)))
-                                .foregroundColor(Color(interval.majorMinor.color))
-                                .font(Font.system(size: 20, design: .monospaced))
-                        )
+                    //                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    //                            .overlay(LabelView(viewConductor: viewConductor,
+                    //                                               pitch: pitch,
+                    //                                               interval: interval,
+                    //                                               proxySize: proxy.size))
                 }
             }
         }

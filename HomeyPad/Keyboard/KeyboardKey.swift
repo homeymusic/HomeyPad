@@ -53,47 +53,8 @@ public struct KeyboardKey: View {
         }
     }
     
-    var symbolColor: Color {
-        let activeColor: Color
-        let inactiveColor: Color
-
-        switch viewConductor.paletteChoice {
-        case .subtle:
-            activeColor = Color(viewConductor.mainColor)
-            inactiveColor = Color(interval.majorMinor.color)
-        case .loud:
-            activeColor = Color(interval.majorMinor.color)
-            inactiveColor = Color(viewConductor.mainColor)
-        case .ebonyIvory:
-            inactiveColor = Color(pitch.accidental ? interval.majorMinor.color : interval.majorMinor.colorOnWhite)
-            activeColor = inactiveColor
-        }
-        return activated ? activeColor : inactiveColor
-    }
-    
-    var textColor: Color {
-        switch viewConductor.paletteChoice {
-        case .ebonyIvory:
-            return pitch.accidental ? Color(viewConductor.creamColor) : Color(viewConductor.brownColor)
-        default:
-            return symbolColor
-        }
-    }
-    
-    var keySymbol: any Shape {
-        return interval.consonanceDissonance.symbol
-    }
-    
     var outlineTonic: Bool {
         viewConductor.paletteChoice == .subtle && interval.intervalClass == .zero
-    }
-
-    func symbolLength(_ size: CGSize) -> CGFloat {
-        return minDimension(size) * interval.consonanceDissonance.symbolLength * (isSmall ? 1.25 : 1.0)
-    }
-    
-    func maxSymbolLength(_ size: CGSize) -> CGFloat {
-        return minDimension(size) * interval.consonanceDissonance.maxSymbolLength * (isSmall ? 1.25 : 1.0)
     }
 
     var isSmall: Bool {
@@ -102,14 +63,6 @@ public struct KeyboardKey: View {
     
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
-    }
-    
-    var whichIntervalLabels: [IntervalLabelChoice: Bool] {
-        viewConductor.intervalLabels[viewConductor.layoutChoice]!
-    }
-    
-    var whichNoteLabels: [NoteLabelChoice: Bool] {
-        viewConductor.noteLabels[viewConductor.layoutChoice]!
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {
