@@ -12,19 +12,7 @@ struct FooterView: View {
     
     var body: some View {
         HStack {
-            HStack {
-                Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                Image(systemName: "gobackward")
-                Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-            }
-            .foregroundColor(.white)
-            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-            LayoutAndPalletePickerView(viewConductor: viewConductor)
-            
             Button(action: {
                 viewConductor.latching.toggle()
             }) {
@@ -37,6 +25,19 @@ struct FooterView: View {
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            LayoutAndPalletePickerView(viewConductor: viewConductor)            
+
+            HStack {
+                Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
+                Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                Image(systemName: "gobackward")
+                Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
+                Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+            }
+            .foregroundColor(.white)
+            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
