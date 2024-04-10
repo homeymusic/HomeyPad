@@ -24,7 +24,7 @@ struct TonicPickerView: View {
         .padding(7.0)
         .background {
             RoundedRectangle(cornerRadius: 5.0)
-                .fill(Color(UIColor.systemGray5))
+                .fill(Color(UIColor.systemGray6))
         }
     }
 }
