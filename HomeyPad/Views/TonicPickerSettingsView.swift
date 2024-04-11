@@ -23,7 +23,7 @@ struct TonicPickerSettingsView: View {
                 .popover(isPresented: $tonicConductor.showKeyLabelsPopover,
                          content: {
                     VStack(spacing: 0) {
-                        Image(systemName: LayoutChoice.tonic.icon)
+                        Image(systemName: LayoutChoice.tonic.icon + ".fill")
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView {
@@ -68,7 +68,7 @@ struct TonicPickerSettingsView: View {
                 .popover(isPresented: $tonicConductor.showPalettePopover,
                          content: {
                     VStack(spacing: 0) {
-                        Image(systemName: LayoutChoice.tonic.icon)
+                        Image(systemName: LayoutChoice.tonic.icon + ".fill")
                             .padding([.top, .bottom], 7)
                         Divider()
                         PalettePopoverView(viewConductor: tonicConductor)
