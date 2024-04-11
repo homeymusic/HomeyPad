@@ -1,5 +1,5 @@
 public enum LayoutChoice: String, CaseIterable, Identifiable {
-    case home = "home"
+    case tonic = "tonic"
     case isomorphic = "isomorphic"
     case symmetric = "symmetric"
     case piano = "piano"
@@ -9,7 +9,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
     
     public var icon: String {
         switch self {
-        case .home: return "house"
+        case .tonic: return "house"
         case .isomorphic: return "rectangle.split.2x1"
         case .symmetric: return "rectangle.split.2x2"
         case .piano: return "pianokeys.inverse"

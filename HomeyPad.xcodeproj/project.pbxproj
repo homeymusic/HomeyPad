@@ -43,8 +43,8 @@
 		B0E25F782BC630C30072A09A /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F772BC630C30072A09A /* OctaveShiftView.swift */; };
 		B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F792BC630DE0072A09A /* HelpView.swift */; };
 		B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */; };
+		B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* Tonic.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
-		B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */; };
 		B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,8 +86,8 @@
 		B0E25F772BC630C30072A09A /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
 		B0E25F792BC630DE0072A09A /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLayoutChoice.swift; sourceTree = "<group>"; };
+		B0E25F7D2BC7EF640072A09A /* Tonic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tonic.swift; sourceTree = "<group>"; };
 		B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
 		B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,7 +141,6 @@
 				B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */,
 				B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */,
 				B0E25F792BC630DE0072A09A /* HelpView.swift */,
-				B0EF9F7C2BB4AE9100B1437F /* TonicPickerView.swift */,
 				B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */,
 				B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */,
 				B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */,
@@ -159,6 +158,7 @@
 				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 				B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
+				B0E25F7D2BC7EF640072A09A /* Tonic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
 				B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */,
@@ -303,6 +303,7 @@
 				B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */,
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,
 				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,
+				B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* Keyboard.swift in Sources */,
 				B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */,
 				B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */,
@@ -312,7 +313,6 @@
 				B0C7FD352BBAFB16006FF26F /* MultitouchView.swift in Sources */,
 				B0C7FD302BBAFB16006FF26F /* PreferenceKeys.swift in Sources */,
 				B0C7FD372BBAFB16006FF26F /* KeyboardModel.swift in Sources */,
-				B0EF9F7D2BB4AE9100B1437F /* TonicPickerView.swift in Sources */,
 				B0C7FD322BBAFB16006FF26F /* KeyContainer.swift in Sources */,
 				B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */,
 			);

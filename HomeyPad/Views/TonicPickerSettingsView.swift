@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct TonicPickerSettingsView: View {
-    @StateObject var viewConductor: ViewConductor
+    @StateObject var tonicConductor: ViewConductor
     
     var body: some View {
         HStack {
             
-            if viewConductor.showTonicPicker {
+            if tonicConductor.showTonicPicker {
                 Button(action: {
-                    viewConductor.showTonicKeyLabelsPopover.toggle()
+                    tonicConductor.showTonicKeyLabelsPopover.toggle()
                 }) {
                     ZStack {
                         Color.clear.overlay(
@@ -19,14 +19,14 @@ struct TonicPickerSettingsView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $viewConductor.showTonicKeyLabelsPopover,
+                .popover(isPresented: $tonicConductor.showTonicKeyLabelsPopover,
                          content: {
                     VStack(spacing: 0) {
-                        Image(systemName: LayoutChoice.home.icon)
+                        Image(systemName: LayoutChoice.tonic.icon)
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView {
-                            KeyLabelsPopoverView(viewConductor: viewConductor, homeLayout: true)
+                            KeyLabelsPopoverView(viewConductor: tonicConductor)
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)
@@ -37,12 +37,12 @@ struct TonicPickerSettingsView: View {
             
             Button(action: {
                 withAnimation {
-                    viewConductor.showTonicPicker.toggle()
+                    tonicConductor.showTonicPicker.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: viewConductor.showTonicPicker ? LayoutChoice.home.icon + ".fill" : LayoutChoice.home.icon)
+                        Image(systemName: tonicConductor.showTonicPicker ? LayoutChoice.tonic.icon + ".fill" : LayoutChoice.tonic.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -51,26 +51,26 @@ struct TonicPickerSettingsView: View {
                 .padding(30.0)
             }
             
-            if viewConductor.showTonicPicker {
+            if tonicConductor.showTonicPicker {
                 Button(action: {
-                    viewConductor.showTonicPalettePopover.toggle()
+                    tonicConductor.showTonicPalettePopover.toggle()
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: viewConductor.paletteChoices[.home]!.icon)
+                            Image(systemName: tonicConductor.paletteChoices[.tonic]!.icon)
                                 .foregroundColor(.white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $viewConductor.showTonicPalettePopover,
+                .popover(isPresented: $tonicConductor.showTonicPalettePopover,
                          content: {
                     VStack(spacing: 0) {
-                        Image(systemName: LayoutChoice.home.icon)
+                        Image(systemName: LayoutChoice.tonic.icon)
                             .padding([.top, .bottom], 7)
                         Divider()
-                        PalettePopoverView(viewConductor: viewConductor, homeLayout: true)
+                        PalettePopoverView(viewConductor: tonicConductor)
                             .presentationCompactAdaptation(.popover)
                     }
                 })

@@ -5,14 +5,14 @@ import SwiftUI
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
     @StateObject var viewConductor: ViewConductor
-
+    
     public let id = UUID()
     
     let content: (Pitch) -> Content
     
     /// model  contains the keys, their status and touches
     @StateObject public var model: KeyboardModel = .init()
-
+    
     public var body: some View {
         ZStack {
             switch viewConductor.layoutChoice {
@@ -20,6 +20,10 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                 Isomorphic(content: content,
                            model: model,
                            viewConductor: viewConductor)
+            case .tonic:
+                Tonic(content: content,
+                      model: model,
+                      viewConductor: viewConductor)
             case .symmetric:
                 Symmetric(content: content,
                           model: model,
@@ -48,9 +52,6 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                             model: model,
                             viewConductor: viewConductor)
                 }
-                                        
-            default:
-                Color.clear
             }
             
             if !viewConductor.latching {

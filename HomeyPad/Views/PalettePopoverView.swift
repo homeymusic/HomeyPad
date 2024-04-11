@@ -9,11 +9,10 @@ import SwiftUI
 
 struct PalettePopoverView: View {
     @StateObject var viewConductor: ViewConductor
-    var homeLayout: Bool = false
     
     var body: some View {
         VStack(spacing: 0.0) {
-            Picker("", selection: $viewConductor.paletteChoices[homeLayout ? .home : viewConductor.layoutChoice]) {
+            Picker("", selection: $viewConductor.paletteChoices[viewConductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
                         .tag(paletteChoice as PaletteChoice?)
@@ -25,7 +24,7 @@ struct PalettePopoverView: View {
             Divider()
             
             Button(action: {
-                viewConductor.resetPaletteChoice(homeLayout: homeLayout)
+                viewConductor.resetPaletteChoice()
             }, label: {
                 Image(systemName: "gobackward")
                     .gridCellAnchor(.center)

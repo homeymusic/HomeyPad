@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewConductor = ViewConductor()
+    @StateObject var viewConductor  = ViewConductor()
+    @StateObject var tonicConductor = ViewConductor(layoutChoice: .tonic, latching: true)
     
     var body: some View {
         let settingsHeight = 30.0
@@ -10,13 +11,16 @@ struct ContentView: View {
                 Color.black
                 ZStack() {
                     VStack {
-                        HeaderView(viewConductor: viewConductor)
+                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor)
                             .frame(height: settingsHeight)
                         Spacer()
                     }
                     VStack {
-                        if viewConductor.showTonicPicker {
-                            TonicPickerView(viewConductor: viewConductor)
+                        if tonicConductor.showTonicPicker {
+                            Keyboard(viewConductor: tonicConductor) { pitch in
+                                KeyboardKey(pitch: pitch,
+                                            viewConductor: tonicConductor)
+                            }
                                 .transition(.scale)
                         }
                         Keyboard(viewConductor: viewConductor) { pitch in
