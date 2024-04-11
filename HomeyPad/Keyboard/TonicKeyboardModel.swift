@@ -1,17 +1,17 @@
 import SwiftUI
 
 public class TonicKeyboardModel: KeyboardModel {
+    @Binding var tonicMIDI: Int
     
+    init(tonicMIDI: Binding<Int>) {
+        self._tonicMIDI = tonicMIDI
+    }
+
     override func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
-        let oldPitches = oldValue.subtracting(newValue)
         
         for pitch in newPitches {
-            print("Tonic Button On \(pitch.midi)")
-        }
-        
-        for pitch in oldPitches {
-            print("Tonic Button Off \(pitch.midi)")
+            tonicMIDI = Int(pitch.midi)
         }
     }
 }

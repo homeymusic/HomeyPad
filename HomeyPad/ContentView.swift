@@ -5,6 +5,8 @@ struct ContentView: View {
     @StateObject var viewConductor  = ViewConductor()
     @StateObject var tonicConductor = ViewConductor(layoutChoice: .tonic, latching: true)
 
+    @State var tonicMIDI: Int = 60
+    
     var body: some View {
         let settingsHeight = 30.0
         GeometryReader { proxy in
@@ -18,7 +20,7 @@ struct ContentView: View {
                     }
                     VStack {
                         if showTonicPicker {
-                            Keyboard(conductor: tonicConductor) { pitch in
+                            Keyboard(conductor: tonicConductor, tonicMIDI: $tonicMIDI) { pitch in
                                 KeyboardKey(pitch: pitch,
                                             conductor: tonicConductor)
                                 .aspectRatio(1.0, contentMode: .fit)
@@ -31,7 +33,7 @@ struct ContentView: View {
                             }                                
                             .transition(.scale)
                         }
-                        Keyboard(conductor: viewConductor) { pitch in
+                        Keyboard(conductor: viewConductor, tonicMIDI: $tonicMIDI) { pitch in
                             KeyboardKey(pitch: pitch,
                                         conductor: viewConductor)
                         }
@@ -49,6 +51,10 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
+            .onChange(of: tonicMIDI) {
+                tonicConductor.tonicMIDI = tonicMIDI
+                viewConductor.tonicMIDI = tonicMIDI
+            }
         }
     }
 }

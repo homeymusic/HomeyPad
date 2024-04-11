@@ -10,7 +10,7 @@ struct Tonic<Content>: View where Content: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(tonicConductor.centerMIDI - 6 ... tonicConductor.centerMIDI + 6, id: \.self) { midi in
+            ForEach(tonicConductor.tonicMIDI ... tonicConductor.tonicMIDI + 12, id: \.self) { midi in
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {

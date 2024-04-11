@@ -5,6 +5,7 @@ import SwiftUI
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
     @StateObject var conductor: ViewConductor
+    @Binding var tonicMIDI: Int
     
     public let id = UUID()
     
@@ -18,7 +19,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
             switch conductor.layoutChoice {
             case .tonic:
                 Tonic(keyboardKey: keyboardKey,
-                      tonicKeyboardModel: TonicKeyboardModel(),
+                      tonicKeyboardModel: TonicKeyboardModel(tonicMIDI: $tonicMIDI),
                       tonicConductor: conductor)
             case .isomorphic:
                 Isomorphic(keyboardKey: keyboardKey,

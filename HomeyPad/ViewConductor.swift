@@ -2,7 +2,6 @@ import SwiftUI
 
 class ViewConductor: ObservableObject {
     
-    @Published var octaveShift: Int8 = 0
     @Published var semitoneShift: IntegerNotation = .zero
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {
@@ -16,18 +15,33 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var tonicMIDI: Int = 60
-        
-    @Published var tonicPitch: Pitch = Pitch(60)
     
+    var tonicPitch: Pitch {
+        allPitches[ tonicMIDI]
+    }
+
+    var octaveShift: Int8 {
+        get {Int8(tonicPitch.octave - 4)}
+        set(newOctaveShift) {
+            tonicMIDI = tonicMIDI + 12 * (Int(newOctaveShift) + 5)
+        }
+    }
+
     init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
         self.layoutChoice = layoutChoice
         self.latching = latching
-        self.tonicPitch = self.allPitches[self.tonicMIDI]
     }
     
-    let defaultCenterMIDI: Int = 66
     var centerMIDI: Int {
-        defaultCenterMIDI + Int(octaveShift) * 12
+        tonicMIDI + 6
+    }
+    
+    var lowMIDI: Int {
+        Int(centerMIDI) - midiPerSide[self.layoutChoice]!
+    }
+    
+    var highMIDI: Int {
+        Int(centerMIDI) + midiPerSide[self.layoutChoice]!
     }
     
     let allPitches: [Pitch] = Array(0...127).map {Pitch($0)}
@@ -185,19 +199,6 @@ class ViewConductor: ObservableObject {
         .piano:      13,
         .strings:     26
     ]
-    
-    var lowMIDI: Int {
-        Int(centerMIDI) - midiPerSide[self.layoutChoice]!
-    }
-    
-    var highMIDI: Int {
-        Int(centerMIDI) + midiPerSide[self.layoutChoice]!
-    }
-    
-    var pitches: ArraySlice<Pitch> {
-        return allPitches[lowMIDI...highMIDI]
-    }
-    
     
 }
 

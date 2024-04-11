@@ -5,10 +5,6 @@ struct Symmetric<Content>: View where Content: View {
     var keyboardModel: KeyboardModel
     var viewConductor: ViewConductor
     
-    func safeMIDI(midi: Int) -> Bool {
-        midi >= 0 && midi <= 127
-    }
-    
     var body: some View {
         HStack(spacing: 0) {
             ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { midi in
