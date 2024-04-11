@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct Symmetric<Content>: View where Content: View {
-    let content: (Pitch) -> Content
-    var model: KeyboardModel
+    let keyboardKey: (Pitch) -> Content
+    var keyboardModel: KeyboardModel
     var viewConductor: ViewConductor
     
     func safeMIDI(midi: Int) -> Bool {
@@ -16,18 +16,18 @@ struct Symmetric<Content>: View where Content: View {
                 if majorMinor == .minor {
                     VStack(spacing: 0.0)  {
                         if safeMIDI(midi: midi + 1) {
-                            KeyContainer(model: model,
+                            KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi + 1],
-                                         tonicPitch: viewConductor.tonicPitch,
-                                         content: content)
+                                         conductor: viewConductor,
+                                         keyboardKey: keyboardKey)
                         } else {
                             Color.clear
                         }
                         if safeMIDI(midi: midi) {
-                            KeyContainer(model: model,
+                            KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         tonicPitch: viewConductor.tonicPitch,
-                                         content: content)
+                                         conductor: viewConductor,
+                                         keyboardKey: keyboardKey)
                         } else {
                             Color.clear
                         }
@@ -36,21 +36,21 @@ struct Symmetric<Content>: View where Content: View {
                     let intervalClass: IntegerNotation = Interval.intervalClass(midi: midi, tonicMIDI: Int(viewConductor.tonicPitch.midi))
                     if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
                         if safeMIDI(midi: midi) {
-                            KeyContainer(model: model,
+                            KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         tonicPitch: viewConductor.tonicPitch,
-                                         content: content)
+                                         conductor: viewConductor,
+                                         keyboardKey: keyboardKey)
                             .overlay() { // render tritone as overlay
                                 // only render tritone if P4, tt and P5 are safe
                                 if safeMIDI(midi: midi - 1) && safeMIDI(midi: midi - 2) {
                                     GeometryReader { proxy in
                                         let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
                                         ZStack {
-                                            KeyContainer(model: model,
+                                            KeyContainer(keyboardModel: keyboardModel,
                                                          pitch: viewConductor.allPitches[midi-1], // tritone
-                                                         tonicPitch: viewConductor.tonicPitch,
+                                                         conductor: viewConductor,
                                                          zIndex: 1,
-                                                         content: content)
+                                                         keyboardKey: keyboardKey)
                                             .frame(width: ttLength, height: ttLength)
                                         }
                                         .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
@@ -64,10 +64,10 @@ struct Symmetric<Content>: View where Content: View {
                     } else if intervalClass != .six { // skip tritone
                         if safeMIDI(midi: midi) {
                             
-                            KeyContainer(model: model,
+                            KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         tonicPitch: viewConductor.tonicPitch,
-                                         content: content)
+                                         conductor: viewConductor,
+                                         keyboardKey: keyboardKey)
                         } else {
                             Color.clear
                         }

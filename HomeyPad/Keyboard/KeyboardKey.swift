@@ -25,9 +25,7 @@ public struct KeyboardKey: View {
     }
 
     var activated: Bool {
-        print("key pitch.midiState \(pitch.midiState)")
-
-        return pitch.midiState == .on
+        pitch.midiState == .on
     }
     
     func darkenSmallKeys(color: Color) -> Color {

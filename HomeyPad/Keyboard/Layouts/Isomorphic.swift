@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {
-    let content: (Pitch) -> Content
-    var model: KeyboardModel
+    let keyboardKey: (Pitch) -> Content
+    var keyboardModel: KeyboardModel
     @StateObject var viewConductor: ViewConductor
 
     var body: some View {
@@ -13,10 +13,10 @@ struct Isomorphic<Content>: View where Content: View {
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {
-                    KeyContainer(model: model,
+                    KeyContainer(keyboardModel: keyboardModel,
                                  pitch: viewConductor.allPitches[midi],
-                                 tonicPitch: viewConductor.tonicPitch,
-                                 content: content)
+                                 conductor: viewConductor,
+                                 keyboardKey: keyboardKey)
                 }
             }
         }

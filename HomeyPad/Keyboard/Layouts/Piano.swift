@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct Piano<Content>: View where Content: View {
-    let content: (Pitch) -> Content
-    let model: KeyboardModel
+    let keyboardKey: (Pitch) -> Content
+    let keyboardModel: KeyboardModel
     @StateObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
     
@@ -17,7 +17,7 @@ struct Piano<Content>: View where Content: View {
                             Color.clear
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         } else {
-                            KeyContainer(model: model, pitch: viewConductor.allPitches[midi], tonicPitch: viewConductor.tonicPitch, content: content)
+                            KeyContainer(keyboardModel: keyboardModel, pitch: viewConductor.allPitches[midi],                                  conductor: viewConductor, keyboardKey: keyboardKey)
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         }
                     }
@@ -37,11 +37,11 @@ struct Piano<Content>: View where Content: View {
                                     if midi < 0 || midi > 127 {
                                         Color.clear
                                     } else {
-                                        KeyContainer(model: model,
+                                        KeyContainer(keyboardModel: keyboardModel,
                                                      pitch: viewConductor.allPitches[midi],
-                                                     tonicPitch: viewConductor.tonicPitch,
+                                                     conductor: viewConductor,
                                                      zIndex: 1,
-                                                     content: content)
+                                                     keyboardKey: keyboardKey)
                                     }
                                 }
                                 .frame(width: spacer.blackKeyWidth(geo.size.width))

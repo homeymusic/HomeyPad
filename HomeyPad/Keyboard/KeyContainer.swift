@@ -5,42 +5,44 @@ import SwiftUI
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.
 public struct KeyContainer<Content: View>: View {
-    let content: (Pitch) -> Content
+    let keyboardKey: (Pitch) -> Content
 
     var pitch: Pitch
+    var conductor: ViewConductor
+    @ObservedObject var keyboardModel: KeyboardModel
+
     var tonicPitch: Pitch
-    @ObservedObject var model: KeyboardModel
-
     var zIndex: Int
-
+    
     /// Initialize the Container
     /// - Parameters:
     ///   - model: KeyboardModel holding all the keys
     ///   - pitch: Pitch of this key
     ///   - zIndex: Layering in z-axis
     ///   - content: View defining how to render a specific key
-    init(model: KeyboardModel,
+    init(keyboardModel: KeyboardModel,
          pitch: Pitch,
-         tonicPitch: Pitch,
+         conductor: ViewConductor,
          zIndex: Int = 0,
-         @ViewBuilder content: @escaping (Pitch) -> Content)
+         @ViewBuilder keyboardKey: @escaping (Pitch) -> Content)
     {
-        self.model = model
+        self.keyboardModel = keyboardModel
         self.pitch = pitch
-        self.tonicPitch = tonicPitch
+        self.conductor = conductor
+        self.tonicPitch = conductor.tonicPitch
         self.zIndex = zIndex
-        self.content = content
+        self.keyboardKey = keyboardKey
     }
 
     func rect(rect: CGRect) -> some View {
-        content(pitch)
+        keyboardKey(pitch)
             .contentShape(Rectangle()) // Added to improve tap/click reliability
             .gesture(
                 TapGesture().onEnded { _ in
-                    if model.externallyActivatedPitches.contains(pitch) {
-                        model.externallyActivatedPitches.remove(pitch)
+                    if keyboardModel.externallyActivatedPitches.contains(pitch) {
+                        keyboardModel.externallyActivatedPitches.remove(pitch)
                     } else {
-                        model.externallyActivatedPitches.insert(pitch)
+                        keyboardModel.externallyActivatedPitches.insert(pitch)
                     }
                 }
             )

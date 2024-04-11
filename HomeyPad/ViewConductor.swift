@@ -102,7 +102,7 @@ class ViewConductor: ObservableObject {
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
+        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: true, .midi: true, .frequency: false],
         .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
@@ -175,6 +175,10 @@ class ViewConductor: ObservableObject {
     @Published var pitchDirection: PitchDirection = .upward
     
     @Published var initialCenterMIDI: Int = 66
+    
+    var semitoneShift: Int8  {
+        tonicPitch.pitchClass.rawValue
+    }
     
     let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
     

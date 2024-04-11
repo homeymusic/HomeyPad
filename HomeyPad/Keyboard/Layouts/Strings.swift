@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct Strings<Content>: View where Content: View {
-    let content: (Pitch) -> Content
-    var model: KeyboardModel
+    let keyboardKey: (Pitch) -> Content
+    var keyboardModel: KeyboardModel
     @StateObject var viewConductor: ViewConductor
 
     let fretCount: Int = 22
@@ -16,10 +16,10 @@ struct Strings<Content>: View where Content: View {
                     ForEach(0 ..< fretCount + 1, id: \.self) { fret in
                         let midi = viewConductor.openStringsMIDI[string] + fret
                         let pitch = viewConductor.allPitches[midi]
-                        KeyContainer(model: model,
+                        KeyContainer(keyboardModel: keyboardModel,
                                      pitch: pitch,
-                                     tonicPitch: viewConductor.tonicPitch,
-                                     content: content)
+                                     conductor: viewConductor,
+                                     keyboardKey: keyboardKey)
                     }
                 }
             }
