@@ -1,16 +1,38 @@
 import SwiftUI
 
 class ViewConductor: ObservableObject {
-    let allPitches: [Pitch]
-    let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
-    let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
+    
+    let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
+    @Published var octaveShift: Int8 = 0 {
+        willSet(newOctaveShift) {
+            assert(octaveShiftRange.contains(newOctaveShift))
+        }
+    }
 
-    init(allPitches: [Pitch], layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
-        self.allPitches = allPitches
+    @Published var layoutChoice: LayoutChoice = .isomorphic {
+        willSet { if !self.latching {allPitchesNoteOff()}}
+    }
+    
+    @Published var latching: Bool = false {
+        willSet(newValue) {
+            if !newValue {allPitchesNoteOff()}
+        }
+    }
+    
+    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
         self.layoutChoice = layoutChoice
         self.latching = latching
     }
     
+    let defaultCenterMIDI: Int = 66
+    var centerMIDI: Int {
+        defaultCenterMIDI + Int(octaveShift) * 12
+    }
+    
+    let allPitches: [Pitch] = Array(0...127).map {Pitch($0)}
+    let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
+    let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
+
     var mainColor: Color {
         return Color(brownColor)
     }
@@ -27,10 +49,6 @@ class ViewConductor: ObservableObject {
     }
 
     let backgroundColor: Color = .black
-    
-    @Published var layoutChoice: LayoutChoice = .isomorphic {
-        willSet { if !self.latching {allPitchesNoteOff()}}
-    }
     
     @Published var stringsLayoutChoice: StringsLayoutChoice = .guitar {
         willSet { if !self.latching {allPitchesNoteOff()}}
@@ -157,29 +175,10 @@ class ViewConductor: ObservableObject {
     
     @Published var showPalettePopover: Bool = false
     
-    @Published var latching: Bool = false {
-        willSet(newValue) {
-            if !newValue {allPitchesNoteOff()}
-        }
-    }
-    
     @Published var pitchDirection: PitchDirection = .upward
-    
-    @Published var initialCenterMIDI: Int = 66
-    
+        
     var semitoneShift: Int8  {
         tonicPitch.pitchClass.rawValue
-    }
-    
-    let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
-    
-    @Published var octaveShift: Int8 = 0 {
-        willSet(newOctaveShift) {assert(octaveShiftRange.contains(newOctaveShift))}
-    }
-    
-    var centerMIDI: Int
-    {
-        initialCenterMIDI + Int(octaveShift) * 12
     }
     
     var tonicMIDI: Int {

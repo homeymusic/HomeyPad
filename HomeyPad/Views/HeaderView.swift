@@ -7,7 +7,7 @@ struct HeaderView: View {
 
     var body: some View {
         HStack {
-            OctaveShiftView(viewConductor: viewConductor)
+            OctaveShiftView(viewConductor: viewConductor, tonicConductor: tonicConductor)
             TonicPickerSettingsView(tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
             HelpView()
         }

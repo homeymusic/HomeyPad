@@ -2,13 +2,15 @@ import SwiftUI
 
 struct OctaveShiftView: View {
     @StateObject var viewConductor: ViewConductor
-    
+    @StateObject var tonicConductor: ViewConductor
+
     var body: some View {
         HStack {
             HStack(spacing: 5) {
                 let newDownwardOctaveShift = viewConductor.octaveShift - 1
                 Button(action: {
                     viewConductor.octaveShift = newDownwardOctaveShift
+                    tonicConductor.octaveShift = viewConductor.octaveShift
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.down")
                         .foregroundColor(viewConductor.octaveShiftRange.contains(newDownwardOctaveShift) ? .white : Color(UIColor.systemGray4))
@@ -23,6 +25,7 @@ struct OctaveShiftView: View {
                 let newUpwardOctaveShift = viewConductor.octaveShift + 1
                 Button(action: {
                     viewConductor.octaveShift = newUpwardOctaveShift
+                    tonicConductor.octaveShift = viewConductor.octaveShift
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.up")
                         .foregroundColor(viewConductor.octaveShiftRange.contains(newUpwardOctaveShift) ? .white : Color(UIColor.systemGray4))

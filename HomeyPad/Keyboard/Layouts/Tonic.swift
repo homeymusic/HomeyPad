@@ -9,8 +9,7 @@ struct Tonic<Content>: View where Content: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            let adjustedCenter: Int = tonicConductor.centerMIDI + Int(tonicConductor.semitoneShift)
-            ForEach(adjustedCenter - 6 ... adjustedCenter + 6, id: \.self) { midi in
+            ForEach(tonicConductor.centerMIDI - 6 ... tonicConductor.centerMIDI + 6, id: \.self) { midi in
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {
