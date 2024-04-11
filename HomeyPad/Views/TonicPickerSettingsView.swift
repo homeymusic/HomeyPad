@@ -2,13 +2,14 @@ import SwiftUI
 
 struct TonicPickerSettingsView: View {
     @StateObject var tonicConductor: ViewConductor
+    @Binding var showTonicPicker: Bool
     
     var body: some View {
         HStack {
             
-            if tonicConductor.showTonicPicker {
+            if showTonicPicker {
                 Button(action: {
-                    tonicConductor.showTonicKeyLabelsPopover.toggle()
+                    tonicConductor.showKeyLabelsPopover.toggle()
                 }) {
                     ZStack {
                         Color.clear.overlay(
@@ -19,7 +20,7 @@ struct TonicPickerSettingsView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $tonicConductor.showTonicKeyLabelsPopover,
+                .popover(isPresented: $tonicConductor.showKeyLabelsPopover,
                          content: {
                     VStack(spacing: 0) {
                         Image(systemName: LayoutChoice.tonic.icon)
@@ -37,12 +38,12 @@ struct TonicPickerSettingsView: View {
             
             Button(action: {
                 withAnimation {
-                    tonicConductor.showTonicPicker.toggle()
+                    showTonicPicker.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: tonicConductor.showTonicPicker ? LayoutChoice.tonic.icon + ".fill" : LayoutChoice.tonic.icon)
+                        Image(systemName: showTonicPicker ? LayoutChoice.tonic.icon + ".fill" : LayoutChoice.tonic.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -51,9 +52,9 @@ struct TonicPickerSettingsView: View {
                 .padding(30.0)
             }
             
-            if tonicConductor.showTonicPicker {
+            if showTonicPicker {
                 Button(action: {
-                    tonicConductor.showTonicPalettePopover.toggle()
+                    tonicConductor.showPalettePopover.toggle()
                 }) {
                     ZStack {
                         Color.clear.overlay(
@@ -64,7 +65,7 @@ struct TonicPickerSettingsView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $tonicConductor.showTonicPalettePopover,
+                .popover(isPresented: $tonicConductor.showPalettePopover,
                          content: {
                     VStack(spacing: 0) {
                         Image(systemName: LayoutChoice.tonic.icon)

@@ -155,13 +155,7 @@ class ViewConductor: ObservableObject {
 
     @Published var showKeyLabelsPopover: Bool = false
     
-    @Published var showTonicKeyLabelsPopover: Bool = false
-    
     @Published var showPalettePopover: Bool = false
-    
-    @Published var showTonicPalettePopover: Bool = false
-    
-    @Published var showTonicPicker: Bool = false
     
     @Published var latching: Bool = false {
         willSet(newValue) {
