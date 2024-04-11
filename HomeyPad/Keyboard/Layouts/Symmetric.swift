@@ -18,7 +18,6 @@ struct Symmetric<Content>: View where Content: View {
                         if safeMIDI(midi: midi + 1) {
                             KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi + 1],
-                                         conductor: viewConductor,
                                          keyboardKey: keyboardKey)
                         } else {
                             Color.clear
@@ -26,7 +25,6 @@ struct Symmetric<Content>: View where Content: View {
                         if safeMIDI(midi: midi) {
                             KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         conductor: viewConductor,
                                          keyboardKey: keyboardKey)
                         } else {
                             Color.clear
@@ -38,7 +36,6 @@ struct Symmetric<Content>: View where Content: View {
                         if safeMIDI(midi: midi) {
                             KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         conductor: viewConductor,
                                          keyboardKey: keyboardKey)
                             .overlay() { // render tritone as overlay
                                 // only render tritone if P4, tt and P5 are safe
@@ -48,7 +45,6 @@ struct Symmetric<Content>: View where Content: View {
                                         ZStack {
                                             KeyContainer(keyboardModel: keyboardModel,
                                                          pitch: viewConductor.allPitches[midi-1], // tritone
-                                                         conductor: viewConductor,
                                                          zIndex: 1,
                                                          keyboardKey: keyboardKey)
                                             .frame(width: ttLength, height: ttLength)
@@ -66,7 +62,6 @@ struct Symmetric<Content>: View where Content: View {
                             
                             KeyContainer(keyboardModel: keyboardModel,
                                          pitch: viewConductor.allPitches[midi],
-                                         conductor: viewConductor,
                                          keyboardKey: keyboardKey)
                         } else {
                             Color.clear

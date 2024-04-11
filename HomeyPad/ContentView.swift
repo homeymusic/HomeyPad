@@ -18,9 +18,9 @@ struct ContentView: View {
                     }
                     VStack {
                         if showTonicPicker {
-                            Keyboard(viewConductor: tonicConductor) { pitch in
+                            Keyboard(conductor: tonicConductor) { pitch in
                                 KeyboardKey(pitch: pitch,
-                                            viewConductor: tonicConductor)
+                                            conductor: tonicConductor)
                                 .aspectRatio(1.0, contentMode: .fit)
                             }
                             .aspectRatio(13.0, contentMode: .fit)
@@ -31,9 +31,9 @@ struct ContentView: View {
                             }                                
                             .transition(.scale)
                         }
-                        Keyboard(viewConductor: viewConductor) { pitch in
+                        Keyboard(conductor: viewConductor) { pitch in
                             KeyboardKey(pitch: pitch,
-                                        viewConductor: viewConductor)
+                                        conductor: viewConductor)
                         }
                         .ignoresSafeArea(edges:.horizontal)
                     }

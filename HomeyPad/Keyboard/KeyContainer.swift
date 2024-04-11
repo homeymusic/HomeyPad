@@ -8,10 +8,8 @@ public struct KeyContainer<Content: View>: View {
     let keyboardKey: (Pitch) -> Content
 
     var pitch: Pitch
-    var conductor: ViewConductor
     @ObservedObject var keyboardModel: KeyboardModel
 
-    var tonicPitch: Pitch
     var zIndex: Int
     
     /// Initialize the Container
@@ -22,14 +20,11 @@ public struct KeyContainer<Content: View>: View {
     ///   - content: View defining how to render a specific key
     init(keyboardModel: KeyboardModel,
          pitch: Pitch,
-         conductor: ViewConductor,
          zIndex: Int = 0,
          @ViewBuilder keyboardKey: @escaping (Pitch) -> Content)
     {
         self.keyboardModel = keyboardModel
         self.pitch = pitch
-        self.conductor = conductor
-        self.tonicPitch = conductor.tonicPitch
         self.zIndex = zIndex
         self.keyboardKey = keyboardKey
     }

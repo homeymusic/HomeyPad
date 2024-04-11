@@ -15,7 +15,6 @@ struct Isomorphic<Content>: View where Content: View {
                 } else {
                     KeyContainer(keyboardModel: keyboardModel,
                                  pitch: viewConductor.allPitches[midi],
-                                 conductor: viewConductor,
                                  keyboardKey: keyboardKey)
                 }
             }

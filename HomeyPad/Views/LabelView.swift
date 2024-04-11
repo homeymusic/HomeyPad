@@ -5,8 +5,8 @@ public struct LabelView: View {
     var proxySize: CGSize
     
     public var body: some View {
-        let topBottomPadding = keyboardKey.viewConductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
-        if keyboardKey.viewConductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+        let topBottomPadding = keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
+        if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
             VStack(spacing: 0.0) {
                 AllSymbolsView(keyboardKey: keyboardKey,
                                proxySize: proxySize)
@@ -27,11 +27,11 @@ public struct LabelView: View {
         var proxySize: CGSize
 
         var whichIntervalLabels: [IntervalLabelChoice: Bool] {
-            keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]!
+            keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]!
         }
         
         var whichNoteLabels: [NoteLabelChoice: Bool] {
-            keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]!
+            keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]!
         }
         
         func symbolLength(_ size: CGSize) -> CGFloat {
@@ -47,9 +47,9 @@ public struct LabelView: View {
         }
         
         var textColor: Color {
-            switch keyboardKey.viewConductor.paletteChoice {
+            switch keyboardKey.conductor.paletteChoice {
             case .ebonyIvory:
-                return keyboardKey.pitch.accidental ? Color(keyboardKey.viewConductor.creamColor) : Color(keyboardKey.viewConductor.brownColor)
+                return keyboardKey.pitch.accidental ? Color(keyboardKey.conductor.creamColor) : Color(keyboardKey.conductor.brownColor)
             default:
                 return symbolColor
             }
@@ -59,13 +59,13 @@ public struct LabelView: View {
             let activeColor: Color
             let inactiveColor: Color
 
-            switch keyboardKey.viewConductor.paletteChoice {
+            switch keyboardKey.conductor.paletteChoice {
             case .subtle:
-                activeColor = Color(keyboardKey.viewConductor.mainColor)
+                activeColor = Color(keyboardKey.conductor.mainColor)
                 inactiveColor = Color(keyboardKey.interval.majorMinor.color)
             case .loud:
                 activeColor = Color(keyboardKey.interval.majorMinor.color)
-                inactiveColor = Color(keyboardKey.viewConductor.mainColor)
+                inactiveColor = Color(keyboardKey.conductor.mainColor)
             case .ebonyIvory:
                 inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.colorOnWhite)
                 activeColor = inactiveColor
@@ -83,34 +83,34 @@ public struct LabelView: View {
             let anyNoteLabels: Bool = whichNoteLabels.filter({ $0.key != .octave}).values.contains(true)
             
             VStack(spacing: 0) {
-                if keyboardKey.viewConductor.layoutChoice == .piano {
+                if keyboardKey.conductor.layoutChoice == .piano {
                     Color.clear
                     Color.clear
                     Color.clear
                 }
-                if anyNoteLabels || keyboardKey.viewConductor.showSymbols {
+                if anyNoteLabels || keyboardKey.conductor.showSymbols {
                     VStack(spacing: 1.0) {
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.letter]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.letter]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.letter(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
+                                Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidentalChoice()))\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.fixedDo]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.fixedDo]! {
                             Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.viewConductor.accidentalChoice()))\(octave)")
+                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.month]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
                                 Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.midi]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.midi]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.pitch.midi))
                             )
                         }
-                        if keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.frequency]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.frequency]! {
                             Color.clear.overlay(
                                 Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
                                      format: .number.notation(.compactName).precision(.fractionLength(1)))
@@ -121,7 +121,7 @@ public struct LabelView: View {
                     .padding(labelPadding)
                 }
                 
-                if keyboardKey.viewConductor.showSymbols {
+                if keyboardKey.conductor.showSymbols {
                     let symbolAdjustedLength = symbolLength(proxySize)
                     VStack(spacing: 0) {
                         VStack(spacing: 0) {
@@ -131,7 +131,7 @@ public struct LabelView: View {
                                     .frame(width: maxSymbolLength(proxySize))
                                     .overlay(
                                         AnyShape(keySymbol)
-                                            .stroke(textColor, lineWidth: keyboardKey.viewConductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
+                                            .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
                                             .fill(symbolColor)
                                             .aspectRatio(1.0, contentMode: .fit)
                                             .frame(width: symbolAdjustedLength)
@@ -142,29 +142,29 @@ public struct LabelView: View {
                     .frame(height: maxSymbolLength(proxySize))
                 }
                 
-                if anyIntervalLabels  || keyboardKey.viewConductor.showSymbols {
+                if anyIntervalLabels  || keyboardKey.conductor.showSymbols {
                     VStack(spacing: 1.0) {
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.interval]! {
+                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.interval]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.interval.interval))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.movableDo]! {
+                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.movableDo]! {
                             Color.clear.overlay(
                                 Text(keyboardKey.interval.movableDo)
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.roman]! {
+                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.roman]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.interval.roman))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.degree]! {
+                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.degree]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.interval.degree))
                             )
                         }
-                        if keyboardKey.viewConductor.intervalLabels[keyboardKey.viewConductor.layoutChoice]![.integer]! {
+                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.integer]! {
                             Color.clear.overlay(
                                 Text(String(keyboardKey.interval.semitones))
                             )
@@ -182,7 +182,7 @@ public struct LabelView: View {
         }
         
         var octave: String {
-            keyboardKey.viewConductor.noteLabels[keyboardKey.viewConductor.layoutChoice]![.octave]! ? String(keyboardKey.pitch.octave) : ""
+            keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.octave]! ? String(keyboardKey.pitch.octave) : ""
         }
     }
 }

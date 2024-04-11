@@ -4,57 +4,57 @@ import SwiftUI
 
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
-    @StateObject var viewConductor: ViewConductor
+    @StateObject var conductor: ViewConductor
     
     public let id = UUID()
     
     let keyboardKey: (Pitch) -> Content
     
     /// model  contains the keys, their status and touches
-    @StateObject public var keyboardModel: KeyboardModel = .init()
+    @StateObject public var keyboardModel: KeyboardModel = KeyboardModel()
     
     public var body: some View {
         ZStack {
-            switch viewConductor.layoutChoice {
+            switch conductor.layoutChoice {
             case .tonic:
                 Tonic(keyboardKey: keyboardKey,
-                      keyboardModel: keyboardModel,
-                      tonicConductor: viewConductor)
+                      tonicKeyboardModel: TonicKeyboardModel(),
+                      tonicConductor: conductor)
             case .isomorphic:
                 Isomorphic(keyboardKey: keyboardKey,
                            keyboardModel: keyboardModel,
-                           viewConductor: viewConductor)
+                           viewConductor: conductor)
             case .symmetric:
                 Symmetric(keyboardKey: keyboardKey,
                           keyboardModel: keyboardModel,
-                          viewConductor: viewConductor)
+                          viewConductor: conductor)
             case .piano:
                 Piano(keyboardKey: keyboardKey,
                       keyboardModel: keyboardModel,
-                      viewConductor: viewConductor,
-                      spacer: PianoSpacer(viewConductor: viewConductor))
+                      viewConductor: conductor,
+                      spacer: PianoSpacer(viewConductor: conductor))
             case .strings:
-                switch viewConductor.stringsLayoutChoice {
+                switch conductor.stringsLayoutChoice {
                 case .guitar:
                     Strings(keyboardKey: keyboardKey,
                             keyboardModel: keyboardModel,
-                            viewConductor: viewConductor)
+                            viewConductor: conductor)
                 case .bass:
                     Strings(keyboardKey: keyboardKey,
                             keyboardModel: keyboardModel,
-                            viewConductor: viewConductor)
+                            viewConductor: conductor)
                 case .violin:
                     Strings(keyboardKey: keyboardKey,
                             keyboardModel: keyboardModel,
-                            viewConductor: viewConductor)
+                            viewConductor: conductor)
                 case .cello:
                     Strings(keyboardKey: keyboardKey,
                             keyboardModel: keyboardModel,
-                            viewConductor: viewConductor)
+                            viewConductor: conductor)
                 }
             }
             
-            if !viewConductor.latching {
+            if !conductor.latching {
                 MultitouchView { touches in
                     keyboardModel.touchLocations = touches
                 }

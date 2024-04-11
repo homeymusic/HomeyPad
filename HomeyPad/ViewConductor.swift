@@ -3,6 +3,7 @@ import SwiftUI
 class ViewConductor: ObservableObject {
     
     @Published var octaveShift: Int8 = 0
+    @Published var semitoneShift: IntegerNotation = .zero
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet { if !self.latching {allPitchesNoteOff()}}
@@ -172,14 +173,8 @@ class ViewConductor: ObservableObject {
     
     @Published var pitchDirection: PitchDirection = .upward
         
-    var semitoneShift: Int8  {
-        tonicPitch.pitchClass.rawValue
-    }
-    
-    var tonicMIDI: Int {
-        centerMIDI + (pitchDirection == .upward ? -6 : +6)
-    }
-    
+    @Published var tonicMIDI: Int = 60
+        
     var tonicPitch: Pitch {
         self.allPitches[Int(self.tonicMIDI)]
     }

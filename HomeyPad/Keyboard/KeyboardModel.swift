@@ -53,6 +53,5 @@ public class KeyboardModel: ObservableObject {
         for pitch in oldPitches {
             pitch.noteOff()
         }
-        
     }
 }

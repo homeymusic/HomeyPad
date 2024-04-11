@@ -17,7 +17,7 @@ struct Piano<Content>: View where Content: View {
                             Color.clear
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         } else {
-                            KeyContainer(keyboardModel: keyboardModel, pitch: viewConductor.allPitches[midi],                                  conductor: viewConductor, keyboardKey: keyboardKey)
+                            KeyContainer(keyboardModel: keyboardModel, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKey)
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         }
                     }
@@ -39,7 +39,6 @@ struct Piano<Content>: View where Content: View {
                                     } else {
                                         KeyContainer(keyboardModel: keyboardModel,
                                                      pitch: viewConductor.allPitches[midi],
-                                                     conductor: viewConductor,
                                                      zIndex: 1,
                                                      keyboardKey: keyboardKey)
                                     }
