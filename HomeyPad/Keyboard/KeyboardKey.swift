@@ -10,7 +10,6 @@ public enum Viewpoint {
 public struct KeyboardKey: View {
 
     @StateObject var pitch: Pitch
-//    var pitch: Pitch
     @StateObject var viewConductor: ViewConductor
     
     public var body: some View {
@@ -26,6 +25,8 @@ public struct KeyboardKey: View {
     }
 
     var activated: Bool {
+        print("key pitch.midiState \(pitch.midiState)")
+
         return pitch.midiState == .on
     }
     

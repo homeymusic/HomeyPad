@@ -3,22 +3,24 @@ import SwiftUI
 struct TonicPickerView: View {
     @StateObject var viewConductor: ViewConductor
     @State private var showSettings = false
-    
+
     var body: some View {
         HStack(spacing: 3.0) {
             ForEach(-6...6, id: \.self) { tonic in
-                Button {
-                } label: {
-                    let pitch = viewConductor.allPitches[viewConductor.centerMIDI + tonic]
-                    let interval = Interval(pitch: pitch, tonicPitch: viewConductor.tonicPitch)
-                    viewConductor.mainColor
-                        .aspectRatio(1.0, contentMode: .fit)
-                    //                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    //                            .overlay(LabelView(viewConductor: viewConductor,
-                    //                                               pitch: pitch,
-                    //                                               interval: interval,
-                    //                                               proxySize: proxy.size))
+                ZStack {
+                    GeometryReader { proxy in
+                        Button {
+                        } label: {
+                            viewConductor.mainColor
+//                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                                                            .overlay(LabelView(viewConductor: viewConductor,
+//                                                                               pitch: viewConductor.allPitches[tonic],
+//                                                                               interval: Interval(pitch: viewConductor.allPitches[tonic], tonicPitch: viewConductor.tonicPitch),
+//                                                                               proxySize: proxy.size))
+                        }
+                    }
                 }
+                .aspectRatio(1.0, contentMode: .fit)
             }
         }
         .padding(7.0)
