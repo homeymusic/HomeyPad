@@ -15,9 +15,14 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    @Published var tonicMIDI: Int = 60
+        
+    @Published var tonicPitch: Pitch = Pitch(60)
+    
     init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
         self.layoutChoice = layoutChoice
         self.latching = latching
+        self.tonicPitch = self.allPitches[self.tonicMIDI]
     }
     
     let defaultCenterMIDI: Int = 66
@@ -173,12 +178,6 @@ class ViewConductor: ObservableObject {
     
     @Published var pitchDirection: PitchDirection = .upward
         
-    @Published var tonicMIDI: Int = 60
-        
-    var tonicPitch: Pitch {
-        self.allPitches[Int(self.tonicMIDI)]
-    }
-    
     @Published var midiPerSide: [LayoutChoice: Int] = [
         .tonic: 6,
         .isomorphic: 9,
