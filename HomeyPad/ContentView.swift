@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewConductor  = ViewConductor()
-    @StateObject var tonicConductor = ViewConductor(layoutChoice: .tonic, latching: true)
-    
+    static let allPitches: [Pitch] = Array(0...127).map { Pitch($0) }
+    @StateObject var viewConductor  = ViewConductor(allPitches: allPitches)
+    @StateObject var tonicConductor = ViewConductor(allPitches: allPitches, layoutChoice: .tonic, latching: true)
+
     var body: some View {
         let settingsHeight = 30.0
         GeometryReader { proxy in

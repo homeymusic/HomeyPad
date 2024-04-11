@@ -1,17 +1,14 @@
 import SwiftUI
 
 class ViewConductor: ObservableObject {
-    
-    var allPitches = [Pitch]()
+    let allPitches: [Pitch]
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
 
-    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
+    init(allPitches: [Pitch], layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
+        self.allPitches = allPitches
         self.layoutChoice = layoutChoice
         self.latching = latching
-        for midi: Int8 in 0...127 {
-            allPitches.append(Pitch(midi))
-        }
     }
     
     var mainColor: Color {
@@ -103,7 +100,7 @@ class ViewConductor: ObservableObject {
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
         .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: true, .midi: true, .frequency: false],
-        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
+        .isomorphic: [.letter: true, .fixedDo: false, .month: false, .octave: true, .midi: true, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
@@ -113,7 +110,7 @@ class ViewConductor: ObservableObject {
     
     static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
         .tonic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
+        .isomorphic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
