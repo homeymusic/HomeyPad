@@ -20,14 +20,21 @@ struct ContentView: View {
                             Keyboard(viewConductor: tonicConductor) { pitch in
                                 KeyboardKey(pitch: pitch,
                                             viewConductor: tonicConductor)
+                                .aspectRatio(1.0, contentMode: .fit)
                             }
-                                .transition(.scale)
+                            .aspectRatio(13.0, contentMode: .fit)
+                            .padding(7.0)
+                            .background {
+                                RoundedRectangle(cornerRadius: 7.0)
+                                    .fill(Color(UIColor.systemGray6))
+                            }                                
+                            .transition(.scale)
                         }
                         Keyboard(viewConductor: viewConductor) { pitch in
                             KeyboardKey(pitch: pitch,
                                         viewConductor: viewConductor)
                         }
-                            .ignoresSafeArea(edges:.horizontal)
+                        .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)

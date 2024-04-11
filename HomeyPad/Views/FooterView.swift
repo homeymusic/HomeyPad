@@ -96,6 +96,7 @@ struct LayoutAndPalletePickerView: View {
             }
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
+            
             Button(action: {
                 viewConductor.showPalettePopover.toggle()
             }) {

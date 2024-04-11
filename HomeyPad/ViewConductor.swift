@@ -102,7 +102,7 @@ class ViewConductor: ObservableObject {
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
+        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
@@ -112,7 +112,7 @@ class ViewConductor: ObservableObject {
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels
     
     static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .tonic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
+        .tonic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
