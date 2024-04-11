@@ -3,40 +3,49 @@ import SwiftUI
 struct OctaveShiftView: View {
     @StateObject var viewConductor: ViewConductor
     @StateObject var tonicConductor: ViewConductor
-
+    
+    let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
+    @State var octaveShift: Int8 = 0 {
+        willSet(newOctaveShift) {
+            assert(octaveShiftRange.contains(newOctaveShift))
+        }
+        didSet {
+            viewConductor.octaveShift = octaveShift
+            tonicConductor.octaveShift = octaveShift
+        }
+    }
+    
     var body: some View {
         HStack {
             HStack(spacing: 5) {
-                let newDownwardOctaveShift = viewConductor.octaveShift - 1
+                let newDownwardOctaveShift = octaveShift - 1
                 Button(action: {
-                    viewConductor.octaveShift = newDownwardOctaveShift
-                    tonicConductor.octaveShift = viewConductor.octaveShift
+                    octaveShift = newDownwardOctaveShift
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.down")
-                        .foregroundColor(viewConductor.octaveShiftRange.contains(newDownwardOctaveShift) ? .white : Color(UIColor.systemGray4))
+                        .foregroundColor(octaveShiftRange.contains(newDownwardOctaveShift) ? .white : Color(UIColor.systemGray4))
                 })
-                .disabled(!viewConductor.octaveShiftRange.contains(newDownwardOctaveShift))
+                .disabled(!octaveShiftRange.contains(newDownwardOctaveShift))
                 
-                Text(viewConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+                Text(octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                     .foregroundColor(.white)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(width: 41, alignment: .center)
                 
-                let newUpwardOctaveShift = viewConductor.octaveShift + 1
+                let newUpwardOctaveShift = octaveShift + 1
                 Button(action: {
-                    viewConductor.octaveShift = newUpwardOctaveShift
-                    tonicConductor.octaveShift = viewConductor.octaveShift
+                    octaveShift = newUpwardOctaveShift
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.up")
-                        .foregroundColor(viewConductor.octaveShiftRange.contains(newUpwardOctaveShift) ? .white : Color(UIColor.systemGray4))
+                        .foregroundColor(octaveShiftRange.contains(newUpwardOctaveShift) ? .white : Color(UIColor.systemGray4))
                 })
-                .disabled(!viewConductor.octaveShiftRange.contains(newUpwardOctaveShift))
+                .disabled(!octaveShiftRange.contains(newUpwardOctaveShift))
                 
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding(.vertical, 5)
             .foregroundColor(.white)
-            .font(Font.system(size: 17, weight: viewConductor.octaveShift == 0 ? .thin : .regular, design: .monospaced))
+            .font(Font.system(size: 17, weight: octaveShift == 0 ? .thin : .regular, design: .monospaced))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

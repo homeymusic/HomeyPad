@@ -2,12 +2,7 @@ import SwiftUI
 
 class ViewConductor: ObservableObject {
     
-    let octaveShiftRange: ClosedRange<Int8> = Int8(-5)...Int8(+5)
-    @Published var octaveShift: Int8 = 0 {
-        willSet(newOctaveShift) {
-            assert(octaveShiftRange.contains(newOctaveShift))
-        }
-    }
+    @Published var octaveShift: Int8 = 0
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet { if !self.latching {allPitchesNoteOff()}}
