@@ -51,7 +51,11 @@ public struct LabelView: View {
             case .ebonyIvory:
                 return keyboardKey.pitch.accidental ? Color(keyboardKey.conductor.creamColor) : Color(keyboardKey.conductor.brownColor)
             default:
-                return symbolColor
+                if keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch {
+                    return keyboardKey.conductor.mainColor
+                } else {
+                    return symbolColor
+                }
             }
         }
 

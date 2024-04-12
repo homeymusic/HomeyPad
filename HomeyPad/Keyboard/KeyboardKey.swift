@@ -33,8 +33,13 @@ public struct KeyboardKey: View {
 
         switch conductor.paletteChoice {
         case .subtle:
-            activeColor = Color(interval.majorMinor.color)
-            inactiveColor = Color(conductor.mainColor)
+            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(conductor.accentColor)
+            } else {
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(conductor.mainColor)
+            }
             return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
@@ -44,6 +49,14 @@ public struct KeyboardKey: View {
             inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
             activeColor = inactiveColor.adjust(brightness: -0.2)
             return activated ? activeColor : inactiveColor
+        }
+    }
+    
+    var outlineColor: Color {
+        if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+            return conductor.mainColor
+        } else {
+            return conductor.accentColor
         }
     }
     

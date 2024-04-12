@@ -12,13 +12,15 @@ struct KeyView: View {
         ZStack(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
             let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize
             let borderHeightApparentSize = keyboardKey.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
+            let tonicTonic = keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch
+            let outlineSize = borderWidthApparentSize * (tonicTonic ? 2.5 : 2.0)
             KeyRectangle(fillColor: keyboardKey.conductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
             if keyboardKey.outlineTonic {
-                KeyRectangle(fillColor: Color(keyboardKey.conductor.accentColor), keyboardKey: keyboardKey, proxySize: proxySize)
+                KeyRectangle(fillColor: tonicTonic ? keyboardKey.conductor.mainColor : keyboardKey.conductor.accentColor, keyboardKey: keyboardKey, proxySize: proxySize)
                     .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
             }
             KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? 2.0 * borderWidthApparentSize : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? 2.0 * borderHeightApparentSize : borderHeightApparentSize))
+                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineSize : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineSize : borderHeightApparentSize))
                 .overlay(LabelView(keyboardKey: keyboardKey,
                                    proxySize: proxySize)
                     .frame(maxWidth: .infinity, maxHeight: .infinity))
