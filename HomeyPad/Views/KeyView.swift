@@ -12,12 +12,11 @@ struct KeyView: View {
         ZStack(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
             let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize
             let borderHeightApparentSize = keyboardKey.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-            let tonicTonic = keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch
-            let outlineWidth = borderWidthApparentSize * (tonicTonic ? 2.5 : 2.0)
-            let outlineHeight = borderHeightApparentSize * (tonicTonic ? 2.5 : 2.0)
+            let outlineWidth = borderWidthApparentSize * (keyboardKey.tonicTonic ? 2.5 : 2.0)
+            let outlineHeight = borderHeightApparentSize * (keyboardKey.tonicTonic ? 2.5 : 2.0)
             KeyRectangle(fillColor: keyboardKey.conductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
             if keyboardKey.outlineTonic {
-                KeyRectangle(fillColor: tonicTonic ? keyboardKey.conductor.mainColor : keyboardKey.conductor.accentColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                KeyRectangle(fillColor: keyboardKey.outlineColor, keyboardKey: keyboardKey, proxySize: proxySize)
                     .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
             }
             KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)

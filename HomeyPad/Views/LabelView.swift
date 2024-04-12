@@ -53,11 +53,7 @@ public struct LabelView: View {
         var textColor: Color {
             switch keyboardKey.conductor.paletteChoice {
             case .ebonyIvory:
-                if  tonicTonic {
-                    return Color(keyboardKey.conductor.creamColor)
-                } else {
-                    return keyboardKey.pitch.accidental ? Color(keyboardKey.conductor.creamColor) : Color(keyboardKey.conductor.brownColor)
-                }
+                return keyboardKey.pitch.accidental ? .white : .black
             case .loud:
                 if  tonicTonic {
                     return Color(keyboardKey.conductor.creamColor)
@@ -147,10 +143,11 @@ public struct LabelView: View {
                                         .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
                                 }
                             )
-                            .padding(3.0)
+                            .padding(1.0)
                             .background {
                                 RoundedRectangle(cornerRadius: 3.0)
                                     .fill(Color(keyboardKey.conductor.brownColor))
+                                    .aspectRatio(2.0, contentMode: .fit)
                             }
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {

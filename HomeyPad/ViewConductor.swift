@@ -5,7 +5,10 @@ class ViewConductor: ObservableObject {
     init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
         self.layoutChoice = layoutChoice
         self.latching = latching
+        self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
     }
+
+    let backgroundColor: Color
     
     @Published var semitoneShift: IntegerNotation = .zero
 
@@ -80,8 +83,6 @@ class ViewConductor: ObservableObject {
         }
     }
 
-    let backgroundColor: Color = .black
-    
     var openStringsMIDI: [Int] {
         stringsLayoutChoice.openStringsMIDI
     }

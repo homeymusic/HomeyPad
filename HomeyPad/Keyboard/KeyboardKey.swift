@@ -33,7 +33,7 @@ public struct KeyboardKey: View {
 
         switch conductor.paletteChoice {
         case .subtle:
-            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+            if tonicTonic {
                 activeColor = Color(interval.majorMinor.color)
                 inactiveColor = Color(conductor.accentColor)
             } else {
@@ -42,7 +42,7 @@ public struct KeyboardKey: View {
             }
             return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
         case .loud:
-            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+            if tonicTonic {
                 activeColor = Color(interval.majorMinor.color)
                 inactiveColor = Color(conductor.mainColor)
             } else {
@@ -51,9 +51,9 @@ public struct KeyboardKey: View {
             }
             return activated ? activeColor : inactiveColor
         case .ebonyIvory:
-            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
-                activeColor = Color(interval.majorMinor.color)
-                inactiveColor = Color(conductor.mainColor)
+            if conductor.layoutChoice == .tonic {
+                inactiveColor = pitch.accidental ? .black : .white
+                activeColor = inactiveColor.adjust(brightness: -0.2)
             } else {
                 inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
                 activeColor = inactiveColor.adjust(brightness: -0.2)
@@ -62,16 +62,28 @@ public struct KeyboardKey: View {
         }
     }
     
+    var tonicTonic: Bool {
+        conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch
+    }
+
     var outlineColor: Color {
-        if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
-            return conductor.mainColor
+        if tonicTonic {
+            switch conductor.paletteChoice {
+            case .subtle:
+                return Color(conductor.brownColor)
+            case .loud:
+                return Color(conductor.creamColor)
+            case .ebonyIvory:
+                return pitch.accidental ? .white : Color(UIColor.systemGray)
+            }
         } else {
             return conductor.accentColor
         }
     }
     
     var outlineTonic: Bool {
-        conductor.paletteChoice == .subtle && interval.intervalClass == .zero
+        (conductor.paletteChoice == .subtle && interval.intervalClass == .zero) ||
+        tonicTonic
     }
 
     var isSmall: Bool {

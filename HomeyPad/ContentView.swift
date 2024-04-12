@@ -29,7 +29,7 @@ struct ContentView: View {
                             .padding(7.0)
                             .background {
                                 RoundedRectangle(cornerRadius: 7.0)
-                                    .fill(Color(UIColor.systemGray6))
+                                    .fill(Color(tonicConductor.backgroundColor))
                             }                                
                             .transition(.scale)
                         }
