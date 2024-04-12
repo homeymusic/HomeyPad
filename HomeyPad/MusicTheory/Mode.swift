@@ -17,22 +17,18 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
     static func < (lhs: Mode, rhs: Mode) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
+
+    public var scale: Scale {
+        switch self {
+        case .ionian, .dorian, .phrygian, .lydian, .mixolydian, .aeolian, .locrian:
+            return .heptatonic
+        case .mixolydianPentatonic, .aeolianPentatonic, .ionianPentatonic, .dorianPentatonic, .phrygianPentatonic:
+            return .pentatonic
+        }
+    }
     
     public var majorMinor: MajorMinor {
-        switch self {
-        case .ionian:               return .major
-        case .mixolydianPentatonic: return .major
-        case .dorian:               return .neutral
-        case .aeolianPentatonic:    return .minor
-        case .phrygian:             return .minor
-        case .lydian:               return .major
-        case .ionianPentatonic:     return .major
-        case .mixolydian:           return .major
-        case .dorianPentatonic:     return .neutral
-        case .aeolian:              return .minor
-        case .phrygianPentatonic:   return .minor
-        case .locrian:              return .minor
-        }
+        self.chordShape.majorMinor
     }
     
     public var label: String {
@@ -46,7 +42,7 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
         case .ionianPentatonic:     return "ion"
         case .mixolydian:           return "MIX"
         case .dorianPentatonic:     return "dor"
-        case .aeolian:              return "MIN"
+        case .aeolian:              return "AEO"
         case .phrygianPentatonic:   return "phr"
         case .locrian:              return "LOC"
         }
@@ -86,4 +82,22 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
         }
     }
 
+}
+
+enum Scale: Int, CaseIterable, Identifiable, Comparable, Equatable {
+    case pentatonic = 5
+    case heptatonic = 7
+    
+    var id: String { String(self.rawValue) }
+    
+    static func < (lhs: Scale, rhs: Scale) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+    
+    public var icon: String {
+        switch self {
+        case .heptatonic: return "7.square"
+        case .pentatonic: return "5.square"
+        }
+    }
 }

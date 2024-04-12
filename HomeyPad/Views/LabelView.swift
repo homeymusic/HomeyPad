@@ -150,7 +150,6 @@ public struct LabelView: View {
                                             .aspectRatio(2.0, contentMode: .fit)
                                     }
                             )
-                            .padding(2.0)
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
@@ -225,10 +224,8 @@ public struct LabelView: View {
                 }
                 
             }
-            .font(Font.system(size: 17, design: .monospaced))
             .foregroundColor(textColor)
             .lineLimit(1)
-            .minimumScaleFactor(0.01)
         }
         
         var octave: String {

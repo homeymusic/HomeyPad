@@ -3,10 +3,10 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     case fixedDo     = "fixed do"
     case accidentals = "accidentals"
     case octave      = "octave"
-    case mode        = "mode"
-    case map         = "modal map"
     case midi        = "midi"
     case frequency   = "frequency"
+    case mode        = "mode"
+    case map         = "modal nav"
     case month       = "month"
 
     public var id: String { self.rawValue }

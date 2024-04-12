@@ -52,6 +52,10 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
                     Strings(keyboardKey: keyboardKey,
                             keyboardModel: keyboardModel,
                             viewConductor: conductor)
+                case .banjo:
+                    Strings(keyboardKey: keyboardKey,
+                            keyboardModel: keyboardModel,
+                            viewConductor: conductor)
                 }
             }
             

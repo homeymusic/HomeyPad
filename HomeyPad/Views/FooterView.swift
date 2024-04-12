@@ -38,7 +38,7 @@ struct FooterView: View {
                                 .font(Font.system(size: 17))
                         }
                     }
-                    .frame(maxWidth: 200)
+                    .frame(maxWidth: 240)
                     .pickerStyle(.segmented)
                 }
             }
