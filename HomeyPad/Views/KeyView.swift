@@ -5,7 +5,7 @@ struct KeyView: View {
     var proxySize: CGSize
 
     var overlayKey: Bool {
-        (keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.pitch.pitchClass == .six) || keyboardKey.isSmall
+        (keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass == .six) || keyboardKey.isSmall
     }
     
     var body: some View {

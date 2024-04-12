@@ -12,8 +12,6 @@ public class TonicKeyboardModel: KeyboardModel {
         
         for pitch in newPitches {
             tonicMIDI = Int(pitch.midi)
-            externallyActivatedPitches.removeAll()
-            touchedPitches.removeAll()
         }
     }
 }
