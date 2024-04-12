@@ -24,8 +24,8 @@ class ViewConductor: ObservableObject {
     }
 
     @Published var latching: Bool = false {
-        willSet(newValue) {
-            if !newValue {allPitchesNoteOff()}
+        willSet {
+            allPitchesNoteOff()
         }
     }
     
