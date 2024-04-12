@@ -45,8 +45,6 @@ struct KeyLabelsPopoverView: View {
                                 .pickerStyle(.segmented)
                                 .disabled(!viewConductor.enableAccidentalPicker())
                             }
-                        }
-                        if key == .month {
                             GridRow {
                                 Image(systemName: "4.square")
                                     .gridCellAnchor(.center)

@@ -145,11 +145,11 @@ class ViewConductor: ObservableObject {
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .midi: false , .frequency: false],
-        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
-        .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
-        .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
-        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
+        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .mode: false, .midi: false , .frequency: false],
+        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .mode: false, .midi: false, .frequency: false],
+        .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .midi: false, .frequency: false],
+        .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .midi: false, .frequency: false],
+        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .midi: false, .frequency: false]
     ]
     
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels

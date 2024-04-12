@@ -133,6 +133,11 @@ public struct LabelView: View {
                                 Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
                             )
                         }
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
+                            Color.clear.overlay(
+                                Text(keyboardKey.pitch.mode)
+                            )
+                        }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
                                 Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
