@@ -132,6 +132,7 @@ public struct LabelView: View {
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
                             Color.clear.overlay(
                                 Text(keyboardKey.pitch.mode.label)
+                                    .foregroundColor(keyboardKey.accentColor)
                             )
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.map]! {
@@ -174,19 +175,17 @@ public struct LabelView: View {
                 if keyboardKey.conductor.showSymbols {
                     let symbolAdjustedLength = symbolLength(proxySize)
                     VStack(spacing: 0) {
-                        VStack(spacing: 0) {
-                            ZStack {
-                                Color.clear
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: maxSymbolLength(proxySize))
-                                    .overlay(
-                                        AnyShape(keySymbol)
-                                            .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
-                                            .fill(symbolColor)
-                                            .aspectRatio(1.0, contentMode: .fit)
-                                            .frame(width: symbolAdjustedLength)
-                                    )
-                            }
+                        ZStack {
+                            Color.clear
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: maxSymbolLength(proxySize))
+                                .overlay(
+                                    AnyShape(keySymbol)
+                                        .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
+                                        .fill(symbolColor)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .frame(width: symbolAdjustedLength)
+                                )
                         }
                     }
                     .frame(height: maxSymbolLength(proxySize))

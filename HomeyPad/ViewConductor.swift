@@ -72,17 +72,6 @@ class ViewConductor: ObservableObject {
         return Color(brownColor)
     }
     
-    var accentColor: Color {
-        switch paletteChoice {
-        case .subtle:
-            Color(creamColor)
-        case .loud:
-            Color(brownColor)
-        case .ebonyIvory:
-            Color(brownColor)
-        }
-    }
-
     var openStringsMIDI: [Int] {
         stringsLayoutChoice.openStringsMIDI
     }

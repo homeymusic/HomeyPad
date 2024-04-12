@@ -27,6 +27,25 @@ public struct KeyboardKey: View {
         return conductor.layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
     }
     
+    var accentColor: Color {
+        switch conductor.paletteChoice {
+        case .subtle:
+            if tonicTonic {
+                Color(conductor.brownColor)
+            } else {
+                Color(conductor.creamColor)
+            }
+        case .loud:
+            if tonicTonic {
+                Color(conductor.creamColor)
+            } else {
+                Color(conductor.brownColor)
+            }
+        case .ebonyIvory:
+            pitch.accidental ? .white : .black
+        }
+    }
+
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
@@ -35,7 +54,7 @@ public struct KeyboardKey: View {
         case .subtle:
             if tonicTonic {
                 activeColor = Color(interval.majorMinor.color)
-                inactiveColor = Color(conductor.accentColor)
+                inactiveColor = activeColor
             } else {
                 activeColor = Color(interval.majorMinor.color)
                 inactiveColor = Color(conductor.mainColor)
@@ -55,7 +74,7 @@ public struct KeyboardKey: View {
                 inactiveColor = pitch.accidental ? .black : .white
                 activeColor = inactiveColor.adjust(brightness: -0.2)
             } else {
-                inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
+                inactiveColor = pitch.accidental ? Color(.darkGray) : .white
                 activeColor = inactiveColor.adjust(brightness: -0.2)
             }
             return activated ? activeColor : inactiveColor
@@ -77,7 +96,7 @@ public struct KeyboardKey: View {
                 return pitch.accidental ? .white : Color(UIColor.systemGray)
             }
         } else {
-            return conductor.accentColor
+            return accentColor
         }
     }
     
