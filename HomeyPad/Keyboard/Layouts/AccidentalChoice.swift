@@ -6,8 +6,10 @@ public enum AccidentalChoice: String, CaseIterable, Identifiable {
 
     public var icon: String {
         switch self {
-        case .flat:  return "♭"
-        case .sharp: return "♯"
+//        case .flat:  return "♭"
+//        case .sharp: return "♯"
+        case .flat:  return "b"
+        case .sharp: return "#"
         }
     }
     
