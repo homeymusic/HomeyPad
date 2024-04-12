@@ -146,12 +146,12 @@ public struct LabelView: View {
                                     Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
                                         .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
                                 }
-                                    .padding(3.0)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 3.0)
-                                            .fill(Color(keyboardKey.conductor.brownColor))
-                                    }
                             )
+                            .padding(3.0)
+                            .background {
+                                RoundedRectangle(cornerRadius: 3.0)
+                                    .fill(Color(keyboardKey.conductor.brownColor))
+                            }
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
