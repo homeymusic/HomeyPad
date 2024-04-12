@@ -51,6 +51,9 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
+            .onAppear {
+                tonicMIDI = tonicConductor.tonicMIDI
+            }
             .onChange(of: tonicMIDI) {
                 if tonicMIDI != tonicConductor.tonicMIDI {
                     if tonicMIDI == tonicConductor.tonicMIDI + 12 {
@@ -64,6 +67,8 @@ struct ContentView: View {
                     viewConductor.tonicMIDI = tonicMIDI
                     buzz()
                 }
+            }.onChange(of: tonicConductor.tonicMIDI) {
+                tonicMIDI = tonicConductor.tonicMIDI
             }
         }
         .preferredColorScheme(.dark)

@@ -11,6 +11,7 @@ struct OctaveShiftView: View {
                 Button(action: {
                     tonicConductor.tonicMIDI = newDownwardTonicMIDI
                     viewConductor.tonicMIDI = tonicConductor.tonicMIDI
+                    buzz()
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.down")
                         .foregroundColor(safeMIDI(midi: newDownwardTonicMIDI) ? .white : Color(UIColor.systemGray4))
@@ -26,6 +27,7 @@ struct OctaveShiftView: View {
                 Button(action: {
                     tonicConductor.tonicMIDI = newUpwardTonicMIDI
                     viewConductor.tonicMIDI = tonicConductor.tonicMIDI
+                    buzz()
                 }, label: {
                     Image(systemName: "water.waves.and.arrow.up")
                         .foregroundColor(safeMIDI(midi: newUpwardTonicMIDI) ? .white : Color(UIColor.systemGray4))
