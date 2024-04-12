@@ -5,9 +5,19 @@ class ViewConductor: ObservableObject {
     @Published var semitoneShift: IntegerNotation = .zero
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {
-        willSet { if !self.latching {allPitchesNoteOff()}}
+        willSet(newLayoutChoice) {
+            if newLayoutChoice != layoutChoice {buzz()}
+            if !self.latching {allPitchesNoteOff()}
+        }
     }
     
+    @Published var stringsLayoutChoice: StringsLayoutChoice = .guitar {
+        willSet(newStringsLayoutChoice) {
+            if newStringsLayoutChoice != stringsLayoutChoice {buzz()}
+            if !self.latching {allPitchesNoteOff()}
+        }
+    }
+
     @Published var latching: Bool = false {
         willSet(newValue) {
             if !newValue {allPitchesNoteOff()}
@@ -65,10 +75,6 @@ class ViewConductor: ObservableObject {
 
     let backgroundColor: Color = .black
     
-    @Published var stringsLayoutChoice: StringsLayoutChoice = .guitar {
-        willSet { if !self.latching {allPitchesNoteOff()}}
-    }
-
     var openStringsMIDI: [Int] {
         stringsLayoutChoice.openStringsMIDI
     }

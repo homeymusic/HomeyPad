@@ -40,7 +40,8 @@ struct FooterView: View {
                     }
                     .frame(maxWidth: 200)
                     .pickerStyle(.segmented)
-                } else {
+                }
+                else {
                     Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
                     Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
                     Image(systemName: "gobackward")
@@ -51,6 +52,7 @@ struct FooterView: View {
             .foregroundColor(.white)
             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             .frame(maxWidth: .infinity, alignment: .trailing)
+            .animation(.easeInOut, value: viewConductor.layoutChoice)
         }
     }
 }

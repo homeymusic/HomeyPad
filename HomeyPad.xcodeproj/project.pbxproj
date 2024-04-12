@@ -39,6 +39,7 @@
 		B0C7FD3C2BBAFB29006FF26F /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* Strings.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* Symmetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* Symmetric.swift */; };
 		B0CEE1F82BC88D6000B96ACA /* SafeMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CEE1F72BC88D6000B96ACA /* SafeMIDI.swift */; };
+		B0CEE1FA2BC8D87D00B96ACA /* Buzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CEE1F92BC8D87D00B96ACA /* Buzz.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
 		B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */; };
 		B0E25F782BC630C30072A09A /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F772BC630C30072A09A /* OctaveShiftView.swift */; };
@@ -84,6 +85,7 @@
 		B0C7FD2D2BBAFB16006FF26F /* KeyboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
 		B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		B0CEE1F72BC88D6000B96ACA /* SafeMIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMIDI.swift; sourceTree = "<group>"; };
+		B0CEE1F92BC8D87D00B96ACA /* Buzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buzz.swift; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalChoice.swift; sourceTree = "<group>"; };
 		B0E25F772BC630C30072A09A /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				B04CE2292BBB0B9D00E8787D /* Modulo.swift */,
 				B04CE22E2BBB38AB00E8787D /* Color.swift */,
 				B0CEE1F72BC88D6000B96ACA /* SafeMIDI.swift */,
+				B0CEE1F92BC8D87D00B96ACA /* Buzz.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				B0E25F802BC831980072A09A /* TonicKeyboardModel.swift in Sources */,
 				B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
+				B0CEE1FA2BC8D87D00B96ACA /* Buzz.swift in Sources */,
 				B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */,
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,
 				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,

@@ -52,15 +52,18 @@ struct ContentView: View {
             .statusBarHidden(true)
             .background(.black)
             .onChange(of: tonicMIDI) {
-                if tonicMIDI == tonicConductor.tonicMIDI + 12 {
-                    tonicConductor.pitchDirection = .downward
-                    viewConductor.pitchDirection = .downward
-                } else if tonicMIDI == tonicConductor.tonicMIDI - 12 {
-                    tonicConductor.pitchDirection = .upward
-                    viewConductor.pitchDirection = .upward
+                if tonicMIDI != tonicConductor.tonicMIDI {
+                    if tonicMIDI == tonicConductor.tonicMIDI + 12 {
+                        tonicConductor.pitchDirection = .downward
+                        viewConductor.pitchDirection = .downward
+                    } else if tonicMIDI == tonicConductor.tonicMIDI - 12 {
+                        tonicConductor.pitchDirection = .upward
+                        viewConductor.pitchDirection = .upward
+                    }
+                    tonicConductor.tonicMIDI = tonicMIDI
+                    viewConductor.tonicMIDI = tonicMIDI
+                    buzz()
                 }
-                tonicConductor.tonicMIDI = tonicMIDI
-                viewConductor.tonicMIDI = tonicMIDI
             }
         }
     }
