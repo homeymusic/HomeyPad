@@ -34,12 +34,21 @@ public class KeyboardModel: ObservableObject {
     
     /// all touched notes
     @Published public var touchedPitches = Set<Pitch>() {
-        willSet { triggerEvents(from: touchedPitches, to: newValue) }
+        willSet {
+            print("touched \(touchedPitches.count)")
+            print("touched newValue \(newValue.count)")
+            
+            triggerEvents(from: touchedPitches, to: newValue)
+        }
     }
     
     /// Either latched keys or keys active due to external MIDI events.
     @Published public var externallyActivatedPitches = Set<Pitch>() {
-        willSet { triggerEvents(from: externallyActivatedPitches, to: newValue) }
+        willSet {
+            print("external \(externallyActivatedPitches.count)")
+            print("external newValue \(newValue.count)")
+            triggerEvents(from: externallyActivatedPitches, to: newValue)
+        }
     }
     
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {

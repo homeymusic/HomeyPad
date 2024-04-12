@@ -41,13 +41,6 @@ struct FooterView: View {
                     .frame(maxWidth: 200)
                     .pickerStyle(.segmented)
                 }
-                else {
-                    Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                    Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                    Image(systemName: "gobackward")
-                    Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                    Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                }
             }
             .foregroundColor(.white)
             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))

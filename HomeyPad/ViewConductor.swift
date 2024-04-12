@@ -2,6 +2,11 @@ import SwiftUI
 
 class ViewConductor: ObservableObject {
     
+    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
+        self.layoutChoice = layoutChoice
+        self.latching = latching
+    }
+    
     @Published var semitoneShift: IntegerNotation = .zero
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {
@@ -31,17 +36,19 @@ class ViewConductor: ObservableObject {
     }
 
     var octaveShift: Int8 {
-        get {Int8(tonicPitch.octave - 4)}
+        get {
+            let midi = if pitchDirection == .upward || !safeMIDI(midi: tonicMIDI - 12) {
+                tonicMIDI
+            } else {
+                tonicMIDI - 12
+            }
+            return Int8(allPitches[midi].octave - 4)
+        }
         set(newOctaveShift) {
             tonicMIDI = tonicMIDI + 12 * (Int(newOctaveShift) + 5)
         }
     }
 
-    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
-        self.layoutChoice = layoutChoice
-        self.latching = latching
-    }
-    
     var centerMIDI: Int {
         tonicMIDI + (pitchDirection == .upward ? 6 : -6)
     }
@@ -210,7 +217,6 @@ class ViewConductor: ObservableObject {
 
 enum PitchDirection: Int8, CaseIterable, Identifiable {
     case upward    = 1
-    case ambiguous = 0
     case downward  = -1
     
     var id: Int8 { self.rawValue }
