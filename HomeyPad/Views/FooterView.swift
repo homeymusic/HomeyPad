@@ -87,6 +87,8 @@ struct LayoutAndPalletePickerView: View {
                 }
             })
             .padding(.trailing, 10)
+
+            
             
             Picker("", selection: $viewConductor.layoutChoice) {
                 ForEach(LayoutChoice.allCases, id:\.self) { layoutChoice in
@@ -96,6 +98,8 @@ struct LayoutAndPalletePickerView: View {
             }
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
+
+            
             
             Button(action: {
                 viewConductor.showPalettePopover.toggle()
