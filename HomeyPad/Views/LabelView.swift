@@ -135,7 +135,22 @@ public struct LabelView: View {
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
                             Color.clear.overlay(
-                                Text(keyboardKey.pitch.mode)
+                                Text(keyboardKey.pitch.mode.label)
+                            )
+                        }
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.map]! {
+                            Color.clear.overlay(
+                                HStack(spacing: 0.0) {
+                                    Image(systemName: keyboardKey.pitch.mode.pitchDirection.icon)
+                                        .foregroundColor(Color(keyboardKey.pitch.mode.pitchDirection.majorMinor.color))
+                                    Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
+                                        .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
+                                }
+                                    .padding(3.0)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 3.0)
+                                            .fill(Color(keyboardKey.conductor.brownColor))
+                                    }
                             )
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {

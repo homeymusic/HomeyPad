@@ -125,36 +125,10 @@ public class Pitch: ObservableObject, Equatable {
         }
     }
 
-    var mode: String {
-        switch pitchClass {
-        case .zero:
-            "MAJ"
-        case .one:
-            "mix"
-        case .two:
-            "DOR"
-        case .three:
-            "min"
-        case .four:
-            "PHR"
-        case .five:
-            "LYD"
-        case .six:
-            "maj"
-        case .seven:
-            "MIX"
-        case .eight:
-            "dor"
-        case .nine:
-            "MIN"
-        case .ten:
-            "phr"
-        case .eleven:
-            "LOC"
-        }
+    var mode: Mode {
+        Mode.allCases[Int(self.pitchClass.rawValue)]
     }
 
-    
 }
 
 extension Pitch: Identifiable, Hashable, Comparable  {
