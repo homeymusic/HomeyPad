@@ -14,7 +14,7 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var tonicMIDI: Int = 60
+    @Published var tonicMIDI: Int = 60 
     
     var tonicPitch: Pitch {
         allPitches[ tonicMIDI]
@@ -33,7 +33,7 @@ class ViewConductor: ObservableObject {
     }
     
     var centerMIDI: Int {
-        tonicMIDI + 6
+        tonicMIDI + (pitchDirection == .upward ? 6 : -6)
     }
     
     var lowMIDI: Int {
@@ -132,8 +132,8 @@ class ViewConductor: ObservableObject {
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: true, .midi: true, .frequency: false],
-        .isomorphic: [.letter: true, .fixedDo: false, .month: false, .octave: true, .midi: true, .frequency: false],
+        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .midi: false , .frequency: false],
+        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .midi: false, .frequency: false],
         .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false],
         .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .midi: false, .frequency: false]
@@ -143,7 +143,7 @@ class ViewConductor: ObservableObject {
     
     static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
         .tonic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .isomorphic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
+        .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]

@@ -46,12 +46,26 @@ public struct LabelView: View {
             return min(size.width, size.height)
         }
         
+        var tonicTonic: Bool {
+            keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch
+        }
+        
         var textColor: Color {
             switch keyboardKey.conductor.paletteChoice {
             case .ebonyIvory:
-                return keyboardKey.pitch.accidental ? Color(keyboardKey.conductor.creamColor) : Color(keyboardKey.conductor.brownColor)
+                if  tonicTonic {
+                    return Color(keyboardKey.conductor.creamColor)
+                } else {
+                    return keyboardKey.pitch.accidental ? Color(keyboardKey.conductor.creamColor) : Color(keyboardKey.conductor.brownColor)
+                }
+            case .loud:
+                if  tonicTonic {
+                    return Color(keyboardKey.conductor.creamColor)
+                } else {
+                    return symbolColor
+                }
             default:
-                if keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch {
+                if tonicTonic {
                     return keyboardKey.conductor.mainColor
                 } else {
                     return symbolColor
@@ -65,14 +79,29 @@ public struct LabelView: View {
 
             switch keyboardKey.conductor.paletteChoice {
             case .subtle:
-                activeColor = Color(keyboardKey.conductor.mainColor)
-                inactiveColor = Color(keyboardKey.interval.majorMinor.color)
+                if tonicTonic {
+                    activeColor = Color(keyboardKey.interval.majorMinor.color)
+                    inactiveColor = Color(keyboardKey.conductor.mainColor)
+                } else {
+                    activeColor = Color(keyboardKey.conductor.mainColor)
+                    inactiveColor = Color(keyboardKey.interval.majorMinor.color)
+                }
             case .loud:
-                activeColor = Color(keyboardKey.interval.majorMinor.color)
-                inactiveColor = Color(keyboardKey.conductor.mainColor)
+                if tonicTonic {
+                    activeColor = Color(keyboardKey.interval.majorMinor.color)
+                    inactiveColor = Color(keyboardKey.conductor.creamColor)
+                } else {
+                    activeColor = Color(keyboardKey.interval.majorMinor.color)
+                    inactiveColor = Color(keyboardKey.conductor.mainColor)
+                }
             case .ebonyIvory:
-                inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.colorOnWhite)
-                activeColor = inactiveColor
+                if tonicTonic {
+                    activeColor = Color(keyboardKey.interval.majorMinor.color)
+                    inactiveColor = Color(keyboardKey.conductor.creamColor)
+                } else {                    
+                    inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.colorOnWhite)
+                    activeColor = inactiveColor
+                }
             }
             return keyboardKey.activated ? activeColor : inactiveColor
         }

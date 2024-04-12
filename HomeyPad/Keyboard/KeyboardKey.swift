@@ -42,12 +42,22 @@ public struct KeyboardKey: View {
             }
             return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
         case .loud:
-            activeColor = Color(conductor.mainColor)
-            inactiveColor = Color(interval.majorMinor.color)
+            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(conductor.mainColor)
+            } else {
+                activeColor = Color(conductor.mainColor)
+                inactiveColor = Color(interval.majorMinor.color)
+            }
             return activated ? activeColor : inactiveColor
         case .ebonyIvory:
-            inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
-            activeColor = inactiveColor.adjust(brightness: -0.2)
+            if conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch {
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(conductor.mainColor)
+            } else {
+                inactiveColor = pitch.accidental ? Color(.darkGray) : Color(.white)
+                activeColor = inactiveColor.adjust(brightness: -0.2)
+            }
             return activated ? activeColor : inactiveColor
         }
     }
