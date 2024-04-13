@@ -2,15 +2,21 @@ import SwiftUI
 
 class ViewConductor: ObservableObject {
     
-    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false) {
+    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false, tonicMIDI: Int = 60) {
         self.layoutChoice = layoutChoice
         self.latching = latching
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
+        self.tonicMIDI = tonicMIDI
+        self.allPitches = Array(0...127).map {Pitch($0)}
+        self.allPitches[tonicMIDI].isTonic = true
     }
     
     let backgroundColor: Color
     
     let animationStyle: Animation = Animation.linear
+    
+    let allPitches: [Pitch]
+
     
     @Published var semitoneShift: IntegerNotation = .zero
     
@@ -35,7 +41,7 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var tonicMIDI: Int = 60 {
+    @Published var tonicMIDI: Int {
         willSet(newTonicMIDI) {
             allPitches[tonicMIDI].isTonic = false
             allPitches[newTonicMIDI].isTonic = true
@@ -71,8 +77,6 @@ class ViewConductor: ObservableObject {
     var highMIDI: Int {
         Int(centerMIDI) + midiPerSide[self.layoutChoice]!
     }
-    
-    let allPitches: [Pitch] = Array(0...127).map {Pitch($0)}
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)

@@ -82,7 +82,7 @@ public struct KeyboardKey: View {
     }
     
     var tonicTonic: Bool {
-        conductor.layoutChoice == .tonic && pitch == conductor.tonicPitch
+        conductor.layoutChoice == .tonic && pitch.isTonic
     }
 
     var outlineColor: Color {

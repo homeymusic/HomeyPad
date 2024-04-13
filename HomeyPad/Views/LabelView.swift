@@ -46,22 +46,18 @@ public struct LabelView: View {
             return min(size.width, size.height)
         }
         
-        var tonicTonic: Bool {
-            keyboardKey.conductor.layoutChoice == .tonic && keyboardKey.pitch == keyboardKey.conductor.tonicPitch
-        }
-        
         var textColor: Color {
             switch keyboardKey.conductor.paletteChoice {
             case .ebonyIvory:
                 return keyboardKey.pitch.accidental ? .white : .black
             case .loud:
-                if  tonicTonic {
+                if keyboardKey.tonicTonic {
                     return Color(keyboardKey.conductor.creamColor)
                 } else {
                     return symbolColor
                 }
             default:
-                if tonicTonic {
+                if keyboardKey.tonicTonic {
                     return keyboardKey.conductor.mainColor
                 } else {
                     return symbolColor
@@ -75,7 +71,7 @@ public struct LabelView: View {
 
             switch keyboardKey.conductor.paletteChoice {
             case .subtle:
-                if tonicTonic {
+                if keyboardKey.tonicTonic {
                     activeColor = Color(keyboardKey.interval.majorMinor.color)
                     inactiveColor = Color(keyboardKey.conductor.mainColor)
                 } else {
@@ -83,7 +79,7 @@ public struct LabelView: View {
                     inactiveColor = Color(keyboardKey.interval.majorMinor.color)
                 }
             case .loud:
-                if tonicTonic {
+                if keyboardKey.tonicTonic {
                     activeColor = Color(keyboardKey.interval.majorMinor.color)
                     inactiveColor = Color(keyboardKey.conductor.creamColor)
                 } else {
@@ -91,7 +87,7 @@ public struct LabelView: View {
                     inactiveColor = Color(keyboardKey.conductor.mainColor)
                 }
             case .ebonyIvory:
-                if tonicTonic {
+                if keyboardKey.tonicTonic {
                     activeColor = Color(keyboardKey.interval.majorMinor.color)
                     inactiveColor = Color(keyboardKey.conductor.creamColor)
                 } else {                    
