@@ -8,22 +8,16 @@ public struct KeyContainer<Content: View>: View {
     let keyboardKey: (Pitch) -> Content
 
     var pitch: Pitch
-    @ObservedObject var keyboardModel: KeyboardModel
-
+    @ObservedObject var conductor: ViewConductor
+    
     var zIndex: Int
     
-    /// Initialize the Container
-    /// - Parameters:
-    ///   - model: KeyboardModel holding all the keys
-    ///   - pitch: Pitch of this key
-    ///   - zIndex: Layering in z-axis
-    ///   - content: View defining how to render a specific key
-    init(keyboardModel: KeyboardModel,
+    init(conductor: ViewConductor,
          pitch: Pitch,
          zIndex: Int = 0,
          @ViewBuilder keyboardKey: @escaping (Pitch) -> Content)
     {
-        self.keyboardModel = keyboardModel
+        self.conductor = conductor
         self.pitch = pitch
         self.zIndex = zIndex
         self.keyboardKey = keyboardKey
@@ -34,10 +28,10 @@ public struct KeyContainer<Content: View>: View {
             .contentShape(Rectangle()) // Added to improve tap/click reliability
             .gesture(
                 TapGesture().onEnded { _ in
-                    if keyboardModel.externallyActivatedPitches.contains(pitch) {
-                        keyboardModel.externallyActivatedPitches.remove(pitch)
+                    if conductor.externallyActivatedPitches.contains(pitch) {
+                        conductor.externallyActivatedPitches.remove(pitch)
                     } else {
-                        keyboardModel.externallyActivatedPitches.insert(pitch)
+                        conductor.externallyActivatedPitches.insert(pitch)
                     }
                 }
             )

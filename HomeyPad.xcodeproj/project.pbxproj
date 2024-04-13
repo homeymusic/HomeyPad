@@ -32,7 +32,6 @@
 		B0C7FD332BBAFB16006FF26F /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */; };
 		B0C7FD342BBAFB16006FF26F /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD292BBAFB16006FF26F /* Keyboard.swift */; };
 		B0C7FD352BBAFB16006FF26F /* MultitouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2A2BBAFB16006FF26F /* MultitouchView.swift */; };
-		B0C7FD372BBAFB16006FF26F /* KeyboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2D2BBAFB16006FF26F /* KeyboardModel.swift */; };
 		B0C7FD382BBAFB29006FF26F /* PianoSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */; };
 		B0C7FD3A2BBAFB29006FF26F /* Piano.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD232BBAFB16006FF26F /* Piano.swift */; };
 		B0C7FD3B2BBAFB29006FF26F /* Isomorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */; };
@@ -49,7 +48,6 @@
 		B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F792BC630DE0072A09A /* HelpView.swift */; };
 		B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */; };
 		B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* Tonic.swift */; };
-		B0E25F802BC831980072A09A /* TonicKeyboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7F2BC831980072A09A /* TonicKeyboardModel.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */; };
 /* End PBXBuildFile section */
@@ -85,7 +83,6 @@
 		B0C7FD2A2BBAFB16006FF26F /* MultitouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultitouchView.swift; sourceTree = "<group>"; };
 		B0C7FD2B2BBAFB16006FF26F /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		B0C7FD2C2BBAFB16006FF26F /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
-		B0C7FD2D2BBAFB16006FF26F /* KeyboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardModel.swift; sourceTree = "<group>"; };
 		B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		B0CEE1F72BC88D6000B96ACA /* SafeMIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMIDI.swift; sourceTree = "<group>"; };
 		B0CEE1F92BC8D87D00B96ACA /* Buzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buzz.swift; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		B0E25F792BC630DE0072A09A /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLayoutChoice.swift; sourceTree = "<group>"; };
 		B0E25F7D2BC7EF640072A09A /* Tonic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tonic.swift; sourceTree = "<group>"; };
-		B0E25F7F2BC831980072A09A /* TonicKeyboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicKeyboardModel.swift; sourceTree = "<group>"; };
 		B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,8 +193,6 @@
 			children = (
 				B0C7FD292BBAFB16006FF26F /* Keyboard.swift */,
 				B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */,
-				B0C7FD2D2BBAFB16006FF26F /* KeyboardModel.swift */,
-				B0E25F7F2BC831980072A09A /* TonicKeyboardModel.swift */,
 				B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */,
 				B0C7FD2A2BBAFB16006FF26F /* MultitouchView.swift */,
 				B0C7FD2C2BBAFB16006FF26F /* PreferenceKeys.swift */,
@@ -318,7 +312,6 @@
 				B0CEE1FE2BC996B800B96ACA /* Mode.swift in Sources */,
 				B0C7FD332BBAFB16006FF26F /* KeyboardKey.swift in Sources */,
 				B0C7FD3A2BBAFB29006FF26F /* Piano.swift in Sources */,
-				B0E25F802BC831980072A09A /* TonicKeyboardModel.swift in Sources */,
 				B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */,
 				B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */,
 				B0CEE1FA2BC8D87D00B96ACA /* Buzz.swift in Sources */,
@@ -336,7 +329,6 @@
 				B0C7FD352BBAFB16006FF26F /* MultitouchView.swift in Sources */,
 				B0C7FD302BBAFB16006FF26F /* PreferenceKeys.swift in Sources */,
 				B0CEE2002BC997C100B96ACA /* ChordShape.swift in Sources */,
-				B0C7FD372BBAFB16006FF26F /* KeyboardModel.swift in Sources */,
 				B0C7FD322BBAFB16006FF26F /* KeyContainer.swift in Sources */,
 				B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */,
 			);

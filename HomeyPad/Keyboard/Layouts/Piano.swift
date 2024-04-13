@@ -4,7 +4,6 @@ import SwiftUI
 
 struct Piano<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    let keyboardModel: KeyboardModel
     @StateObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
     
@@ -17,7 +16,7 @@ struct Piano<Content>: View where Content: View {
                             Color.clear
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         } else {
-                            KeyContainer(keyboardModel: keyboardModel, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKey)
+                            KeyContainer(conductor: viewConductor, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKey)
                                 .frame(width: spacer.whiteKeyWidth(geo.size.width))
                         }
                     }
@@ -37,7 +36,7 @@ struct Piano<Content>: View where Content: View {
                                     if midi < 0 || midi > 127 {
                                         Color.clear
                                     } else {
-                                        KeyContainer(keyboardModel: keyboardModel,
+                                        KeyContainer(conductor: viewConductor,
                                                      pitch: viewConductor.allPitches[midi],
                                                      zIndex: 1,
                                                      keyboardKey: keyboardKey)

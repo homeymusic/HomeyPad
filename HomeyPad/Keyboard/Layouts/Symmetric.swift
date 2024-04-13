@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Symmetric<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    var keyboardModel: KeyboardModel
     var viewConductor: ViewConductor
     
     var body: some View {
@@ -12,14 +11,14 @@ struct Symmetric<Content>: View where Content: View {
                 if majorMinor == .minor {
                     VStack(spacing: 0.0)  {
                         if safeMIDI(midi: midi + 1) {
-                            KeyContainer(keyboardModel: keyboardModel,
+                            KeyContainer(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi + 1],
                                          keyboardKey: keyboardKey)
                         } else {
                             Color.clear
                         }
                         if safeMIDI(midi: midi) {
-                            KeyContainer(keyboardModel: keyboardModel,
+                            KeyContainer(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi],
                                          keyboardKey: keyboardKey)
                         } else {
@@ -30,7 +29,7 @@ struct Symmetric<Content>: View where Content: View {
                     let intervalClass: IntegerNotation = Interval.intervalClass(midi: midi, tonicMIDI: Int(viewConductor.tonicPitch.midi))
                     if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
                         if safeMIDI(midi: midi) {
-                            KeyContainer(keyboardModel: keyboardModel,
+                            KeyContainer(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi],
                                          keyboardKey: keyboardKey)
                             .overlay() { // render tritone as overlay
@@ -39,7 +38,7 @@ struct Symmetric<Content>: View where Content: View {
                                     GeometryReader { proxy in
                                         let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
                                         ZStack {
-                                            KeyContainer(keyboardModel: keyboardModel,
+                                            KeyContainer(conductor: viewConductor,
                                                          pitch: viewConductor.allPitches[midi-1], // tritone
                                                          zIndex: 1,
                                                          keyboardKey: keyboardKey)
@@ -56,7 +55,7 @@ struct Symmetric<Content>: View where Content: View {
                     } else if intervalClass != .six { // skip tritone
                         if safeMIDI(midi: midi) {
                             
-                            KeyContainer(keyboardModel: keyboardModel,
+                            KeyContainer(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi],
                                          keyboardKey: keyboardKey)
                         } else {

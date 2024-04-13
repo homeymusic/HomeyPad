@@ -4,7 +4,6 @@ import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    var keyboardModel: KeyboardModel
     @StateObject var viewConductor: ViewConductor
 
     var body: some View {
@@ -13,7 +12,7 @@ struct Isomorphic<Content>: View where Content: View {
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {
-                    KeyContainer(keyboardModel: keyboardModel,
+                    KeyContainer(conductor: viewConductor,
                                  pitch: viewConductor.allPitches[midi],
                                  keyboardKey: keyboardKey)
                 }

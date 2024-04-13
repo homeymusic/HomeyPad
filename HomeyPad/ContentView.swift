@@ -5,8 +5,6 @@ struct ContentView: View {
     @StateObject var viewConductor  = ViewConductor()
     @StateObject var tonicConductor = ViewConductor(layoutChoice: .tonic, latching: true)
 
-    @State var tonicMIDI: Int = 60
-    
     var body: some View {
         let settingsHeight = 30.0
         GeometryReader { proxy in
@@ -20,7 +18,7 @@ struct ContentView: View {
                     }
                     VStack {
                         if showTonicPicker {
-                            Keyboard(conductor: tonicConductor, tonicMIDI: $tonicMIDI) { pitch in
+                            Keyboard(conductor: tonicConductor) { pitch in
                                 KeyboardKey(pitch: pitch,
                                             conductor: tonicConductor)
                                 .aspectRatio(1.0, contentMode: .fit)
@@ -33,7 +31,7 @@ struct ContentView: View {
                             }                                
                             .transition(.scale)
                         }
-                        Keyboard(conductor: viewConductor, tonicMIDI: $tonicMIDI) { pitch in
+                        Keyboard(conductor: viewConductor) { pitch in
                             KeyboardKey(pitch: pitch,
                                         conductor: viewConductor)
                         }
@@ -51,24 +49,11 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onAppear {
-                tonicMIDI = tonicConductor.tonicMIDI
+            .onChange(of: tonicConductor.tonicMIDI) {
+                viewConductor.tonicMIDI = tonicConductor.tonicMIDI
             }
-            .onChange(of: tonicMIDI) {
-                if tonicMIDI != tonicConductor.tonicMIDI {
-                    if tonicMIDI == tonicConductor.tonicMIDI + 12 {
-                        tonicConductor.pitchDirection = .downward
-                        viewConductor.pitchDirection = .downward
-                    } else if tonicMIDI == tonicConductor.tonicMIDI - 12 {
-                        tonicConductor.pitchDirection = .upward
-                        viewConductor.pitchDirection = .upward
-                    }
-                    tonicConductor.tonicMIDI = tonicMIDI
-                    viewConductor.tonicMIDI = tonicMIDI
-                    buzz()
-                }
-            }.onChange(of: tonicConductor.tonicMIDI) {
-                tonicMIDI = tonicConductor.tonicMIDI
+            .onChange(of: tonicConductor.pitchDirection) {
+                viewConductor.pitchDirection = tonicConductor.pitchDirection
             }
         }
         .preferredColorScheme(.dark)

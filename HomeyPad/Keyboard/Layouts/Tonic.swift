@@ -4,7 +4,6 @@ import SwiftUI
 
 struct Tonic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    var tonicKeyboardModel: TonicKeyboardModel
 
     @StateObject var tonicConductor: ViewConductor
 
@@ -20,7 +19,7 @@ struct Tonic<Content>: View where Content: View {
                 if midi < 0 || midi > 127 {
                     Color.clear
                 } else {
-                    KeyContainer(keyboardModel: tonicKeyboardModel,
+                    KeyContainer(conductor: tonicConductor,
                                  pitch: tonicConductor.allPitches[midi],
                                  keyboardKey: keyboardKey)
                 }

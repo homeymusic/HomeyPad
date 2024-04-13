@@ -7,11 +7,11 @@ class ViewConductor: ObservableObject {
         self.latching = latching
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
     }
-
+    
     let backgroundColor: Color
     
     @Published var semitoneShift: IntegerNotation = .zero
-
+    
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet(newLayoutChoice) {
             if newLayoutChoice != layoutChoice {buzz()}
@@ -25,19 +25,19 @@ class ViewConductor: ObservableObject {
             if !self.latching {allPitchesNoteOff()}
         }
     }
-
+    
     @Published var latching: Bool = false {
         willSet {
             allPitchesNoteOff()
         }
     }
     
-    @Published var tonicMIDI: Int = 60 
+    @Published var tonicMIDI: Int = 60
     
     var tonicPitch: Pitch {
         allPitches[ tonicMIDI]
     }
-
+    
     var octaveShift: Int8 {
         get {
             let midi = if pitchDirection == .upward || !safeMIDI(midi: tonicMIDI - 12) {
@@ -51,7 +51,7 @@ class ViewConductor: ObservableObject {
             tonicMIDI = tonicMIDI + 12 * (Int(newOctaveShift) + 5)
         }
     }
-
+    
     var centerMIDI: Int {
         tonicMIDI + (pitchDirection == .upward ? 6 : -6)
     }
@@ -67,7 +67,7 @@ class ViewConductor: ObservableObject {
     let allPitches: [Pitch] = Array(0...127).map {Pitch($0)}
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-
+    
     var mainColor: Color {
         return Color(brownColor)
     }
@@ -87,15 +87,15 @@ class ViewConductor: ObservableObject {
         resetIntervalLabels()
         resetAccidentalChoice()
     }
-
+    
     func resetPaletteChoice() {
         paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
     }
-
+    
     func resetAccidentalChoice() {
         accidentalChoices[layoutChoice] = ViewConductor.defaultAccidentalChoices[layoutChoice]
     }
-
+    
     func resetNoteLabels() {
         noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
     }
@@ -103,11 +103,11 @@ class ViewConductor: ObservableObject {
     func resetIntervalLabels() {
         intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
     }
-
+    
     func accidentalChoice() -> AccidentalChoice {
         return accidentalChoices[layoutChoice]!
     }
-
+    
     @Published var accidentalChoices: [LayoutChoice: AccidentalChoice] = defaultAccidentalChoices
     
     static let defaultAccidentalChoices: [LayoutChoice: AccidentalChoice] = [
@@ -188,13 +188,13 @@ class ViewConductor: ObservableObject {
         noteLabels[layoutChoice]![.fixedDo]! ||
         noteLabels[layoutChoice]![.month]!
     }
-
+    
     @Published var showKeyLabelsPopover: Bool = false
     
     @Published var showPalettePopover: Bool = false
     
     @Published var pitchDirection: PitchDirection = .upward
-        
+    
     @Published var midiPerSide: [LayoutChoice: Int] = [
         .tonic: 6,
         .isomorphic: 9,
@@ -203,4 +203,80 @@ class ViewConductor: ObservableObject {
         .strings:     26
     ]
     
+    // KeyboardModel
+    var keyRectInfos: [KeyRectInfo] = []
+    var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
+    
+    var touchLocations: [CGPoint] = [] {
+        didSet {
+            var newPitches = Set<Pitch>()
+            for location in touchLocations {
+                var pitch: Pitch?
+                var highestZindex = -1
+                var normalizedPoint = CGPoint.zero
+                for info in keyRectInfos where info.rect.contains(location) {
+                    if pitch == nil || info.zIndex > highestZindex {
+                        pitch = info.pitch
+                        highestZindex = info.zIndex
+                        normalizedPoint = CGPoint(x: (location.x - info.rect.minX) / info.rect.width,
+                                                  y: (location.y - info.rect.minY) / info.rect.height)
+                    }
+                }
+                if let p = pitch {
+                    newPitches.insert(p)
+                    normalizedPoints[p.intValue] = normalizedPoint
+                }
+            }
+            if touchedPitches != newPitches {
+                touchedPitches = newPitches
+            }
+        }
+    }
+    
+    /// all touched notes
+    @Published public var touchedPitches = Set<Pitch>() {
+        willSet {
+            print("touched \(touchedPitches.count)")
+            print("touched newValue \(newValue.count)")
+            
+            triggerEvents(from: touchedPitches, to: newValue)
+        }
+    }
+    
+    /// Either latched keys or keys active due to external MIDI events.
+    @Published public var externallyActivatedPitches = Set<Pitch>() {
+        willSet {
+            print("external \(externallyActivatedPitches.count)")
+            print("external newValue \(newValue.count)")
+            triggerEvents(from: externallyActivatedPitches, to: newValue)
+        }
+    }
+    
+    func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
+        let newPitches = newValue.subtracting(oldValue)
+        let oldPitches = oldValue.subtracting(newValue)
+        
+        if layoutChoice == .tonic {
+            for pitch in newPitches {
+                let newTonicMIDI = Int(pitch.midi)
+                if newTonicMIDI != tonicMIDI {
+                    if newTonicMIDI == tonicMIDI + 12 {
+                        pitchDirection = .downward
+                    } else if newTonicMIDI == tonicMIDI - 12 {
+                        pitchDirection = .upward
+                    }
+                    tonicMIDI = newTonicMIDI
+                    buzz()
+                }
+            }
+        } else {
+            for pitch in newPitches {
+                pitch.noteOn()
+            }
+            for pitch in oldPitches {
+                pitch.noteOff()
+            }
+        }
+    }
 }
+
