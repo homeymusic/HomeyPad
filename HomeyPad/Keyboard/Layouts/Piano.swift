@@ -52,7 +52,7 @@ struct Piano<Content>: View where Content: View {
                     Spacer().frame(height: geo.size.height * (1 - spacer.relativeBlackKeyHeight))
                 }
             }
-            .animation(.smooth, value: viewConductor.tonicMIDI)
+            .animation(viewConductor.animationStyle, value: viewConductor.tonicMIDI)
         }
         .clipShape(Rectangle())
     }

@@ -54,7 +54,6 @@ struct Symmetric<Content>: View where Content: View {
                         
                     } else if intervalClass != .six { // skip tritone
                         if safeMIDI(midi: midi) {
-                            
                             KeyContainer(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi],
                                          keyboardKey: keyboardKey)
@@ -65,6 +64,7 @@ struct Symmetric<Content>: View where Content: View {
                 }
             }
         }
+        .animation(viewConductor.animationStyle, value: viewConductor.tonicMIDI)
         .clipShape(Rectangle())
     }
     

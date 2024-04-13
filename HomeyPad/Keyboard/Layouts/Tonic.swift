@@ -25,7 +25,7 @@ struct Tonic<Content>: View where Content: View {
                 }
             }
         }
-        .animation(.smooth, value: tonicConductor.tonicMIDI)
+        .animation(tonicConductor.animationStyle, value: tonicConductor.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

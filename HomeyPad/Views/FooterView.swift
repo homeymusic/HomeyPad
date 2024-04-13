@@ -45,7 +45,7 @@ struct FooterView: View {
             .foregroundColor(.white)
             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(.smooth, value: viewConductor.layoutChoice)
+            .animation(viewConductor.animationStyle, value: viewConductor.layoutChoice)
         }
     }
 }

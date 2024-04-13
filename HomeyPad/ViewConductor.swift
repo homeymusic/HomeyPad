@@ -10,6 +10,8 @@ class ViewConductor: ObservableObject {
     
     let backgroundColor: Color
     
+    let animationStyle: Animation = Animation.linear
+    
     @Published var semitoneShift: IntegerNotation = .zero
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
