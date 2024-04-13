@@ -35,7 +35,12 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var tonicMIDI: Int = 60
+    @Published var tonicMIDI: Int = 60 {
+        willSet(newTonicMIDI) {
+            allPitches[tonicMIDI].isTonic = false
+            allPitches[newTonicMIDI].isTonic = true
+        }
+    }
     
     var tonicPitch: Pitch {
         allPitches[ tonicMIDI]
@@ -256,7 +261,6 @@ class ViewConductor: ObservableObject {
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
         let oldPitches = oldValue.subtracting(newValue)
-        
         if layoutChoice == .tonic {
             for pitch in newPitches {
                 let newTonicMIDI = Int(pitch.midi)

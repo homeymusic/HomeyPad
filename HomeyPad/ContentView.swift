@@ -51,6 +51,7 @@ struct ContentView: View {
             .background(.black)
             .onChange(of: tonicConductor.tonicMIDI) {
                 viewConductor.tonicMIDI = tonicConductor.tonicMIDI
+                tonicConductor.externallyActivatedPitches.removeAll()
             }
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection

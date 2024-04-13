@@ -9,7 +9,8 @@ public class Pitch: ObservableObject, Equatable {
     public var midi: Int8
     public var pitchClass: IntegerNotation
     @Published public var midiState: MIDIState = .off
-    
+    @Published public var isTonic: Bool = false
+
     public init(_ midi: Int8) {
         self.midi = midi
         self.pitchClass = Pitch.pitchClass(midi: Int(self.midi))
