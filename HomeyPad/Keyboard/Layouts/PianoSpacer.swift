@@ -66,14 +66,16 @@ extension PianoSpacer {
 
     public var midiBoundedByNaturals: ClosedRange<Int> {
         var lowIndex: Int = viewConductor.lowMIDI
+        var highIndex: Int = viewConductor.highMIDI
+
         if Pitch.accidental(midi: lowIndex) {
             lowIndex = lowIndex - 1
         }
         
-        var highIndex: Int = viewConductor.highMIDI
-        if Pitch.accidental(midi: lowIndex) {
+        if Pitch.accidental(midi: highIndex) {
             highIndex = highIndex + 1
         }
+        
         return lowIndex...highIndex
     }
 
