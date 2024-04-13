@@ -17,6 +17,7 @@ public struct KeyContainer<Content: View>: View {
          zIndex: Int = 0,
          @ViewBuilder keyboardKey: @escaping (Pitch) -> Content)
     {
+        print("init keyContainer \(conductor.layoutChoice)")
         self.conductor = conductor
         self.pitch = pitch
         self.zIndex = zIndex

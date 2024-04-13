@@ -39,7 +39,6 @@ struct KeyLabelsPopoverView: View {
                                     ForEach(AccidentalChoice.allCases) { accidentalChoice in
                                         Text(accidentalChoice.icon)
                                             .tag(accidentalChoice as AccidentalChoice?)
-                                            .font(.title)
                                     }
                                 }
                                 .pickerStyle(.segmented)

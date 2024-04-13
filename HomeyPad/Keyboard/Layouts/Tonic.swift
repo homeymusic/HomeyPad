@@ -4,9 +4,9 @@ import SwiftUI
 
 struct Tonic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-
+    
     @StateObject var tonicConductor: ViewConductor
-
+    
     var body: some View {
         let midiRange: ClosedRange<Int> = switch tonicConductor.pitchDirection {
         case .downward:
@@ -16,15 +16,16 @@ struct Tonic<Content>: View where Content: View {
         }
         HStack(spacing: 0) {
             ForEach(midiRange, id: \.self) { midi in
-                if midi < 0 || midi > 127 {
-                    Color.clear
-                } else {
+                if safeMIDI(midi: midi) {
                     KeyContainer(conductor: tonicConductor,
                                  pitch: tonicConductor.allPitches[midi],
                                  keyboardKey: keyboardKey)
+                } else {
+                    Color.clear
                 }
             }
         }
+        .animation(.smooth, value: tonicConductor.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

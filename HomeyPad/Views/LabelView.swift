@@ -129,6 +129,17 @@ public struct LabelView: View {
                                 Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
                             )
                         }
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.midi]! {
+                            Color.clear.overlay(
+                                Text(String(keyboardKey.pitch.midi))
+                            )
+                        }
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.frequency]! {
+                            Color.clear.overlay(
+                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
+                            )
+                        }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
                             Color.clear.overlay(
                                 Text(keyboardKey.pitch.mode.label)
@@ -154,17 +165,6 @@ public struct LabelView: View {
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
                             Color.clear.overlay(
                                 Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.midi]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.pitch.midi))
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.frequency]! {
-                            Color.clear.overlay(
-                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
                             )
                         }
                     }
@@ -225,7 +225,7 @@ public struct LabelView: View {
                 
             }
             .foregroundColor(textColor)
-            .lineLimit(1)
+            .minimumScaleFactor(0.1)
         }
         
         var octave: String {

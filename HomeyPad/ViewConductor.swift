@@ -66,6 +66,7 @@ class ViewConductor: ObservableObject {
     }
     
     let allPitches: [Pitch] = Array(0...127).map {Pitch($0)}
+    
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
     
@@ -83,14 +84,16 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    func resetPaletteChoice() {
+        paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
+        buzz()
+    }
+    
     func resetLabels() {
         resetNoteLabels()
         resetIntervalLabels()
         resetAccidentalChoice()
-    }
-    
-    func resetPaletteChoice() {
-        paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
+        buzz()
     }
     
     func resetAccidentalChoice() {

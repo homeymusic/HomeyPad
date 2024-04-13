@@ -22,7 +22,6 @@ struct Piano<Content>: View where Content: View {
                     }
                 }
                 
-                // Black keys.
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(spacing: 0) {
                         Rectangle().opacity(0)
@@ -49,9 +48,11 @@ struct Piano<Content>: View where Content: View {
                             }
                         }
                     }
+
                     Spacer().frame(height: geo.size.height * (1 - spacer.relativeBlackKeyHeight))
                 }
             }
+            .animation(.smooth, value: viewConductor.tonicMIDI)
         }
         .clipShape(Rectangle())
     }
