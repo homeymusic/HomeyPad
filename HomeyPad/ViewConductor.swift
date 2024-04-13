@@ -15,7 +15,6 @@ class ViewConductor: ObservableObject {
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet(newLayoutChoice) {
             if newLayoutChoice != layoutChoice {buzz()}
-            if !self.latching {allPitchesNoteOff()}
         }
     }
     
@@ -28,7 +27,7 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            allPitchesNoteOff()
+            externallyActivatedPitches.removeAll()
         }
     }
     
@@ -236,9 +235,6 @@ class ViewConductor: ObservableObject {
     /// all touched notes
     @Published public var touchedPitches = Set<Pitch>() {
         willSet {
-            print("touched \(touchedPitches.count)")
-            print("touched newValue \(newValue.count)")
-            
             triggerEvents(from: touchedPitches, to: newValue)
         }
     }
@@ -246,8 +242,6 @@ class ViewConductor: ObservableObject {
     /// Either latched keys or keys active due to external MIDI events.
     @Published public var externallyActivatedPitches = Set<Pitch>() {
         willSet {
-            print("external \(externallyActivatedPitches.count)")
-            print("external newValue \(newValue.count)")
             triggerEvents(from: externallyActivatedPitches, to: newValue)
         }
     }
