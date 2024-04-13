@@ -135,7 +135,7 @@ public struct KeyboardKey: View {
     }
     
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
-        conductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : (isSmall ? 0.5 : 0.0)
+        conductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : 0.0
     }
     
     func negativeLeadingPadding(_ size: CGSize) -> CGFloat {

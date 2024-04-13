@@ -16,27 +16,25 @@ struct KeyView: View {
         
         ZStack(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
             KeyRectangle(fillColor: keyboardKey.conductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                .overlay(
-                    ZStack(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
-                        if keyboardKey.outlineTonic {
-                            KeyRectangle(fillColor: keyboardKey.outlineColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                                .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
-                                .overlay(
-                                    ZStack(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
-                                        KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                                            .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
-                                            .overlay(LabelView(keyboardKey: keyboardKey,
-                                                               proxySize: proxySize)
-                                                .frame(maxWidth: .infinity, maxHeight: .infinity))
-                                    })
-                        } else {
-                            KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                                .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
-                                .overlay(LabelView(keyboardKey: keyboardKey,
-                                                   proxySize: proxySize)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity))
-                        }
-                    })
+                .overlay(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
+                    if keyboardKey.outlineTonic {
+                        KeyRectangle(fillColor: keyboardKey.outlineColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                            .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
+                            .overlay(alignment: keyboardKey.conductor.layoutChoice == .piano ? .top : .center) {
+                                KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                                    .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
+                                    .overlay(LabelView(keyboardKey: keyboardKey,
+                                                       proxySize: proxySize)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity))
+                            }
+                    } else {
+                        KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                            .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
+                            .overlay(LabelView(keyboardKey: keyboardKey,
+                                               proxySize: proxySize)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity))
+                    }
+                }
         }
     }
 }

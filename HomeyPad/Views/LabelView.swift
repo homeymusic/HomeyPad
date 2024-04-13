@@ -35,11 +35,11 @@ public struct LabelView: View {
         }
         
         func symbolLength(_ size: CGSize) -> CGFloat {
-            return minDimension(size) * keyboardKey.interval.consonanceDissonance.symbolLength/* * (isSmall ? 1.25 : 1.0)*/
+            return minDimension(size) * keyboardKey.interval.consonanceDissonance.symbolLength
         }
         
         func maxSymbolLength(_ size: CGSize) -> CGFloat {
-            return minDimension(size) * keyboardKey.interval.consonanceDissonance.maxSymbolLength/* * (isSmall ? 1.25 : 1.0)*/
+            return minDimension(size) * keyboardKey.interval.consonanceDissonance.maxSymbolLength
         }
         
         func minDimension(_ size: CGSize) -> CGFloat {
