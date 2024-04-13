@@ -14,7 +14,9 @@ class ViewConductor: ObservableObject {
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet(newLayoutChoice) {
-            if newLayoutChoice != layoutChoice {buzz()}
+            if newLayoutChoice != layoutChoice {
+                buzz()
+            }
         }
     }
     
