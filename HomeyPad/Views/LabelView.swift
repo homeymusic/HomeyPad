@@ -191,7 +191,7 @@ public struct LabelView: View {
                     VStack(spacing: 1.0) {
                         if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.interval]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.interval))
+                                Text(String(keyboardKey.interval.shorthand))
                             )
                         }
                         if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.movableDo]! {
@@ -201,12 +201,12 @@ public struct LabelView: View {
                         }
                         if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.roman]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.roman))
+                                Text(String(keyboardKey.interval.roman(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
                             )
                         }
                         if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.degree]! {
                             Color.clear.overlay(
-                                Text(String(keyboardKey.interval.degree))
+                                Text(String(keyboardKey.interval.degree(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
                             )
                         }
                         if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.integer]! {
@@ -222,6 +222,7 @@ public struct LabelView: View {
             }
             .foregroundColor(textColor)
             .minimumScaleFactor(0.1)
+            .lineLimit(1)
         }
         
         var octave: String {

@@ -3,12 +3,19 @@ struct Interval: Comparable, Equatable {
     public var tonicPitch: Pitch
     public var semitones: Int8
     public var intervalClass: IntegerNotation
+    public var pitchDirection: PitchDirection
     
     public init(pitch: Pitch, tonicPitch: Pitch) {
+        let semitones = pitch.semitones(to: tonicPitch)
         self.pitch = pitch
         self.tonicPitch = tonicPitch
-        self.semitones = pitch.semitones(to: tonicPitch)
+        self.semitones = semitones
         self.intervalClass = IntegerNotation(rawValue: Int8(modulo(Int(self.semitones), 12)))!
+        self.pitchDirection = switch semitones {
+        case let x where x < 0: .downward
+        case let x where x > 0: .upward
+        default: .both
+        }
     }
     
     public var majorMinor: MajorMinor {
@@ -49,104 +56,125 @@ struct Interval: Comparable, Equatable {
     static func < (lhs: Interval, rhs: Interval) -> Bool {
         lhs.consonanceDissonance < rhs.consonanceDissonance && lhs.majorMinor < rhs.majorMinor
     }
-    
-    var upwardPitchMovement: Bool {
-        true
-    }
-    
-    var degree: String {
-        let accidental = upwardPitchMovement ? "♭" : "♯"
-        let prefix = upwardPitchMovement ? "" : "<"
+        
+    func degree(globalPitchDirection: PitchDirection) -> String {
         let caret = "\u{0302}"
-        let tritone = upwardPitchMovement ? "\(prefix)♭5\(caret)" : "\(prefix)♯5\(caret)"
-        
+        let degreeClass = degreeClassShorthand(globalPitchDirection: globalPitchDirection)
+        let accidental: String = globalPitchDirection == .upward ? "♭" : "♯"
+
         switch intervalClass {
         case .zero:
-            return "\(prefix)1\(caret)"
+            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
         case .one:
-            return "\(prefix)\(accidental)2\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
         case .two:
-            return "\(prefix)2\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
         case .three:
-            return "\(prefix)\(accidental)3\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
         case .four:
-            return "\(prefix)3\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
         case .five:
-            return "\(prefix)4\(caret)"
+            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
         case .six:
-            return tritone
+            return pitchDirection == .upward ? "\(pitchDirection.shortHand)♭\(degreeClass)\(caret)" : "\(pitchDirection.shortHand)♯\(degreeClass)\(caret)"
         case .seven:
-            return "\(prefix)5\(caret)"
+            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
         case .eight:
-            return "\(prefix)\(accidental)6\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
         case .nine:
-            return "\(prefix)6\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
         case .ten:
-            return "\(prefix)\(accidental)7\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
         case .eleven :
-            return "\(prefix)7\(caret)"
+            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
         }
     }
     
-    var roman: String {
-        let accidental = upwardPitchMovement ? "♭" : "♯"
-        let prefix = upwardPitchMovement ? "" : "<"
-        let tritone = upwardPitchMovement ? "\(prefix)♯IV♭V" : "\(prefix)♯V♭IV"
-        
+    func roman(globalPitchDirection: PitchDirection) -> String {
+        let romanNumeral = degreeClassShorthand(globalPitchDirection: globalPitchDirection).romanNumeral
+        let accidental: String = globalPitchDirection == .upward ? "♭" : "♯"
+
         switch intervalClass {
         case .zero:
-            return "\(prefix)I"
+            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
         case .one:
-            return "\(prefix)\(accidental)II"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .two:
-            return "\(prefix)II"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .three:
-            return "\(prefix)\(accidental)III"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .four:
-            return "\(prefix)III"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .five:
-            return "\(prefix)IV"
+            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
         case .six:
-            return tritone
+            return globalPitchDirection == .upward ? "\(globalPitchDirection.shortHand)♭\(romanNumeral)" : "\(pitchDirection.shortHand)♯\(romanNumeral)"
         case .seven:
-            return "\(prefix)V"
+            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
         case .eight:
-            return "\(prefix)\(accidental)VI"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .nine:
-            return "\(prefix)VI"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .ten:
-            return "\(prefix)\(accidental)VII"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .eleven :
-            return "\(prefix)VII"
+            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         }
     }
     
-    var interval: String {
-        switch intervalClass {
-        case .zero:
-            return "\(upwardPitchMovement ? "" : "<")P1"
-        case .one:
-            return "m2"
-        case .two:
-            return "M2"
-        case .three:
-            return "m3"
-        case .four:
-            return "M3"
-        case .five:
-            return "P4"
-        case .six:
-            return "tt"
-        case .seven:
-            return "P5"
-        case .eight:
-            return "m6"
-        case .nine:
-            return "M6"
-        case .ten:
-            return "m7"
-        case .eleven:
-            return "M7"
+    public var octave: Int {
+        Int(semitones / 12)
+    }
+    
+    var degreeShorthand: Int {
+        let absModSemitones: Int = abs(Int(semitones) % 12)
+        let degree: Int = switch absModSemitones {
+        case 0:  1
+        case 1:  2
+        case 4:  3
+        case 5:  4
+        case 6:  5
+        case 7:  5
+        case 8:  6
+        case 9:  6
+        case 10: 7
+        case 11: 7
+        case 12: 8
+        default: absModSemitones
+        }
+        return abs(octave) * 7 + degree
+    }
+    
+    func degreeClassShorthand(globalPitchDirection: PitchDirection) -> Int {
+        if semitones == 0 {
+            return 1
+        } else {
+            let modSemitones: Int = modulo(Int(globalPitchDirection == .upward ? semitones : abs(semitones)), 12)
+            return switch modSemitones {
+            case 0:  8
+            case 1:  2
+            case 4:  3
+            case 5:  4
+            case 6:  5
+            case 7:  5
+            case 8:  6
+            case 9:  6
+            case 10: 7
+            case 11: 7
+            default: modSemitones
+            }
+        }
+    }
+    
+    var tritone: Bool {
+        abs(modulo(Int(semitones), 12)) == 6
+    }
+    
+    var shorthand: String {
+        if tritone {
+            return "\(pitchDirection.shortHand)tt"
+        } else {
+            return "\(pitchDirection.shortHand)\(majorMinor.shortHand)\(degreeShorthand)"
         }
     }
     
@@ -181,3 +209,21 @@ struct Interval: Comparable, Equatable {
 
 }
 
+extension Int {
+    var romanNumeral: String {
+        var integerValue = self
+        // Roman numerals cannot be represented in integers greater than 3999
+        if self >= 4000 {
+            return "Invalid input (greater than 3999)"
+        }
+        var numeralString = ""
+        let mappingList: [(Int, String)] = [(1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"), (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
+        for i in mappingList {
+            while (integerValue >= i.0) {
+                integerValue -= i.0
+                numeralString += i.1
+            }
+        }
+        return numeralString
+    }
+}

@@ -30,4 +30,13 @@ enum PitchDirection: Int8, CaseIterable, Identifiable {
         }
     }
 
+    public var shortHand: String {
+        switch self {
+        case .upward:   return ""
+        case .both:     return ""
+        case .downward: return "<"
+        }
+    }
+
+    
 }

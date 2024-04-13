@@ -23,6 +23,14 @@ enum MajorMinor: Int, CaseIterable, Identifiable, Comparable, Equatable {
         }
     }
     
+    var shortHand: String {
+        switch self {
+        case .minor:   return "m"
+        case .major:   return "M"
+        case .neutral: return "P"
+        }
+    }
+    
     static func < (lhs: MajorMinor, rhs: MajorMinor) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
