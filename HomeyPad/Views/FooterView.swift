@@ -41,12 +41,37 @@ struct FooterView: View {
                     .frame(maxWidth: 240)
                     .pickerStyle(.segmented)
                 } else {
-                    let showFewerColumns = viewConductor.midiPerSide[viewConductor.layoutChoice]! > ViewConductor.minMIDIPerSide[viewConductor.layoutChoice]!
-                    let showMoreColumns = viewConductor.midiPerSide[viewConductor.layoutChoice]! < ViewConductor.maxMIDIPerSide[viewConductor.layoutChoice]!
                     HStack(spacing: 0.0) {
-                        let _:Void = print("viewConductor.showRowColsReset \(viewConductor.showRowColsReset)")
                         Button(action: {
-                            viewConductor.resetMIDIPerSide()
+                            viewConductor.rowsPerSide[viewConductor.layoutChoice]! -= 1
+                        }) {
+                            ZStack {
+                                Color.clear.overlay(
+                                    Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
+                                        .foregroundColor(viewConductor.showFewerRows ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showFewerRows ? .regular : .thin))
+                                )
+                                .aspectRatio(1.0, contentMode: .fit)
+                            }
+                        }
+                        .disabled(!viewConductor.showFewerRows)
+
+                        Button(action: {
+                            viewConductor.rowsPerSide[viewConductor.layoutChoice]! += 1
+                        }) {
+                            ZStack {
+                                Color.clear.overlay(
+                                    Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
+                                        .foregroundColor(viewConductor.showMoreRows ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showMoreRows ? .regular : .thin))
+                                )
+                                .aspectRatio(1.0, contentMode: .fit)
+                            }
+                        }
+                        .disabled(!viewConductor.showMoreRows)
+
+                        Button(action: {
+                            viewConductor.resetRowsColsPerSide()
                         }) {
                             ZStack {
                                 Color.clear.overlay(
@@ -60,31 +85,32 @@ struct FooterView: View {
                         .disabled(!viewConductor.showRowColsReset)
 
                         Button(action: {
-                            viewConductor.midiPerSide[viewConductor.layoutChoice]! -= 1
+                            viewConductor.colsPerSide[viewConductor.layoutChoice]! -= 1
                         }) {
                             ZStack {
                                 Color.clear.overlay(
                                     Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                                        .foregroundColor(showFewerColumns ? .white : .gray)
-                                        .font(Font.system(size: .leastNormalMagnitude, weight: showFewerColumns ? .regular : .thin))
+                                        .foregroundColor(viewConductor.showFewerColumns ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showFewerColumns ? .regular : .thin))
                                 )
                                 .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        .disabled(!showFewerColumns)
+                        .disabled(!viewConductor.showFewerColumns)
+                        
                         Button(action: {
-                            viewConductor.midiPerSide[viewConductor.layoutChoice]! += 1
+                            viewConductor.colsPerSide[viewConductor.layoutChoice]! += 1
                         }) {
                             ZStack {
                                 Color.clear.overlay(
                                     Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                                        .foregroundColor(showMoreColumns ? .white : .gray)
-                                        .font(Font.system(size: .leastNormalMagnitude, weight: showMoreColumns ? .regular : .thin))
+                                        .foregroundColor(viewConductor.showMoreColumns ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showMoreColumns ? .regular : .thin))
                                 )
                                 .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        .disabled(!showMoreColumns)
+                        .disabled(!viewConductor.showMoreColumns)
                     }
                 }
             }

@@ -71,11 +71,11 @@ class ViewConductor: ObservableObject {
     }
     
     var lowMIDI: Int {
-        Int(centerMIDI) - midiPerSide[self.layoutChoice]!
+        Int(centerMIDI) - colsPerSide[self.layoutChoice]!
     }
     
     var highMIDI: Int {
-        Int(centerMIDI) + midiPerSide[self.layoutChoice]!
+        Int(centerMIDI) + colsPerSide[self.layoutChoice]!
     }
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -226,19 +226,39 @@ class ViewConductor: ObservableObject {
     
     @Published var pitchDirection: PitchDirection = .upward
     
-    @Published var midiPerSide: [LayoutChoice: Int] = ViewConductor.defaultMIDIPerSide
-    
     var showRowColsReset: Bool {
-        let r = midiPerSide[layoutChoice] != ViewConductor.defaultMIDIPerSide[layoutChoice]
-        print("r: \(r)")
-        return r
+        colsPerSide[layoutChoice] != ViewConductor.defaultColsPerSide[layoutChoice] ||
+        rowsPerSide[layoutChoice] != ViewConductor.defaultRowsPerSide[layoutChoice]
     }
     
-    func resetMIDIPerSide() {
-        midiPerSide[layoutChoice]! = ViewConductor.defaultMIDIPerSide[layoutChoice]!
+    var showMoreRows: Bool {
+        rowsPerSide[layoutChoice]! < ViewConductor.maxRowsPerSide[layoutChoice]!
+    }
+    
+    var showFewerRows: Bool {
+        rowsPerSide[layoutChoice]! > ViewConductor.minRowsPerSide[layoutChoice]!
+    }
+
+    var showFewerColumns: Bool {
+        colsPerSide[layoutChoice]! > ViewConductor.minColsPerSide[layoutChoice]!
+    }
+
+    var showMoreColumns: Bool {
+        colsPerSide[layoutChoice]! < ViewConductor.maxColsPerSide[layoutChoice]!
+    }
+    
+    func resetRowsColsPerSide() {
+        resetRowsPerSide()
+        resetColsPerSide()
+    }
+    
+    @Published var colsPerSide: [LayoutChoice: Int] = ViewConductor.defaultColsPerSide
+    
+    func resetColsPerSide() {
+        colsPerSide[layoutChoice]! = ViewConductor.defaultColsPerSide[layoutChoice]!
     }
         
-    static let defaultMIDIPerSide: [LayoutChoice: Int] = [
+    static let defaultColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 9,
         .symmetric:  13,
@@ -246,7 +266,7 @@ class ViewConductor: ObservableObject {
         .strings:    26
     ]
     
-    static let minMIDIPerSide: [LayoutChoice: Int] = [
+    static let minColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 6,
         .symmetric:  6,
@@ -254,11 +274,41 @@ class ViewConductor: ObservableObject {
         .strings:    26
     ]
 
-    static let maxMIDIPerSide: [LayoutChoice: Int] = [
+    static let maxColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 18,
         .symmetric:  18,
         .piano:      18,
+        .strings:    26
+    ]
+
+    @Published var rowsPerSide: [LayoutChoice: Int] = ViewConductor.defaultRowsPerSide
+    
+    func resetRowsPerSide() {
+        rowsPerSide[layoutChoice]! = ViewConductor.defaultRowsPerSide[layoutChoice]!
+    }
+        
+    static let defaultRowsPerSide: [LayoutChoice: Int] = [
+        .tonic:      0,
+        .isomorphic: 0,
+        .symmetric:  0,
+        .piano:      0,
+        .strings:    6
+    ]
+    
+    static let minRowsPerSide: [LayoutChoice: Int] = [
+        .tonic:      0,
+        .isomorphic: 0,
+        .symmetric:  0,
+        .piano:      0,
+        .strings:    4
+    ]
+
+    static let maxRowsPerSide: [LayoutChoice: Int] = [
+        .tonic:      0,
+        .isomorphic: 4,
+        .symmetric:  2,
+        .piano:      2,
         .strings:    26
     ]
 

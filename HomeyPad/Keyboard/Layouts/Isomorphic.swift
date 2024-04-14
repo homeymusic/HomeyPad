@@ -7,14 +7,19 @@ struct Isomorphic<Content>: View where Content: View {
     @StateObject var viewConductor: ViewConductor
 
     var body: some View {
-        HStack(spacing: 0) {
-            ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { midi in
-                if midi < 0 || midi > 127 {
-                    Color.clear
-                } else {
-                    KeyContainer(conductor: viewConductor,
-                                 pitch: viewConductor.allPitches[midi],
-                                 keyboardKey: keyboardKey)
+        VStack(spacing: 0) {
+            ForEach((-viewConductor.rowsPerSide[.isomorphic]!...viewConductor.rowsPerSide[.isomorphic]!).reversed(), id: \.self) { row in
+                HStack(spacing: 0) {
+                    ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { col in
+                        let midi: Int = col + 12 * row
+                        if safeMIDI(midi: midi) {
+                            KeyContainer(conductor: viewConductor,
+                                         pitch: viewConductor.allPitches[midi],
+                                         keyboardKey: keyboardKey)
+                        } else {
+                            Color.clear
+                        }
+                    }
                 }
             }
         }
