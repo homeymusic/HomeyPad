@@ -41,7 +41,7 @@ struct FooterView: View {
                     .frame(maxWidth: 240)
                     .pickerStyle(.segmented)
                 } else {
-                    HStack(spacing: 0.0) {
+                    HStack(spacing: 7.0) {
                         Button(action: {
                             viewConductor.rowsPerSide[viewConductor.layoutChoice]! -= 1
                         }) {
@@ -55,7 +55,11 @@ struct FooterView: View {
                             }
                         }
                         .disabled(!viewConductor.showFewerRows)
-
+                        
+                        Divider()
+                            .frame(width: 1, height: 17.5)
+                            .overlay(Color(UIColor.systemGray4))
+                        
                         Button(action: {
                             viewConductor.rowsPerSide[viewConductor.layoutChoice]! += 1
                         }) {
@@ -69,7 +73,7 @@ struct FooterView: View {
                             }
                         }
                         .disabled(!viewConductor.showMoreRows)
-
+                        
                         Button(action: {
                             viewConductor.resetRowsColsPerSide()
                         }) {
@@ -83,7 +87,7 @@ struct FooterView: View {
                             }
                         }
                         .disabled(!viewConductor.showRowColsReset)
-
+                        
                         Button(action: {
                             viewConductor.colsPerSide[viewConductor.layoutChoice]! -= 1
                         }) {
@@ -97,6 +101,10 @@ struct FooterView: View {
                             }
                         }
                         .disabled(!viewConductor.showFewerColumns)
+                        
+                        Divider()
+                            .frame(width: 1, height: 17.5)
+                            .overlay(Color(UIColor.systemGray4))
                         
                         Button(action: {
                             viewConductor.colsPerSide[viewConductor.layoutChoice]! += 1
@@ -112,6 +120,10 @@ struct FooterView: View {
                         }
                         .disabled(!viewConductor.showMoreColumns)
                     }
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color(UIColor.systemGray6))
+                    )
                 }
             }
             .foregroundColor(.white)
