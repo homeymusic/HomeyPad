@@ -11,7 +11,6 @@
 		B00B51BA2BCC4EFA0003E6BE /* MIDIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */; };
 		B00B51BC2BCC5DB00003E6BE /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51BB2BCC5DB00003E6BE /* Conductor.swift */; };
 		B00B51BF2BCC5DC00003E6BE /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B00B51BE2BCC5DC00003E6BE /* AudioKit */; };
-		B00B51C12BCC632A0003E6BE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B00B51C02BCC632A0003E6BE /* Sounds */; };
 		B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401D2BB0644D0058EABF /* ViewConductor.swift */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -60,7 +59,6 @@
 /* Begin PBXFileReference section */
 		B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
 		B00B51BB2BCC5DB00003E6BE /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
-		B00B51C02BCC632A0003E6BE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = SOURCE_ROOT; };
 		B024401D2BB0644D0058EABF /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */,
-				B00B51C02BCC632A0003E6BE /* Sounds */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
 			);
@@ -297,7 +294,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00B51C12BCC632A0003E6BE /* Sounds in Resources */,
 				B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */,
 				B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */,
 			);
