@@ -23,6 +23,7 @@
 		B04CE2372BBB3B6F00E8787D /* MajorMinor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2362BBB3B6F00E8787D /* MajorMinor.swift */; };
 		B04CE2392BBB3B9500E8787D /* ConsonanceDissonance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */; };
 		B04CE23B2BBB51F200E8787D /* LayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */; };
+		B067B6DE2BCC682100BC6C45 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B067B6DD2BCC682100BC6C45 /* Sounds */; };
 		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */; };
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
@@ -73,6 +74,8 @@
 		B04CE2382BBB3B9500E8787D /* ConsonanceDissonance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsonanceDissonance.swift; sourceTree = "<group>"; };
 		B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutChoice.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B067B6DD2BCC682100BC6C45 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
 		B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoice.swift; sourceTree = "<group>"; };
 		B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLabelChoice.swift; sourceTree = "<group>"; };
 		B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalLabelChoice.swift; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 		B02673372BAF6C7C00DDFA62 = {
 			isa = PBXGroup;
 			children = (
+				B067B6DD2BCC682100BC6C45 /* Sounds */,
 				B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
@@ -139,6 +143,7 @@
 		B02673422BAF6C7C00DDFA62 /* HomeyPad */ = {
 			isa = PBXGroup;
 			children = (
+				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
@@ -294,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B067B6DE2BCC682100BC6C45 /* Sounds in Resources */,
 				B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */,
 				B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */,
 			);
@@ -479,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HomeyPad/HomeyPad.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HomeyPad/Preview Content\"";
@@ -511,6 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HomeyPad/HomeyPad.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HomeyPad/Preview Content\"";
