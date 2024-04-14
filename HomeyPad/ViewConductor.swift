@@ -11,7 +11,10 @@ class ViewConductor: ObservableObject {
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
         midiHelper.setup(midiManager: midiManager)
+        conductor.start()
     }
+    
+    var conductor = Conductor()
     
     let backgroundColor: Color
     
@@ -396,10 +399,12 @@ class ViewConductor: ObservableObject {
                 midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
                 midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
                 pitch.noteOn()
+                conductor.instrument.play(noteNumber: UInt8(pitch.midi), velocity: 63, channel: 0)
             }
             for pitch in oldPitches {
                 midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
                 pitch.noteOff()
+                conductor.instrument.stop(noteNumber: UInt8(pitch.midi), channel: 0)
             }
         }
     }
