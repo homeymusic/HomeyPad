@@ -12,7 +12,7 @@ struct FooterView: View {
     
     var body: some View {
         HStack {
-
+            
             Button(action: {
                 viewConductor.latching.toggle()
             }) {
@@ -26,20 +26,66 @@ struct FooterView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
-            LayoutAndPalletePickerView(viewConductor: viewConductor)            
-
+            
+            LayoutAndPalletePickerView(viewConductor: viewConductor)
+            
             HStack {
                 if viewConductor.layoutChoice == .strings {
-                        Picker("", selection: $viewConductor.stringsLayoutChoice) {
-                            ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
-                                Text(stringsLayoutChoice.icon.capitalized)
-                                    .tag(stringsLayoutChoice)
-                                    .font(Font.system(size: 17))
+                    Picker("", selection: $viewConductor.stringsLayoutChoice) {
+                        ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
+                            Text(stringsLayoutChoice.icon.capitalized)
+                                .tag(stringsLayoutChoice)
+                                .font(Font.system(size: 17))
+                        }
+                    }
+                    .frame(maxWidth: 240)
+                    .pickerStyle(.segmented)
+                } else {
+                    let showFewerColumns = viewConductor.midiPerSide[viewConductor.layoutChoice]! > ViewConductor.minMIDIPerSide[viewConductor.layoutChoice]!
+                    let showMoreColumns = viewConductor.midiPerSide[viewConductor.layoutChoice]! < ViewConductor.maxMIDIPerSide[viewConductor.layoutChoice]!
+                    HStack(spacing: 0.0) {
+                        let _:Void = print("viewConductor.showRowColsReset \(viewConductor.showRowColsReset)")
+                        Button(action: {
+                            viewConductor.resetMIDIPerSide()
+                        }) {
+                            ZStack {
+                                Color.clear.overlay(
+                                    Image(systemName: "gobackward")
+                                        .foregroundColor(viewConductor.showRowColsReset ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showRowColsReset ? .regular : .thin))
+                                )
+                                .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        .frame(maxWidth: 240)
-                        .pickerStyle(.segmented)
+                        .disabled(!viewConductor.showRowColsReset)
+
+                        Button(action: {
+                            viewConductor.midiPerSide[viewConductor.layoutChoice]! -= 1
+                        }) {
+                            ZStack {
+                                Color.clear.overlay(
+                                    Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
+                                        .foregroundColor(showFewerColumns ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: showFewerColumns ? .regular : .thin))
+                                )
+                                .aspectRatio(1.0, contentMode: .fit)
+                            }
+                        }
+                        .disabled(!showFewerColumns)
+                        Button(action: {
+                            viewConductor.midiPerSide[viewConductor.layoutChoice]! += 1
+                        }) {
+                            ZStack {
+                                Color.clear.overlay(
+                                    Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
+                                        .foregroundColor(showMoreColumns ? .white : .gray)
+                                        .font(Font.system(size: .leastNormalMagnitude, weight: showMoreColumns ? .regular : .thin))
+                                )
+                                .aspectRatio(1.0, contentMode: .fit)
+                            }
+                        }
+                        .disabled(!showMoreColumns)
+                    }
                 }
             }
             .foregroundColor(.white)
@@ -93,7 +139,7 @@ struct LayoutAndPalletePickerView: View {
                 }
             })
             .padding(.trailing, 10)
-
+            
             
             
             Picker("", selection: $viewConductor.layoutChoice) {
@@ -104,7 +150,7 @@ struct LayoutAndPalletePickerView: View {
             }
             .frame(maxWidth: 300)
             .pickerStyle(.segmented)
-
+            
             
             
             Button(action: {

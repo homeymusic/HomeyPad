@@ -59,66 +59,69 @@ struct Interval: Comparable, Equatable {
         
     func degree(globalPitchDirection: PitchDirection) -> String {
         let caret = "\u{0302}"
-        let degreeClass = degreeClassShorthand(globalPitchDirection: globalPitchDirection)
+        let degree = degreeClassShorthand(globalPitchDirection: globalPitchDirection)
+        let direction = globalPitchDirection.shortHand
         let accidental: String = globalPitchDirection == .upward ? "♭" : "♯"
+        
 
         switch intervalClass {
         case .zero:
-            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
+            return "\(direction)\(degree)\(caret)"
         case .one:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(degree)\(caret)"
         case .two:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(degree)\(caret)"
         case .three:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(degree)\(caret)"
         case .four:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(degree)\(caret)"
         case .five:
-            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
+            return "\(direction)\(degree)\(caret)"
         case .six:
-            return pitchDirection == .upward ? "\(pitchDirection.shortHand)♭\(degreeClass)\(caret)" : "\(pitchDirection.shortHand)♯\(degreeClass)\(caret)"
+            return globalPitchDirection == .upward ? "\(direction)♭\(degree)\(caret)" : "\(direction)♯\(degree)\(caret)"
         case .seven:
-            return "\(pitchDirection.shortHand)\(degreeClass)\(caret)"
+            return "\(direction)\(degree)\(caret)"
         case .eight:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(degree)\(caret)"
         case .nine:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(degree)\(caret)"
         case .ten:
-            return "\(pitchDirection.shortHand)\(pitchDirection == .upward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(degree)\(caret)"
         case .eleven :
-            return "\(pitchDirection.shortHand)\(pitchDirection == .downward ? accidental : "")\(degreeClass)\(caret)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(degree)\(caret)"
         }
     }
     
     func roman(globalPitchDirection: PitchDirection) -> String {
         let romanNumeral = degreeClassShorthand(globalPitchDirection: globalPitchDirection).romanNumeral
         let accidental: String = globalPitchDirection == .upward ? "♭" : "♯"
+        let direction = globalPitchDirection.shortHand
 
         switch intervalClass {
         case .zero:
-            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
+            return "\(direction)\(romanNumeral)"
         case .one:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .two:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .three:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .four:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .five:
-            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
+            return "\(direction)\(romanNumeral)"
         case .six:
-            return globalPitchDirection == .upward ? "\(globalPitchDirection.shortHand)♭\(romanNumeral)" : "\(pitchDirection.shortHand)♯\(romanNumeral)"
+            return globalPitchDirection == .upward ? "\(direction)♭\(romanNumeral)" : "\(pitchDirection.shortHand)♯\(romanNumeral)"
         case .seven:
-            return "\(globalPitchDirection.shortHand)\(romanNumeral)"
+            return "\(direction)\(romanNumeral)"
         case .eight:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .nine:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         case .ten:
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .upward ? accidental : "")\(romanNumeral)"
         case .eleven :
-            return "\(globalPitchDirection.shortHand)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
+            return "\(direction)\(globalPitchDirection == .downward ? accidental : "")\(romanNumeral)"
         }
     }
     

@@ -16,7 +16,7 @@ class ViewConductor: ObservableObject {
     let animationStyle: Animation = Animation.linear
     
     let allPitches: [Pitch]
-
+    
     
     @Published var semitoneShift: IntegerNotation = .zero
     
@@ -104,7 +104,6 @@ class ViewConductor: ObservableObject {
         buzz()
     }
     
-
     var areLabelsDefault: Bool {
         noteLabels[layoutChoice] == ViewConductor.defaultNoteLabels[layoutChoice] &&
         intervalLabels[layoutChoice] == ViewConductor.defaultIntervalLabels[layoutChoice] &&
@@ -227,14 +226,42 @@ class ViewConductor: ObservableObject {
     
     @Published var pitchDirection: PitchDirection = .upward
     
-    @Published var midiPerSide: [LayoutChoice: Int] = [
-        .tonic: 6,
+    @Published var midiPerSide: [LayoutChoice: Int] = ViewConductor.defaultMIDIPerSide
+    
+    var showRowColsReset: Bool {
+        let r = midiPerSide[layoutChoice] != ViewConductor.defaultMIDIPerSide[layoutChoice]
+        print("r: \(r)")
+        return r
+    }
+    
+    func resetMIDIPerSide() {
+        midiPerSide[layoutChoice]! = ViewConductor.defaultMIDIPerSide[layoutChoice]!
+    }
+        
+    static let defaultMIDIPerSide: [LayoutChoice: Int] = [
+        .tonic:      6,
         .isomorphic: 9,
         .symmetric:  13,
         .piano:      13,
-        .strings:     26
+        .strings:    26
     ]
     
+    static let minMIDIPerSide: [LayoutChoice: Int] = [
+        .tonic:      6,
+        .isomorphic: 6,
+        .symmetric:  6,
+        .piano:      6,
+        .strings:    26
+    ]
+
+    static let maxMIDIPerSide: [LayoutChoice: Int] = [
+        .tonic:      6,
+        .isomorphic: 18,
+        .symmetric:  18,
+        .piano:      18,
+        .strings:    26
+    ]
+
     // KeyboardModel
     var keyRectInfos: [KeyRectInfo] = []
     var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
