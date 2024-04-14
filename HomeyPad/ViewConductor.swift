@@ -1,4 +1,5 @@
 import SwiftUI
+import MIDIKit
 
 class ViewConductor: ObservableObject {
     
@@ -9,6 +10,7 @@ class ViewConductor: ObservableObject {
         self.tonicMIDI = tonicMIDI
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
+        midiHelper.setup(midiManager: midiManager)
     }
     
     let backgroundColor: Color
@@ -17,9 +19,14 @@ class ViewConductor: ObservableObject {
     
     let allPitches: [Pitch]
     
+    let midiManager = ObservableMIDIManager(
+        clientName: "Homey Pad",
+        model: "iOS",
+        manufacturer: "Homey Music"
+    )
     
-    @Published var semitoneShift: IntegerNotation = .zero
-    
+    @ObservedObject var midiHelper = MIDIHelper()
+
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet(newLayoutChoice) {
             if newLayoutChoice != layoutChoice {
@@ -45,6 +52,11 @@ class ViewConductor: ObservableObject {
         willSet(newTonicMIDI) {
             allPitches[tonicMIDI].isTonic = false
             allPitches[newTonicMIDI].isTonic = true
+        }
+        didSet {
+            if layoutChoice == .tonic {
+                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
+            }
         }
     }
     
@@ -224,7 +236,13 @@ class ViewConductor: ObservableObject {
     
     @Published var showPalettePopover: Bool = false
     
-    @Published var pitchDirection: PitchDirection = .upward
+    @Published var pitchDirection: PitchDirection = .upward {
+        didSet {
+            if layoutChoice == .tonic {
+                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
+            }
+        }
+    }
     
     var showRowColsReset: Bool {
         colsPerSide[layoutChoice] != ViewConductor.defaultColsPerSide[layoutChoice] ||
@@ -374,9 +392,13 @@ class ViewConductor: ObservableObject {
             }
         } else {
             for pitch in newPitches {
+                midiHelper.sendNoteOn(noteNumber: UInt7(pitch.midi))
+                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
+                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
                 pitch.noteOn()
             }
             for pitch in oldPitches {
+                midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
                 pitch.noteOff()
             }
         }
