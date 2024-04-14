@@ -12,7 +12,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable {
         case .tonic: return "house"
         case .isomorphic: return "rectangle.split.2x1"
         case .symmetric: return "rectangle.split.2x2"
-        case .piano: return "pianokeys.inverse"
+        case .piano: return "pianokeys"
         case .strings: return "guitars"
         }
     }

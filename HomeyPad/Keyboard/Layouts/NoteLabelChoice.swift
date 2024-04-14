@@ -6,7 +6,7 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     case midi        = "midi"
     case frequency   = "frequency"
     case mode        = "mode"
-    case map         = "modal nav"
+    case plot         = "plot"
     case month       = "month"
 
     public var id: String { self.rawValue }
@@ -14,12 +14,12 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable {
     public var icon: String {
         switch self {
         case .letter:      return "c.square"
-        case .accidentals: return "arrow.down.left.arrow.up.right.square"
+        case .accidentals: return "arrow.up.arrow.down.square"
         case .octave:      return "4.square"
         case .fixedDo:     return "person.2.wave.2"
         case .month:       return "calendar"
-        case .mode:        return "theatermasks"
-        case .map:         return "map"
+        case .mode:        return "building.columns"
+        case .plot:        return "map"
         case .midi:        return "60.square"
         case .frequency:   return "water.waves"
         }

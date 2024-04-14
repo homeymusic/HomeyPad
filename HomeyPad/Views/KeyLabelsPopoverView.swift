@@ -32,7 +32,7 @@ struct KeyLabelsPopoverView: View {
                         }
                         if key == .fixedDo {
                             GridRow {
-                                Image(systemName: "arrow.down.left.arrow.up.right.square")
+                                Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
                                     .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
                                 Picker("", selection: $viewConductor.accidentalChoices[viewConductor.layoutChoice]) {
@@ -71,21 +71,6 @@ struct KeyLabelsPopoverView: View {
                         Divider()
                     }
                 }
-
-                Divider()
-                
-                GridRow {
-                    Button(action: {
-                        viewConductor.resetLabels()
-                    }, label: {
-                        Image(systemName: "gobackward")
-                            .gridCellAnchor(.center)
-                            .foregroundColor(.white)
-                    })
-                    .gridCellColumns(2)
-                }
-                .padding(.top, 3)
-
             }
             .padding(10)
         }

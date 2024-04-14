@@ -95,9 +95,20 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    var isPaletteDefault: Bool {
+        paletteChoices[layoutChoice] == ViewConductor.defaultPaletteChoices[layoutChoice]
+    }
+    
     func resetPaletteChoice() {
         paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
         buzz()
+    }
+    
+
+    var areLabelsDefault: Bool {
+        noteLabels[layoutChoice] == ViewConductor.defaultNoteLabels[layoutChoice] &&
+        intervalLabels[layoutChoice] == ViewConductor.defaultIntervalLabels[layoutChoice] &&
+        accidentalChoices[layoutChoice] == ViewConductor.defaultAccidentalChoices[layoutChoice]
     }
     
     func resetLabels() {
@@ -107,16 +118,16 @@ class ViewConductor: ObservableObject {
         buzz()
     }
     
-    func resetAccidentalChoice() {
-        accidentalChoices[layoutChoice] = ViewConductor.defaultAccidentalChoices[layoutChoice]
-    }
-    
     func resetNoteLabels() {
         noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
     }
     
     func resetIntervalLabels() {
         intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
+    }
+    
+    func resetAccidentalChoice() {
+        accidentalChoices[layoutChoice] = ViewConductor.defaultAccidentalChoices[layoutChoice]
     }
     
     func accidentalChoice() -> AccidentalChoice {
@@ -137,7 +148,13 @@ class ViewConductor: ObservableObject {
         paletteChoices[layoutChoice]!
     }
     
-    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = defaultPaletteChoices
+    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = defaultPaletteChoices {
+        willSet(newPaletteChoices) {
+            if newPaletteChoices[layoutChoice]! != paletteChoices[layoutChoice]! {
+                buzz()
+            }
+        }
+    }
     
     static let defaultPaletteChoices: [LayoutChoice: PaletteChoice] = [
         .tonic:       .subtle,
@@ -150,11 +167,11 @@ class ViewConductor: ObservableObject {
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .mode: false, .map: false, .midi: false , .frequency: false],
-        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .mode: false, .map: false, .midi: false, .frequency: false],
-        .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .map: false, .midi: false, .frequency: false],
-        .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .map: false, .midi: false, .frequency: false],
-        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .map: false, .midi: false, .frequency: false]
+        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .mode: false, .plot: false, .midi: false , .frequency: false],
+        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .mode: false, .plot: false, .midi: false, .frequency: false],
+        .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false],
+        .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false],
+        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false]
     ]
     
     @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels

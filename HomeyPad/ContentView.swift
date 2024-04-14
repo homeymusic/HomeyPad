@@ -12,6 +12,11 @@ struct ContentView: View {
                 Color.black
                 ZStack() {
                     VStack {
+                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
+                            .frame(height: settingsHeight)
+                        Spacer()
+                    }
+                    VStack {
                         if showTonicPicker {
                             Keyboard(conductor: tonicConductor) { pitch in
                                 KeyboardKey(pitch: pitch,
@@ -34,11 +39,6 @@ struct ContentView: View {
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
-                    VStack {
-                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
-                            .frame(height: settingsHeight)
-                        Spacer()
-                    }
                     VStack {
                         Spacer()
                         FooterView(viewConductor: viewConductor)

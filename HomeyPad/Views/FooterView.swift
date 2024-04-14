@@ -31,15 +31,15 @@ struct FooterView: View {
 
             HStack {
                 if viewConductor.layoutChoice == .strings {
-                    Picker("", selection: $viewConductor.stringsLayoutChoice) {
-                        ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
-                            Text(stringsLayoutChoice.icon.capitalized)
-                                .tag(stringsLayoutChoice)
-                                .font(Font.system(size: 17))
+                        Picker("", selection: $viewConductor.stringsLayoutChoice) {
+                            ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
+                                Text(stringsLayoutChoice.icon.capitalized)
+                                    .tag(stringsLayoutChoice)
+                                    .font(Font.system(size: 17))
+                            }
                         }
-                    }
-                    .frame(maxWidth: 240)
-                    .pickerStyle(.segmented)
+                        .frame(maxWidth: 240)
+                        .pickerStyle(.segmented)
                 }
             }
             .foregroundColor(.white)
@@ -74,11 +74,22 @@ struct LayoutAndPalletePickerView: View {
                     Image(systemName: viewConductor.layoutChoice.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
-                    ScrollView {
+                    ScrollView(.vertical) {
                         KeyLabelsPopoverView(viewConductor: viewConductor)
                             .presentationCompactAdaptation(.popover)
                     }
                     .scrollIndicatorsFlash(onAppear: true)
+                    Divider()
+                    Button(action: {
+                        viewConductor.resetLabels()
+                    }, label: {
+                        Image(systemName: "gobackward")
+                            .gridCellAnchor(.center)
+                            .foregroundColor(viewConductor.areLabelsDefault ? .gray : .white)
+                    })
+                    .gridCellColumns(2)
+                    .disabled(viewConductor.areLabelsDefault)
+                    .padding([.top, .bottom], 7)
                 }
             })
             .padding(.trailing, 10)

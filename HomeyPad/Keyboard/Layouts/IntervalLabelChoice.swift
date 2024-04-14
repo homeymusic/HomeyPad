@@ -13,7 +13,7 @@ public enum IntervalLabelChoice: String, CaseIterable, Identifiable {
         case .symbol:     return "diamond"
         case .interval:   return "p1.button.horizontal"
         case .movableDo:  return "person.wave.2"
-        case .roman:      return "building.columns.fill"
+        case .roman:      return "v.square"
         case .degree:     return "control"
         case .integer:    return "0.square"
         }

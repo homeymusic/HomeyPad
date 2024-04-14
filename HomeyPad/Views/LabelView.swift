@@ -142,7 +142,7 @@ public struct LabelView: View {
                                     .foregroundColor(keyboardKey.accentColor)
                             )
                         }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.map]! {
+                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.plot]! {
                             Color.clear.overlay(
                                 HStack(spacing: 0.0) {
                                     Image(systemName: keyboardKey.pitch.mode.pitchDirection.icon)

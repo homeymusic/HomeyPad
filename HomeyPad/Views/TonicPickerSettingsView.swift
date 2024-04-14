@@ -26,11 +26,22 @@ struct TonicPickerSettingsView: View {
                         Image(systemName: LayoutChoice.tonic.icon + ".fill")
                             .padding([.top, .bottom], 7)
                         Divider()
-                        ScrollView {
+                        ScrollView(.vertical) {
                             KeyLabelsPopoverView(viewConductor: tonicConductor)
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)
+                        Divider()
+                        Button(action: {
+                            tonicConductor.resetLabels()
+                        }, label: {
+                            Image(systemName: "gobackward")
+                                .gridCellAnchor(.center)
+                                .foregroundColor(tonicConductor.areLabelsDefault ? .gray : .white)
+                        })
+                        .gridCellColumns(2)
+                        .disabled(tonicConductor.areLabelsDefault)
+                        .padding([.top, .bottom], 7)
                     }
                 })
                 .transition(.scale)
@@ -39,6 +50,7 @@ struct TonicPickerSettingsView: View {
             Button(action: {
                 withAnimation {
                     showTonicPicker.toggle()
+                    buzz()
                 }
             }) {
                 ZStack {

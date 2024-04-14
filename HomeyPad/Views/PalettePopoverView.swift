@@ -22,15 +22,16 @@ struct PalettePopoverView: View {
             .padding(10)
             
             Divider()
-            
+
             Button(action: {
                 viewConductor.resetPaletteChoice()
             }, label: {
                 Image(systemName: "gobackward")
                     .gridCellAnchor(.center)
-                    .foregroundColor(.white)
+                    .foregroundColor(viewConductor.isPaletteDefault ? .gray : .white)
             })
             .padding([.top, .bottom], 7)
+            .disabled(viewConductor.isPaletteDefault)
             
         }
     }
