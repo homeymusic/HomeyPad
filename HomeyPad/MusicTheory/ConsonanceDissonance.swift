@@ -1,11 +1,11 @@
 import SwiftUI
 
 enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatable {
-    case dissonant = 0
-    case consonant = 1
-    case perfect = 2
-    case octave = 3
     case tonic = 4
+    case octave = 3
+    case perfect = 2
+    case consonant = 1
+    case dissonant = 0
     
     var id: Int { self.rawValue }
     
@@ -16,6 +16,16 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
         case .perfect: return NitterTurret()
         case .consonant: return NitterDiamond()
         case .dissonant: return Circle()
+        }
+    }
+    
+    var label: String {
+        switch self {
+        case .tonic: return "tonic"
+        case .octave: return "octave"
+        case .perfect: return "perfect"
+        case .consonant: return "consonant"
+        case .dissonant: return "dissonant"
         }
     }
     

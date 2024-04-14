@@ -77,8 +77,7 @@ struct TonicPickerSettingsView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $tonicConductor.showPalettePopover,
-                         content: {
+                .popover(isPresented: $tonicConductor.showPalettePopover, content: {
                     VStack(spacing: 0) {
                         Image(systemName: LayoutChoice.tonic.icon + ".fill")
                             .padding([.top, .bottom], 7)

@@ -180,6 +180,39 @@ struct Interval: Comparable, Equatable {
             return "\(pitchDirection.shortHand)\(majorMinor.shortHand)\(degreeShorthand)"
         }
     }
+
+    var label: String {
+        if pitch == tonicPitch {
+            return "unison"
+        } else {
+            return switch intervalClass {
+            case .zero:
+                "octave"
+            case .one:
+                "minor second"
+            case .two:
+                "major second"
+            case .three:
+                "minor third"
+            case .four:
+                "major third"
+            case .five:
+                "perfect fourth"
+            case .six:
+                "tritone"
+            case .seven:
+                "perfect fifth"
+            case .eight:
+                "minor sixth"
+            case .nine:
+                "major sixth"
+            case .ten:
+                "minor seventh"
+            case .eleven:
+                "major seventh"
+            }
+        }
+    }
     
     var movableDo: String {
         switch intervalClass {
@@ -229,4 +262,31 @@ extension Int {
         }
         return numeralString
     }
+}
+
+enum IntervalClass: Int8, CaseIterable, Identifiable, Comparable, Equatable {
+    case P1 = 0
+    case P8 = 12
+    case P5 = 7
+    case P4 = 5
+    case M3 = 4
+    case m3 = 3
+    case M6 = 9
+    case m6 = 8
+    case tt = 6
+    case M2 = 2
+    case m2 = 1
+    case M7 = 11
+    case m7 = 10
+
+    var id: Int8 { self.rawValue }
+
+    static func < (lhs: IntervalClass, rhs: IntervalClass) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+
+    var interval: Interval {
+        Interval(pitch: Pitch(self.rawValue), tonicPitch: Pitch(0) )
+    }
+    
 }

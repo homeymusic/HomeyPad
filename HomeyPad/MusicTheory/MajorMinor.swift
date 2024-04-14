@@ -1,12 +1,20 @@
 import CoreGraphics
 
 enum MajorMinor: Int, CaseIterable, Identifiable, Comparable, Equatable {
-    case minor   = 0
-    case neutral = 1
-    case major   = 2
+    case major   =  1
+    case neutral =  0
+    case minor   = -1
     
     var id: Int { self.rawValue }
 
+    var label: String {
+        switch self {
+        case .major:   return "major"
+        case .neutral: return "neutral"
+        case .minor:   return "minor"
+        }
+    }
+    
     var color: CGColor {
         switch self {
         case .minor:   return #colorLiteral(red: 0.5411764706, green: 0.7725490196, blue: 1, alpha: 1)

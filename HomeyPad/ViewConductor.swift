@@ -104,6 +104,8 @@ class ViewConductor: ObservableObject {
         stringsLayoutChoice.openStringsMIDI
     }
     
+    @Published var showHelp: Bool = false
+    
     func allPitchesNoteOff() {
         self.allPitches.forEach {pitch in
             pitch.noteOff()
