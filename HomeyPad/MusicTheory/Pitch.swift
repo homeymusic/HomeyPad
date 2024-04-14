@@ -127,7 +127,7 @@ public class Pitch: ObservableObject, Equatable {
     }
 
     var mode: Mode {
-        Mode.allCases[Int(self.pitchClass.rawValue)]
+        Mode(rawValue: Int(self.pitchClass.rawValue))!
     }
 
 }

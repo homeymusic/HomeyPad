@@ -138,7 +138,7 @@ public struct LabelView: View {
                         }
                         if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
                             Color.clear.overlay(
-                                Text(keyboardKey.pitch.mode.label)
+                                Text(keyboardKey.pitch.mode.shortHand)
                                     .foregroundColor(keyboardKey.accentColor)
                             )
                         }

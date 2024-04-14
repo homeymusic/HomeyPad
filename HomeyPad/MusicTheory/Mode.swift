@@ -1,16 +1,16 @@
 enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
     case ionian               = 0
-    case mixolydianPentatonic = 1
-    case dorian               = 2
-    case aeolianPentatonic    = 3
     case phrygian             = 4
-    case lydian               = 5
-    case ionianPentatonic     = 6
     case mixolydian           = 7
-    case dorianPentatonic     = 8
     case aeolian              = 9
-    case phrygianPentatonic   = 10
+    case dorian               = 2
+    case lydian               = 5
     case locrian              = 11
+    case ionianPentatonic     = 6
+    case phrygianPentatonic   = 10
+    case mixolydianPentatonic = 1
+    case aeolianPentatonic    = 3
+    case dorianPentatonic     = 8
     
     var id: String { String(self.rawValue) }
     
@@ -32,6 +32,23 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
     }
     
     public var label: String {
+        switch self {
+        case .ionian:               return "ionian"
+        case .mixolydianPentatonic: return "mixolydian pentatonic"
+        case .dorian:               return "dorian"
+        case .aeolianPentatonic:    return "aeolian pentatonic"
+        case .phrygian:             return "phrygian"
+        case .lydian:               return "lydian"
+        case .ionianPentatonic:     return "ionian pentatonic"
+        case .mixolydian:           return "mixolydian"
+        case .dorianPentatonic:     return "dorian pentatonic"
+        case .aeolian:              return "aeolian"
+        case .phrygianPentatonic:   return "phrygian pentatonic"
+        case .locrian:              return "locrian"
+        }
+    }
+    
+    public var shortHand: String {
         switch self {
         case .ionian:               return "ION"
         case .mixolydianPentatonic: return "mix"
@@ -82,6 +99,10 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
         }
     }
 
+    public var letter: String {
+        let pitch: Pitch = Pitch(Int8(self.rawValue))
+        return pitch.letter(pitchDirection == .upward || pitchDirection == .both ? .flat : .sharp)
+    }
 }
 
 enum Scale: Int, CaseIterable, Identifiable, Comparable, Equatable {

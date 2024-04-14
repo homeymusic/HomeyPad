@@ -38,5 +38,11 @@ enum PitchDirection: Int8, CaseIterable, Identifiable {
         }
     }
 
-    
+    public var label: String {
+        switch self {
+        case .upward:   return "upward"
+        case .both:     return "upward or downward"
+        case .downward: return "downward"
+        }
+    }
 }

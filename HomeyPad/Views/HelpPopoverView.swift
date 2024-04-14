@@ -43,6 +43,36 @@ struct HelpPopoverView: View {
                     Text(intervalClass.interval.label)
                 }
             }
+            Text("Chords")
+            ForEach(ChordShape.allCases, id: \.self) { chord in
+                HStack {
+                    Image(systemName: chord.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(Color(chord.majorMinor.color))
+                    Text(chord.rawValue)
+                }
+            }
+            Text("Pitch Directions")
+            ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
+                HStack {
+                    Image(systemName: pitchDirection.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(Color(pitchDirection.majorMinor.color))
+                    Text(pitchDirection.label)
+                }
+            }
+            Text("Modes")
+            ForEach(Mode.allCases, id: \.self) { mode in
+                HStack {
+                    Image(systemName: mode.pitchDirection.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(Color(mode.pitchDirection.majorMinor.color))
+                    Image(systemName: mode.chordShape.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(Color(mode.chordShape.majorMinor.color))
+                    Text("\(mode.letter) \(mode.label)")
+                }
+            }
         }
     }
 }
