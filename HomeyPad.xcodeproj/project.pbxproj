@@ -25,6 +25,8 @@
 		B04CE23B2BBB51F200E8787D /* LayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */; };
 		B067B6DE2BCC682100BC6C45 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B067B6DD2BCC682100BC6C45 /* Sounds */; };
 		B067B6E12BCC735000BC6C45 /* HelpPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E02BCC735000BC6C45 /* HelpPopoverView.swift */; };
+		B067B6E32BCD884500BC6C45 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */; };
+		B067B6E52BCD886600BC6C45 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */; };
 		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */; };
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
@@ -78,6 +80,8 @@
 		B067B6DD2BCC682100BC6C45 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
 		B067B6E02BCC735000BC6C45 /* HelpPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPopoverView.swift; sourceTree = "<group>"; };
+		B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
+		B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoice.swift; sourceTree = "<group>"; };
 		B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLabelChoice.swift; sourceTree = "<group>"; };
 		B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalLabelChoice.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				B067B6E02BCC735000BC6C45 /* HelpPopoverView.swift */,
 				B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */,
 				B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */,
+				B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */,
+				B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */,
 				B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */,
 				B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */,
 				B0E25F772BC630C30072A09A /* OctaveShiftView.swift */,
@@ -327,6 +333,7 @@
 				B0A0FFC32BC0341500FFB98C /* PalettePopoverView.swift in Sources */,
 				B0C7FD3C2BBAFB29006FF26F /* Strings.swift in Sources */,
 				B0CEE1F82BC88D6000B96ACA /* SafeMIDI.swift in Sources */,
+				B067B6E32BCD884500BC6C45 /* RowsColsPickerView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */,
@@ -344,6 +351,7 @@
 				B00B51BA2BCC4EFA0003E6BE /* MIDIHelper.swift in Sources */,
 				B0CEE1FA2BC8D87D00B96ACA /* Buzz.swift in Sources */,
 				B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */,
+				B067B6E52BCD886600BC6C45 /* LayoutAndPalletePickerView.swift in Sources */,
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,
 				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */,

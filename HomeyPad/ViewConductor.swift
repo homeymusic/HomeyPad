@@ -257,6 +257,52 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    func fewerRows() {
+        switch layoutChoice {
+        case .isomorphic: rowsPerSide[layoutChoice]! -= 1
+        default: rowsPerSide[layoutChoice]! -= 1
+        }
+    }
+
+    func moreRows() {
+        switch layoutChoice {
+        case .isomorphic: rowsPerSide[layoutChoice]! += 1
+        default: rowsPerSide[layoutChoice]! += 1
+        }
+    }
+    
+    func fewerCols() {
+        switch layoutChoice {
+        case .isomorphic: rowsPerSide[layoutChoice]! -= 1
+        case .symmetric:
+            let colJump: [Int:Int] = [
+                17:2,
+                15:2,
+                13:3,
+                10:2,
+                8:2
+            ]
+            colsPerSide[layoutChoice]! -= colJump[colsPerSide[layoutChoice]!] ?? 1
+        default: colsPerSide[layoutChoice]! -= 1
+        }
+    }
+        
+    func moreCols() {
+        switch layoutChoice {
+        case .isomorphic: colsPerSide[layoutChoice]! += 1
+        case .symmetric:
+            let colJump: [Int:Int] = [
+                6:2,
+                8:2,
+                10:3,
+                13:2,
+                15:2,
+            ]
+            colsPerSide[layoutChoice]! += colJump[colsPerSide[layoutChoice]!] ?? 1
+        default: colsPerSide[layoutChoice]! += 1
+        }
+    }
+    
     var showRowColsReset: Bool {
         colsPerSide[layoutChoice] != ViewConductor.defaultColsPerSide[layoutChoice] ||
         rowsPerSide[layoutChoice] != ViewConductor.defaultRowsPerSide[layoutChoice]
@@ -419,9 +465,7 @@ class ViewConductor: ObservableObject {
         }
     }
         
-    static var currentTritoneLength: CGFloat = 0.0 {
-        didSet {print("currentTritoneLength: \(currentTritoneLength)")}
-    }
+    static var currentTritoneLength: CGFloat = 0.0
     
     func tritoneLength(proxySize: CGSize) -> CGFloat {
         ViewConductor.currentTritoneLength = min(proxySize.height * 1/3, proxySize.width)
