@@ -152,7 +152,7 @@ struct Interval: Comparable, Equatable {
         if semitones == 0 {
             return 1
         } else {
-            let modSemitones: Int = modulo(Int(globalPitchDirection == .upward ? semitones : abs(semitones)), 12)
+            let modSemitones: Int = modulo(Int(globalPitchDirection == .upward ? semitones : -semitones), 12)
             return switch modSemitones {
             case 0:  8
             case 1:  2
