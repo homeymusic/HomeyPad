@@ -29,7 +29,7 @@ class ViewConductor: ObservableObject {
     )
     
     @ObservedObject var midiHelper = MIDIHelper()
-
+    
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         willSet(newLayoutChoice) {
             if newLayoutChoice != layoutChoice {
@@ -269,11 +269,11 @@ class ViewConductor: ObservableObject {
     var showFewerRows: Bool {
         rowsPerSide[layoutChoice]! > ViewConductor.minRowsPerSide[layoutChoice]!
     }
-
+    
     var showFewerColumns: Bool {
         colsPerSide[layoutChoice]! > ViewConductor.minColsPerSide[layoutChoice]!
     }
-
+    
     var showMoreColumns: Bool {
         colsPerSide[layoutChoice]! < ViewConductor.maxColsPerSide[layoutChoice]!
     }
@@ -288,7 +288,7 @@ class ViewConductor: ObservableObject {
     func resetColsPerSide() {
         colsPerSide[layoutChoice]! = ViewConductor.defaultColsPerSide[layoutChoice]!
     }
-        
+    
     static let defaultColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 9,
@@ -304,7 +304,7 @@ class ViewConductor: ObservableObject {
         .piano:      6,
         .strings:    26
     ]
-
+    
     static let maxColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 18,
@@ -312,13 +312,13 @@ class ViewConductor: ObservableObject {
         .piano:      18,
         .strings:    26
     ]
-
+    
     @Published var rowsPerSide: [LayoutChoice: Int] = ViewConductor.defaultRowsPerSide
     
     func resetRowsPerSide() {
         rowsPerSide[layoutChoice]! = ViewConductor.defaultRowsPerSide[layoutChoice]!
     }
-        
+    
     static let defaultRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
         .isomorphic: 0,
@@ -334,7 +334,7 @@ class ViewConductor: ObservableObject {
         .piano:      0,
         .strings:    4
     ]
-
+    
     static let maxRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
         .isomorphic: 4,
@@ -342,7 +342,7 @@ class ViewConductor: ObservableObject {
         .piano:      2,
         .strings:    26
     ]
-
+    
     // KeyboardModel
     var keyRectInfos: [KeyRectInfo] = []
     var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
@@ -417,6 +417,15 @@ class ViewConductor: ObservableObject {
                 conductor.instrument.stop(noteNumber: UInt8(pitch.midi), channel: 0)
             }
         }
+    }
+        
+    static var currentTritoneLength: CGFloat = 0.0 {
+        didSet {print("currentTritoneLength: \(currentTritoneLength)")}
+    }
+    
+    func tritoneLength(proxySize: CGSize) -> CGFloat {
+        ViewConductor.currentTritoneLength = min(proxySize.height * 1/3, proxySize.width)
+        return ViewConductor.currentTritoneLength
     }
     
 }

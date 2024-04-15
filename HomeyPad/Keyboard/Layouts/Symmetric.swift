@@ -39,7 +39,7 @@ struct Symmetric<Content>: View where Content: View {
                                         // only render tritone if P4, tt and P5 are safe
                                         if safeMIDI(midi: midi - 1) && safeMIDI(midi: midi - 2) {
                                             GeometryReader { proxy in
-                                                let ttLength = min(proxy.size.height * 0.3125, proxy.size.width * 1.0)
+                                                let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                                 ZStack {
                                                     KeyContainer(conductor: viewConductor,
                                                                  pitch: viewConductor.allPitches[midi-1], // tritone

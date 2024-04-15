@@ -4,18 +4,25 @@ public struct LabelView: View {
     var keyboardKey: KeyboardKey
     var proxySize: CGSize
     
+    var isSymmetricNotTritone: Bool {
+        keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six
+    }
+    
     public var body: some View {
-        let topBottomPadding = keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
-        if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
-            VStack(spacing: 0.0) {
+        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * ViewConductor.currentTritoneLength - 1.5 * keyboardKey.backgroundBorderSize : 0.0
+        VStack(spacing: 0.0) {
+            if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+                let topBottomPadding = (keyboardKey.outlineTonic ? 0.0 : 0.5 * keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
-                    .padding([.top, .bottom], topBottomPadding)
+                .padding([.top, .bottom], topBottomPadding + tritonePadding)
+                Color.clear
+                    .frame(height: keyboardKey.outlineTonic ? 2 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
-                    .padding([.top, .bottom], topBottomPadding)
+                    .padding([.top, .bottom], topBottomPadding + tritonePadding)
+            } else {
+                Labels(keyboardKey: keyboardKey, proxySize: proxySize)
+                    .padding([.top, .bottom], 0.5 * keyboardKey.backgroundBorderSize + tritonePadding)
             }
-        } else {
-            Labels(keyboardKey: keyboardKey, proxySize: proxySize)
-                .padding([.top, .bottom], topBottomPadding)
         }
     }
     
@@ -29,7 +36,7 @@ public struct LabelView: View {
                     VStack(spacing: 0) {
                         Color.clear
                     }
-                    .frame(height: 0.6 * proxySize.height)
+                    .frame(height: 0.55 * proxySize.height)
                 }
                 VStack(spacing: 0) {
                     if keyboardKey.conductor.noteLabel[.letter]! {
