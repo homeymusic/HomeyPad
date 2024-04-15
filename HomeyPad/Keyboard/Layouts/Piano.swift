@@ -29,9 +29,9 @@ struct Piano<Content>: View where Content: View {
                             HStack(spacing: 0) {
                                 Rectangle().opacity(0)
                                     .frame(width: spacer.initialSpacerWidth(geo.size.width))
-                                if viewConductor.lowMIDI != spacer.midiBoundedByNaturals.first! {
-                                    Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
-                                }
+//                                if viewConductor.lowMIDI != spacer.midiBoundedByNaturals.first! {
+//                                    Rectangle().opacity(0).frame(width: spacer.lowerBoundSpacerWidth(geo.size.width))
+//                                }
                                 ForEach(spacer.midiBoundedByNaturals, id: \.self) { col in
                                     let midi: Int = col + 12 * row
                                     if Pitch.accidental(midi: midi) {

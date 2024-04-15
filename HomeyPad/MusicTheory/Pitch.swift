@@ -24,6 +24,9 @@ public class Pitch: ObservableObject, Equatable {
         Pitch.accidental(midi: Int(self.midi))
     }
     
+    static let naturalMIDI: [Int] = Array(0...127).filter({!Pitch.accidental(midi: $0)})
+    static let accidentalMIDI: [Int] = Array(0...127).filter({Pitch.accidental(midi: $0)})
+    
     class func accidental(midi: Int) -> Bool {
         switch IntegerNotation(rawValue: Int8(modulo(midi, 12)))! {
         case .one, .three, .six, .eight, .ten:

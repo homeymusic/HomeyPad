@@ -65,16 +65,21 @@ extension PianoSpacer {
     }
 
     public var midiBoundedByNaturals: ClosedRange<Int> {
-        var lowIndex: Int = viewConductor.lowMIDI
-        var highIndex: Int = viewConductor.highMIDI
-
-        if Pitch.accidental(midi: lowIndex) {
-            lowIndex = lowIndex - 1
+        var colsBelow = viewConductor.colsPerSide[.piano]!
+        var colsAbove = viewConductor.colsPerSide[.piano]!
+                
+        // if F .five or B .eleven are the tonic then the tritone will be off center
+        if viewConductor.tonicPitch.pitchClass == .five {
+            colsBelow = colsBelow - 1
+        } else if viewConductor.tonicPitch.pitchClass == .eleven {
+            colsAbove = colsAbove - 1
         }
         
-        if Pitch.accidental(midi: highIndex) {
-            highIndex = highIndex + 1
-        }
+        let naturalsBelowTritone = Array(Pitch.naturalMIDI.filter({$0 < viewConductor.tritoneMIDI}).suffix(colsBelow))
+        let naturalsAboveTritone = Array(Pitch.naturalMIDI.filter({$0 > viewConductor.tritoneMIDI}).prefix(colsAbove))
+
+        let lowIndex: Int = naturalsBelowTritone.min() ?? 0
+        let highIndex: Int = naturalsAboveTritone.max() ?? 127
         
         return lowIndex...highIndex
     }

@@ -64,7 +64,15 @@ class ViewConductor: ObservableObject {
     }
     
     var tonicPitch: Pitch {
-        allPitches[ tonicMIDI]
+        allPitches[tonicMIDI]
+    }
+
+    var tritoneMIDI: Int {
+        tonicMIDI + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6)
+    }
+    
+    var tritonePitch: Pitch {
+        allPitches[tritoneMIDI]
     }
     
     var octaveShift: Int8 {
@@ -335,7 +343,7 @@ class ViewConductor: ObservableObject {
         .tonic:      6,
         .isomorphic: 9,
         .symmetric:  13,
-        .piano:      13,
+        .piano:      8,
         .strings:    26
     ]
     
@@ -343,7 +351,7 @@ class ViewConductor: ObservableObject {
         .tonic:      6,
         .isomorphic: 6,
         .symmetric:  6,
-        .piano:      6,
+        .piano:      4,
         .strings:    26
     ]
     
@@ -351,7 +359,7 @@ class ViewConductor: ObservableObject {
         .tonic:      6,
         .isomorphic: 18,
         .symmetric:  18,
-        .piano:      18,
+        .piano:      11,
         .strings:    26
     ]
     
