@@ -259,21 +259,18 @@ class ViewConductor: ObservableObject {
     
     func fewerRows() {
         switch layoutChoice {
-        case .isomorphic: rowsPerSide[layoutChoice]! -= 1
         default: rowsPerSide[layoutChoice]! -= 1
         }
     }
 
     func moreRows() {
         switch layoutChoice {
-        case .isomorphic: rowsPerSide[layoutChoice]! += 1
         default: rowsPerSide[layoutChoice]! += 1
         }
     }
     
     func fewerCols() {
         switch layoutChoice {
-        case .isomorphic: rowsPerSide[layoutChoice]! -= 1
         case .symmetric:
             let colJump: [Int:Int] = [
                 17:2,
@@ -289,7 +286,6 @@ class ViewConductor: ObservableObject {
         
     func moreCols() {
         switch layoutChoice {
-        case .isomorphic: colsPerSide[layoutChoice]! += 1
         case .symmetric:
             let colJump: [Int:Int] = [
                 6:2,
