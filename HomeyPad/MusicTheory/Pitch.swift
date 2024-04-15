@@ -55,12 +55,10 @@ public class Pitch: ObservableObject, Equatable {
     
     public func noteOn() {
         self.midiState = .on
-        print("Pitch: note on \(self.midi)")
     }
     
     public func noteOff() {
         self.midiState = .off
-        print("Pitch: note off \(self.midi)")
     }
     
     

@@ -4,7 +4,6 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
     case negative = "minor"
     case negativeInversion = "minor inverted"
     case positiveNegative = "major or minor"
-    case diminished = "diminished"
     
     var id: String { self.rawValue }
 
@@ -19,7 +18,6 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
         case .negative:          return "minus.square.fill"
         case .negativeInversion: return "i.square.fill"
         case .positiveNegative:  return "plusminus"   // make a custom square version
-        case .diminished:        return "star.square" // make a custom asterisk version
         }
     }
 
@@ -30,7 +28,6 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
         case .negative:          return "-"
         case .negativeInversion: return "|"
         case .positiveNegative:  return "+/-"
-        case .diminished:        return "*"
         }
     }
     
@@ -41,7 +38,6 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
         case .negative:          return .minor
         case .negativeInversion: return .minor
         case .positiveNegative:  return .neutral
-        case .diminished:        return .neutral
         }
     }
 }
