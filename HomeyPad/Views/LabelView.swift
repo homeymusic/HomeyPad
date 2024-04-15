@@ -8,30 +8,141 @@ public struct LabelView: View {
         let topBottomPadding = keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six ? proxySize.width / 2.0 : 0.0
         if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
             VStack(spacing: 0.0) {
-                AllSymbolsView(keyboardKey: keyboardKey,
-                               proxySize: proxySize)
+                Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding)
-                AllSymbolsView(keyboardKey: keyboardKey,
-                               proxySize: proxySize)
+                Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding)
             }
         } else {
-            AllSymbolsView(keyboardKey: keyboardKey,
-                           proxySize: proxySize)
+            Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                 .padding([.top, .bottom], topBottomPadding)
         }
     }
     
-    struct AllSymbolsView: View {
+    struct Labels: View {
         var keyboardKey: KeyboardKey
         var proxySize: CGSize
-
-        var whichIntervalLabels: [IntervalLabelChoice: Bool] {
-            keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]!
-        }
         
-        var whichNoteLabels: [NoteLabelChoice: Bool] {
-            keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]!
+        var body: some View {
+            VStack(spacing: 0) {
+                if keyboardKey.conductor.layoutChoice == .piano {
+                    VStack(spacing: 0) {
+                        Color.clear
+                    }
+                    .frame(height: 0.6 * proxySize.height)
+                }
+                VStack(spacing: 0) {
+                    if keyboardKey.conductor.noteLabel[.letter]! {
+                        Color.clear.overlay(
+                            Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidentalChoice()))\(octave)")
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.fixedDo]! {
+                        Color.clear.overlay(
+                            Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.midi]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.pitch.midi))
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.frequency]! {
+                        Color.clear.overlay(
+                            Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
+                                 format: .number.notation(.compactName).precision(.fractionLength(1)))
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.mode]! {
+                        Color.clear.overlay(
+                            Text(keyboardKey.pitch.mode.shortHand)
+                                .foregroundColor(keyboardKey.accentColor)
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.plot]! {
+                        HStack(spacing: 0.0) {
+                            Color.clear.overlay(
+                                HStack(spacing: 1.0) {
+                                    Image(systemName: "square")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.clear)
+                                        .overlay(
+                                            Image(systemName: keyboardKey.pitch.mode.pitchDirection.icon)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(Color(keyboardKey.pitch.mode.pitchDirection.majorMinor.color))
+                                        )
+                                    Image(systemName: "square")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.clear)
+                                        .overlay(
+                                            Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
+                                        )
+                                }
+                                    .aspectRatio(2.0, contentMode: .fit)
+                                    .padding(1.0)
+                                    .background(Color(keyboardKey.conductor.brownColor))
+                                    .cornerRadius(3.0)
+                            )
+                        }
+                    }
+                    if keyboardKey.conductor.noteLabel[.month]! {
+                        Color.clear.overlay(
+                            Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
+                        )
+                    }
+                    if keyboardKey.conductor.showSymbols {
+                        let symbolAdjustedLength = symbolLength(proxySize)
+                        VStack(spacing: 0) {
+                            ZStack {
+                                Color.clear
+                                    .frame(width: maxSymbolLength(proxySize))
+                                    .overlay(
+                                        AnyShape(keySymbol)
+                                            .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
+                                            .fill(symbolColor)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                            .frame(width: symbolAdjustedLength)
+                                    )
+                            }
+                        }
+                    }
+                    if keyboardKey.conductor.intervalLabel[.interval]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.shorthand))
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.movableDo]! {
+                        Color.clear.overlay(
+                            Text(keyboardKey.interval.movableDo)
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.roman]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.roman(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.degree]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.degree(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.integer]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.semitones))
+                        )
+                    }
+                }
+            }
+            .padding(2.0)
+            .foregroundColor(textColor)
+            .minimumScaleFactor(0.1)
+            .lineLimit(1)
         }
         
         func symbolLength(_ size: CGSize) -> CGFloat {
@@ -64,11 +175,11 @@ public struct LabelView: View {
                 }
             }
         }
-
+        
         var symbolColor: Color {
             let activeColor: Color
             let inactiveColor: Color
-
+            
             switch keyboardKey.conductor.paletteChoice {
             case .subtle:
                 if keyboardKey.tonicTonic {
@@ -90,7 +201,7 @@ public struct LabelView: View {
                 if keyboardKey.tonicTonic {
                     activeColor = Color(keyboardKey.interval.majorMinor.color)
                     inactiveColor = Color(keyboardKey.conductor.creamColor)
-                } else {                    
+                } else {
                     inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.colorOnWhite)
                     activeColor = inactiveColor
                 }
@@ -101,132 +212,10 @@ public struct LabelView: View {
         var keySymbol: any Shape {
             return keyboardKey.interval.consonanceDissonance.symbol
         }
-
-        var body: some View {
-            let labelPadding: CGFloat = 2.0
-            let anyIntervalLabels: Bool = whichIntervalLabels.filter({ $0.key != IntervalLabelChoice.symbol}).values.contains(true)
-            let anyNoteLabels: Bool = whichNoteLabels.filter({ $0.key != .octave}).values.contains(true)
-            
-            VStack(spacing: 0) {
-                if keyboardKey.conductor.layoutChoice == .piano {
-                    Color.clear
-                    Color.clear
-                    Color.clear
-                }
-                if anyNoteLabels || keyboardKey.conductor.showSymbols {
-                    VStack(spacing: 1.0) {
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.letter]! {
-                            Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidentalChoice()))\(octave)")
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.fixedDo]! {
-                            Color.clear.overlay(
-                                Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.midi]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.pitch.midi))
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.frequency]! {
-                            Color.clear.overlay(
-                                Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                                     format: .number.notation(.compactName).precision(.fractionLength(1)))
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.mode]! {
-                            Color.clear.overlay(
-                                Text(keyboardKey.pitch.mode.shortHand)
-                                    .foregroundColor(keyboardKey.accentColor)
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.plot]! {
-                            Color.clear.overlay(
-                                HStack(spacing: 0.0) {
-                                    Image(systemName: keyboardKey.pitch.mode.pitchDirection.icon)
-                                        .foregroundColor(Color(keyboardKey.pitch.mode.pitchDirection.majorMinor.color))
-                                    Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
-                                        .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
-                                }
-                                    .padding(1.0)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 3.0)
-                                            .fill(Color(keyboardKey.conductor.brownColor))
-                                            .aspectRatio(2.0, contentMode: .fit)
-                                    }
-                            )
-                        }
-                        if keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.month]! {
-                            Color.clear.overlay(
-                                Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
-                            )
-                        }
-                    }
-                    .frame(maxHeight: .infinity)
-                    .padding(labelPadding)
-                }
-                
-                if keyboardKey.conductor.showSymbols {
-                    let symbolAdjustedLength = symbolLength(proxySize)
-                    VStack(spacing: 0) {
-                        ZStack {
-                            Color.clear
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .frame(width: maxSymbolLength(proxySize))
-                                .overlay(
-                                    AnyShape(keySymbol)
-                                        .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
-                                        .fill(symbolColor)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: symbolAdjustedLength)
-                                )
-                        }
-                    }
-                    .frame(height: maxSymbolLength(proxySize))
-                }
-                
-                if anyIntervalLabels  || keyboardKey.conductor.showSymbols {
-                    VStack(spacing: 1.0) {
-                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.interval]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.interval.shorthand))
-                            )
-                        }
-                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.movableDo]! {
-                            Color.clear.overlay(
-                                Text(keyboardKey.interval.movableDo)
-                            )
-                        }
-                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.roman]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.interval.roman(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
-                            )
-                        }
-                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.degree]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.interval.degree(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
-                            )
-                        }
-                        if keyboardKey.conductor.intervalLabels[keyboardKey.conductor.layoutChoice]![.integer]! {
-                            Color.clear.overlay(
-                                Text(String(keyboardKey.interval.semitones))
-                            )
-                        }
-                    }
-                    .frame(maxHeight: .infinity)
-                    .padding(labelPadding)
-                }
-                
-            }
-            .foregroundColor(textColor)
-            .minimumScaleFactor(0.1)
-            .lineLimit(1)
-        }
+        
         
         var octave: String {
-            keyboardKey.conductor.noteLabels[keyboardKey.conductor.layoutChoice]![.octave]! ? String(keyboardKey.pitch.octave) : ""
+            keyboardKey.conductor.noteLabel[.octave]! ? String(keyboardKey.pitch.octave) : ""
         }
     }
 }
