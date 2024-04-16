@@ -47,6 +47,23 @@ struct ContentView: View {
         ])
         let latching = defaults.bool(forKey: "latching")
 
+        // Palette selection for each layout
+        let defaultLayoutPalette = LayoutPalette()
+        let encoder = JSONEncoder()
+        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
+            defaults.register(defaults: [
+                "viewLayoutPalette" : encodedDefaultLayoutPalette
+            ])
+        }
+        var viewLayoutPalette: LayoutPalette = defaultLayoutPalette
+        if let savedViewLayoutPalette = defaults.object(forKey: "viewLayoutPalette") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedViewLayoutPalette = try? decoder.decode(LayoutPalette.self, from: savedViewLayoutPalette) {
+                let _:Void = print("loadedViewLayoutPalette: \(loadedViewLayoutPalette)")
+                viewLayoutPalette = loadedViewLayoutPalette
+            }
+        }
+
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
@@ -60,7 +77,8 @@ struct ContentView: View {
             pitchDirection: pitchDirection,
             layoutChoice: layoutChoice,
             stringsLayoutChoice: stringsLayoutChoice,
-            latching: latching
+            latching: latching,
+            layoutPalette: viewLayoutPalette
         ))
     }
     
@@ -134,6 +152,12 @@ struct ContentView: View {
             }
             .onChange(of: viewConductor.latching) {
                 defaults.set(viewConductor.latching, forKey: "latching")
+            }
+            .onChange(of: viewConductor.layoutPalette) {
+                let encoder = JSONEncoder()
+                if let encodedDefaultLayoutPalette = try? encoder.encode(viewConductor.layoutPalette) {
+                    defaults.set(encodedDefaultLayoutPalette, forKey: "viewLayoutPalette")
+                }
             }
         }
         .preferredColorScheme(.dark)

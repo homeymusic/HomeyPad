@@ -1,7 +1,7 @@
-struct LayoutPalette: Decodable {
-    var choices: [LayoutChoice: PaletteChoice] = defaultlayoutPalette
+struct LayoutPalette: Codable, Equatable {
+    var choices: [LayoutChoice: PaletteChoice] = defaultLayoutPalette
     
-    static let defaultlayoutPalette: [LayoutChoice: PaletteChoice] = [
+    static let defaultLayoutPalette: [LayoutChoice: PaletteChoice] = [
         .tonic:      .subtle,
         .isomorphic: .subtle,
         .symmetric:  .subtle,
