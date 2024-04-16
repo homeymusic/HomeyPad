@@ -14,7 +14,7 @@ public struct LabelView: View {
             if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
                 let topBottomPadding = (keyboardKey.outlineTonic ? 0.0 : 0.5 * keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
-                .padding([.top, .bottom], topBottomPadding + tritonePadding)
+                    .padding([.top, .bottom], topBottomPadding + tritonePadding)
                 Color.clear
                     .frame(height: keyboardKey.outlineTonic ? 2 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
@@ -110,11 +110,9 @@ public struct LabelView: View {
                                 Color.clear
                                     .frame(width: maxSymbolLength(proxySize))
                                     .overlay(
-                                        AnyShape(keySymbol)
-                                            .stroke(textColor, lineWidth: keyboardKey.conductor.paletteChoice == .ebonyIvory ? symbolAdjustedLength * 0.1 : 0.0)
-                                            .fill(symbolColor)
-                                            .aspectRatio(1.0, contentMode: .fit)
+                                        Image(systemName: keyIcon)
                                             .frame(width: symbolAdjustedLength)
+                                            .symbolEffect(.bounce, value: keyboardKey.pitch.isTonic)
                                     )
                             }
                         }
@@ -220,9 +218,14 @@ public struct LabelView: View {
             return keyboardKey.interval.consonanceDissonance.symbol
         }
         
+        var keyIcon: String {
+            return keyboardKey.interval.consonanceDissonance.icon
+        }
         
         var octave: String {
             keyboardKey.conductor.noteLabel[.octave]! ? String(keyboardKey.pitch.octave) : ""
         }
+        
     }
 }
+

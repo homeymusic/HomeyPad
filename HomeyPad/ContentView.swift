@@ -81,7 +81,7 @@ struct ContentView: View {
         }
 
         // Set up for layout labels
-        let defaultLayoutLabel = LayoutLabel()
+//        let defaultLayoutLabel = LayoutLabel()
 
         // Palette selection for tonic picker
 //        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
