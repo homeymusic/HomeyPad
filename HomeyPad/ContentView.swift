@@ -41,11 +41,11 @@ struct ContentView: View {
         ])
         showTonicPicker = defaults.bool(forKey: "showTonicPicker")
 
-        // Show Tonic Picker
+        // Latching
         defaults.register(defaults: [
-            "showTonicPicker" : false
+            "latching" : false
         ])
-        showTonicPicker = defaults.bool(forKey: "showTonicPicker")
+        let latching = defaults.bool(forKey: "latching")
 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
@@ -59,7 +59,8 @@ struct ContentView: View {
             tonicMIDI: tonicMIDI,
             pitchDirection: pitchDirection,
             layoutChoice: layoutChoice,
-            stringsLayoutChoice: stringsLayoutChoice
+            stringsLayoutChoice: stringsLayoutChoice,
+            latching: latching
         ))
     }
     
@@ -130,6 +131,9 @@ struct ContentView: View {
             }
             .onChange(of: showTonicPicker) {
                 defaults.set(showTonicPicker, forKey: "showTonicPicker")
+            }
+            .onChange(of: viewConductor.latching) {
+                defaults.set(viewConductor.latching, forKey: "latching")
             }
         }
         .preferredColorScheme(.dark)
