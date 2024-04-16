@@ -1,10 +1,10 @@
 
-enum PitchDirection: Int8, CaseIterable, Identifiable {
+enum PitchDirection: Int, CaseIterable, Identifiable {
     case upward   = 1
     case both     = 0
     case downward = -1
     
-    var id: Int8 { self.rawValue }
+    var id: Int { self.rawValue }
     
     public var icon: String {
         switch self {

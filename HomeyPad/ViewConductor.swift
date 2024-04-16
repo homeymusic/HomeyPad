@@ -3,12 +3,16 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(layoutChoice: LayoutChoice = .isomorphic, stringsLayoutChoice: StringsLayoutChoice = .guitar, latching: Bool = false, tonicMIDI: Int = 60) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false) {
+        // defaults
+        self.tonicMIDI = tonicMIDI
+        self.pitchDirection = pitchDirection
         self.layoutChoice = layoutChoice
         self.stringsLayoutChoice = stringsLayoutChoice
         self.latching = latching
+        
+        // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
-        self.tonicMIDI = tonicMIDI
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
         midiHelper.setup(midiManager: midiManager)
