@@ -55,6 +55,7 @@ struct ContentView: View {
             }
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection
+                viewConductor.tonicMIDI = tonicConductor.tonicMIDI
             }
         }
         .preferredColorScheme(.dark)

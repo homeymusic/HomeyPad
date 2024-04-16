@@ -58,7 +58,7 @@ struct HelpPopoverView: View {
                 }
                 GridRow {
                     Text("Intervals")
-                        .font(.caption)
+                        .font(Font.caption)
                         .gridCellColumns(2)
                 }
                 ForEach(IntervalClass.allCases, id: \.self) { intervalClass in

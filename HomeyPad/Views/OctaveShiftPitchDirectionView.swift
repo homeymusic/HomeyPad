@@ -33,10 +33,6 @@ struct OctaveShiftPitchDirectionView: View {
                         .foregroundColor(safeMIDI(midi: newUpwardTonicMIDI) ? .white : Color(UIColor.systemGray4))
                 })
                 .disabled(!safeMIDI(midi: newUpwardTonicMIDI))
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.vertical, 5)
-                .foregroundColor(.white)
-                .font(Font.system(size: 17, weight: tonicConductor.octaveShift == 0 ? .thin : .regular, design: .monospaced))
             }
             HStack(spacing: 5) {
                 PitchDirectionPickerView(viewConductor: viewConductor, tonicConductor: tonicConductor)

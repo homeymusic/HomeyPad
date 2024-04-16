@@ -51,18 +51,6 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var tonicMIDI: Int {
-        willSet(newTonicMIDI) {
-            allPitches[tonicMIDI].isTonic = false
-            allPitches[newTonicMIDI].isTonic = true
-        }
-        didSet {
-            if layoutChoice == .tonic {
-                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
-            }
-        }
-    }
-    
     var tonicPitch: Pitch {
         allPitches[tonicMIDI]
     }
@@ -256,15 +244,7 @@ class ViewConductor: ObservableObject {
     @Published var showKeyLabelsPopover: Bool = false
     
     @Published var showPalettePopover: Bool = false
-    
-    @Published var pitchDirection: PitchDirection = .upward {
-        didSet {
-            if layoutChoice == .tonic {
-                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
-            }
-        }
-    }
-    
+        
     func fewerRows() {
         switch layoutChoice {
         default: rowsPerSide[layoutChoice]! -= 1
@@ -436,7 +416,37 @@ class ViewConductor: ObservableObject {
             triggerEvents(from: externallyActivatedPitches, to: newValue)
         }
     }
+
+    @Published var tonicMIDI: Int {
+        willSet(newTonicMIDI) {
+            allPitches[tonicMIDI].isTonic = false
+            allPitches[newTonicMIDI].isTonic = true
+        }
+        didSet {
+            if layoutChoice == .tonic {
+                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
+            }
+        }
+    }
     
+    @Published var pitchDirection: PitchDirection = .upward {
+        willSet(newPitchDirection) {
+            if (newPitchDirection != pitchDirection) {
+                if newPitchDirection == .upward {
+                    tonicMIDI = tonicMIDI - 12
+                } else if newPitchDirection == .downward {
+                    tonicMIDI = tonicMIDI + 12
+                }
+            }
+        }
+        didSet {
+            if layoutChoice == .tonic {
+                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
+                buzz()
+            }
+        }
+    }
+
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
         let oldPitches = oldValue.subtracting(newValue)
