@@ -28,12 +28,18 @@ struct ContentView: View {
         ])
         let layoutChoice: LayoutChoice = LayoutChoice(rawValue: defaults.string(forKey: "layoutChoice") ?? defaultLayoutChoice.rawValue) ?? defaultLayoutChoice
         
-        // Strings Sub Layout
+        // String Instruments Sub Layout
         let defaultStringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar
         defaults.register(defaults: [
             "stringsLayoutChoice" : defaultStringsLayoutChoice.rawValue
         ])
         let stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice(rawValue: defaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue) ?? defaultStringsLayoutChoice
+
+        // Show Tonic Picker
+        defaults.register(defaults: [
+            "showTonicPicker" : false
+        ])
+        showTonicPicker = defaults.bool(forKey: "showTonicPicker")
 
         // Show Tonic Picker
         defaults.register(defaults: [
