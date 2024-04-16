@@ -28,7 +28,7 @@
 		B067B6E32BCD884500BC6C45 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */; };
 		B067B6E52BCD886600BC6C45 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */; };
 		B067B6E92BCEB74E00BC6C45 /* PitchDirectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E82BCEB74E00BC6C45 /* PitchDirectionPickerView.swift */; };
-		B067B6EB2BCF035F00BC6C45 /* LayoutPaletteChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPaletteChoices.swift */; };
+		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
 		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */; };
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
@@ -85,7 +85,7 @@
 		B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
 		B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B067B6E82BCEB74E00BC6C45 /* PitchDirectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDirectionPickerView.swift; sourceTree = "<group>"; };
-		B067B6EA2BCF035F00BC6C45 /* LayoutPaletteChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPaletteChoices.swift; sourceTree = "<group>"; };
+		B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPalette.swift; sourceTree = "<group>"; };
 		B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChoice.swift; sourceTree = "<group>"; };
 		B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLabelChoice.swift; sourceTree = "<group>"; };
 		B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalLabelChoice.swift; sourceTree = "<group>"; };
@@ -157,7 +157,6 @@
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B024401D2BB0644D0058EABF /* ViewConductor.swift */,
-				B067B6EA2BCF035F00BC6C45 /* LayoutPaletteChoices.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */,
 				B00B51BB2BCC5DB00003E6BE /* Conductor.swift */,
@@ -194,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
+				B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */,
 				B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */,
 				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 				B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */,
@@ -363,7 +363,7 @@
 				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* Keyboard.swift in Sources */,
-				B067B6EB2BCF035F00BC6C45 /* LayoutPaletteChoices.swift in Sources */,
+				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
 				B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */,
 				B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */,
 				B0CEE2022BC99AE500B96ACA /* PitchDirection.swift in Sources */,
