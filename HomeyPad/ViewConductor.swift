@@ -3,8 +3,9 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(layoutChoice: LayoutChoice = .isomorphic, latching: Bool = false, tonicMIDI: Int = 60) {
+    init(layoutChoice: LayoutChoice = .isomorphic, stringsLayoutChoice: StringsLayoutChoice = .guitar, latching: Bool = false, tonicMIDI: Int = 60) {
         self.layoutChoice = layoutChoice
+        self.stringsLayoutChoice = stringsLayoutChoice
         self.latching = latching
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
         self.tonicMIDI = tonicMIDI

@@ -3,6 +3,7 @@ import AVFoundation
 
 @main
 struct HomeyPad: App {
+    
     init() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback)

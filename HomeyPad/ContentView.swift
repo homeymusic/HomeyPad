@@ -1,10 +1,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    let defaults = UserDefaults.standard
     @State var showTonicPicker: Bool = false
-    @StateObject var viewConductor  = ViewConductor()
-    @StateObject var tonicConductor = ViewConductor(layoutChoice: .tonic, latching: true)
+    @StateObject private var tonicConductor: ViewConductor
+    @StateObject private var viewConductor: ViewConductor
 
+    init() {
+        let defaultTonicMIDI: Int = 60
+        defaults.register(defaults: [
+            "tonicMIDI" : defaultTonicMIDI
+        ])
+        let tonicMIDI: Int = defaults.integer(forKey: "tonicMIDI")
+            
+        let defaultLayoutChoice: LayoutChoice = LayoutChoice.isomorphic
+        defaults.register(defaults: [
+            "layoutChoice" : defaultLayoutChoice.rawValue
+        ])
+        let layoutChoice: LayoutChoice = LayoutChoice(rawValue: defaults.string(forKey: "layoutChoice") ?? defaultLayoutChoice.rawValue) ?? defaultLayoutChoice
+        
+        let defaultStringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar
+        defaults.register(defaults: [
+            "stringsLayoutChoice" : defaultStringsLayoutChoice.rawValue
+        ])
+        let stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice(rawValue: defaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue) ?? defaultStringsLayoutChoice
+
+        _tonicConductor = StateObject(wrappedValue: ViewConductor(
+            layoutChoice: .tonic,
+            latching: true,
+            tonicMIDI: tonicMIDI
+        ))
+
+        _viewConductor = StateObject(wrappedValue: ViewConductor(
+            layoutChoice: layoutChoice,
+            stringsLayoutChoice: stringsLayoutChoice,
+            tonicMIDI: tonicMIDI
+        ))
+    }
+    
     var body: some View {
         let settingsHeight = 30.0
         GeometryReader { proxy in
@@ -52,10 +85,17 @@ struct ContentView: View {
             .onChange(of: tonicConductor.tonicMIDI) {
                 viewConductor.tonicMIDI = tonicConductor.tonicMIDI
                 tonicConductor.externallyActivatedPitches.removeAll()
+                defaults.set(tonicConductor.tonicMIDI, forKey: "tonicMIDI")
             }
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection
                 viewConductor.tonicMIDI = tonicConductor.tonicMIDI
+            }
+            .onChange(of: viewConductor.layoutChoice) {
+                defaults.set(viewConductor.layoutChoice.rawValue, forKey: "layoutChoice")
+            }
+            .onChange(of: viewConductor.stringsLayoutChoice) {
+                defaults.set(viewConductor.stringsLayoutChoice.rawValue, forKey: "stringsLayoutChoice")
             }
         }
         .preferredColorScheme(.dark)
