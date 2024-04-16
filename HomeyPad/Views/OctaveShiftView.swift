@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct OctaveShiftView: View {
-    @StateObject var viewConductor: ViewConductor
-    @StateObject var tonicConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
         HStack {

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct Strings<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
 
     let fretCount: Int = 22
     

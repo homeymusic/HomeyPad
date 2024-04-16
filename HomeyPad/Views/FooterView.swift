@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FooterView: View {
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     
     var body: some View {
         HStack {

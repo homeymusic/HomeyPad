@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PalettePopoverView: View {
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     
     var body: some View {
         VStack(spacing: 0.0) {

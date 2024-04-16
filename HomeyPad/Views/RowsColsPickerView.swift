@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RowsColsPickerView: View {
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
 
     var body: some View {
         HStack(spacing: 7.0) {

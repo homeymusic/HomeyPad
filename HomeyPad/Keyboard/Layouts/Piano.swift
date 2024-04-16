@@ -4,7 +4,7 @@ import SwiftUI
 
 struct Piano<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
     
     var body: some View {

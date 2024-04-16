@@ -4,8 +4,8 @@ import SwiftUI
 
 public struct KeyboardKey: View {
 
-    @StateObject var pitch: Pitch
-    @StateObject var conductor: ViewConductor
+    @ObservedObject var pitch: Pitch
+    @ObservedObject var conductor: ViewConductor
     
     public var body: some View {
         GeometryReader { proxy in

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @StateObject var viewConductor: ViewConductor
-    @StateObject var tonicConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
     @Binding var showTonicPicker: Bool
 
     var body: some View {

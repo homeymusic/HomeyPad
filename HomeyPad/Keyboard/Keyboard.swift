@@ -4,7 +4,7 @@ import SwiftUI
 
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
-    @StateObject var conductor: ViewConductor
+    @ObservedObject var conductor: ViewConductor
         
     public let id = UUID()
     

@@ -26,7 +26,7 @@ public struct PianoSpacer {
     /// Default value for Black Key Height
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     public var initialSpacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultInitialSpacerRatio
     public var spacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultSpacerRatio
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth

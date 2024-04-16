@@ -5,7 +5,7 @@ import SwiftUI
 struct Tonic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
     
-    @StateObject var tonicConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
         let midiRange: ClosedRange<Int> = switch tonicConductor.pitchDirection {

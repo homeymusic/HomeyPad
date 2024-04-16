@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HelpView: View {
-    @StateObject var tonicConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
     
     static let icon = "questionmark.circle"
     

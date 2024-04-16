@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TonicPickerSettingsView: View {
-    @StateObject var tonicConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
     @Binding var showTonicPicker: Bool
     
     var body: some View {

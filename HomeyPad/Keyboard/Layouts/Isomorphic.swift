@@ -4,7 +4,7 @@ import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
-    @StateObject var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
 
     var body: some View {
         VStack(spacing: 0) {
