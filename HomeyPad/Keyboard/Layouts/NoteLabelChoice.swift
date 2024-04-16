@@ -1,4 +1,4 @@
-public enum NoteLabelChoice: String, CaseIterable, Identifiable {
+public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
     case letter      = "letter"
     case fixedDo     = "fixed do"
     case accidentals = "accidentals"

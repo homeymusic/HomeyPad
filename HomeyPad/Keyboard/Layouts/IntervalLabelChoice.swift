@@ -1,4 +1,4 @@
-public enum IntervalLabelChoice: String, CaseIterable, Identifiable {
+public enum IntervalLabelChoice: String, CaseIterable, Identifiable, Codable {
     case symbol     = "symbol"
     case interval   = "interval"
     case movableDo  = "movable do"

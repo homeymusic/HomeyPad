@@ -53,6 +53,7 @@ struct ContentView: View {
         
         // Set up for layout palettes
         let defaultLayoutPalette = LayoutPalette()
+
         // Palette selection for tonic picker
         if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
             defaults.register(defaults: [
@@ -78,6 +79,23 @@ struct ContentView: View {
                 viewLayoutPalette = loadedViewLayoutPalette
             }
         }
+
+        // Set up for layout labels
+        let defaultLayoutLabel = LayoutLabel()
+
+        // Palette selection for tonic picker
+//        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
+//            defaults.register(defaults: [
+//                "tonicLayoutPalette" : encodedDefaultLayoutPalette
+//            ])
+//        }
+//        var tonicLayoutPalette: LayoutPalette = defaultLayoutPalette
+//        if let savedTonicLayoutPalette = defaults.object(forKey: "tonicLayoutPalette") as? Data {
+//            if let loadedTonicLayoutPalette = try? decoder.decode(LayoutPalette.self, from: savedTonicLayoutPalette) {
+//                tonicLayoutPalette = loadedTonicLayoutPalette
+//            }
+//        }
+
 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(

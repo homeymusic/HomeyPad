@@ -124,8 +124,8 @@ class ViewConductor: ObservableObject {
     }
     
     var areLabelsDefault: Bool {
-        noteLabels[layoutChoice] == ViewConductor.defaultNoteLabels[layoutChoice] &&
-        intervalLabels[layoutChoice] == ViewConductor.defaultIntervalLabels[layoutChoice] &&
+        noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
+        intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice] &&
         accidentalChoices[layoutChoice] == ViewConductor.defaultAccidentalChoices[layoutChoice]
     }
     
@@ -137,11 +137,11 @@ class ViewConductor: ObservableObject {
     }
     
     func resetNoteLabels() {
-        noteLabels[layoutChoice] = ViewConductor.defaultNoteLabels[layoutChoice]
+        layoutLabel.noteLabelChoices[layoutChoice] = LayoutLabel.defaultNoteLabels[layoutChoice]
     }
     
     func resetIntervalLabels() {
-        intervalLabels[layoutChoice] = ViewConductor.defaultIntervalLabels[layoutChoice]
+        layoutLabel.intervalLabelChoices[layoutChoice] = LayoutLabel.defaultIntervalLabels[layoutChoice]
     }
     
     func resetAccidentalChoice() {
@@ -174,33 +174,23 @@ class ViewConductor: ObservableObject {
         }
     }
 
-    @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
+    @Published var layoutLabel: LayoutLabel = LayoutLabel()
+ 
+    var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] {
+        layoutLabel.noteLabelChoices
+    }
     
     var noteLabel: [NoteLabelChoice: Bool] {
         noteLabels[layoutChoice]!
     }
     
-    static let defaultNoteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = [
-        .tonic: [.letter: true, .fixedDo: false, .month: false, .octave: false, .mode: false, .plot: false, .midi: false , .frequency: false],
-        .isomorphic: [.letter: false, .fixedDo: false, .month: false, .octave: false, .mode: false, .plot: false, .midi: false, .frequency: false],
-        .symmetric: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false],
-        .piano: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false],
-        .strings: [.letter: false, .fixedDo: false, .month: false, .octave:  false, .mode: false, .plot: false, .midi: false, .frequency: false]
-    ]
-    
-    @Published var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = ViewConductor.defaultIntervalLabels
+    var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] {
+        layoutLabel.intervalLabelChoices
+    }
     
     var intervalLabel: [IntervalLabelChoice: Bool] {
         intervalLabels[layoutChoice]!
     }
-    
-    static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .tonic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
-    ]
     
     public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {
         return Binding(
@@ -208,7 +198,7 @@ class ViewConductor: ObservableObject {
                 return self.noteLabels[self.layoutChoice]![key] ?? false
             },
             set: {
-                self.noteLabels[self.layoutChoice]![key] = $0
+                self.layoutLabel.noteLabelChoices[self.layoutChoice]![key] = $0
             }
         )
     }
@@ -219,7 +209,7 @@ class ViewConductor: ObservableObject {
                 return self.intervalLabels[self.layoutChoice]![key] ?? false
             },
             set: {
-                self.intervalLabels[self.layoutChoice]![key] = $0
+                self.layoutLabel.intervalLabelChoices[self.layoutChoice]![key] = $0
             }
         )
     }
