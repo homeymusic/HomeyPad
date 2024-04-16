@@ -1,4 +1,4 @@
-public enum PaletteChoice: String, CaseIterable, Identifiable {
+public enum PaletteChoice: String, CaseIterable, Identifiable, Codable {
     case subtle = "subtle"
     case loud = "loud"
     case ebonyIvory = "piano"

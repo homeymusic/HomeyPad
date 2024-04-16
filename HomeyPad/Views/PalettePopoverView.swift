@@ -12,7 +12,7 @@ struct PalettePopoverView: View {
     
     var body: some View {
         VStack(spacing: 0.0) {
-            Picker("", selection: $viewConductor.paletteChoices[viewConductor.layoutChoice]) {
+            Picker("", selection: $viewConductor.layoutPalette.choices[viewConductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
                         .tag(paletteChoice as PaletteChoice?)

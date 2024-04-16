@@ -70,7 +70,7 @@ struct TonicPickerSettingsView: View {
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: tonicConductor.paletteChoices[.tonic]!.icon)
+                            Image(systemName: tonicConductor.layoutPalette.choices[.tonic]!.icon)
                                 .foregroundColor(.white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )

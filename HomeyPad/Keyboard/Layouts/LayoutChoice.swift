@@ -1,4 +1,4 @@
-public enum LayoutChoice: String, CaseIterable, Identifiable {
+public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
     case tonic = "tonic"
     case isomorphic = "isomorphic"
     case symmetric = "symmetric"

@@ -114,11 +114,11 @@ class ViewConductor: ObservableObject {
     }
     
     var isPaletteDefault: Bool {
-        paletteChoices[layoutChoice] == ViewConductor.defaultPaletteChoices[layoutChoice]
+        layoutPalette.choices[layoutChoice] == LayoutPalette.defaultlayoutPalette[layoutChoice]
     }
     
     func resetPaletteChoice() {
-        paletteChoices[layoutChoice] = ViewConductor.defaultPaletteChoices[layoutChoice]
+        layoutPalette.choices[layoutChoice] = LayoutPalette.defaultlayoutPalette[layoutChoice]
         buzz()
     }
     
@@ -162,25 +162,17 @@ class ViewConductor: ObservableObject {
     ]
     
     var paletteChoice: PaletteChoice {
-        paletteChoices[layoutChoice]!
+        layoutPalette.choices[layoutChoice]!
     }
     
-    @Published var paletteChoices: [LayoutChoice: PaletteChoice] = defaultPaletteChoices {
-        willSet(newPaletteChoices) {
-            if newPaletteChoices[layoutChoice]! != paletteChoices[layoutChoice]! {
+    @Published var layoutPalette: LayoutPalette = LayoutPalette() {
+        willSet(newLayoutPalette) {
+            if newLayoutPalette.choices[layoutChoice]! != layoutPalette.choices[layoutChoice]! {
                 buzz()
             }
         }
     }
-    
-    static let defaultPaletteChoices: [LayoutChoice: PaletteChoice] = [
-        .tonic:       .subtle,
-        .isomorphic: .subtle,
-        .symmetric:  .subtle,
-        .piano:      .subtle,
-        .strings:     .subtle
-    ]
-    
+
     @Published var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] = ViewConductor.defaultNoteLabels
     
     var noteLabel: [NoteLabelChoice: Bool] {
