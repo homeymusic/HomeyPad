@@ -3,14 +3,15 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette()) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel()) {
         // defaults
-        self.tonicMIDI = tonicMIDI
-        self.pitchDirection = pitchDirection
-        self.layoutChoice = layoutChoice
+        self.tonicMIDI           = tonicMIDI
+        self.pitchDirection      = pitchDirection
+        self.layoutChoice        = layoutChoice
         self.stringsLayoutChoice = stringsLayoutChoice
-        self.latching = latching
-        self.layoutPalette = layoutPalette
+        self.latching            = latching
+        self.layoutPalette       = layoutPalette
+        self.layoutLabel         = layoutLabel
         
         // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black

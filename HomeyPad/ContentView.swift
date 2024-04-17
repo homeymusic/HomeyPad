@@ -80,21 +80,20 @@ struct ContentView: View {
             }
         }
 
-        // Set up for layout labels
-//        let defaultLayoutLabel = LayoutLabel()
-
-        // Palette selection for tonic picker
-//        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
-//            defaults.register(defaults: [
-//                "tonicLayoutPalette" : encodedDefaultLayoutPalette
-//            ])
-//        }
-//        var tonicLayoutPalette: LayoutPalette = defaultLayoutPalette
-//        if let savedTonicLayoutPalette = defaults.object(forKey: "tonicLayoutPalette") as? Data {
-//            if let loadedTonicLayoutPalette = try? decoder.decode(LayoutPalette.self, from: savedTonicLayoutPalette) {
-//                tonicLayoutPalette = loadedTonicLayoutPalette
-//            }
-//        }
+        // Note label selections for tonic picker
+        let defaultLayoutLabel = LayoutLabel()
+        
+        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
+            defaults.register(defaults: [
+                "tonicLayoutPalette" : encodedDefaultLayoutLabel
+            ])
+        }
+        var tonicLayoutLabel: LayoutLabel = defaultLayoutLabel
+        if let savedTonicLayoutLabel = defaults.object(forKey: "tonicLayoutLabel") as? Data {
+            if let loadedTonicLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedTonicLayoutLabel) {
+                tonicLayoutLabel = loadedTonicLayoutLabel
+            }
+        }
 
 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
@@ -103,7 +102,8 @@ struct ContentView: View {
             pitchDirection: pitchDirection,
             layoutChoice: .tonic,
             latching: true,
-            layoutPalette: tonicLayoutPalette
+            layoutPalette: tonicLayoutPalette,
+            layoutLabel: tonicLayoutLabel
         ))
 
         _viewConductor = StateObject(wrappedValue: ViewConductor(
@@ -194,6 +194,11 @@ struct ContentView: View {
             .onChange(of: viewConductor.layoutPalette) {
                 if let encodedDefaultLayoutPalette = try? JSONEncoder().encode(viewConductor.layoutPalette) {
                     defaults.set(encodedDefaultLayoutPalette, forKey: "viewLayoutPalette")
+                }
+            }
+            .onChange(of: tonicConductor.layoutLabel) {
+                if let encodedDefaultLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
+                    defaults.set(encodedDefaultLayoutLabel, forKey: "tonicLayoutLabel")
                 }
             }
         }
