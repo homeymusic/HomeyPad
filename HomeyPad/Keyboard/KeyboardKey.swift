@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct KeyboardKey: View {
-
+    
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
     
@@ -16,7 +16,7 @@ public struct KeyboardKey: View {
     var interval: Interval {
         Interval(pitch: pitch, tonicPitch: conductor.tonicPitch)
     }
-
+    
     var activated: Bool {
         pitch.midiState == .on
     }
@@ -43,29 +43,19 @@ public struct KeyboardKey: View {
             pitch.accidental ? .white : .black
         }
     }
-
+    
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
-
+        
         switch conductor.paletteChoice {
         case .subtle:
-            if tonicTonic {
-                activeColor = Color(interval.majorMinor.color)
-                inactiveColor = activeColor
-            } else {
-                activeColor = Color(interval.majorMinor.color)
-                inactiveColor = Color(conductor.mainColor)
-            }
+            activeColor = Color(interval.majorMinor.color)
+            inactiveColor = Color(conductor.mainColor)
             return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
         case .loud:
-            if tonicTonic {
-                activeColor = Color(interval.majorMinor.color)
-                inactiveColor = Color(conductor.mainColor)
-            } else {
-                activeColor = Color(conductor.mainColor)
-                inactiveColor = Color(interval.majorMinor.color)
-            }
+            activeColor = Color(conductor.mainColor)
+            inactiveColor = Color(interval.majorMinor.color)
             return activated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
@@ -77,11 +67,11 @@ public struct KeyboardKey: View {
     var tonicTonic: Bool {
         conductor.layoutChoice == .tonic && pitch.isTonic
     }
-
+    
     var tonicNotTonic: Bool {
         conductor.layoutChoice != .tonic && pitch.isTonic
     }
-
+    
     var outlineSize: CGFloat {
         if tonicNotTonic {
             return 3.0
@@ -138,7 +128,7 @@ public struct KeyboardKey: View {
         conductor.outlineChoice &&
         (pitch.midi == conductor.tonicMIDI || pitch.midi == conductor.octaveMIDI)
     }
-
+    
     var isSmall: Bool {
         conductor.layoutChoice == .piano && pitch.accidental
     }
