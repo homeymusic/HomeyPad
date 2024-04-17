@@ -127,13 +127,13 @@ class ViewConductor: ObservableObject {
     var areLabelsDefault: Bool {
         noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
         intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice] &&
-        accidentalChoices[layoutChoice] == ViewConductor.defaultAccidentalChoices[layoutChoice]
+        accidentalChoices[layoutChoice] == LayoutLabel.defaultAccidentals[layoutChoice]
     }
     
     func resetLabels() {
         resetNoteLabels()
         resetIntervalLabels()
-        resetAccidentalChoice()
+        resetAccidentalChoices()
         buzz()
     }
     
@@ -145,23 +145,17 @@ class ViewConductor: ObservableObject {
         layoutLabel.intervalLabelChoices[layoutChoice] = LayoutLabel.defaultIntervalLabels[layoutChoice]
     }
     
-    func resetAccidentalChoice() {
-        accidentalChoices[layoutChoice] = ViewConductor.defaultAccidentalChoices[layoutChoice]
+    func resetAccidentalChoices() {
+        layoutLabel.accidentalChoices[layoutChoice] = LayoutLabel.defaultAccidentals[layoutChoice]
     }
     
-    func accidentalChoice() -> AccidentalChoice {
-        return accidentalChoices[layoutChoice]!
+    var accidentalChoices: [LayoutChoice: AccidentalChoice] {
+        layoutLabel.accidentalChoices
     }
     
-    @Published var accidentalChoices: [LayoutChoice: AccidentalChoice] = defaultAccidentalChoices
-    
-    static let defaultAccidentalChoices: [LayoutChoice: AccidentalChoice] = [
-        .tonic: .flat,
-        .isomorphic: .flat,
-        .symmetric:  .flat,
-        .piano:      .flat,
-        .strings:     .flat
-    ]
+    var accidentalChoice: AccidentalChoice {
+        accidentalChoices[layoutChoice]!
+    }
     
     var paletteChoice: PaletteChoice {
         layoutPalette.choices[layoutChoice]!

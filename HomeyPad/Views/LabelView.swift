@@ -41,12 +41,12 @@ public struct LabelView: View {
                 VStack(spacing: 0) {
                     if keyboardKey.conductor.noteLabel[.letter]! {
                         Color.clear.overlay(
-                            Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidentalChoice()))\(octave)")
+                            Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidentalChoice))\(octave)")
                         )
                     }
                     if keyboardKey.conductor.noteLabel[.fixedDo]! {
                         Color.clear.overlay(
-                            Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice()))\(octave)")
+                            Text("\(keyboardKey.pitch.fixedDo(keyboardKey.conductor.accidentalChoice))\(octave)")
                         )
                     }
                     if keyboardKey.conductor.noteLabel[.midi]! {

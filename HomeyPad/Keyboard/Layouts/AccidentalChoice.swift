@@ -1,4 +1,4 @@
-public enum AccidentalChoice: String, CaseIterable, Identifiable {
+public enum AccidentalChoice: String, CaseIterable, Identifiable, Codable {
     case flat  = "flat"
     case sharp = "sharp"
 
