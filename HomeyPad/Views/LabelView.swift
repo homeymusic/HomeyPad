@@ -104,16 +104,13 @@ public struct LabelView: View {
                         )
                     }
                     if keyboardKey.conductor.showSymbols {
-                        let symbolAdjustedLength = symbolLength(proxySize)
                         VStack(spacing: 0) {
-                            ZStack {
-                                Color.clear
-                                    .frame(width: maxSymbolLength(proxySize))
-                                    .overlay(
-                                            Image(systemName: keyIcon)
-                                                .frame(width: symbolAdjustedLength)
-                                    )
-                            }
+                            Color.clear
+                                .overlay(
+                                    Image(systemName: keyIcon)
+                                        .imageScale(keyboardKey.interval.consonanceDissonance.imageScale)
+                                        .font(.callout.weight(keyboardKey.interval.consonanceDissonance.fontWeight))
+                                )
                         }
                     }
                     if keyboardKey.conductor.intervalLabel[.interval]! {
@@ -148,14 +145,6 @@ public struct LabelView: View {
             .minimumScaleFactor(0.1)
             .lineLimit(1)
             .symbolEffect(.bounce, value: keyboardKey.pitch.timesAsTonic)
-        }
-        
-        func symbolLength(_ size: CGSize) -> CGFloat {
-            return minDimension(size) * keyboardKey.interval.consonanceDissonance.symbolLength
-        }
-        
-        func maxSymbolLength(_ size: CGSize) -> CGFloat {
-            return minDimension(size) * keyboardKey.interval.consonanceDissonance.maxSymbolLength
         }
         
         func minDimension(_ size: CGSize) -> CGFloat {
@@ -212,10 +201,6 @@ public struct LabelView: View {
                 }
             }
             return keyboardKey.activated ? activeColor : inactiveColor
-        }
-        
-        var keySymbol: any Shape {
-            return keyboardKey.interval.consonanceDissonance.symbol
         }
         
         var keyIcon: String {

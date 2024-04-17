@@ -12,13 +12,16 @@ struct PitchDirectionPickerView: View {
     @ObservedObject var tonicConductor: ViewConductor
 
     var body: some View {
-        Picker("", selection: $tonicConductor.pitchDirection) {
-            Image(systemName: PitchDirection.downward.icon)
-                .tag(PitchDirection.downward)
-            Image(systemName: PitchDirection.upward.icon)
-                .tag(PitchDirection.upward)
+        HStack {
+            Picker("", selection: $tonicConductor.pitchDirection) {
+                Image(systemName: PitchDirection.downward.icon)
+                    .tag(PitchDirection.downward)
+                Image(systemName: PitchDirection.upward.icon)
+                    .tag(PitchDirection.upward)
+            }
+            .frame(maxWidth: 90)
+            .pickerStyle(.segmented)
         }
-        .frame(maxWidth: 90)
-        .pickerStyle(.segmented)
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 }

@@ -35,10 +35,8 @@ struct HelpPopoverView: View {
                 }
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
                     GridRow {
-                        AnyShape(codi.symbol)
-                            .aspectRatio(1.0, contentMode: .fit)
+                        Image(systemName: codi.icon)
                             .gridColumnAlignment(.center)
-                            .frame(width: 17, height: 17)
                             .foregroundColor(.white)
                         Text(codi.label.capitalized)
                     }
@@ -63,10 +61,7 @@ struct HelpPopoverView: View {
                 }
                 ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
                     GridRow {
-                        AnyShape(intervalClass.interval.consonanceDissonance.symbol)
-                            .gridColumnAlignment(.center)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: 17, height: 17)
+                        Image(systemName: intervalClass.interval.consonanceDissonance.icon)
                             .foregroundColor(Color(intervalClass.interval.majorMinor.color))
                         Text("\(intervalClass.interval.shorthand) \(intervalClass.interval.label.capitalized)")
                     }

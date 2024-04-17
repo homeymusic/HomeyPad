@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @State var showTonicPicker: Bool = false
+    @State var showTonicPicker: Bool = true
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
 

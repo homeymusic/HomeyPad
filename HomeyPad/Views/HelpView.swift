@@ -8,36 +8,32 @@
 import SwiftUI
 
 struct HelpView: View {
-    @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     
     static let icon = "questionmark.circle"
     
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             Button(action: {
                 withAnimation {
-                    tonicConductor.showHelp.toggle()
+                    viewConductor.showHelp.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: tonicConductor.showHelp ? HelpView.icon + ".fill" : HelpView.icon)
+                        Image(systemName: viewConductor.showHelp ? HelpView.icon + ".fill" : HelpView.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
-                .padding(30.0)
             }
-            .popover(isPresented: $tonicConductor.showHelp, content: {
+            .popover(isPresented: $viewConductor.showHelp, content: {
                 VStack(spacing: 0) {
                     HelpPopoverView().presentationCompactAdaptation(.popover)
                 }
             })
         }
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        
-        
     }
 }
 

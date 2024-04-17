@@ -7,9 +7,13 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            OctaveShiftPitchDirectionView(viewConductor: viewConductor, tonicConductor: tonicConductor)
+            HStack(spacing: 20) {
+                HelpView(viewConductor: viewConductor)
+                OctaveShiftPitchDirectionView(viewConductor: viewConductor, tonicConductor: tonicConductor)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             TonicPickerSettingsView(tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
-            HelpView(tonicConductor: tonicConductor)
+            PitchDirectionPickerView(viewConductor: viewConductor, tonicConductor: tonicConductor)
         }
     }
 }

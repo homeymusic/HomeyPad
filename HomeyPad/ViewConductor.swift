@@ -63,14 +63,6 @@ class ViewConductor: ObservableObject {
         allPitches[tonicMIDI]
     }
 
-    var tritoneMIDI: Int {
-        tonicMIDI + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6)
-    }
-    
-    var tritonePitch: Pitch {
-        allPitches[tritoneMIDI]
-    }
-    
     var octaveShift: Int8 {
         get {
             let midi = if pitchDirection == .upward || !safeMIDI(midi: tonicMIDI - 12) {
@@ -85,16 +77,20 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    var centerMIDI: Int {
-        tonicMIDI + (pitchDirection == .upward ? 6 : -6)
+    var tritoneMIDI: Int {
+        tonicMIDI + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6)
+    }
+    
+    var tritonePitch: Pitch {
+        allPitches[tritoneMIDI]
     }
     
     var lowMIDI: Int {
-        Int(centerMIDI) - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        Int(tritoneMIDI) - layoutRowsCols.colsPerSide[self.layoutChoice]!
     }
     
     var highMIDI: Int {
-        Int(centerMIDI) + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        Int(tritoneMIDI) + layoutRowsCols.colsPerSide[self.layoutChoice]!
     }
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
