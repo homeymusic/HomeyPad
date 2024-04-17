@@ -104,14 +104,12 @@ public struct LabelView: View {
                         )
                     }
                     if keyboardKey.conductor.showSymbols {
-                        VStack(spacing: 0) {
-                            Color.clear
-                                .overlay(
-                                    Image(systemName: keyIcon)
-                                        .imageScale(keyboardKey.interval.consonanceDissonance.imageScale)
-                                        .font(.callout.weight(keyboardKey.interval.consonanceDissonance.fontWeight))
-                                )
-                        }
+                        Color.clear
+                            .overlay(
+                                Image(systemName: keyIcon)
+                                    .imageScale(keyboardKey.interval.consonanceDissonance.imageScale)
+                                    .font(.callout.weight(keyboardKey.interval.consonanceDissonance.fontWeight))
+                            )
                     }
                     if keyboardKey.conductor.intervalLabel[.interval]! {
                         Color.clear.overlay(
