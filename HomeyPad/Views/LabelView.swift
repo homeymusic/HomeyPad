@@ -92,7 +92,7 @@ public struct LabelView: View {
                                         )
                                 }
                                     .aspectRatio(2.0, contentMode: .fit)
-                                    .padding(1.0)
+                                    .padding(2.0)
                                     .background(Color(keyboardKey.conductor.brownColor))
                                     .cornerRadius(3.0)
                             )
@@ -107,8 +107,9 @@ public struct LabelView: View {
                         Color.clear
                             .overlay(
                                 Image(systemName: keyIcon)
-                                    .imageScale(keyboardKey.interval.consonanceDissonance.imageScale)
-                                    .font(.callout.weight(keyboardKey.interval.consonanceDissonance.fontWeight))
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxWidth: 0.5 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.width, maxHeight: 0.8 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKey.conductor.labelsCount))
                             )
                     }
                     if keyboardKey.conductor.intervalLabel[.interval]! {

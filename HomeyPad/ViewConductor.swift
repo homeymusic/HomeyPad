@@ -121,6 +121,11 @@ class ViewConductor: ObservableObject {
         buzz()
     }
     
+    var labelsCount: Int {
+        Array(noteLabels[layoutChoice]!.values).filter{$0}.count +
+        Array(intervalLabels[layoutChoice]!.values).filter{$0}.count
+    }
+    
     var areLabelsDefault: Bool {
         noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
         intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice] &&

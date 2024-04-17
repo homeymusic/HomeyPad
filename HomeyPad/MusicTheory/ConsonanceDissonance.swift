@@ -29,16 +29,15 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
         }
     }
     
-    var imageScale: Image.Scale {
+    var imageScale: CGFloat {
         switch self {
-        case .tonic:     .large
-        case .octave:    .large
-        case .perfect:   .medium
-        case .consonant: .small
-        case .dissonant: .small
+        case .tonic:     1.0
+        case .octave:    0.9
+        case .perfect:   0.8
+        case .consonant: 0.7
+        case .dissonant: 0.5
         }
     }
-
 
     var fontWeight: Font.Weight {
         switch self {
