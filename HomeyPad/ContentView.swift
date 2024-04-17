@@ -80,7 +80,7 @@ struct ContentView: View {
             }
         }
 
-        // Note label selections for tonic picker
+        // Note label selections
         let defaultLayoutLabel = LayoutLabel()
         
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
@@ -95,6 +95,17 @@ struct ContentView: View {
             }
         }
 
+        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
+            defaults.register(defaults: [
+                "viewLayoutPalette" : encodedDefaultLayoutLabel
+            ])
+        }
+        var viewLayoutLabel: LayoutLabel = defaultLayoutLabel
+        if let savedViewLayoutLabel = defaults.object(forKey: "viewLayoutLabel") as? Data {
+            if let loadedViewLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedViewLayoutLabel) {
+                viewLayoutLabel = loadedViewLayoutLabel
+            }
+        }
 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
@@ -112,7 +123,8 @@ struct ContentView: View {
             layoutChoice: layoutChoice,
             stringsLayoutChoice: stringsLayoutChoice,
             latching: latching,
-            layoutPalette: viewLayoutPalette
+            layoutPalette: viewLayoutPalette,
+            layoutLabel: viewLayoutLabel
         ))
     }
     
@@ -199,6 +211,11 @@ struct ContentView: View {
             .onChange(of: tonicConductor.layoutLabel) {
                 if let encodedDefaultLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
                     defaults.set(encodedDefaultLayoutLabel, forKey: "tonicLayoutLabel")
+                }
+            }
+            .onChange(of: viewConductor.layoutLabel) {
+                if let encodedDefaultLayoutLabel = try? JSONEncoder().encode(viewConductor.layoutLabel) {
+                    defaults.set(encodedDefaultLayoutLabel, forKey: "viewLayoutLabel")
                 }
             }
         }
