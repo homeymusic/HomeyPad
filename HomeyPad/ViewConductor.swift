@@ -418,17 +418,13 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var pitchDirection: PitchDirection = .upward {
-        willSet(newPitchDirection) {
-            if (newPitchDirection != pitchDirection) {
-                if newPitchDirection == .upward {
-                    tonicMIDI = tonicMIDI - 12
-                } else if newPitchDirection == .downward {
-                    tonicMIDI = tonicMIDI + 12
-                }
-            }
-        }
         didSet {
             if layoutChoice == .tonic {
+                if pitchDirection == .upward {
+                    tonicMIDI = tonicMIDI - 12
+                } else if pitchDirection == .downward {
+                    tonicMIDI = tonicMIDI + 12
+                }
                 midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
                 buzz()
             }

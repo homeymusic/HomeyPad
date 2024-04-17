@@ -172,7 +172,6 @@ struct ContentView: View {
             }
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection
-                viewConductor.tonicMIDI = tonicConductor.tonicMIDI
                 defaults.set(tonicConductor.pitchDirection.rawValue, forKey: "pitchDirection")
             }
             .onChange(of: viewConductor.layoutChoice) {

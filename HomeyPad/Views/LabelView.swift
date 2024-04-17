@@ -110,9 +110,8 @@ public struct LabelView: View {
                                 Color.clear
                                     .frame(width: maxSymbolLength(proxySize))
                                     .overlay(
-                                        Image(systemName: keyIcon)
-                                            .frame(width: symbolAdjustedLength)
-                                            .symbolEffect(.bounce, value: keyboardKey.pitch.isTonic)
+                                            Image(systemName: keyIcon)
+                                                .frame(width: symbolAdjustedLength)
                                     )
                             }
                         }
@@ -148,6 +147,7 @@ public struct LabelView: View {
             .foregroundColor(textColor)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
+            .symbolEffect(.bounce, value: keyboardKey.pitch.timesAsTonic)
         }
         
         func symbolLength(_ size: CGSize) -> CGFloat {
