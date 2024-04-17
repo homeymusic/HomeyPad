@@ -9,7 +9,7 @@ struct Piano<Content>: View where Content: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach((-viewConductor.rowsPerSide[.piano]!...viewConductor.rowsPerSide[.piano]!).reversed(), id: \.self) { row in
+            ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.piano]!...viewConductor.layoutRowsCols.rowsPerSide[.piano]!).reversed(), id: \.self) { row in
                 GeometryReader { geo in
                     ZStack(alignment: .topLeading) {
                         HStack(spacing: 0) {

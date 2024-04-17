@@ -65,8 +65,8 @@ extension PianoSpacer {
     }
 
     public var midiBoundedByNaturals: ClosedRange<Int> {
-        var colsBelow = viewConductor.colsPerSide[.piano]!
-        var colsAbove = viewConductor.colsPerSide[.piano]!
+        var colsBelow = viewConductor.layoutRowsCols.colsPerSide[.piano]!
+        var colsAbove = viewConductor.layoutRowsCols.colsPerSide[.piano]!
                 
         // if F .five or B .eleven are the tonic then the tritone will be off center
         if viewConductor.tonicPitch.pitchClass == .five {

@@ -3,7 +3,7 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel()) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
         // defaults
         self.tonicMIDI           = tonicMIDI
         self.pitchDirection      = pitchDirection
@@ -12,6 +12,7 @@ class ViewConductor: ObservableObject {
         self.latching            = latching
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
+        self.layoutRowsCols      = layoutRowsCols
         
         // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
@@ -89,11 +90,11 @@ class ViewConductor: ObservableObject {
     }
     
     var lowMIDI: Int {
-        Int(centerMIDI) - colsPerSide[self.layoutChoice]!
+        Int(centerMIDI) - layoutRowsCols.colsPerSide[self.layoutChoice]!
     }
     
     var highMIDI: Int {
-        Int(centerMIDI) + colsPerSide[self.layoutChoice]!
+        Int(centerMIDI) + layoutRowsCols.colsPerSide[self.layoutChoice]!
     }
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -229,15 +230,11 @@ class ViewConductor: ObservableObject {
     @Published var showPalettePopover: Bool = false
         
     func fewerRows() {
-        switch layoutChoice {
-        default: rowsPerSide[layoutChoice]! -= 1
-        }
+        layoutRowsCols.rowsPerSide[layoutChoice]! -= 1
     }
-
+    
     func moreRows() {
-        switch layoutChoice {
-        default: rowsPerSide[layoutChoice]! += 1
-        }
+        layoutRowsCols.rowsPerSide[layoutChoice]! += 1
     }
     
     func fewerCols() {
@@ -250,8 +247,8 @@ class ViewConductor: ObservableObject {
                 10:2,
                 8:2
             ]
-            colsPerSide[layoutChoice]! -= colJump[colsPerSide[layoutChoice]!] ?? 1
-        default: colsPerSide[layoutChoice]! -= 1
+            layoutRowsCols.colsPerSide[layoutChoice]! -= colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
+        default: layoutRowsCols.colsPerSide[layoutChoice]! -= 1
         }
     }
         
@@ -265,30 +262,30 @@ class ViewConductor: ObservableObject {
                 13:2,
                 15:2,
             ]
-            colsPerSide[layoutChoice]! += colJump[colsPerSide[layoutChoice]!] ?? 1
-        default: colsPerSide[layoutChoice]! += 1
+            layoutRowsCols.colsPerSide[layoutChoice]! += colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
+        default: layoutRowsCols.colsPerSide[layoutChoice]! += 1
         }
     }
     
     var showRowColsReset: Bool {
-        colsPerSide[layoutChoice] != ViewConductor.defaultColsPerSide[layoutChoice] ||
-        rowsPerSide[layoutChoice] != ViewConductor.defaultRowsPerSide[layoutChoice]
+        layoutRowsCols.colsPerSide[layoutChoice] != LayoutRowsCols.defaultColsPerSide[layoutChoice] ||
+        layoutRowsCols.rowsPerSide[layoutChoice] != LayoutRowsCols.defaultRowsPerSide[layoutChoice]
     }
     
     var showMoreRows: Bool {
-        rowsPerSide[layoutChoice]! < ViewConductor.maxRowsPerSide[layoutChoice]!
+        layoutRowsCols.rowsPerSide[layoutChoice]! < LayoutRowsCols.maxRowsPerSide[layoutChoice]!
     }
     
     var showFewerRows: Bool {
-        rowsPerSide[layoutChoice]! > ViewConductor.minRowsPerSide[layoutChoice]!
+        layoutRowsCols.rowsPerSide[layoutChoice]! > LayoutRowsCols.minRowsPerSide[layoutChoice]!
     }
     
     var showFewerColumns: Bool {
-        colsPerSide[layoutChoice]! > ViewConductor.minColsPerSide[layoutChoice]!
+        layoutRowsCols.colsPerSide[layoutChoice]! > LayoutRowsCols.minColsPerSide[layoutChoice]!
     }
     
     var showMoreColumns: Bool {
-        colsPerSide[layoutChoice]! < ViewConductor.maxColsPerSide[layoutChoice]!
+        layoutRowsCols.colsPerSide[layoutChoice]! < LayoutRowsCols.maxColsPerSide[layoutChoice]!
     }
     
     func resetRowsColsPerSide() {
@@ -296,65 +293,16 @@ class ViewConductor: ObservableObject {
         resetColsPerSide()
     }
     
-    @Published var colsPerSide: [LayoutChoice: Int] = ViewConductor.defaultColsPerSide
-    
+    @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols()
+
     func resetColsPerSide() {
-        colsPerSide[layoutChoice]! = ViewConductor.defaultColsPerSide[layoutChoice]!
+        layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
     }
     
-    static let defaultColsPerSide: [LayoutChoice: Int] = [
-        .tonic:      6,
-        .isomorphic: 9,
-        .symmetric:  13,
-        .piano:      8,
-        .strings:    26
-    ]
-    
-    static let minColsPerSide: [LayoutChoice: Int] = [
-        .tonic:      6,
-        .isomorphic: 6,
-        .symmetric:  6,
-        .piano:      4,
-        .strings:    26
-    ]
-    
-    static let maxColsPerSide: [LayoutChoice: Int] = [
-        .tonic:      6,
-        .isomorphic: 18,
-        .symmetric:  18,
-        .piano:      11,
-        .strings:    26
-    ]
-    
-    @Published var rowsPerSide: [LayoutChoice: Int] = ViewConductor.defaultRowsPerSide
     
     func resetRowsPerSide() {
-        rowsPerSide[layoutChoice]! = ViewConductor.defaultRowsPerSide[layoutChoice]!
+        layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
     }
-    
-    static let defaultRowsPerSide: [LayoutChoice: Int] = [
-        .tonic:      0,
-        .isomorphic: 0,
-        .symmetric:  0,
-        .piano:      0,
-        .strings:    6
-    ]
-    
-    static let minRowsPerSide: [LayoutChoice: Int] = [
-        .tonic:      0,
-        .isomorphic: 0,
-        .symmetric:  0,
-        .piano:      0,
-        .strings:    4
-    ]
-    
-    static let maxRowsPerSide: [LayoutChoice: Int] = [
-        .tonic:      0,
-        .isomorphic: 4,
-        .symmetric:  2,
-        .piano:      2,
-        .strings:    26
-    ]
     
     // KeyboardModel
     var keyRectInfos: [KeyRectInfo] = []

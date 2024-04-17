@@ -8,7 +8,7 @@ struct Isomorphic<Content>: View where Content: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ForEach((-viewConductor.rowsPerSide[.isomorphic]!...viewConductor.rowsPerSide[.isomorphic]!).reversed(), id: \.self) { row in
+            ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]!...viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]!).reversed(), id: \.self) { row in
                 HStack(spacing: 0) {
                     ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { col in
                         let midi: Int = col + 12 * row

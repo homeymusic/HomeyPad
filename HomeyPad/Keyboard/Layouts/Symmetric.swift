@@ -6,7 +6,7 @@ struct Symmetric<Content>: View where Content: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach((-viewConductor.rowsPerSide[.symmetric]!...viewConductor.rowsPerSide[.symmetric]!).reversed(), id: \.self) { row in
+            ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.symmetric]!...viewConductor.layoutRowsCols.rowsPerSide[.symmetric]!).reversed(), id: \.self) { row in
                 HStack(spacing: 0) {
                     ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { col in
                         let midi: Int = col + 12 * row

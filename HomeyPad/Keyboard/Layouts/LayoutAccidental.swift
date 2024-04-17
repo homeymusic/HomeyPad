@@ -1,2 +1,0 @@
-struct LayoutAccidental: Codable, Equatable {
-}
