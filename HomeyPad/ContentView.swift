@@ -107,6 +107,20 @@ struct ContentView: View {
             }
         }
 
+        // Rows and columns picker for each layout in main view except strings
+        let defaultLayoutRowsCols = LayoutRowsCols()
+        if let encodedDefaultLayoutRowsCols = try? encoder.encode(defaultLayoutRowsCols) {
+            defaults.register(defaults: [
+                "layoutRowsCols" : encodedDefaultLayoutRowsCols
+            ])
+        }
+        var layoutRowsCols: LayoutRowsCols = defaultLayoutRowsCols
+        if let savedLayoutRowsCols = defaults.object(forKey: "layoutRowsCols") as? Data {
+            if let loadedLayoutRowsCols = try? decoder.decode(LayoutRowsCols.self, from: savedLayoutRowsCols) {
+                layoutRowsCols = loadedLayoutRowsCols
+            }
+        }
+
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
@@ -124,7 +138,8 @@ struct ContentView: View {
             stringsLayoutChoice: stringsLayoutChoice,
             latching: latching,
             layoutPalette: viewLayoutPalette,
-            layoutLabel: viewLayoutLabel
+            layoutLabel: viewLayoutLabel,
+            layoutRowsCols: layoutRowsCols
         ))
     }
     
@@ -199,23 +214,28 @@ struct ContentView: View {
                 defaults.set(viewConductor.latching, forKey: "latching")
             }
             .onChange(of: tonicConductor.layoutPalette) {
-                if let encodedDefaultLayoutPalette = try? JSONEncoder().encode(tonicConductor.layoutPalette) {
-                    defaults.set(encodedDefaultLayoutPalette, forKey: "tonicLayoutPalette")
+                if let encodedTonicLayoutPalette = try? JSONEncoder().encode(tonicConductor.layoutPalette) {
+                    defaults.set(encodedTonicLayoutPalette, forKey: "tonicLayoutPalette")
                 }
             }
             .onChange(of: viewConductor.layoutPalette) {
-                if let encodedDefaultLayoutPalette = try? JSONEncoder().encode(viewConductor.layoutPalette) {
-                    defaults.set(encodedDefaultLayoutPalette, forKey: "viewLayoutPalette")
+                if let encodedViewLayoutPalette = try? JSONEncoder().encode(viewConductor.layoutPalette) {
+                    defaults.set(encodedViewLayoutPalette, forKey: "viewLayoutPalette")
                 }
             }
             .onChange(of: tonicConductor.layoutLabel) {
-                if let encodedDefaultLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
-                    defaults.set(encodedDefaultLayoutLabel, forKey: "tonicLayoutLabel")
+                if let encodedTonicLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
+                    defaults.set(encodedTonicLayoutLabel, forKey: "tonicLayoutLabel")
                 }
             }
             .onChange(of: viewConductor.layoutLabel) {
-                if let encodedDefaultLayoutLabel = try? JSONEncoder().encode(viewConductor.layoutLabel) {
-                    defaults.set(encodedDefaultLayoutLabel, forKey: "viewLayoutLabel")
+                if let encodedViewLayoutLabel = try? JSONEncoder().encode(viewConductor.layoutLabel) {
+                    defaults.set(encodedViewLayoutLabel, forKey: "viewLayoutLabel")
+                }
+            }
+            .onChange(of: viewConductor.layoutRowsCols) {
+                if let encodedLayoutRowsCols = try? JSONEncoder().encode(viewConductor.layoutRowsCols) {
+                    defaults.set(encodedLayoutRowsCols, forKey: "layoutRowsCols")
                 }
             }
         }
