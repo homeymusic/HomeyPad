@@ -15,7 +15,7 @@ class ViewConductor: ObservableObject {
         self.layoutRowsCols      = layoutRowsCols
         
         // setup
-        self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray5) : .black
+        self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray6) : .black
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
         midiHelper.setup(midiManager: midiManager)
@@ -75,6 +75,10 @@ class ViewConductor: ObservableObject {
             tonicMIDI = tonicMIDI + 12 * (Int(newOctaveShift) + 5)
         }
     }
+
+    var octaveMIDI: Int {
+        tonicMIDI + (pitchDirection == .upward || pitchDirection == .both ? 12 : -12)
+    }
     
     var tritoneMIDI: Int {
         tonicMIDI + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6)
@@ -112,11 +116,13 @@ class ViewConductor: ObservableObject {
     }
     
     var isPaletteDefault: Bool {
-        layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice]
+        layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice] &&
+        layoutPalette.outlineChoice[layoutChoice] == LayoutPalette.defaultLayoutOutline[layoutChoice]
     }
     
     func resetPaletteChoice() {
         layoutPalette.choices[layoutChoice] = LayoutPalette.defaultLayoutPalette[layoutChoice]
+        layoutPalette.outlineChoice[layoutChoice] = LayoutPalette.defaultLayoutOutline[layoutChoice]
         buzz()
     }
     
@@ -162,11 +168,13 @@ class ViewConductor: ObservableObject {
         layoutPalette.choices[layoutChoice]!
     }
     
+    var outlineChoice: Bool {
+        layoutPalette.outlineChoice[layoutChoice]!
+    }
+
     @Published var layoutPalette: LayoutPalette = LayoutPalette() {
         willSet(newLayoutPalette) {
-            if newLayoutPalette.choices[layoutChoice]! != layoutPalette.choices[layoutChoice]! {
-                buzz()
-            }
+            buzz()
         }
     }
     
@@ -210,6 +218,17 @@ class ViewConductor: ObservableObject {
         )
     }
     
+    public func outlineBinding() -> Binding<Bool> {
+        return Binding(
+            get: {
+                return self.layoutPalette.outlineChoice[self.layoutChoice]!
+            },
+            set: {
+                self.layoutPalette.outlineChoice[self.layoutChoice]! = $0
+            }
+        )
+    }
+
     var showSymbols: Bool {
         intervalLabels[layoutChoice]![.symbol]!
     }

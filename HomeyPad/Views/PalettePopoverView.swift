@@ -8,31 +8,30 @@
 import SwiftUI
 
 struct PalettePopoverView: View {
-    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var conductor: ViewConductor
     
     var body: some View {
-        VStack(spacing: 0.0) {
-            Picker("", selection: $viewConductor.layoutPalette.choices[viewConductor.layoutChoice]) {
+        VStack(spacing: 10.0) {
+            Picker("", selection: $conductor.layoutPalette.choices[conductor.layoutChoice]) {
                 ForEach(PaletteChoice.allCases) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
                         .tag(paletteChoice as PaletteChoice?)
                 }
             }
             .pickerStyle(.segmented)
-            .padding(10)
-            
-            Divider()
 
-            Button(action: {
-                viewConductor.resetPaletteChoice()
-            }, label: {
-                Image(systemName: "gobackward")
-                    .gridCellAnchor(.center)
-                    .foregroundColor(viewConductor.isPaletteDefault ? .gray : .white)
-            })
-            .padding([.top, .bottom], 7)
-            .disabled(viewConductor.isPaletteDefault)
-            
+            Grid {
+                GridRow {
+                    Image(systemName: "pencil.and.outline")
+                        .gridCellAnchor(.center)
+                        .foregroundColor(.white)
+                    Toggle(LayoutPalette.outlineLabel,
+                           isOn: conductor.outlineBinding())
+                    .tint(Color.gray)
+                    .foregroundColor(.white)
+                }
+            }
         }
+        .padding(10)
     }
 }

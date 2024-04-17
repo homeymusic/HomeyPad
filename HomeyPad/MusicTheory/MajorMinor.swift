@@ -30,6 +30,8 @@ enum MajorMinor: Int, CaseIterable, Identifiable, Comparable, Equatable {
         case .neutral: return "P"
         }
     }
+
+    static let altNeutralColor: CGColor =  #colorLiteral(red: 1, green: 0.3333333333, blue: 0, alpha: 1)
     
     static func < (lhs: MajorMinor, rhs: MajorMinor) -> Bool {
         lhs.rawValue < rhs.rawValue

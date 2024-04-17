@@ -38,7 +38,7 @@ struct ContentView: View {
 
         // Show Tonic Picker
         defaults.register(defaults: [
-            "showTonicPicker" : true
+            "showTonicPicker" : false
         ])
         showTonicPicker = defaults.bool(forKey: "showTonicPicker")
 

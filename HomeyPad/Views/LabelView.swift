@@ -12,11 +12,11 @@ public struct LabelView: View {
         let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * ViewConductor.currentTritoneLength - 1.5 * keyboardKey.backgroundBorderSize : 0.0
         VStack(spacing: 0.0) {
             if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
-                let topBottomPadding = (keyboardKey.outlineTonic ? 0.0 : 0.5 * keyboardKey.backgroundBorderSize)
+                let topBottomPadding = (keyboardKey.outline ? 0.0 : 0.5 * keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding + tritonePadding)
                 Color.clear
-                    .frame(height: keyboardKey.outlineTonic ? 2 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize)
+                    .frame(height: keyboardKey.outline ? 2 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding + tritonePadding)
             } else {
@@ -115,7 +115,7 @@ public struct LabelView: View {
                     }
                     if keyboardKey.conductor.intervalLabel[.interval]! {
                         Color.clear.overlay(
-                            Text(String(keyboardKey.interval.shorthand))
+                            Text(String(keyboardKey.interval.classShorthand(globalPitchDirection: keyboardKey.conductor.pitchDirection)))
                         )
                     }
                     if keyboardKey.conductor.intervalLabel[.movableDo]! {

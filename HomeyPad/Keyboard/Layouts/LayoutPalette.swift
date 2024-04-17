@@ -9,4 +9,15 @@ struct LayoutPalette: Codable, Equatable {
         .strings:    .subtle
     ]
     
+    var outlineChoice: [LayoutChoice: Bool] = defaultLayoutOutline
+            
+    static let defaultLayoutOutline: [LayoutChoice: Bool] = [
+        .tonic:      true,
+        .isomorphic: true,
+        .symmetric:  true,
+        .piano:      true,
+        .strings:    true
+    ]
+
+    static let outlineLabel: String = "Outline"
 }

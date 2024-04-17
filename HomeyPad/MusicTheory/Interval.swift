@@ -177,6 +177,14 @@ struct Interval: Comparable, Equatable {
         }
     }
 
+    func classShorthand(globalPitchDirection: PitchDirection) -> String {
+        if tritone {
+            return "\(globalPitchDirection.shortHand)tt"
+        } else {
+            return "\(globalPitchDirection.shortHand)\(majorMinor.shortHand)\(degreeClassShorthand(globalPitchDirection: globalPitchDirection))"
+        }
+    }
+
     var label: String {
         if pitch == tonicPitch {
             return "unison"

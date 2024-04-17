@@ -11,25 +11,25 @@ struct KeyView: View {
     var body: some View {
         let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize
         let borderHeightApparentSize = keyboardKey.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-        let outlineWidth = borderWidthApparentSize * (keyboardKey.tonicTonic ? 2.5 : 2.0)
-        let outlineHeight = borderHeightApparentSize * (keyboardKey.tonicTonic ? 2.5 : 2.0)
+        let outlineWidth = borderWidthApparentSize * keyboardKey.outlineSize
+        let outlineHeight = borderHeightApparentSize * keyboardKey.outlineSize
         let alignment: Alignment = keyboardKey.conductor.layoutChoice == .piano ? .top : .center
         
         ZStack(alignment: alignment) {
             KeyRectangle(fillColor: keyboardKey.conductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
                 .overlay(alignment: alignment) {
-                    if keyboardKey.outlineTonic {
+                    if keyboardKey.outline {
                         KeyRectangle(fillColor: keyboardKey.outlineColor, keyboardKey: keyboardKey, proxySize: proxySize)
                             .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
                             .overlay(alignment: alignment) {
-                                KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                                    .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
+                                KeyRectangle(fillColor: keyboardKey.outlineKeyColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                                    .frame(width: proxySize.width - (keyboardKey.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outline ? outlineHeight : borderHeightApparentSize))
                                     .overlay(LabelView(keyboardKey: keyboardKey, proxySize: proxySize)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                             }
                     } else {
                         KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                            .frame(width: proxySize.width - (keyboardKey.outlineTonic ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outlineTonic ? outlineHeight : borderHeightApparentSize))
+                            .frame(width: proxySize.width - (keyboardKey.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outline ? outlineHeight : borderHeightApparentSize))
                             .overlay(LabelView(keyboardKey: keyboardKey, proxySize: proxySize)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                     }

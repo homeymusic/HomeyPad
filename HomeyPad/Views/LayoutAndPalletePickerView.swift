@@ -75,8 +75,24 @@ struct LayoutAndPalletePickerView: View {
                     Image(systemName: viewConductor.layoutChoice.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
-                    PalettePopoverView(viewConductor: viewConductor)
-                        .presentationCompactAdaptation(.popover)
+                    ScrollView(.vertical) {
+                        PalettePopoverView(conductor: viewConductor)
+                            .presentationCompactAdaptation(.popover)
+                    }
+                    .scrollIndicatorsFlash(onAppear: true)
+
+                    Divider()
+                    
+                    Button(action: {
+                        viewConductor.resetPaletteChoice()
+                    }, label: {
+                        Image(systemName: "gobackward")
+                            .gridCellAnchor(.center)
+                            .foregroundColor(viewConductor.isPaletteDefault ? .gray : .white)
+                    })
+                    .padding([.top, .bottom], 7)
+                    .disabled(viewConductor.isPaletteDefault)
+                                                        
                 }
             })
             .padding(.leading, 10)

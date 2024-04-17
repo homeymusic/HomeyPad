@@ -68,13 +68,8 @@ public struct KeyboardKey: View {
             }
             return activated ? activeColor : inactiveColor
         case .ebonyIvory:
-            if conductor.layoutChoice == .tonic {
-                inactiveColor = pitch.accidental ? .black : .white
-                activeColor = inactiveColor.adjust(brightness: -0.2)
-            } else {
-                inactiveColor = pitch.accidental ? Color(.darkGray) : .white
-                activeColor = inactiveColor.adjust(brightness: -0.2)
-            }
+            inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
+            activeColor =   pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
             return activated ? activeColor : inactiveColor
         }
     }
@@ -83,24 +78,65 @@ public struct KeyboardKey: View {
         conductor.layoutChoice == .tonic && pitch.isTonic
     }
 
-    var outlineColor: Color {
-        if tonicTonic {
-            switch conductor.paletteChoice {
-            case .subtle:
-                return Color(conductor.brownColor)
-            case .loud:
-                return Color(conductor.creamColor)
-            case .ebonyIvory:
-                return pitch.accidental ? .white : Color(UIColor.systemGray)
-            }
+    var tonicNotTonic: Bool {
+        conductor.layoutChoice != .tonic && pitch.isTonic
+    }
+
+    var outlineSize: CGFloat {
+        if tonicNotTonic {
+            return 3.0
+        } else if tonicTonic {
+            return 2.75
         } else {
-            return accentColor
+            return 2.0
         }
     }
     
-    var outlineTonic: Bool {
-        (conductor.paletteChoice == .subtle && interval.intervalClass == .zero) ||
-        tonicTonic
+    var outlineColor: Color {
+        switch conductor.paletteChoice {
+        case .subtle:
+            if tonicTonic {
+                return Color(conductor.brownColor)
+            } else {
+                return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
+            }
+        case .loud:
+            if tonicTonic {
+                return Color(conductor.creamColor)
+            } else {
+                return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
+            }
+        case .ebonyIvory:
+            return Color(MajorMinor.altNeutralColor)
+        }
+    }
+    
+    var outlineKeyColor: Color {
+        switch conductor.paletteChoice {
+        case .subtle:
+            if tonicTonic {
+                return Color(conductor.creamColor)
+            } else {
+                return keyColor
+            }
+        case .loud:
+            if tonicTonic {
+                return Color(conductor.brownColor)
+            } else {
+                return keyColor
+            }
+        case .ebonyIvory:
+            if tonicTonic {
+                return pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
+            } else {
+                return keyColor
+            }
+        }
+    }
+    
+    var outline: Bool {
+        conductor.outlineChoice &&
+        (pitch.midi == conductor.tonicMIDI || pitch.midi == conductor.octaveMIDI)
     }
 
     var isSmall: Bool {
