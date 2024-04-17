@@ -22,6 +22,5 @@ struct PitchDirectionPickerView: View {
             .frame(maxWidth: 90)
             .pickerStyle(.segmented)
         }
-        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 }

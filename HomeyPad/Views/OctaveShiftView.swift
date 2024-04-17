@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct OctaveShiftPitchDirectionView: View {
+struct OctaveShiftView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
     

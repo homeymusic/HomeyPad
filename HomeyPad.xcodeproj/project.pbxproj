@@ -56,7 +56,7 @@
 		B0CEE2022BC99AE500B96ACA /* PitchDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CEE2012BC99AE500B96ACA /* PitchDirection.swift */; };
 		B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */; };
 		B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */; };
-		B0E25F782BC630C30072A09A /* OctaveShiftPitchDirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F772BC630C30072A09A /* OctaveShiftPitchDirectionView.swift */; };
+		B0E25F782BC630C30072A09A /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F772BC630C30072A09A /* OctaveShiftView.swift */; };
 		B0E25F7A2BC630DE0072A09A /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F792BC630DE0072A09A /* HelpView.swift */; };
 		B0E25F7C2BC6979B0072A09A /* StringsLayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */; };
 		B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* Tonic.swift */; };
@@ -115,7 +115,7 @@
 		B0CEE2012BC99AE500B96ACA /* PitchDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDirection.swift; sourceTree = "<group>"; };
 		B0CF94CC2BB09E6E00E5EABE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		B0E25F752BC5ED270072A09A /* AccidentalChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalChoice.swift; sourceTree = "<group>"; };
-		B0E25F772BC630C30072A09A /* OctaveShiftPitchDirectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftPitchDirectionView.swift; sourceTree = "<group>"; };
+		B0E25F772BC630C30072A09A /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
 		B0E25F792BC630DE0072A09A /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLayoutChoice.swift; sourceTree = "<group>"; };
 		B0E25F7D2BC7EF640072A09A /* Tonic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tonic.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */,
 				B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */,
 				B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */,
-				B0E25F772BC630C30072A09A /* OctaveShiftPitchDirectionView.swift */,
+				B0E25F772BC630C30072A09A /* OctaveShiftView.swift */,
 				B067B6E82BCEB74E00BC6C45 /* PitchDirectionPickerView.swift */,
 			);
 			path = Views;
@@ -351,7 +351,7 @@
 				B0CF94CD2BB09E6E00E5EABE /* FooterView.swift in Sources */,
 				B04CE2282BBB09D900E8787D /* Pitch.swift in Sources */,
 				B0C7FD312BBAFB16006FF26F /* KeyView.swift in Sources */,
-				B0E25F782BC630C30072A09A /* OctaveShiftPitchDirectionView.swift in Sources */,
+				B0E25F782BC630C30072A09A /* OctaveShiftView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
 				B00B51BC2BCC5DB00003E6BE /* Conductor.swift in Sources */,
 				B04CE2372BBB3B6F00E8787D /* MajorMinor.swift in Sources */,

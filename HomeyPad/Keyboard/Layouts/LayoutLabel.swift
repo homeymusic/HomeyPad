@@ -13,7 +13,7 @@ struct LayoutLabel: Codable, Equatable {
     var intervalLabelChoices: [LayoutChoice: [IntervalLabelChoice: Bool]] = defaultIntervalLabels
 
     static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .tonic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
+        .tonic: [.symbol: false, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .symmetric: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
         .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
