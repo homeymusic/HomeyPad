@@ -1,5 +1,3 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/Keyboard/
-
 import SwiftUI
 
 struct Isomorphic<Content>: View where Content: View {

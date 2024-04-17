@@ -19,7 +19,6 @@ class ViewConductor: ObservableObject {
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
         midiHelper.setup(midiManager: midiManager)
-        conductor.start()
     }
     
     var conductor = Conductor()
@@ -62,7 +61,7 @@ class ViewConductor: ObservableObject {
     var tonicPitch: Pitch {
         allPitches[tonicMIDI]
     }
-
+    
     var octaveShift: Int8 {
         get {
             let midi = if pitchDirection == .upward || !safeMIDI(midi: tonicMIDI - 12) {
@@ -170,9 +169,9 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-
+    
     @Published var layoutLabel: LayoutLabel = LayoutLabel()
- 
+    
     var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] {
         layoutLabel.noteLabelChoices
     }
@@ -229,7 +228,7 @@ class ViewConductor: ObservableObject {
     @Published var showKeyLabelsPopover: Bool = false
     
     @Published var showPalettePopover: Bool = false
-        
+    
     func fewerRows() {
         layoutRowsCols.rowsPerSide[layoutChoice]! -= 1
     }
@@ -252,7 +251,7 @@ class ViewConductor: ObservableObject {
         default: layoutRowsCols.colsPerSide[layoutChoice]! -= 1
         }
     }
-        
+    
     func moreCols() {
         switch layoutChoice {
         case .symmetric:
@@ -295,7 +294,7 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols()
-
+    
     func resetColsPerSide() {
         layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
     }
@@ -348,7 +347,7 @@ class ViewConductor: ObservableObject {
             triggerEvents(from: externallyActivatedPitches, to: newValue)
         }
     }
-
+    
     @Published var tonicMIDI: Int {
         willSet(newTonicMIDI) {
             allPitches[tonicMIDI].isTonic = false
@@ -374,7 +373,7 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-
+    
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
         let oldPitches = oldValue.subtracting(newValue)
@@ -397,16 +396,16 @@ class ViewConductor: ObservableObject {
                 midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
                 midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
                 pitch.noteOn()
-                conductor.instrument.play(noteNumber: UInt8(pitch.midi), velocity: 63, channel: 0)
+                conductor.noteOn(pitch: pitch)
             }
             for pitch in oldPitches {
                 midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
                 pitch.noteOff()
-                conductor.instrument.stop(noteNumber: UInt8(pitch.midi), channel: 0)
+                conductor.noteOff(pitch: pitch)
             }
         }
     }
-        
+    
     static var currentTritoneLength: CGFloat = 0.0
     
     func tritoneLength(proxySize: CGSize) -> CGFloat {
@@ -414,5 +413,12 @@ class ViewConductor: ObservableObject {
         return ViewConductor.currentTritoneLength
     }
     
+    func reloadAudio() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if !self.conductor.engine.isRunning {
+                self.conductor.start()
+            }
+        }
+    }
 }
 

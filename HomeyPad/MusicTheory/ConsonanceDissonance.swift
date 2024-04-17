@@ -35,7 +35,7 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
         case .octave:    0.9
         case .perfect:   0.7
         case .consonant: 0.6
-        case .dissonant: 0.5
+        case .dissonant: 0.4
         }
     }
 

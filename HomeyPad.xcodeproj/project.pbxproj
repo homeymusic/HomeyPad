@@ -10,7 +10,6 @@
 		B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B00B51B72BCC4EB30003E6BE /* MIDIKit */; };
 		B00B51BA2BCC4EFA0003E6BE /* MIDIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */; };
 		B00B51BC2BCC5DB00003E6BE /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51BB2BCC5DB00003E6BE /* Conductor.swift */; };
-		B00B51BF2BCC5DC00003E6BE /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B00B51BE2BCC5DC00003E6BE /* AudioKit */; };
 		B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401D2BB0644D0058EABF /* ViewConductor.swift */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -128,7 +127,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00B51BF2BCC5DC00003E6BE /* AudioKit in Frameworks */,
 				B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,7 +270,6 @@
 			name = HomeyPad;
 			packageProductDependencies = (
 				B00B51B72BCC4EB30003E6BE /* MIDIKit */,
-				B00B51BE2BCC5DC00003E6BE /* AudioKit */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -304,7 +301,6 @@
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
 				B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */,
-				B00B51BD2BCC5DC00003E6BE /* XCRemoteSwiftPackageReference "AudioKit" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -606,14 +602,6 @@
 				minimumVersion = 0.9.5;
 			};
 		};
-		B00B51BD2BCC5DC00003E6BE /* XCRemoteSwiftPackageReference "AudioKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -621,11 +609,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */;
 			productName = MIDIKit;
-		};
-		B00B51BE2BCC5DC00003E6BE /* AudioKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B00B51BD2BCC5DC00003E6BE /* XCRemoteSwiftPackageReference "AudioKit" */;
-			productName = AudioKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,23 +1,26 @@
 import AVFoundation
-import AudioKit
 
 class Conductor: ObservableObject {
-    // Audio Engine
-    let engine = AudioEngine()
-    
-    // Sampler Instrument
-    var instrument = MIDISampler()
+    let engine = AVAudioEngine()
+    var instrument = AVAudioUnitSampler()
     
     init() {
-        
-        // Attach Nodes to the Engine
-        engine.output = instrument
-                
+        engine.attach(instrument)
+        engine.connect(instrument, to: engine.mainMixerNode, format: nil)
+        start()
     }
-    
+
     func start() {
-        // Load AVAudioUnitSampler Instrument
         try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "exs")!)
         try? engine.start()
     }
+
+    func noteOn(pitch: Pitch) {
+        instrument.startNote(UInt8(pitch.midi), withVelocity: 64, onChannel: 0)
+    }
+    
+    func noteOff(pitch: Pitch) {
+        instrument.stopNote(UInt8(pitch.midi), onChannel: 0)
+    }
+    
 }
