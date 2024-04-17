@@ -109,7 +109,8 @@ public struct LabelView: View {
                                 Image(systemName: keyIcon)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: 0.5 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.width, maxHeight: 0.8 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKey.conductor.labelsCount))
+                                    .frame(maxWidth: (keyboardKey.isSmall ? 0.6 : 0.5) * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.width,
+                                           maxHeight: 0.8 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKey.conductor.labelsCount))
                             )
                     }
                     if keyboardKey.conductor.intervalLabel[.interval]! {
@@ -195,7 +196,7 @@ public struct LabelView: View {
                     activeColor = Color(keyboardKey.interval.majorMinor.color)
                     inactiveColor = Color(keyboardKey.conductor.creamColor)
                 } else {
-                    inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.colorOnWhite)
+                    inactiveColor = Color(keyboardKey.pitch.accidental ? keyboardKey.interval.majorMinor.color : keyboardKey.interval.majorMinor.color)
                     activeColor = inactiveColor
                 }
             }

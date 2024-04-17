@@ -33,21 +33,12 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
         switch self {
         case .tonic:     1.0
         case .octave:    0.9
-        case .perfect:   0.8
-        case .consonant: 0.7
+        case .perfect:   0.7
+        case .consonant: 0.6
         case .dissonant: 0.5
         }
     }
 
-    var fontWeight: Font.Weight {
-        switch self {
-        case .tonic:     .bold
-        case .octave:    .medium
-        case .perfect:   .regular
-        case .consonant: .light
-        case .dissonant: .light
-        }
-    }
     static func < (lhs: ConsonanceDissonance, rhs: ConsonanceDissonance) -> Bool {
         lhs.rawValue < rhs.rawValue
     }

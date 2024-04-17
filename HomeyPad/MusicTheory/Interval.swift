@@ -19,11 +19,7 @@ struct Interval: Comparable, Equatable {
     }
     
     public var majorMinor: MajorMinor {
-        switch intervalClass {
-        case .one, .three, .eight, .ten: return .minor
-        case .zero, .five, .six, .seven: return .neutral
-        case .two, .four, .nine, .eleven: return .major
-        }
+        Interval.majorMinor(midi: Int(pitch.midi), tonicMIDI: Int(tonicPitch.midi))
     }
     
     static func majorMinor(midi: Int, tonicMIDI: Int) -> MajorMinor {
