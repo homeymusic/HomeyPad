@@ -35,6 +35,7 @@
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
 		B0A0FFC12BC0200A00FFB98C /* KeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */; };
 		B0A0FFC32BC0341500FFB98C /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */; };
+		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */; };
 		B0C7FD302BBAFB16006FF26F /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* PreferenceKeys.swift */; };
@@ -94,6 +95,7 @@
 		B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalLabelChoice.swift; sourceTree = "<group>"; };
 		B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 		B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
+		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
 		B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		B02673372BAF6C7C00DDFA62 = {
 			isa = PBXGroup;
 			children = (
+				B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */,
 				B067B6DD2BCC682100BC6C45 /* Sounds */,
 				B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
@@ -318,6 +321,7 @@
 			files = (
 				B067B6DE2BCC682100BC6C45 /* Sounds in Resources */,
 				B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */,
+				B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */,
 				B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
