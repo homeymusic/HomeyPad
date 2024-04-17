@@ -85,7 +85,7 @@ struct ContentView: View {
         
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
-                "tonicLayoutPalette" : encodedDefaultLayoutLabel
+                "tonicLayoutLabel" : encodedDefaultLayoutLabel
             ])
         }
         var tonicLayoutLabel: LayoutLabel = defaultLayoutLabel
@@ -97,7 +97,7 @@ struct ContentView: View {
 
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
-                "viewLayoutPalette" : encodedDefaultLayoutLabel
+                "viewLayoutLabel" : encodedDefaultLayoutLabel
             ])
         }
         var viewLayoutLabel: LayoutLabel = defaultLayoutLabel
