@@ -116,11 +116,7 @@ public struct KeyboardKey: View {
                 return keyColor
             }
         case .ebonyIvory:
-            if tonicTonic {
-                return pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
-            } else {
-                return keyColor
-            }
+            return keyColor
         }
     }
     

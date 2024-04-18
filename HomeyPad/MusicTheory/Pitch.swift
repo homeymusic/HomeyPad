@@ -12,7 +12,6 @@ public class Pitch: ObservableObject, Equatable {
     @Published public var isTonic: Bool = false {
         didSet {
             timesAsTonic += isTonic ? 1 : 0
-            print("timesAsTonic \(midi) \(timesAsTonic) \(isTonic)")
         }
     }
     @Published public var timesAsTonic: Int = 0
