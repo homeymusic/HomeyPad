@@ -1,13 +1,13 @@
 public enum StringsLayoutChoice: String, CaseIterable, Identifiable {
-    case guitar = "guitar"
-    case banjo = "banjo"
-    case bass   = "bass"
     case violin = "violin"
     case cello  = "cello"
+    case bass   = "bass"
+    case banjo  = "banjo"
+    case guitar = "guitar"
     
     public var id: String { self.rawValue }
     
-    public var icon: String {
+    public var label: String {
         rawValue
     }
     

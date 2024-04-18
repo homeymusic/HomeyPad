@@ -12,7 +12,7 @@ struct FooterView: View {
     
     var body: some View {
         HStack {
-            
+            Spacer()
             Button(action: {
                 viewConductor.latching.toggle()
             }) {
@@ -33,19 +33,16 @@ struct FooterView: View {
                 if viewConductor.layoutChoice == .strings {
                     Picker("", selection: $viewConductor.stringsLayoutChoice) {
                         ForEach(StringsLayoutChoice.allCases) { stringsLayoutChoice in
-                            Text(stringsLayoutChoice.icon.capitalized)
+                            Text(stringsLayoutChoice.label.capitalized)
                                 .tag(stringsLayoutChoice)
-                                .font(Font.system(size: 17))
                         }
                     }
-                    .frame(maxWidth: 240)
                     .pickerStyle(.segmented)
                 } else {
                     RowsColsPickerView(viewConductor: viewConductor)
                 }
             }
             .foregroundColor(.white)
-            .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
             .frame(maxWidth: .infinity, alignment: .trailing)
             .animation(viewConductor.animationStyle, value: viewConductor.layoutChoice)
         }
