@@ -109,6 +109,7 @@ public struct LabelView: View {
                                 Image(systemName: keyIcon)
                                     .resizable()
                                     .scaledToFit()
+                                    .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKey.interval.consonanceDissonance.fontWeight))
                                     .frame(maxWidth: (keyboardKey.isSmall ? 0.6 : 0.5) * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.width,
                                            maxHeight: 0.8 * keyboardKey.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKey.conductor.labelsCount))
                             )
