@@ -36,7 +36,6 @@
 		B0A0FFC12BC0200A00FFB98C /* KeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */; };
 		B0A0FFC32BC0341500FFB98C /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
-		B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */; };
 		B0C7FD2F2BBAFB16006FF26F /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* LabelView.swift */; };
 		B0C7FD302BBAFB16006FF26F /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* PreferenceKeys.swift */; };
 		B0C7FD312BBAFB16006FF26F /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2B2BBAFB16006FF26F /* KeyView.swift */; };
@@ -96,7 +95,6 @@
 		B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 		B0A0FFC22BC0341500FFB98C /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyContainer.swift; sourceTree = "<group>"; };
 		B0C7FD1F2BBAFB16006FF26F /* KeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKey.swift; sourceTree = "<group>"; };
 		B0C7FD202BBAFB16006FF26F /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			children = (
 				B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */,
 				B067B6DD2BCC682100BC6C45 /* Sounds */,
-				B0C088022BB8289E00E454A0 /* InfoPlist.xcstrings */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
 			);
@@ -320,7 +317,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B067B6DE2BCC682100BC6C45 /* Sounds in Resources */,
-				B0C088032BB8289E00E454A0 /* InfoPlist.xcstrings in Resources */,
 				B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */,
 				B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */,
 			);
@@ -514,13 +510,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = HomeyPad/HomeyPad.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"HomeyPad/Preview Content\"";
 				DEVELOPMENT_TEAM = 694886K98M;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HomeyPad/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Homey Pad";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -532,9 +529,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HomeyMusic.HomeyPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -547,13 +545,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = HomeyPad/HomeyPad.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"HomeyPad/Preview Content\"";
 				DEVELOPMENT_TEAM = 694886K98M;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HomeyPad/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Homey Pad";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -565,9 +564,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HomeyMusic.HomeyPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

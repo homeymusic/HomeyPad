@@ -260,6 +260,11 @@ class ViewConductor: ObservableObject {
         switch layoutChoice {
         case .symmetric:
             let colJump: [Int:Int] = [
+                29:2,
+                27:2,
+                25:3,
+                22:2,
+                20:2,
                 17:2,
                 15:2,
                 13:3,
@@ -280,6 +285,11 @@ class ViewConductor: ObservableObject {
                 10:3,
                 13:2,
                 15:2,
+                18:2,
+                20:2,
+                22:3,
+                25:2,
+                27:2
             ]
             layoutRowsCols.colsPerSide[layoutChoice]! += colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
         default: layoutRowsCols.colsPerSide[layoutChoice]! += 1
@@ -323,9 +333,12 @@ class ViewConductor: ObservableObject {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
     }
     
-    // KeyboardModel
     var keyRectInfos: [KeyRectInfo] = []
     var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
+
+    var isOneRowOnTablet : Bool {
+        HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
+    }
     
     var touchLocations: [CGPoint] = [] {
         didSet {

@@ -1,3 +1,5 @@
+import SwiftUI
+
 struct LayoutRowsCols: Codable, Equatable {
     
     var rowsPerSide: [LayoutChoice: Int] = defaultRowsPerSide
@@ -27,14 +29,25 @@ struct LayoutRowsCols: Codable, Equatable {
         .strings:    26
     ]
 
-    static let defaultColsPerSide: [LayoutChoice: Int] = [
-        .tonic:      6,
-        .isomorphic: 9,
-        .symmetric:  13,
-        .piano:      8,
-        .strings:    26
-    ]
-    
+    static let defaultColsPerSide: [LayoutChoice: Int] = switch HomeyPad.formFactor {
+    case .iPhone:
+        [
+            .tonic:      6,
+            .isomorphic: 9,
+            .symmetric:  13,
+            .piano:      8,
+            .strings:    26
+        ]
+    case .iPad:
+        [
+            .tonic:      6,
+            .isomorphic: 12 ,
+            .symmetric:  18,
+            .piano:      11,
+            .strings:    26
+        ]
+    }
+        
     static let minColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 6,
@@ -43,12 +56,23 @@ struct LayoutRowsCols: Codable, Equatable {
         .strings:    26
     ]
     
-    static let maxColsPerSide: [LayoutChoice: Int] = [
-        .tonic:      6,
-        .isomorphic: 18,
-        .symmetric:  18,
-        .piano:      11,
-        .strings:    26
-    ]
+    static let maxColsPerSide: [LayoutChoice: Int] = switch HomeyPad.formFactor {
+    case .iPhone:
+        [
+            .tonic:      6,
+            .isomorphic: 18,
+            .symmetric:  18,
+            .piano:      11,
+            .strings:    26
+        ]
+    case .iPad:
+        [
+            .tonic:      6,
+            .isomorphic: 18,
+            .symmetric:  30,
+            .piano:      18,
+            .strings:    26
+        ]
+    }
 
 }

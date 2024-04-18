@@ -17,4 +17,13 @@ struct HomeyPad: App {
             ContentView()
         }
     }
+    
+    enum FormFactor {
+        case iPad
+        case iPhone
+    }
+
+    static let formFactor: FormFactor = UIScreen.main.bounds.size.width > 1000 ? .iPad : .iPhone
+
 }
+

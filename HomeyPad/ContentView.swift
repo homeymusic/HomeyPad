@@ -6,7 +6,7 @@ struct ContentView: View {
     @State var showTonicPicker: Bool
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
-
+    
     init() {
         // Tonic MIDI
         let defaultTonicMIDI: Int = 60
@@ -14,14 +14,14 @@ struct ContentView: View {
             "tonicMIDI" : defaultTonicMIDI
         ])
         let tonicMIDI: Int = defaults.integer(forKey: "tonicMIDI")
-            
+        
         // Pitch Direction
         let defaultPitchDirection: PitchDirection = PitchDirection.upward
         defaults.register(defaults: [
             "pitchDirection" : defaultPitchDirection.rawValue
         ])
         let pitchDirection: PitchDirection = PitchDirection(rawValue: defaults.integer(forKey: "pitchDirection")) ?? defaultPitchDirection
-
+        
         // Keyboard Layout
         let defaultLayoutChoice: LayoutChoice = LayoutChoice.isomorphic
         defaults.register(defaults: [
@@ -35,26 +35,26 @@ struct ContentView: View {
             "stringsLayoutChoice" : defaultStringsLayoutChoice.rawValue
         ])
         let stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice(rawValue: defaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue) ?? defaultStringsLayoutChoice
-
+        
         // Show Tonic Picker
         defaults.register(defaults: [
             "showTonicPicker" : false
         ])
         showTonicPicker = defaults.bool(forKey: "showTonicPicker")
-
+        
         // Latching
         defaults.register(defaults: [
             "latching" : false
         ])
         let latching = defaults.bool(forKey: "latching")
-
+        
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         
         // Set up for layout palettes
         let defaultLayoutPalette = LayoutPalette()
-
+        
         // Palette selection for tonic picker
         if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
             defaults.register(defaults: [
@@ -67,7 +67,7 @@ struct ContentView: View {
                 tonicLayoutPalette = loadedTonicLayoutPalette
             }
         }
-
+        
         // Palette selection for each layout in main view
         if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
             defaults.register(defaults: [
@@ -80,7 +80,7 @@ struct ContentView: View {
                 viewLayoutPalette = loadedViewLayoutPalette
             }
         }
-
+        
         // Note label selections
         let defaultLayoutLabel = LayoutLabel()
         
@@ -95,7 +95,7 @@ struct ContentView: View {
                 tonicLayoutLabel = loadedTonicLayoutLabel
             }
         }
-
+        
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
                 "viewLayoutLabel" : encodedDefaultLayoutLabel
@@ -107,7 +107,7 @@ struct ContentView: View {
                 viewLayoutLabel = loadedViewLayoutLabel
             }
         }
-
+        
         // Rows and columns picker for each layout in main view except strings
         let defaultLayoutRowsCols = LayoutRowsCols()
         if let encodedDefaultLayoutRowsCols = try? encoder.encode(defaultLayoutRowsCols) {
@@ -121,7 +121,7 @@ struct ContentView: View {
                 layoutRowsCols = loadedLayoutRowsCols
             }
         }
-
+        
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
@@ -131,7 +131,7 @@ struct ContentView: View {
             layoutPalette: tonicLayoutPalette,
             layoutLabel: tonicLayoutLabel
         ))
-
+        
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
             pitchDirection: pitchDirection,
@@ -170,15 +170,25 @@ struct ContentView: View {
                             .background {
                                 RoundedRectangle(cornerRadius: 7.0)
                                     .fill(Color(tonicConductor.backgroundColor))
-                            }                                
+                            }
                             .transition(.scale(.leastNonzeroMagnitude, anchor: .top))
                         }
-                        // Keyboard
-                        Keyboard(conductor: viewConductor) { pitch in
-                            KeyboardKey(pitch: pitch,
-                                        conductor: viewConductor)
+                        if viewConductor.isOneRowOnTablet  {
+                            Keyboard(conductor: viewConductor) { pitch in
+                                KeyboardKey(pitch: pitch,
+                                            conductor: viewConductor)
+                            }
+                            .aspectRatio(4.0, contentMode: .fit)
+                            .ignoresSafeArea(edges:.horizontal)
                         }
-                        .ignoresSafeArea(edges:.horizontal)
+                        
+                        if !viewConductor.isOneRowOnTablet {
+                            Keyboard(conductor: viewConductor) { pitch in
+                                KeyboardKey(pitch: pitch,
+                                            conductor: viewConductor)
+                            }
+                            .ignoresSafeArea(edges:.horizontal)
+                        }
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
