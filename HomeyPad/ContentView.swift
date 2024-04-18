@@ -171,7 +171,7 @@ struct ContentView: View {
                                 RoundedRectangle(cornerRadius: 7.0)
                                     .fill(Color(tonicConductor.backgroundColor))
                             }
-                            .transition(.scale(.leastNonzeroMagnitude, anchor: .top))
+                            .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                         }
                         if viewConductor.isOneRowOnTablet  {
                             Keyboard(conductor: viewConductor) { pitch in
