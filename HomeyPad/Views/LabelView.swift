@@ -56,8 +56,17 @@ public struct LabelView: View {
                     }
                     if keyboardKey.conductor.noteLabel[.frequency]! {
                         Color.clear.overlay(
-                            Text(pow(2, CGFloat(keyboardKey.pitch.midi - 69) / 12.0) * 440.0,
-                                 format: .number.notation(.compactName).precision(.fractionLength(1)))
+                            Text("\(keyboardKey.pitch.frequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.period]! {
+                        Color.clear.overlay(
+                            Text("\((keyboardKey.pitch.period * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
+                        )
+                    }
+                    if keyboardKey.conductor.noteLabel[.wavelength]! {
+                        Color.clear.overlay(
+                            Text("\(keyboardKey.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                         )
                     }
                     if keyboardKey.conductor.noteLabel[.mode]! {

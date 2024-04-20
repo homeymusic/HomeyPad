@@ -25,6 +25,19 @@ public class Pitch: ObservableObject, Equatable {
         IntegerNotation(rawValue: Int8(modulo(Int(midi), 12)))!
     }
     
+    public var frequency: Float {
+        pow(2, Float(midi - 69) / 12.0) * 440.0
+    }
+    
+    public var period: Float {
+        1 / frequency
+    }
+    
+    static let speedOfSound: Float = 343.0
+    public var wavelength: Float {
+        return Pitch.speedOfSound * period
+    }
+    
     public var accidental: Bool {
         Pitch.accidental(midi: Int(self.midi))
     }

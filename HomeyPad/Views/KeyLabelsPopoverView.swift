@@ -16,7 +16,7 @@ struct KeyLabelsPopoverView: View {
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                     if key != .octave && key != .accidentals {
                         GridRow {
-                            if key == .midi {
+                            if key.isCustomIcon {
                                 Image(key.icon)
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
