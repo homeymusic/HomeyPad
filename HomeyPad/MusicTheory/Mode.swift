@@ -28,7 +28,14 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
     }
     
     public var majorMinor: MajorMinor {
-        self.chordShape.majorMinor
+        switch self {
+        case .ionian, .ionianPentatonic, .lydian:
+            return .major
+        case .phrygian, .phrygianPentatonic, .locrian:
+            return .minor
+        case .dorian, .mixolydian, .aeolian, .mixolydianPentatonic, .aeolianPentatonic, .dorianPentatonic:
+            return .neutral
+        }
     }
     
     public var label: String {
@@ -118,7 +125,7 @@ enum Scale: Int, CaseIterable, Identifiable, Comparable, Equatable {
     public var icon: String {
         switch self {
         case .heptatonic: return "7.square"
-        case .pentatonic: return "5.square"
+        case .pentatonic: return "pentagon.fill"
         }
     }
 }

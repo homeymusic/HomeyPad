@@ -31,7 +31,7 @@ public struct LabelView: View {
         var proxySize: CGSize
         
         var body: some View {
-            VStack(spacing: 0) {
+            VStack(spacing: 2) {
                 if keyboardKey.conductor.layoutChoice == .piano {
                     VStack(spacing: 0) {
                         Color.clear
@@ -89,6 +89,18 @@ public struct LabelView: View {
                                                 .scaledToFit()
                                                 .foregroundColor(Color(keyboardKey.pitch.mode.pitchDirection.majorMinor.color))
                                         )
+                                    if (keyboardKey.pitch.mode.scale == .pentatonic) {
+                                        Image(systemName: "square")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(.clear)
+                                            .overlay(
+                                                Image(systemName: Scale.pentatonic.icon)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(Color(keyboardKey.pitch.mode.majorMinor.color))
+                                            )
+                                    }
                                     Image(systemName: "square")
                                         .resizable()
                                         .scaledToFit()
@@ -100,7 +112,7 @@ public struct LabelView: View {
                                                 .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
                                         )
                                 }
-                                    .aspectRatio(2.0, contentMode: .fit)
+                                    .aspectRatio(keyboardKey.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                     .padding(2.0)
                                     .background(Color(keyboardKey.conductor.brownColor))
                                     .cornerRadius(3.0)

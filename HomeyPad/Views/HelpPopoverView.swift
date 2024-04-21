@@ -36,7 +36,6 @@ struct HelpPopoverView: View {
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
                     GridRow {
                         Image(systemName: codi.icon)
-                            .gridColumnAlignment(.center)
                             .foregroundColor(.white)
                         Text(codi.label.capitalized)
                     }
@@ -49,7 +48,6 @@ struct HelpPopoverView: View {
                 ForEach(MajorMinor.allCases, id: \.self) { mami in
                     GridRow {
                         Image(systemName: HelpPopoverView.mamiIcon)
-                            .gridColumnAlignment(.center)
                             .foregroundColor(Color(mami.color))
                         Text(mami.label.capitalized)
                     }
@@ -74,7 +72,6 @@ struct HelpPopoverView: View {
                 ForEach(ChordShape.allCases, id: \.self) { chord in
                     GridRow {
                         Image(systemName: chord.icon)
-                            .gridColumnAlignment(.center)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 17, height: 17)
                             .foregroundColor(Color(chord.majorMinor.color))
@@ -89,7 +86,6 @@ struct HelpPopoverView: View {
                 ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
                     GridRow {
                         Image(systemName: pitchDirection.icon)
-                            .gridColumnAlignment(.center)
                             .aspectRatio(1.0, contentMode: .fit)
                             .foregroundColor(Color(pitchDirection.majorMinor.color))
                         Text(pitchDirection.label.capitalized)
@@ -110,6 +106,15 @@ struct HelpPopoverView: View {
                                         .aspectRatio(1.0, contentMode: .fit)
                                         .foregroundColor(Color(mode.pitchDirection.majorMinor.color))
                                 )
+                            if (mode.scale == .pentatonic) {
+                                Image(systemName: "square")
+                                    .foregroundColor(.clear)
+                                    .overlay(
+                                        Image(systemName: Scale.pentatonic.icon)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                            .foregroundColor(Color(mode.majorMinor.color))
+                                    )
+                            }
                             Image(systemName: "square")
                                 .foregroundColor(.clear)
                                 .overlay(
@@ -118,8 +123,7 @@ struct HelpPopoverView: View {
                                         .foregroundColor(Color(mode.chordShape.majorMinor.color))
                                 )
                         }
-                        .gridColumnAlignment(.center)
-                        Text("\(mode.letter) \(mode.label.capitalized)")
+                        Text("\(mode.label.capitalized)")
                     }
                 }
                 Divider()
@@ -154,7 +158,8 @@ struct HelpPopoverView: View {
                 }
                 .font(.footnote)
             }
-            .frame(width: 250)
+            .lineLimit(1)
+            .frame(width: 270)
             .padding(10)
         }
     }
