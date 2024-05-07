@@ -69,6 +69,11 @@ public struct LabelView: View {
                             Text("\(keyboardKey.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                         )
                     }
+                    if keyboardKey.conductor.noteLabel[.cochlea]! {
+                        Color.clear.overlay(
+                            Text("\(keyboardKey.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
+                        )
+                    }
                     if keyboardKey.conductor.noteLabel[.mode]! {
                         Color.clear.overlay(
                             Text(keyboardKey.pitch.mode.shortHand)

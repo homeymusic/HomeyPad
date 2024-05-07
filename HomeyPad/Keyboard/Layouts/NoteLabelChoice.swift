@@ -3,12 +3,13 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
     case fixedDo     = "fixed do"
     case accidentals = "accidentals"
     case octave      = "octave"
-    case mode        = "mode"
-    case plot        = "plot"
     case midi        = "midi"
     case frequency   = "frequency"
     case period      = "period"
     case wavelength  = "wavelength"
+    case cochlea     = "cochlea"
+    case mode        = "mode"
+    case plot        = "plot"
     case month       = "month"
 
     public var id: String { self.rawValue }
@@ -19,12 +20,13 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
         case .fixedDo:     return "person.2.wave.2"
         case .accidentals: return "arrow.up.arrow.down.square"
         case .octave:      return "4.square"
-        case .mode:        return "building.columns"
-        case .plot:        return "map"
         case .midi:        return "60.square"
         case .frequency:   return "waveform.path.badge.plus"
         case .period:      return "stopwatch"
         case .wavelength:  return "ruler"
+        case .cochlea:     return "fossil.shell"
+        case .mode:        return "building.columns"
+        case .plot:        return "map"
         case .month:       return "calendar"
         }
     }
