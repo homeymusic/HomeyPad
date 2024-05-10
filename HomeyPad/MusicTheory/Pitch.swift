@@ -40,7 +40,7 @@ public class Pitch: ObservableObject, Equatable {
     
     // Greenwood function for position on the basilar membrane relative to the apex
     public var cochlea: Float {
-        return 100 * (1-log10( frequency / 165.4 + 0.88 ) / 2.1)
+        return 100 * (log10( frequency / 165.4 + 0.88 ) / 2.1)
     }
     
     public var accidental: Bool {
