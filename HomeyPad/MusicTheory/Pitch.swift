@@ -38,9 +38,17 @@ public class Pitch: ObservableObject, Equatable {
         return Pitch.speedOfSound * period
     }
     
-    // Greenwood function for position on the basilar membrane relative to the apex
+    // Cochlea returns the Greenwood function for position on the basilar membrane.
+    // Position within the cochlea is a spatial characteristic, not a temporal one.
+    // Yet, the original Greenwood funtion measures position relative to the apex.
+    // Orientation from the apex has position increase as wavelength decreases.
+    // That situation gives us a confusing decreasing spatial relationship.
+    // Instead we choose to orient the position from the base of the cochlea
+    // so that position on the basilar membrane increases with increasing wavelength.
+    // This situation gives us an intuitive spatial relationship where position on
+    // the basilar membrane increases with inreasing wavlength.
     public var cochlea: Float {
-        return 100 * (log10( frequency / 165.4 + 0.88 ) / 2.1)
+        return 100 - 100 * (log10( frequency / 165.4 + 0.88 ) / 2.1)
     }
     
     public var accidental: Bool {
