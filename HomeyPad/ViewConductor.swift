@@ -126,6 +126,16 @@ class ViewConductor: ObservableObject {
         buzz()
     }
     
+    var isTonicDefault: Bool {
+        tonicMIDI == 60 && pitchDirection == .upward
+    }
+
+    func resetTonic() {
+        pitchDirection = .upward
+        tonicMIDI = 60
+        buzz()
+    }
+
     var labelsCount: Int {
         Array(noteLabels[layoutChoice]!.values).filter{$0}.count +
         Array(intervalLabels[layoutChoice]!.values).filter{$0}.count

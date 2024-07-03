@@ -55,19 +55,6 @@ struct ContentView: View {
         // Set up for layout palettes
         let defaultLayoutPalette = LayoutPalette()
         
-        // Palette selection for tonic picker
-        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
-            defaults.register(defaults: [
-                "tonicLayoutPalette" : encodedDefaultLayoutPalette
-            ])
-        }
-        var tonicLayoutPalette: LayoutPalette = defaultLayoutPalette
-        if let savedTonicLayoutPalette = defaults.object(forKey: "tonicLayoutPalette") as? Data {
-            if let loadedTonicLayoutPalette = try? decoder.decode(LayoutPalette.self, from: savedTonicLayoutPalette) {
-                tonicLayoutPalette = loadedTonicLayoutPalette
-            }
-        }
-        
         // Palette selection for each layout in main view
         if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
             defaults.register(defaults: [
@@ -122,13 +109,16 @@ struct ContentView: View {
             }
         }
         
+        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
+        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
+
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
             pitchDirection: pitchDirection,
             layoutChoice: .tonic,
             latching: true,
-            layoutPalette: tonicLayoutPalette,
+            layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel
         ))
         
@@ -213,6 +203,8 @@ struct ContentView: View {
                 defaults.set(tonicConductor.pitchDirection.rawValue, forKey: "pitchDirection")
             }
             .onChange(of: viewConductor.layoutChoice) {
+                tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
+                tonicConductor.layoutPalette.outlineChoice[.tonic] = viewConductor.layoutPalette.outlineChoice[viewConductor.layoutChoice]
                 defaults.set(viewConductor.layoutChoice.rawValue, forKey: "layoutChoice")
             }
             .onChange(of: viewConductor.stringsLayoutChoice) {
@@ -224,12 +216,9 @@ struct ContentView: View {
             .onChange(of: viewConductor.latching) {
                 defaults.set(viewConductor.latching, forKey: "latching")
             }
-            .onChange(of: tonicConductor.layoutPalette) {
-                if let encodedTonicLayoutPalette = try? JSONEncoder().encode(tonicConductor.layoutPalette) {
-                    defaults.set(encodedTonicLayoutPalette, forKey: "tonicLayoutPalette")
-                }
-            }
             .onChange(of: viewConductor.layoutPalette) {
+                tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
+                tonicConductor.layoutPalette.outlineChoice[.tonic] = viewConductor.layoutPalette.outlineChoice[viewConductor.layoutChoice]
                 if let encodedViewLayoutPalette = try? JSONEncoder().encode(viewConductor.layoutPalette) {
                     defaults.set(encodedViewLayoutPalette, forKey: "viewLayoutPalette")
                 }

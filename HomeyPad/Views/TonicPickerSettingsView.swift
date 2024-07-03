@@ -66,47 +66,20 @@ struct TonicPickerSettingsView: View {
             
             if showTonicPicker {
                 Button(action: {
-                    tonicConductor.showPalettePopover.toggle()
+                    tonicConductor.resetTonic()
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: tonicConductor.layoutPalette.choices[.tonic]!.icon)
-                                .foregroundColor(.white)
+                            Image(systemName: "gobackward")
+                                .foregroundColor(tonicConductor.isTonicDefault ? .gray : .white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $tonicConductor.showPalettePopover, content: {
-                    VStack(spacing: 0) {
-                        Image(systemName: LayoutChoice.tonic.icon + ".fill")
-                            .padding([.top, .bottom], 7)
-                        Divider()
-                        
-                        ScrollView(.vertical) {
-                            PalettePopoverView(conductor: tonicConductor)
-                                .presentationCompactAdaptation(.popover)
-                        }
-                        .scrollIndicatorsFlash(onAppear: true)
-
-                        Divider()
-                        
-                        Button(action: {
-                            tonicConductor.resetPaletteChoice()
-                        }, label: {
-                            Image(systemName: "gobackward")
-                                .gridCellAnchor(.center)
-                                .foregroundColor(tonicConductor.isPaletteDefault ? .gray : .white)
-                        })
-                        .padding([.top, .bottom], 7)
-                        .disabled(tonicConductor.isPaletteDefault)
-
-                        
-                    }
-                })
                 .transition(.scale)
-            }
-            
+                .disabled(tonicConductor.isTonicDefault)
+            }            
         }
     }
 }
