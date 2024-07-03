@@ -393,7 +393,15 @@ class ViewConductor: ObservableObject {
     @Published var tonicMIDI: Int {
         willSet(newTonicMIDI) {
             allPitches[tonicMIDI].isTonic = false
-            allPitches[newTonicMIDI].isTonic = true
+            if safeMIDI(midi: newTonicMIDI) {
+                allPitches[newTonicMIDI].isTonic = true
+            } else {
+                if newTonicMIDI < 0 {
+                    allPitches[0].isTonic = true
+                } else if newTonicMIDI > 127 {
+                    allPitches[127].isTonic = true
+                }
+            }
         }
         didSet {
             if layoutChoice == .tonic {
@@ -406,9 +414,13 @@ class ViewConductor: ObservableObject {
         didSet {
             if layoutChoice == .tonic {
                 if pitchDirection == .upward {
-                    tonicMIDI = tonicMIDI - 12
+                    if safeMIDI(midi: tonicMIDI - 12) {
+                        tonicMIDI = tonicMIDI - 12
+                    }
                 } else if pitchDirection == .downward {
-                    tonicMIDI = tonicMIDI + 12
+                    if safeMIDI(midi: tonicMIDI + 12) {
+                        tonicMIDI = tonicMIDI + 12
+                    }
                 }
                 midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
                 buzz()
