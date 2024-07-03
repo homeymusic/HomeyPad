@@ -44,12 +44,23 @@ struct KeyRectangle: View {
     var proxySize: CGSize
     
     var body: some View {
-        Rectangle()
-            .fill(fillColor)
-            .padding(.top, keyboardKey.topPadding(proxySize))
-            .padding(.leading, keyboardKey.leadingPadding(proxySize))
-            .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
-            .padding(.top, keyboardKey.negativeTopPadding(proxySize))
-            .padding(.leading, keyboardKey.negativeLeadingPadding(proxySize))
+        if keyboardKey.isTritone && keyboardKey.conductor.layoutChoice == .symmetric {
+            Rectangle()
+                .fill(fillColor)
+                .padding(.top, keyboardKey.topPadding(proxySize))
+                .padding(.leading, keyboardKey.leadingPadding(proxySize))
+                .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
+                .padding(.top, keyboardKey.negativeTopPadding(proxySize))
+                .padding(.leading, keyboardKey.negativeLeadingPadding(proxySize))
+                .rotationEffect(.degrees(45))
+        } else {
+            Rectangle()
+                .fill(fillColor)
+                .padding(.top, keyboardKey.topPadding(proxySize))
+                .padding(.leading, keyboardKey.leadingPadding(proxySize))
+                .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
+                .padding(.top, keyboardKey.negativeTopPadding(proxySize))
+                .padding(.leading, keyboardKey.negativeLeadingPadding(proxySize))
+        }
     }
 }

@@ -129,6 +129,10 @@ public struct KeyboardKey: View {
         conductor.layoutChoice == .piano && pitch.accidental
     }
     
+    var isTritone: Bool {
+        self.interval.intervalClass == .six
+    }
+    
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
     }

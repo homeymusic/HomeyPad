@@ -46,7 +46,6 @@ struct Symmetric<Content>: View where Content: View {
                                                                  zIndex: 1,
                                                                  keyboardKey: keyboardKey)
                                                     .frame(width: ttLength, height: ttLength)
-                                                    .rotationEffect(.degrees(-45))
                                                 }
                                                 .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
                                             }
