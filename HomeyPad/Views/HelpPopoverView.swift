@@ -157,6 +157,7 @@ struct HelpPopoverView: View {
                     }
                 }
                 .font(.footnote)
+                .lineLimit(nil)
             }
             .lineLimit(1)
             .frame(width: 270)
