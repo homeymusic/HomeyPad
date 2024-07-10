@@ -3,7 +3,7 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
         // defaults
         self.tonicMIDI           = tonicMIDI
         self.pitchDirection      = pitchDirection
@@ -35,20 +35,48 @@ class ViewConductor: ObservableObject {
         manufacturer: "Homey Music"
     )
     
-    @ObservedObject var midiHelper = MIDIHelper()
-    
-    @Published var layoutChoice: LayoutChoice = .isomorphic {
-        willSet(newLayoutChoice) {
-            if newLayoutChoice != layoutChoice {
-                buzz()
+    func midiChannel(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) -> UInt4 {
+        switch layoutChoice {
+        case .tonic: 15
+        case .isomorphic: 0
+        case .symmetric: 1
+        case .piano: 2
+        case .strings:
+            switch stringsLayoutChoice {
+            case .violin: 3
+            case .cello: 4
+            case .bass: 5
+            case .banjo: 6
+            case .guitar: 7
             }
         }
     }
     
-    @Published var stringsLayoutChoice: StringsLayoutChoice = .guitar {
-        willSet(newStringsLayoutChoice) {
-            if newStringsLayoutChoice != stringsLayoutChoice {buzz()}
-            if !self.latching {allPitchesNoteOff()}
+    @ObservedObject var midiHelper = MIDIHelper()
+    
+    @Published var layoutChoice: LayoutChoice = .isomorphic {
+        didSet(oldLayoutChoice) {
+            if oldLayoutChoice != layoutChoice {
+                buzz()
+                let activePitches = externallyActivatedPitches
+                allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
+                if self.latching {
+                    activePitchesNoteOn(activePitches: activePitches)
+                }
+            }
+        }
+    }
+    
+    @Published var stringsLayoutChoice: StringsLayoutChoice = .violin {
+        didSet(oldStringsLayoutChoice) {
+            if oldStringsLayoutChoice != stringsLayoutChoice {
+                buzz()
+                let activePitches = externallyActivatedPitches
+                allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
+                if self.latching {
+                    activePitchesNoteOn(activePitches: activePitches)
+                }
+            }
         }
     }
     
@@ -109,12 +137,20 @@ class ViewConductor: ObservableObject {
     
     @Published var showHelp: Bool = false
     
-    func allPitchesNoteOff() {
+    func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
+        let midiChannel = midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice)
         self.allPitches.forEach {pitch in
-            pitch.noteOff()
+            deactivatePitch(pitch: pitch, midiChannel: midiChannel)
         }
     }
     
+    func activePitchesNoteOn(activePitches: Set<Pitch>) {
+        let midiChannel = midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
+        activePitches.forEach {pitch in
+            activatePitch(pitch: pitch, midiChannel: midiChannel)
+        }
+    }
+
     var isPaletteDefault: Bool {
         layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice] &&
         layoutPalette.outlineChoice[layoutChoice] == LayoutPalette.defaultLayoutOutline[layoutChoice]
@@ -405,7 +441,7 @@ class ViewConductor: ObservableObject {
         }
         didSet {
             if layoutChoice == .tonic {
-                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
+                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
             }
         }
     }
@@ -422,7 +458,7 @@ class ViewConductor: ObservableObject {
                         tonicMIDI = tonicMIDI + 12
                     }
                 }
-                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
+                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
                 buzz()
             }
         }
@@ -446,20 +482,30 @@ class ViewConductor: ObservableObject {
             }
         } else {
             for pitch in newPitches {
-                midiHelper.sendNoteOn(noteNumber: UInt7(pitch.midi))
-                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI))
-                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward)
-                pitch.noteOn()
-                conductor.noteOn(pitch: pitch)
+                activatePitch(pitch: pitch,
+                              midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             }
             for pitch in oldPitches {
-                midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue))
-                pitch.noteOff()
-                conductor.noteOff(pitch: pitch)
+                deactivatePitch(pitch: pitch,
+                                midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             }
         }
     }
     
+    func activatePitch(pitch: Pitch, midiChannel: UInt4) {
+        midiHelper.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
+        midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel)
+        midiHelper.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel)
+        pitch.noteOn()
+        conductor.noteOn(pitch: pitch)
+    }
+    
+    func deactivatePitch(pitch: Pitch, midiChannel: UInt4) {
+        midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
+        pitch.noteOff()
+        conductor.noteOff(pitch: pitch)
+    }
+
     static var currentTritoneLength: CGFloat = 0.0
     
     func tritoneLength(proxySize: CGSize) -> CGFloat {

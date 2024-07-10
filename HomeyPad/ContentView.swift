@@ -30,7 +30,7 @@ struct ContentView: View {
         let layoutChoice: LayoutChoice = LayoutChoice(rawValue: defaults.string(forKey: "layoutChoice") ?? defaultLayoutChoice.rawValue) ?? defaultLayoutChoice
         
         // String Instruments Sub Layout
-        let defaultStringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.guitar
+        let defaultStringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin
         defaults.register(defaults: [
             "stringsLayoutChoice" : defaultStringsLayoutChoice.rawValue
         ])
