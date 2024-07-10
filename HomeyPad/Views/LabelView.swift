@@ -77,7 +77,6 @@ public struct LabelView: View {
                     if keyboardKey.conductor.noteLabel[.mode]! {
                         Color.clear.overlay(
                             Text(keyboardKey.pitch.mode.shortHand)
-                                .foregroundColor(keyboardKey.accentColor)
                         )
                     }
                     if keyboardKey.conductor.noteLabel[.plot]! {

@@ -32,6 +32,8 @@ struct KeyView: View {
                             .frame(width: proxySize.width - (keyboardKey.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outline ? outlineHeight : borderHeightApparentSize))
                             .overlay(LabelView(keyboardKey: keyboardKey, proxySize: proxySize)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
+                            .padding(.leading,  keyboardKey.leadingOffset)
+                            .padding(.trailing,  keyboardKey.trailingOffset)
                     }
                 }
         }
@@ -44,23 +46,13 @@ struct KeyRectangle: View {
     var proxySize: CGSize
     
     var body: some View {
-        if keyboardKey.isTritone && keyboardKey.conductor.layoutChoice == .symmetric {
-            Rectangle()
-                .fill(fillColor)
-                .padding(.top, keyboardKey.topPadding(proxySize))
-                .padding(.leading, keyboardKey.leadingPadding(proxySize))
-                .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
-                .padding(.top, keyboardKey.negativeTopPadding(proxySize))
-                .padding(.leading, keyboardKey.negativeLeadingPadding(proxySize))
-                .rotationEffect(.degrees(45))
-        } else {
-            Rectangle()
-                .fill(fillColor)
-                .padding(.top, keyboardKey.topPadding(proxySize))
-                .padding(.leading, keyboardKey.leadingPadding(proxySize))
-                .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
-                .padding(.top, keyboardKey.negativeTopPadding(proxySize))
-                .padding(.leading, keyboardKey.negativeLeadingPadding(proxySize))
-        }
+        Rectangle()
+            .fill(fillColor)
+            .padding(.top, keyboardKey.topPadding(proxySize))
+            .padding(.leading, keyboardKey.leadingPadding(proxySize))
+            .padding(.trailing, keyboardKey.trailingPadding(proxySize))
+            .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
+            .padding(.top, keyboardKey.negativeTopPadding(proxySize))
+            .rotationEffect(.degrees(keyboardKey.rotation))
     }
 }

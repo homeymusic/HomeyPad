@@ -29,11 +29,11 @@ enum Mode: Int, CaseIterable, Identifiable, Comparable, Equatable {
     
     public var majorMinor: MajorMinor {
         switch self {
-        case .ionian, .ionianPentatonic, .lydian:
+        case .ionian, .ionianPentatonic, .lydian, .mixolydian, .mixolydianPentatonic:
             return .major
-        case .phrygian, .phrygianPentatonic, .locrian:
+        case .phrygian, .phrygianPentatonic, .locrian, .aeolian, .aeolianPentatonic:
             return .minor
-        case .dorian, .mixolydian, .aeolian, .mixolydianPentatonic, .aeolianPentatonic, .dorianPentatonic:
+        case .dorian, .dorianPentatonic:
             return .neutral
         }
     }

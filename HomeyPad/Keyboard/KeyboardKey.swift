@@ -133,6 +133,14 @@ public struct KeyboardKey: View {
         self.interval.intervalClass == .six
     }
     
+    var isMinor: Bool {
+        self.interval.majorMinor == .minor
+    }
+    
+    var isMajor: Bool {
+        self.interval.majorMinor == .major
+    }
+
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
     }
@@ -158,12 +166,23 @@ public struct KeyboardKey: View {
         0.0
     }
     
+    func trailingPadding(_ size: CGSize) -> CGFloat {
+        0.0
+    }
+
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
         conductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : 0.0
     }
     
-    func negativeLeadingPadding(_ size: CGSize) -> CGFloat {
+    var rotation: CGFloat {
+        conductor.layoutChoice == .symmetric && isTritone ? 45.0 : 0.0
+    }
+    
+    var leadingOffset: CGFloat {
         0.0
     }
     
+    var trailingOffset: CGFloat {
+        0.0
+    }
 }
