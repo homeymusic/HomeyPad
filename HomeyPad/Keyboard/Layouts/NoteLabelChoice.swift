@@ -18,7 +18,7 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .letter:      return "c.square"
         case .fixedDo:     return "person.2.wave.2"
-        case .accidentals: return "music.note"
+        case .accidentals: return "number.square"
         case .octave:      return "4.square"
         case .midi:        return "60.square"
         case .frequency:   return "waveform.path.badge.plus"
