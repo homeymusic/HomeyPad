@@ -1,6 +1,6 @@
 public enum IntervalLabelChoice: String, CaseIterable, Identifiable, Codable {
-    case movableDo  = "movable do"
     case symbol     = "symbol"
+    case movableDo  = "movable do"
     case interval   = "interval"
     case roman      = "roman"
     case degree     = "degree"
