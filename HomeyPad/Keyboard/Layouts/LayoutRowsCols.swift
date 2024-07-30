@@ -23,7 +23,7 @@ struct LayoutRowsCols: Codable, Equatable {
     
     static let maxRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
-        .isomorphic: 4,
+        .isomorphic: 5,
         .symmetric:  2,
         .piano:      2,
         .strings:    26
