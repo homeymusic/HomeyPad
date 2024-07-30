@@ -125,7 +125,7 @@ public struct LabelView: View {
                     }
                     if keyboardKey.conductor.noteLabel[.month]! {
                         Color.clear.overlay(
-                            Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue) % 12].capitalized)\(octave)")
+                            Text("\(Calendar.current.shortMonthSymbols[(keyboardKey.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
                         )
                     }
                     if keyboardKey.conductor.showSymbols {
