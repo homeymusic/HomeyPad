@@ -30,7 +30,7 @@ struct KeyLabelsPopoverView: View {
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
-                        if key == .fixedDo {
+                        if key == .letter {
                             GridRow {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
