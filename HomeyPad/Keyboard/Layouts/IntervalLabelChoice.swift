@@ -1,5 +1,7 @@
 public enum IntervalLabelChoice: String, CaseIterable, Identifiable, Codable {
+    // Keep symbol as top choice
     case symbol     = "symbol"
+    // Keep symbol as top choice
     case movableDo  = "movable do"
     case interval   = "interval"
     case roman      = "roman"
