@@ -36,20 +36,7 @@ class ViewConductor: ObservableObject {
     )
     
     func midiChannel(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) -> UInt4 {
-        switch layoutChoice {
-        case .tonic: 15
-        case .isomorphic: 0
-        case .symmetric: 1
-        case .piano: 2
-        case .strings:
-            switch stringsLayoutChoice {
-            case .violin: 3
-            case .cello: 4
-            case .bass: 5
-            case .banjo: 6
-            case .guitar: 7
-            }
-        }
+        layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
     }
     
     @ObservedObject var midiHelper = MIDIHelper()

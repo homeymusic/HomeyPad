@@ -34,10 +34,12 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
-                    GridRow {
-                        Image(systemName: codi.icon)
-                            .foregroundColor(.white)
-                        Text(codi.label.capitalized)
+                    if (codi != .octave) {
+                        GridRow {
+                            Image(systemName: codi.icon)
+                                .foregroundColor(.white)
+                            Text(codi.label.capitalized)
+                        }
                     }
                 }
                 GridRow {
@@ -65,6 +67,19 @@ struct HelpPopoverView: View {
                     }
                 }
                 GridRow {
+                    Text("Pitch Directions")
+                        .font(.caption)
+                        .gridCellColumns(2)
+                }
+                ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
+                    GridRow {
+                        Image(systemName: pitchDirection.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .foregroundColor(Color(pitchDirection.majorMinor.color))
+                        Text(pitchDirection.label.capitalized)
+                    }
+                }
+                GridRow {
                     Text("Chords")
                         .font(.caption)
                         .gridCellColumns(2)
@@ -76,19 +91,6 @@ struct HelpPopoverView: View {
                             .frame(width: 17, height: 17)
                             .foregroundColor(Color(chord.majorMinor.color))
                         Text(chord.rawValue.capitalized)
-                    }
-                }
-                GridRow {
-                    Text("Pitch Directions")
-                        .font(.caption)
-                        .gridCellColumns(2)
-                }
-                ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
-                    GridRow {
-                        Image(systemName: pitchDirection.icon)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .foregroundColor(Color(pitchDirection.majorMinor.color))
-                        Text(pitchDirection.label.capitalized)
                     }
                 }
                 GridRow {
@@ -126,6 +128,45 @@ struct HelpPopoverView: View {
                         Text("\(mode.label.capitalized)")
                     }
                 }
+                GridRow {
+                    Text("MIDI Channels")
+                        .font(.caption)
+                        .gridCellColumns(2)
+                }
+                ForEach(LayoutChoice.allCases, id: \.self) { layoutChoice in
+                    if layoutChoice != .strings {
+                        GridRow {
+                            Text(layoutChoice.midiChannelLabel)
+                            HStack {
+                                Image(systemName: layoutChoice.icon)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .frame(width: 17, height: 17)
+                                Text(layoutChoice.label)
+                            }
+                        }
+                    }
+                }
+                ForEach(StringsLayoutChoice.allCases, id: \.self) { stringsLayoutChoice in
+                    GridRow {
+                        Text(stringsLayoutChoice.midiChannelLabel)
+                        HStack {
+                            Image(systemName: LayoutChoice.strings.icon)
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 17, height: 17)
+                            Text(stringsLayoutChoice.label)
+                        }
+                    }
+                }
+                GridRow {
+                    Text(LayoutChoice.tonic.midiChannelLabel)
+                    HStack {
+                        Image(systemName: LayoutChoice.tonic.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 17, height: 17)
+                        Text(LayoutChoice.tonic.label)
+                    }
+                }
+
                 Divider()
                     .padding(3)
                 Group {

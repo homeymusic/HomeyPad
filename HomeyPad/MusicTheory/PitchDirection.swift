@@ -1,9 +1,9 @@
 
 enum PitchDirection: Int, CaseIterable, Identifiable {
     case upward   = 1
-    case both     = 0
     case downward = -1
-    
+    case both     = 0
+
     var id: Int { self.rawValue }
     
     public var icon: String {

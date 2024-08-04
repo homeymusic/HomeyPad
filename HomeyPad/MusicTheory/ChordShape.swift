@@ -1,9 +1,9 @@
 enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
     case positive = "major"
-    case positiveInversion = "major inverted"
     case negative = "minor"
-    case negativeInversion = "minor inverted"
     case positiveNegative = "major or minor"
+    case positiveInversion = "major inverted"
+    case negativeInversion = "minor inverted"
     
     var id: String { self.rawValue }
 

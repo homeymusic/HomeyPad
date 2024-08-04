@@ -274,14 +274,14 @@ enum IntervalClass: Int8, CaseIterable, Identifiable, Comparable, Equatable {
     case P5 = 7
     case P4 = 5
     case M3 = 4
-    case m3 = 3
-    case M6 = 9
     case m6 = 8
+    case M6 = 9
+    case m3 = 3
     case tt = 6
     case M2 = 2
-    case m2 = 1
-    case M7 = 11
     case m7 = 10
+    case M7 = 11
+    case m2 = 1
 
     var id: Int8 { self.rawValue }
 

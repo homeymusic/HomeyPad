@@ -1,12 +1,16 @@
+import MIDIKit
+
 public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
-    case tonic = "tonic"
+    case tonic = "tonic picker"
     case isomorphic = "isomorphic"
-    case symmetric = "symmetric"
+    case symmetric = "dualistic"
     case piano = "piano"
     case strings = "strings"
     
     public var id: String { self.rawValue }
     
+    public var label: String { self.rawValue }
+
     public var icon: String {
         switch self {
         case .tonic: return "house"
@@ -15,6 +19,20 @@ public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
         case .piano: return "pianokeys"
         case .strings: return "guitars"
         }
+    }
+
+    public func midiChannel(stringsLayoutChoice: StringsLayoutChoice = .violin) -> UInt4 {
+        return switch self {
+        case .tonic: 15
+        case .isomorphic: 0
+        case .symmetric: 1
+        case .piano: 2
+        case .strings: stringsLayoutChoice.midiChannel
+        }
+    }
+    
+    public var midiChannelLabel: String {
+        String(Int(midiChannel()) + 1)
     }
     
     public static var allCases: [LayoutChoice] {
