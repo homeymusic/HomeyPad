@@ -13,11 +13,11 @@ struct LayoutLabel: Codable, Equatable {
     var intervalLabelChoices: [LayoutChoice: [IntervalLabelChoice: Bool]] = defaultIntervalLabels
 
     static let defaultIntervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] = [
-        .tonic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .dualistic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false],
-        .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false]
+        .tonic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false],
+        .isomorphic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false],
+        .dualistic: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false],
+        .piano: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false],
+        .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false]
     ]
     
     var accidentalChoices: [LayoutChoice: AccidentalChoice] = defaultAccidentals

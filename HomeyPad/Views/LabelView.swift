@@ -164,6 +164,21 @@ public struct LabelView: View {
                             Text(String(keyboardKey.interval.semitones))
                         )
                     }
+                    if keyboardKey.conductor.intervalLabel[.freqRatio]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.freqRatio))
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.periodRatio]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.periodRatio))
+                        )
+                    }
+                    if keyboardKey.conductor.intervalLabel[.waveRatio]! {
+                        Color.clear.overlay(
+                            Text(String(keyboardKey.interval.waveRatio))
+                        )
+                    }
                 }
             }
             .padding(2.0)
