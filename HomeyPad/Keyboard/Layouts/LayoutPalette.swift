@@ -4,8 +4,8 @@ struct LayoutPalette: Codable, Equatable {
     static let defaultLayoutPalette: [LayoutChoice: PaletteChoice] = [
         .tonic:      .subtle,
         .isomorphic: .subtle,
-        .symmetric:  .loud,
-        .piano:      .ebonyIvory,
+        .dualistic:  .subtle,
+        .piano:      .subtle,
         .strings:    .subtle
     ]
     
@@ -14,7 +14,7 @@ struct LayoutPalette: Codable, Equatable {
     static let defaultLayoutOutline: [LayoutChoice: Bool] = [
         .tonic:      true,
         .isomorphic: true,
-        .symmetric:  true,
+        .dualistic:  true,
         .piano:      true,
         .strings:    true
     ]

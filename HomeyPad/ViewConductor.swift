@@ -291,7 +291,7 @@ class ViewConductor: ObservableObject {
     
     func fewerCols() {
         switch layoutChoice {
-        case .symmetric:
+        case .dualistic:
             let colJump: [Int:Int] = [
                 29:2,
                 27:2,
@@ -311,7 +311,7 @@ class ViewConductor: ObservableObject {
     
     func moreCols() {
         switch layoutChoice {
-        case .symmetric:
+        case .dualistic:
             let colJump: [Int:Int] = [
                 6:2,
                 8:2,

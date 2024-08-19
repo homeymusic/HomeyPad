@@ -4,14 +4,14 @@ public struct LabelView: View {
     var keyboardKey: KeyboardKey
     var proxySize: CGSize
     
-    var isSymmetricNotTritone: Bool {
-        keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass != .six
+    var isdualisticNotTritone: Bool {
+        keyboardKey.conductor.layoutChoice == .dualistic && keyboardKey.interval.intervalClass != .six
     }
     
     public var body: some View {
-        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * ViewConductor.currentTritoneLength - 1.5 * keyboardKey.backgroundBorderSize : 0.0
+        let tritonePadding: CGFloat = isdualisticNotTritone ? 0.5 * ViewConductor.currentTritoneLength - 1.5 * keyboardKey.backgroundBorderSize : 0.0
         VStack(spacing: 0.0) {
-            if keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.consonanceDissonance > .consonant {
+            if keyboardKey.conductor.layoutChoice == .dualistic && keyboardKey.interval.consonanceDissonance > .consonant {
                 let topBottomPadding = (keyboardKey.outline ? 0.0 : 0.5 * keyboardKey.backgroundBorderSize)
                 Labels(keyboardKey: keyboardKey, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding + tritonePadding)

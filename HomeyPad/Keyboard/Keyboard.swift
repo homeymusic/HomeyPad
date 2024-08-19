@@ -17,8 +17,8 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
             case .isomorphic:
                 Isomorphic(keyboardKey: keyboardKey,
                            viewConductor: conductor)
-            case .symmetric:
-                Symmetric(keyboardKey: keyboardKey,
+            case .dualistic:
+                dualistic(keyboardKey: keyboardKey,
                           viewConductor: conductor)
             case .piano:
                 Piano(keyboardKey: keyboardKey,

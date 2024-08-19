@@ -166,7 +166,19 @@ struct HelpPopoverView: View {
                         Text(LayoutChoice.tonic.label)
                     }
                 }
-
+                GridRow {
+                    Text("MIDI CC Parameters")
+                        .font(.caption)
+                        .gridCellColumns(2)
+                }
+                GridRow {
+                    Text("16")
+                    Text("Tonic: Note Number")
+                }
+                GridRow {
+                    Text("17")
+                    Text("Direction: 0 Down, 1 Up")
+                }
                 Divider()
                     .padding(3)
                 Group {

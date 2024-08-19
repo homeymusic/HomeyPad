@@ -8,7 +8,7 @@ struct LayoutRowsCols: Codable, Equatable {
     static let defaultRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
         .isomorphic: 0,
-        .symmetric:  0,
+        .dualistic:  0,
         .piano:      0,
         .strings:    6
     ]
@@ -16,7 +16,7 @@ struct LayoutRowsCols: Codable, Equatable {
     static let minRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
         .isomorphic: 0,
-        .symmetric:  0,
+        .dualistic:  0,
         .piano:      0,
         .strings:    4
     ]
@@ -24,7 +24,7 @@ struct LayoutRowsCols: Codable, Equatable {
     static let maxRowsPerSide: [LayoutChoice: Int] = [
         .tonic:      0,
         .isomorphic: 5,
-        .symmetric:  2,
+        .dualistic:  2,
         .piano:      2,
         .strings:    26
     ]
@@ -34,7 +34,7 @@ struct LayoutRowsCols: Codable, Equatable {
         [
             .tonic:      6,
             .isomorphic: 9,
-            .symmetric:  13,
+            .dualistic:  13,
             .piano:      8,
             .strings:    26
         ]
@@ -42,7 +42,7 @@ struct LayoutRowsCols: Codable, Equatable {
         [
             .tonic:      6,
             .isomorphic: 12 ,
-            .symmetric:  18,
+            .dualistic:  18,
             .piano:      11,
             .strings:    26
         ]
@@ -51,7 +51,7 @@ struct LayoutRowsCols: Codable, Equatable {
     static let minColsPerSide: [LayoutChoice: Int] = [
         .tonic:      6,
         .isomorphic: 6,
-        .symmetric:  6,
+        .dualistic:  6,
         .piano:      4,
         .strings:    26
     ]
@@ -61,7 +61,7 @@ struct LayoutRowsCols: Codable, Equatable {
         [
             .tonic:      6,
             .isomorphic: 18,
-            .symmetric:  18,
+            .dualistic:  18,
             .piano:      11,
             .strings:    26
         ]
@@ -69,7 +69,7 @@ struct LayoutRowsCols: Codable, Equatable {
         [
             .tonic:      6,
             .isomorphic: 18,
-            .symmetric:  30,
+            .dualistic:  30,
             .piano:      18,
             .strings:    26
         ]

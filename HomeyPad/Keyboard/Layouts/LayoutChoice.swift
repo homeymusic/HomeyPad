@@ -3,7 +3,7 @@ import MIDIKit
 public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
     case tonic = "tonic picker"
     case isomorphic = "isomorphic"
-    case symmetric = "dualistic"
+    case dualistic = "dualistic"
     case piano = "piano"
     case strings = "strings"
     
@@ -15,7 +15,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .tonic: return "house"
         case .isomorphic: return "rectangle.split.2x1"
-        case .symmetric: return "rectangle.split.2x2"
+        case .dualistic: return "rectangle.split.2x2"
         case .piano: return "pianokeys"
         case .strings: return "guitars"
         }
@@ -25,7 +25,7 @@ public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
         return switch self {
         case .tonic: 15
         case .isomorphic: 0
-        case .symmetric: 1
+        case .dualistic: 1
         case .piano: 2
         case .strings: stringsLayoutChoice.midiChannel
         }
@@ -36,6 +36,6 @@ public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
     }
     
     public static var allCases: [LayoutChoice] {
-        return [.isomorphic, .symmetric, .piano, .strings]
+        return [.isomorphic, .dualistic, .piano, .strings]
     }
 }
