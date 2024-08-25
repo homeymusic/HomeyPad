@@ -52,7 +52,7 @@ public struct KeyboardKey: View {
         case .subtle:
             activeColor = Color(interval.majorMinor.color)
             inactiveColor = Color(conductor.mainColor)
-            return darkenSmallKeys(color: activated ? activeColor : inactiveColor)
+            return activated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
             inactiveColor = Color(interval.majorMinor.color)
