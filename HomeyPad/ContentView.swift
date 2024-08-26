@@ -23,7 +23,7 @@ struct ContentView: View {
         let pitchDirection: PitchDirection = PitchDirection(rawValue: defaults.integer(forKey: "pitchDirection")) ?? defaultPitchDirection
         
         // Keyboard Layout
-        let defaultLayoutChoice: LayoutChoice = LayoutChoice.isomorphic
+        let defaultLayoutChoice: LayoutChoice = LayoutChoice.dualistic
         defaults.register(defaults: [
             "layoutChoice" : defaultLayoutChoice.rawValue
         ])
