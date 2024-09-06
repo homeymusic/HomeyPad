@@ -93,6 +93,16 @@ public struct LabelView: View {
                                                 .scaledToFit()
                                                 .foregroundColor(Color(keyboardKey.pitch.mode.pitchDirection.majorMinor.color))
                                         )
+                                    Image(systemName: "square")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.clear)
+                                        .overlay(
+                                            Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
+                                        )
                                     if (keyboardKey.pitch.mode.scale == .pentatonic) {
                                         Image(systemName: "square")
                                             .resizable()
@@ -105,16 +115,6 @@ public struct LabelView: View {
                                                     .foregroundColor(Color(keyboardKey.pitch.mode.majorMinor.color))
                                             )
                                     }
-                                    Image(systemName: "square")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.clear)
-                                        .overlay(
-                                            Image(systemName: keyboardKey.pitch.mode.chordShape.icon)
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color(keyboardKey.pitch.mode.chordShape.majorMinor.color))
-                                        )
                                 }
                                     .aspectRatio(keyboardKey.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                     .padding(2.0)
