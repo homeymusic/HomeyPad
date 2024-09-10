@@ -3,10 +3,11 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(tonicMIDI: Int, pitchDirection: PitchDirection, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
         // defaults
         self.tonicMIDI           = tonicMIDI
         self.pitchDirection      = pitchDirection
+        self.accidental          = accidental
         self.layoutChoice        = layoutChoice
         self.stringsLayoutChoice = stringsLayoutChoice
         self.latching            = latching
@@ -70,6 +71,9 @@ class ViewConductor: ObservableObject {
     @Published var latching: Bool = false {
         willSet {
             externallyActivatedPitches.removeAll()
+        }
+        didSet {
+            buzz()
         }
     }
     
@@ -155,6 +159,7 @@ class ViewConductor: ObservableObject {
 
     func resetTonic() {
         pitchDirection = .upward
+        accidental = .flat
         tonicMIDI = 60
         buzz()
     }
@@ -355,7 +360,11 @@ class ViewConductor: ObservableObject {
         resetColsPerSide()
     }
     
-    @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols()
+    @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols() {
+        didSet {
+            buzz()
+        }
+    }
     
     func resetColsPerSide() {
         layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
@@ -451,6 +460,12 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    @Published var accidental: Accidental = .flat {
+        didSet {
+            buzz()
+        }
+    }
+
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
         let oldPitches = oldValue.subtracting(newValue)

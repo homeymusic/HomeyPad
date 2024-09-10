@@ -1,4 +1,3 @@
-
 enum PitchDirection: Int, CaseIterable, Identifiable {
     case upward   = 1
     case downward = -1

@@ -10,6 +10,7 @@
 		B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B00B51B72BCC4EB30003E6BE /* MIDIKit */; };
 		B00B51BA2BCC4EFA0003E6BE /* MIDIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */; };
 		B00B51BC2BCC5DB00003E6BE /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B51BB2BCC5DB00003E6BE /* Conductor.swift */; };
+		B00C3AAB2C9093A100601E91 /* Accidental.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00C3AAA2C9093A100601E91 /* Accidental.swift */; };
 		B024401E2BB0644D0058EABF /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024401D2BB0644D0058EABF /* ViewConductor.swift */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		B00B51B92BCC4EFA0003E6BE /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
 		B00B51BB2BCC5DB00003E6BE /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		B00C3AAA2C9093A100601E91 /* Accidental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accidental.swift; sourceTree = "<group>"; };
 		B024401D2BB0644D0058EABF /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				B0CEE1FD2BC996B800B96ACA /* Mode.swift */,
 				B0CEE1FF2BC997C100B96ACA /* ChordShape.swift */,
 				B0CEE2012BC99AE500B96ACA /* PitchDirection.swift */,
+				B00C3AAA2C9093A100601E91 /* Accidental.swift */,
 			);
 			path = MusicTheory;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				B04CE22F2BBB38AB00E8787D /* Color.swift in Sources */,
 				B0E25F762BC5ED270072A09A /* AccidentalChoice.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */,
+				B00C3AAB2C9093A100601E91 /* Accidental.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* Keyboard.swift in Sources */,
 				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
 				B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */,

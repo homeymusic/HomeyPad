@@ -22,6 +22,13 @@ struct ContentView: View {
         ])
         let pitchDirection: PitchDirection = PitchDirection(rawValue: defaults.integer(forKey: "pitchDirection")) ?? defaultPitchDirection
         
+        // Accidental
+        let defaultAccidental: Accidental = Accidental.flat
+        defaults.register(defaults: [
+            "accidental" : defaultAccidental.rawValue
+        ])
+        let accidental: Accidental = Accidental(rawValue: defaults.integer(forKey: "accidental")) ?? defaultAccidental
+
         // Keyboard Layout
         let defaultLayoutChoice: LayoutChoice = LayoutChoice.dualistic
         defaults.register(defaults: [
@@ -116,6 +123,7 @@ struct ContentView: View {
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
             pitchDirection: pitchDirection,
+            accidental: accidental,
             layoutChoice: .tonic,
             latching: true,
             layoutPalette: viewLayoutPalette,
@@ -125,6 +133,7 @@ struct ContentView: View {
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             tonicMIDI: tonicMIDI,
             pitchDirection: pitchDirection,
+            accidental: accidental,
             layoutChoice: layoutChoice,
             stringsLayoutChoice: stringsLayoutChoice,
             latching: latching,
@@ -201,6 +210,10 @@ struct ContentView: View {
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection
                 defaults.set(tonicConductor.pitchDirection.rawValue, forKey: "pitchDirection")
+            }
+            .onChange(of: tonicConductor.accidental) {
+                viewConductor.accidental = tonicConductor.accidental
+                defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
             }
             .onChange(of: viewConductor.layoutChoice) {
                 tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
