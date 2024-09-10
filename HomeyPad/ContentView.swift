@@ -214,6 +214,12 @@ struct ContentView: View {
             .onChange(of: tonicConductor.accidental) {
                 viewConductor.accidental = tonicConductor.accidental
                 defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
+                defaults.set(viewConductor.accidental.rawValue, forKey: "accidental")
+            }
+            .onChange(of: viewConductor.accidental) {
+                tonicConductor.accidental = viewConductor.accidental
+                defaults.set(viewConductor.accidental.rawValue, forKey: "accidental")
+                defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
             }
             .onChange(of: viewConductor.layoutChoice) {
                 tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
