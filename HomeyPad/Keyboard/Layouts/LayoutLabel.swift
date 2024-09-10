@@ -20,14 +20,4 @@ struct LayoutLabel: Codable, Equatable {
         .strings: [.symbol: true, .interval: false, .movableDo: false, .roman: false, .degree: false, .integer: false, .freqRatio: false, .waveRatio: false, .periodRatio: false]
     ]
     
-    var accidentalChoices: [LayoutChoice: AccidentalChoice] = defaultAccidentals
-    
-    static let defaultAccidentals: [LayoutChoice: AccidentalChoice] = [
-        .tonic:      .flat,
-        .isomorphic: .flat,
-        .dualistic:  .flat,
-        .piano:      .flat,
-        .strings:    .flat
-    ]
-
 }

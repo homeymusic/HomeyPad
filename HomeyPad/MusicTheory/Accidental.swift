@@ -6,15 +6,15 @@ enum Accidental: Int, CaseIterable, Identifiable {
     
     public var icon: String {
         switch self {
-        case .sharp:   return "greaterthan.square"
-        case .flat:    return "equal.square"
+        case .flat:  return "♭"
+        case .sharp: return "♯"
         }
     }
 
     public var asciiSymbol: String {
         switch self {
-        case .sharp: return "♯"
         case .flat:  return "♭"
+        case .sharp: return "♯"
         }
     }
     
@@ -32,4 +32,6 @@ enum Accidental: Int, CaseIterable, Identifiable {
     public var label: String {
         return asciiSymbol
     }
+    
+    static let defaultAccidental: Accidental = .flat
 }

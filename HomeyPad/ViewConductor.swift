@@ -159,8 +159,8 @@ class ViewConductor: ObservableObject {
 
     func resetTonic() {
         pitchDirection = .upward
-        accidental = .flat
         tonicMIDI = 60
+        resetAccidental()
         buzz()
     }
 
@@ -172,13 +172,13 @@ class ViewConductor: ObservableObject {
     var areLabelsDefault: Bool {
         noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
         intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice] &&
-        accidentalChoices[layoutChoice] == LayoutLabel.defaultAccidentals[layoutChoice]
+        accidental == Accidental.defaultAccidental
     }
     
     func resetLabels() {
         resetNoteLabels()
         resetIntervalLabels()
-        resetAccidentalChoices()
+        resetAccidental()
         buzz()
     }
     
@@ -190,16 +190,8 @@ class ViewConductor: ObservableObject {
         layoutLabel.intervalLabelChoices[layoutChoice] = LayoutLabel.defaultIntervalLabels[layoutChoice]
     }
     
-    func resetAccidentalChoices() {
-        layoutLabel.accidentalChoices[layoutChoice] = LayoutLabel.defaultAccidentals[layoutChoice]
-    }
-    
-    var accidentalChoices: [LayoutChoice: AccidentalChoice] {
-        layoutLabel.accidentalChoices
-    }
-    
-    var accidentalChoice: AccidentalChoice {
-        accidentalChoices[layoutChoice]!
+    func resetAccidental() {
+        accidental = Accidental.defaultAccidental
     }
     
     var paletteChoice: PaletteChoice {
@@ -460,11 +452,7 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var accidental: Accidental = .flat {
-        didSet {
-            buzz()
-        }
-    }
+    @Published var accidental: Accidental = Accidental.defaultAccidental
 
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)

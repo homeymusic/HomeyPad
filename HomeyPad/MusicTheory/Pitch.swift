@@ -100,7 +100,7 @@ public class Pitch: ObservableObject, Equatable {
         lhs.midi == rhs.midi
     }
     
-    func letter(_ accidental: AccidentalChoice) -> String {
+    func letter(_ accidental: Accidental) -> String {
         switch pitchClass {
         case .zero:
             "C"
@@ -129,7 +129,7 @@ public class Pitch: ObservableObject, Equatable {
         }
     }
     
-    func fixedDo(_ accidental: AccidentalChoice) -> String {
+    func fixedDo(_ accidental: Accidental) -> String {
         switch pitchClass {
         case .zero:
             "Do"

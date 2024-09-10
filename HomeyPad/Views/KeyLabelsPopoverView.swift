@@ -35,10 +35,10 @@ struct KeyLabelsPopoverView: View {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
                                     .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
-                                Picker("", selection: $viewConductor.layoutLabel.accidentalChoices[viewConductor.layoutChoice]) {
-                                    ForEach(AccidentalChoice.allCases) { accidentalChoice in
-                                        Text(accidentalChoice.icon)
-                                            .tag(accidentalChoice as AccidentalChoice?)
+                                Picker("", selection: $viewConductor.accidental) {
+                                    ForEach(Accidental.allCases) { accidental in
+                                        Text(accidental.icon)
+                                            .tag(accidental as Accidental)
                                     }
                                 }
                                 .pickerStyle(.segmented)

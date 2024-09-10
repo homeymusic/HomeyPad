@@ -23,7 +23,7 @@ struct ContentView: View {
         let pitchDirection: PitchDirection = PitchDirection(rawValue: defaults.integer(forKey: "pitchDirection")) ?? defaultPitchDirection
         
         // Accidental
-        let defaultAccidental: Accidental = Accidental.flat
+        let defaultAccidental: Accidental = Accidental.defaultAccidental
         defaults.register(defaults: [
             "accidental" : defaultAccidental.rawValue
         ])

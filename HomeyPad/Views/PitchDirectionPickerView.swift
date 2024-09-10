@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PitchDirectionPickerView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
 
     var body: some View {
