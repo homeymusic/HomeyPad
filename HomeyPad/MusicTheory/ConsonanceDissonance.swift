@@ -11,8 +11,8 @@ enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatabl
     
     var icon: String {
         switch self {
-        case .tonic: return "house.fill"       // Nitterhouse with fill
-        case .octave: return "house.fill"      // Nitterhouse without fill
+        case .tonic: return "house.fill"       // Nitterhouse
+        case .octave: return "house.fill"      // Nitterhouse
         case .perfect: return "triangle.fill"
         case .consonant: return "diamond.fill"
         case .dissonant: return "circle.fill"
