@@ -33,5 +33,5 @@ enum Accidental: Int, CaseIterable, Identifiable {
         return asciiSymbol
     }
     
-    static let defaultAccidental: Accidental = .flat
+    static let defaultAccidental: Accidental = .sharp
 }

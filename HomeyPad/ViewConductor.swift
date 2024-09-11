@@ -452,7 +452,11 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var accidental: Accidental = Accidental.defaultAccidental
+    @Published var accidental: Accidental = Accidental.defaultAccidental {
+        didSet {
+            buzz()
+        }
+    }
 
     func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
         let newPitches = newValue.subtracting(oldValue)
