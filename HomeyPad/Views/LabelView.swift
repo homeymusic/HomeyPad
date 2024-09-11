@@ -38,7 +38,7 @@ public struct LabelView: View {
                     }
                     .frame(height: 0.55 * proxySize.height)
                 }
-                VStack(spacing: 0) {
+                VStack(spacing: 1) {
                     if keyboardKey.conductor.noteLabel[.letter]! {
                         Color.clear.overlay(
                             Text("\(keyboardKey.pitch.letter(keyboardKey.conductor.accidental))\(octave)")
@@ -75,9 +75,17 @@ public struct LabelView: View {
                         )
                     }
                     if keyboardKey.conductor.noteLabel[.mode]! {
-                        Color.clear.overlay(
-                            Text(keyboardKey.pitch.mode.shortHand)
-                        )
+                        HStack(spacing: 0.0) {
+                            Color.clear.overlay(
+                                HStack(spacing: 1.0) {
+                                    Text(keyboardKey.pitch.mode.shortHand)
+                                        .foregroundColor(Color(keyboardKey.pitch.mode.majorMinor.color))
+                                }
+                                    .padding(2.0)
+                                    .background(Color(keyboardKey.conductor.brownColor))
+                                    .cornerRadius(3.0)
+                            )
+                        }
                     }
                     if keyboardKey.conductor.noteLabel[.plot]! {
                         HStack(spacing: 0.0) {
