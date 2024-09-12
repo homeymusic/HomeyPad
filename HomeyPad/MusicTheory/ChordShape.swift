@@ -13,11 +13,11 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
     
     public var icon: String {
         switch self {
-        case .positive:          return "plus.square.fill"
-        case .positiveInversion: return "multiply.square.fill"
-        case .negative:          return "minus.square.fill"
-        case .negativeInversion: return "i.square.fill"
-        case .positiveNegative:  return "plusminus"   // make a custom square version
+        case .positive:          return "plus.circle.fill"
+        case .positiveInversion: return "xmark.circle.fill"
+        case .negative:          return "minus.circle.fill"
+        case .negativeInversion: return "i.circle.fill"
+        case .positiveNegative:  return "plusminus.circle.fill"
         }
     }
 
