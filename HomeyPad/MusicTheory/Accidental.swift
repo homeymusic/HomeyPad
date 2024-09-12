@@ -1,6 +1,6 @@
 enum Accidental: Int, CaseIterable, Identifiable {
-    case sharp   = 1
     case flat    = -1
+    case sharp   = 1
 
     var id: Int { self.rawValue }
     
@@ -20,8 +20,8 @@ enum Accidental: Int, CaseIterable, Identifiable {
     
     public var majorMinor: MajorMinor {
         switch self {
-        case .sharp:   return .major
         case .flat:     return .minor
+        case .sharp:   return .major
         }
     }
 
