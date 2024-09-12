@@ -61,6 +61,7 @@
 		B0E25F7E2BC7EF640072A09A /* Tonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* Tonic.swift */; };
 		B0EF9F7B2BB4ADF900B1437F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7A2BB4ADF900B1437F /* HeaderView.swift */; };
 		B0EF9F7F2BB4B04F00B1437F /* TonicPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF9F7E2BB4B04F00B1437F /* TonicPickerSettingsView.swift */; };
+		B0FC2DFA2C938D1100EA6D1C /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0FC2DF92C938D1100EA6D1C /* SoundpipeAudioKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0FC2DFA2C938D1100EA6D1C /* SoundpipeAudioKit in Frameworks */,
 				B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +272,7 @@
 			name = HomeyPad;
 			packageProductDependencies = (
 				B00B51B72BCC4EB30003E6BE /* MIDIKit */,
+				B0FC2DF92C938D1100EA6D1C /* SoundpipeAudioKit */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -301,6 +304,7 @@
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
 				B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */,
+				B0FC2DF82C938D1100EA6D1C /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -616,6 +620,14 @@
 				minimumVersion = 0.9.5;
 			};
 		};
+		B0FC2DF82C938D1100EA6D1C /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/SoundpipeAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -623,6 +635,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */;
 			productName = MIDIKit;
+		};
+		B0FC2DF92C938D1100EA6D1C /* SoundpipeAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0FC2DF82C938D1100EA6D1C /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */;
+			productName = SoundpipeAudioKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

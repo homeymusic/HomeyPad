@@ -22,7 +22,7 @@ class ViewConductor: ObservableObject {
         midiHelper.setup(midiManager: midiManager)
     }
     
-    var conductor = Conductor()
+    let conductor = Conductor()
     
     let backgroundColor: Color
     
@@ -509,9 +509,7 @@ class ViewConductor: ObservableObject {
     
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if !self.conductor.engine.isRunning {
-                self.conductor.start()
-            }
+            self.conductor.start()
         }
     }
 }
