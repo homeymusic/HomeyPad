@@ -22,7 +22,7 @@ class ViewConductor: ObservableObject {
         midiHelper.setup(midiManager: midiManager)
     }
     
-    var conductor = Conductor()
+    let conductor = Conductor()
     
     let backgroundColor: Color
     
