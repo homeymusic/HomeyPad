@@ -160,7 +160,6 @@ class ViewConductor: ObservableObject {
     func resetTonic() {
         pitchDirection = .upward
         tonicMIDI = 60
-        resetAccidental()
         buzz()
     }
 
