@@ -1,5 +1,15 @@
 import SwiftUI
 
+
+// TODO: more levels:
+// P1, P8: +4
+// P4, P5: +3
+// m3, M6: +2
+// M3, m6: +1
+//     tt:  0
+// M2, m7: -1
+// m2, M7: -2
+
 enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatable {
     case tonic = 4
     case octave = 3

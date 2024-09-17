@@ -1,5 +1,12 @@
 import CoreGraphics
 
+// TODO: more levels:
+//         M3, m6: ±4
+//         m3, M6: ±3
+//         M2, m7: ±2
+// P4, P5, m2, M7: ±1
+//     P1, P8, tt: 0
+
 enum MajorMinor: Int, CaseIterable, Identifiable, Comparable, Equatable {
     case major   =  1
     case neutral =  0
