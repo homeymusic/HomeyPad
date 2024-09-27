@@ -13,8 +13,6 @@ import SwiftUI
 final class MIDIHelper: ObservableObject {
     private weak var midiManager: ObservableMIDIManager?
     
-    public init() { }
-    
     public func setup(midiManager: ObservableMIDIManager) {
         self.midiManager = midiManager
         
@@ -45,10 +43,9 @@ final class MIDIHelper: ObservableObject {
             try midiManager.addInputConnection(
                 to: .outputs(matching: [.name("IDAM MIDI Host")]),
                 tag: Self.inputConnectionName,
-                receiver: .eventsLogging(options: [
-                    .bundleRPNAndNRPNDataEntryLSB,
-                    .filterActiveSensingAndClock
-                ])
+                receiver: .events { [weak self] events, timeStamp, source in
+                    events.forEach { self?.listenForHomeyVisuals(event: $0) }
+                }
             )
             
             print("Creating MIDI output connection.")
@@ -64,6 +61,18 @@ final class MIDIHelper: ObservableObject {
     /// Convenience accessor for created MIDI Output Connection.
     var outputConnection: MIDIOutputConnection? {
         midiManager?.managedOutputConnections[Self.outputConnectionName]
+    }
+    
+    private func listenForHomeyVisuals(event: MIDIEvent) {
+        switch event {
+        case let .sysEx7(payload):
+            print("sysEx7 \(payload)")
+            if payload.data == [3,1,3] {
+                print("Satisfaction")
+            }
+        default:
+            print("other event")
+        }
     }
     
     func sendNoteOn(noteNumber: UInt7, midiChannel: UInt4) {
