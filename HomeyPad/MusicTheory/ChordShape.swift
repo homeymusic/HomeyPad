@@ -6,18 +6,18 @@ enum ChordShape: String, CaseIterable, Identifiable, Comparable, Equatable {
     case negativeInversion = "minor inverted"
     
     var id: String { self.rawValue }
-
+    
     static func < (lhs: ChordShape, rhs: ChordShape) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
     
     public var icon: String {
         switch self {
-        case .positive:          return "plus.circle.fill"
-        case .positiveInversion: return "xmark.circle.fill"
-        case .negative:          return "minus.circle.fill"
-        case .negativeInversion: return "i.circle.fill"
-        case .positiveNegative:  return "plusminus.circle.fill"
+        case .positive:          return "plus.square.fill"
+        case .positiveInversion: return "xmark.square.fill"
+        case .negative:          return "minus.square.fill"
+        case .negativeInversion: return "i.square.fill"
+        case .positiveNegative:  return "plusminus"
         }
     }
 

@@ -2,13 +2,13 @@ import SwiftUI
 
 
 // TODO: more levels:
-// P1, P8: +4
-// P4, P5: +3
-// m3, M6: +2
-// M3, m6: +1
-//     tt:  0
-// M2, m7: -1
-// m2, M7: -2
+// P1, P8: +4 House 100
+// P4, P5: +3 Triangle 200
+// m3, M6: +2 Diamond 300
+// M3, m6: +1 Diamond 400
+//     tt:  0 Stone 500
+// M2, m7: -1 Stone 600
+// m2, M7: -2 Stone 700
 
 enum ConsonanceDissonance: Int, CaseIterable, Identifiable, Comparable, Equatable {
     case tonic = 4
