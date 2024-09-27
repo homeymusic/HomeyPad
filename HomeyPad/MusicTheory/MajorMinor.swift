@@ -1,4 +1,4 @@
-import CoreGraphics
+import SwiftUI
 
 // TODO: more levels:
 //         M3, m6: ±4
@@ -22,11 +22,14 @@ enum MajorMinor: Int, CaseIterable, Identifiable, Comparable, Equatable {
         }
     }
     
-    var color: CGColor {
+    var color: Color {
         switch self {
-        case .minor:   return #colorLiteral(red: 0.3647058824, green: 0.6784313725, blue: 0.9254901961, alpha: 1)
-        case .neutral: return #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-        case .major:   return #colorLiteral(red: 1, green: 0.6745098039, blue: 0.2, alpha: 1)
+        case .minor:
+            return Color(.sRGB, red: 0.3647058824, green: 0.6784313725, blue: 0.9254901961, opacity: 1.0)
+        case .neutral:
+            return Color(.sRGB, red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, opacity: 1.0)
+        case .major:
+            return Color(.sRGB, red: 1, green: 0.6745098039, blue: 0.2, opacity: 1.0)
         }
     }
 

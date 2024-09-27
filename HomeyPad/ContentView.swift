@@ -127,7 +127,8 @@ struct ContentView: View {
             layoutChoice: .tonic,
             latching: true,
             layoutPalette: viewLayoutPalette,
-            layoutLabel: tonicLayoutLabel
+            layoutLabel: tonicLayoutLabel,
+            sendTonicState: true
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
@@ -139,7 +140,8 @@ struct ContentView: View {
             latching: latching,
             layoutPalette: viewLayoutPalette,
             layoutLabel: viewLayoutLabel,
-            layoutRowsCols: layoutRowsCols
+            layoutRowsCols: layoutRowsCols,
+            sendTonicState: false
         ))
     }
     

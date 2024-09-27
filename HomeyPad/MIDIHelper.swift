@@ -12,7 +12,14 @@ import SwiftUI
 /// `ObservableObject` which contains `@Published` properties that SwiftUI can use to update views.
 final class MIDIHelper: ObservableObject {
     private weak var midiManager: ObservableMIDIManager?
+    // This will store the reference to the `sendCurrentState` function.
+    var sendCurrentState: (() -> Void)?
     
+    // Custom initializer to accept the function during creation
+    init(sendCurrentState: @escaping () -> Void) {
+        self.sendCurrentState = sendCurrentState
+    }
+
     public func setup(midiManager: ObservableMIDIManager) {
         self.midiManager = midiManager
         
@@ -69,6 +76,7 @@ final class MIDIHelper: ObservableObject {
             print("sysEx7 \(payload)")
             if payload.data == [3,1,3] {
                 print("Satisfaction")
+                sendCurrentState?() 
             }
         default:
             print("other event")

@@ -3,7 +3,7 @@ import MIDIKit
 
 class ViewConductor: ObservableObject {
     
-    init(tonicMIDI: Int, pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols()) {
+    init(tonicMIDI: Int, pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols(), sendTonicState: Bool = false) {
         // defaults
         self.tonicMIDI           = tonicMIDI
         self.pitchDirection      = pitchDirection
@@ -14,12 +14,30 @@ class ViewConductor: ObservableObject {
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
         self.layoutRowsCols      = layoutRowsCols
+        self.sendTonicState      = sendTonicState
         
         // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray6) : .black
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
-        midiHelper.setup(midiManager: midiManager)
+        // Pass the `sendCurrentState` function into the MIDIHelper during creation
+        midiHelper = MIDIHelper(sendCurrentState: self.sendCurrentState)
+        midiHelper?.setup(midiManager: midiManager)
+    }
+    
+    
+    let sendTonicState: Bool
+    var midiHelper: MIDIHelper?
+
+    // The function that you want to pass
+    func sendCurrentState() {
+        if sendTonicState {
+            midiHelper?.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiHelper?.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+        } else {
+            activePitchesNoteOn(activePitches: externallyActivatedPitches)
+        }
+        print("ViewConductor's current state sent.")
     }
     
     let conductor = Conductor()
@@ -39,8 +57,6 @@ class ViewConductor: ObservableObject {
     func midiChannel(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) -> UInt4 {
         layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
     }
-    
-    @ObservedObject var midiHelper = MIDIHelper()
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
@@ -428,7 +444,7 @@ class ViewConductor: ObservableObject {
         }
         didSet {
             if layoutChoice == .tonic {
-                midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
+                midiHelper?.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
             }
         }
     }
@@ -445,7 +461,7 @@ class ViewConductor: ObservableObject {
                         tonicMIDI = tonicMIDI + 12
                     }
                 }
-                midiHelper.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
+                midiHelper?.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
                 buzz()
             }
         }
@@ -486,15 +502,13 @@ class ViewConductor: ObservableObject {
     }
     
     func activatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiHelper.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
-        midiHelper.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel)
-        midiHelper.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel)
+        midiHelper?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
         pitch.noteOn()
         conductor.noteOn(pitch: pitch)
     }
     
     func deactivatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiHelper.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
+        midiHelper?.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
         pitch.noteOff()
         conductor.noteOff(pitch: pitch)
     }
