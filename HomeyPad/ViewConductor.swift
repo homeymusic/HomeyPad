@@ -30,7 +30,6 @@ class ViewConductor: ObservableObject {
     let sendTonicState: Bool
     var midiHelper: MIDIHelper?
 
-    // The function that you want to pass
     func sendCurrentState() {
         if sendTonicState {
             midiHelper?.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))

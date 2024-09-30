@@ -27,10 +27,12 @@ public struct KeyContainer<Content: View>: View {
             .contentShape(Rectangle()) // Added to improve tap/click reliability
             .gesture(
                 TapGesture().onEnded { _ in
-                    if conductor.externallyActivatedPitches.contains(pitch) {
-                        conductor.externallyActivatedPitches.remove(pitch)
-                    } else {
-                        conductor.externallyActivatedPitches.insert(pitch)
+                    if (conductor.latching) {
+                        if conductor.externallyActivatedPitches.contains(pitch) {
+                            conductor.externallyActivatedPitches.remove(pitch)
+                        } else {
+                            conductor.externallyActivatedPitches.insert(pitch)
+                        }
                     }
                 }
             )
