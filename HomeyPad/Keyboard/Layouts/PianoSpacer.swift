@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 public struct PianoSpacer {
     public static let defaultInitialSpacerRatio: [IntegerNotation: CGFloat] = [

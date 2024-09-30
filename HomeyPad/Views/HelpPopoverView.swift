@@ -1,11 +1,5 @@
-//
-//  HelpPopoverView.swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 4/14/24.
-//
-
 import SwiftUI
+import HomeyMusicKit
 
 struct HelpPopoverView: View {
     

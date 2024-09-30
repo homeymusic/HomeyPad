@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 struct OctaveShiftView: View {
     @ObservedObject var viewConductor: ViewConductor
@@ -10,7 +11,9 @@ struct OctaveShiftView: View {
             Button(action: {
                 tonicConductor.tonicMIDI = newDownwardTonicMIDI
                 viewConductor.tonicMIDI = tonicConductor.tonicMIDI
-                buzz()
+                Task { @MainActor in
+                    buzz()
+                }
             }, label: {
                 Image(systemName: "water.waves.and.arrow.down")
                     .foregroundColor(safeMIDI(midi: newDownwardTonicMIDI) ? .white : Color(UIColor.systemGray4))

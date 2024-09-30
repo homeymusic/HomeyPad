@@ -3,7 +3,7 @@ import MIDIKit
 public enum LayoutChoice: String, CaseIterable, Identifiable, Codable {
     case tonic = "tonic picker"
     case isomorphic = "isomorphic"
-    case dualistic = "dualistic"
+    case dualistic = "symmetric"
     case piano = "piano"
     case strings = "strings"
     

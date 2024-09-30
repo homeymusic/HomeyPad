@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 struct dualistic<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content

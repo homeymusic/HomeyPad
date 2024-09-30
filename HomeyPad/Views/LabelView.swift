@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 public struct LabelView: View {
     var keyboardKey: KeyboardKey

@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 /// For accumulating key rects.
 struct KeyRectsKey: PreferenceKey {

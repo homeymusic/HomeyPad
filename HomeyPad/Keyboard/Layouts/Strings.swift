@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 struct Strings<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content

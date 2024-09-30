@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.

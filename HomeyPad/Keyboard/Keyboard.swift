@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
 public struct Keyboard<Content>: Identifiable, View where Content: View {
@@ -6,7 +7,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
         
     public let id = UUID()
     
-    let keyboardKey: (Pitch) -> Content
+    public let keyboardKey: (Pitch) -> Content
     
     public var body: some View {
         ZStack {

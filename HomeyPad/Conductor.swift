@@ -1,4 +1,5 @@
 import AVFoundation
+import HomeyMusicKit
 
 class Conductor: ObservableObject {
     let engine = AVAudioEngine()

@@ -1,3 +1,4 @@
+import HomeyMusicKit
 import SwiftUI
 
 public struct KeyboardKey: View {

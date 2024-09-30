@@ -1,5 +1,6 @@
 import SwiftUI
 import MIDIKit
+import HomeyMusicKit
 
 class ViewConductor: ObservableObject {
     
@@ -61,7 +62,9 @@ class ViewConductor: ObservableObject {
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
             if oldLayoutChoice != layoutChoice {
-                buzz()
+                Task { @MainActor in
+                    buzz()
+                }
                 let activePitches = externallyActivatedPitches
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
@@ -74,7 +77,9 @@ class ViewConductor: ObservableObject {
     @Published var stringsLayoutChoice: StringsLayoutChoice = .violin {
         didSet(oldStringsLayoutChoice) {
             if oldStringsLayoutChoice != stringsLayoutChoice {
-                buzz()
+                Task { @MainActor in
+                    buzz()
+                }
                 let activePitches = externallyActivatedPitches
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
@@ -89,7 +94,9 @@ class ViewConductor: ObservableObject {
             externallyActivatedPitches.removeAll()
         }
         didSet {
-            buzz()
+            Task { @MainActor in
+                buzz()
+            }
         }
     }
     
@@ -166,7 +173,9 @@ class ViewConductor: ObservableObject {
     func resetPaletteChoice() {
         layoutPalette.choices[layoutChoice] = LayoutPalette.defaultLayoutPalette[layoutChoice]
         layoutPalette.outlineChoice[layoutChoice] = LayoutPalette.defaultLayoutOutline[layoutChoice]
-        buzz()
+        Task { @MainActor in
+            buzz()
+        }
     }
     
     var isTonicDefault: Bool {
@@ -176,7 +185,9 @@ class ViewConductor: ObservableObject {
     func resetTonic() {
         pitchDirection = .upward
         tonicMIDI = 60
-        buzz()
+        Task { @MainActor in
+            buzz()
+        }
     }
 
     var labelsCount: Int {
@@ -194,7 +205,9 @@ class ViewConductor: ObservableObject {
         resetNoteLabels()
         resetIntervalLabels()
         resetAccidental()
-        buzz()
+        Task { @MainActor in
+            buzz()
+        }
     }
     
     func resetNoteLabels() {
@@ -219,7 +232,9 @@ class ViewConductor: ObservableObject {
 
     @Published var layoutPalette: LayoutPalette = LayoutPalette() {
         willSet(newLayoutPalette) {
-            buzz()
+            Task { @MainActor in
+                buzz()
+            }
         }
     }
     
@@ -369,7 +384,9 @@ class ViewConductor: ObservableObject {
     
     @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols() {
         didSet {
-            buzz()
+            Task { @MainActor in
+                buzz()
+            }
         }
     }
     
@@ -462,14 +479,18 @@ class ViewConductor: ObservableObject {
                     }
                 }
                 midiHelper?.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
-                buzz()
+                Task { @MainActor in
+                    buzz()
+                }
             }
         }
     }
     
     @Published var accidental: Accidental = Accidental.defaultAccidental {
         didSet {
-            buzz()
+            Task { @MainActor in
+                buzz()
+            }
         }
     }
 
@@ -486,7 +507,9 @@ class ViewConductor: ObservableObject {
                         pitchDirection = .upward
                     }
                     tonicMIDI = newTonicMIDI
-                    buzz()
+                    Task { @MainActor in
+                        buzz()
+                    }
                 }
             }
         } else {
