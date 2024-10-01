@@ -15,7 +15,7 @@ public enum IntervalLabelChoice: String, CaseIterable, Identifiable, Codable {
 
     public var icon: String {
         switch self {
-        case .symbol:      return "diamond"
+        case .symbol:      return "house.fill"
         case .interval:    return "p1.button.horizontal"
         case .movableDo:   return "person.wave.2"
         case .roman:       return "i.square"

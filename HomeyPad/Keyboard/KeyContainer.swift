@@ -30,7 +30,7 @@ public struct KeyContainer<Content: View>: View {
                     if (conductor.latching) {
                         if conductor.externallyActivatedPitches.contains(pitch) {
                             conductor.externallyActivatedPitches.remove(pitch)
-                        } else {
+                        } else { 
                             conductor.externallyActivatedPitches.insert(pitch)
                         }
                     }

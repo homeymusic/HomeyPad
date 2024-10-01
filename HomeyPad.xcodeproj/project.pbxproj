@@ -164,6 +164,9 @@
 				B0A0FFC02BC0200A00FFB98C /* KeyLabelsPopoverView.swift */,
 				B0E25F772BC630C30072A09A /* OctaveShiftView.swift */,
 				B067B6E82BCEB74E00BC6C45 /* PitchDirectionPickerView.swift */,
+				B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */,
+				B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */,
+				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,20 +174,17 @@
 		B04CE2262BBAFE5800E8787D /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
 				B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */,
+				B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */,
 				B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */,
 				B067B6F02BCF727E00BC6C45 /* LayoutRowsCols.swift */,
 				B0E25F7B2BC6979B0072A09A /* StringsLayoutChoice.swift */,
-				B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */,
 				B0C7FD212BBAFB16006FF26F /* Isomorphic.swift */,
 				B0E25F7D2BC7EF640072A09A /* Tonic.swift */,
 				B0C7FD252BBAFB16006FF26F /* Symmetric.swift */,
 				B0C7FD232BBAFB16006FF26F /* Piano.swift */,
 				B0C7FD242BBAFB16006FF26F /* PianoSpacer.swift */,
 				B0C7FD202BBAFB16006FF26F /* Strings.swift */,
-				B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */,
-				B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
