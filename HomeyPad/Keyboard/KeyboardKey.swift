@@ -29,13 +29,13 @@ public struct KeyboardKey: View {
     var accentColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if tonicTonic {
+            if isTonicTonic {
                 Color(conductor.brownColor)
             } else {
                 Color(conductor.creamColor)
             }
         case .loud:
-            if tonicTonic {
+            if isTonicTonic {
                 Color(conductor.creamColor)
             } else {
                 Color(conductor.brownColor)
@@ -65,7 +65,7 @@ public struct KeyboardKey: View {
         }
     }
     
-    var tonicTonic: Bool {
+    var isTonicTonic: Bool {
         conductor.layoutChoice == .tonic && pitch.isTonic
     }
     
@@ -76,7 +76,7 @@ public struct KeyboardKey: View {
     var outlineSize: CGFloat {
         if tonicNotTonic {
             return 3.0
-        } else if tonicTonic {
+        } else if isTonicTonic {
             return 2.75
         } else {
             return 2.0
@@ -86,13 +86,13 @@ public struct KeyboardKey: View {
     var outlineColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if tonicTonic {
+            if isTonicTonic {
                 return Color(conductor.brownColor)
             } else {
                 return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
             }
         case .loud:
-            if tonicTonic {
+            if isTonicTonic {
                 return Color(conductor.creamColor)
             } else {
                 return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
@@ -105,13 +105,13 @@ public struct KeyboardKey: View {
     var outlineKeyColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if tonicTonic {
+            if isTonicTonic {
                 return Color(conductor.creamColor)
             } else {
                 return keyColor
             }
         case .loud:
-            if tonicTonic {
+            if isTonicTonic {
                 return Color(conductor.brownColor)
             } else {
                 return keyColor
@@ -144,6 +144,10 @@ public struct KeyboardKey: View {
 
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
+    }
+    
+    var isTonicOrOctave: Bool {
+        self.interval.intervalClass == .zero 
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {
