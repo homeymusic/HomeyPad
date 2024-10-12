@@ -1,9 +1,11 @@
 import AVFoundation
+import AudioKit
+import DunneAudioKit
 import HomeyMusicKit
 
 class Conductor: ObservableObject {
-    let engine = AVAudioEngine()
-    var instrument = AVAudioUnitSampler()
+    let engine = AudioEngine()
+    var instrument = Synth()
     
     func configureAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
@@ -18,22 +20,26 @@ class Conductor: ObservableObject {
     
     init() {
         configureAudioSession()
-        engine.attach(instrument)
-        engine.connect(instrument, to: engine.mainMixerNode, format: nil)
+
+        engine.output = PeakLimiter(instrument, attackTime: 0.001, decayTime: 0.001, preGain: 0)
+        
+        instrument.releaseDuration = 0.01
+        instrument.filterReleaseDuration = 10.0
+        instrument.filterStrength = 40.0
+
         start()
     }
     
     func start() {
-        try? instrument.loadInstrument(at: Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "exs")!)
         try? engine.start()
     }
     
     func noteOn(pitch: Pitch) {
-        instrument.startNote(UInt8(pitch.midi), withVelocity: 64, onChannel: 0)
+        instrument.play(noteNumber: UInt8(pitch.midi), velocity: 64, channel: 0)
     }
     
     func noteOff(pitch: Pitch) {
-        instrument.stopNote(UInt8(pitch.midi), onChannel: 0)
+        instrument.stop(noteNumber: UInt8(pitch.midi), channel: 0)
     }
     
 }

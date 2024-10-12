@@ -204,13 +204,9 @@ struct HelpPopoverView: View {
                     GridRow {
                         (
                             Text(Image(systemName: "c.circle")) +
-                            Text(" 2023-2024 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. Homey Pad is a product name and trademark of [Homey Music](https://homeymusic.com).")
+                            Text(" 2023-2024 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. Homey Pad, Homey Visuals, Homey Work, and HomeyMusicKit are product names and trademarks of [Homey Music](https://homeymusic.com).")
                         )
                         .gridCellColumns(2)
-                    }
-                    GridRow {
-                        Text("The Yamaha Disklavier Pro soundfont was produced by [Zenvoid](https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html) from samples made by [Zenph Studios](https://www.nytimes.com/2007/03/12/arts/music/12conn.html) for [One Laptop Per Child](http://wiki.laptop.org/go/Sound_samples) and is used by Homey Pad under a [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/).")
-                            .gridCellColumns(2)
                     }
                 }
                 .font(.footnote)

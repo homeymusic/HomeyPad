@@ -15,7 +15,6 @@
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
 		B04CE23B2BBB51F200E8787D /* LayoutChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */; };
-		B067B6DE2BCC682100BC6C45 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B067B6DD2BCC682100BC6C45 /* Sounds */; };
 		B067B6E12BCC735000BC6C45 /* HelpPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E02BCC735000BC6C45 /* HelpPopoverView.swift */; };
 		B067B6E32BCD884500BC6C45 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */; };
 		B067B6E52BCD886600BC6C45 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6E42BCD886600BC6C45 /* LayoutAndPalletePickerView.swift */; };
@@ -23,6 +22,9 @@
 		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
 		B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */; };
 		B067B6F12BCF727E00BC6C45 /* LayoutRowsCols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6F02BCF727E00BC6C45 /* LayoutRowsCols.swift */; };
+		B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E02CBABE0A00DBBAE2 /* AudioKit */; };
+		B07897E42CBABE9A00DBBAE2 /* AudioKitEX in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E32CBABE9A00DBBAE2 /* AudioKitEX */; };
+		B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */; };
 		B08D8DED2BBE378300B23575 /* PaletteChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEC2BBE378300B23575 /* PaletteChoice.swift */; };
 		B08D8DEF2BBF0C7800B23575 /* NoteLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DEE2BBF0C7800B23575 /* NoteLabelChoice.swift */; };
 		B08D8DF12BBF106900B23575 /* IntervalLabelChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8DF02BBF106900B23575 /* IntervalLabelChoice.swift */; };
@@ -61,7 +63,6 @@
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B04CE23A2BBB51F200E8787D /* LayoutChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutChoice.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B067B6DD2BCC682100BC6C45 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
 		B067B6E02BCC735000BC6C45 /* HelpPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPopoverView.swift; sourceTree = "<group>"; };
 		B067B6E22BCD884500BC6C45 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
@@ -103,6 +104,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */,
+				B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */,
+				B07897E42CBABE9A00DBBAE2 /* AudioKitEX in Frameworks */,
 				B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */,
 				B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */,
 			);
@@ -116,7 +120,6 @@
 			children = (
 				B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */,
 				B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */,
-				B067B6DD2BCC682100BC6C45 /* Sounds */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
 				B0CF33DD2CA89078002F6B55 /* Frameworks */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
@@ -228,6 +231,9 @@
 			packageProductDependencies = (
 				B00B51B72BCC4EB30003E6BE /* MIDIKit */,
 				B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */,
+				B07897E02CBABE0A00DBBAE2 /* AudioKit */,
+				B07897E32CBABE9A00DBBAE2 /* AudioKitEX */,
+				B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -259,6 +265,9 @@
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
 				B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */,
+				B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				B07897E22CBABE9A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKitEX" */,
+				B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -274,7 +283,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B067B6DE2BCC682100BC6C45 /* Sounds in Resources */,
 				B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */,
 				B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */,
 			);
@@ -561,6 +569,30 @@
 				minimumVersion = 0.9.5;
 			};
 		};
+		B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
+			};
+		};
+		B07897E22CBABE9A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKitEX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKitEX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/DunneAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -568,6 +600,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */;
 			productName = MIDIKit;
+		};
+		B07897E02CBABE0A00DBBAE2 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		B07897E32CBABE9A00DBBAE2 /* AudioKitEX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B07897E22CBABE9A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKitEX" */;
+			productName = AudioKitEX;
+		};
+		B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */;
+			productName = DunneAudioKit;
 		};
 		B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */ = {
 			isa = XCSwiftPackageProductDependency;

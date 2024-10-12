@@ -544,7 +544,7 @@ class ViewConductor: ObservableObject {
     
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if !self.conductor.engine.isRunning {
+            if !self.conductor.engine.avEngine.isRunning {
                 self.conductor.start()
             }
         }
