@@ -30,8 +30,13 @@ struct HelpPopoverView: View {
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
                     if (codi != .octave) {
                         GridRow {
-                            Image(systemName: codi.icon)
-                                .foregroundColor(.white)
+                            if (codi == .tonic) {
+                                Image(codi.icon)
+                                    .foregroundColor(.white)
+                            } else {
+                                Image(systemName: codi.icon)
+                                    .foregroundColor(.white)
+                            }
                             Text(codi.label.capitalized)
                         }
                     }
@@ -55,8 +60,13 @@ struct HelpPopoverView: View {
                 }
                 ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
                     GridRow {
-                        Image(systemName: intervalClass.interval.consonanceDissonance.icon)
-                            .foregroundColor(Color(intervalClass.interval.majorMinor.color))
+                        if (intervalClass == .P1 || intervalClass == .P8) {
+                            Image(intervalClass.interval.consonanceDissonance.icon)
+                                .foregroundColor(Color(intervalClass.interval.majorMinor.color))
+                        } else {
+                            Image(systemName: intervalClass.interval.consonanceDissonance.icon)
+                                .foregroundColor(Color(intervalClass.interval.majorMinor.color))
+                        }
                         Text("\(intervalClass.interval.shorthand) \(intervalClass.interval.label.capitalized)")
                     }
                 }
