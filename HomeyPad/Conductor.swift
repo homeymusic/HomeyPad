@@ -23,20 +23,28 @@ class Conductor: ObservableObject {
 
         engine.output = PeakLimiter(instrument, attackTime: 0.001, decayTime: 0.001, preGain: 0)
         
-        instrument.attackDuration = 0.01        // Fast attack for a plucky sound
-        instrument.decayDuration = 0.2          // Short decay to shape the pluck effect
-        instrument.sustainLevel = 0.8           // Sustain level to keep sound playing while the note is held
-        instrument.releaseDuration = 0.1        // Short release to stop sound quickly after key release
+        instrument.pitchBend = 0
 
-        instrument.filterCutoff = 1.5           // Filter cutoff just above the fundamental frequency
-        instrument.filterStrength = 0.5         // Small modulation for movement in filter
-        instrument.filterResonance = 10.0       // Moderate resonance for a sharper sound
-
-        instrument.filterAttackDuration = 0.01  // Fast filter attack to match pluckiness
-        instrument.filterDecayDuration = 0.2    // Short filter decay to match the amplitude decay
-        instrument.filterSustainLevel = 0.8     // Sustain to maintain brightness while note is held
-        instrument.filterReleaseDuration = 0.1  // Short filter release to stop sound quickly
+        // Instrument Settings ~ Start
         
+        instrument.attackDuration = 0.03        // Slightly faster attack for a more playful, immediate sound
+        instrument.decayDuration = 0.2          // Short decay to keep the plucky character
+        instrument.sustainLevel = 0.5           // Moderate sustain to hold the playful tone
+        instrument.releaseDuration = 0.3        // Shorter release to make the sound snappier
+
+        instrument.filterCutoff = 1.6           // Higher cutoff to brighten the sound and reduce underwater effect
+        instrument.filterStrength = 0.3         // Slight modulation to keep some movement
+        instrument.filterResonance = 3.0        // Lower resonance to avoid harsh metallic quality
+
+        instrument.filterAttackDuration = 0.03  // Fast attack to match playful tone
+        instrument.filterDecayDuration = 0.2    // Short decay for snappy character
+        instrument.filterSustainLevel = 0.5     // Moderate sustain to hold the tone
+        instrument.filterReleaseDuration = 0.3  // Shorter release to match amplitude release
+
+        instrument.vibratoDepth = 0.05          // Gentle vibrato for light movement, playful feel
+
+        // Instrument Settings ~ Stop
+
         start()
     }
     
