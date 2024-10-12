@@ -27,24 +27,25 @@ class Conductor: ObservableObject {
 
         // Instrument Settings ~ Start
 
-        instrument.attackDuration = 0.08
-        instrument.filterAttackDuration = 0.08
 
-        instrument.decayDuration = 0.4
+        instrument.attackDuration = 0.01
+        instrument.filterAttackDuration = 0.1
+
+        instrument.decayDuration = 1.5
         instrument.filterDecayDuration = 0.4
 
-        instrument.releaseDuration = 0.3
+        instrument.sustainLevel = 0.05
+        instrument.filterSustainLevel = 0.05
+
+        instrument.releaseDuration = 0.8
         instrument.filterReleaseDuration = 0.3
 
-        instrument.sustainLevel = 0.05
-        instrument.filterSustainLevel = 0.3
-
-        instrument.filterCutoff = 5
-        instrument.filterStrength = 0.15
-        instrument.filterResonance = -3.0
-
+        instrument.filterCutoff = 4.0
+        instrument.filterResonance = -4.0
+        instrument.filterStrength = 0.3
+        
         instrument.vibratoDepth = 0.03
-
+        
         // Instrument Settings ~ Stop
         
         start()
