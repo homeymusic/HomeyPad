@@ -23,26 +23,26 @@ class Conductor: ObservableObject {
 
         engine.output = PeakLimiter(instrument, attackTime: 0.001, decayTime: 0.001, preGain: 0)
         
-        instrument.pitchBend = 0
-
         // Instrument Settings ~ Start
 
+        instrument.masterVolume = 0.8
+        instrument.pitchBend = 0
 
-        instrument.attackDuration = 0.01
+        instrument.attackDuration = 0.02
         instrument.filterAttackDuration = 0.1
 
         instrument.decayDuration = 1.5
         instrument.filterDecayDuration = 0.4
 
-        instrument.sustainLevel = 0.05
+        instrument.sustainLevel = 0.1
         instrument.filterSustainLevel = 0.05
 
         instrument.releaseDuration = 0.8
         instrument.filterReleaseDuration = 0.3
 
         instrument.filterCutoff = 4.0
-        instrument.filterResonance = -4.0
-        instrument.filterStrength = 0.3
+        instrument.filterResonance = -1.0
+        instrument.filterStrength = 0.2
         
         instrument.vibratoDepth = 0.03
         
