@@ -71,14 +71,17 @@ public struct LabelView: View {
                 if keyboardKey.conductor.noteLabel[.midi]! {
                     overlayText(String(keyboardKey.pitch.midi))
                 }
-                if keyboardKey.conductor.noteLabel[.frequency]! {
-                    overlayText("\(keyboardKey.pitch.frequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
+                if keyboardKey.conductor.noteLabel[.wavelength]! {
+                    overlayText("\(keyboardKey.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
+                }
+                if keyboardKey.conductor.noteLabel[.wavenumber]! {
+                    overlayText("\(keyboardKey.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
                 }
                 if keyboardKey.conductor.noteLabel[.period]! {
                     overlayText("\((keyboardKey.pitch.period * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
                 }
-                if keyboardKey.conductor.noteLabel[.wavelength]! {
-                    overlayText("\(keyboardKey.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
+                if keyboardKey.conductor.noteLabel[.frequency]! {
+                    overlayText("\(keyboardKey.pitch.frequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
                 }
                 if keyboardKey.conductor.noteLabel[.cochlea]! {
                     overlayText("\(keyboardKey.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
@@ -221,14 +224,17 @@ public struct LabelView: View {
                 if keyboardKey.conductor.intervalLabel[.integer]! {
                     overlayText(String(keyboardKey.interval.semitones))
                 }
-                if keyboardKey.conductor.intervalLabel[.freqRatio]! {
-                    overlayText(String(keyboardKey.interval.freqRatio))
+                if keyboardKey.conductor.intervalLabel[.wavelengthRatio]! {
+                    overlayText(String(keyboardKey.interval.wavelengthRatio))
+                }
+                if keyboardKey.conductor.intervalLabel[.wavenumberRatio]! {
+                    overlayText(String(keyboardKey.interval.wavenumberRatio))
                 }
                 if keyboardKey.conductor.intervalLabel[.periodRatio]! {
                     overlayText(String(keyboardKey.interval.periodRatio))
                 }
-                if keyboardKey.conductor.intervalLabel[.waveRatio]! {
-                    overlayText(String(keyboardKey.interval.waveRatio))
+                if keyboardKey.conductor.intervalLabel[.frequencyRatio]! {
+                    overlayText(String(keyboardKey.interval.frequencyRatio))
                 }
             }
         }

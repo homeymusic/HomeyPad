@@ -61,8 +61,15 @@ struct KeyLabelsPopoverView: View {
                 
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
                     GridRow {
-                        Image(systemName: key.icon)
-                            .gridCellAnchor(.center)
+                        if key.isCustomIcon {
+                            Image(key.icon)
+                                .gridCellAnchor(.center)
+                                .foregroundColor(.white)
+                        } else {
+                            Image(systemName: key.icon)
+                                .gridCellAnchor(.center)
+                                .foregroundColor(.white)
+                        }
                         Toggle(key.label,
                                isOn: viewConductor.intervalLabelBinding(for: key))
                         .tint(Color.gray)

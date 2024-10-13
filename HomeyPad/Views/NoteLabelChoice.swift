@@ -5,9 +5,10 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
     case fixedDo     = "fixed do"
     case month       = "month"
     case midi        = "midi"
-    case frequency   = "frequency"
-    case period      = "period"
     case wavelength  = "wavelength"
+    case wavenumber  = "wavenumber"
+    case period      = "period"
+    case frequency   = "frequency"
     case cochlea     = "cochlea"
     case mode        = "mode"
     case plot        = "plot"
@@ -21,9 +22,10 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
         case .accidentals: return "number.square"
         case .octave:      return "4.square"
         case .midi:        return "60.square"
-        case .frequency:   return "waveform.path.badge.plus"
-        case .period:      return "stopwatch"
         case .wavelength:  return "ruler"
+        case .wavenumber:  return "spatial.frequency"
+        case .period:      return "stopwatch"
+        case .frequency:   return "temporal.frequency"
         case .cochlea:     return "fossil.shell"
         case .mode:        return "building.columns"
         case .plot:        return "map"
@@ -34,6 +36,8 @@ public enum NoteLabelChoice: String, CaseIterable, Identifiable, Codable {
     public var isCustomIcon: Bool {
         switch self {
         case .midi: return true
+        case .wavenumber: return true
+        case .frequency: return true
         default:    return false
         }
     }
