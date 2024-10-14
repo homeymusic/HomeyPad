@@ -16,15 +16,9 @@ struct KeyLabelsPopoverView: View {
                 ForEach(NoteLabelChoice.allCases, id: \.self) {key in
                     if key != .octave && key != .accidentals {
                         GridRow {
-                            if key.isCustomIcon {
-                                Image(key.icon)
-                                    .gridCellAnchor(.center)
-                                    .foregroundColor(.white)
-                            } else {
-                                Image(systemName: key.icon)
-                                    .gridCellAnchor(.center)
-                                    .foregroundColor(.white)
-                            }
+                            key.image
+                                .gridCellAnchor(.center)
+                                .foregroundColor(.white)
                             Toggle(key.label,
                                    isOn: viewConductor.noteLabelBinding(for: key))
                             .tint(Color.gray)
@@ -61,15 +55,9 @@ struct KeyLabelsPopoverView: View {
                 
                 ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
                     GridRow {
-                        if key.isCustomIcon {
-                            Image(key.icon)
-                                .gridCellAnchor(.center)
-                                .foregroundColor(.white)
-                        } else {
-                            Image(systemName: key.icon)
-                                .gridCellAnchor(.center)
-                                .foregroundColor(.white)
-                        }
+                        key.image
+                            .gridCellAnchor(.center)
+                            .foregroundColor(.white)
                         Toggle(key.label,
                                isOn: viewConductor.intervalLabelBinding(for: key))
                         .tint(Color.gray)

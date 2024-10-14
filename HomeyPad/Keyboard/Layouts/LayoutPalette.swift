@@ -1,3 +1,5 @@
+import HomeyMusicKit
+
 struct LayoutPalette: Codable, Equatable {
     var choices: [LayoutChoice: PaletteChoice] = defaultLayoutPalette
     

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HomeyMusicKit
 
 struct PalettePopoverView: View {
     @ObservedObject var conductor: ViewConductor
