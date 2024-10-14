@@ -119,10 +119,12 @@ struct ContentView: View {
         
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
-
+                
+        var tonicPitch: Pitch = Pitch.allPitches[tonicMIDI]
+        
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
-            tonicMIDI: tonicMIDI,
+            tonicPitch: tonicPitch,
             pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: .tonic,
@@ -133,7 +135,7 @@ struct ContentView: View {
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
-            tonicMIDI: tonicMIDI,
+            tonicPitch: tonicPitch,
             pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: layoutChoice,
@@ -205,8 +207,8 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onChange(of: tonicConductor.tonicMIDI) {
-                viewConductor.tonicMIDI = tonicConductor.tonicMIDI
+            .onChange(of: tonicConductor.tonicPitch) {
+                viewConductor.tonicPitch = tonicConductor.tonicPitch
                 tonicConductor.externallyActivatedPitches.removeAll()
                 defaults.set(tonicConductor.tonicMIDI, forKey: "tonicMIDI")
             }

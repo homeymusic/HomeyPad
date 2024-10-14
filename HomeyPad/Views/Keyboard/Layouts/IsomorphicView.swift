@@ -13,7 +13,7 @@ struct IsomorphicView<Content>: View where Content: View {
                         let midi: Int = col + 12 * row
                         if safeMIDI(midi: midi) {
                             KeyboardKeyContainerView(conductor: viewConductor,
-                                                     pitch: viewConductor.allPitches[midi],
+                                                     pitch: Pitch.allPitches[midi],
                                                      keyboardKeyView: keyboardKeyView)
                         } else {
                             Color.clear

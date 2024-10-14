@@ -9,15 +9,15 @@ struct TonicPickerView<Content>: View where Content: View {
     var body: some View {
         let midiRange: ClosedRange<Int> = switch tonicConductor.pitchDirection {
         case .downward:
-            tonicConductor.tonicMIDI - 12 ... tonicConductor.tonicMIDI
+            Int(tonicConductor.tonicPitch.midi) - 12 ... Int(tonicConductor.tonicPitch.midi)
         default:
-            tonicConductor.tonicMIDI ... tonicConductor.tonicMIDI + 12
+            Int(tonicConductor.tonicPitch.midi) ... Int(tonicConductor.tonicPitch.midi) + 12
         }
         HStack(spacing: 0) {
             ForEach(midiRange, id: \.self) { midi in
                 if safeMIDI(midi: midi) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                             pitch: tonicConductor.allPitches[midi],
+                                             pitch: Pitch.allPitches[midi],
                                              keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear
