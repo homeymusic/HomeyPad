@@ -66,11 +66,11 @@ public struct KeyboardKeyView: View {
     }
     
     var isTonicTonic: Bool {
-        conductor.layoutChoice == .tonic && pitch.isTonic
+        conductor.layoutChoice == .tonic && interval.isTonic
     }
     
     var tonicNotTonic: Bool {
-        conductor.layoutChoice != .tonic && pitch.isTonic
+        conductor.layoutChoice != .tonic && interval.isTonic
     }
     
     var outlineSize: CGFloat {
