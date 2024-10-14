@@ -19,7 +19,7 @@ struct StringsView<Content>: View where Content: View {
                             let pitch = viewConductor.allPitches[midi]
                             KeyboardKeyContainerView(conductor: viewConductor,
                                          pitch: pitch,
-                                         keyboardKey: keyboardKeyView)
+                                         keyboardKeyView: keyboardKeyView)
                         }
                     }
                 }

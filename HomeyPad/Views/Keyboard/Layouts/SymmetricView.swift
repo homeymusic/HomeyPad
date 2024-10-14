@@ -17,14 +17,14 @@ struct SymmetricView<Content>: View where Content: View {
                                 if safeMIDI(midi: midi + 1) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: viewConductor.allPitches[midi + 1],
-                                                 keyboardKey: keyboardKeyView)
+                                                             keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: viewConductor.allPitches[midi],
-                                                 keyboardKey: keyboardKeyView)
+                                                 keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
@@ -35,7 +35,7 @@ struct SymmetricView<Content>: View where Content: View {
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: viewConductor.allPitches[midi],
-                                                 keyboardKey: keyboardKeyView)
+                                                             keyboardKeyView: keyboardKeyView)
                                     .overlay() { // render tritone as overlay
                                         // only render tritone if P4, tt and P5 are safe
                                         if safeMIDI(midi: midi - 1) && safeMIDI(midi: midi - 2) {
@@ -45,7 +45,7 @@ struct SymmetricView<Content>: View where Content: View {
                                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                                  pitch: viewConductor.allPitches[midi-1], // tritone
                                                                  zIndex: 1,
-                                                                 keyboardKey: keyboardKeyView)
+                                                                 keyboardKeyView: keyboardKeyView)
                                                     .frame(width: ttLength, height: ttLength)
                                                 }
                                                 .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
@@ -60,7 +60,7 @@ struct SymmetricView<Content>: View where Content: View {
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: viewConductor.allPitches[midi],
-                                                 keyboardKey: keyboardKeyView)
+                                                 keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }

@@ -14,12 +14,12 @@ public struct KeyboardKeyContainerView<Content: View>: View {
     init(conductor: ViewConductor,
          pitch: Pitch,
          zIndex: Int = 0,
-         @ViewBuilder keyboardKey: @escaping (Pitch) -> Content)
+         @ViewBuilder keyboardKeyView: @escaping (Pitch) -> Content)
     {
         self.conductor = conductor
         self.pitch = pitch
         self.zIndex = zIndex
-        self.keyboardKeyView = keyboardKey
+        self.keyboardKeyView = keyboardKeyView
     }
 
     func rect(rect: CGRect) -> some View {

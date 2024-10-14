@@ -17,8 +17,8 @@ struct TonicPickerView<Content>: View where Content: View {
             ForEach(midiRange, id: \.self) { midi in
                 if safeMIDI(midi: midi) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                 pitch: tonicConductor.allPitches[midi],
-                                 keyboardKey: keyboardKeyView)
+                                             pitch: tonicConductor.allPitches[midi],
+                                             keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear
                 }

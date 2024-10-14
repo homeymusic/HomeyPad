@@ -15,7 +15,7 @@ struct PianoView<Content>: View where Content: View {
                             ForEach(spacer.whiteMIDI, id: \.self) { col in
                                 let midi: Int = col + 12 * row
                                 if safeMIDI(midi: midi) {
-                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKeyView)
+                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: viewConductor.allPitches[midi],                                  keyboardKeyView: keyboardKeyView)
                                         .frame(width: spacer.whiteKeyWidth(geo.size.width))
                                 } else {
                                     Color.clear
@@ -36,7 +36,7 @@ struct PianoView<Content>: View where Content: View {
                                                 KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: viewConductor.allPitches[midi],
                                                              zIndex: 1,
-                                                             keyboardKey: keyboardKeyView)
+                                                             keyboardKeyView: keyboardKeyView)
                                             } else {
                                                 Color.clear
                                             }

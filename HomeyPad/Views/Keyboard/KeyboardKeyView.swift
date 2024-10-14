@@ -9,7 +9,7 @@ public struct KeyboardKeyView: View {
     public var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
-                KeyboardKeySizingView(keyboardKey: self, proxySize: proxy.size)
+                KeyboardKeySizingView(keyboardKeyView: self, proxySize: proxy.size)
             }
         }
     }
@@ -193,39 +193,39 @@ public struct KeyboardKeyView: View {
 }
 
 struct KeyboardKeySizingView: View {
-    var keyboardKey: KeyboardKeyView
+    var keyboardKeyView: KeyboardKeyView
     var proxySize: CGSize
     
     var overlayKey: Bool {
-        (keyboardKey.conductor.layoutChoice == .symmetric && keyboardKey.interval.intervalClass == .six) || keyboardKey.isSmall
+        (keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.interval.intervalClass == .six) || keyboardKeyView.isSmall
     }
     
     var body: some View {
-        let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKey.backgroundBorderSize : keyboardKey.backgroundBorderSize
-        let borderHeightApparentSize = keyboardKey.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-        let outlineWidth = borderWidthApparentSize * keyboardKey.outlineSize
-        let outlineHeight = borderHeightApparentSize * keyboardKey.outlineSize
-        let alignment: Alignment = keyboardKey.conductor.layoutChoice == .piano ? .top : .center
+        let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKeyView.backgroundBorderSize : keyboardKeyView.backgroundBorderSize
+        let borderHeightApparentSize = keyboardKeyView.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
+        let outlineWidth = borderWidthApparentSize * keyboardKeyView.outlineSize
+        let outlineHeight = borderHeightApparentSize * keyboardKeyView.outlineSize
+        let alignment: Alignment = keyboardKeyView.conductor.layoutChoice == .piano ? .top : .center
         
         ZStack(alignment: alignment) {
-            KeyRectangle(fillColor: keyboardKey.conductor.backgroundColor, keyboardKey: keyboardKey, proxySize: proxySize)
+            KeyRectangle(fillColor: keyboardKeyView.conductor.backgroundColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                 .overlay(alignment: alignment) {
-                    if keyboardKey.outline {
-                        KeyRectangle(fillColor: keyboardKey.outlineColor, keyboardKey: keyboardKey, proxySize: proxySize)
+                    if keyboardKeyView.outline {
+                        KeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                             .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
                             .overlay(alignment: alignment) {
-                                KeyRectangle(fillColor: keyboardKey.outlineKeyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                                    .frame(width: proxySize.width - (keyboardKey.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outline ? outlineHeight : borderHeightApparentSize))
-                                    .overlay(KeyboardKeyLabelView(keyboardKey: keyboardKey, proxySize: proxySize)
+                                KeyRectangle(fillColor: keyboardKeyView.outlineKeyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                                    .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
+                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                             }
                     } else {
-                        KeyRectangle(fillColor: keyboardKey.keyColor, keyboardKey: keyboardKey, proxySize: proxySize)
-                            .frame(width: proxySize.width - (keyboardKey.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKey.outline ? outlineHeight : borderHeightApparentSize))
-                            .overlay(KeyboardKeyLabelView(keyboardKey: keyboardKey, proxySize: proxySize)
+                        KeyRectangle(fillColor: keyboardKeyView.keyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                            .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
+                            .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
-                            .padding(.leading,  keyboardKey.leadingOffset)
-                            .padding(.trailing,  keyboardKey.trailingOffset)
+                            .padding(.leading,  keyboardKeyView.leadingOffset)
+                            .padding(.trailing,  keyboardKeyView.trailingOffset)
                     }
                 }
         }
@@ -234,17 +234,17 @@ struct KeyboardKeySizingView: View {
 
 struct KeyRectangle: View {
     var fillColor: Color
-    var keyboardKey: KeyboardKeyView
+    var keyboardKeyView: KeyboardKeyView
     var proxySize: CGSize
     
     var body: some View {
         Rectangle()
             .fill(fillColor)
-            .padding(.top, keyboardKey.topPadding(proxySize))
-            .padding(.leading, keyboardKey.leadingPadding(proxySize))
-            .padding(.trailing, keyboardKey.trailingPadding(proxySize))
-            .cornerRadius(keyboardKey.relativeCornerRadius(in: proxySize))
-            .padding(.top, keyboardKey.negativeTopPadding(proxySize))
-            .rotationEffect(.degrees(keyboardKey.rotation))
+            .padding(.top, keyboardKeyView.topPadding(proxySize))
+            .padding(.leading, keyboardKeyView.leadingPadding(proxySize))
+            .padding(.trailing, keyboardKeyView.trailingPadding(proxySize))
+            .cornerRadius(keyboardKeyView.relativeCornerRadius(in: proxySize))
+            .padding(.top, keyboardKeyView.negativeTopPadding(proxySize))
+            .rotationEffect(.degrees(keyboardKeyView.rotation))
     }
 }
