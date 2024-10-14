@@ -180,7 +180,7 @@ public struct KeyboardKeyLabelView: View {
                 return if keyboardKeyView.isTonicOrOctave {
                     AnyView(
                         Color.clear.overlay(
-                            Image(keyIcon)
+                            keyboardKeyView.interval.consonanceDissonance.image
                                 .resizable()
                                 .rotationEffect(rotation)
                                 .scaledToFit()
@@ -193,7 +193,7 @@ public struct KeyboardKeyLabelView: View {
                 } else {
                     AnyView(
                         Color.clear.overlay(
-                            Image(systemName: keyIcon)
+                            keyboardKeyView.interval.consonanceDissonance.image
                                 .resizable()
                                 .rotationEffect(rotation)
                                 .scaledToFit()
@@ -273,10 +273,6 @@ public struct KeyboardKeyLabelView: View {
                 return keyboardKeyView.pitch.accidental ? .white : .black
             }
             return keyboardKeyView.activated ? activeColor : inactiveColor
-        }
-        
-        var keyIcon: String {
-            return keyboardKeyView.interval.consonanceDissonance.icon
         }
         
         var octave: String {
