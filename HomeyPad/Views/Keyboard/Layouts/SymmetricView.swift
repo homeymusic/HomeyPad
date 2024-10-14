@@ -16,15 +16,15 @@ struct SymmetricView<Content>: View where Content: View {
                             VStack(spacing: 0.0)  {
                                 if safeMIDI(midi: midi + 1) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.allPitches[midi + 1],
+                                                             pitch: Pitch.allPitches[midi + 1],
                                                              keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.allPitches[midi],
-                                                 keyboardKeyView: keyboardKeyView)
+                                                             pitch: Pitch.allPitches[midi],
+                                                             keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
@@ -34,7 +34,7 @@ struct SymmetricView<Content>: View where Content: View {
                             if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.allPitches[midi],
+                                                             pitch: Pitch.allPitches[midi],
                                                              keyboardKeyView: keyboardKeyView)
                                     .overlay() { // render tritone as overlay
                                         // only render tritone if P4, tt and P5 are safe
@@ -43,9 +43,9 @@ struct SymmetricView<Content>: View where Content: View {
                                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                                 ZStack {
                                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                                 pitch: Pitch.allPitches[midi-1], // tritone
-                                                                 zIndex: 1,
-                                                                 keyboardKeyView: keyboardKeyView)
+                                                                             pitch: Pitch.allPitches[midi-1], // tritone
+                                                                             zIndex: 1,
+                                                                             keyboardKeyView: keyboardKeyView)
                                                     .frame(width: ttLength, height: ttLength)
                                                 }
                                                 .offset(x: -ttLength / 2.0, y: proxy.size.height / 2.0 - ttLength / 2.0)
@@ -59,8 +59,8 @@ struct SymmetricView<Content>: View where Content: View {
                             } else if intervalClass != .six { // skip tritone
                                 if safeMIDI(midi: midi) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.allPitches[midi],
-                                                 keyboardKeyView: keyboardKeyView)
+                                                             pitch: Pitch.allPitches[midi],
+                                                             keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
