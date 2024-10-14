@@ -177,7 +177,7 @@ struct HelpPopoverView: View {
                 }
                 GridRow {
                     Text("16")
-                    Text("Tonic: Note Number")
+                    Text("Tonic: 0 to 127 Notes")
                 }
                 GridRow {
                     Text("17")

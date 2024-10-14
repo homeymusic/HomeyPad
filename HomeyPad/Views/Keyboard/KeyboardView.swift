@@ -7,40 +7,40 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
         
     public let id = UUID()
     
-    public let keyboardKey: (Pitch) -> Content
+    public let keyboardKeyView: (Pitch) -> Content
     
     public var body: some View {
         ZStack {
             switch conductor.layoutChoice {
             case .tonic:
-                TonicPickerView(keyboardKey: keyboardKey,
+                TonicPickerView(keyboardKeyView: keyboardKeyView,
                       tonicConductor: conductor)
             case .isomorphic:
-                IsomorphicView(keyboardKey: keyboardKey,
+                IsomorphicView(keyboardKeyView: keyboardKeyView,
                            viewConductor: conductor)
             case .symmetric:
-                SymmetricView(keyboardKey: keyboardKey,
+                SymmetricView(keyboardKeyView: keyboardKeyView,
                           viewConductor: conductor)
             case .piano:
-                PianoView(keyboardKey: keyboardKey,
+                PianoView(keyboardKeyView: keyboardKeyView,
                       viewConductor: conductor,
                       spacer: PianoSpacer(viewConductor: conductor))
             case .strings:
                 switch conductor.stringsLayoutChoice {
                 case .guitar:
-                    StringsView(keyboardKey: keyboardKey,
+                    StringsView(keyboardKeyView: keyboardKeyView,
                             viewConductor: conductor)
                 case .bass:
-                    StringsView(keyboardKey: keyboardKey,
+                    StringsView(keyboardKeyView: keyboardKeyView,
                             viewConductor: conductor)
                 case .violin:
-                    StringsView(keyboardKey: keyboardKey,
+                    StringsView(keyboardKeyView: keyboardKeyView,
                             viewConductor: conductor)
                 case .cello:
-                    StringsView(keyboardKey: keyboardKey,
+                    StringsView(keyboardKeyView: keyboardKeyView,
                             viewConductor: conductor)
                 case .banjo:
-                    StringsView(keyboardKey: keyboardKey,
+                    StringsView(keyboardKeyView: keyboardKeyView,
                             viewConductor: conductor)
                 }
             }

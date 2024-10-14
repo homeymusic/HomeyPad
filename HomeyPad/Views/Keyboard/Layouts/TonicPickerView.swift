@@ -2,7 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 struct TonicPickerView<Content>: View where Content: View {
-    let keyboardKey: (Pitch) -> Content
+    let keyboardKeyView: (Pitch) -> Content
     
     @ObservedObject var tonicConductor: ViewConductor
     
@@ -18,7 +18,7 @@ struct TonicPickerView<Content>: View where Content: View {
                 if safeMIDI(midi: midi) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
                                  pitch: tonicConductor.allPitches[midi],
-                                 keyboardKey: keyboardKey)
+                                 keyboardKey: keyboardKeyView)
                 } else {
                     Color.clear
                 }

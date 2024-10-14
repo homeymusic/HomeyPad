@@ -55,7 +55,7 @@ class ViewConductor: ObservableObject {
     )
     
     func midiChannel(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) -> UInt4 {
-        layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
+        UInt4(layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice))
     }
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {

@@ -4,7 +4,7 @@ import HomeyMusicKit
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.
 public struct KeyboardKeyContainerView<Content: View>: View {
-    let keyboardKey: (Pitch) -> Content
+    let keyboardKeyView: (Pitch) -> Content
 
     var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
@@ -19,11 +19,11 @@ public struct KeyboardKeyContainerView<Content: View>: View {
         self.conductor = conductor
         self.pitch = pitch
         self.zIndex = zIndex
-        self.keyboardKey = keyboardKey
+        self.keyboardKeyView = keyboardKey
     }
 
     func rect(rect: CGRect) -> some View {
-        keyboardKey(pitch)
+        keyboardKeyView(pitch)
             .contentShape(Rectangle()) // Added to improve tap/click reliability
             .gesture(
                 TapGesture().onEnded { _ in

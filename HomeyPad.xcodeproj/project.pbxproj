@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,9 @@
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
 		B0A0FFC12BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC02BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift */; };
+		B0BF8E2A2CBD99F000E76B57 /* MIDIConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */; };
+		B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */; };
+		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 		B0C7FD2F2BBAFB16006FF26F /* KeyboardKeyLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */; };
 		B0C7FD302BBAFB16006FF26F /* KeyboardKeyRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* KeyboardKeyRectangles.swift */; };
@@ -63,6 +66,9 @@
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
 		B0A0FFC02BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelsPopoverView.swift; sourceTree = "<group>"; };
+		B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIConductor.swift; sourceTree = "<group>"; };
+		B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
+		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyboardKeyContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyContainerView.swift; sourceTree = "<group>"; };
 		B0C7FD1F2BBAFB16006FF26F /* KeyboardKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyView.swift; sourceTree = "<group>"; };
@@ -77,10 +83,6 @@
 		B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyMusicKit; path = ../HomeyMusicKit; sourceTree = SOURCE_ROOT; };
 		B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		B07EC55A2CBD28590026C10F /* Conductors */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Conductors; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B026733D2BAF6C7C00DDFA62 /* Frameworks */ = {
@@ -123,7 +125,7 @@
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
-				B07EC55A2CBD28590026C10F /* Conductors */,
+				B0BF8E292CBD99F000E76B57 /* Conductors */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
 			);
@@ -194,6 +196,16 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
+		B0BF8E292CBD99F000E76B57 /* Conductors */ = {
+			isa = PBXGroup;
+			children = (
+				B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */,
+				B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */,
+				B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */,
+			);
+			path = Conductors;
+			sourceTree = "<group>";
+		};
 		B0CF33DD2CA89078002F6B55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,9 +227,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				B07EC55A2CBD28590026C10F /* Conductors */,
 			);
 			name = HomeyPad;
 			packageProductDependencies = (
@@ -291,6 +300,9 @@
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
 				B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */,
 				B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */,
+				B0BF8E2A2CBD99F000E76B57 /* MIDIConductor.swift in Sources */,
+				B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */,
+				B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */,
 				B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
