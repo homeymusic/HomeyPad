@@ -26,7 +26,6 @@
 		B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */; };
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
-		B0A0FFC12BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0FFC02BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift */; };
 		B0BF8E2A2CBD99F000E76B57 /* MIDIConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */; };
 		B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
@@ -65,7 +64,6 @@
 		B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
-		B0A0FFC02BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 		B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIConductor.swift; sourceTree = "<group>"; };
 		B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				B0C7FD2C2BBAFB16006FF26F /* KeyboardKeyRectangles.swift */,
 				B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */,
 				B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */,
-				B0A0FFC02BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -294,7 +291,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0A0FFC12BC0200A00FFB98C /* KeyboardKeyLabelsPopoverView.swift in Sources */,
 				B0C7FD3D2BBAFB29006FF26F /* SymmetricView.swift in Sources */,
 				B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */,
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
