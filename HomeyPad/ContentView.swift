@@ -31,7 +31,7 @@ struct ContentView: View {
         let accidental: Accidental = Accidental(rawValue: defaults.integer(forKey: "accidental")) ?? defaultAccidental
 
         // Keyboard Layout
-        let defaultLayoutChoice: LayoutChoice = LayoutChoice.dualistic
+        let defaultLayoutChoice: LayoutChoice = LayoutChoice.symmetric
         defaults.register(defaults: [
             "layoutChoice" : defaultLayoutChoice.rawValue
         ])

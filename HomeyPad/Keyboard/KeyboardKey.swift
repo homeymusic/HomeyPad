@@ -180,7 +180,7 @@ public struct KeyboardKey: View {
     }
     
     var rotation: CGFloat {
-        conductor.layoutChoice == .dualistic && isTritone ? 45.0 : 0.0
+        conductor.layoutChoice == .symmetric && isTritone ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {
