@@ -1,7 +1,7 @@
 import SwiftUI
 import HomeyMusicKit
 
-struct Piano<Content>: View where Content: View {
+struct PianoView<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
@@ -15,7 +15,7 @@ struct Piano<Content>: View where Content: View {
                             ForEach(spacer.whiteMIDI, id: \.self) { col in
                                 let midi: Int = col + 12 * row
                                 if safeMIDI(midi: midi) {
-                                    KeyContainer(conductor: viewConductor, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKey)
+                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: viewConductor.allPitches[midi],                                  keyboardKey: keyboardKey)
                                         .frame(width: spacer.whiteKeyWidth(geo.size.width))
                                 } else {
                                     Color.clear
@@ -33,7 +33,7 @@ struct Piano<Content>: View where Content: View {
                                     if Pitch.accidental(midi: midi) {
                                         ZStack {
                                             if safeMIDI(midi: midi) {
-                                                KeyContainer(conductor: viewConductor,
+                                                KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: viewConductor.allPitches[midi],
                                                              zIndex: 1,
                                                              keyboardKey: keyboardKey)

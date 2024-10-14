@@ -162,8 +162,8 @@ struct ContentView: View {
                     VStack {
                         // Tonic Picker
                         if showTonicPicker {
-                            Keyboard(conductor: tonicConductor) { pitch in
-                                KeyboardKey(pitch: pitch,
+                            KeyboardView(conductor: tonicConductor) { pitch in
+                                KeyboardKeyView(pitch: pitch,
                                             conductor: tonicConductor)
                                 .aspectRatio(1.0, contentMode: .fit)
                             }
@@ -176,8 +176,8 @@ struct ContentView: View {
                             .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                         }
                         if viewConductor.isOneRowOnTablet  {
-                            Keyboard(conductor: viewConductor) { pitch in
-                                KeyboardKey(pitch: pitch,
+                            KeyboardView(conductor: viewConductor) { pitch in
+                                KeyboardKeyView(pitch: pitch,
                                             conductor: viewConductor)
                             }
                             .aspectRatio(4.0, contentMode: .fit)
@@ -185,8 +185,8 @@ struct ContentView: View {
                         }
                         
                         if !viewConductor.isOneRowOnTablet {
-                            Keyboard(conductor: viewConductor) { pitch in
-                                KeyboardKey(pitch: pitch,
+                            KeyboardView(conductor: viewConductor) { pitch in
+                                KeyboardKeyView(pitch: pitch,
                                             conductor: viewConductor)
                             }
                             .ignoresSafeArea(edges:.horizontal)

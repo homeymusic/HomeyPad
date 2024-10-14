@@ -3,7 +3,7 @@ import AudioKit
 import DunneAudioKit
 import HomeyMusicKit
 
-class Conductor: ObservableObject {
+class SynthConductor: ObservableObject {
     let engine = AudioEngine()
     var instrument = Synth()
     

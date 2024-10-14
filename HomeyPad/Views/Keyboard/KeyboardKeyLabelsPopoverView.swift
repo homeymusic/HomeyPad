@@ -7,7 +7,7 @@
 
 import SwiftUI
 import HomeyMusicKit
-struct KeyLabelsPopoverView: View {
+struct KeyboardKeyLabelsPopoverView: View {
     @ObservedObject var viewConductor: ViewConductor
     
     var body: some View {

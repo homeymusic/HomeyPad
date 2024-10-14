@@ -1,7 +1,7 @@
 import SwiftUI
 import HomeyMusicKit
 
-struct Isomorphic<Content>: View where Content: View {
+struct IsomorphicView<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
 
@@ -12,7 +12,7 @@ struct Isomorphic<Content>: View where Content: View {
                     ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { col in
                         let midi: Int = col + 12 * row
                         if safeMIDI(midi: midi) {
-                            KeyContainer(conductor: viewConductor,
+                            KeyboardKeyContainerView(conductor: viewConductor,
                                          pitch: viewConductor.allPitches[midi],
                                          keyboardKey: keyboardKey)
                         } else {

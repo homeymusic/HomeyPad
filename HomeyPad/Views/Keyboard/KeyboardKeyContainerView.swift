@@ -3,7 +3,7 @@ import HomeyMusicKit
 
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.
-public struct KeyContainer<Content: View>: View {
+public struct KeyboardKeyContainerView<Content: View>: View {
     let keyboardKey: (Pitch) -> Content
 
     var pitch: Pitch

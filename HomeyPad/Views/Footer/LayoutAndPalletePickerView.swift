@@ -26,7 +26,7 @@ struct LayoutAndPalletePickerView: View {
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
-                        KeyLabelsPopoverView(viewConductor: viewConductor)
+                        KeyboardKeyLabelsPopoverView(viewConductor: viewConductor)
                             .presentationCompactAdaptation(.popover)
                     }
                     .scrollIndicatorsFlash(onAppear: true)

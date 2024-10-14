@@ -22,13 +22,13 @@ class ViewConductor: ObservableObject {
         self.allPitches = Array(0...127).map {Pitch($0)}
         self.allPitches[tonicMIDI].isTonic = true
         // Pass the `sendCurrentState` function into the MIDIHelper during creation
-        midiHelper = MIDIHelper(sendCurrentState: self.sendCurrentState)
+        midiHelper = MIDIConductor(sendCurrentState: self.sendCurrentState)
         midiHelper?.setup(midiManager: midiManager)
     }
     
     
     let sendTonicState: Bool
-    var midiHelper: MIDIHelper?
+    var midiHelper: MIDIConductor?
 
     func sendCurrentState() {
         if sendTonicState {
@@ -40,7 +40,7 @@ class ViewConductor: ObservableObject {
         print("ViewConductor's current state sent.")
     }
     
-    let conductor = Conductor()
+    let conductor = SynthConductor()
     
     let backgroundColor: Color
     

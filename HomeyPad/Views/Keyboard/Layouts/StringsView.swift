@@ -1,7 +1,7 @@
 import SwiftUI
 import HomeyMusicKit
 
-struct Strings<Content>: View where Content: View {
+struct StringsView<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
 
@@ -17,7 +17,7 @@ struct Strings<Content>: View where Content: View {
                         } else {
                             let midi = viewConductor.openStringsMIDI[string] + fret
                             let pitch = viewConductor.allPitches[midi]
-                            KeyContainer(conductor: viewConductor,
+                            KeyboardKeyContainerView(conductor: viewConductor,
                                          pitch: pitch,
                                          keyboardKey: keyboardKey)
                         }

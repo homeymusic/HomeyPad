@@ -1,8 +1,8 @@
 import SwiftUI
 import HomeyMusicKit
 
-public struct LabelView: View {
-    var keyboardKey: KeyboardKey
+public struct KeyboardKeyLabelView: View {
+    var keyboardKey: KeyboardKeyView
     var proxySize: CGSize
     
     var isSymmetricNotTritone: Bool {
@@ -28,7 +28,7 @@ public struct LabelView: View {
     }
     
     struct Labels: View {
-        let keyboardKey: KeyboardKey
+        let keyboardKey: KeyboardKeyView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
         

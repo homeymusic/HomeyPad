@@ -2,7 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
-public struct Keyboard<Content>: Identifiable, View where Content: View {
+public struct KeyboardView<Content>: Identifiable, View where Content: View {
     @ObservedObject var conductor: ViewConductor
         
     public let id = UUID()
@@ -13,40 +13,40 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
         ZStack {
             switch conductor.layoutChoice {
             case .tonic:
-                TonicPicker(keyboardKey: keyboardKey,
+                TonicPickerView(keyboardKey: keyboardKey,
                       tonicConductor: conductor)
             case .isomorphic:
-                Isomorphic(keyboardKey: keyboardKey,
+                IsomorphicView(keyboardKey: keyboardKey,
                            viewConductor: conductor)
             case .symmetric:
-                symmetric(keyboardKey: keyboardKey,
+                SymmetricView(keyboardKey: keyboardKey,
                           viewConductor: conductor)
             case .piano:
-                Piano(keyboardKey: keyboardKey,
+                PianoView(keyboardKey: keyboardKey,
                       viewConductor: conductor,
                       spacer: PianoSpacer(viewConductor: conductor))
             case .strings:
                 switch conductor.stringsLayoutChoice {
                 case .guitar:
-                    Strings(keyboardKey: keyboardKey,
+                    StringsView(keyboardKey: keyboardKey,
                             viewConductor: conductor)
                 case .bass:
-                    Strings(keyboardKey: keyboardKey,
+                    StringsView(keyboardKey: keyboardKey,
                             viewConductor: conductor)
                 case .violin:
-                    Strings(keyboardKey: keyboardKey,
+                    StringsView(keyboardKey: keyboardKey,
                             viewConductor: conductor)
                 case .cello:
-                    Strings(keyboardKey: keyboardKey,
+                    StringsView(keyboardKey: keyboardKey,
                             viewConductor: conductor)
                 case .banjo:
-                    Strings(keyboardKey: keyboardKey,
+                    StringsView(keyboardKey: keyboardKey,
                             viewConductor: conductor)
                 }
             }
             
             if !conductor.latching {
-                MultitouchView { touches in
+                KeyboardKeyMultitouchView { touches in
                     conductor.touchLocations = touches
                 }
             }
