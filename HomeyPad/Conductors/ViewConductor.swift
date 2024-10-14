@@ -20,7 +20,6 @@ class ViewConductor: ObservableObject {
         // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray6) : .black
         self.allPitches = Array(0...127).map {Pitch($0)}
-        self.allPitches[tonicMIDI].isTonic = true
         // Pass the `sendCurrentState` function into the MIDIHelper during creation
         midiHelper = MIDIConductor(sendCurrentState: self.sendCurrentState)
         midiHelper?.setup(midiManager: midiManager)
@@ -446,18 +445,6 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var tonicMIDI: Int {
-        willSet(newTonicMIDI) {
-            allPitches[tonicMIDI].isTonic = false
-            if safeMIDI(midi: newTonicMIDI) {
-                allPitches[newTonicMIDI].isTonic = true
-            } else {
-                if newTonicMIDI < 0 {
-                    allPitches[0].isTonic = true
-                } else if newTonicMIDI > 127 {
-                    allPitches[127].isTonic = true
-                }
-            }
-        }
         didSet {
             if layoutChoice == .tonic {
                 midiHelper?.sendTonic(noteNumber: UInt7(tonicMIDI), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))

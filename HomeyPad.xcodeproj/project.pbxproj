@@ -42,6 +42,7 @@
 		B0C7FD3D2BBAFB29006FF26F /* SymmetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* SymmetricView.swift */; };
 		B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */; };
 		B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */; };
+		B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4FA492CBDC771004AC8E6 /* KeyboardKeyLabelsPopoverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelView.swift; sourceTree = "<group>"; };
 		B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyMusicKit; path = ../HomeyMusicKit; sourceTree = SOURCE_ROOT; };
 		B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
+		B0F4FA492CBDC771004AC8E6 /* KeyboardKeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 		B093E1562CBD2DD600130B06 /* Footer */ = {
 			isa = PBXGroup;
 			children = (
+				B0F4FA492CBDC771004AC8E6 /* KeyboardKeyLabelsPopoverView.swift */,
 				B093E1522CBD2DD600130B06 /* FooterView.swift */,
 				B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */,
 				B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */,
@@ -302,6 +305,7 @@
 				B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
+				B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
 				B093E14F2CBD2DB800130B06 /* OctaveShiftView.swift in Sources */,
