@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HomeyMusicKit
 
 struct FooterView: View {
     @ObservedObject var viewConductor: ViewConductor

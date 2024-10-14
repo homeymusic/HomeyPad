@@ -1,4 +1,5 @@
 import SwiftUI
+import HomeyMusicKit
 
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor

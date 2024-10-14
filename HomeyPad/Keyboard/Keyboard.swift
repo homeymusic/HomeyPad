@@ -13,7 +13,7 @@ public struct Keyboard<Content>: Identifiable, View where Content: View {
         ZStack {
             switch conductor.layoutChoice {
             case .tonic:
-                Tonic(keyboardKey: keyboardKey,
+                TonicPicker(keyboardKey: keyboardKey,
                       tonicConductor: conductor)
             case .isomorphic:
                 Isomorphic(keyboardKey: keyboardKey,

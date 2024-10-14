@@ -1,7 +1,7 @@
 import SwiftUI
 import HomeyMusicKit
 
-struct Tonic<Content>: View where Content: View {
+struct TonicPicker<Content>: View where Content: View {
     let keyboardKey: (Pitch) -> Content
     
     @ObservedObject var tonicConductor: ViewConductor
