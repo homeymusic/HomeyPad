@@ -2,6 +2,7 @@ import SwiftUI
 import MIDIKit
 import HomeyMusicKit
 
+@MainActor
 class ViewConductor: ObservableObject {
     
     init(tonicPitch: Pitch, pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols(), sendTonicState: Bool = false) {
@@ -38,7 +39,7 @@ class ViewConductor: ObservableObject {
     }
 
     var tonicMIDI: Int8 {
-        self.tonicPitch.midi
+        TonalContext.shared.tonicPitch.midi
     }
 
     func sendCurrentState() {
