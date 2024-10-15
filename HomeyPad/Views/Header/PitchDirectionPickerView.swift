@@ -1,19 +1,12 @@
-//
-//  PitchDirectionPickerView.swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 4/16/24.
-//
-
 import SwiftUI
 import HomeyMusicKit
 
 struct PitchDirectionPickerView: View {
-    @ObservedObject var tonicConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
 
     var body: some View {
         HStack {
-            Picker("", selection: $tonicConductor.pitchDirection) {
+            Picker("", selection: $tonalContext.pitchDirection) {
                 Image(systemName: PitchDirection.downward.icon)
                     .tag(PitchDirection.downward)
                 Image(systemName: PitchDirection.upward.icon)

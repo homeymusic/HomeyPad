@@ -25,7 +25,7 @@ struct StringsView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: viewConductor.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicPitch.midi)
         .clipShape(Rectangle())
     }
 }

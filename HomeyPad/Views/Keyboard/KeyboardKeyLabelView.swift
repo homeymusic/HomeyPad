@@ -177,7 +177,7 @@ public struct KeyboardKeyLabelView: View {
         
         var symbolIcon: some View {
             if keyboardKeyView.conductor.showSymbols {
-                return if keyboardKeyView.isTonicOrOctave {
+                return if keyboardKeyView.interval.isTonicOrOctave {
                     AnyView(
                         Color.clear.overlay(
                             keyboardKeyView.interval.consonanceDissonance.image
@@ -210,16 +210,16 @@ public struct KeyboardKeyLabelView: View {
         var intervalLabels: some View {
             Group {
                 if keyboardKeyView.conductor.intervalLabel[.interval]! {
-                    overlayText(String(keyboardKeyView.interval.classShorthand(globalPitchDirection: keyboardKeyView.conductor.pitchDirection)))
+                    overlayText(String(keyboardKeyView.interval.classShorthand))
                 }
                 if keyboardKeyView.conductor.intervalLabel[.movableDo]! {
                     overlayText(keyboardKeyView.interval.movableDo)
                 }
                 if keyboardKeyView.conductor.intervalLabel[.roman]! {
-                    overlayText(String(keyboardKeyView.interval.roman(globalPitchDirection: keyboardKeyView.conductor.pitchDirection)))
+                    overlayText(String(keyboardKeyView.interval.roman))
                 }
                 if keyboardKeyView.conductor.intervalLabel[.degree]! {
-                    overlayText(String(keyboardKeyView.interval.degree(globalPitchDirection: keyboardKeyView.conductor.pitchDirection)))
+                    overlayText(String(keyboardKeyView.interval.degree))
                 }
                 if keyboardKeyView.conductor.intervalLabel[.integer]! {
                     overlayText(String(keyboardKeyView.interval.semitones))

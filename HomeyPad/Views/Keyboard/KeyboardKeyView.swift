@@ -122,8 +122,7 @@ public struct KeyboardKeyView: View {
     }
     
     var outline: Bool {
-        conductor.outlineChoice &&
-        (pitch.midi == conductor.tonicMIDI || pitch.midi == conductor.octaveMIDI)
+        conductor.outlineChoice && interval.isTonicOrOctave
     }
     
     var isSmall: Bool {
@@ -144,10 +143,6 @@ public struct KeyboardKeyView: View {
 
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
-    }
-    
-    var isTonicOrOctave: Bool {
-        self.interval.intervalClass == .zero 
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {
@@ -208,7 +203,7 @@ struct KeyboardKeySizingView: View {
         let alignment: Alignment = keyboardKeyView.conductor.layoutChoice == .piano ? .top : .center
         
         ZStack(alignment: alignment) {
-            KeyRectangle(fillColor: keyboardKeyView.conductor.backgroundColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+            KeyRectangle(fillColor: .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                 .overlay(alignment: alignment) {
                     if keyboardKeyView.outline {
                         KeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)

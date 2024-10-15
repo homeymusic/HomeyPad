@@ -52,7 +52,7 @@ struct PianoView<Content>: View where Content: View {
                             Spacer().frame(height: geo.size.height * (1 - spacer.relativeBlackKeyHeight))
                         }
                     }
-                    .animation(viewConductor.animationStyle, value: viewConductor.tonicMIDI)
+                    .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicPitch.midi)
                 }
                 .clipShape(Rectangle())
             }
@@ -133,8 +133,8 @@ extension PianoSpacer {
             colsAbove = colsAbove - 1
         }
         
-        let naturalsBelowTritone = Array(Pitch.naturalMIDI.filter({$0 < viewConductor.tritoneMIDI}).suffix(colsBelow))
-        let naturalsAboveTritone = Array(Pitch.naturalMIDI.filter({$0 > viewConductor.tritoneMIDI}).prefix(colsAbove))
+        let naturalsBelowTritone = Array(Pitch.naturalMIDI.filter({$0 < viewConductor.ttMIDI}).suffix(colsBelow))
+        let naturalsAboveTritone = Array(Pitch.naturalMIDI.filter({$0 > viewConductor.ttMIDI}).prefix(colsAbove))
 
         let lowIndex: Int = naturalsBelowTritone.min() ?? 0
         let highIndex: Int = naturalsAboveTritone.max() ?? 127

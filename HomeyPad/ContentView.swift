@@ -9,15 +9,8 @@ struct ContentView: View {
     @StateObject private var viewConductor: ViewConductor
     
     init() {
-        // Pitch Direction
-        let defaultPitchDirection: PitchDirection = PitchDirection.upward
-        defaults.register(defaults: [
-            "pitchDirection" : defaultPitchDirection.rawValue
-        ])
-        let pitchDirection: PitchDirection = PitchDirection(rawValue: defaults.integer(forKey: "pitchDirection")) ?? defaultPitchDirection
-        
         // Accidental
-        let defaultAccidental: Accidental = Accidental.defaultAccidental
+        let defaultAccidental: Accidental = .default
         defaults.register(defaults: [
             "accidental" : defaultAccidental.rawValue
         ])
@@ -115,7 +108,6 @@ struct ContentView: View {
                 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
-            pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: .tonic,
             latching: true,
@@ -125,7 +117,6 @@ struct ContentView: View {
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
-            pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: layoutChoice,
             stringsLayoutChoice: stringsLayoutChoice,
@@ -162,7 +153,7 @@ struct ContentView: View {
                             .padding(7.0)
                             .background {
                                 RoundedRectangle(cornerRadius: 7.0)
-                                    .fill(Color(tonicConductor.backgroundColor))
+                                    .fill(Color(UIColor.systemGray6))
                             }
                             .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                         }
@@ -196,10 +187,6 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onChange(of: tonicConductor.pitchDirection) {
-                viewConductor.pitchDirection = tonicConductor.pitchDirection
-                defaults.set(tonicConductor.pitchDirection.rawValue, forKey: "pitchDirection")
-            }
             .onChange(of: tonicConductor.accidental) {
                 viewConductor.accidental = tonicConductor.accidental
                 defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
