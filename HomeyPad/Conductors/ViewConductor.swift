@@ -5,7 +5,7 @@ import HomeyMusicKit
 @MainActor
 class ViewConductor: ObservableObject {
     
-    init(tonicPitch: Pitch, pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols(), sendTonicState: Bool = false) {
+    init(pitchDirection: PitchDirection, accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols(), sendTonicState: Bool = false) {
         // defaults
         self.pitchDirection      = pitchDirection
         self.accidental          = accidental
@@ -20,7 +20,6 @@ class ViewConductor: ObservableObject {
         // setup
         self.backgroundColor = (layoutChoice == .tonic) ? Color(UIColor.systemGray6) : .black
         
-        self.tonicPitch = tonicPitch
         // Pass the `sendCurrentState` function into the MIDIHelper during creation
         midiConductor = MIDIConductor(sendCurrentState: self.sendCurrentState)
         midiConductor?.setup(midiManager: midiManager)
@@ -30,21 +29,13 @@ class ViewConductor: ObservableObject {
     let sendTonicState: Bool
     var midiConductor: MIDIConductor?
     
-    @Published var tonicPitch: Pitch {
-        didSet {
-            if layoutChoice == .tonic {
-                midiConductor?.sendTonic(noteNumber: UInt7(tonicPitch.midi), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
-            }
-        }
-    }
-
     var tonicMIDI: Int8 {
         TonalContext.shared.tonicPitch.midi
     }
 
     func sendCurrentState() {
         if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: UInt7(self.tonicPitch.midi), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: UInt7(TonalContext.shared.tonicPitch.midi), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             midiConductor?.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
@@ -109,30 +100,16 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    var octaveShift: Int8 {
-        get {
-            let midi = if pitchDirection == .upward || !safeMIDI(midi: Int(self.tonicPitch.midi) - 12) {
-                self.tonicPitch.midi
-            } else {
-                self.tonicPitch.midi - 12
-            }
-            return Int8(Pitch.allPitches[Int(midi)].octave - 4)
-        }
-        set(newOctaveShift) {
-            self.tonicPitch.midi = self.tonicPitch.midi + Int8(12 * (Int(newOctaveShift) + 5))
-        }
-    }
-
     var octaveMIDI: Int {
-        Int(self.tonicPitch.midi + (pitchDirection == .upward || pitchDirection == .both ? 12 : -12))
+        Int(TonalContext.shared.tonicPitch.midi) + (pitchDirection == .upward || pitchDirection == .both ? 12 : -12)
     }
     
     var tritoneMIDI: Int {
-        Int(self.tonicPitch.midi + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6))
+        Int(TonalContext.shared.tonicPitch.midi) + (pitchDirection == .upward || pitchDirection == .both ? 6 : -6)
     }
     
     var tritonePitch: Pitch {
-        Pitch.allPitches[tritoneMIDI]
+        TonalContext.shared.allPitches[tritoneMIDI]
     }
     
     var lowMIDI: Int {
@@ -158,7 +135,7 @@ class ViewConductor: ObservableObject {
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
         let midiChannel = midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice)
-        Pitch.allPitches.forEach {pitch in
+        TonalContext.shared.allPitches.forEach {pitch in
             deactivatePitch(pitch: pitch, midiChannel: midiChannel)
         }
     }
@@ -184,12 +161,12 @@ class ViewConductor: ObservableObject {
     }
     
     var isTonicDefault: Bool {
-        self.tonicPitch == Pitch.allPitches[60] && pitchDirection == .upward
+        TonalContext.shared.tonicPitch == TonalContext.shared.allPitches[60] && pitchDirection == .upward
     }
 
     func resetTonic() {
         pitchDirection = .upward
-        tonicPitch = Pitch.allPitches[60]
+        TonalContext.shared.resetToDefaults()
         Task { @MainActor in
             buzz()
         }
@@ -454,16 +431,26 @@ class ViewConductor: ObservableObject {
     @Published var pitchDirection: PitchDirection = .upward {
         didSet {
             if layoutChoice == .tonic {
-                if pitchDirection == .upward {
-                    if safeMIDI(midi: Int(tonicMIDI) - 12) {
-                        tonicPitch = Pitch.allPitches[Int(tonicPitch.midi) - 12]
+                switch pitchDirection {
+                case .upward:
+                    if TonalContext.shared.canShiftDownOneOctave() {
+                        TonalContext.shared.shiftDownOneOctave()
                     }
-                } else if pitchDirection == .downward {
-                    if safeMIDI(midi: Int(tonicMIDI) + 12) {
-                        tonicPitch = Pitch.allPitches[Int(tonicPitch.midi) + 12]
+                case .downward:
+                    if TonalContext.shared.canShiftUpOneOctave() {
+                        TonalContext.shared.shiftUpOneOctave()
                     }
+                case .both: break
                 }
-                midiConductor?.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
+                
+                midiConductor?.sendPitchDirection(
+                    upwardPitchDirection: pitchDirection == .upward,
+                    midiChannel: midiChannel(
+                        layoutChoice: layoutChoice,
+                        stringsLayoutChoice: stringsLayoutChoice
+                    )
+                )
+                
                 Task { @MainActor in
                     buzz()
                 }
@@ -485,13 +472,13 @@ class ViewConductor: ObservableObject {
         if layoutChoice == .tonic {
             for pitch in newPitches {
                 let newTonicPitch = pitch
-                if newTonicPitch != tonicPitch {
-                    if newTonicPitch.midi == tonicPitch.midi + 12 {
+                if newTonicPitch != TonalContext.shared.tonicPitch {
+                    if newTonicPitch.midi == TonalContext.shared.tonicPitch.midi + 12 {
                         pitchDirection = .downward
-                    } else if newTonicPitch.midi == tonicPitch.midi - 12 {
+                    } else if newTonicPitch.midi == TonalContext.shared.tonicPitch.midi - 12 {
                         pitchDirection = .upward
                     }
-                    tonicPitch = newTonicPitch
+                    TonalContext.shared.tonicPitch = newTonicPitch
                     Task { @MainActor in
                         buzz()
                     }

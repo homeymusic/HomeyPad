@@ -7,36 +7,33 @@ struct OctaveShiftView: View {
     
     var body: some View {
         HStack(spacing: 5) {
-            let newDownwardTonicMIDI = tonicConductor.tonicPitch.midi - 12
+            // Downward octave shift button
             Button(action: {
-                tonicConductor.tonicPitch.midi = newDownwardTonicMIDI
-                viewConductor.tonicPitch.midi = tonicConductor.tonicPitch.midi
+                TonalContext.shared.shiftDownOneOctave()
                 Task { @MainActor in
                     buzz()
                 }
             }, label: {
                 Image(systemName: "water.waves.and.arrow.down")
-                    .foregroundColor(safeMIDI(midi: Int(newDownwardTonicMIDI)) ? .white : Color(UIColor.systemGray4))
+                    .foregroundColor(TonalContext.shared.canShiftDownOneOctave() ? .white : Color(UIColor.systemGray4))
             })
-            .disabled(!safeMIDI(midi: Int(newDownwardTonicMIDI)))
+            .disabled(!TonalContext.shared.canShiftDownOneOctave())
             
-            Text(tonicConductor.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+            // Display the octave shift value
+            Text(TonalContext.shared.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                 .foregroundColor(.white)
                 .fixedSize(horizontal: true, vertical: false)
                 .frame(width: 41, alignment: .center)
             
-            let newUpwardTonicMIDI = tonicConductor.tonicMIDI + 12
+            // Upward octave shift button
             Button(action: {
-                tonicConductor.tonicPitch.midi = newUpwardTonicMIDI
-                viewConductor.tonicPitch.midi = tonicConductor.tonicMIDI
+                TonalContext.shared.shiftUpOneOctave()
                 buzz()
             }, label: {
                 Image(systemName: "water.waves.and.arrow.up")
-                    .foregroundColor(safeMIDI(midi: Int(newUpwardTonicMIDI)) ? .white : Color(UIColor.systemGray4))
+                    .foregroundColor(TonalContext.shared.canShiftUpOneOctave() ? .white : Color(UIColor.systemGray4))
             })
-            .disabled(!safeMIDI(midi: Int(newUpwardTonicMIDI)))
+            .disabled(!TonalContext.shared.canShiftUpOneOctave())
         }
     }
 }
-
-

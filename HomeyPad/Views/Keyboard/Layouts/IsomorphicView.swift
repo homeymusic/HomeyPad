@@ -11,9 +11,9 @@ struct IsomorphicView<Content>: View where Content: View {
                 HStack(spacing: 0) {
                     ForEach(viewConductor.lowMIDI...viewConductor.highMIDI, id: \.self) { col in
                         let midi: Int = col + 12 * row
-                        if safeMIDI(midi: midi) {
+                        if TonalContext.shared.safeMIDI(midi: midi) {
                             KeyboardKeyContainerView(conductor: viewConductor,
-                                                     pitch: Pitch.allPitches[midi],
+                                                     pitch: TonalContext.shared.allPitches[midi],
                                                      keyboardKeyView: keyboardKeyView)
                         } else {
                             Color.clear

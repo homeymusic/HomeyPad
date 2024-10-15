@@ -16,7 +16,7 @@ struct StringsView<Content>: View where Content: View {
                             Color.clear
                         } else {
                             let midi = viewConductor.openStringsMIDI[string] + fret
-                            let pitch = Pitch.allPitches[midi]
+                            let pitch = TonalContext.shared.allPitches[midi]
                             KeyboardKeyContainerView(conductor: viewConductor,
                                          pitch: pitch,
                                          keyboardKeyView: keyboardKeyView)

@@ -14,8 +14,8 @@ struct PianoView<Content>: View where Content: View {
                         HStack(spacing: 0) {
                             ForEach(spacer.whiteMIDI, id: \.self) { col in
                                 let midi: Int = col + 12 * row
-                                if safeMIDI(midi: midi) {
-                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: Pitch.allPitches[midi],                                  keyboardKeyView: keyboardKeyView)
+                                if TonalContext.shared.safeMIDI(midi: midi) {
+                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: TonalContext.shared.allPitches[midi],                                  keyboardKeyView: keyboardKeyView)
                                         .frame(width: spacer.whiteKeyWidth(geo.size.width))
                                 } else {
                                     Color.clear
@@ -32,9 +32,9 @@ struct PianoView<Content>: View where Content: View {
                                     let midi: Int = col + 12 * row
                                     if Pitch.accidental(midi: midi) {
                                         ZStack {
-                                            if safeMIDI(midi: midi) {
+                                            if TonalContext.shared.safeMIDI(midi: midi) {
                                                 KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: Pitch.allPitches[midi],
+                                                             pitch: TonalContext.shared.allPitches[midi],
                                                              zIndex: 1,
                                                              keyboardKeyView: keyboardKeyView)
                                             } else {
@@ -127,9 +127,9 @@ extension PianoSpacer {
         var colsAbove = viewConductor.layoutRowsCols.colsPerSide[.piano]!
                 
         // if F .five or B .eleven are the tonic then the tritone will be off center
-        if viewConductor.tonicPitch.pitchClass == .five {
+        if TonalContext.shared.tonicPitch.pitchClass == .five {
             colsBelow = colsBelow - 1
-        } else if viewConductor.tonicPitch.pitchClass == .eleven {
+        } else if TonalContext.shared.tonicPitch.pitchClass == .eleven {
             colsAbove = colsAbove - 1
         }
         

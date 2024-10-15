@@ -15,7 +15,7 @@ public struct KeyboardKeyView: View {
     }
     
     var interval: Interval {
-        Interval(pitch: pitch, tonicPitch: conductor.tonicPitch)
+        Interval(pitch: pitch, tonicPitch: TonalContext.shared.tonicPitch)
     }
     
     var activated: Bool {

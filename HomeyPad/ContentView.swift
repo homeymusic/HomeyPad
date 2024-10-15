@@ -9,13 +9,6 @@ struct ContentView: View {
     @StateObject private var viewConductor: ViewConductor
     
     init() {
-        // Tonic MIDI
-        let defaultTonicMIDI: Int = 60
-        defaults.register(defaults: [
-            "tonicMIDI" : defaultTonicMIDI
-        ])
-        let tonicMIDI: Int = defaults.integer(forKey: "tonicMIDI")
-        
         // Pitch Direction
         let defaultPitchDirection: PitchDirection = PitchDirection.upward
         defaults.register(defaults: [
@@ -122,7 +115,6 @@ struct ContentView: View {
                 
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
-            tonicPitch: Pitch.allPitches[tonicMIDI],
             pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: .tonic,
@@ -133,7 +125,6 @@ struct ContentView: View {
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
-            tonicPitch: Pitch.allPitches[tonicMIDI],
             pitchDirection: pitchDirection,
             accidental: accidental,
             layoutChoice: layoutChoice,
@@ -205,11 +196,6 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onChange(of: tonicConductor.tonicPitch) {
-                viewConductor.tonicPitch = tonicConductor.tonicPitch
-                tonicConductor.externallyActivatedPitches.removeAll()
-                defaults.set(tonicConductor.tonicMIDI, forKey: "tonicMIDI")
-            }
             .onChange(of: tonicConductor.pitchDirection) {
                 viewConductor.pitchDirection = tonicConductor.pitchDirection
                 defaults.set(tonicConductor.pitchDirection.rawValue, forKey: "pitchDirection")

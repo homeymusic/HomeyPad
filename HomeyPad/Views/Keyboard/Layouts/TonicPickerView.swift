@@ -7,17 +7,13 @@ struct TonicPickerView<Content>: View where Content: View {
     @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
-        let midiRange: ClosedRange<Int> = switch tonicConductor.pitchDirection {
-        case .downward:
-            Int(tonicConductor.tonicPitch.midi) - 12 ... Int(tonicConductor.tonicPitch.midi)
-        default:
-            Int(tonicConductor.tonicPitch.midi) ... Int(tonicConductor.tonicPitch.midi) + 12
-        }
+        let midiRange = TonalContext.shared.midiRange()
+        
         HStack(spacing: 0) {
             ForEach(midiRange, id: \.self) { midi in
-                if safeMIDI(midi: midi) {
+                if TonalContext.shared.safeMIDI(midi: midi) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                             pitch: Pitch.allPitches[midi],
+                                             pitch: TonalContext.shared.allPitches[midi],
                                              keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear
