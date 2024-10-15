@@ -21,7 +21,7 @@ struct TonicPickerView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(tonicConductor.animationStyle, value: TonalContext.shared.tonicPitch.midi)
+        .animation(tonicConductor.animationStyle, value: TonalContext.shared.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

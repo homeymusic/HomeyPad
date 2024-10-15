@@ -5,57 +5,104 @@ struct PianoView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     let spacer: PianoSpacer
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.piano]!...viewConductor.layoutRowsCols.rowsPerSide[.piano]!).reversed(), id: \.self) { row in
+            let rows = (-viewConductor.layoutRowsCols.rowsPerSide[.piano]! ... viewConductor.layoutRowsCols.rowsPerSide[.piano]!).reversed()
+
+            ForEach(rows, id: \.self) { row in
                 GeometryReader { geo in
                     ZStack(alignment: .topLeading) {
-                        HStack(spacing: 0) {
-                            ForEach(spacer.whiteMIDI, id: \.self) { col in
-                                let midi: Int = col + 12 * row
-                                if TonalContext.shared.safeMIDI(midi: midi) {
-                                    KeyboardKeyContainerView(conductor: viewConductor, pitch: TonalContext.shared.allPitches[midi],                                  keyboardKeyView: keyboardKeyView)
-                                        .frame(width: spacer.whiteKeyWidth(geo.size.width))
-                                } else {
-                                    Color.clear
-                                        .frame(width: spacer.whiteKeyWidth(geo.size.width))
-                                }
-                            }
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 0) {
-                            HStack(spacing: 0) {
-                                Rectangle().opacity(0)
-                                    .frame(width: spacer.initialSpacerWidth(geo.size.width))
-                                ForEach(spacer.midiBoundedByNaturals, id: \.self) { col in
-                                    let midi: Int = col + 12 * row
-                                    if Pitch.accidental(midi: midi) {
-                                        ZStack {
-                                            if TonalContext.shared.safeMIDI(midi: midi) {
-                                                KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: TonalContext.shared.allPitches[midi],
-                                                             zIndex: 1,
-                                                             keyboardKeyView: keyboardKeyView)
-                                            } else {
-                                                Color.clear
-                                            }
-                                        }
-                                        .frame(width: spacer.blackKeyWidth(geo.size.width))
-                                    } else {
-                                        Rectangle().opacity(0)
-                                            .frame(width: spacer.blackKeySpacerWidth(geo.size.width, midi: midi))
-                                    }
-                                }
-                            }
-                            
-                            Spacer().frame(height: geo.size.height * (1 - spacer.relativeBlackKeyHeight))
-                        }
+                        // Calculate white keys for this row
+                        let whiteKeys = spacer.whiteMIDI.map { Int($0) + 12 * row }
+
+                        WhiteKeysView(
+                            whiteKeys: whiteKeys,
+                            geoWidth: geo.size.width,
+                            keyboardKeyView: keyboardKeyView,
+                            viewConductor: viewConductor,
+                            spacer: spacer
+                        )
+
+                        BlackKeysView(
+                            row: row,
+                            geoWidth: geo.size.width,
+                            keyboardKeyView: keyboardKeyView,
+                            viewConductor: viewConductor,
+                            spacer: spacer
+                        )
                     }
                     .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicPitch.midi)
                 }
                 .clipShape(Rectangle())
             }
+        }
+    }
+}
+
+struct WhiteKeysView<Content>: View where Content: View {
+    let whiteKeys: [Int]
+    let geoWidth: CGFloat
+    let keyboardKeyView: (Pitch) -> Content
+    @ObservedObject var viewConductor: ViewConductor
+    let spacer: PianoSpacer
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(whiteKeys, id: \.self) { unSureMIDI in
+                let keyWidth = spacer.whiteKeyWidth(geoWidth)
+                if TonalContext.shared.safeMIDI(midi: unSureMIDI) {
+                    KeyboardKeyContainerView(
+                        conductor: viewConductor,
+                        pitch: TonalContext.shared.pitch(for: Int8(unSureMIDI)),
+                        keyboardKeyView: keyboardKeyView
+                    )
+                    .frame(width: keyWidth)
+                } else {
+                    Color.clear.frame(width: keyWidth)
+                }
+            }
+        }
+    }
+}
+
+struct BlackKeysView<Content>: View where Content: View {
+    let row: Int
+    let geoWidth: CGFloat
+    let keyboardKeyView: (Pitch) -> Content
+    @ObservedObject var viewConductor: ViewConductor
+    let spacer: PianoSpacer
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                Rectangle().opacity(0)
+                    .frame(width: spacer.initialSpacerWidth(geoWidth))
+
+                ForEach(spacer.midiBoundedByNaturals, id: \.self) { col in
+                    let unSureMIDI = Int(col) + 12 * row
+                    if Pitch.accidental(midi: Int8(unSureMIDI)) {
+                        let blackKeyWidth = spacer.blackKeyWidth(geoWidth)
+                        ZStack {
+                            if TonalContext.shared.safeMIDI(midi: unSureMIDI) {
+                                KeyboardKeyContainerView(
+                                    conductor: viewConductor,
+                                    pitch: TonalContext.shared.pitch(for: Int8(unSureMIDI)),
+                                    zIndex: 1,
+                                    keyboardKeyView: keyboardKeyView
+                                )
+                            } else {
+                                Color.clear
+                            }
+                        }
+                        .frame(width: blackKeyWidth)
+                    } else {
+                        let blackKeySpacer = spacer.blackKeySpacerWidth(geoWidth, midi: Int8(unSureMIDI))
+                        Rectangle().opacity(0).frame(width: blackKeySpacer)
+                    }
+                }
+            }
+            Spacer().frame(height: geoWidth * (1 - spacer.relativeBlackKeyHeight))
         }
     }
 }
@@ -92,15 +139,15 @@ public struct PianoSpacer {
 }
 
 extension PianoSpacer {
-    public var whiteMIDI: [Int] {
-        var naturalMIDI: [Int] = []
+    public var whiteMIDI: [Int8] {
+        var naturalMIDI: [Int8] = []
         for midi in midiBoundedByNaturals where !Pitch.accidental(midi: midi) {
             naturalMIDI.append(midi)
         }
         return naturalMIDI
     }
 
-    public func isBlackKey(_ midi: Int) -> Bool {
+    public func isBlackKey(_ midi: Int8) -> Bool {
         Pitch.accidental(midi: midi)
     }
 
@@ -109,7 +156,7 @@ extension PianoSpacer {
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
-    public func space(midi: Int) -> CGFloat {
+    public func space(midi: Int8) -> CGFloat {
         let pitchClass = Pitch.pitchClass(midi: midi)
         return spacerRatio[pitchClass] ?? 0
     }
@@ -122,7 +169,7 @@ extension PianoSpacer {
         whiteKeyWidth(width) * relativeBlackKeyWidth
     }
 
-    public var midiBoundedByNaturals: ClosedRange<Int> {
+    public var midiBoundedByNaturals: ClosedRange<Int8> {
         var colsBelow = viewConductor.layoutRowsCols.colsPerSide[.piano]!
         var colsAbove = viewConductor.layoutRowsCols.colsPerSide[.piano]!
                 
@@ -133,11 +180,11 @@ extension PianoSpacer {
             colsAbove = colsAbove - 1
         }
         
-        let naturalsBelowTritone = Array(Pitch.naturalMIDI.filter({$0 < viewConductor.ttMIDI}).suffix(colsBelow))
-        let naturalsAboveTritone = Array(Pitch.naturalMIDI.filter({$0 > viewConductor.ttMIDI}).prefix(colsAbove))
+        let naturalsBelowTritone = TonalContext.shared.naturalsBelowTritone.suffix(colsBelow)
+        let naturalsAboveTritone = TonalContext.shared.naturalsAboveTritone.prefix(colsAbove)
 
-        let lowIndex: Int = naturalsBelowTritone.min() ?? 0
-        let highIndex: Int = naturalsAboveTritone.max() ?? 127
+        let lowIndex: Int8 = naturalsBelowTritone.min() ?? 0
+        let highIndex: Int8 = naturalsAboveTritone.max() ?? 127
         
         return lowIndex...highIndex
     }
@@ -150,7 +197,7 @@ extension PianoSpacer {
         whiteKeyWidth(width) * space(midi: viewConductor.lowMIDI)
     }
 
-    public func blackKeySpacerWidth(_ width: CGFloat, midi: Int) -> CGFloat {
+    public func blackKeySpacerWidth(_ width: CGFloat, midi: Int8) -> CGFloat {
         whiteKeyWidth(width) * space(midi: midi)
     }
 }

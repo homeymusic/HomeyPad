@@ -27,7 +27,7 @@ class ViewConductor: ObservableObject {
     
     func sendCurrentState() {
         if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: UInt7(TonalContext.shared.tonicPitch.midi), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: UInt7(TonalContext.shared.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             midiConductor?.sendPitchDirection(upwardPitchDirection: TonalContext.shared.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
@@ -90,24 +90,12 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    var P8MIDI: Int8 {
-        TonalContext.shared.tonicPitch.midi + (TonalContext.shared.pitchDirection == .downward ? -12 : 12)
+    var lowMIDI: Int8 {
+        Int8(Int(TonalContext.shared.tonicMIDI) + 6 - layoutRowsCols.colsPerSide[self.layoutChoice]!)
     }
     
-    var ttMIDI: Int8 {
-        TonalContext.shared.tonicPitch.midi + (TonalContext.shared.pitchDirection == .downward ? -6 : 6)
-    }
-
-    var ttPitch: Pitch {
-        TonalContext.shared.pitch(for: ttMIDI)
-    }
-    
-    var lowMIDI: Int {
-        Int(ttMIDI) - layoutRowsCols.colsPerSide[self.layoutChoice]!
-    }
-    
-    var highMIDI: Int {
-        Int(ttMIDI) + layoutRowsCols.colsPerSide[self.layoutChoice]!
+    var highMIDI: Int8 {
+        Int8(Int(TonalContext.shared.tonicMIDI) + 6 + layoutRowsCols.colsPerSide[self.layoutChoice]!)
     }
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -421,9 +409,9 @@ class ViewConductor: ObservableObject {
             for pitch in newPitches {
                 let newTonicPitch = pitch
                 if newTonicPitch != TonalContext.shared.tonicPitch {
-                    if newTonicPitch.midi == Int(TonalContext.shared.tonicPitch.midi) + 12 {
+                    if newTonicPitch.midi == Int(TonalContext.shared.tonicMIDI) + 12 {
                         TonalContext.shared.pitchDirection = .downward
-                    } else if newTonicPitch.midi == Int(TonalContext.shared.tonicPitch.midi) - 12 {
+                    } else if newTonicPitch.midi == Int(TonalContext.shared.tonicMIDI) - 12 {
                         TonalContext.shared.pitchDirection = .upward
                     }
                     TonalContext.shared.tonicPitch = newTonicPitch
