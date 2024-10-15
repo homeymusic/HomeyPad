@@ -279,7 +279,7 @@ struct ContentView: View {
                 return
             }
             if type == .began {
-                self.viewConductor.conductor.engine.stop()
+                self.viewConductor.synthConductor.engine.stop()
             } else if type == .ended {
                 guard let optionsValue =
                         info[AVAudioSessionInterruptionOptionKey] as? UInt else {

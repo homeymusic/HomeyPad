@@ -21,18 +21,18 @@ class ViewConductor: ObservableObject {
         
         self.tonicPitch = tonicPitch
         // Pass the `sendCurrentState` function into the MIDIHelper during creation
-        midiHelper = MIDIConductor(sendCurrentState: self.sendCurrentState)
-        midiHelper?.setup(midiManager: midiManager)
+        midiConductor = MIDIConductor(sendCurrentState: self.sendCurrentState)
+        midiConductor?.setup(midiManager: midiManager)
     }
     
     
     let sendTonicState: Bool
-    var midiHelper: MIDIConductor?
+    var midiConductor: MIDIConductor?
     
     @Published var tonicPitch: Pitch {
         didSet {
             if layoutChoice == .tonic {
-                midiHelper?.sendTonic(noteNumber: UInt7(tonicPitch.midi), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
+                midiConductor?.sendTonic(noteNumber: UInt7(tonicPitch.midi), midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
             }
         }
     }
@@ -40,18 +40,18 @@ class ViewConductor: ObservableObject {
     var tonicMIDI: Int8 {
         self.tonicPitch.midi
     }
-        
+
     func sendCurrentState() {
         if sendTonicState {
-            midiHelper?.sendTonic(noteNumber: UInt7(self.tonicPitch.midi), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
-            midiHelper?.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: UInt7(self.tonicPitch.midi), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendPitchDirection(upwardPitchDirection: self.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
         }
         print("ViewConductor's current state sent.")
     }
     
-    let conductor = SynthConductor()
+    let synthConductor = SynthConductor()
     
     let backgroundColor: Color
     
@@ -462,7 +462,7 @@ class ViewConductor: ObservableObject {
                         tonicPitch = Pitch.allPitches[Int(tonicPitch.midi) + 12]
                     }
                 }
-                midiHelper?.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
+                midiConductor?.sendPitchDirection(upwardPitchDirection: pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice))
                 Task { @MainActor in
                     buzz()
                 }
@@ -509,15 +509,15 @@ class ViewConductor: ObservableObject {
     }
     
     func activatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiHelper?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
+        midiConductor?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
         pitch.noteOn()
-        conductor.noteOn(pitch: pitch)
+        synthConductor.noteOn(pitch: pitch)
     }
     
     func deactivatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiHelper?.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
+        midiConductor?.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
         pitch.noteOff()
-        conductor.noteOff(pitch: pitch)
+        synthConductor.noteOff(pitch: pitch)
     }
 
     static var currentTritoneLength: CGFloat = 0.0
@@ -529,8 +529,8 @@ class ViewConductor: ObservableObject {
     
     func reloadAudio() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if !self.conductor.engine.avEngine.isRunning {
-                self.conductor.start()
+            if !self.synthConductor.engine.avEngine.isRunning {
+                self.synthConductor.start()
             }
         }
     }
