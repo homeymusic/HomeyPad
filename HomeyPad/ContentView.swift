@@ -15,7 +15,7 @@ struct ContentView: View {
             "accidental" : defaultAccidental.rawValue
         ])
         let accidental: Accidental = Accidental(rawValue: defaults.integer(forKey: "accidental")) ?? defaultAccidental
-
+        
         // Keyboard Layout
         let defaultLayoutChoice: LayoutChoice = LayoutChoice.symmetric
         defaults.register(defaults: [
@@ -105,7 +105,7 @@ struct ContentView: View {
         
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
-                
+        
         // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
@@ -146,7 +146,8 @@ struct ContentView: View {
                         if showTonicPicker {
                             KeyboardView(conductor: tonicConductor) { pitch in
                                 KeyboardKeyView(pitch: pitch,
-                                            conductor: tonicConductor)
+                                                conductor: tonicConductor,
+                                                keyboardViewConductor: viewConductor)
                                 .aspectRatio(1.0, contentMode: .fit)
                             }
                             .aspectRatio(13.0, contentMode: .fit)
@@ -160,7 +161,8 @@ struct ContentView: View {
                         if viewConductor.isOneRowOnTablet  {
                             KeyboardView(conductor: viewConductor) { pitch in
                                 KeyboardKeyView(pitch: pitch,
-                                            conductor: viewConductor)
+                                                conductor: viewConductor,
+                                                keyboardViewConductor: viewConductor)
                             }
                             .aspectRatio(4.0, contentMode: .fit)
                             .ignoresSafeArea(edges:.horizontal)
@@ -169,7 +171,8 @@ struct ContentView: View {
                         if !viewConductor.isOneRowOnTablet {
                             KeyboardView(conductor: viewConductor) { pitch in
                                 KeyboardKeyView(pitch: pitch,
-                                            conductor: viewConductor)
+                                                conductor: viewConductor,
+                                                keyboardViewConductor: viewConductor)
                             }
                             .ignoresSafeArea(edges:.horizontal)
                         }

@@ -1,17 +1,18 @@
 import HomeyMusicKit
 import SwiftUI
 
-public struct KeyboardKeyView: View {
+public struct TonicPickerKeyView: View {
     
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
-    @ObservedObject var keyboardViewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
+    @State public var isActivated: Bool = false // A local state variable to track if the key is activated
 
     public var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
-                KeyboardKeySizingView(keyboardKeyView: self, proxySize: proxy.size)
+                TonicPickerKeySizingView(keyboardKeyView: self, proxySize: proxy.size)
             }
         }
     }
@@ -20,14 +21,23 @@ public struct KeyboardKeyView: View {
         Interval(pitch: pitch, tonicPitch: tonalContext.tonicPitch)
     }
     
-    var activated: Bool {
-        if conductor.layoutChoice == .tonic {
-            let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.externallyActivatedPitches)
-            return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
-        } else {
-            return pitch.midiState == .on
-        }
-    }
+//    var activated: Bool {
+//        if conductor.layoutChoice == .tonic {
+//            DispatchQueue.main.async {
+//                print("within if: conductor.layoutChoice == .tonic: \(conductor.layoutChoice == .tonic)")
+//                print("touchedPitches count: \(conductor.touchedPitches.count)")
+//                print("externallyActivatedPitches count: \(conductor.externallyActivatedPitches.count)")
+//            }
+//            let allActivePitches = conductor.touchedPitches.union(conductor.externallyActivatedPitches)
+//            print("allActivePitches count: \(allActivePitches.count)")
+//            for activePitch in allActivePitches {
+//                print("Checking pitchClass: \(activePitch.pitchClass.rawValue) == \(pitch.pitchClass.rawValue)")
+//            }
+//            return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
+//        } else {
+//            return pitch.midiState == .on
+//        }
+//    }
     
     func darkenSmallKeys(color: Color) -> Color {
         return conductor.layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
@@ -65,15 +75,15 @@ public struct KeyboardKeyView: View {
                 activeColor = Color(interval.majorMinor.color)
                 inactiveColor = Color(conductor.mainColor)
             }
-            return activated ? activeColor : darkenSmallKeys(color: inactiveColor)
+            return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
             inactiveColor = Color(interval.majorMinor.color)
-            return activated ? activeColor : inactiveColor
+            return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
             activeColor =   pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
-            return activated ? activeColor : inactiveColor
+            return isActivated ? activeColor : inactiveColor
         }
     }
     
@@ -101,13 +111,13 @@ public struct KeyboardKeyView: View {
             if isTonicTonic {
                 return Color(conductor.brownColor)
             } else {
-                return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
+                return isActivated ? Color(conductor.brownColor) : Color(conductor.creamColor)
             }
         case .loud:
             if isTonicTonic {
                 return Color(conductor.creamColor)
             } else {
-                return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
+                return isActivated ? Color(conductor.creamColor) : Color(conductor.brownColor)
             }
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
@@ -199,8 +209,8 @@ public struct KeyboardKeyView: View {
     }
 }
 
-struct KeyboardKeySizingView: View {
-    var keyboardKeyView: KeyboardKeyView
+struct TonicPickerKeySizingView: View {
+    var keyboardKeyView: TonicPickerKeyView
     var proxySize: CGSize
     
     var overlayKey: Bool {
@@ -215,19 +225,19 @@ struct KeyboardKeySizingView: View {
         let alignment: Alignment = keyboardKeyView.conductor.layoutChoice == .piano ? .top : .center
         
         ZStack(alignment: alignment) {
-            KeyRectangle(fillColor: keyboardKeyView.conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+            TonicPickerKeyRectangle(fillColor: keyboardKeyView.conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                 .overlay(alignment: alignment) {
                     if keyboardKeyView.outline {
-                        KeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                        TonicPickerKeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                             .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
                             .overlay(alignment: alignment) {
-                                KeyRectangle(fillColor: keyboardKeyView.outlineKeyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                                TonicPickerKeyRectangle(fillColor: keyboardKeyView.outlineKeyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                                     .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
                                     .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                             }
                     } else {
-                        KeyRectangle(fillColor: keyboardKeyView.keyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                        TonicPickerKeyRectangle(fillColor: keyboardKeyView.keyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                             .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
                             .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
@@ -239,9 +249,9 @@ struct KeyboardKeySizingView: View {
     }
 }
 
-struct KeyRectangle: View {
+struct TonicPickerKeyRectangle: View {
     var fillColor: Color
-    var keyboardKeyView: KeyboardKeyView
+    var keyboardKeyView: TonicPickerKeyView
     var proxySize: CGSize
     
     var body: some View {
