@@ -55,7 +55,7 @@ struct WhiteKeysView<Content>: View where Content: View {
         HStack(spacing: 0) {
             ForEach(whiteKeys, id: \.self) { unSureMIDI in
                 let keyWidth = spacer.whiteKeyWidth(geoWidth)
-                if MIDIHelper.isValidMIDI(midi: unSureMIDI) {
+                if MIDIHelper.isValidMIDI(note: unSureMIDI) {
                     KeyboardKeyContainerView(
                         conductor: viewConductor,
                         pitch: tonalContext.pitch(for: Int8(unSureMIDI)),
@@ -90,7 +90,7 @@ struct BlackKeysView<Content>: View where Content: View {
                     if Pitch.accidental(midi: Int8(unSureMIDI)) {
                         let blackKeyWidth = spacer.blackKeyWidth(geoWidth)
                         ZStack {
-                            if MIDIHelper.isValidMIDI(midi: unSureMIDI) {
+                            if MIDIHelper.isValidMIDI(note: unSureMIDI) {
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: tonalContext.pitch(for: Int8(unSureMIDI)),

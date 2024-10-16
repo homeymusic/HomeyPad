@@ -15,14 +15,14 @@ struct SymmetricView<Content>: View where Content: View {
                         let majorMinor: MajorMinor = Interval.majorMinor(midi: note, tonicMIDI: Int(tonalContext.tonicMIDI))
                         if majorMinor == .minor {
                             VStack(spacing: 0.0)  {
-                                if MIDIHelper.isValidMIDI(midi: note + 1) {
+                                if MIDIHelper.isValidMIDI(note: note + 1) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: tonalContext.allPitches[note + 1],
                                                              keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
-                                if MIDIHelper.isValidMIDI(midi: note) {
+                                if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: tonalContext.allPitches[note],
                                                              keyboardKeyView: keyboardKeyView)
@@ -33,13 +33,13 @@ struct SymmetricView<Content>: View where Content: View {
                         } else if majorMinor == .neutral {
                             let intervalClass: IntegerNotation = Interval.intervalClass(midi: note, tonicMIDI: Int(tonalContext.tonicMIDI))
                             if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
-                                if MIDIHelper.isValidMIDI(midi: note) {
+                                if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: tonalContext.allPitches[note],
                                                              keyboardKeyView: keyboardKeyView)
                                     .overlay() { // render tritone as overlay
                                         // only render tritone if P4, tt and P5 are safe
-                                        if MIDIHelper.isValidMIDI(midi: note - 1) && MIDIHelper.isValidMIDI(midi: note - 2) {
+                                        if MIDIHelper.isValidMIDI(note: note - 1) && MIDIHelper.isValidMIDI(note: note - 2) {
                                             GeometryReader { proxy in
                                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                                 ZStack {
@@ -58,7 +58,7 @@ struct SymmetricView<Content>: View where Content: View {
                                 }
                                 
                             } else if intervalClass != .six { // skip tritone
-                                if MIDIHelper.isValidMIDI(midi: note) {
+                                if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: tonalContext.allPitches[note],
                                                              keyboardKeyView: keyboardKeyView)

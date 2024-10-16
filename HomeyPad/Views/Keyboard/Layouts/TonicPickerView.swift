@@ -10,7 +10,7 @@ struct TonicPickerView<Content>: View where Content: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
-                if MIDIHelper.isValidMIDI(midi: note) {
+                if MIDIHelper.isValidMIDI(note: note) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
                                              pitch: tonalContext.allPitches[note],
                                              keyboardKeyView: keyboardKeyView)
