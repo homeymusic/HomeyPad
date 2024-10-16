@@ -29,7 +29,7 @@ struct TonicPickerSettingsView: View {
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView(.vertical) {
-                            KeyboardKeyLabelsPopoverView(viewConductor: tonicConductor)
+                            TonicPickerKeyLabelsPopoverView(viewConductor: tonicConductor)
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)
