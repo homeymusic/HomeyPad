@@ -90,12 +90,10 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    var lowMIDI: Int8 {
-        Int8(Int(TonalContext.shared.tonicMIDI) + 6 - layoutRowsCols.colsPerSide[self.layoutChoice]!)
-    }
-    
-    var highMIDI: Int8 {
-        Int8(Int(TonalContext.shared.tonicMIDI) + 6 + layoutRowsCols.colsPerSide[self.layoutChoice]!)
+    public var layoutNotes: ClosedRange<Int> {
+        let lowerBound: Int = Int(TonalContext.shared.tonicMIDI) + 6 - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        let upperBound: Int = Int(TonalContext.shared.tonicMIDI) + 6 + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        return lowerBound ... upperBound
     }
     
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)

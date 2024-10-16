@@ -52,8 +52,13 @@ public struct KeyboardKeyView: View {
         
         switch conductor.paletteChoice {
         case .subtle:
-            activeColor = Color(interval.majorMinor.color)
-            inactiveColor = Color(conductor.mainColor)
+            if isTonicTonic {
+                activeColor = Color(conductor.mainColor)
+                inactiveColor = Color(interval.majorMinor.color)
+            } else {
+                activeColor = Color(interval.majorMinor.color)
+                inactiveColor = Color(conductor.mainColor)
+            }
             return activated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)

@@ -8,13 +8,11 @@ struct TonicPickerView<Content>: View where Content: View {
     @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
-        let midiRange = tonalContext.midiRange
-        
         HStack(spacing: 0) {
-            ForEach(midiRange, id: \.self) { midi in
-                if tonalContext.safeMIDI(midi: midi) {
+            ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
+                if MIDIHelper.isValidMIDI(midi: note) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                             pitch: tonalContext.allPitches[midi],
+                                             pitch: tonalContext.allPitches[note],
                                              keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear

@@ -55,7 +55,7 @@ struct WhiteKeysView<Content>: View where Content: View {
         HStack(spacing: 0) {
             ForEach(whiteKeys, id: \.self) { unSureMIDI in
                 let keyWidth = spacer.whiteKeyWidth(geoWidth)
-                if tonalContext.safeMIDI(midi: unSureMIDI) {
+                if MIDIHelper.isValidMIDI(midi: unSureMIDI) {
                     KeyboardKeyContainerView(
                         conductor: viewConductor,
                         pitch: tonalContext.pitch(for: Int8(unSureMIDI)),
@@ -90,7 +90,7 @@ struct BlackKeysView<Content>: View where Content: View {
                     if Pitch.accidental(midi: Int8(unSureMIDI)) {
                         let blackKeyWidth = spacer.blackKeyWidth(geoWidth)
                         ZStack {
-                            if tonalContext.safeMIDI(midi: unSureMIDI) {
+                            if MIDIHelper.isValidMIDI(midi: unSureMIDI) {
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: tonalContext.pitch(for: Int8(unSureMIDI)),
@@ -158,12 +158,12 @@ public struct PianoSpacer {
     }
 
     public var initialSpacer: CGFloat {
-        let pitchClass = Pitch.pitchClass(midi: midiBoundedByNaturals.first!)
+        let pitchClass = Pitch.pitchClass(note: Int(midiBoundedByNaturals.first!))
         return initialSpacerRatio[pitchClass] ?? 0
     }
 
-    public func space(midi: Int8) -> CGFloat {
-        let pitchClass = Pitch.pitchClass(midi: midi)
+    public func space(note: Int) -> CGFloat {
+        let pitchClass = Pitch.pitchClass(note: note)
         return spacerRatio[pitchClass] ?? 0
     }
 
@@ -200,10 +200,10 @@ public struct PianoSpacer {
     }
 
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
-        whiteKeyWidth(width) * space(midi: viewConductor.lowMIDI)
+        whiteKeyWidth(width) * space(note: viewConductor.layoutNotes.lowerBound)
     }
 
     public func blackKeySpacerWidth(_ width: CGFloat, midi: Int8) -> CGFloat {
-        whiteKeyWidth(width) * space(midi: midi)
+        whiteKeyWidth(width) * space(note: Int(midi))
     }
 }

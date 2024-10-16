@@ -9,16 +9,15 @@ struct IsomorphicView<Content>: View where Content: View {
     var body: some View {
         VStack(spacing: 0) {
             let rows = (-viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]! ... viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]!).reversed()
-            let midiRange = viewConductor.lowMIDI...viewConductor.highMIDI
 
             ForEach(rows, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(midiRange, id: \.self) { col in
-                        let unSureMIDI: Int = Int(col) + 12 * Int(row)
-                        let pitch = tonalContext.pitch(for: Int8(unSureMIDI))
+                    ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
+                        let note: Int = Int(noteClass) + 12 * Int(row)
+                        let pitch = tonalContext.pitch(for: Int8(note))
                         
                         Group {
-                            if tonalContext.safeMIDI(midi: unSureMIDI) {
+                            if MIDIHelper.isValidMIDI(midi: note) {
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
