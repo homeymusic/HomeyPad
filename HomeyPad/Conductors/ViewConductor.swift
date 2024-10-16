@@ -24,11 +24,12 @@ class ViewConductor: ObservableObject {
     
     let sendTonicState: Bool
     var midiConductor: MIDIConductor?
-    
+    @StateObject private var tonalContext = TonalContext.shared
+
     func sendCurrentState() {
         if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: UInt7(TonalContext.shared.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
-            midiConductor?.sendPitchDirection(upwardPitchDirection: TonalContext.shared.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: UInt7(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
         }
@@ -91,8 +92,9 @@ class ViewConductor: ObservableObject {
     }
     
     public var layoutNotes: ClosedRange<Int> {
-        let lowerBound: Int = Int(TonalContext.shared.tonicMIDI) + 6 - layoutRowsCols.colsPerSide[self.layoutChoice]!
-        let upperBound: Int = Int(TonalContext.shared.tonicMIDI) + 6 + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
+        let lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        let upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
         return lowerBound ... upperBound
     }
     
@@ -111,7 +113,7 @@ class ViewConductor: ObservableObject {
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
         let midiChannel = midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice)
-        TonalContext.shared.allPitches.forEach {pitch in
+        tonalContext.allPitches.forEach {pitch in
             deactivatePitch(pitch: pitch, midiChannel: midiChannel)
         }
     }
@@ -406,13 +408,13 @@ class ViewConductor: ObservableObject {
         if layoutChoice == .tonic {
             for pitch in newPitches {
                 let newTonicPitch = pitch
-                if newTonicPitch != TonalContext.shared.tonicPitch {
-                    if newTonicPitch.midi == Int(TonalContext.shared.tonicMIDI) + 12 {
-                        TonalContext.shared.pitchDirection = .downward
-                    } else if newTonicPitch.midi == Int(TonalContext.shared.tonicMIDI) - 12 {
-                        TonalContext.shared.pitchDirection = .upward
+                if newTonicPitch != tonalContext.tonicPitch {
+                    if newTonicPitch.midi == Int(tonalContext.tonicMIDI) + 12 {
+                        tonalContext.pitchDirection = .downward
+                    } else if newTonicPitch.midi == Int(tonalContext.tonicMIDI) - 12 {
+                        tonalContext.pitchDirection = .upward
                     }
-                    TonalContext.shared.tonicPitch = newTonicPitch
+                    tonalContext.tonicPitch = newTonicPitch
                     Task { @MainActor in
                         buzz()
                     }
