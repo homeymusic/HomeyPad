@@ -4,6 +4,8 @@ import HomeyMusicKit
 struct PianoView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
+
     let spacer: PianoSpacer
 
     var body: some View {
@@ -32,7 +34,7 @@ struct PianoView<Content>: View where Content: View {
                             spacer: spacer
                         )
                     }
-                    .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicPitch.midi)
+                    .animation(viewConductor.animationStyle, value: tonalContext.tonicPitch.midi)
                 }
                 .clipShape(Rectangle())
             }
@@ -45,16 +47,18 @@ struct WhiteKeysView<Content>: View where Content: View {
     let geoWidth: CGFloat
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
+
     let spacer: PianoSpacer
 
     var body: some View {
         HStack(spacing: 0) {
             ForEach(whiteKeys, id: \.self) { unSureMIDI in
                 let keyWidth = spacer.whiteKeyWidth(geoWidth)
-                if TonalContext.shared.safeMIDI(midi: unSureMIDI) {
+                if tonalContext.safeMIDI(midi: unSureMIDI) {
                     KeyboardKeyContainerView(
                         conductor: viewConductor,
-                        pitch: TonalContext.shared.pitch(for: Int8(unSureMIDI)),
+                        pitch: tonalContext.pitch(for: Int8(unSureMIDI)),
                         keyboardKeyView: keyboardKeyView
                     )
                     .frame(width: keyWidth)
@@ -71,6 +75,8 @@ struct BlackKeysView<Content>: View where Content: View {
     let geoWidth: CGFloat
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
+
     let spacer: PianoSpacer
 
     var body: some View {
@@ -84,10 +90,10 @@ struct BlackKeysView<Content>: View where Content: View {
                     if Pitch.accidental(midi: Int8(unSureMIDI)) {
                         let blackKeyWidth = spacer.blackKeyWidth(geoWidth)
                         ZStack {
-                            if TonalContext.shared.safeMIDI(midi: unSureMIDI) {
+                            if tonalContext.safeMIDI(midi: unSureMIDI) {
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
-                                    pitch: TonalContext.shared.pitch(for: Int8(unSureMIDI)),
+                                    pitch: tonalContext.pitch(for: Int8(unSureMIDI)),
                                     zIndex: 1,
                                     keyboardKeyView: keyboardKeyView
                                 )
@@ -132,13 +138,13 @@ public struct PianoSpacer {
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
 
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
+
     public var initialSpacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultInitialSpacerRatio
     public var spacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultSpacerRatio
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
     public var relativeBlackKeyHeight: CGFloat = PianoSpacer.defaultRelativeBlackKeyHeight
-}
 
-extension PianoSpacer {
     public var whiteMIDI: [Int8] {
         var naturalMIDI: [Int8] = []
         for midi in midiBoundedByNaturals where !Pitch.accidental(midi: midi) {
@@ -174,14 +180,14 @@ extension PianoSpacer {
         var colsAbove = viewConductor.layoutRowsCols.colsPerSide[.piano]!
                 
         // if F .five or B .eleven are the tonic then the tritone will be off center
-        if TonalContext.shared.tonicPitch.pitchClass == .five {
+        if tonalContext.tonicPitch.pitchClass == .five {
             colsBelow = colsBelow - 1
-        } else if TonalContext.shared.tonicPitch.pitchClass == .eleven {
+        } else if tonalContext.tonicPitch.pitchClass == .eleven {
             colsAbove = colsAbove - 1
         }
         
-        let naturalsBelowTritone = TonalContext.shared.naturalsBelowTritone.suffix(colsBelow)
-        let naturalsAboveTritone = TonalContext.shared.naturalsAboveTritone.prefix(colsAbove)
+        let naturalsBelowTritone = tonalContext.naturalsBelowTritone.suffix(colsBelow)
+        let naturalsAboveTritone = tonalContext.naturalsAboveTritone.prefix(colsAbove)
 
         let lowIndex: Int8 = naturalsBelowTritone.min() ?? 0
         let highIndex: Int8 = naturalsAboveTritone.max() ?? 127

@@ -5,7 +5,8 @@ public struct KeyboardKeyView: View {
     
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
-    
+    @StateObject private var tonalContext = TonalContext.shared
+
     public var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
@@ -15,7 +16,7 @@ public struct KeyboardKeyView: View {
     }
     
     var interval: Interval {
-        Interval(pitch: pitch, tonicPitch: TonalContext.shared.tonicPitch)
+        Interval(pitch: pitch, tonicPitch: tonalContext.tonicPitch)
     }
     
     var activated: Bool {
@@ -203,7 +204,7 @@ struct KeyboardKeySizingView: View {
         let alignment: Alignment = keyboardKeyView.conductor.layoutChoice == .piano ? .top : .center
         
         ZStack(alignment: alignment) {
-            KeyRectangle(fillColor: .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+            KeyRectangle(fillColor: keyboardKeyView.conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                 .overlay(alignment: alignment) {
                     if keyboardKeyView.outline {
                         KeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)

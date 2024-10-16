@@ -4,6 +4,7 @@ import HomeyMusicKit
 struct IsomorphicView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -14,10 +15,10 @@ struct IsomorphicView<Content>: View where Content: View {
                 HStack(spacing: 0) {
                     ForEach(midiRange, id: \.self) { col in
                         let unSureMIDI: Int = Int(col) + 12 * Int(row)
-                        let pitch = TonalContext.shared.pitch(for: Int8(unSureMIDI))
+                        let pitch = tonalContext.pitch(for: Int8(unSureMIDI))
                         
                         Group {
-                            if TonalContext.shared.safeMIDI(midi: unSureMIDI) {
+                            if tonalContext.safeMIDI(midi: unSureMIDI) {
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
@@ -31,7 +32,7 @@ struct IsomorphicView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

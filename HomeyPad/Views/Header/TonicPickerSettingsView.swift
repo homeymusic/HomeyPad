@@ -4,7 +4,8 @@ import HomeyMusicKit
 struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @Binding var showTonicPicker: Bool
-    
+    @StateObject private var tonalContext = TonalContext.shared
+
     var body: some View {
         HStack {
             
@@ -67,20 +68,20 @@ struct TonicPickerSettingsView: View {
             
             if showTonicPicker {
                 Button(action: {
-                    TonalContext.shared.resetTonicPitch()
+                    tonalContext.resetTonicPitch()
                 }) {
                     ZStack {
                         Color.clear.overlay(
                             Image(systemName: "gobackward")
-                                .foregroundColor(TonalContext.shared.isDefaultTonicPitch ? .gray : .white)
+                                .foregroundColor(tonalContext.isDefaultTonicPitch ? .gray : .white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .transition(.scale)
-                .disabled(TonalContext.shared.isDefaultTonicPitch)
-            }            
+                .disabled(tonalContext.isDefaultTonicPitch)
+            }
         }
     }
 }

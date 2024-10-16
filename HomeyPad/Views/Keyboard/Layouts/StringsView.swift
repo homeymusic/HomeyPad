@@ -4,6 +4,7 @@ import HomeyMusicKit
 struct StringsView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @StateObject private var tonalContext = TonalContext.shared
 
     let fretCount: Int = 22
     
@@ -16,7 +17,7 @@ struct StringsView<Content>: View where Content: View {
                             Color.clear
                         } else {
                             let midi = viewConductor.openStringsMIDI[string] + fret
-                            let pitch = TonalContext.shared.allPitches[midi]
+                            let pitch = tonalContext.allPitches[midi]
                             KeyboardKeyContainerView(conductor: viewConductor,
                                          pitch: pitch,
                                          keyboardKeyView: keyboardKeyView)
@@ -25,7 +26,7 @@ struct StringsView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: TonalContext.shared.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }
