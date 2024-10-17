@@ -24,10 +24,8 @@ public struct KeyboardKeyView: View {
         if conductor.layoutChoice != .tonic {
             return pitch.midiState == .on
         }
-        
-        let allActivePitches = keyboardViewConductor.activatedPitches
-        
-        return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
+                
+        return tonalContext.activatedPitches.contains { $0.pitchClass == pitch.pitchClass }
     }
     
     func darkenSmallKeys(color: Color) -> Color {

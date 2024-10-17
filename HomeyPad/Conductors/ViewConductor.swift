@@ -28,8 +28,7 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-    
-    
+        
     let sendTonicState: Bool
     var midiConductor: MIDIConductor?
     @StateObject private var tonalContext = TonalContext.shared
@@ -39,7 +38,7 @@ class ViewConductor: ObservableObject {
             midiConductor?.sendTonic(noteNumber: UInt7(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
-            activePitchesNoteOn(activePitches: activatedPitches)
+            activePitchesNoteOn()
         }
         print("ViewConductor's current state sent.")
     }
@@ -64,10 +63,9 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = activatedPitches
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: activePitches)
+                    activePitchesNoteOn()
                 }
             }
         }
@@ -79,10 +77,9 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = activatedPitches
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: activePitches)
+                    activePitchesNoteOn()
                 }
             }
         }
@@ -115,9 +112,9 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    func activePitchesNoteOn(activePitches: Set<Pitch>) {
+    func activePitchesNoteOn() {
         let midiChannel = midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
-        activePitches.forEach {pitch in
+        tonalContext.activatedPitches.forEach {pitch in
             activatePitch(pitch: pitch, midiChannel: midiChannel)
         }
     }
@@ -345,7 +342,6 @@ class ViewConductor: ObservableObject {
     }
     
     var keyRectInfos: [KeyRectInfo] = []
-    var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
     
     var isOneRowOnTablet : Bool {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
@@ -366,9 +362,12 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    // Add a flag to lock the tonic during a touch event (private)
+    private var isTonicLocked = false
+
     @Published var latching: Bool = false {
         willSet {
-            activatedPitches.removeAll() // Clear activated pitches when latching is turned off
+            tonalContext.deactivateAllPitches() // Clear activated pitches when latching is turned off
         }
         didSet {
             Task { @MainActor in
@@ -377,31 +376,18 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published public var activatedPitches = Set<Pitch>() {
-        didSet {
-            self.triggerEvents(from: oldValue, to: activatedPitches)
-        }
-    }
-    
-    // Add a flag to lock the tonic during a touch event (private)
-    private var isTonicLocked = false
-    
+    // Touch event handling now works directly with the TonalContext's allPitches
     var touchLocations: [CGPoint] = [] {
         didSet {
-            var newPitches = Set<Pitch>()
-            
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
-                var normalizedPoint = CGPoint.zero
                 
                 // Find the highest Z-index pitch at the current touch location
                 for info in keyRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
                         highestZindex = info.zIndex
-                        normalizedPoint = CGPoint(x: (location.x - info.rect.minX) / info.rect.width,
-                                                  y: (location.y - info.rect.minY) / info.rect.height)
                     }
                 }
                 
@@ -409,74 +395,41 @@ class ViewConductor: ObservableObject {
                     if layoutChoice == .tonic {
                         // Tonic layout: lock the tonic during touch
                         if !isTonicLocked {
-                            newPitches.insert(p)
-                            normalizedPoints[p.intValue] = normalizedPoint
+                            handlePitchActivation(pitch: p)
                             isTonicLocked = true
                         }
                     } else {
-                        // Handle latching and touch-based activation
-                        if latching {
-                            // Add or remove from activatedPitches based on the touch
-                            if activatedPitches.contains(p) {
-                                activatedPitches.remove(p)
-                            } else {
-                                activatedPitches.insert(p)
-                            }
-                        } else {
-                            newPitches.insert(p)
-                            normalizedPoints[p.intValue] = normalizedPoint
-                        }
+                        handlePitchActivation(pitch: p)
                     }
                 }
             }
-            
-            // Update activatedPitches if there are changes
-            if activatedPitches != newPitches {
-                activatedPitches = newPitches
-            }
-            
-            // Reset tonic lock when no touch locations are active
-            if touchLocations.isEmpty {
+
+            // When touch ends, deactivate non-latched pitches
+            if touchLocations.isEmpty && !latching {
+                Pitch.deactivateAllPitches()
                 isTonicLocked = false
             }
         }
     }
-    
-    func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
-        let newPitches = newValue.subtracting(oldValue)   // Newly activated pitches
-        let oldPitches = oldValue.subtracting(newValue)   // Deactivated pitches
-        
-        if layoutChoice == .tonic {
-            for pitch in newPitches {
-                let newTonicPitch = pitch
-                if newTonicPitch != self.tonalContext.tonicPitch {
-                    // Handle direction changes
-                    if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) + 12 {
-                        self.tonalContext.pitchDirection = .downward
-                    } else if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) - 12 {
-                        self.tonalContext.pitchDirection = .upward
-                    }
-                    // Set new tonic
-                    self.tonalContext.tonicPitch = newTonicPitch
-                }
-            }
-        } else {
-            // Activate new pitches
-            for pitch in newPitches {
-                print("activate: \(pitch.midi)")
+
+    // Handle pitch activation/deactivation logic based on latching state
+    func handlePitchActivation(pitch: Pitch) {
+        if latching {
+            if pitch.midiState == .on {
+                deactivatePitch(pitch: pitch,
+                                midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+
+            } else {
                 activatePitch(pitch: pitch,
                               midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             }
-            
-            // Deactivate old pitches
-            for pitch in oldPitches {
-                print("deactivate: \(pitch.midi)")
-                deactivatePitch(pitch: pitch,
-                                midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
-            }
+        } else {
+            activatePitch(pitch: pitch,
+                          midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         }
     }
-    
+
+
     func activatePitch(pitch: Pitch, midiChannel: UInt4) {
         midiConductor?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
         pitch.noteOn()
