@@ -354,13 +354,22 @@ class ViewConductor: ObservableObject {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
     }
     
+    // Add a flag to lock the tonic during a touch event (private)
+    private var isTonicLocked = false
+
     var touchLocations: [CGPoint] = [] {
         didSet {
             var newPitches = Set<Pitch>()
+            
+            // Only allow a single touch in tonic mode (no glissando)
+            let allowMultipleTouches = layoutChoice != .tonic
+
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
                 var normalizedPoint = CGPoint.zero
+                
+                // Loop through keyRectInfos and find the highest Z-index pitch
                 for info in keyRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
@@ -369,28 +378,46 @@ class ViewConductor: ObservableObject {
                                                   y: (location.y - info.rect.minY) / info.rect.height)
                     }
                 }
-                if let p = pitch {
-                    newPitches.insert(p)
-                    normalizedPoints[p.intValue] = normalizedPoint
+                
+                // In tonic mode, lock the tonic after the first touch and ignore further changes
+                if layoutChoice == .tonic {
+                    if let p = pitch, !isTonicLocked {
+                        newPitches.insert(p)  // Add the first touch to newPitches
+                        normalizedPoints[p.intValue] = normalizedPoint
+                        isTonicLocked = true  // Lock the tonic for the duration of this touch
+                    }
+                } else {
+                    // For non-tonic modes, allow glissando behavior (multiple touches)
+                    if let p = pitch {
+                        newPitches.insert(p)
+                        normalizedPoints[p.intValue] = normalizedPoint
+                    }
                 }
             }
+
+            // Only update touchedPitches if there are changes
             if touchedPitches != newPitches {
                 touchedPitches = newPitches
+            }
+
+            // Unlock the tonic when no more touch locations are active (touch ends)
+            if touchLocations.isEmpty {
+                isTonicLocked = false
             }
         }
     }
     
     /// all touched notes
     @Published public var touchedPitches = Set<Pitch>() {
-        willSet {
-            triggerEvents(from: touchedPitches, to: newValue)
+        didSet {
+            self.triggerEvents(from: oldValue, to: touchedPitches)
         }
     }
     
     /// Either latched keys or keys active due to external MIDI events.
     @Published public var externallyActivatedPitches = Set<Pitch>() {
-        willSet {
-            triggerEvents(from: externallyActivatedPitches, to: newValue)
+        didSet {
+            self.triggerEvents(from: oldValue, to: self.externallyActivatedPitches)
         }
     }
         
@@ -408,13 +435,13 @@ class ViewConductor: ObservableObject {
         if layoutChoice == .tonic {
             for pitch in newPitches {
                 let newTonicPitch = pitch
-                if newTonicPitch != tonalContext.tonicPitch {
-                    if newTonicPitch.midi == Int(tonalContext.tonicMIDI) + 12 {
-                        tonalContext.pitchDirection = .downward
-                    } else if newTonicPitch.midi == Int(tonalContext.tonicMIDI) - 12 {
-                        tonalContext.pitchDirection = .upward
+                if newTonicPitch != self.tonalContext.tonicPitch {
+                    if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) + 12 {
+                        self.tonalContext.pitchDirection = .downward
+                    } else if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) - 12 {
+                        self.tonalContext.pitchDirection = .upward
                     }
-                    tonalContext.tonicPitch = newTonicPitch
+                    self.tonalContext.tonicPitch = newTonicPitch
                 }
             }
         } else {
@@ -428,7 +455,7 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-    
+
     func activatePitch(pitch: Pitch, midiChannel: UInt4) {
         midiConductor?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
         pitch.noteOn()
