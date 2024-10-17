@@ -39,7 +39,7 @@ class ViewConductor: ObservableObject {
             midiConductor?.sendTonic(noteNumber: UInt7(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
-            activePitchesNoteOn(activePitches: latchedPitches)
+            activePitchesNoteOn(activePitches: activatedPitches)
         }
         print("ViewConductor's current state sent.")
     }
@@ -64,7 +64,7 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = latchedPitches
+                let activePitches = activatedPitches
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
                     activePitchesNoteOn(activePitches: activePitches)
@@ -79,7 +79,7 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = latchedPitches
+                let activePitches = activatedPitches
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
                     activePitchesNoteOn(activePitches: activePitches)
