@@ -7,7 +7,7 @@ public struct KeyboardKeyView: View {
     @ObservedObject var conductor: ViewConductor
     @ObservedObject var keyboardViewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
-
+    
     public var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
@@ -21,12 +21,13 @@ public struct KeyboardKeyView: View {
     }
     
     var activated: Bool {
-        if conductor.layoutChoice == .tonic {
-            let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.externallyActivatedPitches)
-            return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
-        } else {
+        if conductor.layoutChoice != .tonic {
             return pitch.midiState == .on
         }
+        
+        let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.externallyActivatedPitches)
+        
+        return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
     }
     
     func darkenSmallKeys(color: Color) -> Color {
@@ -36,17 +37,9 @@ public struct KeyboardKeyView: View {
     var accentColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if isTonicTonic {
-                Color(conductor.brownColor)
-            } else {
-                Color(conductor.creamColor)
-            }
+            Color(conductor.creamColor)
         case .loud:
-            if isTonicTonic {
-                Color(conductor.creamColor)
-            } else {
-                Color(conductor.brownColor)
-            }
+            Color(conductor.brownColor)
         case .ebonyIvory:
             pitch.accidental ? .white : .black
         }
@@ -58,13 +51,8 @@ public struct KeyboardKeyView: View {
         
         switch conductor.paletteChoice {
         case .subtle:
-            if isTonicTonic {
-                activeColor = Color(conductor.mainColor)
-                inactiveColor = Color(interval.majorMinor.color)
-            } else {
-                activeColor = Color(interval.majorMinor.color)
-                inactiveColor = Color(conductor.mainColor)
-            }
+            activeColor = Color(interval.majorMinor.color)
+            inactiveColor = Color(conductor.mainColor)
             return activated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
@@ -77,19 +65,9 @@ public struct KeyboardKeyView: View {
         }
     }
     
-    var isTonicTonic: Bool {
-        conductor.layoutChoice == .tonic && interval.isTonic
-    }
-    
-    var tonicNotTonic: Bool {
-        conductor.layoutChoice != .tonic && interval.isTonic
-    }
-    
     var outlineSize: CGFloat {
-        if tonicNotTonic {
+        if interval.isTonic {
             return 3.0
-        } else if isTonicTonic {
-            return 2.75
         } else {
             return 2.0
         }
@@ -98,17 +76,9 @@ public struct KeyboardKeyView: View {
     var outlineColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if isTonicTonic {
-                return Color(conductor.brownColor)
-            } else {
-                return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
-            }
+            return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
         case .loud:
-            if isTonicTonic {
-                return Color(conductor.creamColor)
-            } else {
-                return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
-            }
+            return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
@@ -117,17 +87,9 @@ public struct KeyboardKeyView: View {
     var outlineKeyColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            if isTonicTonic {
-                return Color(conductor.creamColor)
-            } else {
-                return keyColor
-            }
+            return keyColor
         case .loud:
-            if isTonicTonic {
-                return Color(conductor.brownColor)
-            } else {
-                return keyColor
-            }
+            return keyColor
         case .ebonyIvory:
             return keyColor
         }
@@ -152,7 +114,7 @@ public struct KeyboardKeyView: View {
     var isMajor: Bool {
         self.interval.majorMinor == .major
     }
-
+    
     var backgroundBorderSize: CGFloat {
         isSmall ? 1.0 : 3.0
     }
@@ -181,7 +143,7 @@ public struct KeyboardKeyView: View {
     func trailingPadding(_ size: CGSize) -> CGFloat {
         0.0
     }
-
+    
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
         conductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : 0.0
     }

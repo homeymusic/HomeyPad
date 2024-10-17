@@ -15,7 +15,9 @@ struct FooterView: View {
         HStack {
             Spacer()
             Button(action: {
-                viewConductor.latching.toggle()
+                withAnimation {
+                    viewConductor.latching.toggle()
+                }
             }) {
                 ZStack {
                     Color.clear.overlay(

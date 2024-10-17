@@ -113,7 +113,7 @@ class ViewConductor: ObservableObject {
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
         let midiChannel = midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice)
-        tonalContext.allPitches.forEach {pitch in
+        tonalContext.pitches(for: 0...127).forEach {pitch in
             deactivatePitch(pitch: pitch, midiChannel: midiChannel)
         }
     }

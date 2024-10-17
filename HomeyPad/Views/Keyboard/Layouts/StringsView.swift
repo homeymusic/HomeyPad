@@ -16,11 +16,15 @@ struct StringsView<Content>: View where Content: View {
                         if (viewConductor.stringsLayoutChoice == .banjo && string == 4 && fret < 5) {
                             Color.clear
                         } else {
-                            let midi = viewConductor.openStringsMIDI[string] + fret
-                            let pitch = tonalContext.allPitches[midi]
-                            KeyboardKeyContainerView(conductor: viewConductor,
-                                         pitch: pitch,
-                                         keyboardKeyView: keyboardKeyView)
+                            let note = viewConductor.openStringsMIDI[string] + fret
+                            if (MIDIHelper.isValidMIDI(note: note)) {
+                                let pitch = tonalContext.pitch(for: Int8(note))
+                                KeyboardKeyContainerView(conductor: viewConductor,
+                                                         pitch: pitch,
+                                                         keyboardKeyView: keyboardKeyView)
+                            } else {
+                                Color.clear
+                            }
                         }
                     }
                 }

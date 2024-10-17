@@ -14,10 +14,9 @@ struct IsomorphicView<Content>: View where Content: View {
                 HStack(spacing: 0) {
                     ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
                         let note: Int = Int(noteClass) + 12 * Int(row)
-                        let pitch = tonalContext.pitch(for: Int8(note))
-                        
                         Group {
                             if MIDIHelper.isValidMIDI(note: note) {
+                                let pitch = tonalContext.pitch(for: Int8(note))
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,

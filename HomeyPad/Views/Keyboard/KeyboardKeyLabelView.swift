@@ -50,7 +50,6 @@ public struct KeyboardKeyLabelView: View {
             .foregroundColor(textColor)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
-            .symbolEffect(.bounce, value: keyboardKeyView.pitch.timesAsTonic)
         }
         
         var pianoLayoutSpacer: some View {
@@ -177,32 +176,19 @@ public struct KeyboardKeyLabelView: View {
         
         var symbolIcon: some View {
             if keyboardKeyView.conductor.showSymbols {
-                return if keyboardKeyView.interval.isTonicOrOctave {
-                    AnyView(
-                        Color.clear.overlay(
-                            keyboardKeyView.interval.consonanceDissonance.image
-                                .resizable()
-                                .rotationEffect(rotation)
-                                .scaledToFit()
-                                .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.interval.consonanceDissonance.fontWeight))
-                                .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.width,
-                                       maxHeight: 0.8 * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
-                        )
+                return AnyView(
+                    Color.clear.overlay(
+                        keyboardKeyView.interval.consonanceDissonance.image
+                            .resizable()
+                            .rotationEffect(rotation)
+                            .scaledToFit()
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.interval.consonanceDissonance.fontWeight))
+                            .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.width,
+                                   maxHeight: 0.8 * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
+                            .scaleEffect(keyboardKeyView.interval.isTonic ? 1.2 : 1.0) // Scale up for .tonic
+                            .animation(.easeInOut(duration: 0.3), value: keyboardKeyView.interval.isTonic) // Animate when interval becomes .tonic
                     )
-                    
-                } else {
-                    AnyView(
-                        Color.clear.overlay(
-                            keyboardKeyView.interval.consonanceDissonance.image
-                                .resizable()
-                                .rotationEffect(rotation)
-                                .scaledToFit()
-                                .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.interval.consonanceDissonance.fontWeight))
-                                .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.width,
-                                       maxHeight: 0.8 * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
-                        )
-                    )
-                }
+                )
             }
             return AnyView(EmptyView())
         }
@@ -254,21 +240,11 @@ public struct KeyboardKeyLabelView: View {
             let inactiveColor: Color
             switch keyboardKeyView.conductor.paletteChoice {
             case .subtle:
-                if keyboardKeyView.conductor.outlineChoice && keyboardKeyView.isTonicTonic {
-                    activeColor = Color(keyboardKeyView.interval.majorMinor.color)
-                    inactiveColor = Color(keyboardKeyView.conductor.mainColor)
-                } else {
-                    activeColor = Color(keyboardKeyView.conductor.mainColor)
-                    inactiveColor = Color(keyboardKeyView.interval.majorMinor.color)
-                }
+                activeColor = Color(keyboardKeyView.conductor.mainColor)
+                inactiveColor = Color(keyboardKeyView.interval.majorMinor.color)
             case .loud:
-                if keyboardKeyView.conductor.outlineChoice && keyboardKeyView.isTonicTonic {
-                    activeColor = Color(keyboardKeyView.conductor.mainColor)
-                    inactiveColor = Color(keyboardKeyView.interval.majorMinor.color)
-                } else {
-                    activeColor = Color(keyboardKeyView.interval.majorMinor.color)
-                    inactiveColor = Color(keyboardKeyView.conductor.mainColor)
-                }
+                activeColor = Color(keyboardKeyView.interval.majorMinor.color)
+                inactiveColor = Color(keyboardKeyView.conductor.mainColor)
             case .ebonyIvory:
                 return keyboardKeyView.pitch.accidental ? .white : .black
             }
