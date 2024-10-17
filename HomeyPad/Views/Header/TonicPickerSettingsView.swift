@@ -68,19 +68,19 @@ struct TonicPickerSettingsView: View {
             
             if showTonicPicker {
                 Button(action: {
-                    tonalContext.resetTonicPitch()
+                    tonalContext.resetToDefault()
                 }) {
                     ZStack {
                         Color.clear.overlay(
                             Image(systemName: "gobackward")
-                                .foregroundColor(tonalContext.isDefaultTonicPitch ? .gray : .white)
+                                .foregroundColor(tonalContext.isDefault ? .gray : .white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .transition(.scale)
-                .disabled(tonalContext.isDefaultTonicPitch)
+                .disabled(tonalContext.isDefault)
             }
         }
     }

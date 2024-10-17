@@ -11,9 +11,6 @@ struct OctaveShiftView: View {
             // Downward octave shift button
             Button(action: {
                 TonalContext.shared.shiftDownOneOctave()
-                Task { @MainActor in
-                    buzz()
-                }
             }, label: {
                 Image(systemName: "water.waves.and.arrow.down")
                     .foregroundColor(TonalContext.shared.canShiftDownOneOctave() ? .white : Color(UIColor.systemGray4))
@@ -29,7 +26,6 @@ struct OctaveShiftView: View {
             // Upward octave shift button
             Button(action: {
                 TonalContext.shared.shiftUpOneOctave()
-                buzz()
             }, label: {
                 Image(systemName: "water.waves.and.arrow.up")
                     .foregroundColor(TonalContext.shared.canShiftUpOneOctave() ? .white : Color(UIColor.systemGray4))

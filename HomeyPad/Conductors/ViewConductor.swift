@@ -415,9 +415,6 @@ class ViewConductor: ObservableObject {
                         tonalContext.pitchDirection = .upward
                     }
                     tonalContext.tonicPitch = newTonicPitch
-                    Task { @MainActor in
-                        buzz()
-                    }
                 }
             }
         } else {
