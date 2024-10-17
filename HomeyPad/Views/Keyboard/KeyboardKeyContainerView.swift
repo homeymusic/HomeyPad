@@ -25,17 +25,6 @@ public struct KeyboardKeyContainerView<Content: View>: View {
     func rect(rect: CGRect) -> some View {
         keyboardKeyView(pitch)
             .contentShape(Rectangle()) // Added to improve tap/click reliability
-            .gesture(
-                TapGesture().onEnded { _ in
-                    if (conductor.latching) {
-                        if conductor.externallyActivatedPitches.contains(pitch) {
-                            conductor.externallyActivatedPitches.remove(pitch)
-                        } else { 
-                            conductor.externallyActivatedPitches.insert(pitch)
-                        }
-                    }
-                }
-            )
             .preference(key: KeyRectsKey.self,
                         value: [KeyRectInfo(rect: rect,
                                             pitch: pitch,

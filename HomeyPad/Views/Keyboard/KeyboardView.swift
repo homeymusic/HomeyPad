@@ -45,10 +45,8 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
                 }
             }
             
-            if !conductor.latching {
-                KeyboardKeyMultitouchView { touches in
-                    conductor.touchLocations = touches
-                }
+            KeyboardKeyMultitouchView { touches in
+                conductor.touchLocations = touches
             }
             
         }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in

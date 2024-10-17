@@ -25,7 +25,7 @@ public struct KeyboardKeyView: View {
             return pitch.midiState == .on
         }
         
-        let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.externallyActivatedPitches)
+        let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.latchedPitches)
         
         return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
     }
