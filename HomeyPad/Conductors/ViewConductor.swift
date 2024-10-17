@@ -361,9 +361,6 @@ class ViewConductor: ObservableObject {
         didSet {
             var newPitches = Set<Pitch>()
             
-            // Only allow a single touch in tonic mode (no glissando)
-            let allowMultipleTouches = layoutChoice != .tonic
-
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
