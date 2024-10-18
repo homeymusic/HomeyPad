@@ -6,6 +6,7 @@
 
 import MIDIKitIO
 import SwiftUI
+import HomeyMusicKit
 
 /// Receiving MIDI happens as an asynchronous background callback. That means it cannot update
 /// SwiftUI view state directly. Therefore, we need a helper class that conforms to
@@ -83,7 +84,7 @@ final class MIDIConductor: ObservableObject {
         }
     }
     
-    func sendNoteOn(noteNumber: UInt7, midiChannel: UInt4) {
+    func sendNoteOn(noteNumber: MIDINoteNumber, midiChannel: UInt4) {
         try? outputConnection?.send(event: .noteOn(
             noteNumber,
             velocity: .midi1(63),
@@ -91,7 +92,7 @@ final class MIDIConductor: ObservableObject {
         ))
     }
     
-    func sendNoteOff(noteNumber: UInt7, midiChannel: UInt4) {
+    func sendNoteOff(noteNumber: MIDINoteNumber, midiChannel: UInt4) {
         try? outputConnection?.send(event: .noteOff(
             noteNumber,
             velocity: .midi1(0),
@@ -99,7 +100,7 @@ final class MIDIConductor: ObservableObject {
         ))
     }
     
-    func sendTonic(noteNumber: UInt7, midiChannel: UInt4) {
+    func sendTonic(noteNumber: MIDINoteNumber, midiChannel: UInt4) {
         try? outputConnection?.send(event: .cc(
             MIDIEvent.CC.Controller.generalPurpose1,
             value: .midi1(noteNumber),

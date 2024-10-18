@@ -18,7 +18,7 @@ struct PianoView<Content>: View where Content: View {
                             ForEach(spacer.whiteNotes, id: \.self) { col in
                                 let note: Int = col + 12 * row
                                 if MIDIHelper.isValidMIDI(note: note) {
-                                    let midi = UInt7(note)
+                                    let midi = MIDINoteNumber(note)
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
                                     .frame(width: spacer.whiteKeyWidth(geo.size.width))
@@ -38,7 +38,7 @@ struct PianoView<Content>: View where Content: View {
                                     if Pitch.accidental(note: note) {
                                         ZStack {
                                             if MIDIHelper.isValidMIDI(note: note) {
-                                                let midi = UInt7(note)
+                                                let midi = MIDINoteNumber(note)
                                                 KeyboardKeyContainerView(conductor: viewConductor,
                                                                          pitch: Pitch.pitch(for: midi),
                                                                          zIndex: 1,

@@ -28,7 +28,7 @@ class ViewConductor: ObservableObject {
 
     func sendCurrentState() {
         if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: UInt7(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: MIDINoteNumber(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
             midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
