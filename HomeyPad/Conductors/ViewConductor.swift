@@ -112,16 +112,14 @@ class ViewConductor: ObservableObject {
     @Published var showHelp: Bool = false
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
-        let midiChannel = midiChannel(layoutChoice: layoutChoice, stringsLayoutChoice: stringsLayoutChoice)
-        tonalContext.pitches(for: 0...127).forEach {pitch in
-            deactivatePitch(pitch: pitch, midiChannel: midiChannel)
+        Pitch.allPitches.forEach {pitch in
+            pitch.deactivate()
         }
     }
     
     func activePitchesNoteOn(activePitches: Set<Pitch>) {
-        let midiChannel = midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
         activePitches.forEach {pitch in
-            activatePitch(pitch: pitch, midiChannel: midiChannel)
+            pitch.activate()
         }
     }
 
@@ -433,36 +431,24 @@ class ViewConductor: ObservableObject {
             for pitch in newPitches {
                 let newTonicPitch = pitch
                 if newTonicPitch != self.tonalContext.tonicPitch {
-                    if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) + 12 {
-                        self.tonalContext.pitchDirection = .downward
-                    } else if newTonicPitch.midi == Int(self.tonalContext.tonicMIDI) - 12 {
-                        self.tonalContext.pitchDirection = .upward
+                    if newTonicPitch.isOctave(relativeTo: self.tonalContext.tonicPitch) {
+                        if newTonicPitch.midiNote.number > self.tonalContext.tonicPitch.midiNote.number {
+                            self.tonalContext.pitchDirection = .downward
+                        } else {
+                            self.tonalContext.pitchDirection = .upward
+                        }
                     }
                     self.tonalContext.tonicPitch = newTonicPitch
                 }
             }
         } else {
             for pitch in newPitches {
-                activatePitch(pitch: pitch,
-                              midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+                pitch.activate()
             }
             for pitch in oldPitches {
-                deactivatePitch(pitch: pitch,
-                                midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+                pitch.deactivate()
             }
         }
-    }
-
-    func activatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiConductor?.sendNoteOn(noteNumber: UInt7(pitch.midi), midiChannel: midiChannel)
-        pitch.noteOn()
-        synthConductor.noteOn(pitch: pitch)
-    }
-    
-    func deactivatePitch(pitch: Pitch, midiChannel: UInt4) {
-        midiConductor?.sendNoteOff(noteNumber: UInt7(pitch.intValue), midiChannel: midiChannel)
-        pitch.noteOff()
-        synthConductor.noteOff(pitch: pitch)
     }
 
     static var currentTritoneLength: CGFloat = 0.0

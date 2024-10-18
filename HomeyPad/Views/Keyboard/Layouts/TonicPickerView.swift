@@ -1,5 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
+import MIDIKitCore
 
 struct TonicPickerView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
@@ -12,7 +13,7 @@ struct TonicPickerView<Content>: View where Content: View {
             ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
                 if MIDIHelper.isValidMIDI(note: note) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                             pitch: tonalContext.pitch(for: Int8(note)),
+                                             pitch: Pitch.pitch(for: UInt7(note)),
                                              keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear

@@ -56,11 +56,11 @@ class SynthConductor: ObservableObject {
     }
     
     func noteOn(pitch: Pitch) {
-        instrument.play(noteNumber: UInt8(pitch.midi), velocity: 64, channel: 0)
+        instrument.play(noteNumber: UInt8(pitch.midiNote.number), velocity: 64, channel: 0)
     }
     
     func noteOff(pitch: Pitch) {
-        instrument.stop(noteNumber: UInt8(pitch.midi), channel: 0)
+        instrument.stop(noteNumber: UInt8(pitch.midiNote.number), channel: 0)
     }
     
 }

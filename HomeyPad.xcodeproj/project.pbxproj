@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B00B51B72BCC4EB30003E6BE /* MIDIKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
@@ -42,6 +41,11 @@
 		B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* StringsView.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* SymmetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* SymmetricView.swift */; };
 		B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */; };
+		B0DD836E2CC2028E001A0BE4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836D2CC2028E001A0BE4 /* MIDIKit */; };
+		B0DD83702CC2028E001A0BE4 /* MIDIKitControlSurfaces in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836F2CC2028E001A0BE4 /* MIDIKitControlSurfaces */; };
+		B0DD83722CC2028E001A0BE4 /* MIDIKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD83712CC2028E001A0BE4 /* MIDIKitCore */; };
+		B0DD83742CC2028E001A0BE4 /* MIDIKitIO in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD83732CC2028E001A0BE4 /* MIDIKitIO */; };
+		B0DD83762CC2028E001A0BE4 /* MIDIKitSMF in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD83752CC2028E001A0BE4 /* MIDIKitSMF */; };
 		B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */; };
 		B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4FA492CBDC771004AC8E6 /* KeyboardKeyLabelsPopoverView.swift */; };
 /* End PBXBuildFile section */
@@ -93,8 +97,12 @@
 			files = (
 				B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */,
 				B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */,
+				B0DD83702CC2028E001A0BE4 /* MIDIKitControlSurfaces in Frameworks */,
+				B0DD83762CC2028E001A0BE4 /* MIDIKitSMF in Frameworks */,
+				B0DD83722CC2028E001A0BE4 /* MIDIKitCore in Frameworks */,
+				B0DD836E2CC2028E001A0BE4 /* MIDIKit in Frameworks */,
 				B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */,
-				B00B51B82BCC4EB30003E6BE /* MIDIKit in Frameworks */,
+				B0DD83742CC2028E001A0BE4 /* MIDIKitIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +241,14 @@
 			);
 			name = HomeyPad;
 			packageProductDependencies = (
-				B00B51B72BCC4EB30003E6BE /* MIDIKit */,
 				B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */,
 				B07897E02CBABE0A00DBBAE2 /* AudioKit */,
 				B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */,
+				B0DD836D2CC2028E001A0BE4 /* MIDIKit */,
+				B0DD836F2CC2028E001A0BE4 /* MIDIKitControlSurfaces */,
+				B0DD83712CC2028E001A0BE4 /* MIDIKitCore */,
+				B0DD83732CC2028E001A0BE4 /* MIDIKitIO */,
+				B0DD83752CC2028E001A0BE4 /* MIDIKitSMF */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -267,9 +279,9 @@
 			);
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
-				B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */,
 				B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */,
 				B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */,
+				B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -557,14 +569,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/orchetect/MIDIKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.5;
-			};
-		};
 		B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
@@ -581,14 +585,17 @@
 				minimumVersion = 5.6.1;
 			};
 		};
+		B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/orchetect/MIDIKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B00B51B72BCC4EB30003E6BE /* MIDIKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B00B51B62BCC4EB30003E6BE /* XCRemoteSwiftPackageReference "MIDIKit" */;
-			productName = MIDIKit;
-		};
 		B07897E02CBABE0A00DBBAE2 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */;
@@ -602,6 +609,31 @@
 		B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomeyMusicKit;
+		};
+		B0DD836D2CC2028E001A0BE4 /* MIDIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKit;
+		};
+		B0DD836F2CC2028E001A0BE4 /* MIDIKitControlSurfaces */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKitControlSurfaces;
+		};
+		B0DD83712CC2028E001A0BE4 /* MIDIKitCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKitCore;
+		};
+		B0DD83732CC2028E001A0BE4 /* MIDIKitIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKitIO;
+		};
+		B0DD83752CC2028E001A0BE4 /* MIDIKitSMF */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0DD836C2CC2028E001A0BE4 /* XCRemoteSwiftPackageReference "MIDIKit" */;
+			productName = MIDIKitSMF;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

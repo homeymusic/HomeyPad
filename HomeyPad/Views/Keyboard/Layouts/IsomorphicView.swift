@@ -1,5 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
+import MIDIKitCore
 
 struct IsomorphicView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
@@ -16,7 +17,7 @@ struct IsomorphicView<Content>: View where Content: View {
                         let note: Int = Int(noteClass) + 12 * Int(row)
                         Group {
                             if MIDIHelper.isValidMIDI(note: note) {
-                                let pitch = tonalContext.pitch(for: Int8(note))
+                                let pitch = Pitch.pitch(for: UInt7(note))
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,

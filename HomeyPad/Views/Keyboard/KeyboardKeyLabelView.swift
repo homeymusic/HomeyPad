@@ -6,13 +6,13 @@ public struct KeyboardKeyLabelView: View {
     var proxySize: CGSize
     
     var isSymmetricNotTritone: Bool {
-        keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.interval.intervalClass != .six
+        keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval.isTritone
     }
     
     public var body: some View {
         let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * ViewConductor.currentTritoneLength - 1.5 * keyboardKeyView.backgroundBorderSize : 0.0
         VStack(spacing: 0.0) {
-            if keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.interval.consonanceDissonance > .consonant {
+            if keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval.consonanceDissonance > .consonant {
                 let topBottomPadding = (keyboardKeyView.outline ? 0.0 : 0.5 * keyboardKeyView.backgroundBorderSize)
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                     .padding([.top, .bottom], topBottomPadding + tritonePadding)
@@ -61,30 +61,30 @@ public struct KeyboardKeyLabelView: View {
         
         var noteLabels: some View {
             Group {
-                if keyboardKeyView.conductor.noteLabel[.letter]! {
-                    overlayText("\(keyboardKeyView.pitch.letter(keyboardKeyView.conductor.accidental))\(octave)")
-                }
-                if keyboardKeyView.conductor.noteLabel[.fixedDo]! {
-                    overlayText("\(keyboardKeyView.pitch.fixedDo(keyboardKeyView.conductor.accidental))\(octave)")
-                }
-                if keyboardKeyView.conductor.noteLabel[.midi]! {
-                    overlayText(String(keyboardKeyView.pitch.midi))
-                }
-                if keyboardKeyView.conductor.noteLabel[.wavelength]! {
-                    overlayText("\(keyboardKeyView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
-                }
-                if keyboardKeyView.conductor.noteLabel[.wavenumber]! {
-                    overlayText("\(keyboardKeyView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
-                }
-                if keyboardKeyView.conductor.noteLabel[.period]! {
-                    overlayText("\((keyboardKeyView.pitch.period * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
-                }
-                if keyboardKeyView.conductor.noteLabel[.frequency]! {
-                    overlayText("\(keyboardKeyView.pitch.frequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
-                }
-                if keyboardKeyView.conductor.noteLabel[.cochlea]! {
-                    overlayText("\(keyboardKeyView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
-                }
+//                if keyboardKeyView.conductor.noteLabel[.letter]! {
+//                    overlayText("\(keyboardKeyView.pitch.letter(keyboardKeyView.conductor.accidental))\(octave)")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.fixedDo]! {
+//                    overlayText("\(keyboardKeyView.pitch.fixedDo(keyboardKeyView.conductor.accidental))\(octave)")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.midi]! {
+//                    overlayText(String(keyboardKeyView.pitch.midiNote.number))
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.wavelength]! {
+//                    overlayText("\(keyboardKeyView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.wavenumber]! {
+//                    overlayText("\(keyboardKeyView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.period]! {
+//                    overlayText("\((keyboardKeyView.pitch.period * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.frequency]! {
+//                    overlayText("\(keyboardKeyView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
+//                }
+//                if keyboardKeyView.conductor.noteLabel[.cochlea]! {
+//                    overlayText("\(keyboardKeyView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
+//                }
             }
         }
         
@@ -178,15 +178,15 @@ public struct KeyboardKeyLabelView: View {
             if keyboardKeyView.conductor.showSymbols {
                 return AnyView(
                     Color.clear.overlay(
-                        keyboardKeyView.interval.consonanceDissonance.image
+                        keyboardKeyView.pitch.interval.consonanceDissonance.image
                             .resizable()
                             .rotationEffect(rotation)
                             .scaledToFit()
-                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.interval.consonanceDissonance.fontWeight))
-                            .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.width,
-                                   maxHeight: 0.8 * keyboardKeyView.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
-                            .scaleEffect(keyboardKeyView.interval.isTonic ? 1.2 : 1.0) // Scale up for .tonic
-                            .animation(.easeInOut(duration: 0.3), value: keyboardKeyView.interval.isTonic) // Animate when interval becomes .tonic
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.pitch.interval.consonanceDissonance.fontWeight))
+                            .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.pitch.interval.consonanceDissonance.imageScale * proxySize.width,
+                                   maxHeight: 0.8 * keyboardKeyView.pitch.interval.consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
+                            .scaleEffect(keyboardKeyView.pitch.interval.isTonic ? 1.2 : 1.0) // Scale up for .tonic
+                            .animation(.easeInOut(duration: 0.3), value: keyboardKeyView.pitch.interval.isTonic) // Animate when interval becomes .tonic
                     )
                 )
             }
@@ -195,33 +195,33 @@ public struct KeyboardKeyLabelView: View {
         
         var intervalLabels: some View {
             Group {
-                if keyboardKeyView.conductor.intervalLabel[.interval]! {
-                    overlayText(String(keyboardKeyView.interval.classShorthand))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.movableDo]! {
-                    overlayText(keyboardKeyView.interval.movableDo)
-                }
-                if keyboardKeyView.conductor.intervalLabel[.roman]! {
-                    overlayText(String(keyboardKeyView.interval.roman))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.degree]! {
-                    overlayText(String(keyboardKeyView.interval.degree))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.integer]! {
-                    overlayText(String(keyboardKeyView.interval.semitones))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.wavelengthRatio]! {
-                    overlayText(String(keyboardKeyView.interval.wavelengthRatio))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.wavenumberRatio]! {
-                    overlayText(String(keyboardKeyView.interval.wavenumberRatio))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.periodRatio]! {
-                    overlayText(String(keyboardKeyView.interval.periodRatio))
-                }
-                if keyboardKeyView.conductor.intervalLabel[.frequencyRatio]! {
-                    overlayText(String(keyboardKeyView.interval.frequencyRatio))
-                }
+//                if keyboardKeyView.conductor.intervalLabel[.interval]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.classShorthand))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.movableDo]! {
+//                    overlayText(keyboardKeyView.pitch.interval.movableDo)
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.roman]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.roman))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.degree]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.degree))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.integer]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.semitone))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.wavelengthRatio]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.wavelengthRatio))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.wavenumberRatio]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.wavenumberRatio))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.periodRatio]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.periodRatio))
+//                }
+//                if keyboardKeyView.conductor.intervalLabel[.frequencyRatio]! {
+//                    overlayText(String(keyboardKeyView.pitch.interval.frequencyRatio))
+//                }
             }
         }
         
@@ -241,14 +241,14 @@ public struct KeyboardKeyLabelView: View {
             switch keyboardKeyView.conductor.paletteChoice {
             case .subtle:
                 activeColor = Color(keyboardKeyView.conductor.mainColor)
-                inactiveColor = Color(keyboardKeyView.interval.majorMinor.color)
+                inactiveColor = Color(keyboardKeyView.pitch.interval.majorMinor.color)
             case .loud:
-                activeColor = Color(keyboardKeyView.interval.majorMinor.color)
+                activeColor = Color(keyboardKeyView.pitch.interval.majorMinor.color)
                 inactiveColor = Color(keyboardKeyView.conductor.mainColor)
             case .ebonyIvory:
                 return keyboardKeyView.pitch.accidental ? .white : .black
             }
-            return keyboardKeyView.activated ? activeColor : inactiveColor
+            return keyboardKeyView.pitch.activated ? activeColor : inactiveColor
         }
         
         var octave: String {

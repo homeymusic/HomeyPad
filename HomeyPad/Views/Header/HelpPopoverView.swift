@@ -3,8 +3,6 @@ import HomeyMusicKit
 
 struct HelpPopoverView: View {
     
-    static let mamiIcon: String = "paintbrush.pointed.fill"
-    
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
@@ -30,13 +28,7 @@ struct HelpPopoverView: View {
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
                     if (codi != .octave) {
                         GridRow {
-                            if (codi == .tonic) {
-                                Image(codi.icon)
-                                    .foregroundColor(.white)
-                            } else {
-                                Image(systemName: codi.icon)
-                                    .foregroundColor(.white)
-                            }
+                            codi.image
                             Text(codi.label.capitalized)
                         }
                     }
@@ -48,7 +40,7 @@ struct HelpPopoverView: View {
                 }
                 ForEach(MajorMinor.allCases, id: \.self) { mami in
                     GridRow {
-                        Image(systemName: HelpPopoverView.mamiIcon)
+                        mami.image
                             .foregroundColor(Color(mami.color))
                         Text(mami.label.capitalized)
                     }
@@ -60,14 +52,9 @@ struct HelpPopoverView: View {
                 }
                 ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
                     GridRow {
-                        if (intervalClass == .P1 || intervalClass == .P8) {
-                            Image(intervalClass.interval.consonanceDissonance.icon)
-                                .foregroundColor(Color(intervalClass.interval.majorMinor.color))
-                        } else {
-                            Image(systemName: intervalClass.interval.consonanceDissonance.icon)
-                                .foregroundColor(Color(intervalClass.interval.majorMinor.color))
-                        }
-                        Text("\(intervalClass.interval.shorthand) \(intervalClass.interval.label.capitalized)")
+                        intervalClass.consonanceDissonance.image
+                            .foregroundColor(Color(intervalClass.majorMinor.color))
+                        Text("\(intervalClass.shorthand) \(intervalClass.label.capitalized)")
                     }
                 }
                 GridRow {
@@ -77,7 +64,7 @@ struct HelpPopoverView: View {
                 }
                 ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
                     GridRow {
-                        Image(systemName: pitchDirection.icon)
+                        pitchDirection.image
                             .aspectRatio(1.0, contentMode: .fit)
                             .foregroundColor(Color(pitchDirection.majorMinor.color))
                         Text(pitchDirection.label.capitalized)

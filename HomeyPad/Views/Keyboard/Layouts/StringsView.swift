@@ -1,5 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
+import MIDIKitCore
 
 struct StringsView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
@@ -18,7 +19,7 @@ struct StringsView<Content>: View where Content: View {
                         } else {
                             let note = viewConductor.openStringsMIDI[string] + fret
                             if (MIDIHelper.isValidMIDI(note: note)) {
-                                let pitch = tonalContext.pitch(for: Int8(note))
+                                let pitch = Pitch.pitch(for: UInt7(note))
                                 KeyboardKeyContainerView(conductor: viewConductor,
                                                          pitch: pitch,
                                                          keyboardKeyView: keyboardKeyView)

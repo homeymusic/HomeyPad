@@ -16,20 +16,6 @@ public struct KeyboardKeyView: View {
         }
     }
     
-    var interval: Interval {
-        Interval(pitch: pitch, tonicPitch: tonalContext.tonicPitch)
-    }
-    
-    var activated: Bool {
-        if conductor.layoutChoice != .tonic {
-            return pitch.midiState == .on
-        }
-        
-        let allActivePitches = keyboardViewConductor.touchedPitches.union(keyboardViewConductor.externallyActivatedPitches)
-        
-        return allActivePitches.contains { $0.pitchClass == pitch.pitchClass }
-    }
-    
     func darkenSmallKeys(color: Color) -> Color {
         return conductor.layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
     }
@@ -51,22 +37,22 @@ public struct KeyboardKeyView: View {
         
         switch conductor.paletteChoice {
         case .subtle:
-            activeColor = Color(interval.majorMinor.color)
+            activeColor = Color(pitch.interval.majorMinor.color)
             inactiveColor = Color(conductor.mainColor)
-            return activated ? activeColor : darkenSmallKeys(color: inactiveColor)
+            return pitch.activated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
-            inactiveColor = Color(interval.majorMinor.color)
-            return activated ? activeColor : inactiveColor
+            inactiveColor = Color(pitch.interval.majorMinor.color)
+            return pitch.activated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
             activeColor =   pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
-            return activated ? activeColor : inactiveColor
+            return pitch.activated ? activeColor : inactiveColor
         }
     }
     
     var outlineSize: CGFloat {
-        if interval.isTonic {
+        if pitch.interval.isTonic {
             return 3.0
         } else {
             return 2.0
@@ -76,9 +62,9 @@ public struct KeyboardKeyView: View {
     var outlineColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            return activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
+            return pitch.activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
         case .loud:
-            return activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
+            return pitch.activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
@@ -96,23 +82,11 @@ public struct KeyboardKeyView: View {
     }
     
     var outline: Bool {
-        conductor.outlineChoice && interval.isTonicOrOctave
+        conductor.outlineChoice && (pitch.interval.isTonic || pitch.interval.isOctave)
     }
     
     var isSmall: Bool {
         conductor.layoutChoice == .piano && pitch.accidental
-    }
-    
-    var isTritone: Bool {
-        self.interval.intervalClass == .six
-    }
-    
-    var isMinor: Bool {
-        self.interval.majorMinor == .minor
-    }
-    
-    var isMajor: Bool {
-        self.interval.majorMinor == .major
     }
     
     var backgroundBorderSize: CGFloat {
@@ -149,7 +123,7 @@ public struct KeyboardKeyView: View {
     }
     
     var rotation: CGFloat {
-        conductor.layoutChoice == .symmetric && isTritone ? 45.0 : 0.0
+        conductor.layoutChoice == .symmetric && pitch.interval.isTritone ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {
@@ -166,7 +140,7 @@ struct KeyboardKeySizingView: View {
     var proxySize: CGSize
     
     var overlayKey: Bool {
-        (keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.interval.intervalClass == .six) || keyboardKeyView.isSmall
+        (keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval.isTritone) || keyboardKeyView.isSmall
     }
     
     var body: some View {

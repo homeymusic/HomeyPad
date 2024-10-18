@@ -1,5 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
+import MIDIKitCore
 
 struct SymmetricView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
@@ -12,30 +13,30 @@ struct SymmetricView<Content>: View where Content: View {
                 HStack(spacing: 0) {
                     ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
                         let note: Int = Int(noteClass) + 12 * row
-                        let majorMinor: MajorMinor = Interval.majorMinor(midi: note, tonicMIDI: Int(tonalContext.tonicMIDI))
+                        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(tonalContext.tonicMIDI))
                         if majorMinor == .minor {
                             VStack(spacing: 0.0)  {
                                 if MIDIHelper.isValidMIDI(note: note + 1) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: Int8(note + 1)),
+                                                             pitch: Pitch.pitch(for: UInt7(note + 1)),
                                                              keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
                                 if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: Int8(note)),
+                                                             pitch: Pitch.pitch(for: UInt7(note)),
                                                              keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear
                                 }
                             }
                         } else if majorMinor == .neutral {
-                            let intervalClass: IntegerNotation = Interval.intervalClass(midi: note, tonicMIDI: Int(tonalContext.tonicMIDI))
-                            if intervalClass == .seven { // perfect fifth takes care of rendering the tritone above it
+                            let intervalClass: IntervalClass = IntervalClass(semitone: note - Int(tonalContext.tonicMIDI))
+                            if intervalClass == .P5 { // perfect fifth takes care of rendering the tritone above it
                                 if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: Int8(note)),
+                                                             pitch: Pitch.pitch(for: UInt7(note)),
                                                              keyboardKeyView: keyboardKeyView)
                                     .overlay() { // render tritone as overlay
                                         // only render tritone if P4, tt and P5 are safe
@@ -44,7 +45,7 @@ struct SymmetricView<Content>: View where Content: View {
                                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                                 ZStack {
                                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                                             pitch: tonalContext.pitch(for: Int8(note-1)), // tritone
+                                                                             pitch: Pitch.pitch(for: UInt7(note-1)), // tritone
                                                                              zIndex: 1,
                                                                              keyboardKeyView: keyboardKeyView)
                                                     .frame(width: ttLength, height: ttLength)
@@ -57,10 +58,10 @@ struct SymmetricView<Content>: View where Content: View {
                                     Color.clear
                                 }
                                 
-                            } else if intervalClass != .six { // skip tritone
+                            } else if intervalClass != .tt { // skip tritone
                                 if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: Int8(note)),
+                                                             pitch: Pitch.pitch(for: UInt7(note)),
                                                              keyboardKeyView: keyboardKeyView)
                                 } else {
                                     Color.clear

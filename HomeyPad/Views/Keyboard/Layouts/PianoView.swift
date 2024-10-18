@@ -1,11 +1,12 @@
 import SwiftUI
 import HomeyMusicKit
+import MIDIKitCore
 
 struct PianoView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
-
+    
     let spacer: PianoSpacer
     
     var body: some View {
@@ -17,9 +18,9 @@ struct PianoView<Content>: View where Content: View {
                             ForEach(spacer.whiteNotes, id: \.self) { col in
                                 let note: Int = col + 12 * row
                                 if MIDIHelper.isValidMIDI(note: note) {
-                                    let midi = Int8(note)
+                                    let midi = UInt7(note)
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
+                                                             pitch: Pitch.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
                                     .frame(width: spacer.whiteKeyWidth(geo.size.width))
                                 } else {
                                     Color.clear
@@ -37,11 +38,11 @@ struct PianoView<Content>: View where Content: View {
                                     if Pitch.accidental(note: note) {
                                         ZStack {
                                             if MIDIHelper.isValidMIDI(note: note) {
-                                                let midi = Int8(note)
+                                                let midi = UInt7(note)
                                                 KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: midi),
-                                                             zIndex: 1,
-                                                             keyboardKeyView: keyboardKeyView)
+                                                                         pitch: Pitch.pitch(for: midi),
+                                                                         zIndex: 1,
+                                                                         keyboardKeyView: keyboardKeyView)
                                             } else {
                                                 Color.clear
                                             }
@@ -67,8 +68,8 @@ struct PianoView<Content>: View where Content: View {
 
 public struct PianoSpacer {
     @StateObject private var tonalContext = TonalContext.shared
-
-    public static let defaultInitialSpacerRatio: [IntegerNotation: CGFloat] = [
+    
+    public static let defaultInitialSpacerRatio: [PitchClass: CGFloat] = [
         .zero: 0.0,
         .two: 3.0 / 16.0,
         .four: 6.0 / 16.0,
@@ -77,7 +78,7 @@ public struct PianoSpacer {
         .nine: 4.5 / 16.0,
         .eleven: 6.0 / 16.0
     ]
-    public static let defaultSpacerRatio: [IntegerNotation: CGFloat] = [
+    public static let defaultSpacerRatio: [PitchClass: CGFloat] = [
         .zero: 10.0 / 16.0,
         .two: 10.0 / 16.0,
         .four: 10.0 / 16.0,
@@ -90,10 +91,10 @@ public struct PianoSpacer {
     
     /// Default value for Black Key Height
     public static let defaultRelativeBlackKeyHeight: CGFloat = 0.53
-
+    
     @ObservedObject var viewConductor: ViewConductor
-    public var initialSpacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultInitialSpacerRatio
-    public var spacerRatio: [IntegerNotation: CGFloat] = PianoSpacer.defaultSpacerRatio
+    public var initialSpacerRatio: [PitchClass: CGFloat] = PianoSpacer.defaultInitialSpacerRatio
+    public var spacerRatio: [PitchClass: CGFloat] = PianoSpacer.defaultSpacerRatio
     public var relativeBlackKeyWidth: CGFloat = PianoSpacer.defaultRelativeBlackKeyWidth
     public var relativeBlackKeyHeight: CGFloat = PianoSpacer.defaultRelativeBlackKeyHeight
 }
@@ -106,33 +107,33 @@ extension PianoSpacer {
         }
         return naturalNotes
     }
-
+    
     public func isBlackKey(_ note: Int) -> Bool {
         Pitch.accidental(note: note)
     }
-
+    
     public var initialSpacer: CGFloat {
-        let pitchClass = Pitch.pitchClass(note: Int(midiBoundedByNaturals.first!))
+        let pitchClass = PitchClass(noteNumber: Int(midiBoundedByNaturals.first!))
         return initialSpacerRatio[pitchClass] ?? 0
     }
-
+    
     public func space(note: Int) -> CGFloat {
-        let pitchClass = Pitch.pitchClass(note: note)
+        let pitchClass = PitchClass(noteNumber: note)
         return spacerRatio[pitchClass] ?? 0
     }
-
+    
     public func whiteKeyWidth(_ width: CGFloat) -> CGFloat {
         width / CGFloat(whiteNotes.count)
     }
-
+    
     public func blackKeyWidth(_ width: CGFloat) -> CGFloat {
         whiteKeyWidth(width) * relativeBlackKeyWidth
     }
-
+    
     public var midiBoundedByNaturals: ClosedRange<Int> {
         var colsBelow = viewConductor.layoutRowsCols.colsPerSide[.piano]!
         var colsAbove = viewConductor.layoutRowsCols.colsPerSide[.piano]!
-                
+        
         // if F .five or B .eleven are the tonic then the tritone will be off center
         if tonalContext.tonicPitch.pitchClass == .five {
             colsBelow = colsBelow - 1
@@ -142,21 +143,21 @@ extension PianoSpacer {
         
         let naturalsBelowTritone = Array(Pitch.naturalMIDI.filter({$0 < tonalContext.tritoneMIDI}).suffix(colsBelow))
         let naturalsAboveTritone = Array(Pitch.naturalMIDI.filter({$0 > tonalContext.tritoneMIDI}).prefix(colsAbove))
-
+        
         let lowIndex: Int = Int(naturalsBelowTritone.min() ?? 0)
         let highIndex: Int = Int(naturalsAboveTritone.max() ?? 127)
         
         return lowIndex...highIndex
     }
-
+    
     public func initialSpacerWidth(_ width: CGFloat) -> CGFloat {
         whiteKeyWidth(width) * initialSpacer
     }
-
+    
     public func lowerBoundSpacerWidth(_ width: CGFloat) -> CGFloat {
         whiteKeyWidth(width) * space(note: viewConductor.layoutNotes.lowerBound)
     }
-
+    
     public func blackKeySpacerWidth(_ width: CGFloat, note: Int) -> CGFloat {
         whiteKeyWidth(width) * space(note: note)
     }
