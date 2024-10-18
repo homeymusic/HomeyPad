@@ -202,9 +202,9 @@ public struct KeyboardKeyLabelView: View {
                 if keyboardKeyView.conductor.intervalLabel[.roman]! {
                     overlayText(String(keyboardKeyView.pitch.interval.roman))
                 }
-//                if keyboardKeyView.conductor.intervalLabel[.degree]! {
-//                    overlayText(String(keyboardKeyView.pitch.interval.degree))
-//                }
+                if keyboardKeyView.conductor.intervalLabel[.degree]! {
+                    overlayText(String(keyboardKeyView.pitch.interval.degree))
+                }
                 if keyboardKeyView.conductor.intervalLabel[.integer]! {
                     overlayText(String(keyboardKeyView.pitch.interval.semitone))
                 }
