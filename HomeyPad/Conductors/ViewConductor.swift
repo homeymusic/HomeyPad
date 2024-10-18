@@ -28,8 +28,8 @@ class ViewConductor: ObservableObject {
 
     func sendCurrentState() {
         if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: MIDINoteNumber(tonalContext.tonicMIDI), midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
-            midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel(layoutChoice: self.layoutChoice, stringsLayoutChoice: self.stringsLayoutChoice))
+            midiConductor?.sendTonic(noteNumber: MIDINoteNumber(tonalContext.tonicMIDI), midiChannel: midiChannel)
+            midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel)
         } else {
             activePitchesNoteOn(activePitches: externallyActivatedPitches)
         }
@@ -45,10 +45,6 @@ class ViewConductor: ObservableObject {
         model: "iOS",
         manufacturer: "Homey Music"
     )
-    
-    func midiChannel(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) -> UInt4 {
-        UInt4(layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice))
-    }
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
@@ -111,15 +107,19 @@ class ViewConductor: ObservableObject {
     
     @Published var showHelp: Bool = false
     
+    var midiChannel: MIDIChannel {
+        layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
+    }
+    
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
         Pitch.allPitches.forEach {pitch in
-            pitch.deactivate()
+            pitch.deactivate(midiChannel: midiChannel)
         }
     }
     
     func activePitchesNoteOn(activePitches: Set<Pitch>) {
         activePitches.forEach {pitch in
-            pitch.activate()
+            pitch.activate(midiChannel: midiChannel)
         }
     }
 
@@ -443,10 +443,10 @@ class ViewConductor: ObservableObject {
             }
         } else {
             for pitch in newPitches {
-                pitch.activate()
+                pitch.activate(midiChannel: midiChannel)
             }
             for pitch in oldPitches {
-                pitch.deactivate()
+                pitch.deactivate(midiChannel: midiChannel)
             }
         }
     }

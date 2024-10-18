@@ -236,6 +236,12 @@ public struct KeyboardKeyLabelView: View {
             return min(size.width, size.height)
         }
         
+        // Local variable to check activation based on layout
+        var isActivated: Bool {
+            keyboardKeyView.conductor.layoutChoice == .tonic ? keyboardKeyView.pitch.pitchClass.isActivated : keyboardKeyView.pitch.isActivated
+        }
+
+
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
@@ -249,7 +255,7 @@ public struct KeyboardKeyLabelView: View {
             case .ebonyIvory:
                 return keyboardKeyView.pitch.accidental ? .white : .black
             }
-            return keyboardKeyView.pitch.activated ? activeColor : inactiveColor
+            return isActivated ? activeColor : inactiveColor
         }
         
         var octave: String {

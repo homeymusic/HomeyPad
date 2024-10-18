@@ -73,7 +73,12 @@ public struct KeyboardKeyView: View {
             pitch.accidental ? .white : .black
         }
     }
-    
+        
+    // Local variable to check activation based on layout
+    var isActivated: Bool {
+        conductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated
+    }
+
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
@@ -82,15 +87,15 @@ public struct KeyboardKeyView: View {
         case .subtle:
             activeColor = Color(pitch.interval.majorMinor.color)
             inactiveColor = Color(conductor.mainColor)
-            return pitch.activated ? activeColor : darkenSmallKeys(color: inactiveColor)
+            return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
             inactiveColor = Color(pitch.interval.majorMinor.color)
-            return pitch.activated ? activeColor : inactiveColor
+            return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
             activeColor =   pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
-            return pitch.activated ? activeColor : inactiveColor
+            return isActivated ? activeColor : inactiveColor
         }
     }
     
@@ -105,9 +110,9 @@ public struct KeyboardKeyView: View {
     var outlineColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            return pitch.activated ? Color(conductor.brownColor) : Color(conductor.creamColor)
+            return isActivated ? Color(conductor.brownColor) : Color(conductor.creamColor)
         case .loud:
-            return pitch.activated ? Color(conductor.creamColor) : Color(conductor.brownColor)
+            return isActivated ? Color(conductor.creamColor) : Color(conductor.brownColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
