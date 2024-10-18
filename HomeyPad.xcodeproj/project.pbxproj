@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
@@ -26,7 +27,6 @@
 		B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */; };
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
-		B0BF8E2A2CBD99F000E76B57 /* MIDIConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */; };
 		B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
@@ -40,7 +40,6 @@
 		B0C7FD3B2BBAFB29006FF26F /* IsomorphicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD212BBAFB16006FF26F /* IsomorphicView.swift */; };
 		B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* StringsView.swift */; };
 		B0C7FD3D2BBAFB29006FF26F /* SymmetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* SymmetricView.swift */; };
-		B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */; };
 		B0DD836E2CC2028E001A0BE4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836D2CC2028E001A0BE4 /* MIDIKit */; };
 		B0DD83702CC2028E001A0BE4 /* MIDIKitControlSurfaces in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836F2CC2028E001A0BE4 /* MIDIKitControlSurfaces */; };
 		B0DD83722CC2028E001A0BE4 /* MIDIKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD83712CC2028E001A0BE4 /* MIDIKitCore */; };
@@ -71,7 +70,6 @@
 		B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
-		B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIConductor.swift; sourceTree = "<group>"; };
 		B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -95,13 +93,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */,
 				B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */,
 				B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */,
 				B0DD83702CC2028E001A0BE4 /* MIDIKitControlSurfaces in Frameworks */,
 				B0DD83762CC2028E001A0BE4 /* MIDIKitSMF in Frameworks */,
 				B0DD83722CC2028E001A0BE4 /* MIDIKitCore in Frameworks */,
 				B0DD836E2CC2028E001A0BE4 /* MIDIKit in Frameworks */,
-				B0CF33DF2CA89078002F6B55 /* HomeyMusicKit in Frameworks */,
 				B0DD83742CC2028E001A0BE4 /* MIDIKitIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */,
-				B0BF8E262CBD99F000E76B57 /* MIDIConductor.swift */,
 				B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */,
 			);
 			path = Conductors;
@@ -241,7 +238,6 @@
 			);
 			name = HomeyPad;
 			packageProductDependencies = (
-				B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */,
 				B07897E02CBABE0A00DBBAE2 /* AudioKit */,
 				B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */,
 				B0DD836D2CC2028E001A0BE4 /* MIDIKit */,
@@ -249,6 +245,7 @@
 				B0DD83712CC2028E001A0BE4 /* MIDIKitCore */,
 				B0DD83732CC2028E001A0BE4 /* MIDIKitIO */,
 				B0DD83752CC2028E001A0BE4 /* MIDIKitSMF */,
+				B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
@@ -314,7 +311,6 @@
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
 				B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */,
 				B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */,
-				B0BF8E2A2CBD99F000E76B57 /* MIDIConductor.swift in Sources */,
 				B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */,
 				B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */,
 				B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */,
@@ -596,6 +592,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeyMusicKit;
+		};
 		B07897E02CBABE0A00DBBAE2 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B07897DF2CBABE0A00DBBAE2 /* XCRemoteSwiftPackageReference "AudioKit" */;
@@ -605,10 +605,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */;
 			productName = DunneAudioKit;
-		};
-		B0CF33DE2CA89078002F6B55 /* HomeyMusicKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HomeyMusicKit;
 		};
 		B0DD836D2CC2028E001A0BE4 /* MIDIKit */ = {
 			isa = XCSwiftPackageProductDependency;

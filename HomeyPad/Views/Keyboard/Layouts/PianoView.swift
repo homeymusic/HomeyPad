@@ -11,13 +11,13 @@ struct PianoView<Content>: View where Content: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.piano]!...viewConductor.layoutRowsCols.rowsPerSide[.piano]!).reversed(), id: \.self) { row in
-                GeometryReader { geo in
+            GeometryReader { geo in
+                ForEach((-viewConductor.layoutRowsCols.rowsPerSide[.piano]!...viewConductor.layoutRowsCols.rowsPerSide[.piano]!).reversed(), id: \.self) { row in
                     ZStack(alignment: .topLeading) {
                         HStack(spacing: 0) {
                             ForEach(spacer.whiteNotes, id: \.self) { col in
                                 let note: Int = col + 12 * row
-                                if MIDIHelper.isValidMIDI(note: note) {
+                                if MIDIConductor.isValidMIDI(note: note) {
                                     let midi = MIDINoteNumber(note)
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
@@ -37,7 +37,7 @@ struct PianoView<Content>: View where Content: View {
                                     let note: Int = Int(col) + 12 * row
                                     if Pitch.accidental(note: note) {
                                         ZStack {
-                                            if MIDIHelper.isValidMIDI(note: note) {
+                                            if MIDIConductor.isValidMIDI(note: note) {
                                                 let midi = MIDINoteNumber(note)
                                                 KeyboardKeyContainerView(conductor: viewConductor,
                                                                          pitch: Pitch.pitch(for: midi),

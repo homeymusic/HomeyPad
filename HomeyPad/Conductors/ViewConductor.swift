@@ -16,7 +16,7 @@ class ViewConductor: ObservableObject {
         self.layoutRowsCols      = layoutRowsCols
         self.sendTonicState      = sendTonicState
         
-        // Pass the `sendCurrentState` function into the MIDIHelper during creation
+        // Pass the `sendCurrentState` function into the MIDIConductor during creation
         midiConductor = MIDIConductor(sendCurrentState: self.sendCurrentState)
         midiConductor?.setup(midiManager: midiManager)
     }
