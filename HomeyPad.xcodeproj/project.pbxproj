@@ -27,7 +27,6 @@
 		B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */; };
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
-		B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 		B0C7FD2F2BBAFB16006FF26F /* KeyboardKeyLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */; };
@@ -70,7 +69,6 @@
 		B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
-		B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* KeyboardKeyContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyContainerView.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */,
-				B0BF8E272CBD99F000E76B57 /* SynthConductor.swift */,
 			);
 			path = Conductors;
 			sourceTree = "<group>";
@@ -311,7 +308,6 @@
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
 				B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */,
 				B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */,
-				B0BF8E2B2CBD99F000E76B57 /* SynthConductor.swift in Sources */,
 				B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */,
 				B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,

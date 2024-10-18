@@ -7,7 +7,8 @@ struct ContentView: View {
     @State var showTonicPicker: Bool
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
-    
+    @StateObject private var tonalContext = TonalContext.shared
+
     init() {
         // Accidental
         let defaultAccidental: Accidental = .default
@@ -237,33 +238,5 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(.dark)
-        .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { event in
-            switch event.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt {
-            case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
-                viewConductor.reloadAudio()
-            case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
-                viewConductor.reloadAudio()
-            default:
-                break
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { event in
-            guard let info = event.userInfo,
-                  let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-                  let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-                return
-            }
-            if type == .began {
-                self.viewConductor.synthConductor.engine.stop()
-            } else if type == .ended {
-                guard let optionsValue =
-                        info[AVAudioSessionInterruptionOptionKey] as? UInt else {
-                    return
-                }
-                if AVAudioSession.InterruptionOptions(rawValue: optionsValue).contains(.shouldResume) {
-                    self.viewConductor.reloadAudio()
-                }
-            }
-        }
     }
 }

@@ -18,8 +18,6 @@ class ViewConductor: ObservableObject {
     
     @StateObject private var tonalContext = TonalContext.shared
 
-    let synthConductor = SynthConductor()
-    
     let animationStyle: Animation = Animation.linear
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
@@ -431,12 +429,5 @@ class ViewConductor: ObservableObject {
         return min(proxySize.height * 1/3, proxySize.width)
     }
     
-    func reloadAudio() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if !self.synthConductor.engine.avEngine.isRunning {
-                self.synthConductor.start()
-            }
-        }
-    }
 }
 
