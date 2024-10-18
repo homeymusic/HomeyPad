@@ -16,7 +16,7 @@ struct IsomorphicView<Content>: View where Content: View {
                     ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
                         let note: Int = Int(noteClass) + 12 * Int(row)
                         Group {
-                            if MIDIConductor.isValidMIDI(note: note) {
+                            if MIDIConductor.isValidMIDI(note) {
                                 let pitch = Pitch.pitch(for: MIDINoteNumber(note))
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
