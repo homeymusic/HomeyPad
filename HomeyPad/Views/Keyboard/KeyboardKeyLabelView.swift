@@ -10,20 +10,20 @@ public struct KeyboardKeyLabelView: View {
     }
     
     public var body: some View {
-//        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * keyboardKeyView.conductor.tritoneLength(proxySize: proxySize) - 1.5 * keyboardKeyView.backgroundBorderSize : 0.0
         let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * keyboardKeyView.conductor.tritoneLength(proxySize: proxySize) : 0.0
         let topBottomPadding = keyboardKeyView.outline ? 0.0 : 0.5 * keyboardKeyView.outlineHeight
+        let extraPadding = tritonePadding + topBottomPadding
         VStack(spacing: 0.0) {
             if keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval.consonanceDissonance > .consonant {
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                    .padding([.top, .bottom], topBottomPadding + tritonePadding)
+                    .padding([.top, .bottom], extraPadding)
                 Color.clear
                     .frame(height: keyboardKeyView.outline ? 2 * keyboardKeyView.backgroundBorderSize : keyboardKeyView.backgroundBorderSize)
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, rotation: Angle.degrees(180))
-                    .padding([.top, .bottom], topBottomPadding + tritonePadding)
+                    .padding([.top, .bottom], extraPadding)
             } else {
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                    .padding([.top, .bottom], topBottomPadding + tritonePadding)
+                    .padding([.top, .bottom], extraPadding)
             }
         }
     }
