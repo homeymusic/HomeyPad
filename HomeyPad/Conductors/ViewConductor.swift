@@ -14,37 +14,13 @@ class ViewConductor: ObservableObject {
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
         self.layoutRowsCols      = layoutRowsCols
-        self.sendTonicState      = sendTonicState
-        
-        // Pass the `sendCurrentState` function into the MIDIConductor during creation
-        midiConductor = MIDIConductor(sendCurrentState: self.sendCurrentState)
-        midiConductor?.setup(midiManager: midiManager)
     }
     
-    
-    let sendTonicState: Bool
-    var midiConductor: MIDIConductor?
     @StateObject private var tonalContext = TonalContext.shared
 
-    func sendCurrentState() {
-        if sendTonicState {
-            midiConductor?.sendTonic(noteNumber: MIDINoteNumber(tonalContext.tonicMIDI), midiChannel: midiChannel)
-            midiConductor?.sendPitchDirection(upwardPitchDirection: tonalContext.pitchDirection == .upward, midiChannel: midiChannel)
-        } else {
-            activePitchesNoteOn(activePitches: externallyActivatedPitches)
-        }
-        print("ViewConductor's current state sent.")
-    }
-    
     let synthConductor = SynthConductor()
     
     let animationStyle: Animation = Animation.linear
-    
-    let midiManager = ObservableMIDIManager(
-        clientName: "Homey Pad",
-        model: "iOS",
-        manufacturer: "Homey Music"
-    )
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
