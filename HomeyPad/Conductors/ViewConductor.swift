@@ -332,95 +332,84 @@ class ViewConductor: ObservableObject {
     var touchLocations: [CGPoint] = [] {
         didSet {
             var newPitches = Set<Pitch>()
-            
+
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
-                var normalizedPoint = CGPoint.zero
-                
+
                 // Loop through keyRectInfos and find the highest Z-index pitch
                 for info in keyRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
                         highestZindex = info.zIndex
-                        normalizedPoint = CGPoint(x: (location.x - info.rect.minX) / info.rect.width,
-                                                  y: (location.y - info.rect.minY) / info.rect.height)
                     }
                 }
-                
-                // In tonic mode, lock the tonic after the first touch and ignore further changes
+
+                // Handle tonic mode
                 if layoutChoice == .tonic {
                     if let p = pitch, !isTonicLocked {
-                        newPitches.insert(p)  // Add the first touch to newPitches
-                        normalizedPoints[p.intValue] = normalizedPoint
-                        isTonicLocked = true  // Lock the tonic for the duration of this touch
+                        // Change the tonic to the selected pitch
+                        updateTonic(p)
+                        isTonicLocked = true  // Lock the tonic once selected
                     }
                 } else {
-                    // For non-tonic modes, allow glissando behavior (multiple touches)
+                    // Non-tonic mode: handle normal pitch activation
                     if let p = pitch {
                         newPitches.insert(p)
-                        normalizedPoints[p.intValue] = normalizedPoint
+                        if !Pitch.activatedPitches.contains(p) {
+                            p.activate(midiChannel: midiChannel)  // Activate pitch when entering the key
+                        }
                     }
                 }
             }
 
-            // Only update touchedPitches if there are changes
-            if touchedPitches != newPitches {
-                touchedPitches = newPitches
+            // Deactivate pitches that are no longer touched
+            let noLongerTouchedPitches = Set(Pitch.activatedPitches).subtracting(newPitches)
+            for pitch in noLongerTouchedPitches {
+                pitch.deactivate(midiChannel: midiChannel)  // Deactivate pitch when the finger leaves the key
             }
 
-            // Unlock the tonic when no more touch locations are active (touch ends)
+            // Unlock the tonic when no more touch locations are active
             if touchLocations.isEmpty {
                 isTonicLocked = false
             }
         }
     }
-    
-    /// all touched notes
-    @Published public var touchedPitches = Set<Pitch>() {
-        didSet {
-            self.triggerEvents(from: oldValue, to: touchedPitches)
+
+    // Helper function to update the tonic
+    private func updateTonic(_ newTonicPitch: Pitch) {
+        if newTonicPitch != tonalContext.tonicPitch {
+            // Adjust pitch direction if the new tonic is an octave shift
+            if newTonicPitch.isOctave(relativeTo: tonalContext.tonicPitch) {
+                tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
+            }
+            tonalContext.tonicPitch = newTonicPitch
         }
     }
-    
+
     /// Either latched keys or keys active due to external MIDI events.
     @Published public var externallyActivatedPitches = Set<Pitch>() {
         didSet {
-            self.triggerEvents(from: oldValue, to: self.externallyActivatedPitches)
-        }
-    }
-        
-    @Published var accidental: Accidental = .default {
-        didSet {
-            Task { @MainActor in
-                buzz()
+            // Identify which pitches are newly activated and which were deactivated
+            let newPitches = externallyActivatedPitches.subtracting(oldValue)
+            let deactivatedPitches = oldValue.subtracting(externallyActivatedPitches)
+            
+            // Activate new pitches
+            for pitch in newPitches {
+                pitch.activate(midiChannel: midiChannel)
+            }
+            
+            // Deactivate pitches that are no longer active
+            for pitch in deactivatedPitches {
+                pitch.deactivate(midiChannel: midiChannel)
             }
         }
     }
 
-    func triggerEvents(from oldValue: Set<Pitch>, to newValue: Set<Pitch>) {
-        let newPitches = newValue.subtracting(oldValue)
-        let oldPitches = oldValue.subtracting(newValue)
-        if layoutChoice == .tonic {
-            for pitch in newPitches {
-                let newTonicPitch = pitch
-                if newTonicPitch != self.tonalContext.tonicPitch {
-                    if newTonicPitch.isOctave(relativeTo: self.tonalContext.tonicPitch) {
-                        if newTonicPitch.midiNote.number > self.tonalContext.tonicPitch.midiNote.number {
-                            self.tonalContext.pitchDirection = .downward
-                        } else {
-                            self.tonalContext.pitchDirection = .upward
-                        }
-                    }
-                    self.tonalContext.tonicPitch = newTonicPitch
-                }
-            }
-        } else {
-            for pitch in newPitches {
-                pitch.activate(midiChannel: midiChannel)
-            }
-            for pitch in oldPitches {
-                pitch.deactivate(midiChannel: midiChannel)
+    @Published var accidental: Accidental = .default {
+        didSet {
+            Task { @MainActor in
+                buzz()
             }
         }
     }
