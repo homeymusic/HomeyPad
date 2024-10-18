@@ -58,7 +58,7 @@ struct SymmetricView<Content>: View where Content: View {
                                     Color.clear
                                 }
                                 
-                            } else if intervalClass != .tt { // skip tritone
+                            } else if intervalClass != .tt { // skip tritone as it is handled by P5 above
                                 if MIDIHelper.isValidMIDI(note: note) {
                                     KeyboardKeyContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: UInt7(note)),

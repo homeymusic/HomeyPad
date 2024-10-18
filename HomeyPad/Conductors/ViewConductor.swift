@@ -451,11 +451,8 @@ class ViewConductor: ObservableObject {
         }
     }
 
-    static var currentTritoneLength: CGFloat = 0.0
-    
     func tritoneLength(proxySize: CGSize) -> CGFloat {
-        ViewConductor.currentTritoneLength = min(proxySize.height * 1/3, proxySize.width)
-        return ViewConductor.currentTritoneLength
+        return min(proxySize.height * 1/3, proxySize.width)
     }
     
     func reloadAudio() {

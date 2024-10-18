@@ -8,11 +8,54 @@ public struct KeyboardKeyView: View {
     @ObservedObject var keyboardViewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
     
+    // for tritone in symmetric layout and small keys in piano layout
+    var overlayKey: Bool {
+        return (conductor.layoutChoice == .symmetric && pitch.interval.isTritone) || isSmall
+    }
+    
+    var borderWidthApparentSize: CGFloat {
+        overlayKey ? 2.0 * backgroundBorderSize : backgroundBorderSize
+    }
+    
+    var borderHeightApparentSize: CGFloat {
+        conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
+    }
+    var outlineWidth: CGFloat {
+        borderWidthApparentSize * outlineSize
+    }
+    var outlineHeight: CGFloat {
+        borderHeightApparentSize * outlineSize
+    }
+        
     public var body: some View {
+        let alignment: Alignment = conductor.layoutChoice == .piano ? .top : .center
         GeometryReader { proxy in
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
-                KeyboardKeySizingView(keyboardKeyView: self, proxySize: proxy.size)
+                
+                ZStack(alignment: alignment) {
+                    KeyRectangle(fillColor: conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: self, proxySize: proxy.size)
+                        .overlay(alignment: alignment) {
+                            if outline {
+                                KeyRectangle(fillColor: outlineColor, keyboardKeyView: self, proxySize: proxy.size)
+                                    .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
+                                    .overlay(alignment: alignment) {
+                                        KeyRectangle(fillColor: outlineKeyColor, keyboardKeyView: self, proxySize: proxy.size)
+                                            .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
+                                            .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity))
+                                    }
+                            } else {
+                                KeyRectangle(fillColor: keyColor, keyboardKeyView: self, proxySize: proxy.size)
+                                    .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
+                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity))
+                                    .padding(.leading,  leadingOffset)
+                                    .padding(.trailing,  trailingOffset)
+                            }
+                        }
+                }
             }
+            
         }
     }
     
@@ -132,46 +175,6 @@ public struct KeyboardKeyView: View {
     
     var trailingOffset: CGFloat {
         0.0
-    }
-}
-
-struct KeyboardKeySizingView: View {
-    var keyboardKeyView: KeyboardKeyView
-    var proxySize: CGSize
-    
-    var overlayKey: Bool {
-        (keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval.isTritone) || keyboardKeyView.isSmall
-    }
-    
-    var body: some View {
-        let borderWidthApparentSize = overlayKey ? 2.0 * keyboardKeyView.backgroundBorderSize : keyboardKeyView.backgroundBorderSize
-        let borderHeightApparentSize = keyboardKeyView.conductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
-        let outlineWidth = borderWidthApparentSize * keyboardKeyView.outlineSize
-        let outlineHeight = borderHeightApparentSize * keyboardKeyView.outlineSize
-        let alignment: Alignment = keyboardKeyView.conductor.layoutChoice == .piano ? .top : .center
-        
-        ZStack(alignment: alignment) {
-            KeyRectangle(fillColor: keyboardKeyView.conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                .overlay(alignment: alignment) {
-                    if keyboardKeyView.outline {
-                        KeyRectangle(fillColor: keyboardKeyView.outlineColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                            .frame(width: proxySize.width - borderWidthApparentSize, height: proxySize.height - borderHeightApparentSize)
-                            .overlay(alignment: alignment) {
-                                KeyRectangle(fillColor: keyboardKeyView.outlineKeyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                                    .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
-                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity))
-                            }
-                    } else {
-                        KeyRectangle(fillColor: keyboardKeyView.keyColor, keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                            .frame(width: proxySize.width - (keyboardKeyView.outline ? outlineWidth : borderWidthApparentSize), height: proxySize.height - (keyboardKeyView.outline ? outlineHeight : borderHeightApparentSize))
-                            .overlay(KeyboardKeyLabelView(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity))
-                            .padding(.leading,  keyboardKeyView.leadingOffset)
-                            .padding(.trailing,  keyboardKeyView.trailingOffset)
-                    }
-                }
-        }
     }
 }
 
