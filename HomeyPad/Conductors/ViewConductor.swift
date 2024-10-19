@@ -17,7 +17,7 @@ class ViewConductor: ObservableObject {
     }
     
     @StateObject private var tonalContext = TonalContext.shared
-
+    
     let animationStyle: Animation = Animation.linear
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
@@ -26,10 +26,9 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = externallyActivatedPitches
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: activePitches)
+                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
                 }
             }
         }
@@ -41,10 +40,9 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                let activePitches = externallyActivatedPitches
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: activePitches)
+                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
                 }
             }
         }
@@ -52,7 +50,7 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            externallyActivatedPitches.removeAll()
+            Pitch.activatedPitches.forEach { $0.deactivate(midiChannel: midiChannel) }
         }
         didSet {
             Task { @MainActor in
@@ -91,12 +89,12 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    func activePitchesNoteOn(activePitches: Set<Pitch>) {
+    func activePitchesNoteOn(activePitches: [Pitch]) {
         activePitches.forEach {pitch in
             pitch.activate(midiChannel: midiChannel)
         }
     }
-
+    
     var isPaletteDefault: Bool {
         layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice] &&
         layoutPalette.outlineChoice[layoutChoice] == LayoutPalette.defaultLayoutOutline[layoutChoice]
@@ -149,7 +147,7 @@ class ViewConductor: ObservableObject {
     var outlineChoice: Bool {
         layoutPalette.outlineChoice[layoutChoice]!
     }
-
+    
     @Published var layoutPalette: LayoutPalette = LayoutPalette() {
         willSet(newLayoutPalette) {
             Task { @MainActor in
@@ -208,7 +206,7 @@ class ViewConductor: ObservableObject {
             }
         )
     }
-
+    
     var showSymbols: Bool {
         intervalLabels[layoutChoice]![.symbol]!
     }
@@ -320,24 +318,24 @@ class ViewConductor: ObservableObject {
     }
     
     var keyRectInfos: [KeyRectInfo] = []
-    var normalizedPoints = Array(repeating: CGPoint.zero, count: 128)
-
+    
     var isOneRowOnTablet : Bool {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
     }
     
     // Add a flag to lock the tonic during a touch event (private)
     private var isTonicLocked = false
-
+    
     var touchLocations: [CGPoint] = [] {
         didSet {
-            var newPitches = Set<Pitch>()
+            var touchedPitches = Set<Pitch>()
 
+            // Process the touch locations and determine which keys are touched
             for location in touchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
 
-                // Loop through keyRectInfos and find the highest Z-index pitch
+                // Find the pitch at this location with the highest Z-index
                 for info in keyRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
@@ -345,37 +343,56 @@ class ViewConductor: ObservableObject {
                     }
                 }
 
-                // Handle tonic mode
-                if layoutChoice == .tonic {
-                    if let p = pitch, !isTonicLocked {
-                        // Change the tonic to the selected pitch
-                        updateTonic(p)
-                        isTonicLocked = true  // Lock the tonic once selected
-                    }
-                } else {
-                    // Non-tonic mode: handle normal pitch activation
-                    if let p = pitch {
-                        newPitches.insert(p)
-                        if !Pitch.activatedPitches.contains(p) {
-                            p.activate(midiChannel: midiChannel)  // Activate pitch when entering the key
+                if let p = pitch {
+                    touchedPitches.insert(p)
+
+                    if layoutChoice == .tonic {
+                        // Handle tonic mode
+                        if !isTonicLocked {
+                            updateTonic(p)
+                            isTonicLocked = true
+                        }
+                    } else {
+                        // Handle latching
+                        if latching {
+                            if !latchingTouchedPitches.contains(p) {
+                                latchingTouchedPitches.insert(p)
+                                // Toggle pitch activation
+                                if p.isActivated {
+                                    p.deactivate(midiChannel: midiChannel)
+                                } else {
+                                    p.activate(midiChannel: midiChannel)
+                                }
+                            }
+                        } else {
+                            // Non-latching mode: simply activate pitch
+                            if !p.isActivated {
+                                p.activate(midiChannel: midiChannel)
+                            }
                         }
                     }
                 }
             }
 
-            // Deactivate pitches that are no longer touched
-            let noLongerTouchedPitches = Set(Pitch.activatedPitches).subtracting(newPitches)
-            for pitch in noLongerTouchedPitches {
-                pitch.deactivate(midiChannel: midiChannel)  // Deactivate pitch when the finger leaves the key
+            // Handle un-touching in non-latching mode
+            if !latching {
+                for pitch in Pitch.activatedPitches {
+                    if !touchedPitches.contains(pitch) {
+                        pitch.deactivate(midiChannel: midiChannel)
+                    }
+                }
             }
 
-            // Unlock the tonic when no more touch locations are active
+            // When all touches are released, reset the tonic lock and latching set
             if touchLocations.isEmpty {
                 isTonicLocked = false
+                latchingTouchedPitches.removeAll()  // Clear for the next interaction
             }
         }
     }
 
+    // A set to track which pitches have been latched
+    private var latchingTouchedPitches = Set<Pitch>()
     // Helper function to update the tonic
     private func updateTonic(_ newTonicPitch: Pitch) {
         if newTonicPitch != tonalContext.tonicPitch {
@@ -384,25 +401,6 @@ class ViewConductor: ObservableObject {
                 tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
             }
             tonalContext.tonicPitch = newTonicPitch
-        }
-    }
-
-    /// Either latched keys or keys active due to external MIDI events.
-    @Published public var externallyActivatedPitches = Set<Pitch>() {
-        didSet {
-            // Identify which pitches are newly activated and which were deactivated
-            let newPitches = externallyActivatedPitches.subtracting(oldValue)
-            let deactivatedPitches = oldValue.subtracting(externallyActivatedPitches)
-            
-            // Activate new pitches
-            for pitch in newPitches {
-                pitch.activate(midiChannel: midiChannel)
-            }
-            
-            // Deactivate pitches that are no longer active
-            for pitch in deactivatedPitches {
-                pitch.deactivate(midiChannel: midiChannel)
-            }
         }
     }
 
