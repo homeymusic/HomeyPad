@@ -206,7 +206,7 @@ public struct KeyboardKeyLabelView: View {
                     overlayText(String(keyboardKeyView.pitch.interval.degree))
                 }
                 if keyboardKeyView.conductor.intervalLabel[.integer]! {
-                    overlayText(String(keyboardKeyView.pitch.interval.semitone))
+                    overlayText(String(keyboardKeyView.pitch.interval.distance))
                 }
                 if keyboardKeyView.conductor.intervalLabel[.movableDo]! {
                     overlayText(keyboardKeyView.pitch.interval.movableDo)

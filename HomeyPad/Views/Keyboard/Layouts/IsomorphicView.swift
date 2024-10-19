@@ -13,11 +13,11 @@ struct IsomorphicView<Content>: View where Content: View {
 
             ForEach(rows, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
-                        let note: Int = Int(noteClass) + 12 * Int(row)
+                    ForEach(viewConductor.layoutNotes, id: \.self) { col in
+                        let linearIndex: Int = Int(col) + 12 * Int(row)
                         Group {
-                            if MIDIConductor.isValidMIDI(note) {
-                                let pitch = Pitch.pitch(for: MIDINoteNumber(note))
+                            if MIDIConductor.isValidMIDI(linearIndex) {
+                                let pitch = Pitch.pitch(for: MIDINoteNumber(linearIndex))
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
