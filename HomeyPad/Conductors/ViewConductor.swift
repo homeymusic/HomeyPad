@@ -28,7 +28,7 @@ class ViewConductor: ObservableObject {
                 }
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
+                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
                 }
             }
         }
@@ -42,7 +42,7 @@ class ViewConductor: ObservableObject {
                 }
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
+                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
                 }
             }
         }
@@ -50,7 +50,7 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            Pitch.activatedPitches.forEach { $0.deactivate(midiChannel: midiChannel) }
+            tonalContext.activatedPitches.forEach { $0.deactivate(midiChannel: midiChannel) }
         }
         didSet {
             Task { @MainActor in
@@ -84,7 +84,7 @@ class ViewConductor: ObservableObject {
     }
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
-        Pitch.allPitches.forEach {pitch in
+        tonalContext.allPitches.forEach {pitch in
             pitch.deactivate(midiChannel: midiChannel)
         }
     }
@@ -376,7 +376,7 @@ class ViewConductor: ObservableObject {
 
             // Handle un-touching in non-latching mode
             if !latching {
-                for pitch in Pitch.activatedPitches {
+                for pitch in tonalContext.activatedPitches {
                     if !touchedPitches.contains(pitch) {
                         pitch.deactivate(midiChannel: midiChannel)
                     }

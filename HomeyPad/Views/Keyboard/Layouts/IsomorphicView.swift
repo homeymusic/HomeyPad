@@ -17,7 +17,7 @@ struct IsomorphicView<Content>: View where Content: View {
                         let note: Int = Int(noteClass) + 12 * Int(row)
                         Group {
                             if MIDIConductor.isValidMIDI(note) {
-                                let pitch = Pitch.pitch(for: MIDINoteNumber(note))
+                                let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
                                 KeyboardKeyContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,

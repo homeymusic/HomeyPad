@@ -20,7 +20,7 @@ struct PianoView<Content>: View where Content: View {
                                 if MIDIConductor.isValidMIDI(note) {
                                     let midi = MIDINoteNumber(note)
                                     KeyboardKeyContainerView(conductor: viewConductor,
-                                                             pitch: Pitch.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
+                                                             pitch: tonalContext.pitch(for: midi),                                  keyboardKeyView: keyboardKeyView)
                                     .frame(width: spacer.whiteKeyWidth(geo.size.width))
                                 } else {
                                     Color.clear
@@ -40,7 +40,7 @@ struct PianoView<Content>: View where Content: View {
                                             if MIDIConductor.isValidMIDI(note) {
                                                 let midi = MIDINoteNumber(note)
                                                 KeyboardKeyContainerView(conductor: viewConductor,
-                                                                         pitch: Pitch.pitch(for: midi),
+                                                                         pitch: tonalContext.pitch(for: midi),
                                                                          zIndex: 1,
                                                                          keyboardKeyView: keyboardKeyView)
                                             } else {

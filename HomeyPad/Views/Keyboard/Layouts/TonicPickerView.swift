@@ -13,7 +13,7 @@ struct TonicPickerView<Content>: View where Content: View {
             ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
                 if MIDIConductor.isValidMIDI(note) {
                     KeyboardKeyContainerView(conductor: tonicConductor,
-                                             pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                             pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                                              keyboardKeyView: keyboardKeyView)
                 } else {
                     Color.clear

@@ -19,7 +19,7 @@ struct StringsView<Content>: View where Content: View {
                         } else {
                             let note = viewConductor.openStringsMIDI[string] + fret
                             if (MIDIConductor.isValidMIDI(note)) {
-                                let pitch = Pitch.pitch(for: MIDINoteNumber(note))
+                                let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
                                 KeyboardKeyContainerView(conductor: viewConductor,
                                                          pitch: pitch,
                                                          keyboardKeyView: keyboardKeyView)
