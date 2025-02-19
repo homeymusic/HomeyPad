@@ -28,7 +28,7 @@ class ViewConductor: ObservableObject {
                 }
                 allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
+                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
                 }
             }
         }
@@ -42,7 +42,7 @@ class ViewConductor: ObservableObject {
                 }
                 allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
                 if self.latching {
-                    activePitchesNoteOn(activePitches: Pitch.activatedPitches)
+                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
                 }
             }
         }
@@ -50,7 +50,7 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            Pitch.activatedPitches.forEach { $0.deactivate(midiChannel: midiChannel) }
+            tonalContext.activatedPitches.forEach { $0.deactivate() }
         }
         didSet {
             Task { @MainActor in
@@ -85,13 +85,13 @@ class ViewConductor: ObservableObject {
     
     func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
         Pitch.allPitches.forEach {pitch in
-            pitch.deactivate(midiChannel: midiChannel)
+            pitch.deactivate()
         }
     }
     
-    func activePitchesNoteOn(activePitches: [Pitch]) {
+    func activePitchesNoteOn(activePitches: Set<Pitch>) {
         activePitches.forEach {pitch in
-            pitch.activate(midiChannel: midiChannel)
+            pitch.activate()
         }
     }
     
@@ -358,16 +358,16 @@ class ViewConductor: ObservableObject {
                             if !latchingTouchedPitches.contains(p) {
                                 latchingTouchedPitches.insert(p)
                                 // Toggle pitch activation
-                                if p.isActivated {
-                                    p.deactivate(midiChannel: midiChannel)
+                                if p.isActivated.value {
+                                    p.deactivate()
                                 } else {
-                                    p.activate(midiChannel: midiChannel)
+                                    p.activate()
                                 }
                             }
                         } else {
                             // Non-latching mode: simply activate pitch
-                            if !p.isActivated {
-                                p.activate(midiChannel: midiChannel)
+                            if !p.isActivated.value {
+                                p.activate()
                             }
                         }
                     }
@@ -376,9 +376,9 @@ class ViewConductor: ObservableObject {
 
             // Handle un-touching in non-latching mode
             if !latching {
-                for pitch in Pitch.activatedPitches {
+                for pitch in tonalContext.activatedPitches {
                     if !touchedPitches.contains(pitch) {
-                        pitch.deactivate(midiChannel: midiChannel)
+                        pitch.deactivate()
                     }
                 }
             }

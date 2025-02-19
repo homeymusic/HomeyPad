@@ -6,11 +6,11 @@ public struct KeyboardKeyView: View {
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
     @ObservedObject var keyboardViewConductor: ViewConductor
-    @StateObject private var tonalContext = TonalContext.shared
+    @StateObject var tonalContext = TonalContext.shared
     
     // for tritone in symmetric layout and small keys in piano layout
     var overlayKey: Bool {
-        return (conductor.layoutChoice == .symmetric && pitch.interval.isTritone) || isSmall
+        return (conductor.layoutChoice == .symmetric && pitch.interval(from: tonalContext.tonicPitch).isTritone) || isSmall
     }
     
     var borderWidthApparentSize: CGFloat {
@@ -76,7 +76,7 @@ public struct KeyboardKeyView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        conductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated
+        conductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated.value
     }
 
     var keyColor: Color {
@@ -85,12 +85,12 @@ public struct KeyboardKeyView: View {
         
         switch conductor.paletteChoice {
         case .subtle:
-            activeColor = Color(pitch.interval.majorMinor.color)
+            activeColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)
             inactiveColor = Color(conductor.mainColor)
             return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(conductor.mainColor)
-            inactiveColor = Color(pitch.interval.majorMinor.color)
+            inactiveColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
@@ -100,7 +100,7 @@ public struct KeyboardKeyView: View {
     }
     
     var outlineSize: CGFloat {
-        if pitch.interval.isTonic {
+        if pitch.interval(from: tonalContext.tonicPitch).isTonic {
             return 3.0
         } else {
             return 2.0
@@ -130,7 +130,7 @@ public struct KeyboardKeyView: View {
     }
     
     var outline: Bool {
-        conductor.outlineChoice && (pitch.interval.isTonic || pitch.interval.isOctave)
+        conductor.outlineChoice && (pitch.interval(from: tonalContext.tonicPitch).isTonic || pitch.interval(from: tonalContext.tonicPitch).isOctave)
     }
     
     var isSmall: Bool {
@@ -171,7 +171,7 @@ public struct KeyboardKeyView: View {
     }
     
     var rotation: CGFloat {
-        conductor.layoutChoice == .symmetric && pitch.interval.isTritone ? 45.0 : 0.0
+        conductor.layoutChoice == .symmetric && pitch.interval(from: tonalContext.tonicPitch).isTritone ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {

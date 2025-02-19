@@ -24,7 +24,8 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
             case .piano:
                 PianoView(keyboardKeyView: keyboardKeyView,
                       viewConductor: conductor,
-                      spacer: PianoSpacer(viewConductor: conductor))
+                          spacer: PianoSpacer(tonalContext: TonalContext.shared,
+                                              viewConductor: conductor))
             case .strings:
                 switch conductor.stringsLayoutChoice {
                 case .guitar:
@@ -50,7 +51,9 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
             }
             
         }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in
-            conductor.keyRectInfos = keyRectInfos
+            Task { @MainActor in
+                conductor.keyRectInfos = keyRectInfos
+            }
         }
     }
 }

@@ -50,13 +50,13 @@ struct HelpPopoverView: View {
                         .font(Font.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
-                    GridRow {
-                        intervalClass.consonanceDissonance.image
-                            .foregroundColor(Color(intervalClass.majorMinor.color))
-                        Text("\(intervalClass.shorthand) \(intervalClass.label.capitalized)")
-                    }
-                }
+//                ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
+//                    GridRow {
+//                        intervalClass.consonanceDissonance.image
+//                            .foregroundColor(Color(intervalClass.majorMinor.color))
+//                        Text("\(intervalClass.label.capitalized)")
+//                    }
+//                }
                 GridRow {
                     Text("Pitch Directions")
                         .font(.caption)
