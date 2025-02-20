@@ -30,7 +30,7 @@ struct KeyboardKeyLabelsPopoverView: View {
                                     .gridCellAnchor(.center)
                                     .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
                                 Picker("", selection: $viewConductor.accidental) {
-                                    ForEach(Accidental.allCases) { accidental in
+                                    ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
                                             .tag(accidental as Accidental)
                                     }
