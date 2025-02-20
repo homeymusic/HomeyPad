@@ -9,19 +9,18 @@ struct SymmetricView<Content>: View where Content: View {
 
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
-        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(tonalContext.tonicMIDI))
-        switch majorMinor {
-        case .minor:
+        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(tonalContext.tonicPitch.midiNote.number))
+        if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {
-                    if MIDIConductor.isValidMIDI(note + 1) {
+                    if Pitch.isValidPitch(note + 1) {
                         KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note + 1)),
                                                  keyboardKeyView: keyboardKeyView)
                     } else {
                         Color.clear
                     }
-                    if MIDIConductor.isValidMIDI(note) {
+                    if Pitch.isValidPitch(note) {
                         KeyboardKeyContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                                  keyboardKeyView: keyboardKeyView)
@@ -30,8 +29,7 @@ struct SymmetricView<Content>: View where Content: View {
                     }
                 }
             )
-            
-        case .neutral:
+        } else if (majorMinor == .neutral) {
             let intervalClass: IntervalClass = IntervalClass(distance: note - Int(tonalContext.tonicMIDI))
             if intervalClass == .seven {
                 return AnyView(
@@ -39,7 +37,7 @@ struct SymmetricView<Content>: View where Content: View {
                                              pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                              keyboardKeyView: keyboardKeyView)
                     .overlay {
-                        if MIDIConductor.isValidMIDI(note - 1) && MIDIConductor.isValidMIDI(note - 2) {
+                        if Pitch.isValidPitch(note - 1) && Pitch.isValidPitch(note - 2) {
                             GeometryReader { proxy in
                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                 ZStack {
@@ -47,7 +45,7 @@ struct SymmetricView<Content>: View where Content: View {
                                                              pitch: Pitch.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
                                                              keyboardKeyView: keyboardKeyView)
-                                        .frame(width: ttLength, height: ttLength)
+                                    .frame(width: ttLength, height: ttLength)
                                 }
                                 .offset(x: -ttLength / 2.0,
                                         y: proxy.size.height / 2.0 - ttLength / 2.0)
@@ -55,16 +53,15 @@ struct SymmetricView<Content>: View where Content: View {
                         }
                     }
                 )
-            } else if intervalClass != .six && MIDIConductor.isValidMIDI(note) {
+            } else if intervalClass != .six && Pitch.isValidPitch(note) {
                 return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
-                                               pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                               keyboardKeyView: keyboardKeyView))
+                                                        pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                                        keyboardKeyView: keyboardKeyView))
             } else {
-                return AnyView(Color.clear)
+                return AnyView(EmptyView())
             }
-            
-        default:
-            return AnyView(Color.clear)
+        } else {
+            return AnyView(EmptyView())
         }
     }
     

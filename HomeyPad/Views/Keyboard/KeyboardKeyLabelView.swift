@@ -195,7 +195,7 @@ public struct KeyboardKeyLabelView: View {
         }
         
         var intervalLabels: some View {
-            return ZStack {
+            return Group {
                 if keyboardKeyView.conductor.intervalLabel[.interval]! {
                     overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).intervalClass.shorthand(for: keyboardKeyView.tonalContext.pitchDirection
                                                                                                                                             )))

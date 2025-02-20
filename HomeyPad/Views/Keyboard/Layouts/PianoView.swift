@@ -81,7 +81,7 @@ struct PianoWhiteKeysRow<Content>: View where Content: View {
             ForEach(Pitch.naturalMIDI, id: \.self) { whiteNote in
                 let noteValue = 12 * row + whiteNote.number.intValue
                 Group {
-                    if MIDIConductor.isValidMIDI(noteValue) {
+                    if Pitch.isValidPitch(noteValue) {
                         let midi = MIDINoteNumber(noteValue)
                         KeyboardKeyContainerView(
                             conductor: viewConductor,
@@ -119,7 +119,7 @@ struct PianoWhiteKeysRow<Content>: View where Content: View {
 //                    let noteValue = 12 * row + anyNote.number.intValue
 //                    Group {
 //                        ZStack {
-//                            if MIDIConductor.isValidMIDI(noteValue) {
+//                            if Pitch.isValidPitch(noteValue) {
 //                                let midi = MIDINoteNumber(noteValue)
 //                                if Pitch.accidental(note: midi) {
 //                                    KeyboardKeyContainerView(
