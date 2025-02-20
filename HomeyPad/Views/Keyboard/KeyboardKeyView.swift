@@ -82,7 +82,7 @@ public struct KeyboardKeyView: View {
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
-        
+
         switch conductor.paletteChoice {
         case .subtle:
             activeColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)

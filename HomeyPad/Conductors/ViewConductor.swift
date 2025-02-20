@@ -16,7 +16,7 @@ class ViewConductor: ObservableObject {
         self.layoutRowsCols      = layoutRowsCols
     }
     
-    @StateObject private var tonalContext = TonalContext.shared
+    @StateObject var tonalContext = TonalContext.shared
     
     let animationStyle: Animation = Animation.linear
     
