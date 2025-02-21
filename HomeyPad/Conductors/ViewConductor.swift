@@ -59,13 +59,24 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    public var layoutNotes: ClosedRange<Int> {
+    public var layoutCols: ClosedRange<Int> {
         let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
-        let lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
-        let upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        var lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        var upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        if (self.layoutChoice == .piano) {
+            if tonalContext.tonicPitch.pitchClass == .five {
+                lowerBound = lowerBound - 1
+            } else if tonalContext.tonicPitch.pitchClass == .eleven {
+                upperBound = upperBound - 1
+            }
+        }
         return lowerBound ... upperBound
     }
     
+    public var layoutRows: [Int] {        
+        return (-layoutRowsCols.rowsPerSide[self.layoutChoice]!...layoutRowsCols.rowsPerSide[self.layoutChoice]!).reversed()
+    }
+
     let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
     

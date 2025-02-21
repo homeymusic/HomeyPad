@@ -70,7 +70,7 @@ public struct KeyboardKeyView: View {
         case .loud:
             Color(conductor.brownColor)
         case .ebonyIvory:
-            pitch.accidental ? .white : .black
+            pitch.isNatural ? .black : .white
         }
     }
         
@@ -93,8 +93,8 @@ public struct KeyboardKeyView: View {
             inactiveColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
-            inactiveColor = pitch.accidental ? Color(UIColor.systemGray4) : .white
-            activeColor =   pitch.accidental ? Color(UIColor.systemGray6) : Color(UIColor.systemGray)
+            inactiveColor = pitch.isNatural ? .white : Color(UIColor.systemGray4)
+            activeColor   = pitch.isNatural ? Color(UIColor.systemGray) : Color(UIColor.systemGray6)
             return isActivated ? activeColor : inactiveColor
         }
     }
@@ -134,7 +134,7 @@ public struct KeyboardKeyView: View {
     }
     
     var isSmall: Bool {
-        conductor.layoutChoice == .piano && pitch.accidental
+        conductor.layoutChoice == .piano && !pitch.isNatural
     }
     
     var backgroundBorderSize: CGFloat {

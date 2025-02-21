@@ -254,7 +254,7 @@ public struct KeyboardKeyLabelView: View {
                 activeColor = Color(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).majorMinor.color)
                 inactiveColor = Color(keyboardKeyView.conductor.mainColor)
             case .ebonyIvory:
-                return keyboardKeyView.pitch.accidental ? .white : .black
+                return keyboardKeyView.pitch.isNatural ? .black : .white
             }
             return isActivated ? activeColor : inactiveColor
         }

@@ -9,11 +9,11 @@ struct IsomorphicView<Content>: View where Content: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            let rows = (-viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]! ... viewConductor.layoutRowsCols.rowsPerSide[.isomorphic]!).reversed()
+            let rows = viewConductor.layoutRows
 
             ForEach(rows, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.layoutNotes, id: \.self) { col in
+                    ForEach(viewConductor.layoutCols, id: \.self) { col in
                         let linearIndex: Int = Int(col) + 12 * Int(row)
                         Group {
                             if Pitch.isValidPitch(linearIndex) {

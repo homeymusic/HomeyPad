@@ -23,9 +23,7 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
                           viewConductor: conductor)
             case .piano:
                 PianoView(keyboardKeyView: keyboardKeyView,
-                      viewConductor: conductor,
-                          spacer: PianoSpacer(tonalContext: TonalContext.shared,
-                                              viewConductor: conductor))
+                      viewConductor: conductor)
             case .strings:
                 switch conductor.stringsLayoutChoice {
                 case .guitar:

@@ -5,11 +5,10 @@ import MIDIKitCore
 struct SymmetricView<Content>: View where Content: View {
     let keyboardKeyView: (Pitch) -> Content
     var viewConductor: ViewConductor
-    @StateObject private var tonalContext = TonalContext.shared
 
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
-        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(tonalContext.tonicPitch.midiNote.number))
+        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
         if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {
@@ -30,7 +29,7 @@ struct SymmetricView<Content>: View where Content: View {
                 }
             )
         } else if (majorMinor == .neutral) {
-            let intervalClass: IntervalClass = IntervalClass(distance: note - Int(tonalContext.tonicMIDI))
+            let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
             if intervalClass == .seven {
                 return AnyView(
                     KeyboardKeyContainerView(conductor: viewConductor,
@@ -69,18 +68,18 @@ struct SymmetricView<Content>: View where Content: View {
     var body: some View {
         VStack(spacing: 0) {
             ForEach(
-                (-viewConductor.layoutRowsCols.rowsPerSide[.symmetric]!...viewConductor.layoutRowsCols.rowsPerSide[.symmetric]!).reversed(),
+                viewConductor.layoutRows,
                 id: \.self
             ) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.layoutNotes, id: \.self) { noteClass in
+                    ForEach(viewConductor.layoutCols, id: \.self) { noteClass in
                         let note = Int(noteClass) + 12 * row
                         keyView(for: note)
                     }
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: viewConductor.tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }
