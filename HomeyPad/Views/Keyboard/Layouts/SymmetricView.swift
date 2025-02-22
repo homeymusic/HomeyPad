@@ -31,10 +31,10 @@ struct SymmetricView<Content>: View where Content: View {
         } else if (majorMinor == .neutral) {
             let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
             if intervalClass == .seven {
-                return AnyView(
-                    KeyboardKeyContainerView(conductor: viewConductor,
-                                             pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                             keyboardKeyView: keyboardKeyView)
+                if Pitch.isValidPitch(note) {
+                    return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
+                                                    pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                                    keyboardKeyView: keyboardKeyView)
                     .overlay {
                         if Pitch.isValidPitch(note - 1) && Pitch.isValidPitch(note - 2) {
                             GeometryReader { proxy in
@@ -50,8 +50,10 @@ struct SymmetricView<Content>: View where Content: View {
                                         y: proxy.size.height / 2.0 - ttLength / 2.0)
                             }
                         }
-                    }
-                )
+                    })
+                } else {
+                    return AnyView(Color.clear)
+                }
             } else if intervalClass != .six && Pitch.isValidPitch(note) {
                 return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
                                                         pitch: Pitch.pitch(for: MIDINoteNumber(note)),

@@ -42,7 +42,8 @@ struct PianoView<Content>: View where Content: View {
                                                                  pitch: pitch,
                                                                  zIndex: 1,
                                                                  keyboardKeyView: keyboardKeyView)
-                                        .frame(width: 0.5625 * proxy.size.width, height: 0.53 * proxy.size.height)
+                                        .frame(width: proxy.size.width / viewConductor.goldenRatio,
+                                               height: proxy.size.height / viewConductor.goldenRatio)
                                     }
                                     .offset(x: offset(for: pitch) * proxy.size.width, y: 0.0)
                                 }

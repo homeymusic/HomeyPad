@@ -69,12 +69,9 @@ class ViewConductor: ObservableObject {
         return (-layoutRowsCols.rowsPerSide[self.layoutChoice]!...layoutRowsCols.rowsPerSide[self.layoutChoice]!).reversed()
     }
 
-    let brownColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
-    let creamColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-    
-    var mainColor: Color {
-        return Color(brownColor)
-    }
+    let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
+    let secondaryColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
+    let goldenRatio = (1 + sqrt(5)) / 2
     
     var openStringsMIDI: [Int] {
         stringsLayoutChoice.openStringsMIDI
@@ -302,7 +299,6 @@ class ViewConductor: ObservableObject {
     func resetColsPerSide() {
         layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
     }
-    
     
     func resetRowsPerSide() {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!

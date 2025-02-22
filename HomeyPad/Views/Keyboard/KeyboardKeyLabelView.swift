@@ -99,7 +99,7 @@ public struct KeyboardKeyLabelView: View {
                                     .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
                             }
                                 .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.brownColor))
+                                .background(Color(keyboardKeyView.conductor.primaryColor))
                                 .cornerRadius(3.0)
                         )
                     }
@@ -118,7 +118,7 @@ public struct KeyboardKeyLabelView: View {
                             }
                                 .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.brownColor))
+                                .background(Color(keyboardKeyView.conductor.primaryColor))
                                 .cornerRadius(3.0)
                         )
                     }
@@ -248,11 +248,11 @@ public struct KeyboardKeyLabelView: View {
             let inactiveColor: Color
             switch keyboardKeyView.conductor.paletteChoice {
             case .subtle:
-                activeColor = Color(keyboardKeyView.conductor.mainColor)
+                activeColor = Color(keyboardKeyView.conductor.primaryColor)
                 inactiveColor = Color(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).majorMinor.color)
             case .loud:
                 activeColor = Color(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).majorMinor.color)
-                inactiveColor = Color(keyboardKeyView.conductor.mainColor)
+                inactiveColor = Color(keyboardKeyView.conductor.primaryColor)
             case .ebonyIvory:
                 return keyboardKeyView.pitch.isNatural ? .black : .white
             }

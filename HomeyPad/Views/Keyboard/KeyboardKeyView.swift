@@ -66,9 +66,9 @@ public struct KeyboardKeyView: View {
     var accentColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            Color(conductor.creamColor)
+            Color(conductor.secondaryColor)
         case .loud:
-            Color(conductor.brownColor)
+            Color(conductor.primaryColor)
         case .ebonyIvory:
             pitch.isNatural ? .black : .white
         }
@@ -86,10 +86,10 @@ public struct KeyboardKeyView: View {
         switch conductor.paletteChoice {
         case .subtle:
             activeColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)
-            inactiveColor = Color(conductor.mainColor)
+            inactiveColor = Color(conductor.primaryColor)
             return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
-            activeColor = Color(conductor.mainColor)
+            activeColor = Color(conductor.primaryColor)
             inactiveColor = Color(pitch.interval(from: tonalContext.tonicPitch).majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
@@ -110,9 +110,9 @@ public struct KeyboardKeyView: View {
     var outlineColor: Color {
         switch conductor.paletteChoice {
         case .subtle:
-            return isActivated ? Color(conductor.brownColor) : Color(conductor.creamColor)
+            return isActivated ? Color(conductor.primaryColor) : Color(conductor.secondaryColor)
         case .loud:
-            return isActivated ? Color(conductor.creamColor) : Color(conductor.brownColor)
+            return isActivated ? Color(conductor.secondaryColor) : Color(conductor.primaryColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
