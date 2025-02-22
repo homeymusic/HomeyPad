@@ -75,7 +75,7 @@ public struct KeyboardKeyLabelView: View {
                     overlayText("\("λ") \(keyboardKeyView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                 }
                 if keyboardKeyView.conductor.noteLabel[.wavenumber]! {
-                    overlayText("\("ṽ") \(keyboardKeyView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
+                    overlayText("\("k") \(keyboardKeyView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
                 }
                 if keyboardKeyView.conductor.noteLabel[.period]! {
                     overlayText("\("T") \((keyboardKeyView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
