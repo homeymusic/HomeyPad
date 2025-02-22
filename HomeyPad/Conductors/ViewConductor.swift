@@ -26,10 +26,6 @@ class ViewConductor: ObservableObject {
                 Task { @MainActor in
                     buzz()
                 }
-                allPitchesNoteOff(layoutChoice: oldLayoutChoice, stringsLayoutChoice: self.stringsLayoutChoice)
-                if self.latching {
-                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
-                }
             }
         }
     }
@@ -39,10 +35,6 @@ class ViewConductor: ObservableObject {
             if oldStringsLayoutChoice != stringsLayoutChoice {
                 Task { @MainActor in
                     buzz()
-                }
-                allPitchesNoteOff(layoutChoice: .strings, stringsLayoutChoice: oldStringsLayoutChoice)
-                if self.latching {
-                    activePitchesNoteOn(activePitches: tonalContext.activatedPitches)
                 }
             }
         }
@@ -92,18 +84,6 @@ class ViewConductor: ObservableObject {
     
     var midiChannel: MIDIChannel {
         layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
-    }
-    
-    func allPitchesNoteOff(layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice) {
-        Pitch.allPitches.forEach {pitch in
-            pitch.deactivate()
-        }
-    }
-    
-    func activePitchesNoteOn(activePitches: Set<Pitch>) {
-        activePitches.forEach {pitch in
-            pitch.activate()
-        }
     }
     
     var isPaletteDefault: Bool {
