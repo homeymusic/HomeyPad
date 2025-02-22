@@ -36,7 +36,7 @@ struct TonicPickerKeyLabelsPopoverView: View {
                 }
                 Divider()
                 
-                ForEach(IntervalLabelChoice.allCases, id: \.self) {key in
+                ForEach(IntervalLabelChoice.intervalClassCases, id: \.self) {key in
                     GridRow {
                         key.image
                             .gridCellAnchor(.center)
