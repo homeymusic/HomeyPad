@@ -67,7 +67,7 @@ struct PianoView<Content>: View where Content: View {
                 id: \.self
             ) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.layoutCols, id: \.self) { noteClass in
+                    ForEach(viewConductor.nearbyNotes, id: \.self) { noteClass in
                         let note = Int(noteClass) + 12 * row
                         keyView(for: note)
                     }

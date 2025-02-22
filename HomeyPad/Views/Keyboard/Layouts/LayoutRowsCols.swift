@@ -36,15 +36,15 @@ struct LayoutRowsCols: Codable, Equatable {
             .tonic:      6,
             .isomorphic: 9,
             .symmetric:  13,
-            .piano:      13,
+            .piano:      8,
             .strings:    26
         ]
     case .iPad:
         [
             .tonic:      6,
-            .isomorphic: 12 ,
+            .isomorphic: 12,
             .symmetric:  18,
-            .piano:      18,
+            .piano:      12,
             .strings:    26
         ]
     }
@@ -53,7 +53,7 @@ struct LayoutRowsCols: Codable, Equatable {
         .tonic:      6,
         .isomorphic: 6,
         .symmetric:  6,
-        .piano:      6,
+        .piano:      4,
         .strings:    26
     ]
     
@@ -63,7 +63,7 @@ struct LayoutRowsCols: Codable, Equatable {
             .tonic:      6,
             .isomorphic: 18,
             .symmetric:  18,
-            .piano:      18,
+            .piano:      11,
             .strings:    26
         ]
     case .iPad:

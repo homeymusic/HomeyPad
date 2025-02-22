@@ -10,6 +10,10 @@ struct ContentView: View {
     @StateObject private var tonalContext = TonalContext.shared
 
     init() {
+        // Set up for encoding and decoding the user default dictionaries
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
         // Accidental
         let defaultAccidental: Accidental = .default
         defaults.register(defaults: [
@@ -42,10 +46,6 @@ struct ContentView: View {
             "latching" : false
         ])
         let latching = defaults.bool(forKey: "latching")
-        
-        // Set up for encoding and decoding the user default dictionaries
-        let encoder = JSONEncoder()
-        let decoder = JSONDecoder()
         
         // Set up for layout palettes
         let defaultLayoutPalette = LayoutPalette()

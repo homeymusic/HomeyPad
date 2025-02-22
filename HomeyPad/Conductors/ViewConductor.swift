@@ -51,17 +51,48 @@ class ViewConductor: ObservableObject {
         }
     }
     
+    public var nearbyNotes: [Int] {
+        
+        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
+        let tritoneMIDI =  Int(tonalContext.tonicMIDI) + tritoneSemitones
+        
+        let naturalsPerSide = layoutRowsCols.colsPerSide[self.layoutChoice]!
+        
+        // Make sure naturalsPerSide is positive; if not, just return tritoneMIDI.
+        guard naturalsPerSide > 0 else { return [tritoneMIDI] }
+        
+        // Find the natural note below tritoneMIDI.
+        var lowerCount = 0
+        var lowerBound = tritoneMIDI
+        var candidate = tritoneMIDI - 1
+        while lowerCount < naturalsPerSide {
+            if Pitch.isNatural(candidate) {
+                lowerBound = candidate
+                lowerCount += 1
+            }
+            candidate -= 1
+        }
+        
+        // Find the natural note above tritoneMIDI.
+        var upperCount = 0
+        var upperBound = tritoneMIDI
+        candidate = tritoneMIDI + 1
+        while upperCount < naturalsPerSide {
+            if Pitch.isNatural(candidate) {
+                upperBound = candidate
+                upperCount += 1
+            }
+            candidate += 1
+        }
+        
+        // Return all MIDI note numbers between the two natural notes.
+        return Array(lowerBound...upperBound)
+    }
+    
     public var layoutCols: ClosedRange<Int> {
         let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
-        var lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
-        var upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
-        if (self.layoutChoice == .piano) {
-            if tonalContext.tonicPitch.pitchClass == .five {
-                lowerBound = lowerBound - 1
-            } else if tonalContext.tonicPitch.pitchClass == .eleven {
-                upperBound = upperBound - 1
-            }
-        }
+        let lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        let upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
         return lowerBound ... upperBound
     }
     
