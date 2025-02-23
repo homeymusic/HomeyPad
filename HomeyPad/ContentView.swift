@@ -144,19 +144,32 @@ struct ContentView: View {
                     VStack {
                         // Tonic Picker
                         if showTonicPicker {
-                            KeyboardView(conductor: tonicConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
-                                                conductor: tonicConductor,
-                                                keyboardViewConductor: viewConductor)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            VStack {
+                                
+                                KeyboardView(conductor: tonicConductor) { pitch in
+                                    KeyboardKeyView(pitch: pitch,
+                                                    conductor: tonicConductor,
+                                                    keyboardViewConductor: viewConductor)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                }
+                                .aspectRatio(13.0, contentMode: .fit)
+                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
+                                
+                                KeyboardView(conductor: tonicConductor) { pitch in
+                                    KeyboardKeyView(pitch: pitch,
+                                                    conductor: tonicConductor,
+                                                    keyboardViewConductor: viewConductor)
+                                    .aspectRatio(2.0, contentMode: .fit)
+                                }
+                                .aspectRatio(13.0 * 2.0, contentMode: .fit)
+                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
+                                
                             }
-                            .aspectRatio(13.0, contentMode: .fit)
                             .padding(7.0)
                             .background {
                                 RoundedRectangle(cornerRadius: 7.0)
                                     .fill(Color(UIColor.systemGray6))
                             }
-                            .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                         }
                         if viewConductor.isOneRowOnTablet  {
                             KeyboardView(conductor: viewConductor) { pitch in

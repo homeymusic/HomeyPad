@@ -40,8 +40,7 @@ public struct KeyboardKeyLabelView: View {
                 }
                 VStack(spacing: 1) {
                     noteLabels
-                    modeLabel
-                    plotIconLabel
+                    plotModeLabel
                     monthLabel
                     symbolIcon
                     intervalLabels
@@ -89,38 +88,32 @@ public struct KeyboardKeyLabelView: View {
             }
         }
         
-        var modeLabel: some View {
-            if keyboardKeyView.conductor.noteLabel[.mode]! {
+        var plotModeLabel: some View {
+            if keyboardKeyView.conductor.noteLabel[.mode]! || keyboardKeyView.conductor.noteLabel[.plot]! {
                 return AnyView(
                     HStack(spacing: 0.0) {
-                        Color.clear.overlay(
-                            HStack(spacing: 1.0) {
-                                Text(keyboardKeyView.pitch.mode.shortHand)
-                                    .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
-                            }
-                                .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.primaryColor))
-                                .cornerRadius(3.0)
-                        )
-                    }
-                )
-            }
-            return AnyView(EmptyView())
-        }
-        
-        var plotIconLabel: some View {
-            if keyboardKeyView.conductor.noteLabel[.plot]! {
-                return AnyView(
-                    HStack(spacing: 0.0) {
-                        Color.clear.overlay(
-                            HStack(spacing: 1.0) {
-                                plotIconImages
-                            }
-                                .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
-                                .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.primaryColor))
-                                .cornerRadius(3.0)
-                        )
+                        if keyboardKeyView.conductor.noteLabel[.mode]! {
+                            Color.clear.overlay(
+                                HStack(spacing: 1.0) {
+                                    Text(keyboardKeyView.pitch.mode.shortHand)
+                                        .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
+                                }
+                                    .padding(2.0)
+                                    .background(Color(keyboardKeyView.conductor.primaryColor))
+                                    .cornerRadius(3.0)
+                            )
+                        }
+                        if keyboardKeyView.conductor.noteLabel[.plot]! {
+                            Color.clear.overlay(
+                                HStack(spacing: 1.0) {
+                                    plotIconImages
+                                }
+                                    .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
+                                    .padding(2.0)
+                                    .background(Color(keyboardKeyView.conductor.primaryColor))
+                                    .cornerRadius(3.0)
+                            )
+                        }
                     }
                 )
             }
@@ -241,8 +234,8 @@ public struct KeyboardKeyLabelView: View {
         var isActivated: Bool {
             keyboardKeyView.conductor.layoutChoice == .tonic ? keyboardKeyView.pitch.pitchClass.isActivated : keyboardKeyView.pitch.isActivated.value
         }
-
-
+        
+        
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
