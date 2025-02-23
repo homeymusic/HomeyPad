@@ -155,14 +155,17 @@ struct ContentView: View {
                                 .aspectRatio(13.0, contentMode: .fit)
                                 .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
-                                KeyboardView(conductor: tonicConductor) { pitch in
-                                    KeyboardKeyView(pitch: pitch,
-                                                    conductor: tonicConductor,
-                                                    keyboardViewConductor: viewConductor)
-                                    .aspectRatio(2.0, contentMode: .fit)
+                                if tonicConductor.noteLabel[.mode]! || tonicConductor.noteLabel[.plot]! {
+                                    KeyboardView(conductor: tonicConductor) { pitch in
+                                        KeyboardKeyView(pitch: pitch,
+                                                        conductor: tonicConductor,
+                                                        keyboardViewConductor: viewConductor,
+                                                        isModePicker: true)
+                                        .aspectRatio(2.0, contentMode: .fit)
+                                    }
+                                    .aspectRatio(13.0 * 2.0, contentMode: .fit)
+                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 }
-                                .aspectRatio(13.0 * 2.0, contentMode: .fit)
-                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
                             }
                             .padding(7.0)

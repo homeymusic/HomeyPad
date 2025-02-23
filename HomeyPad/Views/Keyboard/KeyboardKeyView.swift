@@ -6,6 +6,7 @@ public struct KeyboardKeyView: View {
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
     @ObservedObject var keyboardViewConductor: ViewConductor
+    var isModePicker = false
     @StateObject var tonalContext = TonalContext.shared
     
     // for tritone in symmetric layout and small keys in piano layout
@@ -41,13 +42,13 @@ public struct KeyboardKeyView: View {
                                     .overlay(alignment: alignment) {
                                         KeyRectangle(fillColor: outlineKeyColor, keyboardKeyView: self, proxySize: proxy.size)
                                             .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
-                                            .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                            .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size, isModePicker: isModePicker)
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     }
                             } else {
                                 KeyRectangle(fillColor: keyColor, keyboardKeyView: self, proxySize: proxy.size)
                                     .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
-                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size, isModePicker: isModePicker)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     .padding(.leading,  leadingOffset)
                                     .padding(.trailing,  trailingOffset)

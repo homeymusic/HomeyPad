@@ -4,6 +4,7 @@ import HomeyMusicKit
 public struct KeyboardKeyLabelView: View {
     var keyboardKeyView: KeyboardKeyView
     var proxySize: CGSize
+    var isModePicker = false
     
     var isSymmetricNotTritone: Bool {
         keyboardKeyView.conductor.layoutChoice == .symmetric && !keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).isTritone
@@ -22,7 +23,7 @@ public struct KeyboardKeyLabelView: View {
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, rotation: Angle.degrees(180))
                     .padding([.top, .bottom], extraPadding)
             } else {
-                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, isModePicker: isModePicker)
                     .padding([.top, .bottom], extraPadding)
             }
         }
@@ -32,18 +33,22 @@ public struct KeyboardKeyLabelView: View {
         let keyboardKeyView: KeyboardKeyView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
-        
+        var isModePicker = false
+
         var body: some View {
             VStack(spacing: 2) {
                 if keyboardKeyView.conductor.layoutChoice == .piano {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {
-                    noteLabels
-                    plotModeLabel
-                    monthLabel
-                    symbolIcon
-                    intervalLabels
+                    if !isModePicker {
+                        noteLabels
+                        monthLabel
+                        symbolIcon
+                        intervalLabels
+                    } else {
+                        plotModeLabel
+                    }
                 }
             }
             .padding(2.0)

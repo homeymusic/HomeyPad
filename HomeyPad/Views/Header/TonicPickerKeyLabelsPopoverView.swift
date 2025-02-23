@@ -34,6 +34,7 @@ struct TonicPickerKeyLabelsPopoverView: View {
                         }
                     }
                 }
+                
                 Divider()
                 
                 ForEach(IntervalLabelChoice.intervalClassCases, id: \.self) {key in
@@ -49,6 +50,21 @@ struct TonicPickerKeyLabelsPopoverView: View {
                         Divider()
                     }
                 }
+                
+                Divider()
+                
+                ForEach(NoteLabelChoice.modeCases, id: \.self) {key in
+                    GridRow {
+                        key.image
+                            .gridCellAnchor(.center)
+                            .foregroundColor(.white)
+                        Toggle(key.label,
+                               isOn: viewConductor.noteLabelBinding(for: key))
+                        .tint(Color.gray)
+                        .foregroundColor(.white)
+                    }
+                }
+                
             }
             .padding(10)
         }
