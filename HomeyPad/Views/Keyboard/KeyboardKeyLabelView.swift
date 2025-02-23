@@ -4,7 +4,6 @@ import HomeyMusicKit
 public struct KeyboardKeyLabelView: View {
     var keyboardKeyView: KeyboardKeyView
     var proxySize: CGSize
-    var isModePicker = false
     
     var isSymmetricNotTritone: Bool {
         keyboardKeyView.conductor.layoutChoice == .symmetric && !keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).isTritone
@@ -23,7 +22,7 @@ public struct KeyboardKeyLabelView: View {
                 Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, rotation: Angle.degrees(180))
                     .padding([.top, .bottom], extraPadding)
             } else {
-                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, isModePicker: isModePicker)
+                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
             }
         }
@@ -33,7 +32,6 @@ public struct KeyboardKeyLabelView: View {
         let keyboardKeyView: KeyboardKeyView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
-        var isModePicker = false
 
         var body: some View {
             VStack(spacing: 2) {
@@ -41,7 +39,7 @@ public struct KeyboardKeyLabelView: View {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {
-                    if !isModePicker {
+                    if !(keyboardKeyView.conductor.layoutChoice == .mode) {
                         noteLabels
                         monthLabel
                         symbolIcon
@@ -94,35 +92,32 @@ public struct KeyboardKeyLabelView: View {
         }
         
         var plotModeLabel: some View {
-            if keyboardKeyView.conductor.noteLabel[.mode]! || keyboardKeyView.conductor.noteLabel[.plot]! {
-                return AnyView(
-                    HStack(spacing: 0.0) {
-                        if keyboardKeyView.conductor.noteLabel[.mode]! {
-                            Color.clear.overlay(
-                                HStack(spacing: 1.0) {
-                                    Text(keyboardKeyView.pitch.mode.shortHand)
-                                        .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
-                                }
-                                    .padding(2.0)
-                                    .background(Color(keyboardKeyView.conductor.primaryColor))
-                                    .cornerRadius(3.0)
-                            )
-                        }
-                        if keyboardKeyView.conductor.noteLabel[.plot]! {
-                            Color.clear.overlay(
-                                HStack(spacing: 1.0) {
-                                    plotIconImages
-                                }
-                                    .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
-                                    .padding(2.0)
-                                    .background(Color(keyboardKeyView.conductor.primaryColor))
-                                    .cornerRadius(3.0)
-                            )
-                        }
+            AnyView(
+                HStack(spacing: 0.0) {
+                    if keyboardKeyView.conductor.noteLabel[.mode]! {
+                        Color.clear.overlay(
+                            HStack(spacing: 1.0) {
+                                Text(keyboardKeyView.pitch.mode.shortHand)
+                                    .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
+                            }
+                                .padding(2.0)
+                                .background(Color(keyboardKeyView.conductor.primaryColor))
+                                .cornerRadius(3.0)
+                        )
                     }
-                )
-            }
-            return AnyView(EmptyView())
+                    if keyboardKeyView.conductor.noteLabel[.plot]! {
+                        Color.clear.overlay(
+                            HStack(spacing: 1.0) {
+                                plotIconImages
+                            }
+                                .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
+                                .padding(2.0)
+                                .background(Color(keyboardKeyView.conductor.primaryColor))
+                                .cornerRadius(3.0)
+                        )
+                    }
+                }
+            )
         }
         
         var plotIconImages: some View {

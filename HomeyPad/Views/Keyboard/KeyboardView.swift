@@ -15,6 +15,9 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
             case .tonic:
                 TonicPickerView(keyboardKeyView: keyboardKeyView,
                       tonicConductor: conductor)
+            case .mode:
+                TonicPickerView(keyboardKeyView: keyboardKeyView,
+                      tonicConductor: conductor)
             case .isomorphic:
                 IsomorphicView(keyboardKeyView: keyboardKeyView,
                            viewConductor: conductor)

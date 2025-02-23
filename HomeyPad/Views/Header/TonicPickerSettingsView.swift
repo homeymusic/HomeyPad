@@ -3,6 +3,7 @@ import HomeyMusicKit
 
 struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var modeConductor: ViewConductor    
     @Binding var showTonicPicker: Bool
     @StateObject private var tonalContext = TonalContext.shared
 
@@ -29,7 +30,7 @@ struct TonicPickerSettingsView: View {
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView(.vertical) {
-                            TonicPickerKeyLabelsPopoverView(viewConductor: tonicConductor)
+                            TonicPickerKeyLabelsPopoverView(tonicConductor: tonicConductor, modeConductor: modeConductor)
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)

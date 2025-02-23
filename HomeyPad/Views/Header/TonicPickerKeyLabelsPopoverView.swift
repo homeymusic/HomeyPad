@@ -1,7 +1,8 @@
 import SwiftUI
 import HomeyMusicKit
 struct TonicPickerKeyLabelsPopoverView: View {
-    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var modeConductor: ViewConductor
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -13,7 +14,7 @@ struct TonicPickerKeyLabelsPopoverView: View {
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: viewConductor.noteLabelBinding(for: key))
+                                   isOn: tonicConductor.noteLabelBinding(for: key))
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
@@ -21,15 +22,15 @@ struct TonicPickerKeyLabelsPopoverView: View {
                             GridRow {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
-                                Picker("", selection: $viewConductor.accidental) {
+                                    .foregroundColor(tonicConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
+                                Picker("", selection: $tonicConductor.accidental) {
                                     ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
                                             .tag(accidental as Accidental)
                                     }
                                 }
                                 .pickerStyle(.segmented)
-                                .disabled(!viewConductor.enableAccidentalPicker())
+                                .disabled(!tonicConductor.enableAccidentalPicker())
                             }
                         }
                     }
@@ -43,7 +44,7 @@ struct TonicPickerKeyLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: viewConductor.intervalLabelBinding(for: key))
+                               isOn: tonicConductor.intervalLabelBinding(for: key))
                         .tint(Color.gray)
                     }
                     if key == .symbol {
@@ -59,7 +60,7 @@ struct TonicPickerKeyLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: viewConductor.noteLabelBinding(for: key))
+                               isOn: modeConductor.noteLabelBinding(for: key))
                         .tint(Color.gray)
                         .foregroundColor(.white)
                     }

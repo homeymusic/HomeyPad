@@ -6,9 +6,14 @@ struct ContentView: View {
     let defaults = UserDefaults.standard
     @State var showTonicPicker: Bool
     @StateObject private var tonicConductor: ViewConductor
+    @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
-
+    
+    var showModePicker: Bool {
+        modeConductor.noteLabel[.mode]! || modeConductor.noteLabel[.plot]!
+    }
+    
     init() {
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
@@ -107,7 +112,6 @@ struct ContentView: View {
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
         
-        // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
             layoutChoice: .tonic,
@@ -116,6 +120,14 @@ struct ContentView: View {
             sendTonicState: true
         ))
         
+        _modeConductor = StateObject(wrappedValue: ViewConductor(
+            accidental: accidental,
+            layoutChoice: .mode,
+            layoutPalette: viewLayoutPalette,
+            layoutLabel: tonicLayoutLabel,
+            sendTonicState: true
+        ))
+
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
             layoutChoice: layoutChoice,
@@ -136,7 +148,7 @@ struct ContentView: View {
                 ZStack() {
                     // Header
                     VStack {
-                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
+                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, modeConductor: modeConductor, showTonicPicker: $showTonicPicker)
                             .frame(height: settingsHeight)
                         Spacer()
                     }
@@ -155,12 +167,11 @@ struct ContentView: View {
                                 .aspectRatio(13.0, contentMode: .fit)
                                 .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
-                                if tonicConductor.noteLabel[.mode]! || tonicConductor.noteLabel[.plot]! {
-                                    KeyboardView(conductor: tonicConductor) { pitch in
+                                if showModePicker {
+                                    KeyboardView(conductor: modeConductor) { pitch in
                                         KeyboardKeyView(pitch: pitch,
-                                                        conductor: tonicConductor,
-                                                        keyboardViewConductor: viewConductor,
-                                                        isModePicker: true)
+                                                        conductor: modeConductor,
+                                                        keyboardViewConductor: viewConductor)
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
