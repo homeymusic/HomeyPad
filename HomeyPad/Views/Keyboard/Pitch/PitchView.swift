@@ -33,21 +33,21 @@ public struct PitchView: View {
             ZStack(alignment: conductor.layoutChoice == .piano ? .bottom : .center) {
                 
                 ZStack(alignment: alignment) {
-                    KeyRectangle(fillColor: conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, keyboardKeyView: self, proxySize: proxy.size)
+                    KeyRectangle(fillColor: conductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, pitchView: self, proxySize: proxy.size)
                         .overlay(alignment: alignment) {
                             if outline {
-                                KeyRectangle(fillColor: outlineColor, keyboardKeyView: self, proxySize: proxy.size)
+                                KeyRectangle(fillColor: outlineColor, pitchView: self, proxySize: proxy.size)
                                     .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
                                     .overlay(alignment: alignment) {
-                                        KeyRectangle(fillColor: outlineKeyColor, keyboardKeyView: self, proxySize: proxy.size)
+                                        KeyRectangle(fillColor: outlineKeyColor, pitchView: self, proxySize: proxy.size)
                                             .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
-                                            .overlay(PitchLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                            .overlay(PitchLabelView(pitchView: self, proxySize: proxy.size)
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     }
                             } else {
-                                KeyRectangle(fillColor: keyColor, keyboardKeyView: self, proxySize: proxy.size)
+                                KeyRectangle(fillColor: keyColor, pitchView: self, proxySize: proxy.size)
                                     .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
-                                    .overlay(PitchLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                    .overlay(PitchLabelView(pitchView: self, proxySize: proxy.size)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     .padding(.leading,  leadingOffset)
                                     .padding(.trailing,  trailingOffset)
@@ -185,17 +185,17 @@ public struct PitchView: View {
 
 struct KeyRectangle: View {
     var fillColor: Color
-    var keyboardKeyView: PitchView
+    var pitchView: PitchView
     var proxySize: CGSize
     
     var body: some View {
         Rectangle()
             .fill(fillColor)
-            .padding(.top, keyboardKeyView.topPadding(proxySize))
-            .padding(.leading, keyboardKeyView.leadingPadding(proxySize))
-            .padding(.trailing, keyboardKeyView.trailingPadding(proxySize))
-            .cornerRadius(keyboardKeyView.relativeCornerRadius(in: proxySize))
-            .padding(.top, keyboardKeyView.negativeTopPadding(proxySize))
-            .rotationEffect(.degrees(keyboardKeyView.rotation))
+            .padding(.top, pitchView.topPadding(proxySize))
+            .padding(.leading, pitchView.leadingPadding(proxySize))
+            .padding(.trailing, pitchView.trailingPadding(proxySize))
+            .cornerRadius(pitchView.relativeCornerRadius(in: proxySize))
+            .padding(.top, pitchView.negativeTopPadding(proxySize))
+            .rotationEffect(.degrees(pitchView.rotation))
     }
 }

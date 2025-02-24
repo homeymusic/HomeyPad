@@ -1,6 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
-struct TonicPickerKeyLabelsPopoverView: View {
+struct TonicPickerPitchLabelsPopoverView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
     

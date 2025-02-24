@@ -3,30 +3,30 @@ import HomeyMusicKit
 
 /// This handles the interaction for key, so the user can provide their own
 /// visual representation.
-public struct PitchContainerView<Content: View>: View {
-    let pitchView: (Pitch) -> Content
+public struct ModeContainerView<Content: View>: View {
+    let modeView: (Mode) -> Content
 
-    var pitch: Pitch
+    var mode: Mode
     @ObservedObject var conductor: ViewConductor
     
     var zIndex: Int
     
     init(conductor: ViewConductor,
-         pitch: Pitch,
+         mode: Mode,
          zIndex: Int = 0,
-         @ViewBuilder pitchView: @escaping (Pitch) -> Content)
-    {        
+         @ViewBuilder modeView: @escaping (Mode) -> Content)
+    {
         self.conductor = conductor
-        self.pitch = pitch
+        self.mode = mode
         self.zIndex = zIndex
-        self.pitchView = pitchView
+        self.modeView = modeView
     }
 
     func rect(rect: CGRect) -> some View {
-        pitchView(pitch)
-            .preference(key: PitchRectsKey.self,
-                        value: [PitchRectInfo(rect: rect,
-                                            pitch: pitch,
+        modeView(mode)
+            .preference(key: ModeRectsKey.self,
+                        value: [ModeRectInfo(rect: rect,
+                                            mode: mode,
                                             zIndex: zIndex)])
     }
 

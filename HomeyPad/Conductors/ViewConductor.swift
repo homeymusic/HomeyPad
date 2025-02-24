@@ -335,7 +335,8 @@ class ViewConductor: ObservableObject {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
     }
     
-    var keyRectInfos: [PitchRectInfo] = []
+    var pitchRectInfos: [PitchRectInfo] = []
+    var modeRectInfos: [ModeRectInfo] = []
     
     var isOneRowOnTablet : Bool {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
@@ -354,9 +355,9 @@ class ViewConductor: ObservableObject {
                 var highestZindex = -1
 
                 // Find the pitch at this location with the highest Z-index
-                print("keyRectInfos", keyRectInfos)
+                print("keyRectInfos", pitchRectInfos)
                 print("location", location)
-                for info in keyRectInfos where info.rect.contains(location) {
+                for info in pitchRectInfos where info.rect.contains(location) {
                     print("info in keyRectInfos", info)
                     if pitch == nil || info.zIndex > highestZindex {
                         print("pitch == nil", pitch == nil)

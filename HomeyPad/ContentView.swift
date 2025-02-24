@@ -95,7 +95,7 @@ struct ContentView: View {
                 modeLayoutLabel = loadedModeLayoutLabel
             }
         }
-
+        
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
                 "viewLayoutLabel" : encodedDefaultLayoutLabel
@@ -140,7 +140,7 @@ struct ContentView: View {
             layoutLabel: modeLayoutLabel,
             sendTonicState: false
         ))
-
+        
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
             layoutChoice: layoutChoice,
@@ -171,20 +171,20 @@ struct ContentView: View {
                         if showTonicPicker {
                             VStack {
                                 
-                                KeyboardView(conductor: tonicConductor) { pitch in
+                                PitchKeyboardView(conductor: tonicConductor) { pitch in
                                     PitchView(pitch: pitch,
-                                                    conductor: tonicConductor,
-                                                    keyboardViewConductor: viewConductor)
+                                              conductor: tonicConductor,
+                                              keyboardViewConductor: viewConductor)
                                     .aspectRatio(1.0, contentMode: .fit)
                                 }
                                 .aspectRatio(13.0, contentMode: .fit)
                                 .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
                                 if showModePicker {
-                                    KeyboardView(conductor: modeConductor) { pitch in
-                                        PitchView(pitch: pitch,
-                                                        conductor: modeConductor,
-                                                        keyboardViewConductor: viewConductor)
+                                    ModeKeyboardView(conductor: modeConductor) { mode in
+                                        ModeView(mode: mode,
+                                                 conductor: modeConductor,
+                                                 keyboardViewConductor: viewConductor)
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
@@ -199,20 +199,20 @@ struct ContentView: View {
                             }
                         }
                         if viewConductor.isOneRowOnTablet  {
-                            KeyboardView(conductor: viewConductor) { pitch in
+                            PitchKeyboardView(conductor: viewConductor) { pitch in
                                 PitchView(pitch: pitch,
-                                                conductor: viewConductor,
-                                                keyboardViewConductor: viewConductor)
+                                          conductor: viewConductor,
+                                          keyboardViewConductor: viewConductor)
                             }
                             .aspectRatio(4.0, contentMode: .fit)
                             .ignoresSafeArea(edges:.horizontal)
                         }
                         
                         if !viewConductor.isOneRowOnTablet {
-                            KeyboardView(conductor: viewConductor) { pitch in
+                            PitchKeyboardView(conductor: viewConductor) { pitch in
                                 PitchView(pitch: pitch,
-                                                conductor: viewConductor,
-                                                keyboardViewConductor: viewConductor)
+                                          conductor: viewConductor,
+                                          keyboardViewConductor: viewConductor)
                             }
                             .ignoresSafeArea(edges:.horizontal)
                         }

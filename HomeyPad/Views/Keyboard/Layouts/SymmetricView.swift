@@ -3,7 +3,7 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct SymmetricView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     var viewConductor: ViewConductor
 
     // MARK: - Helper for rendering a key view for a given note
@@ -15,14 +15,14 @@ struct SymmetricView<Content>: View where Content: View {
                     if Pitch.isValidPitch(note + 1) {
                         PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note + 1)),
-                                                 keyboardKeyView: keyboardKeyView)
+                                                 pitchView: pitchView)
                     } else {
                         Color.clear
                     }
                     if Pitch.isValidPitch(note) {
                         PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                 keyboardKeyView: keyboardKeyView)
+                                                 pitchView: pitchView)
                     } else {
                         Color.clear
                     }
@@ -34,7 +34,7 @@ struct SymmetricView<Content>: View where Content: View {
                 if Pitch.isValidPitch(note) {
                     return AnyView(PitchContainerView(conductor: viewConductor,
                                                     pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                    keyboardKeyView: keyboardKeyView)
+                                                    pitchView: pitchView)
                     .overlay {
                         if Pitch.isValidPitch(note - 1) && Pitch.isValidPitch(note - 2) {
                             GeometryReader { proxy in
@@ -43,7 +43,7 @@ struct SymmetricView<Content>: View where Content: View {
                                     PitchContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
-                                                             keyboardKeyView: keyboardKeyView)
+                                                             pitchView: pitchView)
                                     .frame(width: ttLength, height: ttLength)
                                 }
                                 .offset(x: -ttLength / 2.0,
@@ -57,7 +57,7 @@ struct SymmetricView<Content>: View where Content: View {
             } else if intervalClass != .six && Pitch.isValidPitch(note) {
                 return AnyView(PitchContainerView(conductor: viewConductor,
                                                         pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                        keyboardKeyView: keyboardKeyView))
+                                                        pitchView: pitchView))
             } else {
                 return AnyView(EmptyView())
             }

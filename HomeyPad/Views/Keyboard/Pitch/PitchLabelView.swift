@@ -2,44 +2,44 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct PitchLabelView: View {
-    var keyboardKeyView: PitchView
+    var pitchView: PitchView
     var proxySize: CGSize
     
     var isSymmetricNotTritone: Bool {
-        keyboardKeyView.conductor.layoutChoice == .symmetric && !keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).isTritone
+        pitchView.conductor.layoutChoice == .symmetric && !pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTritone
     }
     
     public var body: some View {
-        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * keyboardKeyView.conductor.tritoneLength(proxySize: proxySize) : 0.0
-        let topBottomPadding = keyboardKeyView.outline ? 0.0 : 0.5 * keyboardKeyView.outlineHeight
+        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * pitchView.conductor.tritoneLength(proxySize: proxySize) : 0.0
+        let topBottomPadding = pitchView.outline ? 0.0 : 0.5 * pitchView.outlineHeight
         let extraPadding = tritonePadding + topBottomPadding
         VStack(spacing: 0.0) {
-            if keyboardKeyView.conductor.layoutChoice == .symmetric && keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).consonanceDissonance > .consonant {
-                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+            if pitchView.conductor.layoutChoice == .symmetric && pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance > .consonant {
+                Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
                 Color.clear
-                    .frame(height: keyboardKeyView.outline ? 2 * keyboardKeyView.backgroundBorderSize : keyboardKeyView.backgroundBorderSize)
-                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize, rotation: Angle.degrees(180))
+                    .frame(height: pitchView.outline ? 2 * pitchView.backgroundBorderSize : pitchView.backgroundBorderSize)
+                Labels(pitchView: pitchView, proxySize: proxySize, rotation: Angle.degrees(180))
                     .padding([.top, .bottom], extraPadding)
             } else {
-                Labels(keyboardKeyView: keyboardKeyView, proxySize: proxySize)
+                Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
             }
         }
     }
     
     struct Labels: View {
-        let keyboardKeyView: PitchView
+        let pitchView: PitchView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
 
         var body: some View {
             VStack(spacing: 2) {
-                if keyboardKeyView.conductor.layoutChoice == .piano {
+                if pitchView.conductor.layoutChoice == .piano {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {
-                    if !(keyboardKeyView.conductor.layoutChoice == .mode) {
+                    if !(pitchView.conductor.layoutChoice == .mode) {
                         noteLabels
                         monthLabel
                         symbolIcon
@@ -64,29 +64,29 @@ public struct PitchLabelView: View {
         
         var noteLabels: some View {
             Group {
-                if keyboardKeyView.conductor.noteLabel[.letter]! {
-                    overlayText("\(keyboardKeyView.pitch.letter(keyboardKeyView.conductor.accidental))\(octave)")
+                if pitchView.conductor.noteLabel[.letter]! {
+                    overlayText("\(pitchView.pitch.letter(pitchView.conductor.accidental))\(octave)")
                 }
-                if keyboardKeyView.conductor.noteLabel[.fixedDo]! {
-                    overlayText("\(keyboardKeyView.pitch.fixedDo(keyboardKeyView.conductor.accidental))\(octave)")
+                if pitchView.conductor.noteLabel[.fixedDo]! {
+                    overlayText("\(pitchView.pitch.fixedDo(pitchView.conductor.accidental))\(octave)")
                 }
-                if keyboardKeyView.conductor.noteLabel[.midi]! {
-                    overlayText(String(keyboardKeyView.pitch.midiNote.number))
+                if pitchView.conductor.noteLabel[.midi]! {
+                    overlayText(String(pitchView.pitch.midiNote.number))
                 }
-                if keyboardKeyView.conductor.noteLabel[.wavelength]! {
-                    overlayText("\("λ") \(keyboardKeyView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
+                if pitchView.conductor.noteLabel[.wavelength]! {
+                    overlayText("\("λ") \(pitchView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                 }
-                if keyboardKeyView.conductor.noteLabel[.wavenumber]! {
-                    overlayText("\("k") \(keyboardKeyView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
+                if pitchView.conductor.noteLabel[.wavenumber]! {
+                    overlayText("\("k") \(pitchView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
                 }
-                if keyboardKeyView.conductor.noteLabel[.period]! {
-                    overlayText("\("T") \((keyboardKeyView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
+                if pitchView.conductor.noteLabel[.period]! {
+                    overlayText("\("T") \((pitchView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
                 }
-                if keyboardKeyView.conductor.noteLabel[.frequency]! {
-                    overlayText("\("f") \(keyboardKeyView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
+                if pitchView.conductor.noteLabel[.frequency]! {
+                    overlayText("\("f") \(pitchView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
                 }
-                if keyboardKeyView.conductor.noteLabel[.cochlea]! {
-                    overlayText("\(keyboardKeyView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
+                if pitchView.conductor.noteLabel[.cochlea]! {
+                    overlayText("\(pitchView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
                 }
             }
         }
@@ -94,25 +94,25 @@ public struct PitchLabelView: View {
         var plotModeLabel: some View {
             AnyView(
                 HStack(spacing: 0.0) {
-                    if keyboardKeyView.conductor.noteLabel[.mode]! {
+                    if pitchView.conductor.noteLabel[.mode]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
-                                Text(keyboardKeyView.pitch.mode.shortHand)
-                                    .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
+                                Text(pitchView.pitch.mode.shortHand)
+                                    .foregroundColor(Color(pitchView.pitch.mode.majorMinor.color))
                             }
                                 .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.primaryColor))
+                                .background(Color(pitchView.conductor.primaryColor))
                                 .cornerRadius(3.0)
                         )
                     }
-                    if keyboardKeyView.conductor.noteLabel[.plot]! {
+                    if pitchView.conductor.noteLabel[.plot]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 plotIconImages
                             }
-                                .aspectRatio(keyboardKeyView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
+                                .aspectRatio(pitchView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
-                                .background(Color(keyboardKeyView.conductor.primaryColor))
+                                .background(Color(pitchView.conductor.primaryColor))
                                 .cornerRadius(3.0)
                         )
                     }
@@ -127,22 +127,22 @@ public struct PitchLabelView: View {
                     .scaledToFit()
                     .foregroundColor(.clear)
                     .overlay(
-                        Image(systemName: keyboardKeyView.pitch.mode.pitchDirection.icon)
+                        Image(systemName: pitchView.pitch.mode.pitchDirection.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(keyboardKeyView.pitch.mode.pitchDirection.majorMinor.color))
+                            .foregroundColor(Color(pitchView.pitch.mode.pitchDirection.majorMinor.color))
                     )
                 Image(systemName: "square")
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(.clear)
                     .overlay(
-                        Image(systemName: keyboardKeyView.pitch.mode.chordShape.icon)
+                        Image(systemName: pitchView.pitch.mode.chordShape.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(keyboardKeyView.pitch.mode.chordShape.majorMinor.color))
+                            .foregroundColor(Color(pitchView.pitch.mode.chordShape.majorMinor.color))
                     )
-                if keyboardKeyView.pitch.mode.scale == .pentatonic {
+                if pitchView.pitch.mode.scale == .pentatonic {
                     Image(systemName: "square")
                         .resizable()
                         .scaledToFit()
@@ -151,17 +151,17 @@ public struct PitchLabelView: View {
                             Image(systemName: Scale.pentatonic.icon)
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(Color(keyboardKeyView.pitch.mode.majorMinor.color))
+                                .foregroundColor(Color(pitchView.pitch.mode.majorMinor.color))
                         )
                 }
             }
         }
         
         var monthLabel: some View {
-            if keyboardKeyView.conductor.noteLabel[.month]! {
+            if pitchView.conductor.noteLabel[.month]! {
                 return AnyView(
                     Color.clear.overlay(
-                        Text("\(Calendar.current.shortMonthSymbols[(keyboardKeyView.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
+                        Text("\(Calendar.current.shortMonthSymbols[(pitchView.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
                     )
                 )
             }
@@ -169,18 +169,18 @@ public struct PitchLabelView: View {
         }
         
         var symbolIcon: some View {
-            if keyboardKeyView.conductor.showSymbols {
+            if pitchView.conductor.showSymbols {
                 return AnyView(
                     Color.clear.overlay(
-                        keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).consonanceDissonance.image
+                        pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.image
                             .resizable()
                             .rotationEffect(rotation)
                             .scaledToFit()
-                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).consonanceDissonance.fontWeight))
-                            .frame(maxWidth: (keyboardKeyView.isSmall ? 0.6 : 0.5) * keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.width,
-                                   maxHeight: 0.8 * keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.height / CGFloat(keyboardKeyView.conductor.labelsCount))
-                            .scaleEffect(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).isTonic ? 1.2 : 1.0) // Scale up for .tonic
-                            .animation(.easeInOut(duration: 0.3), value: keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).isTonic) // Animate when interval becomes .tonic
+                            .font(Font.system(size: .leastNormalMagnitude, weight: pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.fontWeight))
+                            .frame(maxWidth: (pitchView.isSmall ? 0.6 : 0.5) * pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.width,
+                                   maxHeight: 0.8 * pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.height / CGFloat(pitchView.conductor.labelsCount))
+                            .scaleEffect(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTonic ? 1.2 : 1.0) // Scale up for .tonic
+                            .animation(.easeInOut(duration: 0.3), value: pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTonic) // Animate when interval becomes .tonic
                     )
                 )
             }
@@ -189,33 +189,33 @@ public struct PitchLabelView: View {
         
         var intervalLabels: some View {
             return Group {
-                if keyboardKeyView.conductor.intervalLabel[.interval]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).intervalClass.shorthand(for: keyboardKeyView.tonalContext.pitchDirection
+                if pitchView.conductor.intervalLabel[.interval]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection
                                                                                                                                             )))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.roman]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).roman(pitchDirection: keyboardKeyView.tonalContext.pitchDirection)))
+                if pitchView.conductor.intervalLabel[.roman]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.degree]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).degree(pitchDirection: keyboardKeyView.tonalContext.pitchDirection)))
+                if pitchView.conductor.intervalLabel[.degree]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.integer]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).distance))
+                if pitchView.conductor.intervalLabel[.integer]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).distance))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.movableDo]! {
-                    overlayText(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).movableDo)
+                if pitchView.conductor.intervalLabel[.movableDo]! {
+                    overlayText(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).movableDo)
                 }
-                if keyboardKeyView.conductor.intervalLabel[.wavelengthRatio]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).wavelengthRatio))
+                if pitchView.conductor.intervalLabel[.wavelengthRatio]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).wavelengthRatio))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.wavenumberRatio]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).wavenumberRatio))
+                if pitchView.conductor.intervalLabel[.wavenumberRatio]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).wavenumberRatio))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.periodRatio]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).periodRatio))
+                if pitchView.conductor.intervalLabel[.periodRatio]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).periodRatio))
                 }
-                if keyboardKeyView.conductor.intervalLabel[.frequencyRatio]! {
-                    overlayText(String(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).frequencyRatio))
+                if pitchView.conductor.intervalLabel[.frequencyRatio]! {
+                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).frequencyRatio))
                 }
             }
         }
@@ -232,28 +232,28 @@ public struct PitchLabelView: View {
         
         // Local variable to check activation based on layout
         var isActivated: Bool {
-            keyboardKeyView.conductor.layoutChoice == .tonic ? keyboardKeyView.pitch.pitchClass.isActivated : keyboardKeyView.pitch.isActivated.value
+            pitchView.conductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated : pitchView.pitch.isActivated.value
         }
         
         
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
-            switch keyboardKeyView.conductor.paletteChoice {
+            switch pitchView.conductor.paletteChoice {
             case .subtle:
-                activeColor = Color(keyboardKeyView.conductor.primaryColor)
-                inactiveColor = Color(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).majorMinor.color)
+                activeColor = Color(pitchView.conductor.primaryColor)
+                inactiveColor = Color(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).majorMinor.color)
             case .loud:
-                activeColor = Color(keyboardKeyView.pitch.interval(from: keyboardKeyView.tonalContext.tonicPitch).majorMinor.color)
-                inactiveColor = Color(keyboardKeyView.conductor.primaryColor)
+                activeColor = Color(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).majorMinor.color)
+                inactiveColor = Color(pitchView.conductor.primaryColor)
             case .ebonyIvory:
-                return keyboardKeyView.pitch.isNatural ? .black : .white
+                return pitchView.pitch.isNatural ? .black : .white
             }
             return isActivated ? activeColor : inactiveColor
         }
         
         var octave: String {
-            keyboardKeyView.conductor.noteLabel[.octave]! ? String(keyboardKeyView.pitch.octave) : ""
+            pitchView.conductor.noteLabel[.octave]! ? String(pitchView.pitch.octave) : ""
         }
         
     }
