@@ -13,14 +13,14 @@ struct SymmetricView<Content>: View where Content: View {
             return AnyView(
                 VStack(spacing: 0) {
                     if Pitch.isValidPitch(note + 1) {
-                        KeyboardKeyContainerView(conductor: viewConductor,
+                        PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note + 1)),
                                                  keyboardKeyView: keyboardKeyView)
                     } else {
                         Color.clear
                     }
                     if Pitch.isValidPitch(note) {
-                        KeyboardKeyContainerView(conductor: viewConductor,
+                        PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                                  keyboardKeyView: keyboardKeyView)
                     } else {
@@ -32,7 +32,7 @@ struct SymmetricView<Content>: View where Content: View {
             let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
             if intervalClass == .seven {
                 if Pitch.isValidPitch(note) {
-                    return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
+                    return AnyView(PitchContainerView(conductor: viewConductor,
                                                     pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                                     keyboardKeyView: keyboardKeyView)
                     .overlay {
@@ -40,7 +40,7 @@ struct SymmetricView<Content>: View where Content: View {
                             GeometryReader { proxy in
                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                 ZStack {
-                                    KeyboardKeyContainerView(conductor: viewConductor,
+                                    PitchContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
                                                              keyboardKeyView: keyboardKeyView)
@@ -55,7 +55,7 @@ struct SymmetricView<Content>: View where Content: View {
                     return AnyView(Color.clear)
                 }
             } else if intervalClass != .six && Pitch.isValidPitch(note) {
-                return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
+                return AnyView(PitchContainerView(conductor: viewConductor,
                                                         pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                                         keyboardKeyView: keyboardKeyView))
             } else {

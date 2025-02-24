@@ -18,7 +18,7 @@ struct IsomorphicView<Content>: View where Content: View {
                         Group {
                             if Pitch.isValidPitch(linearIndex) {
                                 let pitch = Pitch.pitch(for: MIDINoteNumber(linearIndex))
-                                KeyboardKeyContainerView(
+                                PitchContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
                                     keyboardKeyView: keyboardKeyView

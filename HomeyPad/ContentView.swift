@@ -172,7 +172,7 @@ struct ContentView: View {
                             VStack {
                                 
                                 KeyboardView(conductor: tonicConductor) { pitch in
-                                    KeyboardKeyView(pitch: pitch,
+                                    PitchView(pitch: pitch,
                                                     conductor: tonicConductor,
                                                     keyboardViewConductor: viewConductor)
                                     .aspectRatio(1.0, contentMode: .fit)
@@ -182,7 +182,7 @@ struct ContentView: View {
                                 
                                 if showModePicker {
                                     KeyboardView(conductor: modeConductor) { pitch in
-                                        KeyboardKeyView(pitch: pitch,
+                                        PitchView(pitch: pitch,
                                                         conductor: modeConductor,
                                                         keyboardViewConductor: viewConductor)
                                         .aspectRatio(2.0, contentMode: .fit)
@@ -200,7 +200,7 @@ struct ContentView: View {
                         }
                         if viewConductor.isOneRowOnTablet  {
                             KeyboardView(conductor: viewConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
+                                PitchView(pitch: pitch,
                                                 conductor: viewConductor,
                                                 keyboardViewConductor: viewConductor)
                             }
@@ -210,7 +210,7 @@ struct ContentView: View {
                         
                         if !viewConductor.isOneRowOnTablet {
                             KeyboardView(conductor: viewConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
+                                PitchView(pitch: pitch,
                                                 conductor: viewConductor,
                                                 keyboardViewConductor: viewConductor)
                             }

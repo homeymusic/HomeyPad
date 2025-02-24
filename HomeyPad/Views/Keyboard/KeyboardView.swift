@@ -51,7 +51,7 @@ public struct KeyboardView<Content>: Identifiable, View where Content: View {
                 conductor.touchLocations = touches
             }
             
-        }.onPreferenceChange(KeyRectsKey.self) { keyRectInfos in
+        }.onPreferenceChange(PitchRectsKey.self) { keyRectInfos in
             Task { @MainActor in
                 conductor.keyRectInfos = keyRectInfos
             }

@@ -1,7 +1,7 @@
 import HomeyMusicKit
 import SwiftUI
 
-public struct KeyboardKeyView: View {
+public struct PitchView: View {
     
     @ObservedObject var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
@@ -41,13 +41,13 @@ public struct KeyboardKeyView: View {
                                     .overlay(alignment: alignment) {
                                         KeyRectangle(fillColor: outlineKeyColor, keyboardKeyView: self, proxySize: proxy.size)
                                             .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
-                                            .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                            .overlay(PitchLabelView(keyboardKeyView: self, proxySize: proxy.size)
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     }
                             } else {
                                 KeyRectangle(fillColor: keyColor, keyboardKeyView: self, proxySize: proxy.size)
                                     .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
-                                    .overlay(KeyboardKeyLabelView(keyboardKeyView: self, proxySize: proxy.size)
+                                    .overlay(PitchLabelView(keyboardKeyView: self, proxySize: proxy.size)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     .padding(.leading,  leadingOffset)
                                     .padding(.trailing,  trailingOffset)
@@ -185,7 +185,7 @@ public struct KeyboardKeyView: View {
 
 struct KeyRectangle: View {
     var fillColor: Color
-    var keyboardKeyView: KeyboardKeyView
+    var keyboardKeyView: PitchView
     var proxySize: CGSize
     
     var body: some View {

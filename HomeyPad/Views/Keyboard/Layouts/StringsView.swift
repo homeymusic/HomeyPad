@@ -20,7 +20,7 @@ struct StringsView<Content>: View where Content: View {
                             let note = viewConductor.openStringsMIDI[string] + fret
                             if (Pitch.isValidPitch(note)) {
                                 let pitch = Pitch.pitch(for: MIDINoteNumber(note))
-                                KeyboardKeyContainerView(conductor: viewConductor,
+                                PitchContainerView(conductor: viewConductor,
                                                          pitch: pitch,
                                                          keyboardKeyView: keyboardKeyView)
                             } else {

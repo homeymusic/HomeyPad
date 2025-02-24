@@ -335,7 +335,7 @@ class ViewConductor: ObservableObject {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
     }
     
-    var keyRectInfos: [KeyRectInfo] = []
+    var keyRectInfos: [PitchRectInfo] = []
     
     var isOneRowOnTablet : Bool {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0

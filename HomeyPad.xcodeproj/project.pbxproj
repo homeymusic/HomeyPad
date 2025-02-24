@@ -14,6 +14,7 @@
 		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
 		B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */; };
 		B067B6F12BCF727E00BC6C45 /* LayoutRowsCols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6F02BCF727E00BC6C45 /* LayoutRowsCols.swift */; };
+		B06CC5922D6D193500290353 /* PitchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC5912D6D193500290353 /* PitchLabelView.swift */; };
 		B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E02CBABE0A00DBBAE2 /* AudioKit */; };
 		B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */; };
 		B079AA732CC055A0008A86D2 /* TonicPickerKeyLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079AA722CC055A0008A86D2 /* TonicPickerKeyLabelsPopoverView.swift */; };
@@ -29,10 +30,9 @@
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
-		B0C7FD2F2BBAFB16006FF26F /* KeyboardKeyLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */; };
-		B0C7FD302BBAFB16006FF26F /* KeyboardKeyRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* KeyboardKeyRectangles.swift */; };
-		B0C7FD322BBAFB16006FF26F /* KeyboardKeyContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD1E2BBAFB16006FF26F /* KeyboardKeyContainerView.swift */; };
-		B0C7FD332BBAFB16006FF26F /* KeyboardKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD1F2BBAFB16006FF26F /* KeyboardKeyView.swift */; };
+		B0C7FD302BBAFB16006FF26F /* PitchRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */; };
+		B0C7FD322BBAFB16006FF26F /* PitchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD1E2BBAFB16006FF26F /* PitchContainerView.swift */; };
+		B0C7FD332BBAFB16006FF26F /* PitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD1F2BBAFB16006FF26F /* PitchView.swift */; };
 		B0C7FD342BBAFB16006FF26F /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD292BBAFB16006FF26F /* KeyboardView.swift */; };
 		B0C7FD352BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */; };
 		B0C7FD3A2BBAFB29006FF26F /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD232BBAFB16006FF26F /* PianoView.swift */; };
@@ -58,6 +58,7 @@
 		B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPalette.swift; sourceTree = "<group>"; };
 		B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutLabel.swift; sourceTree = "<group>"; };
 		B067B6F02BCF727E00BC6C45 /* LayoutRowsCols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutRowsCols.swift; sourceTree = "<group>"; };
+		B06CC5912D6D193500290353 /* PitchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchLabelView.swift; sourceTree = "<group>"; };
 		B079AA722CC055A0008A86D2 /* TonicPickerKeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerKeyLabelsPopoverView.swift; sourceTree = "<group>"; };
 		B093E1452CBD2DB800130B06 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPopoverView.swift; sourceTree = "<group>"; };
@@ -71,16 +72,15 @@
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B0C7FD1E2BBAFB16006FF26F /* KeyboardKeyContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyContainerView.swift; sourceTree = "<group>"; };
-		B0C7FD1F2BBAFB16006FF26F /* KeyboardKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyView.swift; sourceTree = "<group>"; };
+		B0C7FD1E2BBAFB16006FF26F /* PitchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchContainerView.swift; sourceTree = "<group>"; };
+		B0C7FD1F2BBAFB16006FF26F /* PitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchView.swift; sourceTree = "<group>"; };
 		B0C7FD202BBAFB16006FF26F /* StringsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsView.swift; sourceTree = "<group>"; };
 		B0C7FD212BBAFB16006FF26F /* IsomorphicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsomorphicView.swift; sourceTree = "<group>"; };
 		B0C7FD232BBAFB16006FF26F /* PianoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoView.swift; sourceTree = "<group>"; };
 		B0C7FD252BBAFB16006FF26F /* SymmetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymmetricView.swift; sourceTree = "<group>"; };
 		B0C7FD292BBAFB16006FF26F /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyMultitouchView.swift; sourceTree = "<group>"; };
-		B0C7FD2C2BBAFB16006FF26F /* KeyboardKeyRectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyRectangles.swift; sourceTree = "<group>"; };
-		B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelView.swift; sourceTree = "<group>"; };
+		B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchRectangles.swift; sourceTree = "<group>"; };
 		B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyMusicKit; path = ../HomeyMusicKit; sourceTree = SOURCE_ROOT; };
 		B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerView.swift; sourceTree = "<group>"; };
 		B0F4FA492CBDC771004AC8E6 /* KeyboardKeyLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyLabelsPopoverView.swift; sourceTree = "<group>"; };
@@ -166,15 +166,23 @@
 		B04CE2302BBB392700E8787D /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B04CE2262BBAFE5800E8787D /* Layouts */,
 				B0C7FD292BBAFB16006FF26F /* KeyboardView.swift */,
-				B0C7FD1F2BBAFB16006FF26F /* KeyboardKeyView.swift */,
-				B0C7FD1E2BBAFB16006FF26F /* KeyboardKeyContainerView.swift */,
-				B0C7FD2C2BBAFB16006FF26F /* KeyboardKeyRectangles.swift */,
-				B0C7FD2E2BBAFB16006FF26F /* KeyboardKeyLabelView.swift */,
 				B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */,
+				B04CE2262BBAFE5800E8787D /* Layouts */,
+				B06CC5932D6D1A3600290353 /* Pitch */,
 			);
 			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		B06CC5932D6D1A3600290353 /* Pitch */ = {
+			isa = PBXGroup;
+			children = (
+				B0C7FD1E2BBAFB16006FF26F /* PitchContainerView.swift */,
+				B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */,
+				B0C7FD1F2BBAFB16006FF26F /* PitchView.swift */,
+				B06CC5912D6D193500290353 /* PitchLabelView.swift */,
+			);
+			path = Pitch;
 			sourceTree = "<group>";
 		};
 		B093E14B2CBD2DB800130B06 /* Header */ = {
@@ -305,6 +313,7 @@
 			files = (
 				B0C7FD3D2BBAFB29006FF26F /* SymmetricView.swift in Sources */,
 				B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */,
+				B06CC5922D6D193500290353 /* PitchLabelView.swift in Sources */,
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
 				B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */,
 				B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */,
@@ -319,9 +328,8 @@
 				B093E1502CBD2DB800130B06 /* PitchDirectionPickerView.swift in Sources */,
 				B093E1512CBD2DB800130B06 /* TonicPickerSettingsView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
-				B0C7FD332BBAFB16006FF26F /* KeyboardKeyView.swift in Sources */,
+				B0C7FD332BBAFB16006FF26F /* PitchView.swift in Sources */,
 				B0C7FD3A2BBAFB29006FF26F /* PianoView.swift in Sources */,
-				B0C7FD2F2BBAFB16006FF26F /* KeyboardKeyLabelView.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* KeyboardView.swift in Sources */,
 				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
@@ -329,8 +337,8 @@
 				B079AA732CC055A0008A86D2 /* TonicPickerKeyLabelsPopoverView.swift in Sources */,
 				B0C7FD3B2BBAFB29006FF26F /* IsomorphicView.swift in Sources */,
 				B0C7FD352BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift in Sources */,
-				B0C7FD302BBAFB16006FF26F /* KeyboardKeyRectangles.swift in Sources */,
-				B0C7FD322BBAFB16006FF26F /* KeyboardKeyContainerView.swift in Sources */,
+				B0C7FD302BBAFB16006FF26F /* PitchRectangles.swift in Sources */,
+				B0C7FD322BBAFB16006FF26F /* PitchContainerView.swift in Sources */,
 				B067B6F12BCF727E00BC6C45 /* LayoutRowsCols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

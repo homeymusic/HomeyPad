@@ -12,7 +12,7 @@ struct TonicPickerView<Content>: View where Content: View {
         HStack(spacing: 0) {
             ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
                 if Pitch.isValidPitch(note) {
-                    KeyboardKeyContainerView(conductor: tonicConductor,
+                    PitchContainerView(conductor: tonicConductor,
                                              pitch: Pitch.pitch(for: MIDINoteNumber(note)),
                                              keyboardKeyView: keyboardKeyView)
                 } else {
