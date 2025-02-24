@@ -355,18 +355,12 @@ class ViewConductor: ObservableObject {
                 var highestZindex = -1
 
                 // Find the pitch at this location with the highest Z-index
-                print("pitchRectInfos", pitchRectInfos)
-                print("location", location)
                 for info in pitchRectInfos where info.rect.contains(location) {
-                    print("info in keyRectInfos", info)
                     if pitch == nil || info.zIndex > highestZindex {
-                        print("pitch == nil", pitch == nil)
-                        print("info.zIndex > highestZindex", info.zIndex > highestZindex)
                         pitch = info.pitch
                         highestZindex = info.zIndex
                     }
                 }
-                print("touchLocations pitch", pitch?.midiNote)
 
                 if let p = pitch {
                     touchedPitches.insert(p)
@@ -424,22 +418,13 @@ class ViewConductor: ObservableObject {
                 var mode: Mode?
                 var highestZindex = -1
 
-                // Find the pitch at this location with the highest Z-index
-                print("modeRectInfos", modeRectInfos)
-                print("location", location)
                 for info in modeRectInfos where info.rect.contains(location) {
-                    print("info in keyRectInfos", info)
                     if mode == nil || info.zIndex > highestZindex {
-                        print("mode == nil", mode == nil)
-                        print("info.zIndex > highestZindex", info.zIndex > highestZindex)
                         mode = info.mode
                         highestZindex = info.zIndex
                     }
                 }
-                print("touchLocations mode", mode?.shortHand)
                 tonalContext.mode = mode!
-                print("tonalContext.mode", tonalContext.mode)
-
             }
         }
     }
