@@ -138,7 +138,7 @@ struct ContentView: View {
             layoutChoice: .mode,
             layoutPalette: viewLayoutPalette,
             layoutLabel: modeLayoutLabel,
-            sendTonicState: true
+            sendTonicState: false
         ))
 
         _viewConductor = StateObject(wrappedValue: ViewConductor(
