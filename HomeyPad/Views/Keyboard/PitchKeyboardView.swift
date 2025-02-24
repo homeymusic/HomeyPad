@@ -47,7 +47,7 @@ public struct PitchKeyboardView<Content>: Identifiable, View where Content: View
             }
             
             KeyboardKeyMultitouchView { touches in
-                conductor.touchLocations = touches
+                conductor.pitchLocations = touches
             }
             
         }.onPreferenceChange(PitchRectsKey.self) { keyRectInfos in

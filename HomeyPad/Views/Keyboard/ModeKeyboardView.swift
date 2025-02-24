@@ -15,7 +15,7 @@ public struct ModeKeyboardView<Content>: Identifiable, View where Content: View 
                            modeConductor: conductor)
             
             KeyboardKeyMultitouchView { touches in
-                conductor.touchLocations = touches
+                conductor.modeLocations = touches
             }
             
         }.onPreferenceChange(ModeRectsKey.self) { modeRectInfos in

@@ -345,17 +345,17 @@ class ViewConductor: ObservableObject {
     // Add a flag to lock the tonic during a touch event (private)
     private var isTonicLocked = false
     
-    var touchLocations: [CGPoint] = [] {
+    var pitchLocations: [CGPoint] = [] {
         didSet {
             var touchedPitches = Set<Pitch>()
 
             // Process the touch locations and determine which keys are touched
-            for location in touchLocations {
+            for location in pitchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
 
                 // Find the pitch at this location with the highest Z-index
-                print("keyRectInfos", pitchRectInfos)
+                print("pitchRectInfos", pitchRectInfos)
                 print("location", location)
                 for info in pitchRectInfos where info.rect.contains(location) {
                     print("info in keyRectInfos", info)
@@ -409,9 +409,37 @@ class ViewConductor: ObservableObject {
             }
 
             // When all touches are released, reset the tonic lock and latching set
-            if touchLocations.isEmpty {
+            if pitchLocations.isEmpty {
                 isTonicLocked = false
                 latchingTouchedPitches.removeAll()  // Clear for the next interaction
+            }
+        }
+    }
+
+    var modeLocations: [CGPoint] = [] {
+        didSet {
+
+            // Process the touch locations and determine which keys are touched
+            for location in modeLocations {
+                var mode: Mode?
+                var highestZindex = -1
+
+                // Find the pitch at this location with the highest Z-index
+                print("modeRectInfos", modeRectInfos)
+                print("location", location)
+                for info in modeRectInfos where info.rect.contains(location) {
+                    print("info in keyRectInfos", info)
+                    if mode == nil || info.zIndex > highestZindex {
+                        print("mode == nil", mode == nil)
+                        print("info.zIndex > highestZindex", info.zIndex > highestZindex)
+                        mode = info.mode
+                        highestZindex = info.zIndex
+                    }
+                }
+                print("touchLocations mode", mode?.shortHand)
+                tonalContext.mode = mode!
+                print("tonalContext.mode", tonalContext.mode)
+
             }
         }
     }
