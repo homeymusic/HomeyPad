@@ -4,11 +4,12 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @State var showTonicPicker: Bool
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
+    
+    @State var showTonicPicker: Bool
     
     var showModePicker: Bool {
         modeConductor.noteLabel[.mode]! || modeConductor.noteLabel[.plot]!
@@ -85,6 +86,18 @@ struct ContentView: View {
         
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
+                "modeLayoutLabel" : encodedDefaultLayoutLabel
+            ])
+        }
+        var modeLayoutLabel: LayoutLabel = defaultLayoutLabel
+        if let savedModeLayoutLabel = defaults.object(forKey: "modeLayoutLabel") as? Data {
+            if let loadedModeLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedModeLayoutLabel) {
+                modeLayoutLabel = loadedModeLayoutLabel
+            }
+        }
+
+        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
+            defaults.register(defaults: [
                 "viewLayoutLabel" : encodedDefaultLayoutLabel
             ])
         }
@@ -124,7 +137,7 @@ struct ContentView: View {
             accidental: accidental,
             layoutChoice: .mode,
             layoutPalette: viewLayoutPalette,
-            layoutLabel: tonicLayoutLabel,
+            layoutLabel: modeLayoutLabel,
             sendTonicState: true
         ))
 
@@ -251,6 +264,11 @@ struct ContentView: View {
             .onChange(of: tonicConductor.layoutLabel) {
                 if let encodedTonicLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
                     defaults.set(encodedTonicLayoutLabel, forKey: "tonicLayoutLabel")
+                }
+            }
+            .onChange(of: modeConductor.layoutLabel) {
+                if let encodedModeLayoutLabel = try? JSONEncoder().encode(modeConductor.layoutLabel) {
+                    defaults.set(encodedModeLayoutLabel, forKey: "modeLayoutLabel")
                 }
             }
             .onChange(of: viewConductor.layoutLabel) {
