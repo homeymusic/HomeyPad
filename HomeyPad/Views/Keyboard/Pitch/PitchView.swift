@@ -76,7 +76,7 @@ public struct PitchView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        conductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated.value
+        conductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated
     }
 
     var keyColor: Color {

@@ -377,7 +377,7 @@ class ViewConductor: ObservableObject {
                             if !latchingTouchedPitches.contains(p) {
                                 latchingTouchedPitches.insert(p)
                                 // Toggle pitch activation
-                                if p.isActivated.value {
+                                if p.isActivated {
                                     p.deactivate()
                                 } else {
                                     p.activate()
@@ -385,7 +385,7 @@ class ViewConductor: ObservableObject {
                             }
                         } else {
                             // Non-latching mode: simply activate pitch
-                            if !p.isActivated.value {
+                            if !p.isActivated {
                                 p.activate()
                             }
                         }

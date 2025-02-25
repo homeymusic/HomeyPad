@@ -162,7 +162,7 @@ public struct PitchLabelView: View {
         
         // Local variable to check activation based on layout
         var isActivated: Bool {
-            pitchView.conductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated : pitchView.pitch.isActivated.value
+            pitchView.conductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated : pitchView.pitch.isActivated
         }
         
         
