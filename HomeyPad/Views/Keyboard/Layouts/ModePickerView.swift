@@ -16,7 +16,7 @@ struct ModePickerView<Content>: View where Content: View {
                                   modeView: modeView)
             }
         }
-        .animation(modeConductor.animationStyle, value: tonalContext.mode)
+        .animation(modeConductor.animationStyle, value: tonalContext.modeOffset)
         .clipShape(Rectangle())
     }
 }

@@ -87,7 +87,7 @@ public struct ModeView: View {
     }
     
     var outlineSize: CGFloat {
-        if tonalContext.mode == mode {
+        if tonalContext.modeOffset == mode {
             return 3.0
         } else {
             return 2.0

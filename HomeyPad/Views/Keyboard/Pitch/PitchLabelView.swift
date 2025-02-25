@@ -32,21 +32,17 @@ public struct PitchLabelView: View {
         let pitchView: PitchView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
-
+        
         var body: some View {
             VStack(spacing: 2) {
                 if pitchView.conductor.layoutChoice == .piano {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {
-                    if !(pitchView.conductor.layoutChoice == .mode) {
-                        noteLabels
-                        monthLabel
-                        symbolIcon
-                        intervalLabels
-                    } else {
-                        plotModeLabel
-                    }
+                    noteLabels
+                    monthLabel
+                    symbolIcon
+                    intervalLabels
                 }
             }
             .padding(2.0)
@@ -90,73 +86,7 @@ public struct PitchLabelView: View {
                 }
             }
         }
-        
-        var plotModeLabel: some View {
-            AnyView(
-                HStack(spacing: 0.0) {
-                    if pitchView.conductor.noteLabel[.mode]! {
-                        Color.clear.overlay(
-                            HStack(spacing: 1.0) {
-                                Text(pitchView.pitch.mode.shortHand)
-                                    .foregroundColor(Color(pitchView.pitch.mode.majorMinor.color))
-                            }
-                                .padding(2.0)
-                                .background(Color(pitchView.conductor.primaryColor))
-                                .cornerRadius(3.0)
-                        )
-                    }
-                    if pitchView.conductor.noteLabel[.plot]! {
-                        Color.clear.overlay(
-                            HStack(spacing: 1.0) {
-                                plotIconImages
-                            }
-                                .aspectRatio(pitchView.pitch.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
-                                .padding(2.0)
-                                .background(Color(pitchView.conductor.primaryColor))
-                                .cornerRadius(3.0)
-                        )
-                    }
-                }
-            )
-        }
-        
-        var plotIconImages: some View {
-            Group {
-                Image(systemName: "square")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundColor(.clear)
-                    .overlay(
-                        Image(systemName: pitchView.pitch.mode.pitchDirection.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(Color(pitchView.pitch.mode.pitchDirection.majorMinor.color))
-                    )
-                Image(systemName: "square")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundColor(.clear)
-                    .overlay(
-                        Image(systemName: pitchView.pitch.mode.chordShape.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(Color(pitchView.pitch.mode.chordShape.majorMinor.color))
-                    )
-                if pitchView.pitch.mode.scale == .pentatonic {
-                    Image(systemName: "square")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.clear)
-                        .overlay(
-                            Image(systemName: Scale.pentatonic.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(Color(pitchView.pitch.mode.majorMinor.color))
-                        )
-                }
-            }
-        }
-        
+                
         var monthLabel: some View {
             if pitchView.conductor.noteLabel[.month]! {
                 return AnyView(
@@ -191,7 +121,7 @@ public struct PitchLabelView: View {
             return Group {
                 if pitchView.conductor.intervalLabel[.interval]! {
                     overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection
-                                                                                                                                            )))
+                                                                                                                                )))
                 }
                 if pitchView.conductor.intervalLabel[.roman]! {
                     overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).roman(pitchDirection: pitchView.tonalContext.pitchDirection)))

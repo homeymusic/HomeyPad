@@ -424,7 +424,7 @@ class ViewConductor: ObservableObject {
                         highestZindex = info.zIndex
                     }
                 }
-                tonalContext.mode = mode!
+                tonalContext.modeOffset = mode!
             }
         }
     }
