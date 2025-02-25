@@ -170,6 +170,10 @@ struct HelpPopoverView: View {
                     Text("17")
                     Text("Direction: 0 Down, 1 Up")
                 }
+                GridRow {
+                    Text("18")
+                    Text("Mode: 0 ION to 11 LOC")
+                }
                 Divider()
                     .padding(3)
                 Group {

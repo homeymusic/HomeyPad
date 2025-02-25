@@ -37,13 +37,14 @@ struct TonicPickerSettingsView: View {
                         Divider()
                         Button(action: {
                             tonicConductor.resetLabels()
+                            modeConductor.resetLabels()
                         }, label: {
                             Image(systemName: "gobackward")
                                 .gridCellAnchor(.center)
-                                .foregroundColor(tonicConductor.areLabelsDefault ? .gray : .white)
+                                .foregroundColor(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault ? .gray : .white)
                         })
                         .gridCellColumns(2)
-                        .disabled(tonicConductor.areLabelsDefault)
+                        .disabled(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault)
                         .padding([.top, .bottom], 7)
                     }
                 })
