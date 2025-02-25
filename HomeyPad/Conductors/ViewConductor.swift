@@ -342,9 +342,9 @@ class ViewConductor: ObservableObject {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
     }
     
-    // Add a flag to lock the tonic during a touch event (private)
     private var isTonicLocked = false
-    
+    private var isModeLocked = false
+
     var pitchLocations: [CGPoint] = [] {
         didSet {
             var touchedPitches = Set<Pitch>()
@@ -384,7 +384,7 @@ class ViewConductor: ObservableObject {
                                 }
                             }
                         } else {
-                            // Non-latching mode: simply activate pitch
+                            // Non-latching: simply activate pitch
                             if !p.isActivated {
                                 p.activate()
                             }
@@ -393,7 +393,7 @@ class ViewConductor: ObservableObject {
                 }
             }
 
-            // Handle un-touching in non-latching mode
+            // Handle un-touching in non-latching
             if !latching {
                 for pitch in tonalContext.activatedPitches {
                     if !touchedPitches.contains(pitch) {
@@ -418,17 +418,31 @@ class ViewConductor: ObservableObject {
                 var mode: Mode?
                 var highestZindex = -1
 
+                // Find the pitch at this location with the highest Z-index
                 for info in modeRectInfos where info.rect.contains(location) {
                     if mode == nil || info.zIndex > highestZindex {
                         mode = info.mode
                         highestZindex = info.zIndex
                     }
                 }
-                tonalContext.modeOffset = mode!
+
+                if let m = mode {
+                    
+                    // Handle tonic mode
+                    if !isModeLocked {
+                        updateMode(m)
+                        isModeLocked = true
+                    }
+                }
+            }
+
+            // When all touches are released, reset the tonic lock and latching set
+            if modeLocations.isEmpty {
+                isModeLocked = false
             }
         }
     }
-
+    
     // A set to track which pitches have been latched
     private var latchingTouchedPitches = Set<Pitch>()
     // Helper function to update the tonic
@@ -439,6 +453,13 @@ class ViewConductor: ObservableObject {
                 tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
             }
             tonalContext.tonicPitch = newTonicPitch
+        }
+    }
+
+    private func updateMode(_ newMode: Mode) {
+        if newMode != tonalContext.modeOffset {
+            // Adjust pitch direction if the new tonic is an octave shift
+            tonalContext.modeOffset = newMode
         }
     }
 

@@ -108,7 +108,7 @@ public struct ModeView: View {
     }
     
     var outline: Bool {
-        conductor.outlineChoice && (mode == tonalContext.mode)
+        conductor.outlineChoice && (mode == tonalContext.modeOffset)
     }
     
     var isSmall: Bool {
