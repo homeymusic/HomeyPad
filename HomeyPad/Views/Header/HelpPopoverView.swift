@@ -168,7 +168,7 @@ struct HelpPopoverView: View {
                 }
                 GridRow {
                     Text("17")
-                    Text("Direction: 0 Down, 1 Up")
+                    Text("Direction: < 0, = 1, > 2")
                 }
                 GridRow {
                     Text("18")
