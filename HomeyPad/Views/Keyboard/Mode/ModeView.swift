@@ -4,8 +4,10 @@ import SwiftUI
 public struct ModeView: View {
     
     let mode: Mode
-    @ObservedObject var conductor: ViewConductor
-    @ObservedObject var keyboardViewConductor: ViewConductor
+    @ObservedObject var thisConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var modeConductor: ViewConductor
     @StateObject var tonalContext = TonalContext.shared
     
     var borderWidthApparentSize: CGFloat {
@@ -61,11 +63,13 @@ public struct ModeView: View {
     }
     
     var accentColor: Color {
-        switch conductor.paletteChoice {
+        switch viewConductor.paletteChoice {
+        case .subtle:
+            Color(viewConductor.secondaryColor)
         case .loud:
-            Color(conductor.primaryColor)
-        default:
-            Color(conductor.secondaryColor)
+            Color(viewConductor.primaryColor)
+        case .ebonyIvory:
+            mode.majorMinor == .minor ? .white : .black
         }
     }
         
@@ -75,17 +79,17 @@ public struct ModeView: View {
     }
 
     var keyColor: Color {
-        let activeColor: Color
-        let inactiveColor: Color
-
-        switch conductor.paletteChoice {
+        switch thisConductor.paletteChoice {
+        case .subtle:
+            return Color(thisConductor.primaryColor)
         case .loud:
-            return Color(mode.majorMinor.color)
-        default:
-            return Color(conductor.primaryColor)
+            return mode.majorMinor.color
+        case .ebonyIvory:
+            return mode.majorMinor == .minor ? Color(UIColor.systemGray4) : .white
+
         }
     }
-    
+
     var outlineSize: CGFloat {
         if tonalContext.modeOffset == mode {
             return 3.0
@@ -95,20 +99,22 @@ public struct ModeView: View {
     }
     
     var outlineColor: Color {
-        switch conductor.paletteChoice {
-        case .loud:
-            return Color(conductor.primaryColor)
-        default:
+        switch viewConductor.paletteChoice {
+        case .subtle:
             return Color(mode.majorMinor.color)
+        case .loud:
+            return Color(viewConductor.primaryColor)
+        case .ebonyIvory:
+            return Color(MajorMinor.altNeutralColor)
         }
     }
-    
+
     var outlineKeyColor: Color {
         return keyColor
     }
     
     var outline: Bool {
-        conductor.outlineChoice && (mode == tonalContext.modeOffset)
+        viewConductor.outlineChoice && (mode == tonalContext.modeOffset)
     }
     
     var isSmall: Bool {

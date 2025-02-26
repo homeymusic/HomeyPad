@@ -20,6 +20,10 @@ class ViewConductor: ObservableObject {
     
     let animationStyle: Animation = Animation.linear
     
+    var showModes: Bool {
+        noteLabel[.mode]! || noteLabel[.plot]!
+    }
+    
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
             if oldLayoutChoice != layoutChoice {

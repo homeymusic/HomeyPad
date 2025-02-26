@@ -34,25 +34,25 @@ public struct ModeLabelView: View {
         var plotModeLabel: some View {
             AnyView(
                 HStack(spacing: 0.0) {
-                    if modeView.conductor.noteLabel[.mode]! {
+                    if modeView.modeConductor.noteLabel[.mode]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 Text(modeView.mode.shortHand)
-                                    .foregroundColor(Color(modeView.mode.majorMinor.color))
+                                    .foregroundColor(Color(modeView.accentColor))
                             }
                                 .padding(2.0)
-                                .background(Color(modeView.conductor.primaryColor))
+                                .background(Color(modeView.keyColor))
                                 .cornerRadius(3.0)
                         )
                     }
-                    if modeView.conductor.noteLabel[.plot]! {
+                    if modeView.modeConductor.noteLabel[.plot]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 plotIconImages
                             }
                                 .aspectRatio(modeView.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
-                                .background(Color(modeView.conductor.primaryColor))
+                                .background(modeView.viewConductor.paletteChoice == .loud ? Color(modeView.viewConductor.primaryColor) : modeView.keyColor)
                                 .cornerRadius(3.0)
                         )
                     }
@@ -70,7 +70,7 @@ public struct ModeLabelView: View {
                         Image(systemName: modeView.mode.pitchDirection.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(modeView.mode.pitchDirection.majorMinor.color))
+                            .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor :  modeView.mode.pitchDirection.majorMinor.color))
                     )
                 Image(systemName: "square")
                     .resizable()
@@ -80,7 +80,7 @@ public struct ModeLabelView: View {
                         Image(systemName: modeView.mode.chordShape.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(modeView.mode.chordShape.majorMinor.color))
+                            .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor : modeView.mode.chordShape.majorMinor.color))
                     )
                 if modeView.mode.scale == .pentatonic {
                     Image(systemName: "square")
@@ -91,7 +91,7 @@ public struct ModeLabelView: View {
                             Image(systemName: Scale.pentatonic.icon)
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(Color(modeView.mode.majorMinor.color))
+                                .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor : modeView.mode.majorMinor.color))
                         )
                 }
             }
@@ -102,16 +102,16 @@ public struct ModeLabelView: View {
         }
         
         var textColor: Color {
-            let inactiveColor: Color
-            switch modeView.conductor.paletteChoice {
+            switch modeView.viewConductor.paletteChoice {
+            case .subtle:
+                return modeView.mode.majorMinor.color
             case .loud:
-                inactiveColor = Color(modeView.conductor.primaryColor)
-            default:
-                inactiveColor = Color(modeView.mode.majorMinor.color)
+                return Color(modeView.thisConductor.primaryColor)
+            case .ebonyIvory:
+                return modeView.mode.majorMinor == .minor ? .white : .black
             }
-            return inactiveColor
         }
-        
+
     }
 }
 

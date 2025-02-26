@@ -11,10 +11,6 @@ struct ContentView: View {
     
     @State var showTonicPicker: Bool
     
-    var showModePicker: Bool {
-        modeConductor.noteLabel[.mode]! || modeConductor.noteLabel[.plot]!
-    }
-    
     init() {
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
@@ -161,7 +157,10 @@ struct ContentView: View {
                 ZStack() {
                     // Header
                     VStack {
-                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, modeConductor: modeConductor, showTonicPicker: $showTonicPicker)
+                        HeaderView(viewConductor: viewConductor,
+                                   tonicConductor: tonicConductor,
+                                   modeConductor: modeConductor,
+                                   showTonicPicker: $showTonicPicker)
                             .frame(height: settingsHeight)
                         Spacer()
                     }
@@ -173,18 +172,22 @@ struct ContentView: View {
                                 
                                 PitchKeyboardView(conductor: tonicConductor) { pitch in
                                     PitchView(pitch: pitch,
-                                              conductor: tonicConductor,
-                                              keyboardViewConductor: viewConductor)
+                                              thisConductor: tonicConductor,
+                                              viewConductor: viewConductor,
+                                              tonicConductor: tonicConductor,
+                                              modeConductor: modeConductor)
                                     .aspectRatio(1.0, contentMode: .fit)
                                 }
                                 .aspectRatio(13.0, contentMode: .fit)
                                 .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
-                                if showModePicker {
+                                if modeConductor.showModes {
                                     ModeKeyboardView(conductor: modeConductor) { mode in
                                         ModeView(mode: mode,
-                                                 conductor: modeConductor,
-                                                 keyboardViewConductor: viewConductor)
+                                                 thisConductor: tonicConductor,
+                                                 viewConductor: viewConductor,
+                                                 tonicConductor: tonicConductor,
+                                                 modeConductor: modeConductor)
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
@@ -201,8 +204,10 @@ struct ContentView: View {
                         if viewConductor.isOneRowOnTablet  {
                             PitchKeyboardView(conductor: viewConductor) { pitch in
                                 PitchView(pitch: pitch,
-                                          conductor: viewConductor,
-                                          keyboardViewConductor: viewConductor)
+                                          thisConductor: viewConductor,
+                                          viewConductor: viewConductor,
+                                          tonicConductor: tonicConductor,
+                                          modeConductor: modeConductor)
                             }
                             .aspectRatio(4.0, contentMode: .fit)
                             .ignoresSafeArea(edges:.horizontal)
@@ -211,8 +216,10 @@ struct ContentView: View {
                         if !viewConductor.isOneRowOnTablet {
                             PitchKeyboardView(conductor: viewConductor) { pitch in
                                 PitchView(pitch: pitch,
-                                          conductor: viewConductor,
-                                          keyboardViewConductor: viewConductor)
+                                          thisConductor: viewConductor,
+                                          viewConductor: viewConductor,
+                                          tonicConductor: tonicConductor,
+                                          modeConductor: modeConductor)
                             }
                             .ignoresSafeArea(edges:.horizontal)
                         }
