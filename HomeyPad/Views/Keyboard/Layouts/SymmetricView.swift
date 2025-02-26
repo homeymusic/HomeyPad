@@ -8,7 +8,7 @@ struct SymmetricView<Content>: View where Content: View {
 
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
-        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
+        let majorMinor: MajorMinor = Interval.majorMinor(forDistance: note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
         if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {

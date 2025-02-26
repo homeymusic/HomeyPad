@@ -14,6 +14,11 @@ class ViewConductor: ObservableObject {
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
         self.layoutRowsCols      = layoutRowsCols
+
+        if layoutChoice != .mode && layoutChoice != .tonic {
+            synthConductor = SynthConductor()
+        }
+        
     }
     
     @StateObject var tonalContext = TonalContext.shared
@@ -24,6 +29,8 @@ class ViewConductor: ObservableObject {
         noteLabel[.mode]! || noteLabel[.plot]!
     }
     
+    @Published var synthConductor: SynthConductor?
+
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
             if oldLayoutChoice != layoutChoice {
@@ -46,7 +53,10 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            tonalContext.activatedPitches.forEach { $0.deactivate() }
+            tonalContext.activatedPitches.forEach {
+                synthConductor?.noteOff(pitch: $0)
+                $0.deactivate()
+            }
         }
         didSet {
             Task { @MainActor in
@@ -382,14 +392,17 @@ class ViewConductor: ObservableObject {
                                 latchingTouchedPitches.insert(p)
                                 // Toggle pitch activation
                                 if p.isActivated {
+                                    synthConductor?.noteOff(pitch: p)
                                     p.deactivate()
                                 } else {
+                                    synthConductor?.noteOn(pitch: p)
                                     p.activate()
                                 }
                             }
                         } else {
                             // Non-latching: simply activate pitch
                             if !p.isActivated {
+                                synthConductor?.noteOn(pitch: p)
                                 p.activate()
                             }
                         }
@@ -401,6 +414,7 @@ class ViewConductor: ObservableObject {
             if !latching {
                 for pitch in tonalContext.activatedPitches {
                     if !touchedPitches.contains(pitch) {
+                        synthConductor?.noteOff(pitch: pitch)
                         pitch.deactivate()
                     }
                 }
@@ -474,7 +488,7 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-
+    
     func tritoneLength(proxySize: CGSize) -> CGFloat {
         return min(proxySize.height * 1/3, proxySize.width)
     }

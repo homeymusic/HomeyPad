@@ -11,6 +11,7 @@
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
+		B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02851D02D6F63F5009B7F92 /* SynthConductor.swift */; };
 		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
 		B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */; };
 		B067B6F12BCF727E00BC6C45 /* LayoutRowsCols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6F02BCF727E00BC6C45 /* LayoutRowsCols.swift */; };
@@ -59,6 +60,7 @@
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B02851D02D6F63F5009B7F92 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
 		B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPalette.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */,
+				B02851D02D6F63F5009B7F92 /* SynthConductor.swift */,
 			);
 			path = Conductors;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
 				B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
+				B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
 				B06CC5A22D6D258C00290353 /* ModeLabelView.swift in Sources */,
 				B093E14F2CBD2DB800130B06 /* OctaveShiftView.swift in Sources */,
@@ -518,7 +522,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,7 +562,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

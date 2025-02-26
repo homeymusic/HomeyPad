@@ -1,5 +1,5 @@
 {
-  "originHash" : "bf028201a9c2479346b84e15362824a9df8419bae50e683cc4b2524f6950bcf0",
+  "originHash" : "9047c2a3a810158ee8122c8051ec06b1d04c18c65755a6f4712e5645be617a40",
   "pins" : [
     {
       "identity" : "audiokit",
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/orchetect/MIDIKit",
       "state" : {
-        "revision" : "23a5b271882b76330bb792277c57ecdb33c168cd",
-        "version" : "0.9.7"
+        "revision" : "6902607ec98a4b8b54cac6d2a4d89fd860284819",
+        "version" : "0.10.1"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/orchetect/TimecodeKit",
       "state" : {
-        "revision" : "01006cd3d0555b4a38deea95d8f3c5c07c1e099b",
-        "version" : "2.2.0"
+        "revision" : "1014b5723a7eaa93eeb2ea2f52dfd9ea6eb6be0d",
+        "version" : "2.3.3"
       }
     }
   ],

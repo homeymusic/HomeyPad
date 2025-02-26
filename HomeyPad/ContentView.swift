@@ -7,6 +7,7 @@ struct ContentView: View {
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
+
     @StateObject private var tonalContext = TonalContext.shared
     
     @State var showTonicPicker: Bool
@@ -147,6 +148,7 @@ struct ContentView: View {
             layoutRowsCols: layoutRowsCols,
             sendTonicState: false
         ))
+        
     }
     
     var body: some View {
