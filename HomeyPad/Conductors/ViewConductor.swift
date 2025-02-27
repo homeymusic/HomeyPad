@@ -29,6 +29,16 @@ class ViewConductor: ObservableObject {
         noteLabel[.mode]! || noteLabel[.plot]!
     }
     
+    var showTonicLabels: Bool {
+        if layoutChoice == .tonic {
+            print("noteLabel[.letter]!", noteLabel[.letter]!)
+        }
+        return noteLabel[.letter]! || noteLabel[.fixedDo]! || noteLabel[.month]! ||
+        intervalLabel[.symbol]! ||
+        intervalLabel[.interval]! || intervalLabel[.movableDo]! ||
+        intervalLabel[.roman]! || intervalLabel[.degree]! || intervalLabel[.integer]!
+    }
+    
     @Published var synthConductor: SynthConductor?
 
     @Published var layoutChoice: LayoutChoice = .isomorphic {

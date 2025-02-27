@@ -169,19 +169,21 @@ struct ContentView: View {
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        if showTonicPicker {
+                        if showTonicPicker && (tonicConductor.showTonicLabels || modeConductor.showModes) {
                             VStack {
                                 
-                                PitchKeyboardView(conductor: tonicConductor) { pitch in
-                                    PitchView(pitch: pitch,
-                                              thisConductor: tonicConductor,
-                                              viewConductor: viewConductor,
-                                              tonicConductor: tonicConductor,
-                                              modeConductor: modeConductor)
-                                    .aspectRatio(1.0, contentMode: .fit)
+                                if tonicConductor.showTonicLabels {
+                                    PitchKeyboardView(conductor: tonicConductor) { pitch in
+                                        PitchView(pitch: pitch,
+                                                  thisConductor: tonicConductor,
+                                                  viewConductor: viewConductor,
+                                                  tonicConductor: tonicConductor,
+                                                  modeConductor: modeConductor)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                    }
+                                    .aspectRatio(13.0, contentMode: .fit)
+                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 }
-                                .aspectRatio(13.0, contentMode: .fit)
-                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
                                 if modeConductor.showModes {
                                     ModeKeyboardView(conductor: modeConductor) { mode in

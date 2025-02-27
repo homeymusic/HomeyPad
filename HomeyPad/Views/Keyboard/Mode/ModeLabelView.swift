@@ -38,7 +38,7 @@ public struct ModeLabelView: View {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 Text(modeView.mode.shortHand)
-                                    .foregroundColor(Color(modeView.accentColor))
+                                    .foregroundColor(Color(textColor))
                             }
                                 .padding(2.0)
                                 .background(Color(modeView.keyColor))
