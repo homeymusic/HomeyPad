@@ -1,20 +1,28 @@
 import SwiftUI
 import HomeyMusicKit
 
+// Helper extension that replaces the repeated long expression.
+extension PitchView {
+    var tonicInterval: Interval {
+        pitch.interval(from: tonalContext.tonicPitch)
+    }
+}
+
 public struct PitchLabelView: View {
     var pitchView: PitchView
     var proxySize: CGSize
-    
+
     var isSymmetricNotTritone: Bool {
-        pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTritone
+        pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.tonicInterval.isTritone
     }
-    
+
     public var body: some View {
         let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize) : 0.0
         let topBottomPadding = pitchView.outline ? 0.0 : 0.5 * pitchView.outlineHeight
         let extraPadding = tritonePadding + topBottomPadding
-        VStack(spacing: 0.0) {
-            if pitchView.thisConductor.layoutChoice == .symmetric && pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance > .consonant {
+        return VStack(spacing: 0.0) {
+            if pitchView.thisConductor.layoutChoice == .symmetric &&
+                pitchView.tonicInterval.consonanceDissonance > .consonant {
                 Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
                 Color.clear
@@ -27,12 +35,12 @@ public struct PitchLabelView: View {
             }
         }
     }
-    
+
     struct Labels: View {
         let pitchView: PitchView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
-        
+
         var body: some View {
             VStack(spacing: 2) {
                 if pitchView.thisConductor.layoutChoice == .piano {
@@ -50,14 +58,14 @@ public struct PitchLabelView: View {
             .minimumScaleFactor(0.1)
             .lineLimit(1)
         }
-        
+
         var pianoLayoutSpacer: some View {
             VStack(spacing: 0) {
                 Color.clear
             }
             .frame(height: 0.55 * proxySize.height)
         }
-        
+
         var noteLabels: some View {
             Group {
                 if pitchView.thisConductor.noteLabel[.letter]! {
@@ -86,7 +94,7 @@ public struct PitchLabelView: View {
                 }
             }
         }
-                
+
         var monthLabel: some View {
             if pitchView.thisConductor.noteLabel[.month]! {
                 return AnyView(
@@ -97,95 +105,95 @@ public struct PitchLabelView: View {
             }
             return AnyView(EmptyView())
         }
-        
+
         var symbolIcon: some View {
             if pitchView.thisConductor.showSymbols {
                 return AnyView(
                     Color.clear.overlay(
-                        pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.image
+                        pitchView.tonicInterval.consonanceDissonance.image
                             .resizable()
                             .rotationEffect(rotation)
                             .scaledToFit()
-                            .font(Font.system(size: .leastNormalMagnitude, weight: pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.fontWeight))
-                            .frame(maxWidth: (pitchView.isSmall ? 0.6 : 0.5) * pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.width,
-                                   maxHeight: 0.8 * pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).consonanceDissonance.imageScale * proxySize.height / CGFloat(pitchView.thisConductor.labelsCount))
-                            .scaleEffect(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTonic ? 1.2 : 1.0) // Scale up for .tonic
-                            .animation(.easeInOut(duration: 0.3), value: pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).isTonic) // Animate when interval becomes .tonic
+                            .font(Font.system(size: .leastNormalMagnitude,
+                                              weight: pitchView.tonicInterval.consonanceDissonance.fontWeight))
+                            .frame(maxWidth: (pitchView.isSmall ? 0.6 : 0.5) *
+                                    pitchView.tonicInterval.consonanceDissonance.imageScale * proxySize.width,
+                                   maxHeight: 0.8 *
+                                    pitchView.tonicInterval.consonanceDissonance.imageScale * proxySize.height /
+                                    CGFloat(pitchView.thisConductor.labelsCount))
+                            .scaleEffect(pitchView.tonicInterval.isTonic ? 1.2 : 1.0)
+                            .animation(.easeInOut(duration: 0.3),
+                                       value: pitchView.tonicInterval.isTonic)
                     )
                 )
             }
             return AnyView(EmptyView())
         }
-        
+
         var intervalLabels: some View {
-            return Group {
+            Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection
-                                                                                                                                )))
+                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.roman]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.degree]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.integer]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).distance))
+                    overlayText(String(pitchView.tonicInterval.distance))
                 }
                 if pitchView.thisConductor.intervalLabel[.movableDo]! {
-                    overlayText(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).movableDo)
+                    overlayText(pitchView.tonicInterval.movableDo)
                 }
                 if pitchView.thisConductor.intervalLabel[.wavelengthRatio]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).wavelengthRatio))
+                    overlayText(String(pitchView.tonicInterval.wavelengthRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.wavenumberRatio]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).wavenumberRatio))
+                    overlayText(String(pitchView.tonicInterval.wavenumberRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.periodRatio]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).periodRatio))
+                    overlayText(String(pitchView.tonicInterval.periodRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.frequencyRatio]! {
-                    overlayText(String(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).frequencyRatio))
+                    overlayText(String(pitchView.tonicInterval.frequencyRatio))
                 }
             }
         }
-        
+
         func overlayText(_ text: String) -> some View {
             Color.clear.overlay(
                 Text(text)
             )
         }
-        
+
         func minDimension(_ size: CGSize) -> CGFloat {
             return min(size.width, size.height)
         }
-        
-        // Local variable to check activation based on layout
+
         var isActivated: Bool {
             pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated : pitchView.pitch.isActivated
         }
-        
-        
+
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
             switch pitchView.thisConductor.paletteChoice {
             case .subtle:
                 activeColor = Color(pitchView.thisConductor.primaryColor)
-                inactiveColor = Color(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).majorMinor.color)
+                inactiveColor = Color(pitchView.tonicInterval.majorMinor.color)
             case .loud:
-                activeColor = Color(pitchView.pitch.interval(from: pitchView.tonalContext.tonicPitch).majorMinor.color)
+                activeColor = Color(pitchView.tonicInterval.majorMinor.color)
                 inactiveColor = Color(pitchView.thisConductor.primaryColor)
             case .ebonyIvory:
                 return pitchView.pitch.isNatural ? .black : .white
             }
             return isActivated ? activeColor : inactiveColor
         }
-        
+
         var octave: String {
             pitchView.thisConductor.noteLabel[.octave]! ? String(pitchView.pitch.octave) : ""
         }
-        
     }
 }
-
