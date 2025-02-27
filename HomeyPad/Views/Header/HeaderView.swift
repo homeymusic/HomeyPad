@@ -3,6 +3,7 @@ import SwiftUI
 struct HeaderView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var modeConductor: ViewConductor
     @Binding var showTonicPicker: Bool
     
     var body: some View {
@@ -11,7 +12,7 @@ struct HeaderView: View {
                 OctaveShiftView(viewConductor: viewConductor, tonicConductor: tonicConductor)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            TonicPickerSettingsView(tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
+            TonicPickerSettingsView(tonicConductor: tonicConductor, modeConductor: modeConductor, showTonicPicker: $showTonicPicker)
             HStack(spacing: 15) {
                 PitchDirectionPickerView()
                 HelpView(viewConductor: viewConductor)

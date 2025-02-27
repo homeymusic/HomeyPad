@@ -3,18 +3,18 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct TonicPickerView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     
     @StateObject private var tonalContext = TonalContext.shared
     @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(tonalContext.tonicRegisterNotes, id: \.self) { note in
+            ForEach(tonalContext.tonicPickerNotes, id: \.self) { note in
                 if Pitch.isValidPitch(note) {
-                    KeyboardKeyContainerView(conductor: tonicConductor,
+                    PitchContainerView(conductor: tonicConductor,
                                              pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                             keyboardKeyView: keyboardKeyView)
+                                             pitchView: pitchView)
                 } else {
                     Color.clear
                 }

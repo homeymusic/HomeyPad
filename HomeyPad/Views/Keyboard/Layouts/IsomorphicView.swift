@@ -3,7 +3,7 @@ import MIDIKitCore
 import HomeyMusicKit
 
 struct IsomorphicView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
 
@@ -18,10 +18,10 @@ struct IsomorphicView<Content>: View where Content: View {
                         Group {
                             if Pitch.isValidPitch(linearIndex) {
                                 let pitch = Pitch.pitch(for: MIDINoteNumber(linearIndex))
-                                KeyboardKeyContainerView(
+                                PitchContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
-                                    keyboardKeyView: keyboardKeyView
+                                    pitchView: pitchView
                                 )
                             } else {
                                 Color.clear

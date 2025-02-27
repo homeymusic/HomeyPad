@@ -3,26 +3,26 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct SymmetricView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     var viewConductor: ViewConductor
 
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
-        let majorMinor: MajorMinor = Interval.majorMinor(note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
+        let majorMinor: MajorMinor = Interval.majorMinor(forDistance: note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
         if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {
                     if Pitch.isValidPitch(note + 1) {
-                        KeyboardKeyContainerView(conductor: viewConductor,
+                        PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note + 1)),
-                                                 keyboardKeyView: keyboardKeyView)
+                                                 pitchView: pitchView)
                     } else {
                         Color.clear
                     }
                     if Pitch.isValidPitch(note) {
-                        KeyboardKeyContainerView(conductor: viewConductor,
+                        PitchContainerView(conductor: viewConductor,
                                                  pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                 keyboardKeyView: keyboardKeyView)
+                                                 pitchView: pitchView)
                     } else {
                         Color.clear
                     }
@@ -32,18 +32,18 @@ struct SymmetricView<Content>: View where Content: View {
             let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
             if intervalClass == .seven {
                 if Pitch.isValidPitch(note) {
-                    return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
+                    return AnyView(PitchContainerView(conductor: viewConductor,
                                                     pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                    keyboardKeyView: keyboardKeyView)
+                                                    pitchView: pitchView)
                     .overlay {
                         if Pitch.isValidPitch(note - 1) && Pitch.isValidPitch(note - 2) {
                             GeometryReader { proxy in
                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                 ZStack {
-                                    KeyboardKeyContainerView(conductor: viewConductor,
+                                    PitchContainerView(conductor: viewConductor,
                                                              pitch: Pitch.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
-                                                             keyboardKeyView: keyboardKeyView)
+                                                             pitchView: pitchView)
                                     .frame(width: ttLength, height: ttLength)
                                 }
                                 .offset(x: -ttLength / 2.0,
@@ -55,9 +55,9 @@ struct SymmetricView<Content>: View where Content: View {
                     return AnyView(Color.clear)
                 }
             } else if intervalClass != .six && Pitch.isValidPitch(note) {
-                return AnyView(KeyboardKeyContainerView(conductor: viewConductor,
+                return AnyView(PitchContainerView(conductor: viewConductor,
                                                         pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                                        keyboardKeyView: keyboardKeyView))
+                                                        pitchView: pitchView))
             } else {
                 return AnyView(EmptyView())
             }

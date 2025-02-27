@@ -3,7 +3,7 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct StringsView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     @StateObject private var tonalContext = TonalContext.shared
 
@@ -20,9 +20,9 @@ struct StringsView<Content>: View where Content: View {
                             let note = viewConductor.openStringsMIDI[string] + fret
                             if (Pitch.isValidPitch(note)) {
                                 let pitch = Pitch.pitch(for: MIDINoteNumber(note))
-                                KeyboardKeyContainerView(conductor: viewConductor,
+                                PitchContainerView(conductor: viewConductor,
                                                          pitch: pitch,
-                                                         keyboardKeyView: keyboardKeyView)
+                                                         pitchView: pitchView)
                             } else {
                                 Color.clear
                             }

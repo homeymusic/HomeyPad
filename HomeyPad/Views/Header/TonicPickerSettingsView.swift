@@ -3,6 +3,7 @@ import HomeyMusicKit
 
 struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var modeConductor: ViewConductor    
     @Binding var showTonicPicker: Bool
     @StateObject private var tonalContext = TonalContext.shared
 
@@ -29,20 +30,21 @@ struct TonicPickerSettingsView: View {
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView(.vertical) {
-                            TonicPickerKeyLabelsPopoverView(viewConductor: tonicConductor)
+                            TonicPickerPitchLabelsPopoverView(tonicConductor: tonicConductor, modeConductor: modeConductor)
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)
                         Divider()
                         Button(action: {
                             tonicConductor.resetLabels()
+                            modeConductor.resetLabels()
                         }, label: {
                             Image(systemName: "gobackward")
                                 .gridCellAnchor(.center)
-                                .foregroundColor(tonicConductor.areLabelsDefault ? .gray : .white)
+                                .foregroundColor(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault ? .gray : .white)
                         })
                         .gridCellColumns(2)
-                        .disabled(tonicConductor.areLabelsDefault)
+                        .disabled(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault)
                         .padding([.top, .bottom], 7)
                     }
                 })

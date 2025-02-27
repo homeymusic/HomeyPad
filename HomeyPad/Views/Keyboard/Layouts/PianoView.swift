@@ -3,7 +3,7 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct PianoView<Content>: View where Content: View {
-    let keyboardKeyView: (Pitch) -> Content
+    let pitchView: (Pitch) -> Content
     var viewConductor: ViewConductor
 
     func offset(for pitch: Pitch) -> CGFloat {
@@ -29,19 +29,19 @@ struct PianoView<Content>: View where Content: View {
             let pitch = Pitch.pitch(for: MIDINoteNumber(note))
             if pitch.isNatural {
                 return AnyView(
-                    KeyboardKeyContainerView(conductor: viewConductor,
+                    PitchContainerView(conductor: viewConductor,
                                          pitch: pitch,
-                                         keyboardKeyView: keyboardKeyView)
+                                         pitchView: pitchView)
                     .overlay {
                         if Pitch.isValidPitch(note - 1) {
                             let pitch = Pitch.pitch(for: MIDINoteNumber(note - 1))
                             if !pitch.isNatural {
                                 GeometryReader { proxy in
                                     ZStack {
-                                        KeyboardKeyContainerView(conductor: viewConductor,
+                                        PitchContainerView(conductor: viewConductor,
                                                                  pitch: pitch,
                                                                  zIndex: 1,
-                                                                 keyboardKeyView: keyboardKeyView)
+                                                                 pitchView: pitchView)
                                         .frame(width: proxy.size.width / viewConductor.goldenRatio,
                                                height: proxy.size.height / viewConductor.goldenRatio)
                                     }

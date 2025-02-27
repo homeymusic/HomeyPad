@@ -4,11 +4,14 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @State var showTonicPicker: Bool
     @StateObject private var tonicConductor: ViewConductor
+    @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
-    @StateObject private var tonalContext = TonalContext.shared
 
+    @StateObject private var tonalContext = TonalContext.shared
+    
+    @State var showTonicPicker: Bool
+    
     init() {
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
@@ -80,6 +83,18 @@ struct ContentView: View {
         
         if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
             defaults.register(defaults: [
+                "modeLayoutLabel" : encodedDefaultLayoutLabel
+            ])
+        }
+        var modeLayoutLabel: LayoutLabel = defaultLayoutLabel
+        if let savedModeLayoutLabel = defaults.object(forKey: "modeLayoutLabel") as? Data {
+            if let loadedModeLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedModeLayoutLabel) {
+                modeLayoutLabel = loadedModeLayoutLabel
+            }
+        }
+        
+        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
+            defaults.register(defaults: [
                 "viewLayoutLabel" : encodedDefaultLayoutLabel
             ])
         }
@@ -107,13 +122,20 @@ struct ContentView: View {
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
         
-        // Create the two conductors: one for the tonic picker and one for the primary keyboard
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
             layoutChoice: .tonic,
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
             sendTonicState: true
+        ))
+        
+        _modeConductor = StateObject(wrappedValue: ViewConductor(
+            accidental: accidental,
+            layoutChoice: .mode,
+            layoutPalette: viewLayoutPalette,
+            layoutLabel: modeLayoutLabel,
+            sendTonicState: false
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
@@ -126,6 +148,7 @@ struct ContentView: View {
             layoutRowsCols: layoutRowsCols,
             sendTonicState: false
         ))
+        
     }
     
     var body: some View {
@@ -136,43 +159,71 @@ struct ContentView: View {
                 ZStack() {
                     // Header
                     VStack {
-                        HeaderView(viewConductor: viewConductor, tonicConductor: tonicConductor, showTonicPicker: $showTonicPicker)
+                        HeaderView(viewConductor: viewConductor,
+                                   tonicConductor: tonicConductor,
+                                   modeConductor: modeConductor,
+                                   showTonicPicker: $showTonicPicker)
                             .frame(height: settingsHeight)
                         Spacer()
                     }
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        if showTonicPicker {
-                            KeyboardView(conductor: tonicConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
-                                                conductor: tonicConductor,
-                                                keyboardViewConductor: viewConductor)
-                                .aspectRatio(1.0, contentMode: .fit)
+                        if showTonicPicker && (tonicConductor.showTonicLabels || modeConductor.showModes) {
+                            VStack {
+                                
+                                if tonicConductor.showTonicLabels {
+                                    PitchKeyboardView(conductor: tonicConductor) { pitch in
+                                        PitchView(pitch: pitch,
+                                                  thisConductor: tonicConductor,
+                                                  viewConductor: viewConductor,
+                                                  tonicConductor: tonicConductor,
+                                                  modeConductor: modeConductor)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                    }
+                                    .aspectRatio(13.0, contentMode: .fit)
+                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
+                                }
+                                
+                                if modeConductor.showModes {
+                                    ModeKeyboardView(conductor: modeConductor) { mode in
+                                        ModeView(mode: mode,
+                                                 thisConductor: tonicConductor,
+                                                 viewConductor: viewConductor,
+                                                 tonicConductor: tonicConductor,
+                                                 modeConductor: modeConductor)
+                                        .aspectRatio(2.0, contentMode: .fit)
+                                    }
+                                    .aspectRatio(13.0 * 2.0, contentMode: .fit)
+                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
+                                }
+                                
                             }
-                            .aspectRatio(13.0, contentMode: .fit)
                             .padding(7.0)
                             .background {
                                 RoundedRectangle(cornerRadius: 7.0)
                                     .fill(Color(UIColor.systemGray6))
                             }
-                            .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                         }
                         if viewConductor.isOneRowOnTablet  {
-                            KeyboardView(conductor: viewConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
-                                                conductor: viewConductor,
-                                                keyboardViewConductor: viewConductor)
+                            PitchKeyboardView(conductor: viewConductor) { pitch in
+                                PitchView(pitch: pitch,
+                                          thisConductor: viewConductor,
+                                          viewConductor: viewConductor,
+                                          tonicConductor: tonicConductor,
+                                          modeConductor: modeConductor)
                             }
                             .aspectRatio(4.0, contentMode: .fit)
                             .ignoresSafeArea(edges:.horizontal)
                         }
                         
                         if !viewConductor.isOneRowOnTablet {
-                            KeyboardView(conductor: viewConductor) { pitch in
-                                KeyboardKeyView(pitch: pitch,
-                                                conductor: viewConductor,
-                                                keyboardViewConductor: viewConductor)
+                            PitchKeyboardView(conductor: viewConductor) { pitch in
+                                PitchView(pitch: pitch,
+                                          thisConductor: viewConductor,
+                                          viewConductor: viewConductor,
+                                          tonicConductor: tonicConductor,
+                                          modeConductor: modeConductor)
                             }
                             .ignoresSafeArea(edges:.horizontal)
                         }
@@ -224,6 +275,11 @@ struct ContentView: View {
             .onChange(of: tonicConductor.layoutLabel) {
                 if let encodedTonicLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
                     defaults.set(encodedTonicLayoutLabel, forKey: "tonicLayoutLabel")
+                }
+            }
+            .onChange(of: modeConductor.layoutLabel) {
+                if let encodedModeLayoutLabel = try? JSONEncoder().encode(modeConductor.layoutLabel) {
+                    defaults.set(encodedModeLayoutLabel, forKey: "modeLayoutLabel")
                 }
             }
             .onChange(of: viewConductor.layoutLabel) {

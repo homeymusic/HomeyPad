@@ -14,12 +14,33 @@ class ViewConductor: ObservableObject {
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
         self.layoutRowsCols      = layoutRowsCols
+
+        if layoutChoice != .mode && layoutChoice != .tonic {
+            synthConductor = SynthConductor()
+        }
+        
     }
     
     @StateObject var tonalContext = TonalContext.shared
     
     let animationStyle: Animation = Animation.linear
     
+    var showModes: Bool {
+        noteLabel[.mode]! || noteLabel[.plot]!
+    }
+    
+    var showTonicLabels: Bool {
+        if layoutChoice == .tonic {
+            print("noteLabel[.letter]!", noteLabel[.letter]!)
+        }
+        return noteLabel[.letter]! || noteLabel[.fixedDo]! || noteLabel[.month]! ||
+        intervalLabel[.symbol]! ||
+        intervalLabel[.interval]! || intervalLabel[.movableDo]! ||
+        intervalLabel[.roman]! || intervalLabel[.degree]! || intervalLabel[.integer]!
+    }
+    
+    @Published var synthConductor: SynthConductor?
+
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
             if oldLayoutChoice != layoutChoice {
@@ -42,7 +63,10 @@ class ViewConductor: ObservableObject {
     
     @Published var latching: Bool = false {
         willSet {
-            tonalContext.activatedPitches.forEach { $0.deactivate() }
+            tonalContext.activatedPitches.forEach {
+                synthConductor?.noteOff(pitch: $0)
+                $0.deactivate()
+            }
         }
         didSet {
             Task { @MainActor in
@@ -335,26 +359,27 @@ class ViewConductor: ObservableObject {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
     }
     
-    var keyRectInfos: [KeyRectInfo] = []
+    var pitchRectInfos: [PitchRectInfo] = []
+    var modeRectInfos: [ModeRectInfo] = []
     
     var isOneRowOnTablet : Bool {
         HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
     }
     
-    // Add a flag to lock the tonic during a touch event (private)
     private var isTonicLocked = false
-    
-    var touchLocations: [CGPoint] = [] {
+    private var isModeLocked = false
+
+    var pitchLocations: [CGPoint] = [] {
         didSet {
             var touchedPitches = Set<Pitch>()
 
             // Process the touch locations and determine which keys are touched
-            for location in touchLocations {
+            for location in pitchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
 
                 // Find the pitch at this location with the highest Z-index
-                for info in keyRectInfos where info.rect.contains(location) {
+                for info in pitchRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
                         highestZindex = info.zIndex
@@ -376,15 +401,18 @@ class ViewConductor: ObservableObject {
                             if !latchingTouchedPitches.contains(p) {
                                 latchingTouchedPitches.insert(p)
                                 // Toggle pitch activation
-                                if p.isActivated.value {
+                                if p.isActivated {
+                                    synthConductor?.noteOff(pitch: p)
                                     p.deactivate()
                                 } else {
+                                    synthConductor?.noteOn(pitch: p)
                                     p.activate()
                                 }
                             }
                         } else {
-                            // Non-latching mode: simply activate pitch
-                            if !p.isActivated.value {
+                            // Non-latching: simply activate pitch
+                            if !p.isActivated {
+                                synthConductor?.noteOn(pitch: p)
                                 p.activate()
                             }
                         }
@@ -392,23 +420,57 @@ class ViewConductor: ObservableObject {
                 }
             }
 
-            // Handle un-touching in non-latching mode
+            // Handle un-touching in non-latching
             if !latching {
                 for pitch in tonalContext.activatedPitches {
                     if !touchedPitches.contains(pitch) {
+                        synthConductor?.noteOff(pitch: pitch)
                         pitch.deactivate()
                     }
                 }
             }
 
             // When all touches are released, reset the tonic lock and latching set
-            if touchLocations.isEmpty {
+            if pitchLocations.isEmpty {
                 isTonicLocked = false
                 latchingTouchedPitches.removeAll()  // Clear for the next interaction
             }
         }
     }
 
+    var modeLocations: [CGPoint] = [] {
+        didSet {
+
+            // Process the touch locations and determine which keys are touched
+            for location in modeLocations {
+                var mode: Mode?
+                var highestZindex = -1
+
+                // Find the pitch at this location with the highest Z-index
+                for info in modeRectInfos where info.rect.contains(location) {
+                    if mode == nil || info.zIndex > highestZindex {
+                        mode = info.mode
+                        highestZindex = info.zIndex
+                    }
+                }
+
+                if let m = mode {
+                    
+                    // Handle tonic mode
+                    if !isModeLocked {
+                        updateMode(m)
+                        isModeLocked = true
+                    }
+                }
+            }
+
+            // When all touches are released, reset the tonic lock and latching set
+            if modeLocations.isEmpty {
+                isModeLocked = false
+            }
+        }
+    }
+    
     // A set to track which pitches have been latched
     private var latchingTouchedPitches = Set<Pitch>()
     // Helper function to update the tonic
@@ -422,6 +484,13 @@ class ViewConductor: ObservableObject {
         }
     }
 
+    private func updateMode(_ newMode: Mode) {
+        if newMode != tonalContext.modeOffset {
+            // Adjust pitch direction if the new tonic is an octave shift
+            tonalContext.modeOffset = newMode
+        }
+    }
+
     @Published var accidental: Accidental = .default {
         didSet {
             Task { @MainActor in
@@ -429,7 +498,7 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-
+    
     func tritoneLength(proxySize: CGSize) -> CGFloat {
         return min(proxySize.height * 1/3, proxySize.width)
     }
