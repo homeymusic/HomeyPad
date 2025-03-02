@@ -4,7 +4,7 @@ import HomeyMusicKit
 // Helper extension that replaces the repeated long expression.
 extension PitchView {
     var tonicInterval: Interval {
-        pitch.interval(from: tonalContext.tonicPitch)
+        Interval.interval(from: thisConductor.tonalContext.tonicPitch, to: pitch)
     }
 }
 
@@ -67,32 +67,50 @@ public struct PitchLabelView: View {
         }
 
         var noteLabels: some View {
-            Group {
-                if pitchView.thisConductor.noteLabel[.letter]! {
-                    overlayText("\(pitchView.pitch.letter(pitchView.thisConductor.accidental))\(octave)")
+            AnyView(
+                Group {
+                    if pitchView.thisConductor.noteLabel[.letter]! {
+                        overlayText("\(pitchView.pitch.letter(using: pitchView.thisConductor.accidental))\(octave)")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.fixedDo]! {
+                        overlayText("\(pitchView.pitch.fixedDo(using: pitchView.thisConductor.accidental))\(octave)")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.midi]! {
+                        overlayText(String(pitchView.pitch.midiNote.number))
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.wavelength]! {
+                        overlayText("\("λ") \(pitchView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.wavenumber]! {
+                        overlayText("\("k") \(pitchView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.period]! {
+                        overlayText("\("T") \((pitchView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.frequency]! {
+                        overlayText("\("f") \(pitchView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
+                    } else {
+                        EmptyView()
+                    }
+                    if pitchView.thisConductor.noteLabel[.cochlea]! {
+                        overlayText("\(pitchView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
+                    } else {
+                        EmptyView()
+                    }
                 }
-                if pitchView.thisConductor.noteLabel[.fixedDo]! {
-                    overlayText("\(pitchView.pitch.fixedDo(pitchView.thisConductor.accidental))\(octave)")
-                }
-                if pitchView.thisConductor.noteLabel[.midi]! {
-                    overlayText(String(pitchView.pitch.midiNote.number))
-                }
-                if pitchView.thisConductor.noteLabel[.wavelength]! {
-                    overlayText("\("λ") \(pitchView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
-                }
-                if pitchView.thisConductor.noteLabel[.wavenumber]! {
-                    overlayText("\("k") \(pitchView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
-                }
-                if pitchView.thisConductor.noteLabel[.period]! {
-                    overlayText("\("T") \((pitchView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
-                }
-                if pitchView.thisConductor.noteLabel[.frequency]! {
-                    overlayText("\("f") \(pitchView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
-                }
-                if pitchView.thisConductor.noteLabel[.cochlea]! {
-                    overlayText("\(pitchView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
-                }
-            }
+            )
         }
 
         var monthLabel: some View {
@@ -133,13 +151,13 @@ public struct PitchLabelView: View {
         var intervalLabels: some View {
             Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
-                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.thisConductor.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.roman]! {
-                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.thisConductor.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.degree]! {
-                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.thisConductor.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.integer]! {
                     overlayText(String(pitchView.tonicInterval.distance))
@@ -173,7 +191,7 @@ public struct PitchLabelView: View {
         }
 
         var isActivated: Bool {
-            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated : pitchView.pitch.isActivated
+            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: pitchView.thisConductor.tonalContext.activatedPitches) : pitchView.pitch.isActivated
         }
 
         var textColor: Color {

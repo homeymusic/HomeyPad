@@ -4,15 +4,16 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
+    @StateObject private var tonalContext: TonalContext
     @StateObject private var tonicConductor: ViewConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
 
-    @StateObject private var tonalContext = TonalContext.shared
-    
     @State var showTonicPicker: Bool
     
+    
     init() {
+        
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -122,12 +123,23 @@ struct ContentView: View {
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
         
+        
+        let context = TonalContext(
+            clientName: "HomeyPad",
+            model: "Homey Pad iOS",
+            manufacturer: "Homey Music"
+        )
+        
+        // Then assign it to the state objects using the underscore initializer.
+        _tonalContext = StateObject(wrappedValue: context)
+
         _tonicConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
             layoutChoice: .tonic,
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
-            sendTonicState: true
+            sendTonicState: true,
+            tonalContext: context
         ))
         
         _modeConductor = StateObject(wrappedValue: ViewConductor(
@@ -135,7 +147,8 @@ struct ContentView: View {
             layoutChoice: .mode,
             layoutPalette: viewLayoutPalette,
             layoutLabel: modeLayoutLabel,
-            sendTonicState: false
+            sendTonicState: false,
+            tonalContext: context
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
@@ -146,7 +159,8 @@ struct ContentView: View {
             layoutPalette: viewLayoutPalette,
             layoutLabel: viewLayoutLabel,
             layoutRowsCols: layoutRowsCols,
-            sendTonicState: false
+            sendTonicState: false,
+            tonalContext: context
         ))
         
     }

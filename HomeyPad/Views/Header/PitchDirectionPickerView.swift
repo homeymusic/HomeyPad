@@ -2,11 +2,11 @@ import SwiftUI
 import HomeyMusicKit
 
 struct PitchDirectionPickerView: View {
-    @StateObject private var tonalContext = TonalContext.shared
+    @ObservedObject var tonicConductor: ViewConductor
 
     var body: some View {
         HStack {
-            Picker("", selection: $tonalContext.pitchDirection) {
+            Picker("", selection: tonicConductor.pitchDirectionBinding) {
                 Image(systemName: PitchDirection.downward.icon)
                     .tag(PitchDirection.downward)
                 Image(systemName: PitchDirection.upward.icon)

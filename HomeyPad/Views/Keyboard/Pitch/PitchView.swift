@@ -8,10 +8,9 @@ public struct PitchView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
-    @StateObject var tonalContext = TonalContext.shared
     
     var interval: Interval {
-        pitch.interval(from: tonalContext.tonicPitch)
+        Interval.interval(from: tonicConductor.tonalContext.tonicPitch, to: pitch)
     }
     
     // for tritone in symmetric layout and small keys in piano layout
@@ -82,7 +81,7 @@ public struct PitchView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        thisConductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated : pitch.isActivated
+        thisConductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated(in: thisConductor.tonalContext.activatedPitches) : pitch.isActivated
     }
 
     var keyColor: Color {
@@ -136,7 +135,7 @@ public struct PitchView: View {
     }
     
     var outline: Bool {
-        return thisConductor.outlineChoice && ((interval.isTonic || interval.isOctave) || (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.modeOffset.intervalClasses.contains([interval.intervalClass])))
+        return thisConductor.outlineChoice && ((interval.isTonic || interval.isOctave) || (modeConductor.showModes && thisConductor.layoutChoice != .tonic && thisConductor.tonalContext.modeOffset.intervalClasses.contains([interval.intervalClass])))
     }
     
     var isSmall: Bool {

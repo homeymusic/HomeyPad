@@ -12,16 +12,16 @@ struct SymmetricView<Content>: View where Content: View {
         if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {
-                    if Pitch.isValidPitch(note + 1) {
+                    if Pitch.isValid(note + 1) {
                         PitchContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.pitch(for: MIDINoteNumber(note + 1)),
-                                                 pitchView: pitchView)
+                                           pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note + 1)),
+                                           pitchView: pitchView)
                     } else {
                         Color.clear
                     }
-                    if Pitch.isValidPitch(note) {
+                    if Pitch.isValid(note) {
                         PitchContainerView(conductor: viewConductor,
-                                                 pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                                 pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
                                                  pitchView: pitchView)
                     } else {
                         Color.clear
@@ -31,17 +31,17 @@ struct SymmetricView<Content>: View where Content: View {
         } else if (majorMinor == .neutral) {
             let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
             if intervalClass == .seven {
-                if Pitch.isValidPitch(note) {
+                if Pitch.isValid(note) {
                     return AnyView(PitchContainerView(conductor: viewConductor,
-                                                    pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                                    pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
                                                     pitchView: pitchView)
                     .overlay {
-                        if Pitch.isValidPitch(note - 1) && Pitch.isValidPitch(note - 2) {
+                        if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
                             GeometryReader { proxy in
                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                 ZStack {
                                     PitchContainerView(conductor: viewConductor,
-                                                             pitch: Pitch.pitch(for: MIDINoteNumber(note - 1)),
+                                                             pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
                                                              pitchView: pitchView)
                                     .frame(width: ttLength, height: ttLength)
@@ -54,9 +54,9 @@ struct SymmetricView<Content>: View where Content: View {
                 } else {
                     return AnyView(Color.clear)
                 }
-            } else if intervalClass != .six && Pitch.isValidPitch(note) {
+            } else if intervalClass != .six && Pitch.isValid(note) {
                 return AnyView(PitchContainerView(conductor: viewConductor,
-                                                        pitch: Pitch.pitch(for: MIDINoteNumber(note)),
+                                                        pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
                                                         pitchView: pitchView))
             } else {
                 return AnyView(EmptyView())

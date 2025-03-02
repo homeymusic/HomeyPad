@@ -8,7 +8,6 @@ public struct ModeView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
-    @StateObject var tonalContext = TonalContext.shared
     
     var borderWidthApparentSize: CGFloat {
         backgroundBorderSize
@@ -91,7 +90,7 @@ public struct ModeView: View {
     }
 
     var outlineSize: CGFloat {
-        if tonalContext.modeOffset == mode {
+        if thisConductor.tonalContext.modeOffset == mode {
             return 3.0
         } else {
             return 2.0
@@ -114,7 +113,7 @@ public struct ModeView: View {
     }
     
     var outline: Bool {
-        viewConductor.outlineChoice && (mode == tonalContext.modeOffset)
+        viewConductor.outlineChoice && (mode == viewConductor.tonalContext.modeOffset)
     }
     
     var isSmall: Bool {

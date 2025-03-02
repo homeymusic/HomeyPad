@@ -5,23 +5,37 @@ import HomeyMusicKit
 @MainActor
 class ViewConductor: ObservableObject {
     
-    init(accidental: Accidental, layoutChoice: LayoutChoice, stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin, latching: Bool = false, layoutPalette: LayoutPalette = LayoutPalette(), layoutLabel: LayoutLabel = LayoutLabel(), layoutRowsCols: LayoutRowsCols = LayoutRowsCols(), sendTonicState: Bool = false) {
-        // defaults
-        self.accidental          = accidental
-        self.layoutChoice        = layoutChoice
-        self.stringsLayoutChoice = stringsLayoutChoice
-        self.latching            = latching
-        self.layoutPalette       = layoutPalette
-        self.layoutLabel         = layoutLabel
-        self.layoutRowsCols      = layoutRowsCols
-
-        if layoutChoice != .mode && layoutChoice != .tonic {
-            synthConductor = SynthConductor()
-        }
-        
-    }
     
-    @StateObject var tonalContext = TonalContext.shared
+    // Inject a TonalContext via the initializer.
+     init(
+         accidental: Accidental,
+         layoutChoice: LayoutChoice,
+         stringsLayoutChoice: StringsLayoutChoice = .violin,
+         latching: Bool = false,
+         layoutPalette: LayoutPalette = LayoutPalette(),
+         layoutLabel: LayoutLabel = LayoutLabel(),
+         layoutRowsCols: LayoutRowsCols = LayoutRowsCols(),
+         sendTonicState: Bool = false,
+         tonalContext: TonalContext
+     ) {
+         // Initialize the @StateObject property using the underscore syntax.
+         _tonalContext = StateObject(wrappedValue: tonalContext)
+         
+         // Set up other properties.
+         self.accidental          = accidental
+         self.layoutChoice        = layoutChoice
+         self.stringsLayoutChoice = stringsLayoutChoice
+         self.latching            = latching
+         self.layoutPalette       = layoutPalette
+         self.layoutLabel         = layoutLabel
+         self.layoutRowsCols      = layoutRowsCols
+         
+         if layoutChoice != .mode && layoutChoice != .tonic {
+             synthConductor = SynthConductor()
+         }
+     }
+    
+    @StateObject var tonalContext: TonalContext
     
     let animationStyle: Animation = Animation.linear
     
@@ -212,6 +226,13 @@ class ViewConductor: ObservableObject {
     
     var intervalLabel: [IntervalLabelChoice: Bool] {
         intervalLabels[layoutChoice]!
+    }
+    
+    var pitchDirectionBinding: Binding<PitchDirection> {
+        Binding(
+            get: { self.tonalContext.pitchDirection },
+            set: { self.tonalContext.pitchDirection = $0 }
+        )
     }
     
     public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {

@@ -5,7 +5,6 @@ struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor    
     @Binding var showTonicPicker: Bool
-    @StateObject private var tonalContext = TonalContext.shared
 
     var body: some View {
         HStack {
@@ -70,19 +69,19 @@ struct TonicPickerSettingsView: View {
             
             if showTonicPicker {
                 Button(action: {
-                    tonalContext.resetToDefault()
+                    tonicConductor.tonalContext.resetToDefault()
                 }) {
                     ZStack {
                         Color.clear.overlay(
                             Image(systemName: "gobackward")
-                                .foregroundColor(tonalContext.isDefault ? .gray : .white)
+                                .foregroundColor(tonicConductor.tonalContext.isDefault ? .gray : .white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .transition(.scale)
-                .disabled(tonalContext.isDefault)
+                .disabled(tonicConductor.tonalContext.isDefault)
             }
         }
     }

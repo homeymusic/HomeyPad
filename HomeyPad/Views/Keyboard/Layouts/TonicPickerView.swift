@@ -3,24 +3,22 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct TonicPickerView<Content>: View where Content: View {
-    let pitchView: (Pitch) -> Content
-    
-    @StateObject private var tonalContext = TonalContext.shared
+    let pitchView: (Pitch) -> Content    
     @ObservedObject var tonicConductor: ViewConductor
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(tonalContext.tonicPickerNotes, id: \.self) { note in
-                if Pitch.isValidPitch(note) {
+            ForEach(tonicConductor.tonalContext.tonicPickerNotes, id: \.self) { note in
+                if Pitch.isValid(note) {
                     PitchContainerView(conductor: tonicConductor,
-                                             pitch: Pitch.pitch(for: MIDINoteNumber(note)),
-                                             pitchView: pitchView)
+                                       pitch: tonicConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
+                                       pitchView: pitchView)
                 } else {
                     Color.clear
                 }
             }
         }
-        .animation(tonicConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(tonicConductor.animationStyle, value: tonicConductor.tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }
