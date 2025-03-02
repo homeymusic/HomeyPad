@@ -1,11 +1,18 @@
 import SwiftUI
 import AVFoundation
+import HomeyMusicKit
 
 @main
 struct HomeyPad: App {
     
     init() {
+        TonalContext.configure(
+            clientName: "HomeyPad",
+            model: "Homey Pad iOS",
+            manufacturer: "Homey Music"
+        )
     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
