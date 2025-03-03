@@ -21,7 +21,10 @@ struct HeaderView: View {
                 tonalContext: tonalContext,
                 showTonicPicker: $showTonicPicker)
             HStack(spacing: 15) {
-                PitchDirectionPickerView(tonicConductor: tonicConductor)
+                PitchDirectionPickerView(
+                    tonicConductor: tonicConductor,
+                    tonalContext: tonalContext
+                )
                 HelpView(viewConductor: viewConductor)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

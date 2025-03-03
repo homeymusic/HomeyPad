@@ -228,13 +228,6 @@ class ViewConductor: ObservableObject {
         intervalLabels[layoutChoice]!
     }
     
-    var pitchDirectionBinding: Binding<PitchDirection> {
-        Binding(
-            get: { self.tonalContext.pitchDirection },
-            set: { self.tonalContext.pitchDirection = $0 }
-        )
-    }
-    
     public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {
         return Binding(
             get: {
@@ -396,13 +389,6 @@ class ViewConductor: ObservableObject {
     var pitchLocations: [CGPoint] = [] {
         didSet {
             
-            if (!pitchLocations.isEmpty) {
-                print("pitchLocations Count", pitchLocations.count)
-                print("pitchRectInfos Count", pitchRectInfos.count)
-                print("pitchLocations", pitchLocations)
-                print("pitchRectInfos", pitchRectInfos)
-            }
-            
             var touchedPitches = Set<Pitch>()
 
             // Process the touch locations and determine which keys are touched
@@ -412,7 +398,6 @@ class ViewConductor: ObservableObject {
 
                 // Find the pitch at this location with the highest Z-index
                 for info in pitchRectInfos where info.rect.contains(location) {
-                    print("there was a match")
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
                         highestZindex = info.zIndex

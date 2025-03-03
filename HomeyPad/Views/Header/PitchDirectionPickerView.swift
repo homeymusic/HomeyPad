@@ -3,10 +3,11 @@ import HomeyMusicKit
 
 struct PitchDirectionPickerView: View {
     @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
 
     var body: some View {
         HStack {
-            Picker("", selection: tonicConductor.pitchDirectionBinding) {
+            Picker("", selection: tonalContext.pitchDirectionBinding) {
                 Image(systemName: PitchDirection.downward.icon)
                     .tag(PitchDirection.downward)
                 Image(systemName: PitchDirection.upward.icon)
