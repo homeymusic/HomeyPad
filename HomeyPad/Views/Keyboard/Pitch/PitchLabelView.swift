@@ -1,19 +1,12 @@
 import SwiftUI
 import HomeyMusicKit
 
-// Helper extension that replaces the repeated long expression.
-extension PitchView {
-    var tonicInterval: Interval {
-        Interval.interval(from: tonalContext.tonicPitch, to: pitch)
-    }
-}
-
 public struct PitchLabelView: View {
     var pitchView: PitchView
     var proxySize: CGSize
 
     var isSymmetricNotTritone: Bool {
-        pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.tonicInterval.isTritone
+        pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.pitchInterval.isTritone
     }
 
     public var body: some View {
@@ -22,7 +15,7 @@ public struct PitchLabelView: View {
         let extraPadding = tritonePadding + topBottomPadding
         return VStack(spacing: 0.0) {
             if pitchView.thisConductor.layoutChoice == .symmetric &&
-                pitchView.tonicInterval.consonanceDissonance > .consonant {
+                pitchView.pitchInterval.consonanceDissonance > .consonant {
                 Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
                 Color.clear
@@ -128,20 +121,20 @@ public struct PitchLabelView: View {
             if pitchView.thisConductor.showSymbols {
                 return AnyView(
                     Color.clear.overlay(
-                        pitchView.tonicInterval.consonanceDissonance.image
+                        pitchView.pitchInterval.consonanceDissonance.image
                             .resizable()
                             .rotationEffect(rotation)
                             .scaledToFit()
                             .font(Font.system(size: .leastNormalMagnitude,
-                                              weight: pitchView.tonicInterval.consonanceDissonance.fontWeight))
+                                              weight: pitchView.pitchInterval.consonanceDissonance.fontWeight))
                             .frame(maxWidth: (pitchView.isSmall ? 0.6 : 0.5) *
-                                    pitchView.tonicInterval.consonanceDissonance.imageScale * proxySize.width,
+                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.width,
                                    maxHeight: 0.8 *
-                                    pitchView.tonicInterval.consonanceDissonance.imageScale * proxySize.height /
+                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.height /
                                     CGFloat(pitchView.thisConductor.labelsCount))
-                            .scaleEffect(pitchView.tonicInterval.isTonic ? 1.2 : 1.0)
+                            .scaleEffect(pitchView.pitchInterval.isTonic ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 0.3),
-                                       value: pitchView.tonicInterval.isTonic)
+                                       value: pitchView.pitchInterval.isTonic)
                     )
                 )
             }
@@ -151,31 +144,31 @@ public struct PitchLabelView: View {
         var intervalLabels: some View {
             Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
-                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.roman]! {
-                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.degree]! {
-                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.integer]! {
-                    overlayText(String(pitchView.tonicInterval.distance))
+                    overlayText(String(pitchView.pitchInterval.distance))
                 }
                 if pitchView.thisConductor.intervalLabel[.movableDo]! {
-                    overlayText(pitchView.tonicInterval.movableDo)
+                    overlayText(pitchView.pitchInterval.movableDo)
                 }
                 if pitchView.thisConductor.intervalLabel[.wavelengthRatio]! {
-                    overlayText(String(pitchView.tonicInterval.wavelengthRatio))
+                    overlayText(String(pitchView.pitchInterval.wavelengthRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.wavenumberRatio]! {
-                    overlayText(String(pitchView.tonicInterval.wavenumberRatio))
+                    overlayText(String(pitchView.pitchInterval.wavenumberRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.periodRatio]! {
-                    overlayText(String(pitchView.tonicInterval.periodRatio))
+                    overlayText(String(pitchView.pitchInterval.periodRatio))
                 }
                 if pitchView.thisConductor.intervalLabel[.frequencyRatio]! {
-                    overlayText(String(pitchView.tonicInterval.frequencyRatio))
+                    overlayText(String(pitchView.pitchInterval.frequencyRatio))
                 }
             }
         }
@@ -200,9 +193,9 @@ public struct PitchLabelView: View {
             switch pitchView.thisConductor.paletteChoice {
             case .subtle:
                 activeColor = Color(pitchView.thisConductor.primaryColor)
-                inactiveColor = Color(pitchView.tonicInterval.majorMinor.color)
+                inactiveColor = Color(pitchView.pitchInterval.majorMinor.color)
             case .loud:
-                activeColor = Color(pitchView.tonicInterval.majorMinor.color)
+                activeColor = Color(pitchView.pitchInterval.majorMinor.color)
                 inactiveColor = Color(pitchView.thisConductor.primaryColor)
             case .ebonyIvory:
                 return pitchView.pitch.isNatural ? .black : .white

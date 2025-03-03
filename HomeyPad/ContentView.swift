@@ -131,7 +131,6 @@ struct ContentView: View {
             autoAdjustTonalContext: true
         )
         
-        // Then assign it to the state objects using the underscore initializer.
         _tonalContext = StateObject(wrappedValue: context)
 
         _tonicConductor = StateObject(wrappedValue: ViewConductor(

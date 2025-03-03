@@ -10,13 +10,12 @@ public struct PitchView: View {
     @ObservedObject var modeConductor: ViewConductor
     @ObservedObject var tonalContext: TonalContext
 
-    // for tritone in symmetric layout and small keys in piano layout
-    var overlayKey: Bool {
-        return (thisConductor.layoutChoice == .symmetric && pitch.interval(tonicPitch: tonalContext.tonicPitch).isTritone) || isSmall
+    var pitchInterval: Interval {
+        return tonalContext.interval(fromTonicTo: pitch)
     }
     
     var borderWidthApparentSize: CGFloat {
-        overlayKey ? 2.0 * backgroundBorderSize : backgroundBorderSize
+        isSmall ? 2.0 * backgroundBorderSize : backgroundBorderSize
     }
     
     var borderHeightApparentSize: CGFloat {
@@ -64,7 +63,7 @@ public struct PitchView: View {
     }
     
     func darkenSmallKeys(color: Color) -> Color {
-        return thisConductor.layoutChoice == .piano ? isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1) : color
+        return thisConductor.layoutChoice == .piano ? (isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1)) : color
     }
     
     var accentColor: Color {
@@ -89,12 +88,12 @@ public struct PitchView: View {
 
         switch thisConductor.paletteChoice {
         case .subtle:
-            activeColor = Color(pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color)
+            activeColor = Color(pitchInterval.majorMinor.color)
             inactiveColor = Color(thisConductor.primaryColor)
             return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(thisConductor.primaryColor)
-            inactiveColor = Color(pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color)
+            inactiveColor = Color(pitchInterval.majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.isNatural ? .white : Color(UIColor.systemGray4)
@@ -104,7 +103,7 @@ public struct PitchView: View {
     }
     
     var outlineSize: CGFloat {
-        if pitch.interval(tonicPitch: tonalContext.tonicPitch).isTonic {
+        if pitchInterval.isTonic {
             return 3.0
         } else {
             return 2.0
@@ -114,9 +113,9 @@ public struct PitchView: View {
     var outlineColor: Color {
         switch thisConductor.paletteChoice {
         case .subtle:
-            return isActivated ? Color(thisConductor.primaryColor) : pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color
+            return isActivated ? Color(thisConductor.primaryColor) : pitchInterval.majorMinor.color
         case .loud:
-            return isActivated ? pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color : Color(thisConductor.primaryColor)
+            return isActivated ? pitchInterval.majorMinor.color : Color(thisConductor.primaryColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
@@ -135,8 +134,8 @@ public struct PitchView: View {
     
     var outline: Bool {
         return thisConductor.outlineChoice &&
-        (pitch.interval(tonicPitch: tonalContext.tonicPitch).isTonic || pitch.interval(tonicPitch: tonalContext.tonicPitch).isOctave ||
-         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.mode.intervalClasses.contains([pitch.interval(tonicPitch: tonalContext.tonicPitch).intervalClass])))
+        (pitchInterval.isTonic || pitchInterval.isOctave ||
+         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.mode.intervalClasses.contains([pitchInterval.intervalClass])))
     }
     
     var isSmall: Bool {
@@ -177,7 +176,7 @@ public struct PitchView: View {
     }
     
     var rotation: CGFloat {
-        thisConductor.layoutChoice == .symmetric && pitch.interval(tonicPitch: tonalContext.tonicPitch).isTritone ? 45.0 : 0.0
+        thisConductor.layoutChoice == .symmetric && pitchInterval.isTritone ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {

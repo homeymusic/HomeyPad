@@ -6,7 +6,7 @@ struct SymmetricView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonalContext: TonalContext
-
+    
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
         let majorMinor: MajorMinor = Interval.majorMinor(forDistance: note - Int(tonalContext.tonicPitch.midiNote.number))
@@ -22,8 +22,8 @@ struct SymmetricView<Content>: View where Content: View {
                     }
                     if Pitch.isValid(note) {
                         PitchContainerView(conductor: viewConductor,
-                                                 pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                                 pitchView: pitchView)
+                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
+                                           pitchView: pitchView)
                     } else {
                         Color.clear
                     }
@@ -34,31 +34,31 @@ struct SymmetricView<Content>: View where Content: View {
             if intervalClass == .seven {
                 if Pitch.isValid(note) {
                     return AnyView(PitchContainerView(conductor: viewConductor,
-                                                    pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                                    pitchView: pitchView)
-                    .overlay {
-                        if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
-                            GeometryReader { proxy in
-                                let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
-                                ZStack {
-                                    PitchContainerView(conductor: viewConductor,
-                                                             pitch: tonalContext.pitch(for: MIDINoteNumber(note - 1)),
-                                                             zIndex: 1,
-                                                             pitchView: pitchView)
-                                    .frame(width: ttLength, height: ttLength)
+                                                      pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
+                                                      pitchView: pitchView)
+                        .overlay {
+                            if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
+                                GeometryReader { proxy in
+                                    let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
+                                    ZStack {
+                                        PitchContainerView(conductor: viewConductor,
+                                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note - 1)),
+                                                           zIndex: 1,
+                                                           pitchView: pitchView)
+                                        .frame(width: ttLength, height: ttLength)
+                                    }
+                                    .offset(x: -ttLength / 2.0,
+                                            y: proxy.size.height / 2.0 - ttLength / 2.0)
                                 }
-                                .offset(x: -ttLength / 2.0,
-                                        y: proxy.size.height / 2.0 - ttLength / 2.0)
                             }
-                        }
-                    })
+                        })
                 } else {
                     return AnyView(Color.clear)
                 }
             } else if intervalClass != .six && Pitch.isValid(note) {
                 return AnyView(PitchContainerView(conductor: viewConductor,
-                                                        pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                                        pitchView: pitchView))
+                                                  pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
+                                                  pitchView: pitchView))
             } else {
                 return AnyView(EmptyView())
             }
