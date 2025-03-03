@@ -34,7 +34,7 @@ struct LayoutRowsCols: Codable, Equatable {
     case .iPhone:
         [
             .tonic:      6,
-            .isomorphic: 9,
+            .isomorphic: 8,
             .symmetric:  13,
             .piano:      8,
             .strings:    26

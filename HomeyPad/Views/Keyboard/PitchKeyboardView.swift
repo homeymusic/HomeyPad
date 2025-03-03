@@ -63,9 +63,7 @@ public struct PitchKeyboardView<Content>: Identifiable, View where Content: View
             
         }
         .onPreferenceChange(PitchRectsKey.self) { keyRectInfos in
-            Task { @MainActor in
-                conductor.pitchRectInfos = keyRectInfos
-            }
+            conductor.pitchRectInfos = keyRectInfos
         }
     }
 }

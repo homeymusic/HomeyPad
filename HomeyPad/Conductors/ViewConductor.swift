@@ -2,38 +2,37 @@ import SwiftUI
 import MIDIKit
 import HomeyMusicKit
 
-@MainActor
 class ViewConductor: ObservableObject {
     
     
     // Inject a TonalContext via the initializer.
-     init(
-         accidental: Accidental,
-         layoutChoice: LayoutChoice,
-         stringsLayoutChoice: StringsLayoutChoice = .violin,
-         latching: Bool = false,
-         layoutPalette: LayoutPalette = LayoutPalette(),
-         layoutLabel: LayoutLabel = LayoutLabel(),
-         layoutRowsCols: LayoutRowsCols = LayoutRowsCols(),
-         sendTonicState: Bool = false,
-         tonalContext: TonalContext
-     ) {
-         // Initialize the @StateObject property using the underscore syntax.
-         _tonalContext = StateObject(wrappedValue: tonalContext)
-         
-         // Set up other properties.
-         self.accidental          = accidental
-         self.layoutChoice        = layoutChoice
-         self.stringsLayoutChoice = stringsLayoutChoice
-         self.latching            = latching
-         self.layoutPalette       = layoutPalette
-         self.layoutLabel         = layoutLabel
-         self.layoutRowsCols      = layoutRowsCols
-         
-         if layoutChoice != .mode && layoutChoice != .tonic {
-             synthConductor = SynthConductor()
-         }
-     }
+    init(
+        accidental: Accidental,
+        layoutChoice: LayoutChoice,
+        stringsLayoutChoice: StringsLayoutChoice = .violin,
+        latching: Bool = false,
+        layoutPalette: LayoutPalette = LayoutPalette(),
+        layoutLabel: LayoutLabel = LayoutLabel(),
+        layoutRowsCols: LayoutRowsCols = LayoutRowsCols(),
+        sendTonicState: Bool = false,
+        tonalContext: TonalContext
+    ) {
+        // Initialize the @StateObject property using the underscore syntax.
+        _tonalContext = StateObject(wrappedValue: tonalContext)
+        
+        // Set up other properties.
+        self.accidental          = accidental
+        self.layoutChoice        = layoutChoice
+        self.stringsLayoutChoice = stringsLayoutChoice
+        self.latching            = latching
+        self.layoutPalette       = layoutPalette
+        self.layoutLabel         = layoutLabel
+        self.layoutRowsCols      = layoutRowsCols
+        
+        if layoutChoice != .mode && layoutChoice != .tonic {
+            synthConductor = SynthConductor()
+        }
+    }
     
     @StateObject var tonalContext: TonalContext
     
@@ -51,13 +50,11 @@ class ViewConductor: ObservableObject {
     }
     
     @Published var synthConductor: SynthConductor?
-
+    
     @Published var layoutChoice: LayoutChoice = .isomorphic {
         didSet(oldLayoutChoice) {
             if oldLayoutChoice != layoutChoice {
-                Task { @MainActor in
-                    buzz()
-                }
+                buzz()
             }
         }
     }
@@ -65,9 +62,7 @@ class ViewConductor: ObservableObject {
     @Published var stringsLayoutChoice: StringsLayoutChoice = .violin {
         didSet(oldStringsLayoutChoice) {
             if oldStringsLayoutChoice != stringsLayoutChoice {
-                Task { @MainActor in
-                    buzz()
-                }
+                buzz()
             }
         }
     }
@@ -80,9 +75,7 @@ class ViewConductor: ObservableObject {
             }
         }
         didSet {
-            Task { @MainActor in
-                buzz()
-            }
+            buzz()
         }
     }
     
@@ -134,7 +127,7 @@ class ViewConductor: ObservableObject {
     public var layoutRows: [Int] {        
         return (-layoutRowsCols.rowsPerSide[self.layoutChoice]!...layoutRowsCols.rowsPerSide[self.layoutChoice]!).reversed()
     }
-
+    
     let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     let secondaryColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
     let goldenRatio = (1 + sqrt(5)) / 2
@@ -157,9 +150,7 @@ class ViewConductor: ObservableObject {
     func resetPaletteChoice() {
         layoutPalette.choices[layoutChoice] = LayoutPalette.defaultLayoutPalette[layoutChoice]
         layoutPalette.outlineChoice[layoutChoice] = LayoutPalette.defaultLayoutOutline[layoutChoice]
-        Task { @MainActor in
-            buzz()
-        }
+        buzz()
     }
     
     var labelsCount: Int {
@@ -177,9 +168,7 @@ class ViewConductor: ObservableObject {
         resetNoteLabels()
         resetIntervalLabels()
         resetAccidental()
-        Task { @MainActor in
-            buzz()
-        }
+        buzz()
     }
     
     func resetNoteLabels() {
@@ -204,9 +193,7 @@ class ViewConductor: ObservableObject {
     
     @Published var layoutPalette: LayoutPalette = LayoutPalette() {
         willSet(newLayoutPalette) {
-            Task { @MainActor in
-                buzz()
-            }
+            buzz()
         }
     }
     
@@ -282,12 +269,10 @@ class ViewConductor: ObservableObject {
     
     func fewerRows() {
         layoutRowsCols.rowsPerSide[layoutChoice]! -= 1
-        layoutRowsCols = layoutRowsCols
     }
     
     func moreRows() {
         layoutRowsCols.rowsPerSide[layoutChoice]! += 1
-        layoutRowsCols = layoutRowsCols
     }
     
     func fewerCols() {
@@ -308,7 +293,6 @@ class ViewConductor: ObservableObject {
             layoutRowsCols.colsPerSide[layoutChoice]! -= colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
         default: layoutRowsCols.colsPerSide[layoutChoice]! -= 1
         }
-        layoutRowsCols = layoutRowsCols
     }
     
     func moreCols() {
@@ -329,7 +313,6 @@ class ViewConductor: ObservableObject {
             layoutRowsCols.colsPerSide[layoutChoice]! += colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
         default: layoutRowsCols.colsPerSide[layoutChoice]! += 1
         }
-        layoutRowsCols = layoutRowsCols
     }
     
     var showRowColsReset: Bool {
@@ -360,20 +343,16 @@ class ViewConductor: ObservableObject {
     
     @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols() {
         didSet {
-            Task { @MainActor in
-                buzz()
-            }
+            buzz()
         }
     }
     
     func resetColsPerSide() {
         layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
-        layoutRowsCols = layoutRowsCols
     }
     
     func resetRowsPerSide() {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
-        layoutRowsCols = layoutRowsCols
     }
     
     var pitchRectInfos: [PitchRectInfo] = []
@@ -385,17 +364,17 @@ class ViewConductor: ObservableObject {
     
     private var isTonicLocked = false
     private var isModeLocked = false
-
+    
     var pitchLocations: [CGPoint] = [] {
         didSet {
             
             var touchedPitches = Set<Pitch>()
-
+            
             // Process the touch locations and determine which keys are touched
             for location in pitchLocations {
                 var pitch: Pitch?
                 var highestZindex = -1
-
+                
                 // Find the pitch at this location with the highest Z-index
                 for info in pitchRectInfos where info.rect.contains(location) {
                     if pitch == nil || info.zIndex > highestZindex {
@@ -403,10 +382,10 @@ class ViewConductor: ObservableObject {
                         highestZindex = info.zIndex
                     }
                 }
-
+                
                 if let p = pitch {
                     touchedPitches.insert(p)
-
+                    
                     if layoutChoice == .tonic {
                         // Handle tonic mode
                         if !isTonicLocked {
@@ -437,7 +416,7 @@ class ViewConductor: ObservableObject {
                     }
                 }
             }
-
+            
             // Handle un-touching in non-latching
             if !latching {
                 for pitch in tonalContext.activatedPitches {
@@ -447,7 +426,7 @@ class ViewConductor: ObservableObject {
                     }
                 }
             }
-
+            
             // When all touches are released, reset the tonic lock and latching set
             if pitchLocations.isEmpty {
                 isTonicLocked = false
@@ -455,15 +434,15 @@ class ViewConductor: ObservableObject {
             }
         }
     }
-
+    
     var modeLocations: [CGPoint] = [] {
         didSet {
-
+            
             // Process the touch locations and determine which keys are touched
             for location in modeLocations {
                 var mode: Mode?
                 var highestZindex = -1
-
+                
                 // Find the pitch at this location with the highest Z-index
                 for info in modeRectInfos where info.rect.contains(location) {
                     if mode == nil || info.zIndex > highestZindex {
@@ -471,7 +450,7 @@ class ViewConductor: ObservableObject {
                         highestZindex = info.zIndex
                     }
                 }
-
+                
                 if let m = mode {
                     
                     // Handle tonic mode
@@ -481,7 +460,7 @@ class ViewConductor: ObservableObject {
                     }
                 }
             }
-
+            
             // When all touches are released, reset the tonic lock and latching set
             if modeLocations.isEmpty {
                 isModeLocked = false
@@ -501,19 +480,17 @@ class ViewConductor: ObservableObject {
             tonalContext.tonicPitch = newTonicPitch
         }
     }
-
+    
     private func updateMode(_ newMode: Mode) {
         if newMode != tonalContext.mode {
             // Adjust pitch direction if the new tonic is an octave shift
             tonalContext.mode = newMode
         }
     }
-
+    
     @Published var accidental: Accidental = .default {
         didSet {
-            Task { @MainActor in
-                buzz()
-            }
+            buzz()
         }
     }
     

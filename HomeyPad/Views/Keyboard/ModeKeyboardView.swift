@@ -21,9 +21,7 @@ public struct ModeKeyboardView<Content>: Identifiable, View where Content: View 
             }
             
         }.onPreferenceChange(ModeRectsKey.self) { modeRectInfos in
-            Task { @MainActor in
-                modeConductor.modeRectInfos = modeRectInfos
-            }
+            modeConductor.modeRectInfos = modeRectInfos
         }
     }
 }
