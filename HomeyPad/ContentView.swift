@@ -127,7 +127,8 @@ struct ContentView: View {
         let context = TonalContext(
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
-            manufacturer: "Homey Music"
+            manufacturer: "Homey Music",
+            autoAdjustTonalContext: true
         )
         
         // Then assign it to the state objects using the underscore initializer.
