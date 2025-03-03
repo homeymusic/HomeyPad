@@ -6,8 +6,8 @@ public struct ModeView: View {
     let mode: Mode
     @ObservedObject var thisConductor: ViewConductor
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
     
     var borderWidthApparentSize: CGFloat {
         backgroundBorderSize
@@ -78,9 +78,9 @@ public struct ModeView: View {
     }
 
     var keyColor: Color {
-        switch thisConductor.paletteChoice {
+        switch viewConductor.paletteChoice {
         case .subtle:
-            return Color(thisConductor.primaryColor)
+            return Color(viewConductor.primaryColor)
         case .loud:
             return mode.majorMinor.color
         case .ebonyIvory:
@@ -90,7 +90,7 @@ public struct ModeView: View {
     }
 
     var outlineSize: CGFloat {
-        if thisConductor.tonalContext.mode == mode {
+        if tonalContext.mode == mode {
             return 3.0
         } else {
             return 2.0
@@ -113,7 +113,7 @@ public struct ModeView: View {
     }
     
     var outline: Bool {
-        viewConductor.outlineChoice && (mode == viewConductor.tonalContext.mode)
+        viewConductor.outlineChoice && (mode == tonalContext.mode)
     }
     
     var isSmall: Bool {

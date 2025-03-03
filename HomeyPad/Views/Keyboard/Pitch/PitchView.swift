@@ -5,17 +5,14 @@ public struct PitchView: View {
     
     @ObservedObject var pitch: Pitch
     @ObservedObject var thisConductor: ViewConductor
-    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var tonicConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
-    
-    var interval: Interval {
-        Interval.interval(from: tonicConductor.tonalContext.tonicPitch, to: pitch)
-    }
-    
+    @ObservedObject var tonalContext: TonalContext
+
     // for tritone in symmetric layout and small keys in piano layout
     var overlayKey: Bool {
-        return (thisConductor.layoutChoice == .symmetric && interval.isTritone) || isSmall
+        return (thisConductor.layoutChoice == .symmetric && pitch.interval(tonicPitch: tonalContext.tonicPitch).isTritone) || isSmall
     }
     
     var borderWidthApparentSize: CGFloat {
@@ -46,7 +43,9 @@ public struct PitchView: View {
                                     .overlay(alignment: alignment) {
                                         KeyRectangle(fillColor: outlineKeyColor, pitchView: self, proxySize: proxy.size)
                                             .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
-                                            .overlay(PitchLabelView(pitchView: self, proxySize: proxy.size)
+                                            .overlay(PitchLabelView(
+                                                pitchView: self,
+                                                proxySize: proxy.size)
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     }
                             } else {
@@ -81,7 +80,7 @@ public struct PitchView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        thisConductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated(in: thisConductor.tonalContext.activatedPitches) : pitch.isActivated
+        thisConductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
     }
 
     var keyColor: Color {
@@ -90,12 +89,12 @@ public struct PitchView: View {
 
         switch thisConductor.paletteChoice {
         case .subtle:
-            activeColor = Color(interval.majorMinor.color)
+            activeColor = Color(pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color)
             inactiveColor = Color(thisConductor.primaryColor)
             return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
             activeColor = Color(thisConductor.primaryColor)
-            inactiveColor = Color(interval.majorMinor.color)
+            inactiveColor = Color(pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
             inactiveColor = pitch.isNatural ? .white : Color(UIColor.systemGray4)
@@ -105,7 +104,7 @@ public struct PitchView: View {
     }
     
     var outlineSize: CGFloat {
-        if interval.isTonic {
+        if pitch.interval(tonicPitch: tonalContext.tonicPitch).isTonic {
             return 3.0
         } else {
             return 2.0
@@ -115,9 +114,9 @@ public struct PitchView: View {
     var outlineColor: Color {
         switch thisConductor.paletteChoice {
         case .subtle:
-            return isActivated ? Color(thisConductor.primaryColor) : interval.majorMinor.color
+            return isActivated ? Color(thisConductor.primaryColor) : pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color
         case .loud:
-            return isActivated ? interval.majorMinor.color : Color(thisConductor.primaryColor)
+            return isActivated ? pitch.interval(tonicPitch: tonalContext.tonicPitch).majorMinor.color : Color(thisConductor.primaryColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
@@ -136,8 +135,8 @@ public struct PitchView: View {
     
     var outline: Bool {
         return thisConductor.outlineChoice &&
-        (interval.isTonic || interval.isOctave ||
-         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && thisConductor.tonalContext.mode.intervalClasses.contains([interval.intervalClass])))
+        (pitch.interval(tonicPitch: tonalContext.tonicPitch).isTonic || pitch.interval(tonicPitch: tonalContext.tonicPitch).isOctave ||
+         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.mode.intervalClasses.contains([pitch.interval(tonicPitch: tonalContext.tonicPitch).intervalClass])))
     }
     
     var isSmall: Bool {
@@ -178,7 +177,7 @@ public struct PitchView: View {
     }
     
     var rotation: CGFloat {
-        thisConductor.layoutChoice == .symmetric && interval.isTritone ? 45.0 : 0.0
+        thisConductor.layoutChoice == .symmetric && pitch.interval(tonicPitch: tonalContext.tonicPitch).isTritone ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {

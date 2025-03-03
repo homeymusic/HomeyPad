@@ -4,7 +4,7 @@ import HomeyMusicKit
 // Helper extension that replaces the repeated long expression.
 extension PitchView {
     var tonicInterval: Interval {
-        Interval.interval(from: thisConductor.tonalContext.tonicPitch, to: pitch)
+        Interval.interval(from: tonalContext.tonicPitch, to: pitch)
     }
 }
 
@@ -151,13 +151,13 @@ public struct PitchLabelView: View {
         var intervalLabels: some View {
             Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
-                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.thisConductor.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.roman]! {
-                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.thisConductor.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.degree]! {
-                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.thisConductor.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.tonicInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.integer]! {
                     overlayText(String(pitchView.tonicInterval.distance))
@@ -191,7 +191,7 @@ public struct PitchLabelView: View {
         }
 
         var isActivated: Bool {
-            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: pitchView.thisConductor.tonalContext.activatedPitches) : pitchView.pitch.isActivated
+            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: pitchView.tonalContext.activatedPitches) : pitchView.pitch.isActivated
         }
 
         var textColor: Color {

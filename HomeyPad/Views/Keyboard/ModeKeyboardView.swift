@@ -3,8 +3,9 @@ import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
 public struct ModeKeyboardView<Content>: Identifiable, View where Content: View {
-    @ObservedObject var conductor: ViewConductor
-    
+    @ObservedObject var modeConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
+
     public let id = UUID()
     
     public let modeView: (Mode) -> Content
@@ -12,15 +13,16 @@ public struct ModeKeyboardView<Content>: Identifiable, View where Content: View 
     public var body: some View {
         ZStack {
             ModePickerView(modeView: modeView,
-                           modeConductor: conductor)
+                           modeConductor: modeConductor,
+                           tonalContext: tonalContext)
             
             KeyboardKeyMultitouchView { touches in
-                conductor.modeLocations = touches
+                modeConductor.modeLocations = touches
             }
             
         }.onPreferenceChange(ModeRectsKey.self) { modeRectInfos in
             Task { @MainActor in
-                conductor.modeRectInfos = modeRectInfos
+                modeConductor.modeRectInfos = modeRectInfos
             }
         }
     }

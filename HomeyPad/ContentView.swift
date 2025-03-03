@@ -176,6 +176,7 @@ struct ContentView: View {
                         HeaderView(viewConductor: viewConductor,
                                    tonicConductor: tonicConductor,
                                    modeConductor: modeConductor,
+                                   tonalContext: tonalContext,
                                    showTonicPicker: $showTonicPicker)
                             .frame(height: settingsHeight)
                         Spacer()
@@ -187,12 +188,18 @@ struct ContentView: View {
                             VStack {
                                 
                                 if tonicConductor.showTonicLabels {
-                                    PitchKeyboardView(conductor: tonicConductor) { pitch in
-                                        PitchView(pitch: pitch,
-                                                  thisConductor: tonicConductor,
-                                                  viewConductor: viewConductor,
-                                                  tonicConductor: tonicConductor,
-                                                  modeConductor: modeConductor)
+                                    PitchKeyboardView(
+                                        conductor: tonicConductor,
+                                        tonalContext: tonalContext
+                                    ) { pitch in
+                                        PitchView(
+                                            pitch: pitch,
+                                            thisConductor: tonicConductor,
+                                            tonicConductor: tonicConductor,
+                                            viewConductor: viewConductor,
+                                            modeConductor: modeConductor,
+                                            tonalContext: tonalContext
+                                        )
                                         .aspectRatio(1.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0, contentMode: .fit)
@@ -200,12 +207,16 @@ struct ContentView: View {
                                 }
                                 
                                 if modeConductor.showModes {
-                                    ModeKeyboardView(conductor: modeConductor) { mode in
+                                    ModeKeyboardView(
+                                        modeConductor: modeConductor,
+                                        tonalContext: tonalContext
+                                    ) { mode in
                                         ModeView(mode: mode,
-                                                 thisConductor: tonicConductor,
+                                                 thisConductor: modeConductor,
                                                  viewConductor: viewConductor,
-                                                 tonicConductor: tonicConductor,
-                                                 modeConductor: modeConductor)
+                                                 modeConductor: modeConductor,
+                                                 tonalContext: tonalContext
+                                        )
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
@@ -219,25 +230,38 @@ struct ContentView: View {
                                     .fill(Color(UIColor.systemGray6))
                             }
                         }
+                        // Primary Keyboard View
                         if viewConductor.isOneRowOnTablet  {
-                            PitchKeyboardView(conductor: viewConductor) { pitch in
-                                PitchView(pitch: pitch,
-                                          thisConductor: viewConductor,
-                                          viewConductor: viewConductor,
-                                          tonicConductor: tonicConductor,
-                                          modeConductor: modeConductor)
+                            PitchKeyboardView(
+                                conductor: viewConductor,
+                                tonalContext: tonalContext
+                            ) { pitch in
+                                PitchView(
+                                    pitch: pitch,
+                                    thisConductor: viewConductor,
+                                    tonicConductor: tonicConductor,
+                                    viewConductor: viewConductor,
+                                    modeConductor: modeConductor,
+                                    tonalContext: tonalContext
+                                )
                             }
                             .aspectRatio(4.0, contentMode: .fit)
                             .ignoresSafeArea(edges:.horizontal)
                         }
                         
                         if !viewConductor.isOneRowOnTablet {
-                            PitchKeyboardView(conductor: viewConductor) { pitch in
-                                PitchView(pitch: pitch,
-                                          thisConductor: viewConductor,
-                                          viewConductor: viewConductor,
-                                          tonicConductor: tonicConductor,
-                                          modeConductor: modeConductor)
+                            PitchKeyboardView(
+                                conductor: viewConductor,
+                                tonalContext: tonalContext
+                            ) { pitch in
+                                PitchView(
+                                    pitch: pitch,
+                                    thisConductor: viewConductor,
+                                    tonicConductor: tonicConductor,
+                                    viewConductor: viewConductor,
+                                    modeConductor: modeConductor,
+                                    tonalContext: tonalContext
+                                )
                             }
                             .ignoresSafeArea(edges:.horizontal)
                         }

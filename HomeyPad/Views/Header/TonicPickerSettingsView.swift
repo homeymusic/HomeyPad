@@ -3,7 +3,9 @@ import HomeyMusicKit
 
 struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var modeConductor: ViewConductor    
+    @ObservedObject var modeConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
+    
     @Binding var showTonicPicker: Bool
 
     var body: some View {
@@ -69,19 +71,19 @@ struct TonicPickerSettingsView: View {
             
             if showTonicPicker {
                 Button(action: {
-                    tonicConductor.tonalContext.resetToDefault()
+                    tonalContext.resetToDefault()
                 }) {
                     ZStack {
                         Color.clear.overlay(
                             Image(systemName: "gobackward")
-                                .foregroundColor(tonicConductor.tonalContext.isDefault ? .gray : .white)
+                                .foregroundColor(tonalContext.isDefault ? .gray : .white)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
                 .transition(.scale)
-                .disabled(tonicConductor.tonalContext.isDefault)
+                .disabled(tonalContext.isDefault)
             }
         }
     }

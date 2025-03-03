@@ -5,7 +5,8 @@ import MIDIKitCore
 struct StringsView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-
+    @ObservedObject var tonalContext: TonalContext
+    
     let fretCount: Int = 22
     
     var body: some View {
@@ -18,7 +19,7 @@ struct StringsView<Content>: View where Content: View {
                         } else {
                             let note = viewConductor.openStringsMIDI[string] + fret
                             if (Pitch.isValid(note)) {
-                                let pitch = viewConductor.tonalContext.pitch(for: MIDINoteNumber(note))
+                                let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
                                 PitchContainerView(conductor: viewConductor,
                                                          pitch: pitch,
                                                          pitchView: pitchView)
@@ -30,7 +31,7 @@ struct StringsView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: viewConductor.tonalContext.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

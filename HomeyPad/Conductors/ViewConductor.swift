@@ -289,10 +289,12 @@ class ViewConductor: ObservableObject {
     
     func fewerRows() {
         layoutRowsCols.rowsPerSide[layoutChoice]! -= 1
+        layoutRowsCols = layoutRowsCols
     }
     
     func moreRows() {
         layoutRowsCols.rowsPerSide[layoutChoice]! += 1
+        layoutRowsCols = layoutRowsCols
     }
     
     func fewerCols() {
@@ -313,6 +315,7 @@ class ViewConductor: ObservableObject {
             layoutRowsCols.colsPerSide[layoutChoice]! -= colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
         default: layoutRowsCols.colsPerSide[layoutChoice]! -= 1
         }
+        layoutRowsCols = layoutRowsCols
     }
     
     func moreCols() {
@@ -333,6 +336,7 @@ class ViewConductor: ObservableObject {
             layoutRowsCols.colsPerSide[layoutChoice]! += colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
         default: layoutRowsCols.colsPerSide[layoutChoice]! += 1
         }
+        layoutRowsCols = layoutRowsCols
     }
     
     var showRowColsReset: Bool {
@@ -371,10 +375,12 @@ class ViewConductor: ObservableObject {
     
     func resetColsPerSide() {
         layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
+        layoutRowsCols = layoutRowsCols
     }
     
     func resetRowsPerSide() {
         layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
+        layoutRowsCols = layoutRowsCols
     }
     
     var pitchRectInfos: [PitchRectInfo] = []
@@ -389,6 +395,14 @@ class ViewConductor: ObservableObject {
 
     var pitchLocations: [CGPoint] = [] {
         didSet {
+            
+            if (!pitchLocations.isEmpty) {
+                print("pitchLocations Count", pitchLocations.count)
+                print("pitchRectInfos Count", pitchRectInfos.count)
+                print("pitchLocations", pitchLocations)
+                print("pitchRectInfos", pitchRectInfos)
+            }
+            
             var touchedPitches = Set<Pitch>()
 
             // Process the touch locations and determine which keys are touched
@@ -398,6 +412,7 @@ class ViewConductor: ObservableObject {
 
                 // Find the pitch at this location with the highest Z-index
                 for info in pitchRectInfos where info.rect.contains(location) {
+                    print("there was a match")
                     if pitch == nil || info.zIndex > highestZindex {
                         pitch = info.pitch
                         highestZindex = info.zIndex

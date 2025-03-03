@@ -42,9 +42,9 @@ struct LayoutRowsCols: Codable, Equatable {
     case .iPad:
         [
             .tonic:      6,
-            .isomorphic: 12,
+            .isomorphic: 13,
             .symmetric:  18,
-            .piano:      12,
+            .piano:      11,
             .strings:    26
         ]
     }

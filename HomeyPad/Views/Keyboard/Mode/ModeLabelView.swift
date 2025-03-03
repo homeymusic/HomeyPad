@@ -106,7 +106,7 @@ public struct ModeLabelView: View {
             case .subtle:
                 return modeView.mode.majorMinor.color
             case .loud:
-                return Color(modeView.thisConductor.primaryColor)
+                return Color(modeView.viewConductor.primaryColor)
             case .ebonyIvory:
                 return modeView.mode.majorMinor == .minor ? .white : .black
             }

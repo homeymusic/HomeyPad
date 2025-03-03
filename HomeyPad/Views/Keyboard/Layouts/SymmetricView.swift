@@ -4,24 +4,25 @@ import MIDIKitCore
 
 struct SymmetricView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
-    var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
 
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
-        let majorMinor: MajorMinor = Interval.majorMinor(forDistance: note - Int(viewConductor.tonalContext.tonicPitch.midiNote.number))
+        let majorMinor: MajorMinor = Interval.majorMinor(forDistance: note - Int(tonalContext.tonicPitch.midiNote.number))
         if (majorMinor == .minor) {
             return AnyView(
                 VStack(spacing: 0) {
                     if Pitch.isValid(note + 1) {
                         PitchContainerView(conductor: viewConductor,
-                                           pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note + 1)),
+                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note + 1)),
                                            pitchView: pitchView)
                     } else {
                         Color.clear
                     }
                     if Pitch.isValid(note) {
                         PitchContainerView(conductor: viewConductor,
-                                                 pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
+                                                 pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                                                  pitchView: pitchView)
                     } else {
                         Color.clear
@@ -29,11 +30,11 @@ struct SymmetricView<Content>: View where Content: View {
                 }
             )
         } else if (majorMinor == .neutral) {
-            let intervalClass: IntervalClass = IntervalClass(distance: note - Int(viewConductor.tonalContext.tonicMIDI))
+            let intervalClass: IntervalClass = IntervalClass(distance: note - Int(tonalContext.tonicMIDI))
             if intervalClass == .seven {
                 if Pitch.isValid(note) {
                     return AnyView(PitchContainerView(conductor: viewConductor,
-                                                    pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
+                                                    pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                                                     pitchView: pitchView)
                     .overlay {
                         if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
@@ -41,7 +42,7 @@ struct SymmetricView<Content>: View where Content: View {
                                 let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
                                 ZStack {
                                     PitchContainerView(conductor: viewConductor,
-                                                             pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note - 1)),
+                                                             pitch: tonalContext.pitch(for: MIDINoteNumber(note - 1)),
                                                              zIndex: 1,
                                                              pitchView: pitchView)
                                     .frame(width: ttLength, height: ttLength)
@@ -56,7 +57,7 @@ struct SymmetricView<Content>: View where Content: View {
                 }
             } else if intervalClass != .six && Pitch.isValid(note) {
                 return AnyView(PitchContainerView(conductor: viewConductor,
-                                                        pitch: viewConductor.tonalContext.pitch(for: MIDINoteNumber(note)),
+                                                        pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                                                         pitchView: pitchView))
             } else {
                 return AnyView(EmptyView())
@@ -81,7 +82,7 @@ struct SymmetricView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: viewConductor.tonalContext.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

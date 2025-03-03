@@ -5,6 +5,7 @@ import HomeyMusicKit
 struct IsomorphicView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
 
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +17,7 @@ struct IsomorphicView<Content>: View where Content: View {
                         let linearIndex: Int = Int(col) + 12 * Int(row)
                         Group {
                             if Pitch.isValid(linearIndex) {
-                                let pitch = viewConductor.tonalContext.pitch(for: MIDINoteNumber(linearIndex))
+                                let pitch = tonalContext.pitch(for: MIDINoteNumber(linearIndex))
                                 PitchContainerView(
                                     conductor: viewConductor,
                                     pitch: pitch,
@@ -30,7 +31,7 @@ struct IsomorphicView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: viewConductor.tonalContext.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

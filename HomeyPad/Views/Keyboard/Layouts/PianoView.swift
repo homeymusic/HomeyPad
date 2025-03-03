@@ -4,7 +4,8 @@ import MIDIKitCore
 
 struct PianoView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
-    var viewConductor: ViewConductor
+    @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var tonalContext: TonalContext
 
     func offset(for pitch: Pitch) -> CGFloat {
         switch pitch.pitchClass {
@@ -26,7 +27,7 @@ struct PianoView<Content>: View where Content: View {
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {
         if Pitch.isValid(note) {
-            let pitch = viewConductor.tonalContext.pitch(for: MIDINoteNumber(note))
+            let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
             if pitch.isNatural {
                 return AnyView(
                     PitchContainerView(conductor: viewConductor,
@@ -34,7 +35,7 @@ struct PianoView<Content>: View where Content: View {
                                          pitchView: pitchView)
                     .overlay {
                         if Pitch.isValid(note - 1) {
-                            let pitch = viewConductor.tonalContext.pitch(for: MIDINoteNumber(note - 1))
+                            let pitch = tonalContext.pitch(for: MIDINoteNumber(note - 1))
                             if !pitch.isNatural {
                                 GeometryReader { proxy in
                                     ZStack {
@@ -74,7 +75,7 @@ struct PianoView<Content>: View where Content: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: viewConductor.tonalContext.tonicMIDI)
+        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }
