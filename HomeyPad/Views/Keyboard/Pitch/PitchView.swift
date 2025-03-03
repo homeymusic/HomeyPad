@@ -135,7 +135,9 @@ public struct PitchView: View {
     }
     
     var outline: Bool {
-        return thisConductor.outlineChoice && ((interval.isTonic || interval.isOctave) || (modeConductor.showModes && thisConductor.layoutChoice != .tonic && thisConductor.tonalContext.modeOffset.intervalClasses.contains([interval.intervalClass])))
+        return thisConductor.outlineChoice &&
+        (interval.isTonic || interval.isOctave ||
+         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && thisConductor.tonalContext.mode.intervalClasses.contains([interval.intervalClass])))
     }
     
     var isSmall: Bool {

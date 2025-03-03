@@ -90,7 +90,7 @@ public struct ModeView: View {
     }
 
     var outlineSize: CGFloat {
-        if thisConductor.tonalContext.modeOffset == mode {
+        if thisConductor.tonalContext.mode == mode {
             return 3.0
         } else {
             return 2.0
@@ -113,7 +113,7 @@ public struct ModeView: View {
     }
     
     var outline: Bool {
-        viewConductor.outlineChoice && (mode == viewConductor.tonalContext.modeOffset)
+        viewConductor.outlineChoice && (mode == viewConductor.tonalContext.mode)
     }
     
     var isSmall: Bool {

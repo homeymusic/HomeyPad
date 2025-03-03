@@ -503,9 +503,9 @@ class ViewConductor: ObservableObject {
     }
 
     private func updateMode(_ newMode: Mode) {
-        if newMode != tonalContext.modeOffset {
+        if newMode != tonalContext.mode {
             // Adjust pitch direction if the new tonic is an octave shift
-            tonalContext.modeOffset = newMode
+            tonalContext.mode = newMode
         }
     }
 
