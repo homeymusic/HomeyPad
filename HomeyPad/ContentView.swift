@@ -5,6 +5,7 @@ import HomeyMusicKit
 struct ContentView: View {
     let defaults = UserDefaults.standard
     @StateObject private var tonalContext: TonalContext
+    @StateObject private var midiContext: MIDIContext
     @StateObject private var tonicConductor: TonicConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
@@ -124,20 +125,30 @@ struct ContentView: View {
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
         
         
-        let context = TonalContext(
+        let tonalContext = TonalContext()
+        
+        _tonalContext = StateObject(wrappedValue: tonalContext)
+
+        tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
+            if oldTonicPitch != newTonicPitch {
+                buzz()
+            }
+        }
+        
+        let midiContext = MIDIContext(
+            tonalContext: tonalContext,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
-            manufacturer: "Homey Music",
-            autoAdjustTonalContext: true
+            manufacturer: "Homey Music"
         )
         
-        _tonalContext = StateObject(wrappedValue: context)
-
+        _midiContext = StateObject(wrappedValue: midiContext)
+        
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
-            tonalContext: context
+            tonalContext: tonalContext
         ))
         
         _modeConductor = StateObject(wrappedValue: ViewConductor(
@@ -146,7 +157,7 @@ struct ContentView: View {
             layoutPalette: viewLayoutPalette,
             layoutLabel: modeLayoutLabel,
             sendTonicState: false,
-            tonalContext: context
+            tonalContext: tonalContext
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
@@ -158,7 +169,7 @@ struct ContentView: View {
             layoutLabel: viewLayoutLabel,
             layoutRowsCols: layoutRowsCols,
             sendTonicState: false,
-            tonalContext: context
+            tonalContext: tonalContext
         ))
         
     }
