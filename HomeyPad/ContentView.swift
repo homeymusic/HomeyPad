@@ -5,7 +5,7 @@ import HomeyMusicKit
 struct ContentView: View {
     let defaults = UserDefaults.standard
     @StateObject private var tonalContext: TonalContext
-    @StateObject private var tonicConductor: ViewConductor
+    @StateObject private var tonicConductor: TonicConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
 
@@ -133,12 +133,10 @@ struct ContentView: View {
         
         _tonalContext = StateObject(wrappedValue: context)
 
-        _tonicConductor = StateObject(wrappedValue: ViewConductor(
+        _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
-            layoutChoice: .tonic,
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
-            sendTonicState: true,
             tonalContext: context
         ))
         
