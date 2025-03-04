@@ -4,27 +4,13 @@ import SwiftUI
 public struct ModeView: View {
     
     let mode: Mode
+    let columnIndex: Int
+    
     @ObservedObject var thisConductor: ViewConductor
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
     @ObservedObject var tonalContext: TonalContext
     
-    var borderWidthApparentSize: CGFloat {
-        backgroundBorderSize
-    }
-    
-    var borderHeightApparentSize: CGFloat {
-        borderWidthApparentSize
-    }
-    
-    var outlineWidth: CGFloat {
-        borderWidthApparentSize * outlineSize
-    }
-    
-    var outlineHeight: CGFloat {
-        borderHeightApparentSize * outlineSize
-    }
-        
     public var body: some View {
         let alignment: Alignment = .center
         GeometryReader { proxy in
@@ -35,16 +21,16 @@ public struct ModeView: View {
                         .overlay(alignment: alignment) {
                             if outline {
                                 ModeRectangle(fillColor: outlineColor, modeView: self, proxySize: proxy.size)
-                                    .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
+                                    .frame(width: proxy.size.width - borderSize, height: proxy.size.height - borderSize)
                                     .overlay(alignment: alignment) {
                                         ModeRectangle(fillColor: outlineKeyColor, modeView: self, proxySize: proxy.size)
-                                            .frame(width: proxy.size.width - outlineWidth, height: proxy.size.height - outlineHeight)
+                                            .frame(width: proxy.size.width - outlineSize, height: proxy.size.height - outlineSize)
                                             .overlay(ModeLabelView(modeView: self, proxySize: proxy.size)
                                                 .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     }
                             } else {
                                 ModeRectangle(fillColor: keyColor, modeView: self, proxySize: proxy.size)
-                                    .frame(width: proxy.size.width - borderWidthApparentSize, height: proxy.size.height - borderHeightApparentSize)
+                                    .frame(width: proxy.size.width - borderSize, height: proxy.size.height - borderSize)
                                     .overlay(ModeLabelView(modeView: self, proxySize: proxy.size)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity))
                                     .padding(.leading,  leadingOffset)
@@ -90,11 +76,20 @@ public struct ModeView: View {
     }
 
     var outlineSize: CGFloat {
-        if tonalContext.mode == mode {
+        borderSize * _outlineSize
+    }
+            
+    var _outlineSize: CGFloat {
+        if (tonalContext.pitchDirection == .upward && columnIndex == 0) ||
+            (tonalContext.pitchDirection == .downward && columnIndex == 12) {
             return 3.0
         } else {
             return 2.0
         }
+    }
+    
+    var borderSize: CGFloat {
+        3.0
     }
     
     var outlineColor: Color {
@@ -118,10 +113,6 @@ public struct ModeView: View {
     
     var isSmall: Bool {
         false
-    }
-    
-    var backgroundBorderSize: CGFloat {
-        3.0
     }
     
     func minDimension(_ size: CGSize) -> CGFloat {

@@ -8,7 +8,7 @@ public struct ModeKeyboardView<Content>: Identifiable, View where Content: View 
 
     public let id = UUID()
     
-    public let modeView: (Mode) -> Content
+    let modeView: (Mode, Int) -> Content
     
     public var body: some View {
         ZStack {

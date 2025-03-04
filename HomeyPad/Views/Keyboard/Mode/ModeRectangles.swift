@@ -13,5 +13,4 @@ struct ModeRectsKey: PreferenceKey {
 struct ModeRectInfo: Equatable {
     var rect: CGRect
     var mode: Mode
-    var zIndex: Int = 0
 }

@@ -441,13 +441,11 @@ class ViewConductor: ObservableObject {
             // Process the touch locations and determine which keys are touched
             for location in modeLocations {
                 var mode: Mode?
-                var highestZindex = -1
                 
                 // Find the pitch at this location with the highest Z-index
                 for info in modeRectInfos where info.rect.contains(location) {
-                    if mode == nil || info.zIndex > highestZindex {
+                    if mode == nil {
                         mode = info.mode
-                        highestZindex = info.zIndex
                     }
                 }
                 

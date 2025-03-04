@@ -1,33 +1,32 @@
 import SwiftUI
 import HomeyMusicKit
 
-/// This handles the interaction for key, so the user can provide their own
-/// visual representation.
+/// This handles the interaction for a mode so the user can provide their own visual representation.
 public struct ModeContainerView<Content: View>: View {
-    let modeView: (Mode) -> Content
+    // Update the closure type to accept a Mode and a columnIndex.
+    let modeView: (Mode, Int) -> Content
 
     var mode: Mode
     @ObservedObject var conductor: ViewConductor
-    
-    var zIndex: Int
+    var columnIndex: Int  // Pass the column position from ModePickerView.
     
     init(conductor: ViewConductor,
          mode: Mode,
-         zIndex: Int = 0,
-         @ViewBuilder modeView: @escaping (Mode) -> Content)
+         columnIndex: Int,
+         @ViewBuilder modeView: @escaping (Mode, Int) -> Content)
     {
         self.conductor = conductor
         self.mode = mode
-        self.zIndex = zIndex
+        self.columnIndex = columnIndex
         self.modeView = modeView
     }
 
     func rect(rect: CGRect) -> some View {
-        modeView(mode)
+        // Pass both the mode and the columnIndex to the modeView closure.
+        modeView(mode, columnIndex)
             .preference(key: ModeRectsKey.self,
                         value: [ModeRectInfo(rect: rect,
-                                            mode: mode,
-                                            zIndex: zIndex)])
+                                             mode: mode)])
     }
 
     public var body: some View {

@@ -210,13 +210,13 @@ struct ContentView: View {
                                     ModeKeyboardView(
                                         modeConductor: modeConductor,
                                         tonalContext: tonalContext
-                                    ) { mode in
+                                    ) { mode, columnIndex in
                                         ModeView(mode: mode,
+                                                 columnIndex: columnIndex,
                                                  thisConductor: modeConductor,
                                                  viewConductor: viewConductor,
                                                  modeConductor: modeConductor,
-                                                 tonalContext: tonalContext
-                                        )
+                                                 tonalContext: tonalContext)
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)

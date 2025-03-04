@@ -6,7 +6,7 @@ public struct ModeLabelView: View {
     var proxySize: CGSize
     
     public var body: some View {
-        let topBottomPadding = modeView.outline ? 0.0 : 0.5 * modeView.outlineHeight
+        let topBottomPadding = modeView.outline ? 0.0 : 0.5 * modeView.outlineSize
         let extraPadding = topBottomPadding
         VStack(spacing: 0.0) {
             Labels(modeView: modeView, proxySize: proxySize)
