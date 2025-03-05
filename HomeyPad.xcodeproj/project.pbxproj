@@ -26,6 +26,7 @@
 		B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E02CBABE0A00DBBAE2 /* AudioKit */; };
 		B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */; };
 		B079AA732CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079AA722CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift */; };
+		B088D6C12D78896F00962CDF /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088D6C02D78896B00962CDF /* Instrument.swift */; };
 		B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1452CBD2DB800130B06 /* HeaderView.swift */; };
 		B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */; };
 		B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1472CBD2DB800130B06 /* HelpView.swift */; };
@@ -36,6 +37,7 @@
 		B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */; };
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
+		B099FF632D776CE400646A4A /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099FF622D776CDF00646A4A /* AppContext.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 		B0C7FD302BBAFB16006FF26F /* PitchRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */; };
@@ -76,6 +78,7 @@
 		B06CC5A52D6D27A700290353 /* ModeRectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeRectangles.swift; sourceTree = "<group>"; };
 		B06CC5A92D6D28A500290353 /* ModeKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeKeyboardView.swift; sourceTree = "<group>"; };
 		B079AA722CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerPitchLabelsPopoverView.swift; sourceTree = "<group>"; };
+		B088D6C02D78896B00962CDF /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		B093E1452CBD2DB800130B06 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPopoverView.swift; sourceTree = "<group>"; };
 		B093E1472CBD2DB800130B06 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
+		B099FF622D776CDF00646A4A /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* PitchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchContainerView.swift; sourceTree = "<group>"; };
@@ -146,7 +150,9 @@
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
+				B099FF622D776CDF00646A4A /* AppContext.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
+				B088D6C02D78896B00962CDF /* Instrument.swift */,
 				B0BF8E292CBD99F000E76B57 /* Conductors */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
@@ -356,6 +362,7 @@
 				B06CC5A02D6D21DC00290353 /* ModeView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
 				B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */,
+				B099FF632D776CE400646A4A /* AppContext.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
 				B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
@@ -370,6 +377,7 @@
 				B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* PitchKeyboardView.swift in Sources */,
+				B088D6C12D78896F00962CDF /* Instrument.swift in Sources */,
 				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
 				B06CC5AA2D6D28A900290353 /* ModeKeyboardView.swift in Sources */,
 				B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */,

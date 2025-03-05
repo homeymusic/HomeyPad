@@ -3,6 +3,22 @@ import HomeyMusicKit
 
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor
+    let tonalContext: TonalContext
+    let instrument: Instrument
+    @StateObject private var midiContext: MIDIContext
+    
+    init(viewConductor: ViewConductor, tonalContext: TonalContext, instrument: Instrument) {
+        self.viewConductor = viewConductor
+        self.tonalContext = tonalContext
+        self.instrument = instrument
+        _midiContext = StateObject(wrappedValue: MIDIContext(
+            tonalContext: tonalContext,
+            midiChannel: instrument.rawValue, // use the instrument's rawValue as the MIDI channel
+            clientName: "HomeyPad",
+            model: "Homey Pad iOS",
+            manufacturer: "Homey Music"
+        ))
+    }
     
     var body: some View {
         HStack(spacing: 0) {

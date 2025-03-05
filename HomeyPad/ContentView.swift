@@ -4,8 +4,9 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
+    @State private var instrument: Instrument = .guitar
+    @StateObject private var appContext: AppContext
     @StateObject private var tonalContext: TonalContext
-    @StateObject private var midiContext: MIDIContext
     @StateObject private var tonicConductor: TonicConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
@@ -25,20 +26,6 @@ struct ContentView: View {
             "accidental" : defaultAccidental.rawValue
         ])
         let accidental: Accidental = Accidental(rawValue: defaults.integer(forKey: "accidental")) ?? defaultAccidental
-        
-        // Keyboard Layout
-        let defaultLayoutChoice: LayoutChoice = LayoutChoice.symmetric
-        defaults.register(defaults: [
-            "layoutChoice" : defaultLayoutChoice.rawValue
-        ])
-        let layoutChoice: LayoutChoice = LayoutChoice(rawValue: defaults.string(forKey: "layoutChoice") ?? defaultLayoutChoice.rawValue) ?? defaultLayoutChoice
-        
-        // String Instruments Sub Layout
-        let defaultStringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice.violin
-        defaults.register(defaults: [
-            "stringsLayoutChoice" : defaultStringsLayoutChoice.rawValue
-        ])
-        let stringsLayoutChoice: StringsLayoutChoice = StringsLayoutChoice(rawValue: defaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue) ?? defaultStringsLayoutChoice
         
         // Show Tonic Picker
         defaults.register(defaults: [
@@ -121,10 +108,13 @@ struct ContentView: View {
             }
         }
         
-        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[layoutChoice]
-        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[layoutChoice]
+        let appContext = AppContext()
         
-        
+        _appContext = StateObject(wrappedValue: appContext)
+
+        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[appContext.layoutChoice]
+        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[appContext.layoutChoice]        
+               
         let tonalContext = TonalContext()
         
         _tonalContext = StateObject(wrappedValue: tonalContext)
@@ -134,15 +124,6 @@ struct ContentView: View {
                 buzz()
             }
         }
-        
-        let midiContext = MIDIContext(
-            tonalContext: tonalContext,
-            clientName: "HomeyPad",
-            model: "Homey Pad iOS",
-            manufacturer: "Homey Music"
-        )
-        
-        _midiContext = StateObject(wrappedValue: midiContext)
         
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
@@ -162,8 +143,8 @@ struct ContentView: View {
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
-            layoutChoice: layoutChoice,
-            stringsLayoutChoice: stringsLayoutChoice,
+            layoutChoice: appContext.layoutChoice,
+            stringsLayoutChoice: appContext.stringsLayoutChoice,
             latching: latching,
             layoutPalette: viewLayoutPalette,
             layoutLabel: viewLayoutLabel,
@@ -280,7 +261,11 @@ struct ContentView: View {
                     // Footer
                     VStack {
                         Spacer()
-                        FooterView(viewConductor: viewConductor)
+                        FooterView(
+                            viewConductor: viewConductor,
+                            tonalContext: tonalContext,
+                            instrument: instrument
+                        )
                             .frame(height: settingsHeight)
                     }
                     

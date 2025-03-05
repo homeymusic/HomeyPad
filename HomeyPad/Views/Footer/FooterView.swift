@@ -10,7 +10,9 @@ import HomeyMusicKit
 
 struct FooterView: View {
     @ObservedObject var viewConductor: ViewConductor
-    
+    let tonalContext: TonalContext
+    let instrument: Instrument
+
     var body: some View {
         HStack {
             Spacer()
@@ -30,7 +32,12 @@ struct FooterView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            LayoutAndPalletePickerView(viewConductor: viewConductor)
+            LayoutAndPalletePickerView(
+                viewConductor: viewConductor,
+                tonalContext: tonalContext,
+                instrument: instrument
+            )
+            .id(instrument)
             
             HStack {
                 if viewConductor.layoutChoice == .strings {
