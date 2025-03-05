@@ -13,7 +13,8 @@ struct LayoutAndPalletePickerView: View {
         self.instrument = instrument
         _midiContext = StateObject(wrappedValue: MIDIContext(
             tonalContext: tonalContext,
-            midiChannel: instrument.rawValue, // use the instrument's rawValue as the MIDI channel
+            instrumentMIDIChannel: instrument.rawValue,
+            tonicMIDIChannel: Instrument.tonic.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
             manufacturer: "Homey Music"
