@@ -6,11 +6,11 @@ public struct ModeView: View {
     let mode: Mode
     let columnIndex: Int
     
-    @ObservedObject var thisConductor: ViewConductor
-    @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var modeConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
-    
+    @ObservedObject    var thisConductor: ViewConductor
+    @ObservedObject    var viewConductor: ViewConductor
+    @ObservedObject    var modeConductor: ViewConductor
+    @EnvironmentObject var tonalContext: TonalContext
+
     public var body: some View {
         let alignment: Alignment = .center
         GeometryReader { proxy in

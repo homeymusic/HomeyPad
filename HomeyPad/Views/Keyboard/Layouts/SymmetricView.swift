@@ -5,7 +5,7 @@ import MIDIKitCore
 struct SymmetricView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
     
     // MARK: - Helper for rendering a key view for a given note
     func keyView(for note: Int) -> some View {

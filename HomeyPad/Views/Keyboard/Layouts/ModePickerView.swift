@@ -7,7 +7,7 @@ struct ModePickerView<Content>: View where Content: View {
     let modeView: (Mode, Int) -> Content
     
     @ObservedObject var modeConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
     
     var body: some View {
         HStack(spacing: 0) {

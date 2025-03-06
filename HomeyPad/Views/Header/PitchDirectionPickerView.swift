@@ -3,7 +3,7 @@ import HomeyMusicKit
 
 struct PitchDirectionPickerView: View {
     @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
 
     var body: some View {
         HStack {

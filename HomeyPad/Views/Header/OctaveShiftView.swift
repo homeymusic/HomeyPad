@@ -3,8 +3,9 @@ import HomeyMusicKit
 
 struct OctaveShiftView: View {
     @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
 
+    @EnvironmentObject var tonalContext: TonalContext
+    
     var body: some View {
         HStack(spacing: 5) {
             // Downward octave shift button

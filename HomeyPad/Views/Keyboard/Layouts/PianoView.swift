@@ -5,7 +5,7 @@ import MIDIKitCore
 struct PianoView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
 
     func offset(for pitch: Pitch) -> CGFloat {
         switch pitch.pitchClass {

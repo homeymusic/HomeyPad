@@ -4,10 +4,11 @@ import HomeyMusicKit
 struct TonicPickerSettingsView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
     
     @Binding var showTonicPicker: Bool
 
+    @EnvironmentObject var tonalContext: TonalContext
+    
     var body: some View {
         HStack {
             

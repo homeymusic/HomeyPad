@@ -5,6 +5,8 @@ public struct PitchLabelView: View {
     var pitchView: PitchView
     var proxySize: CGSize
 
+    @EnvironmentObject var tonalContext: TonalContext
+
     var isSymmetricNotTritone: Bool {
         pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.pitchInterval.isTritone
     }
@@ -33,6 +35,8 @@ public struct PitchLabelView: View {
         let pitchView: PitchView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
+
+        @EnvironmentObject var tonalContext: TonalContext
 
         var body: some View {
             VStack(spacing: 2) {
@@ -142,15 +146,17 @@ public struct PitchLabelView: View {
         }
 
         var intervalLabels: some View {
-            Group {
+            @EnvironmentObject var tonalContext: TonalContext
+
+            return Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
-                    overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.roman]! {
-                    overlayText(String(pitchView.pitchInterval.roman(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.roman(pitchDirection: tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.degree]! {
-                    overlayText(String(pitchView.pitchInterval.degree(pitchDirection: pitchView.tonalContext.pitchDirection)))
+                    overlayText(String(pitchView.pitchInterval.degree(pitchDirection: tonalContext.pitchDirection)))
                 }
                 if pitchView.thisConductor.intervalLabel[.integer]! {
                     overlayText(String(pitchView.pitchInterval.distance))
@@ -184,7 +190,7 @@ public struct PitchLabelView: View {
         }
 
         var isActivated: Bool {
-            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: pitchView.tonalContext.activatedPitches) : pitchView.pitch.isActivated
+            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitchView.pitch.isActivated
         }
 
         var textColor: Color {

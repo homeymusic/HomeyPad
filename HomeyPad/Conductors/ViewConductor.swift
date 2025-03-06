@@ -4,8 +4,6 @@ import HomeyMusicKit
 
 class ViewConductor: ObservableObject {
     
-    
-    // Inject a TonalContext via the initializer.
     init(
         accidental: Accidental,
         layoutChoice: LayoutChoice,
@@ -17,7 +15,7 @@ class ViewConductor: ObservableObject {
         sendTonicState: Bool = false,
         tonalContext: TonalContext
     ) {
-        // Initialize the @StateObject property using the underscore syntax.
+        
         _tonalContext = StateObject(wrappedValue: tonalContext)
         
         // Set up other properties.
@@ -33,9 +31,8 @@ class ViewConductor: ObservableObject {
             synthConductor = SynthConductor()
         }
     }
-    
     @StateObject var tonalContext: TonalContext
-    
+
     let animationStyle: Animation = Animation.linear
     
     var showModes: Bool {

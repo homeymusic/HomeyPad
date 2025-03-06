@@ -5,7 +5,7 @@ import MIDIKitCore
 struct StringsView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
     
     let fretCount: Int = 22
     

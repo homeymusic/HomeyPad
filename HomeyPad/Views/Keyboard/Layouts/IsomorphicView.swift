@@ -5,7 +5,7 @@ import HomeyMusicKit
 struct IsomorphicView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
 
     var body: some View {
         VStack(spacing: 0) {

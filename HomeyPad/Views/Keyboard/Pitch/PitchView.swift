@@ -8,7 +8,7 @@ public struct PitchView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
-    @ObservedObject var tonalContext: TonalContext
+    @EnvironmentObject var tonalContext: TonalContext
 
     var pitchInterval: Interval {
         return tonalContext.interval(fromTonicTo: pitch)

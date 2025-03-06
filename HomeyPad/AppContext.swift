@@ -6,6 +6,7 @@ final class AppContext: ObservableObject {
 
     @Published var layoutChoice: LayoutChoice
     @Published var stringsLayoutChoice: StringsLayoutChoice
+    @Published var instrument: Instrument = .banjo
 
     init() {
         let defaultLayoutChoice: LayoutChoice = .symmetric

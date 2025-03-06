@@ -4,18 +4,19 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @State private var instrument: Instrument = .symmetric
-    @StateObject private var appContext: AppContext
-    @StateObject private var tonalContext: TonalContext
     @StateObject private var tonicConductor: TonicConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
 
     @State var showTonicPicker: Bool
     
-    
-    init() {
-        
+    let appContext: AppContext
+    let tonalContext: TonalContext
+
+    init(appContext: AppContext, tonalContext: TonalContext) {
+        self.appContext = appContext
+        self.tonalContext = tonalContext
+
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -108,23 +109,9 @@ struct ContentView: View {
             }
         }
         
-        let appContext = AppContext()
-        
-        _appContext = StateObject(wrappedValue: appContext)
-
-        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[appContext.layoutChoice]
-        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[appContext.layoutChoice]        
+        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.symmetric]
+        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.symmetric]
                
-        let tonalContext = TonalContext()
-        
-        _tonalContext = StateObject(wrappedValue: tonalContext)
-
-        tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
-            if oldTonicPitch != newTonicPitch {
-                buzz()
-            }
-        }
-        
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
             layoutPalette: viewLayoutPalette,
@@ -143,8 +130,8 @@ struct ContentView: View {
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
-            layoutChoice: appContext.layoutChoice,
-            stringsLayoutChoice: appContext.stringsLayoutChoice,
+            layoutChoice: .symmetric,
+            stringsLayoutChoice: .banjo,
             latching: latching,
             layoutPalette: viewLayoutPalette,
             layoutLabel: viewLayoutLabel,
@@ -166,7 +153,6 @@ struct ContentView: View {
                         HeaderView(viewConductor: viewConductor,
                                    tonicConductor: tonicConductor,
                                    modeConductor: modeConductor,
-                                   tonalContext: tonalContext,
                                    showTonicPicker: $showTonicPicker)
                             .frame(height: settingsHeight)
                         Spacer()
@@ -179,17 +165,15 @@ struct ContentView: View {
                                 
                                 if tonicConductor.showTonicLabels {
                                     InstrumentView(
-                                        instrument: instrument,
-                                        conductor: tonicConductor,
-                                        tonalContext: tonalContext
+                                        instrument: appContext.instrument,
+                                        conductor: tonicConductor
                                     ) { pitch in
                                         PitchView(
                                             pitch: pitch,
                                             thisConductor: tonicConductor,
                                             tonicConductor: tonicConductor,
                                             viewConductor: viewConductor,
-                                            modeConductor: modeConductor,
-                                            tonalContext: tonalContext
+                                            modeConductor: modeConductor
                                         )
                                         .aspectRatio(1.0, contentMode: .fit)
                                     }
@@ -199,15 +183,14 @@ struct ContentView: View {
                                 
                                 if modeConductor.showModes {
                                     ModeKeyboardView(
-                                        modeConductor: modeConductor,
-                                        tonalContext: tonalContext
+                                        modeConductor: modeConductor
                                     ) { mode, columnIndex in
                                         ModeView(mode: mode,
                                                  columnIndex: columnIndex,
                                                  thisConductor: modeConductor,
                                                  viewConductor: viewConductor,
-                                                 modeConductor: modeConductor,
-                                                 tonalContext: tonalContext)
+                                                 modeConductor: modeConductor
+                                                 )
                                         .aspectRatio(2.0, contentMode: .fit)
                                     }
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
@@ -224,17 +207,15 @@ struct ContentView: View {
                         // Primary Keyboard View
                         if viewConductor.isOneRowOnTablet  {
                             InstrumentView(
-                                instrument: instrument,
-                                conductor: viewConductor,
-                                tonalContext: tonalContext
+                                instrument: appContext.instrument,
+                                conductor: viewConductor
                             ) { pitch in
                                 PitchView(
                                     pitch: pitch,
                                     thisConductor: viewConductor,
                                     tonicConductor: tonicConductor,
                                     viewConductor: viewConductor,
-                                    modeConductor: modeConductor,
-                                    tonalContext: tonalContext
+                                    modeConductor: modeConductor
                                 )
                             }
                             .aspectRatio(4.0, contentMode: .fit)
@@ -243,17 +224,15 @@ struct ContentView: View {
                         
                         if !viewConductor.isOneRowOnTablet {
                             InstrumentView(
-                                instrument: instrument,
-                                conductor: viewConductor,
-                                tonalContext: tonalContext
+                                instrument: appContext.instrument,
+                                conductor: viewConductor
                             ) { pitch in
                                 PitchView(
                                     pitch: pitch,
                                     thisConductor: viewConductor,
                                     tonicConductor: tonicConductor,
                                     viewConductor: viewConductor,
-                                    modeConductor: modeConductor,
-                                    tonalContext: tonalContext
+                                    modeConductor: modeConductor
                                 )
                             }
                             .ignoresSafeArea(edges:.horizontal)
@@ -266,8 +245,7 @@ struct ContentView: View {
                         Spacer()
                         FooterView(
                             viewConductor: viewConductor,
-                            tonalContext: tonalContext,
-                            instrument: instrument
+                            instrument: appContext.instrument
                         )
                             .frame(height: settingsHeight)
                     }
