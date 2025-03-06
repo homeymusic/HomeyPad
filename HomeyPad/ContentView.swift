@@ -4,7 +4,7 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @State private var instrument: Instrument = .guitar
+    @State private var instrument: Instrument = .symmetric
     @StateObject private var appContext: AppContext
     @StateObject private var tonalContext: TonalContext
     @StateObject private var tonicConductor: TonicConductor
@@ -179,6 +179,7 @@ struct ContentView: View {
                                 
                                 if tonicConductor.showTonicLabels {
                                     PitchKeyboardView(
+                                        instrument: instrument,
                                         conductor: tonicConductor,
                                         tonalContext: tonalContext
                                     ) { pitch in
@@ -223,6 +224,7 @@ struct ContentView: View {
                         // Primary Keyboard View
                         if viewConductor.isOneRowOnTablet  {
                             PitchKeyboardView(
+                                instrument: instrument,
                                 conductor: viewConductor,
                                 tonalContext: tonalContext
                             ) { pitch in
@@ -241,6 +243,7 @@ struct ContentView: View {
                         
                         if !viewConductor.isOneRowOnTablet {
                             PitchKeyboardView(
+                                instrument: instrument,
                                 conductor: viewConductor,
                                 tonalContext: tonalContext
                             ) { pitch in
