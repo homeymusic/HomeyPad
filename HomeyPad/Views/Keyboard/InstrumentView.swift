@@ -2,7 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
-public struct PitchKeyboardView<Content>: Identifiable, View where Content: View {
+public struct InstrumentView<Content>: Identifiable, View where Content: View {
     let instrument: Instrument
     @ObservedObject var conductor: ViewConductor
     @ObservedObject var tonalContext: TonalContext
