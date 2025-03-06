@@ -22,7 +22,7 @@ public struct ModeLabelView: View {
         var body: some View {
             VStack(spacing: 2) {
                 VStack(spacing: 1) {
-                    plotModeLabel
+                    guideModeLabel
                 }
             }
             .padding(2.0)
@@ -31,7 +31,7 @@ public struct ModeLabelView: View {
             .lineLimit(1)
         }
         
-        var plotModeLabel: some View {
+        var guideModeLabel: some View {
             AnyView(
                 HStack(spacing: 0.0) {
                     if modeView.modeConductor.noteLabel[.mode]! {
@@ -45,10 +45,10 @@ public struct ModeLabelView: View {
                                 .cornerRadius(3.0)
                         )
                     }
-                    if modeView.modeConductor.noteLabel[.plot]! {
+                    if modeView.modeConductor.noteLabel[.guide]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
-                                plotIconImages
+                                guideIconImages
                             }
                                 .aspectRatio(modeView.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
@@ -60,7 +60,7 @@ public struct ModeLabelView: View {
             )
         }
         
-        var plotIconImages: some View {
+        var guideIconImages: some View {
             Group {
                 Image(systemName: "square")
                     .resizable()

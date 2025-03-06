@@ -11,7 +11,6 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
     case bass       = 5
     case banjo      = 6
     case guitar     = 7
-    case mode       = 14
     case tonic      = 15
 
     public var id: Self { self }
@@ -23,15 +22,14 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
     public var icon: String {
         switch self {
         case .isomorphic: return "rectangle.split.2x1"
-        case .symmetric: return "rectangle.split.2x2"
+        case .symmetric:  return "rectangle.split.2x2"
         case .piano:      return "guitars"
         case .violin:     return "guitars"
         case .cello:      return "guitars"
         case .bass:       return "guitars"
         case .banjo:      return "guitars"
         case .guitar:     return "guitars"
-        case .mode: return "building.columns"
-        case .tonic: return "house"
+        case .tonic:      return "house"
         }
     }
 }

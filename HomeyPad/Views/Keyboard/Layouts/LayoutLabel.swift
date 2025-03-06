@@ -13,7 +13,7 @@ struct LayoutLabel: Codable, Equatable {
     static func generateDefaultNoteLabels() -> [LayoutChoice: [NoteLabelChoice: Bool]] {
         let commonDefaultValues: [NoteLabelChoice: Bool] = [
             .letter: false, .fixedDo: false, .month: false, .octave: false,
-            .mode: false, .plot: false, .midi: false, .frequency: false,
+            .mode: false, .guide: false, .midi: false, .frequency: false,
             .period: false, .wavelength: false, .wavenumber: false, .cochlea: false
         ]
         

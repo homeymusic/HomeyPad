@@ -39,7 +39,7 @@ class ViewConductor: ObservableObject {
     let animationStyle: Animation = Animation.linear
     
     var showModes: Bool {
-        noteLabel[.mode]! || noteLabel[.plot]!
+        noteLabel[.mode]! || noteLabel[.guide]!
     }
     
     var showTonicLabels: Bool {
