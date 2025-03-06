@@ -244,8 +244,7 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         FooterView(
-                            viewConductor: viewConductor,
-                            instrument: appContext.instrument
+                            viewConductor: viewConductor
                         )
                             .frame(height: settingsHeight)
                     }

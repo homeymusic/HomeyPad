@@ -6,7 +6,14 @@ final class AppContext: ObservableObject {
 
     @Published var layoutChoice: LayoutChoice
     @Published var stringsLayoutChoice: StringsLayoutChoice
-    @Published var instrument: Instrument = .banjo
+    @Published var instrument: Instrument = .symmetric {
+        didSet {
+            if instrument.isStringInstrument {
+                stringInstrument = instrument
+            }
+        }
+    }
+    @Published var stringInstrument: Instrument = .banjo
 
     init() {
         let defaultLayoutChoice: LayoutChoice = .symmetric
@@ -27,5 +34,9 @@ final class AppContext: ObservableObject {
         self.stringsLayoutChoice = StringsLayoutChoice(
             rawValue: appDefaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue
         ) ?? defaultStringsLayoutChoice
+    }
+    
+    public var instruments: [Instrument] {
+        Instrument.keyboardInstruments + [self.stringInstrument]
     }
 }

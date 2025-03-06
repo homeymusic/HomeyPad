@@ -23,7 +23,7 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
         switch self {
         case .isomorphic: return "rectangle.split.2x1"
         case .symmetric:  return "rectangle.split.2x2"
-        case .piano:      return "guitars"
+        case .piano:      return "pianokeys"
         case .violin:     return "guitars"
         case .cello:      return "guitars"
         case .bass:       return "guitars"
@@ -32,4 +32,24 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
         case .tonic:      return "house"
         }
     }
+}
+
+extension Instrument {
+    /// Returns all Mode cases starting with the given mode, then wrapping around.
+    static var keyboardInstruments: [Instrument] {
+        [.isomorphic, .symmetric, .piano]
+    }
+    
+    var isKeyboardInstrument: Bool {
+        Self.keyboardInstruments.contains(self)
+    }
+    
+    static var stringInstruments: [Instrument] {
+        [.violin, .cello, .bass, .banjo, .guitar]
+    }
+    
+    var isStringInstrument: Bool {
+        Self.stringInstruments.contains(self)
+    }
+    
 }

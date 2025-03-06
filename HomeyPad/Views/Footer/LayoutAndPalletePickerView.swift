@@ -48,12 +48,10 @@ struct LayoutAndPalletePickerView: View {
             })
             .padding(.trailing, 10)
             
-            
-            
-            Picker("", selection: $viewConductor.layoutChoice) {
-                ForEach(LayoutChoice.allCases, id:\.self) { layoutChoice in
-                    Image(systemName: layoutChoice.icon)
-                        .tag(layoutChoice)
+            Picker("", selection: $appContext.instrument) {
+                ForEach(appContext.instruments, id:\.self) { instrument in
+                    Image(systemName: instrument.icon)
+                        .tag(instrument)
                 }
             }
             .frame(maxWidth: 300)
