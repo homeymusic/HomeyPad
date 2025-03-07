@@ -41,10 +41,11 @@ public struct PitchLabelView: View {
         var rotation: Angle = .degrees(0)
         
         @EnvironmentObject var tonalContext: TonalContext
-        
+        @EnvironmentObject var instrumentContext: InstrumentContext
+
         var body: some View {
             VStack(spacing: 2) {
-                if pitchView.thisConductor.layoutChoice == .piano {
+                if instrumentContext.instrumentType == .piano && pitchView.thisConductor.layoutChoice != .tonic {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {

@@ -18,17 +18,20 @@ public struct InstrumentView<Content>: Identifiable, View where Content: View {
                 IsomorphicView(
                     pitchView: pitchView,
                     viewConductor: conductor,
-                    keyboardInstrument: instrumentContext.keyboardInstrument
+                    isomorphic: instrumentContext.isomorphic
                 )
             case .zeena:
                 ZeenaView(
                     pitchView: pitchView,
                     viewConductor: conductor,
-                    keyboardInstrument: instrumentContext.keyboardInstrument
+                    zeena: instrumentContext.zeena
                 )
             case .piano:
-                PianoView(pitchView: pitchView,
-                          viewConductor: conductor)
+                PianoView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    piano: instrumentContext.piano
+                )
             case .guitar:
                 StringsView(pitchView: pitchView,
                             viewConductor: conductor)

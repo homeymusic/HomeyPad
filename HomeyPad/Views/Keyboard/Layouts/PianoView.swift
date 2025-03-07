@@ -5,6 +5,8 @@ import MIDIKitCore
 struct PianoView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var piano: Piano
+
     @EnvironmentObject var tonalContext: TonalContext
 
     func offset(for pitch: Pitch) -> CGFloat {
@@ -63,12 +65,12 @@ struct PianoView<Content>: View where Content: View {
     // MARK: - Main Body
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(
-                viewConductor.layoutRows,
-                id: \.self
-            ) { row in
+            ForEach(piano.rowIndices, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.nearbyNotes, id: \.self) { noteClass in
+                    ForEach(piano.nearbyNotes(
+                        forTonic: Int(tonalContext.tonicPitch.midiNote.number),
+                        pitchDirection: tonalContext.pitchDirection
+                    ), id: \.self) { noteClass in
                         let note = Int(noteClass) + 12 * row
                         keyView(for: note)
                     }

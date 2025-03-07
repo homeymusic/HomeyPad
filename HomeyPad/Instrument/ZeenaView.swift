@@ -5,7 +5,7 @@ import MIDIKitCore
 struct ZeenaView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var keyboardInstrument: KeyboardInstrument
+    @ObservedObject var zeena: Zeena
     
     @EnvironmentObject var instrumentContext: InstrumentContext
     @EnvironmentObject var tonalContext: TonalContext
@@ -73,10 +73,10 @@ struct ZeenaView<Content>: View where Content: View {
     // MARK: - Main Body
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(keyboardInstrument.rowIndices, id: \.self
+            ForEach(zeena.rowIndices, id: \.self
             ) { row in
                 HStack(spacing: 0) {
-                    ForEach(keyboardInstrument.colIndices(forTonic: Int(tonalContext.tonicPitch.midiNote.number),
+                    ForEach(zeena.colIndices(forTonic: Int(tonalContext.tonicPitch.midiNote.number),
                                                           pitchDirection: tonalContext.pitchDirection), id: \.self) { noteClass in
                         let note = Int(noteClass) + 12 * row
                         keyView(for: note)

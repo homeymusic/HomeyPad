@@ -14,6 +14,7 @@
 		B01A30092D7B393600A95DDD /* KeyboardInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */; };
 		B01A300D2D7B9B1300A95DDD /* Isomorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */; };
 		B01A30112D7BA06E00A95DDD /* KeyRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30102D7BA06900A95DDD /* KeyRectangle.swift */; };
+		B01A30172D7BA46600A95DDD /* Piano.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30162D7BA46400A95DDD /* Piano.swift */; };
 		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -73,6 +74,7 @@
 		B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInstrument.swift; sourceTree = "<group>"; };
 		B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorphic.swift; sourceTree = "<group>"; };
 		B01A30102D7BA06900A95DDD /* KeyRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRectangle.swift; sourceTree = "<group>"; };
+		B01A30162D7BA46400A95DDD /* Piano.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piano.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		B01A30012D7A8DE400A95DDD /* Instrument */ = {
 			isa = PBXGroup;
 			children = (
+				B01A30162D7BA46400A95DDD /* Piano.swift */,
 				B088D6C02D78896B00962CDF /* InstrumentType.swift */,
 				B01A30022D7A8DF200A95DDD /* Instrument.swift */,
 				B0C7FD292BBAFB16006FF26F /* InstrumentView.swift */,
@@ -399,6 +402,7 @@
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
 				B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
+				B01A30172D7BA46600A95DDD /* Piano.swift in Sources */,
 				B06CC5A22D6D258C00290353 /* ModeLabelView.swift in Sources */,
 				B093E14F2CBD2DB800130B06 /* OctaveShiftView.swift in Sources */,
 				B093E1502CBD2DB800130B06 /* PitchDirectionPickerView.swift in Sources */,

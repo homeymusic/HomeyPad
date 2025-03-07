@@ -5,15 +5,15 @@ import HomeyMusicKit
 struct IsomorphicView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var keyboardInstrument: KeyboardInstrument
+    @ObservedObject var isomorphic: Isomorphic
 
     @EnvironmentObject var tonalContext: TonalContext
 
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(keyboardInstrument.rowIndices, id: \.self) { row in
+            ForEach(isomorphic.rowIndices, id: \.self) { row in
                 HStack(spacing: 0) {
-                    ForEach(keyboardInstrument.colIndices(forTonic: Int(tonalContext.tonicPitch.midiNote.number),
+                    ForEach(isomorphic.colIndices(forTonic: Int(tonalContext.tonicPitch.midiNote.number),
                                                           pitchDirection: tonalContext.pitchDirection), id: \.self) { col in
                         let linearIndex: Int = Int(col) + 12 * Int(row)
                         Group {

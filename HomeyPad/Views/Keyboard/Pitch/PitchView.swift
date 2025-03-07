@@ -20,7 +20,7 @@ public struct PitchView: View {
     }
     
     var borderHeightApparentSize: CGFloat {
-        thisConductor.layoutChoice == .piano ? borderWidthApparentSize / 2 : borderWidthApparentSize
+        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? borderWidthApparentSize / 2 : borderWidthApparentSize
     }
     var outlineWidth: CGFloat {
         borderWidthApparentSize * outlineSize
@@ -30,9 +30,9 @@ public struct PitchView: View {
     }
         
     public var body: some View {
-        let alignment: Alignment = thisConductor.layoutChoice == .piano ? .top : .center
+        let alignment: Alignment = instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? .top : .center
         GeometryReader { proxy in
-            ZStack(alignment: thisConductor.layoutChoice == .piano ? .bottom : .center) {
+            ZStack(alignment: instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? .bottom : .center) {
                 
                 ZStack(alignment: alignment) {
                     KeyRectangle(fillColor: thisConductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, pitchView: self, proxySize: proxy.size)
@@ -64,7 +64,7 @@ public struct PitchView: View {
     }
     
     func darkenSmallKeys(color: Color) -> Color {
-        return thisConductor.layoutChoice == .piano ? (isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1)) : color
+        return instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? (isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1)) : color
     }
     
     var accentColor: Color {
@@ -140,7 +140,7 @@ public struct PitchView: View {
     }
     
     var isSmall: Bool {
-        thisConductor.layoutChoice == .piano && !pitch.isNatural
+        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic && !pitch.isNatural
     }
     
     var backgroundBorderSize: CGFloat {
@@ -161,7 +161,7 @@ public struct PitchView: View {
     }
     
     func topPadding(_ size: CGSize) -> CGFloat {
-        thisConductor.layoutChoice == .piano ? relativeCornerRadius(in: size) : 0.0
+        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? relativeCornerRadius(in: size) : 0.0
     }
     
     func leadingPadding(_ size: CGSize) -> CGFloat {
@@ -173,7 +173,7 @@ public struct PitchView: View {
     }
     
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
-        thisConductor.layoutChoice == .piano ? -relativeCornerRadius(in: size) : 0.0
+        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? -relativeCornerRadius(in: size) : 0.0
     }
     
     var rotation: CGFloat {
