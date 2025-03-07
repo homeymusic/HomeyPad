@@ -1,87 +1,91 @@
 import SwiftUI
+import HomeyMusicKit
 
 struct RowsColsPickerView: View {
     @ObservedObject var viewConductor: ViewConductor
-
+    @ObservedObject var keyboardInstrument: KeyboardInstrument
+    
+    @EnvironmentObject var tonalContext: TonalContext
+   
     var body: some View {
         HStack(spacing: 7.0) {
             Button(action: {
-                viewConductor.fewerRows()
+                keyboardInstrument.fewerRows()
             }) {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "arrow.down.and.line.horizontal.and.arrow.up")
-                            .foregroundColor(viewConductor.showFewerRows ? .white : .gray)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showFewerRows ? .regular : .thin))
+                            .foregroundColor(keyboardInstrument.fewerRowsAreAvailable ? .white : .gray)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardInstrument.fewerRowsAreAvailable ? .regular : .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .disabled(!viewConductor.showFewerRows)
+            .disabled(!keyboardInstrument.fewerRowsAreAvailable)
             
             Divider()
                 .frame(width: 1, height: 17.5)
                 .overlay(Color(UIColor.systemGray4))
             
             Button(action: {
-                viewConductor.moreRows()
+                keyboardInstrument.moreRows()
             }) {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "arrow.up.and.line.horizontal.and.arrow.down")
-                            .foregroundColor(viewConductor.showMoreRows ? .white : .gray)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showMoreRows ? .regular : .thin))
+                            .foregroundColor(keyboardInstrument.moreRowsAreAvailable ? .white : .gray)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardInstrument.moreRowsAreAvailable ? .regular : .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .disabled(!viewConductor.showMoreRows)
+            .disabled(!keyboardInstrument.moreRowsAreAvailable)
             
             Button(action: {
-                viewConductor.resetRowsColsPerSide()
+                keyboardInstrument.resetRowsCols()
             }) {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "gobackward")
-                            .foregroundColor(viewConductor.showRowColsReset ? .white : .gray)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showRowColsReset ? .regular : .thin))
+                            .foregroundColor(keyboardInstrument.rowColsAreNotDefault ? .white : .gray)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardInstrument.rowColsAreNotDefault ? .regular : .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .disabled(!viewConductor.showRowColsReset)
+            .disabled(!keyboardInstrument.rowColsAreNotDefault)
             
             Button(action: {
-                viewConductor.fewerCols()
+                keyboardInstrument.fewerCols()
             }) {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "arrow.right.and.line.vertical.and.arrow.left")
-                            .foregroundColor(viewConductor.showFewerColumns ? .white : .gray)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showFewerColumns ? .regular : .thin))
+                            .foregroundColor(keyboardInstrument.fewerColsAreAvailable ? .white : .gray)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardInstrument.fewerColsAreAvailable ? .regular : .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .disabled(!viewConductor.showFewerColumns)
+            .disabled(!keyboardInstrument.fewerColsAreAvailable)
             
             Divider()
                 .frame(width: 1, height: 17.5)
                 .overlay(Color(UIColor.systemGray4))
             
             Button(action: {
-                viewConductor.moreCols()
+                keyboardInstrument.moreCols()
             }) {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "arrow.left.and.line.vertical.and.arrow.right")
-                            .foregroundColor(viewConductor.showMoreColumns ? .white : .gray)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.showMoreColumns ? .regular : .thin))
+                            .foregroundColor(keyboardInstrument.moreColsAreAvailable ? .white : .gray)
+                            .font(Font.system(size: .leastNormalMagnitude, weight: keyboardInstrument.moreColsAreAvailable ? .regular : .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .disabled(!viewConductor.showMoreColumns)
+            .disabled(!keyboardInstrument.moreColsAreAvailable)
         }
         .background(
             RoundedRectangle(cornerRadius: 5)

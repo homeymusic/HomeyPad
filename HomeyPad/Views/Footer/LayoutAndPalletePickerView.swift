@@ -4,7 +4,7 @@ import HomeyMusicKit
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor
     
-    @EnvironmentObject var appContext: AppContext
+    @EnvironmentObject var instrumentContext: InstrumentContext
     @EnvironmentObject var tonalContext: TonalContext
     
     var body: some View {
@@ -48,8 +48,8 @@ struct LayoutAndPalletePickerView: View {
             })
             .padding(.trailing, 10)
             
-            Picker("", selection: $appContext.instrument) {
-                ForEach(appContext.instruments, id:\.self) { instrument in
+            Picker("", selection: $instrumentContext.instrumentType) {
+                ForEach(instrumentContext.instruments, id:\.self) { instrument in
                     Image(systemName: instrument.icon)
                         .tag(instrument)
                 }

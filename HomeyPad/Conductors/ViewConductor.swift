@@ -114,15 +114,16 @@ class ViewConductor: ObservableObject {
         return Array(lowerBound...upperBound)
     }
     
-    public var layoutCols: ClosedRange<Int> {
-        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
-        let lowerBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
-        let upperBound: Int = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
-        return lowerBound ... upperBound
+    public var layoutCols: [Int] {
+        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : 6
+        let lowerBound = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
+        let upperBound = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
+        return Array(lowerBound...upperBound)
     }
-    
-    public var layoutRows: [Int] {        
-        return (-layoutRowsCols.rowsPerSide[self.layoutChoice]!...layoutRowsCols.rowsPerSide[self.layoutChoice]!).reversed()
+
+    public var layoutRows: [Int] {
+        let range = (-layoutRowsCols.rowsPerSide[self.layoutChoice]! ... layoutRowsCols.rowsPerSide[self.layoutChoice]!)
+        return Array(range.reversed())
     }
     
     let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -274,7 +275,7 @@ class ViewConductor: ObservableObject {
     
     func fewerCols() {
         switch layoutChoice {
-        case .symmetric:
+        case .zeena:
             let colJump: [Int:Int] = [
                 29:2,
                 27:2,
@@ -294,7 +295,7 @@ class ViewConductor: ObservableObject {
     
     func moreCols() {
         switch layoutChoice {
-        case .symmetric:
+        case .zeena:
             let colJump: [Int:Int] = [
                 6:2,
                 8:2,

@@ -11,7 +11,7 @@ import HomeyMusicKit
 struct FooterView: View {
     @ObservedObject var viewConductor: ViewConductor
 
-    @EnvironmentObject var appContext: AppContext
+    @EnvironmentObject var instrumentContext: InstrumentContext
 
     var body: some View {
         HStack {
@@ -35,19 +35,22 @@ struct FooterView: View {
             LayoutAndPalletePickerView(
                 viewConductor: viewConductor
             )
-            .id(appContext.instrument)
+            .id(instrumentContext.instrumentType)
             
             HStack {
-                if appContext.instrument.isStringInstrument {
-                    Picker("", selection: $appContext.instrument) {
-                        ForEach(Instrument.stringInstruments) { stringInstrument in
+                if instrumentContext.instrumentType.isStringInstrument {
+                    Picker("", selection: $instrumentContext.instrumentType) {
+                        ForEach(InstrumentType.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
                                 .tag(stringInstrument)
                         }
                     }
                     .pickerStyle(.segmented)
                 } else {
-                    RowsColsPickerView(viewConductor: viewConductor)
+                    RowsColsPickerView(
+                        viewConductor: viewConductor,
+                        keyboardInstrument: instrumentContext.keyboardInstrument
+                    )
                 }
             }
             .foregroundColor(.white)

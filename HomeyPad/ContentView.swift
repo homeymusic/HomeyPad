@@ -10,10 +10,10 @@ struct ContentView: View {
 
     @State var showTonicPicker: Bool
     
-    let appContext: AppContext
+    let appContext: InstrumentContext
     let tonalContext: TonalContext
 
-    init(appContext: AppContext, tonalContext: TonalContext) {
+    init(appContext: InstrumentContext, tonalContext: TonalContext) {
         self.appContext = appContext
         self.tonalContext = tonalContext
 
@@ -109,8 +109,8 @@ struct ContentView: View {
             }
         }
         
-        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.symmetric]
-        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.symmetric]
+        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.zeena]
+        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.zeena]
                
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
@@ -130,7 +130,7 @@ struct ContentView: View {
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
-            layoutChoice: .symmetric,
+            layoutChoice: .zeena,
             stringsLayoutChoice: .banjo,
             latching: latching,
             layoutPalette: viewLayoutPalette,

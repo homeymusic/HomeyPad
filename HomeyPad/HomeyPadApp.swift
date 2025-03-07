@@ -5,13 +5,13 @@ import HomeyMusicKit
 @main
 struct HomeyPad: App {
     
-    @StateObject private var appContext: AppContext
+    @StateObject private var appContext: InstrumentContext
     @StateObject private var tonalContext: TonalContext
     @StateObject private var midiContext: MIDIContext
 
     init() {
         // Initialize appContext and tonalContext as local variables.
-        let appCtx = AppContext()
+        let appCtx = InstrumentContext()
         let tonalCtx = TonalContext()
         
         // Now assign them to the state objects using the underscore syntax.
@@ -21,7 +21,7 @@ struct HomeyPad: App {
         // Now it's safe to use them to initialize midiContext.
         _midiContext = StateObject(wrappedValue: MIDIContext(
             tonalContext: tonalCtx,
-            instrumentMIDIChannelProvider: { appCtx.instrument.rawValue },
+            instrumentMIDIChannelProvider: { appCtx.instrumentType.rawValue },
             tonicMIDIChannel: TonicPicker.tonic.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",

@@ -9,6 +9,7 @@ public struct PitchView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
+    @EnvironmentObject var instrumentContext: InstrumentContext
 
     var pitchInterval: Interval {
         return tonalContext.interval(fromTonicTo: pitch)
@@ -176,7 +177,7 @@ public struct PitchView: View {
     }
     
     var rotation: CGFloat {
-        thisConductor.layoutChoice == .symmetric && pitchInterval.isTritone ? 45.0 : 0.0
+        (instrumentContext.instrumentType == .zeena && pitchInterval.isTritone && thisConductor.layoutChoice != .tonic) ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {
@@ -185,22 +186,5 @@ public struct PitchView: View {
     
     var trailingOffset: CGFloat {
         0.0
-    }
-}
-
-struct KeyRectangle: View {
-    var fillColor: Color
-    var pitchView: PitchView
-    var proxySize: CGSize
-    
-    var body: some View {
-        Rectangle()
-            .fill(fillColor)
-            .padding(.top, pitchView.topPadding(proxySize))
-            .padding(.leading, pitchView.leadingPadding(proxySize))
-            .padding(.trailing, pitchView.trailingPadding(proxySize))
-            .cornerRadius(pitchView.relativeCornerRadius(in: proxySize))
-            .padding(.top, pitchView.negativeTopPadding(proxySize))
-            .rotationEffect(.degrees(pitchView.rotation))
     }
 }

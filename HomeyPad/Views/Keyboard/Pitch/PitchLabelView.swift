@@ -4,19 +4,23 @@ import HomeyMusicKit
 public struct PitchLabelView: View {
     var pitchView: PitchView
     var proxySize: CGSize
-
+    
     @EnvironmentObject var tonalContext: TonalContext
-
-    var isSymmetricNotTritone: Bool {
-        pitchView.thisConductor.layoutChoice == .symmetric && !pitchView.pitchInterval.isTritone
+    @EnvironmentObject var instrumentContext: InstrumentContext
+    
+    var isZeenaNotTritone: Bool {
+        instrumentContext.instrumentType == .zeena &&
+        pitchView.thisConductor.layoutChoice != .tonic &&
+        !pitchView.pitchInterval.isTritone
     }
-
+    
     public var body: some View {
-        let tritonePadding: CGFloat = isSymmetricNotTritone ? 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize) : 0.0
+        let tritonePadding: CGFloat = isZeenaNotTritone ? 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize) : 0.0
         let topBottomPadding = pitchView.outline ? 0.0 : 0.5 * pitchView.outlineHeight
         let extraPadding = tritonePadding + topBottomPadding
         return VStack(spacing: 0.0) {
-            if pitchView.thisConductor.layoutChoice == .symmetric &&
+            if instrumentContext.instrumentType == .zeena &&
+                pitchView.thisConductor.layoutChoice != .tonic &&
                 pitchView.pitchInterval.consonanceDissonance > .consonant {
                 Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
@@ -30,14 +34,14 @@ public struct PitchLabelView: View {
             }
         }
     }
-
+    
     struct Labels: View {
         let pitchView: PitchView
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
-
+        
         @EnvironmentObject var tonalContext: TonalContext
-
+        
         var body: some View {
             VStack(spacing: 2) {
                 if pitchView.thisConductor.layoutChoice == .piano {
@@ -55,14 +59,14 @@ public struct PitchLabelView: View {
             .minimumScaleFactor(0.1)
             .lineLimit(1)
         }
-
+        
         var pianoLayoutSpacer: some View {
             VStack(spacing: 0) {
                 Color.clear
             }
             .frame(height: 0.55 * proxySize.height)
         }
-
+        
         var noteLabels: some View {
             AnyView(
                 Group {
@@ -109,7 +113,7 @@ public struct PitchLabelView: View {
                 }
             )
         }
-
+        
         var monthLabel: some View {
             if pitchView.thisConductor.noteLabel[.month]! {
                 return AnyView(
@@ -120,7 +124,7 @@ public struct PitchLabelView: View {
             }
             return AnyView(EmptyView())
         }
-
+        
         var symbolIcon: some View {
             if pitchView.thisConductor.showSymbols {
                 return AnyView(
@@ -132,10 +136,10 @@ public struct PitchLabelView: View {
                             .font(Font.system(size: .leastNormalMagnitude,
                                               weight: pitchView.pitchInterval.consonanceDissonance.fontWeight))
                             .frame(maxWidth: (pitchView.isSmall ? 0.6 : 0.5) *
-                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.width,
+                                   pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.width,
                                    maxHeight: 0.8 *
-                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.height /
-                                    CGFloat(pitchView.thisConductor.labelsCount))
+                                   pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.height /
+                                   CGFloat(pitchView.thisConductor.labelsCount))
                             .scaleEffect(pitchView.pitchInterval.isTonic ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 0.3),
                                        value: pitchView.pitchInterval.isTonic)
@@ -144,10 +148,10 @@ public struct PitchLabelView: View {
             }
             return AnyView(EmptyView())
         }
-
+        
         var intervalLabels: some View {
             @EnvironmentObject var tonalContext: TonalContext
-
+            
             return Group {
                 if pitchView.thisConductor.intervalLabel[.interval]! {
                     overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: tonalContext.pitchDirection)))
@@ -178,21 +182,21 @@ public struct PitchLabelView: View {
                 }
             }
         }
-
+        
         func overlayText(_ text: String) -> some View {
             Color.clear.overlay(
                 Text(text)
             )
         }
-
+        
         func minDimension(_ size: CGSize) -> CGFloat {
             return min(size.width, size.height)
         }
-
+        
         var isActivated: Bool {
             pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitchView.pitch.isActivated
         }
-
+        
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
@@ -208,7 +212,7 @@ public struct PitchLabelView: View {
             }
             return isActivated ? activeColor : inactiveColor
         }
-
+        
         var octave: String {
             pitchView.thisConductor.noteLabel[.octave]! ? String(pitchView.pitch.octave) : ""
         }

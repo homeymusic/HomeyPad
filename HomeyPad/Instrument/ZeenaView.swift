@@ -2,9 +2,12 @@ import SwiftUI
 import HomeyMusicKit
 import MIDIKitCore
 
-struct SymmetricView<Content>: View where Content: View {
+struct ZeenaView<Content>: View where Content: View {
     let pitchView: (Pitch) -> Content
     @ObservedObject var viewConductor: ViewConductor
+    @ObservedObject var keyboardInstrument: KeyboardInstrument
+    
+    @EnvironmentObject var instrumentContext: InstrumentContext
     @EnvironmentObject var tonalContext: TonalContext
     
     // MARK: - Helper for rendering a key view for a given note
@@ -70,12 +73,11 @@ struct SymmetricView<Content>: View where Content: View {
     // MARK: - Main Body
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(
-                viewConductor.layoutRows,
-                id: \.self
+            ForEach(keyboardInstrument.rowIndices, id: \.self
             ) { row in
                 HStack(spacing: 0) {
-                    ForEach(viewConductor.layoutCols, id: \.self) { noteClass in
+                    ForEach(keyboardInstrument.colIndices(forTonic: Int(tonalContext.tonicPitch.midiNote.number),
+                                                          pitchDirection: tonalContext.pitchDirection), id: \.self) { noteClass in
                         let note = Int(noteClass) + 12 * row
                         keyView(for: note)
                     }

@@ -2,7 +2,7 @@ import SwiftUI
 import MIDIKitIO
 import HomeyMusicKit
 
-public enum InstrumentChoice: MIDIChannel, CaseIterable, Identifiable, Codable {
+public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
     case isomorphic = 0
     case symmetric  = 1
     case piano      = 2
@@ -32,9 +32,9 @@ public enum InstrumentChoice: MIDIChannel, CaseIterable, Identifiable, Codable {
     }
 }
 
-extension InstrumentChoice {
+extension InstrumentType {
     /// Returns all Mode cases starting with the given mode, then wrapping around.
-    static var keyboardInstruments: [InstrumentChoice] {
+    static var keyboardInstruments: [InstrumentType] {
         [.isomorphic, .symmetric, .piano]
     }
     
@@ -42,7 +42,7 @@ extension InstrumentChoice {
         Self.keyboardInstruments.contains(self)
     }
     
-    static var stringInstruments: [InstrumentChoice] {
+    static var stringInstruments: [InstrumentType] {
         [.violin, .cello, .bass, .banjo, .guitar]
     }
     
