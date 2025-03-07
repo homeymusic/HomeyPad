@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01A2FFE2D7A897200A95DDD /* TonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A2FFD2D7A896B00A95DDD /* TonicKeyboardView.swift */; };
+		B01A30002D7A8A4D00A95DDD /* TonicPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */; };
 		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B01A2FFD2D7A896B00A95DDD /* TonicKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicKeyboardView.swift; sourceTree = "<group>"; };
+		B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPicker.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
+				B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */,
 				B099FF622D776CDF00646A4A /* AppContext.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B088D6C02D78896B00962CDF /* Instrument.swift */,
@@ -190,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				B0C7FD292BBAFB16006FF26F /* InstrumentView.swift */,
+				B01A2FFD2D7A896B00A95DDD /* TonicKeyboardView.swift */,
 				B06CC5A92D6D28A500290353 /* ModeKeyboardView.swift */,
 				B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */,
 				B04CE2262BBAFE5800E8787D /* Layouts */,
@@ -374,6 +380,7 @@
 				B0C7FD332BBAFB16006FF26F /* PitchView.swift in Sources */,
 				B0C7FD3A2BBAFB29006FF26F /* PianoView.swift in Sources */,
 				B06CC5952D6D1DF100290353 /* ModePickerView.swift in Sources */,
+				B01A30002D7A8A4D00A95DDD /* TonicPicker.swift in Sources */,
 				B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* InstrumentView.swift in Sources */,
@@ -384,6 +391,7 @@
 				B079AA732CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift in Sources */,
 				B0C7FD3B2BBAFB29006FF26F /* IsomorphicView.swift in Sources */,
 				B06CC5A42D6D274A00290353 /* ModeContainerView.swift in Sources */,
+				B01A2FFE2D7A897200A95DDD /* TonicKeyboardView.swift in Sources */,
 				B0C7FD352BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift in Sources */,
 				B0C7FD302BBAFB16006FF26F /* PitchRectangles.swift in Sources */,
 				B0C7FD322BBAFB16006FF26F /* PitchContainerView.swift in Sources */,

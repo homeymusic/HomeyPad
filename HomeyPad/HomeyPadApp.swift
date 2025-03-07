@@ -22,7 +22,7 @@ struct HomeyPad: App {
         _midiContext = StateObject(wrappedValue: MIDIContext(
             tonalContext: tonalCtx,
             instrumentMIDIChannelProvider: { appCtx.instrument.rawValue },
-            tonicMIDIChannel: Instrument.tonic.rawValue,
+            tonicMIDIChannel: TonicPicker.tonic.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
             manufacturer: "Homey Music"

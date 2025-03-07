@@ -164,9 +164,8 @@ struct ContentView: View {
                             VStack {
                                 
                                 if tonicConductor.showTonicLabels {
-                                    InstrumentView(
-                                        instrument: appContext.instrument,
-                                        conductor: tonicConductor
+                                    TonicKeyboardView(
+                                        tonicConductor: tonicConductor
                                     ) { pitch in
                                         PitchView(
                                             pitch: pitch,
@@ -207,7 +206,6 @@ struct ContentView: View {
                         // Primary Keyboard View
                         if viewConductor.isOneRowOnTablet  {
                             InstrumentView(
-                                instrument: appContext.instrument,
                                 conductor: viewConductor
                             ) { pitch in
                                 PitchView(
@@ -224,7 +222,6 @@ struct ContentView: View {
                         
                         if !viewConductor.isOneRowOnTablet {
                             InstrumentView(
-                                instrument: appContext.instrument,
                                 conductor: viewConductor
                             ) { pitch in
                                 PitchView(

@@ -1,6 +1,6 @@
 import SwiftUI
 import MIDIKitIO
-public typealias MIDIChannel = UInt4
+import HomeyMusicKit
 
 public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
     case isomorphic = 0
@@ -11,7 +11,6 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
     case bass       = 5
     case banjo      = 6
     case guitar     = 7
-    case tonic      = 15
 
     public var id: Self { self }
     
@@ -29,7 +28,6 @@ public enum Instrument: MIDIChannel, CaseIterable, Identifiable, Codable {
         case .bass:       return "guitars"
         case .banjo:      return "guitars"
         case .guitar:     return "guitars"
-        case .tonic:      return "house"
         }
     }
 }

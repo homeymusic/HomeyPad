@@ -3,21 +3,17 @@ import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
 public struct InstrumentView<Content>: Identifiable, View where Content: View {
-    let instrument: Instrument
     @ObservedObject var conductor: ViewConductor
     
+    @EnvironmentObject var appContext: AppContext
+
     public let id = UUID()
     
     public let pitchView: (Pitch) -> Content
     
     public var body: some View {
         ZStack {
-            switch conductor.layoutChoice {
-            case .tonic:
-                TonicPickerView(
-                    pitchView: pitchView,
-                    tonicConductor: conductor
-                )
+            switch appContext.instrument {
             case .isomorphic:
                 IsomorphicView(pitchView: pitchView,
                                viewConductor: conductor)
@@ -27,26 +23,21 @@ public struct InstrumentView<Content>: Identifiable, View where Content: View {
             case .piano:
                 PianoView(pitchView: pitchView,
                           viewConductor: conductor)
-            case .strings:
-                switch conductor.stringsLayoutChoice {
-                case .guitar:
-                    StringsView(pitchView: pitchView,
-                                viewConductor: conductor)
-                case .bass:
-                    StringsView(pitchView: pitchView,
-                                viewConductor: conductor)
-                case .violin:
-                    StringsView(pitchView: pitchView,
-                                viewConductor: conductor)
-                case .cello:
-                    StringsView(pitchView: pitchView,
-                                viewConductor: conductor)
-                case .banjo:
-                    StringsView(pitchView: pitchView,
-                                viewConductor: conductor)
-                }
-            case .mode:
-                EmptyView()
+            case .guitar:
+                StringsView(pitchView: pitchView,
+                            viewConductor: conductor)
+            case .bass:
+                StringsView(pitchView: pitchView,
+                            viewConductor: conductor)
+            case .violin:
+                StringsView(pitchView: pitchView,
+                            viewConductor: conductor)
+            case .cello:
+                StringsView(pitchView: pitchView,
+                            viewConductor: conductor)
+            case .banjo:
+                StringsView(pitchView: pitchView,
+                            viewConductor: conductor)
             }
             
             KeyboardKeyMultitouchView { touches in
