@@ -8,7 +8,6 @@ final class TonicConductor: ViewConductor {
         latching: Bool = false,
         layoutPalette: LayoutPalette = LayoutPalette(),
         layoutLabel: LayoutLabel = LayoutLabel(),
-        layoutRowsCols: LayoutRowsCols = LayoutRowsCols(),
         tonalContext: TonalContext
     ) {
         super.init(
@@ -18,7 +17,6 @@ final class TonicConductor: ViewConductor {
             latching: latching,
             layoutPalette: layoutPalette,
             layoutLabel: layoutLabel,
-            layoutRowsCols: layoutRowsCols,
             sendTonicState: true,
             tonalContext: tonalContext
         )

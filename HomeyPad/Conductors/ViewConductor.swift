@@ -11,7 +11,6 @@ class ViewConductor: ObservableObject {
         latching: Bool = false,
         layoutPalette: LayoutPalette = LayoutPalette(),
         layoutLabel: LayoutLabel = LayoutLabel(),
-        layoutRowsCols: LayoutRowsCols = LayoutRowsCols(),
         sendTonicState: Bool = false,
         tonalContext: TonalContext
     ) {
@@ -25,7 +24,6 @@ class ViewConductor: ObservableObject {
         self.latching            = latching
         self.layoutPalette       = layoutPalette
         self.layoutLabel         = layoutLabel
-        self.layoutRowsCols      = layoutRowsCols
         
         if layoutChoice != .mode && layoutChoice != .tonic {
             synthConductor = SynthConductor()
@@ -74,56 +72,6 @@ class ViewConductor: ObservableObject {
         didSet {
             buzz()
         }
-    }
-    
-    public var nearbyNotes: [Int] {
-        
-        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : +6
-        let tritoneMIDI =  Int(tonalContext.tonicMIDI) + tritoneSemitones
-        
-        let naturalsPerSide = layoutRowsCols.colsPerSide[self.layoutChoice]!
-        
-        // Make sure naturalsPerSide is positive; if not, just return tritoneMIDI.
-        guard naturalsPerSide > 0 else { return [tritoneMIDI] }
-        
-        // Find the natural note below tritoneMIDI.
-        var lowerCount = 0
-        var lowerBound = tritoneMIDI
-        var candidate = tritoneMIDI - 1
-        while lowerCount < naturalsPerSide {
-            if Pitch.isNatural(candidate) {
-                lowerBound = candidate
-                lowerCount += 1
-            }
-            candidate -= 1
-        }
-        
-        // Find the natural note above tritoneMIDI.
-        var upperCount = 0
-        var upperBound = tritoneMIDI
-        candidate = tritoneMIDI + 1
-        while upperCount < naturalsPerSide {
-            if Pitch.isNatural(candidate) {
-                upperBound = candidate
-                upperCount += 1
-            }
-            candidate += 1
-        }
-        
-        // Return all MIDI note numbers between the two natural notes.
-        return Array(lowerBound...upperBound)
-    }
-    
-    public var layoutCols: [Int] {
-        let tritoneSemitones = tonalContext.pitchDirection == .downward ? -6 : 6
-        let lowerBound = Int(tonalContext.tonicMIDI) + tritoneSemitones - layoutRowsCols.colsPerSide[self.layoutChoice]!
-        let upperBound = Int(tonalContext.tonicMIDI) + tritoneSemitones + layoutRowsCols.colsPerSide[self.layoutChoice]!
-        return Array(lowerBound...upperBound)
-    }
-
-    public var layoutRows: [Int] {
-        let range = (-layoutRowsCols.rowsPerSide[self.layoutChoice]! ... layoutRowsCols.rowsPerSide[self.layoutChoice]!)
-        return Array(range.reversed())
     }
     
     let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
@@ -265,100 +213,8 @@ class ViewConductor: ObservableObject {
     
     @Published var showPalettePopover: Bool = false
     
-    func fewerRows() {
-        layoutRowsCols.rowsPerSide[layoutChoice]! -= 1
-    }
-    
-    func moreRows() {
-        layoutRowsCols.rowsPerSide[layoutChoice]! += 1
-    }
-    
-    func fewerCols() {
-        switch layoutChoice {
-        case .zeena:
-            let colJump: [Int:Int] = [
-                29:2,
-                27:2,
-                25:3,
-                22:2,
-                20:2,
-                17:2,
-                15:2,
-                13:3,
-                10:2,
-                8:2
-            ]
-            layoutRowsCols.colsPerSide[layoutChoice]! -= colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
-        default: layoutRowsCols.colsPerSide[layoutChoice]! -= 1
-        }
-    }
-    
-    func moreCols() {
-        switch layoutChoice {
-        case .zeena:
-            let colJump: [Int:Int] = [
-                6:2,
-                8:2,
-                10:3,
-                13:2,
-                15:2,
-                18:2,
-                20:2,
-                22:3,
-                25:2,
-                27:2
-            ]
-            layoutRowsCols.colsPerSide[layoutChoice]! += colJump[layoutRowsCols.colsPerSide[layoutChoice]!] ?? 1
-        default: layoutRowsCols.colsPerSide[layoutChoice]! += 1
-        }
-    }
-    
-    var showRowColsReset: Bool {
-        layoutRowsCols.colsPerSide[layoutChoice] != LayoutRowsCols.defaultColsPerSide[layoutChoice] ||
-        layoutRowsCols.rowsPerSide[layoutChoice] != LayoutRowsCols.defaultRowsPerSide[layoutChoice]
-    }
-    
-    var showMoreRows: Bool {
-        layoutRowsCols.rowsPerSide[layoutChoice]! < LayoutRowsCols.maxRowsPerSide[layoutChoice]!
-    }
-    
-    var showFewerRows: Bool {
-        layoutRowsCols.rowsPerSide[layoutChoice]! > LayoutRowsCols.minRowsPerSide[layoutChoice]!
-    }
-    
-    var showFewerColumns: Bool {
-        layoutRowsCols.colsPerSide[layoutChoice]! > LayoutRowsCols.minColsPerSide[layoutChoice]!
-    }
-    
-    var showMoreColumns: Bool {
-        layoutRowsCols.colsPerSide[layoutChoice]! < LayoutRowsCols.maxColsPerSide[layoutChoice]!
-    }
-    
-    func resetRowsColsPerSide() {
-        resetRowsPerSide()
-        resetColsPerSide()
-    }
-    
-    @Published var layoutRowsCols: LayoutRowsCols = LayoutRowsCols() {
-        didSet {
-            buzz()
-        }
-    }
-    
-    func resetColsPerSide() {
-        layoutRowsCols.colsPerSide[layoutChoice]! = LayoutRowsCols.defaultColsPerSide[layoutChoice]!
-    }
-    
-    func resetRowsPerSide() {
-        layoutRowsCols.rowsPerSide[layoutChoice]! = LayoutRowsCols.defaultRowsPerSide[layoutChoice]!
-    }
-    
     var pitchRectInfos: [PitchRectInfo] = []
     var modeRectInfos: [ModeRectInfo] = []
-    
-    var isOneRowOnTablet : Bool {
-        HomeyPad.formFactor == .iPad && layoutRowsCols.rowsPerSide[layoutChoice]! == 0
-    }
     
     private var isTonicLocked = false
     private var isModeLocked = false

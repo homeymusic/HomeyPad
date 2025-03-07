@@ -10,11 +10,11 @@ struct ContentView: View {
 
     @State var showTonicPicker: Bool
     
-    let appContext: InstrumentContext
+    let instrumentContext: InstrumentContext
     let tonalContext: TonalContext
 
     init(appContext: InstrumentContext, tonalContext: TonalContext) {
-        self.appContext = appContext
+        self.instrumentContext = appContext
         self.tonalContext = tonalContext
 
         // Set up for encoding and decoding the user default dictionaries
@@ -95,20 +95,6 @@ struct ContentView: View {
             }
         }
         
-        // Rows and columns picker for each layout in main view except strings
-        let defaultLayoutRowsCols = LayoutRowsCols()
-        if let encodedDefaultLayoutRowsCols = try? encoder.encode(defaultLayoutRowsCols) {
-            defaults.register(defaults: [
-                "layoutRowsCols" : encodedDefaultLayoutRowsCols
-            ])
-        }
-        var layoutRowsCols: LayoutRowsCols = defaultLayoutRowsCols
-        if let savedLayoutRowsCols = defaults.object(forKey: "layoutRowsCols") as? Data {
-            if let loadedLayoutRowsCols = try? decoder.decode(LayoutRowsCols.self, from: savedLayoutRowsCols) {
-                layoutRowsCols = loadedLayoutRowsCols
-            }
-        }
-        
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.zeena]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.zeena]
                
@@ -135,7 +121,6 @@ struct ContentView: View {
             latching: latching,
             layoutPalette: viewLayoutPalette,
             layoutLabel: viewLayoutLabel,
-            layoutRowsCols: layoutRowsCols,
             sendTonicState: false,
             tonalContext: tonalContext
         ))
@@ -203,24 +188,24 @@ struct ContentView: View {
                                     .fill(Color(UIColor.systemGray6))
                             }
                         }
-                        // Primary Keyboard View
-                        if viewConductor.isOneRowOnTablet  {
-                            InstrumentView(
-                                conductor: viewConductor
-                            ) { pitch in
-                                PitchView(
-                                    pitch: pitch,
-                                    thisConductor: viewConductor,
-                                    tonicConductor: tonicConductor,
-                                    viewConductor: viewConductor,
-                                    modeConductor: modeConductor
-                                )
-                            }
-                            .aspectRatio(4.0, contentMode: .fit)
-                            .ignoresSafeArea(edges:.horizontal)
-                        }
                         
-                        if !viewConductor.isOneRowOnTablet {
+//                        if HomeyPad.formFactor == .iPad && instrumentContext.instrument is KeyboardInstrument {
+//                            InstrumentView(
+//                                conductor: viewConductor
+//                            ) { pitch in
+//                                PitchView(
+//                                    pitch: pitch,
+//                                    thisConductor: viewConductor,
+//                                    tonicConductor: tonicConductor,
+//                                    viewConductor: viewConductor,
+//                                    modeConductor: modeConductor
+//                                )
+//                            }
+//                            .aspectRatio(4.0, contentMode: .fit)
+//                            .ignoresSafeArea(edges:.horizontal)
+//                        }
+                        
+//                        if !HomeyPad.formFactor == .iPad {
                             InstrumentView(
                                 conductor: viewConductor
                             ) { pitch in
@@ -233,7 +218,7 @@ struct ContentView: View {
                                 )
                             }
                             .ignoresSafeArea(edges:.horizontal)
-                        }
+// mm                         }
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
@@ -294,11 +279,6 @@ struct ContentView: View {
             .onChange(of: viewConductor.layoutLabel) {
                 if let encodedViewLayoutLabel = try? JSONEncoder().encode(viewConductor.layoutLabel) {
                     defaults.set(encodedViewLayoutLabel, forKey: "viewLayoutLabel")
-                }
-            }
-            .onChange(of: viewConductor.layoutRowsCols) {
-                if let encodedLayoutRowsCols = try? JSONEncoder().encode(viewConductor.layoutRowsCols) {
-                    defaults.set(encodedLayoutRowsCols, forKey: "layoutRowsCols")
                 }
             }
         }
