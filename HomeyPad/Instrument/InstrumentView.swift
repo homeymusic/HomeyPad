@@ -18,35 +18,50 @@ public struct InstrumentView<Content>: Identifiable, View where Content: View {
                 IsomorphicView(
                     pitchView: pitchView,
                     viewConductor: conductor,
-                    isomorphic: instrumentContext.isomorphic
+                    isomorphic: instrumentContext.instrument as! Isomorphic
                 )
             case .zeena:
                 ZeenaView(
                     pitchView: pitchView,
                     viewConductor: conductor,
-                    zeena: instrumentContext.zeena
+                    zeena: instrumentContext.instrument as! Zeena
                 )
             case .piano:
                 PianoView(
                     pitchView: pitchView,
                     viewConductor: conductor,
-                    piano: instrumentContext.piano
+                    piano: instrumentContext.instrument as! Piano
                 )
             case .guitar:
-                StringsView(pitchView: pitchView,
-                            viewConductor: conductor)
+                StringsView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    stringInstrument: instrumentContext.instrument as! Guitar
+                )
             case .bass:
-                StringsView(pitchView: pitchView,
-                            viewConductor: conductor)
+                StringsView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    stringInstrument: instrumentContext.instrument as! Bass
+                )
             case .violin:
-                StringsView(pitchView: pitchView,
-                            viewConductor: conductor)
+                StringsView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    stringInstrument: instrumentContext.instrument as! Violin
+                )
             case .cello:
-                StringsView(pitchView: pitchView,
-                            viewConductor: conductor)
+                StringsView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    stringInstrument: instrumentContext.instrument as! Cello
+                )
             case .banjo:
-                StringsView(pitchView: pitchView,
-                            viewConductor: conductor)
+                StringsView(
+                    pitchView: pitchView,
+                    viewConductor: conductor,
+                    stringInstrument: instrumentContext.instrument as! Banjo
+                )
             }
             
             KeyboardKeyMultitouchView { touches in

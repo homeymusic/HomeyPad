@@ -18,7 +18,7 @@ final class InstrumentContext: ObservableObject {
 
     // Dictionary mapping instrument types to instrument instances.
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
-        InstrumentType.keyboardInstruments.reduce(into: [InstrumentType: Instrument]()) { mapping, instrumentType in
+        InstrumentType.allCases.reduce(into: [InstrumentType: Instrument]()) { mapping, instrumentType in
             switch instrumentType {
             case .isomorphic:
                 mapping[instrumentType] = Isomorphic()
@@ -26,8 +26,16 @@ final class InstrumentContext: ObservableObject {
                 mapping[instrumentType] = Zeena()
             case .piano:
                 mapping[instrumentType] = Piano()
-            default:
-                break
+            case .violin:
+                mapping[instrumentType] = Violin()
+            case .cello:
+                mapping[instrumentType] = Cello()
+            case .bass:
+                mapping[instrumentType] = Bass()
+            case .banjo:
+                mapping[instrumentType] = Banjo()
+            case .guitar:
+                mapping[instrumentType] = Guitar()
             }
         }
     }()
@@ -48,28 +56,6 @@ final class InstrumentContext: ObservableObject {
         return inst
     }
     
-    /// Convenience property to get the Zeena instance.
-    public var isomorphic: Isomorphic {
-        guard let inst = instrumentByType[.isomorphic] as? Isomorphic else {
-            fatalError("No Isomorhpic instrument instance available")
-        }
-        return inst
-    }
-    
-    public var zeena: Zeena {
-        guard let inst = instrumentByType[.zeena] as? Zeena else {
-            fatalError("No Zeena instrument instance available")
-        }
-        return inst
-    }
-    
-    public var piano: Piano {
-        guard let inst = instrumentByType[.piano] as? Piano else {
-            fatalError("No Piano instrument instance available")
-        }
-        return inst
-    }
-
     init() {
         let defaultLayoutChoice: LayoutChoice = .zeena
         
