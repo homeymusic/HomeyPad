@@ -42,8 +42,8 @@ struct PianoView: View {
                                         PitchContainerView(conductor: viewConductor,
                                                                  pitch: pitch,
                                                                  zIndex: 1)
-                                        .frame(width: proxy.size.width / viewConductor.goldenRatio,
-                                               height: proxy.size.height / viewConductor.goldenRatio)
+                                        .frame(width: proxy.size.width / HomeyPad.goldenRatio,
+                                               height: proxy.size.height / HomeyPad.goldenRatio)
                                     }
                                     .offset(x: offset(for: pitch) * proxy.size.width, y: 0.0)
                                 }

@@ -195,11 +195,11 @@ public struct PitchLabelView: View {
             let inactiveColor: Color
             switch pitchView.thisConductor.paletteChoice {
             case .subtle:
-                activeColor = Color(pitchView.thisConductor.primaryColor)
+                activeColor = Color(HomeyPad.primaryColor)
                 inactiveColor = Color(pitchView.pitchInterval.majorMinor.color)
             case .loud:
                 activeColor = Color(pitchView.pitchInterval.majorMinor.color)
-                inactiveColor = Color(pitchView.thisConductor.primaryColor)
+                inactiveColor = Color(HomeyPad.primaryColor)
             case .ebonyIvory:
                 return pitchView.pitch.isNatural ? .black : .white
             }

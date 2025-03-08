@@ -124,37 +124,24 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(LayoutChoice.allCases, id: \.self) { layoutChoice in
-                    if layoutChoice != .strings {
+                ForEach(InstrumentType.allCases, id: \.self) { instrumentType in
                         GridRow {
-                            Text(layoutChoice.midiChannelLabel)
+                            Text("\(instrumentType.rawValue)")
                             HStack {
-                                Image(systemName: layoutChoice.icon)
+                                Image(systemName: instrumentType.icon)
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(width: 17, height: 17)
-                                Text(layoutChoice.label)
+                                Text(instrumentType.label)
                             }
                         }
-                    }
-                }
-                ForEach(StringsLayoutChoice.allCases, id: \.self) { stringsLayoutChoice in
-                    GridRow {
-                        Text(stringsLayoutChoice.midiChannelLabel)
-                        HStack {
-                            Image(systemName: LayoutChoice.strings.icon)
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .frame(width: 17, height: 17)
-                            Text(stringsLayoutChoice.label)
-                        }
-                    }
                 }
                 GridRow {
-                    Text(LayoutChoice.tonic.midiChannelLabel)
+                    Text("\(TonicPicker.tonic.rawValue)")
                     HStack {
-                        Image(systemName: LayoutChoice.tonic.icon)
+                        Image(systemName: TonicPicker.tonic.icon)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 17, height: 17)
-                        Text(LayoutChoice.tonic.label)
+                        Text(TonicPicker.tonic.label)
                     }
                 }
                 GridRow {

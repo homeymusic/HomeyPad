@@ -74,19 +74,7 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
-    let secondaryColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
-    let goldenRatio = (1 + sqrt(5)) / 2
-    
-    var openStringsMIDI: [Int] {
-        stringsLayoutChoice.openStringsMIDI
-    }
-    
     @Published var showHelp: Bool = false
-    
-    var midiChannel: MIDIChannel {
-        layoutChoice.midiChannel(stringsLayoutChoice: stringsLayoutChoice)
-    }
     
     var isPaletteDefault: Bool {
         layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice] &&

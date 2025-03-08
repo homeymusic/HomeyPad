@@ -13,7 +13,7 @@ public enum TonicPicker: MIDIChannel, CaseIterable, Identifiable, Codable {
     
     public var icon: String {
         switch self {
-        case .tonic:      return "house"
+        case .tonic: return "house"
         }
     }
 }

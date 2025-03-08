@@ -52,7 +52,7 @@ public struct ModeLabelView: View {
                             }
                                 .aspectRatio(modeView.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
-                                .background(modeView.viewConductor.paletteChoice == .loud ? Color(modeView.viewConductor.primaryColor) : modeView.keyColor)
+                                .background(modeView.viewConductor.paletteChoice == .loud ? Color(HomeyPad.primaryColor) : modeView.keyColor)
                                 .cornerRadius(3.0)
                         )
                     }
@@ -106,7 +106,7 @@ public struct ModeLabelView: View {
             case .subtle:
                 return modeView.mode.majorMinor.color
             case .loud:
-                return Color(modeView.viewConductor.primaryColor)
+                return Color(HomeyPad.primaryColor)
             case .ebonyIvory:
                 return modeView.mode.majorMinor == .minor ? .white : .black
             }

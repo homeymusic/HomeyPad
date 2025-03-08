@@ -4,7 +4,7 @@ import HomeyMusicKit
 
 public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
     case isomorphic = 0
-    case diamanti      = 1
+    case diamanti   = 1
     case piano      = 2
     case violin     = 3
     case cello      = 4

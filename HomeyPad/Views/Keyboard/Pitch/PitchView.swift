@@ -72,9 +72,9 @@ public struct PitchView: View {
     var accentColor: Color {
         switch thisConductor.paletteChoice {
         case .subtle:
-            Color(thisConductor.secondaryColor)
+            Color(HomeyPad.secondaryColor)
         case .loud:
-            Color(thisConductor.primaryColor)
+            Color(HomeyPad.primaryColor)
         case .ebonyIvory:
             pitch.isNatural ? .black : .white
         }
@@ -92,10 +92,10 @@ public struct PitchView: View {
         switch thisConductor.paletteChoice {
         case .subtle:
             activeColor = Color(pitchInterval.majorMinor.color)
-            inactiveColor = Color(thisConductor.primaryColor)
+            inactiveColor = Color(HomeyPad.primaryColor)
             return isActivated ? activeColor : darkenSmallKeys(color: inactiveColor)
         case .loud:
-            activeColor = Color(thisConductor.primaryColor)
+            activeColor = Color(HomeyPad.primaryColor)
             inactiveColor = Color(pitchInterval.majorMinor.color)
             return isActivated ? activeColor : inactiveColor
         case .ebonyIvory:
@@ -116,9 +116,9 @@ public struct PitchView: View {
     var outlineColor: Color {
         switch thisConductor.paletteChoice {
         case .subtle:
-            return isActivated ? Color(thisConductor.primaryColor) : pitchInterval.majorMinor.color
+            return isActivated ? Color(HomeyPad.primaryColor) : pitchInterval.majorMinor.color
         case .loud:
-            return isActivated ? pitchInterval.majorMinor.color : Color(thisConductor.primaryColor)
+            return isActivated ? pitchInterval.majorMinor.color : Color(HomeyPad.primaryColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }

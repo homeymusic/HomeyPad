@@ -50,9 +50,9 @@ public struct ModeView: View {
     var accentColor: Color {
         switch viewConductor.paletteChoice {
         case .subtle:
-            Color(viewConductor.secondaryColor)
+            Color(HomeyPad.secondaryColor)
         case .loud:
-            Color(viewConductor.primaryColor)
+            Color(HomeyPad.primaryColor)
         case .ebonyIvory:
             mode.majorMinor == .minor ? .white : .black
         }
@@ -66,7 +66,7 @@ public struct ModeView: View {
     var keyColor: Color {
         switch viewConductor.paletteChoice {
         case .subtle:
-            return Color(viewConductor.primaryColor)
+            return Color(HomeyPad.primaryColor)
         case .loud:
             return mode.majorMinor.color
         case .ebonyIvory:
@@ -97,7 +97,7 @@ public struct ModeView: View {
         case .subtle:
             return Color(mode.majorMinor.color)
         case .loud:
-            return Color(viewConductor.primaryColor)
+            return Color(HomeyPad.primaryColor)
         case .ebonyIvory:
             return Color(MajorMinor.altNeutralColor)
         }
