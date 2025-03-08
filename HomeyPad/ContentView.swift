@@ -21,13 +21,6 @@ struct ContentView: View {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         
-        // Accidental
-        let defaultAccidental: Accidental = .default
-        defaults.register(defaults: [
-            "accidental" : defaultAccidental.rawValue
-        ])
-        let accidental: Accidental = Accidental(rawValue: defaults.integer(forKey: "accidental")) ?? defaultAccidental
-        
         // Show Tonic Picker
         defaults.register(defaults: [
             "showTonicPicker" : false
@@ -99,14 +92,12 @@ struct ContentView: View {
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.diamanti]
                
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
-            accidental: accidental,
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
             tonalContext: tonalContext
         ))
         
         _modeConductor = StateObject(wrappedValue: ViewConductor(
-            accidental: accidental,
             layoutChoice: .mode,
             layoutPalette: viewLayoutPalette,
             layoutLabel: modeLayoutLabel,
@@ -115,7 +106,6 @@ struct ContentView: View {
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
-            accidental: accidental,
             layoutChoice: .diamanti,
             stringsLayoutChoice: .banjo,
             latching: latching,
@@ -210,16 +200,6 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onChange(of: tonicConductor.accidental) {
-                viewConductor.accidental = tonicConductor.accidental
-                defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
-                defaults.set(viewConductor.accidental.rawValue, forKey: "accidental")
-            }
-            .onChange(of: viewConductor.accidental) {
-                tonicConductor.accidental = viewConductor.accidental
-                defaults.set(viewConductor.accidental.rawValue, forKey: "accidental")
-                defaults.set(tonicConductor.accidental.rawValue, forKey: "accidental")
-            }
             .onChange(of: viewConductor.layoutChoice) {
                 tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
                 tonicConductor.layoutPalette.outlineChoice[.tonic] = viewConductor.layoutPalette.outlineChoice[viewConductor.layoutChoice]

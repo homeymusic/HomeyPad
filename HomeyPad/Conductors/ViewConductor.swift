@@ -5,7 +5,6 @@ import HomeyMusicKit
 class ViewConductor: ObservableObject {
     
     init(
-        accidental: Accidental,
         layoutChoice: LayoutChoice,
         stringsLayoutChoice: StringsLayoutChoice = .violin,
         latching: Bool = false,
@@ -18,7 +17,6 @@ class ViewConductor: ObservableObject {
         _tonalContext = StateObject(wrappedValue: tonalContext)
         
         // Set up other properties.
-        self.accidental          = accidental
         self.layoutChoice        = layoutChoice
         self.stringsLayoutChoice = stringsLayoutChoice
         self.latching            = latching
@@ -94,14 +92,12 @@ class ViewConductor: ObservableObject {
     
     var areLabelsDefault: Bool {
         noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
-        intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice] &&
-        self.accidental == .default
+        intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice]
     }
     
     func resetLabels() {
         resetNoteLabels()
         resetIntervalLabels()
-        resetAccidental()
         buzz()
     }
     
@@ -112,11 +108,7 @@ class ViewConductor: ObservableObject {
     func resetIntervalLabels() {
         layoutLabel.intervalLabelChoices[layoutChoice] = LayoutLabel.defaultIntervalLabels[layoutChoice]
     }
-    
-    func resetAccidental() {
-        self.accidental = .default
-    }
-    
+        
     var paletteChoice: PaletteChoice {
         layoutPalette.choices[layoutChoice]!
     }
@@ -325,12 +317,6 @@ class ViewConductor: ObservableObject {
         if newMode != tonalContext.mode {
             // Adjust pitch direction if the new tonic is an octave shift
             tonalContext.mode = newMode
-        }
-    }
-    
-    @Published var accidental: Accidental = .default {
-        didSet {
-            buzz()
         }
     }
     

@@ -4,6 +4,8 @@ struct TonicPickerPitchLabelsPopoverView: View {
     @ObservedObject var tonicConductor: ViewConductor
     @ObservedObject var modeConductor: ViewConductor
     
+    @EnvironmentObject var tonalContext: TonalContext
+    
     var body: some View {
         VStack(spacing: 0.0) {
             Grid {
@@ -23,7 +25,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
                                     .foregroundColor(tonicConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
-                                Picker("", selection: $tonicConductor.accidental) {
+                                Picker("", selection: $tonalContext.accidental) {
                                     ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
                                             .tag(accidental as Accidental)

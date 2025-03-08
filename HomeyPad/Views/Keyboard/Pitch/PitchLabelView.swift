@@ -64,12 +64,12 @@ public struct PitchLabelView: View {
             AnyView(
                 Group {
                     if pitchView.thisConductor.noteLabel[.letter]! {
-                        overlayText("\(pitchView.pitch.letter(using: pitchView.thisConductor.accidental))\(octave)")
+                        overlayText("\(pitchView.pitch.letter(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }
                     if pitchView.thisConductor.noteLabel[.fixedDo]! {
-                        overlayText("\(pitchView.pitch.fixedDo(using: pitchView.thisConductor.accidental))\(octave)")
+                        overlayText("\(pitchView.pitch.fixedDo(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }

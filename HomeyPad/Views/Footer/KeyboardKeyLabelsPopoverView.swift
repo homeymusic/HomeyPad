@@ -9,7 +9,8 @@ import SwiftUI
 import HomeyMusicKit
 struct KeyboardKeyLabelsPopoverView: View {
     @ObservedObject var viewConductor: ViewConductor
-    
+    @EnvironmentObject var tonalContext: TonalContext
+
     var body: some View {
         VStack(spacing: 0.0) {
             Grid {
@@ -29,7 +30,7 @@ struct KeyboardKeyLabelsPopoverView: View {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
                                     .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
-                                Picker("", selection: $viewConductor.accidental) {
+                                Picker("", selection: $tonalContext.accidental) {
                                     ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
                                             .tag(accidental as Accidental)
