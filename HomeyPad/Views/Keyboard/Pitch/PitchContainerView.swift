@@ -1,34 +1,35 @@
-//PitchView(
-//    pitch: pitch,
-//    thisConductor: tonicConductor,
-//    tonicConductor: tonicConductor,
-//    viewConductor: viewConductor,
-//    modeConductor: modeConductor
-//)
-//.aspectRatio(1.0, contentMode: .fit)
-
-
-
 import SwiftUI
 import HomeyMusicKit
 
-/// This handles the interaction for key, so the user can provide their own
-/// visual representation.
+public enum ContainerType {
+    case basic
+    case diamond
+    case span
+}
+
 public struct PitchContainerView: View {
     var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
     
     var zIndex: Int
     var pitchView: PitchView
+    var containerType: ContainerType = .basic
     
     init(conductor: ViewConductor,
          pitch: Pitch,
-         zIndex: Int = 0)
+         zIndex: Int = 0,
+         containerType: ContainerType = .basic
+    )
     {
         self.conductor = conductor
         self.pitch = pitch
         self.zIndex = zIndex
-        self.pitchView = PitchView(pitch: pitch, thisConductor: conductor)
+        self.containerType = containerType
+        self.pitchView = PitchView(
+            pitch: pitch,
+            thisConductor: conductor,
+            containerType: containerType
+        )
     }
     
     func rect(rect: CGRect) -> some View {

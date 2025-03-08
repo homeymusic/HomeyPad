@@ -38,7 +38,7 @@ struct LayoutLabel: Codable, Equatable {
     
     // Generic helper function to generate layout choices for any label type
     static func generateLayoutChoices<T: Hashable>(_ defaultValues: [T: Bool]) -> [LayoutChoice: [T: Bool]] {
-        let layouts: [LayoutChoice] = [.tonic, .mode, .isomorphic, .zeena, .piano, .strings]
+        let layouts: [LayoutChoice] = [.tonic, .mode, .isomorphic, .diamanti, .piano, .strings]
         var choices: [LayoutChoice: [T: Bool]] = [:]
         
         for layout in layouts {

@@ -95,8 +95,8 @@ struct ContentView: View {
             }
         }
         
-        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.zeena]
-        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.zeena]
+        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.diamanti]
+        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.diamanti]
                
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             accidental: accidental,
@@ -116,7 +116,7 @@ struct ContentView: View {
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             accidental: accidental,
-            layoutChoice: .zeena,
+            layoutChoice: .diamanti,
             stringsLayoutChoice: .banjo,
             latching: latching,
             layoutPalette: viewLayoutPalette,

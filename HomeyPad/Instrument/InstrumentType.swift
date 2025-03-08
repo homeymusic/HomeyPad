@@ -4,7 +4,7 @@ import HomeyMusicKit
 
 public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
     case isomorphic = 0
-    case zeena      = 1
+    case diamanti      = 1
     case piano      = 2
     case violin     = 3
     case cello      = 4
@@ -21,7 +21,7 @@ public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
     public var icon: String {
         switch self {
         case .isomorphic: return "rectangle.split.2x1"
-        case .zeena:  return "rectangle.split.2x2"
+        case .diamanti:  return "rectangle.split.2x2"
         case .piano:      return "pianokeys"
         case .violin:     return "guitars"
         case .cello:      return "guitars"
@@ -35,7 +35,7 @@ public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
 public extension InstrumentType {
     /// Returns all Mode cases starting with the given mode, then wrapping around.
     static var keyboardInstruments: [InstrumentType] {
-        [.isomorphic, .zeena, .piano]
+        [.isomorphic, .diamanti, .piano]
     }
     
     var isKeyboardInstrument: Bool {

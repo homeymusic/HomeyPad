@@ -2,15 +2,15 @@ import Foundation
 import HomeyMusicKit
 import MIDIKitIO
 
-public class Zeena: KeyboardInstrument {
+public class Diamanti: KeyboardInstrument {
     public init() {
         switch HomeyPad.formFactor {
         case .iPhone:
-            super.init(instrumentType: .zeena,
+            super.init(instrumentType: .diamanti,
                        defaultRows: 0, minRows: 0, maxRows: 2,
                        defaultCols: 13, minCols: 6, maxCols: 18)
         case .iPad:
-            super.init(instrumentType: .zeena,
+            super.init(instrumentType: .diamanti,
                        defaultRows: 0, minRows: 0, maxRows: 2,
                        defaultCols: 18, minCols: 6, maxCols: 30)
         }

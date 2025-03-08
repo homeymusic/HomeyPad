@@ -6,7 +6,7 @@ final class InstrumentContext: ObservableObject {
 
     @Published var layoutChoice: LayoutChoice
     @Published var stringsLayoutChoice: StringsLayoutChoice
-    @Published var instrumentType: InstrumentType = .zeena {
+    @Published var instrumentType: InstrumentType = .diamanti {
         didSet {
             print("instrumentType didSet:", instrumentType)
             if instrumentType.isStringInstrument {
@@ -22,8 +22,8 @@ final class InstrumentContext: ObservableObject {
             switch instrumentType {
             case .isomorphic:
                 mapping[instrumentType] = Isomorphic()
-            case .zeena:
-                mapping[instrumentType] = Zeena()
+            case .diamanti:
+                mapping[instrumentType] = Diamanti()
             case .piano:
                 mapping[instrumentType] = Piano()
             case .violin:
@@ -57,7 +57,7 @@ final class InstrumentContext: ObservableObject {
     }
     
     init() {
-        let defaultLayoutChoice: LayoutChoice = .zeena
+        let defaultLayoutChoice: LayoutChoice = .diamanti
         
         appDefaults.register(defaults: [
             "layoutChoice": defaultLayoutChoice.rawValue

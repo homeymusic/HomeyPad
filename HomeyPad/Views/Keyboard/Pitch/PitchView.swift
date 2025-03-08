@@ -5,14 +5,12 @@ public struct PitchView: View {
     
     @ObservedObject var pitch: Pitch
     @ObservedObject var thisConductor: ViewConductor
-    
+    let containerType: ContainerType
+
     @EnvironmentObject var tonicConductor: ViewConductor
     @EnvironmentObject var viewConductor: ViewConductor
     @EnvironmentObject var modeConductor: ViewConductor
 
-//    @ObservedObject var tonicConductor: ViewConductor
-//    @ObservedObject var viewConductor: ViewConductor
-//    @ObservedObject var modeConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentContext: InstrumentContext
 
@@ -64,7 +62,6 @@ public struct PitchView: View {
                         }
                 }
             }
-            
         }
     }
     
@@ -182,7 +179,7 @@ public struct PitchView: View {
     }
     
     var rotation: CGFloat {
-        (instrumentContext.instrumentType == .zeena && pitchInterval.isTritone && thisConductor.layoutChoice != .tonic) ? 45.0 : 0.0
+        containerType == .diamond ? 45.0 : 0.0
     }
     
     var leadingOffset: CGFloat {

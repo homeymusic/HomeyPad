@@ -8,20 +8,12 @@ public struct PitchLabelView: View {
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentContext: InstrumentContext
     
-    var isZeenaNotTritone: Bool {
-        instrumentContext.instrumentType == .zeena &&
-        pitchView.thisConductor.layoutChoice != .tonic &&
-        !pitchView.pitchInterval.isTritone
-    }
-    
     public var body: some View {
-        let tritonePadding: CGFloat = isZeenaNotTritone ? 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize) : 0.0
+        let diamondPadding: CGFloat = pitchView.containerType == .diamond ? 0.0 : 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize)
         let topBottomPadding = pitchView.outline ? 0.0 : 0.5 * pitchView.outlineHeight
-        let extraPadding = tritonePadding + topBottomPadding
+        let extraPadding = diamondPadding + topBottomPadding
         return VStack(spacing: 0.0) {
-            if instrumentContext.instrumentType == .zeena &&
-                pitchView.thisConductor.layoutChoice != .tonic &&
-                pitchView.pitchInterval.consonanceDissonance > .consonant {
+            if pitchView.containerType == .span {
                 Labels(pitchView: pitchView, proxySize: proxySize)
                     .padding([.top, .bottom], extraPadding)
                 Color.clear

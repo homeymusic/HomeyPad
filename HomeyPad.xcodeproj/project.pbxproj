@@ -10,7 +10,7 @@
 		B01A2FFE2D7A897200A95DDD /* TonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A2FFD2D7A896B00A95DDD /* TonicKeyboardView.swift */; };
 		B01A30002D7A8A4D00A95DDD /* TonicPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */; };
 		B01A30032D7A8DFC00A95DDD /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30022D7A8DF200A95DDD /* Instrument.swift */; };
-		B01A30072D7B314600A95DDD /* Zeena.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30062D7B314300A95DDD /* Zeena.swift */; };
+		B01A30072D7B314600A95DDD /* Diamanti.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30062D7B314300A95DDD /* Diamanti.swift */; };
 		B01A30092D7B393600A95DDD /* KeyboardInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */; };
 		B01A300D2D7B9B1300A95DDD /* Isomorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */; };
 		B01A30112D7BA06E00A95DDD /* KeyRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A30102D7BA06900A95DDD /* KeyRectangle.swift */; };
@@ -61,7 +61,7 @@
 		B0C7FD3A2BBAFB29006FF26F /* PianoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD232BBAFB16006FF26F /* PianoView.swift */; };
 		B0C7FD3B2BBAFB29006FF26F /* IsomorphicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD212BBAFB16006FF26F /* IsomorphicView.swift */; };
 		B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD202BBAFB16006FF26F /* StringsView.swift */; };
-		B0C7FD3D2BBAFB29006FF26F /* ZeenaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* ZeenaView.swift */; };
+		B0C7FD3D2BBAFB29006FF26F /* DiamantiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD252BBAFB16006FF26F /* DiamantiView.swift */; };
 		B0DD836E2CC2028E001A0BE4 /* MIDIKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836D2CC2028E001A0BE4 /* MIDIKit */; };
 		B0DD83702CC2028E001A0BE4 /* MIDIKitControlSurfaces in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD836F2CC2028E001A0BE4 /* MIDIKitControlSurfaces */; };
 		B0DD83722CC2028E001A0BE4 /* MIDIKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = B0DD83712CC2028E001A0BE4 /* MIDIKitCore */; };
@@ -75,7 +75,7 @@
 		B01A2FFD2D7A896B00A95DDD /* TonicKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicKeyboardView.swift; sourceTree = "<group>"; };
 		B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPicker.swift; sourceTree = "<group>"; };
 		B01A30022D7A8DF200A95DDD /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
-		B01A30062D7B314300A95DDD /* Zeena.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zeena.swift; sourceTree = "<group>"; };
+		B01A30062D7B314300A95DDD /* Diamanti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamanti.swift; sourceTree = "<group>"; };
 		B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInstrument.swift; sourceTree = "<group>"; };
 		B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Isomorphic.swift; sourceTree = "<group>"; };
 		B01A30102D7BA06900A95DDD /* KeyRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRectangle.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		B0C7FD202BBAFB16006FF26F /* StringsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsView.swift; sourceTree = "<group>"; };
 		B0C7FD212BBAFB16006FF26F /* IsomorphicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsomorphicView.swift; sourceTree = "<group>"; };
 		B0C7FD232BBAFB16006FF26F /* PianoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoView.swift; sourceTree = "<group>"; };
-		B0C7FD252BBAFB16006FF26F /* ZeenaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeenaView.swift; sourceTree = "<group>"; };
+		B0C7FD252BBAFB16006FF26F /* DiamantiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamantiView.swift; sourceTree = "<group>"; };
 		B0C7FD292BBAFB16006FF26F /* InstrumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentView.swift; sourceTree = "<group>"; };
 		B0C7FD2A2BBAFB16006FF26F /* KeyboardKeyMultitouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyMultitouchView.swift; sourceTree = "<group>"; };
 		B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchRectangles.swift; sourceTree = "<group>"; };
@@ -159,8 +159,8 @@
 				B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */,
 				B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */,
 				B0C7FD212BBAFB16006FF26F /* IsomorphicView.swift */,
-				B01A30062D7B314300A95DDD /* Zeena.swift */,
-				B0C7FD252BBAFB16006FF26F /* ZeenaView.swift */,
+				B01A30062D7B314300A95DDD /* Diamanti.swift */,
+				B0C7FD252BBAFB16006FF26F /* DiamantiView.swift */,
 				B01A30162D7BA46400A95DDD /* Piano.swift */,
 				B0C7FD232BBAFB16006FF26F /* PianoView.swift */,
 				B0C7FD292BBAFB16006FF26F /* InstrumentView.swift */,
@@ -397,13 +397,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06CC5A62D6D27AC00290353 /* ModeRectangles.swift in Sources */,
-				B0C7FD3D2BBAFB29006FF26F /* ZeenaView.swift in Sources */,
+				B0C7FD3D2BBAFB29006FF26F /* DiamantiView.swift in Sources */,
 				B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */,
 				B01A301B2D7BAE7400A95DDD /* Guitar.swift in Sources */,
 				B06CC5922D6D193500290353 /* PitchLabelView.swift in Sources */,
 				B01A30032D7A8DFC00A95DDD /* Instrument.swift in Sources */,
 				B01A301F2D7BB03800A95DDD /* Violin.swift in Sources */,
-				B01A30072D7B314600A95DDD /* Zeena.swift in Sources */,
+				B01A30072D7B314600A95DDD /* Diamanti.swift in Sources */,
 				B01A30232D7BB04F00A95DDD /* Banjo.swift in Sources */,
 				B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */,
 				B01A30112D7BA06E00A95DDD /* KeyRectangle.swift in Sources */,

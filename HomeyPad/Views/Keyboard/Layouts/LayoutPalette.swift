@@ -7,7 +7,7 @@ struct LayoutPalette: Codable, Equatable {
         .tonic:      .subtle,
         .mode:       .subtle,
         .isomorphic: .subtle,
-        .zeena:  .subtle,
+        .diamanti:  .subtle,
         .piano:      .subtle,
         .strings:    .subtle
     ]
@@ -18,7 +18,7 @@ struct LayoutPalette: Codable, Equatable {
         .tonic:      true,
         .mode:       true,
         .isomorphic: true,
-        .zeena:  true,
+        .diamanti:  true,
         .piano:      true,
         .strings:    true
     ]

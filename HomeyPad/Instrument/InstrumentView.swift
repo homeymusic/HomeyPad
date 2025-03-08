@@ -17,10 +17,10 @@ public struct InstrumentView: Identifiable, View {
                     viewConductor: conductor,
                     isomorphic: instrumentContext.instrument as! Isomorphic
                 )
-            case .zeena:
-                ZeenaView(
+            case .diamanti:
+                DiamantiView(
                     viewConductor: conductor,
-                    zeena: instrumentContext.instrument as! Zeena
+                    diamanti: instrumentContext.instrument as! Diamanti
                 )
             case .piano:
                 PianoView(
