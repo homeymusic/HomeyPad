@@ -151,16 +151,7 @@ struct ContentView: View {
                                 if tonicConductor.showTonicLabels {
                                     TonicKeyboardView(
                                         tonicConductor: tonicConductor
-                                    ) { pitch in
-                                        PitchView(
-                                            pitch: pitch,
-                                            thisConductor: tonicConductor,
-                                            tonicConductor: tonicConductor,
-                                            viewConductor: viewConductor,
-                                            modeConductor: modeConductor
-                                        )
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                    }
+                                    )
                                     .aspectRatio(13.0, contentMode: .fit)
                                     .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 }
@@ -168,15 +159,7 @@ struct ContentView: View {
                                 if modeConductor.showModes {
                                     ModeKeyboardView(
                                         modeConductor: modeConductor
-                                    ) { mode, columnIndex in
-                                        ModeView(mode: mode,
-                                                 columnIndex: columnIndex,
-                                                 thisConductor: modeConductor,
-                                                 viewConductor: viewConductor,
-                                                 modeConductor: modeConductor
-                                                 )
-                                        .aspectRatio(2.0, contentMode: .fit)
-                                    }
+                                    )
                                     .aspectRatio(13.0 * 2.0, contentMode: .fit)
                                     .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 }
@@ -208,15 +191,7 @@ struct ContentView: View {
 //                        if !HomeyPad.formFactor == .iPad {
                             InstrumentView(
                                 conductor: viewConductor
-                            ) { pitch in
-                                PitchView(
-                                    pitch: pitch,
-                                    thisConductor: viewConductor,
-                                    tonicConductor: tonicConductor,
-                                    viewConductor: viewConductor,
-                                    modeConductor: modeConductor
-                                )
-                            }
+                            )
                             .ignoresSafeArea(edges:.horizontal)
 // mm                         }
                     }
@@ -281,6 +256,10 @@ struct ContentView: View {
                     defaults.set(encodedViewLayoutLabel, forKey: "viewLayoutLabel")
                 }
             }
+            .environmentObject(tonicConductor)
+            .environmentObject(modeConductor)
+            .environmentObject(viewConductor)
+
         }
         .preferredColorScheme(.dark)
     }

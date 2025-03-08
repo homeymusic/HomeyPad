@@ -2,8 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 import MIDIKitCore
 
-struct StringsView<Content>: View where Content: View {
-    let pitchView: (Pitch) -> Content
+struct StringsView: View {
     @ObservedObject var viewConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
     @ObservedObject var stringInstrument: StringInstrument
@@ -22,8 +21,7 @@ struct StringsView<Content>: View where Content: View {
                             if (Pitch.isValid(note)) {
                                 let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
                                 PitchContainerView(conductor: viewConductor,
-                                                         pitch: pitch,
-                                                         pitchView: pitchView)
+                                                         pitch: pitch)
                             } else {
                                 Color.clear
                             }

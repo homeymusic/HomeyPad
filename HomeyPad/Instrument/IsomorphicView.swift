@@ -2,8 +2,7 @@ import SwiftUI
 import MIDIKitCore
 import HomeyMusicKit
 
-struct IsomorphicView<Content>: View where Content: View {
-    let pitchView: (Pitch) -> Content
+struct IsomorphicView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var isomorphic: Isomorphic
 
@@ -21,8 +20,7 @@ struct IsomorphicView<Content>: View where Content: View {
                                 let pitch = tonalContext.pitch(for: MIDINoteNumber(linearIndex))
                                 PitchContainerView(
                                     conductor: viewConductor,
-                                    pitch: pitch,
-                                    pitchView: pitchView
+                                    pitch: pitch
                                 )
                             } else {
                                 Color.clear

@@ -2,11 +2,10 @@ import SwiftUI
 import HomeyMusicKit
 import MIDIKitCore
 
-struct ZeenaView<Content>: View where Content: View {
-    let pitchView: (Pitch) -> Content
+struct ZeenaView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var zeena: Zeena
-    
+
     @EnvironmentObject var instrumentContext: InstrumentContext
     @EnvironmentObject var tonalContext: TonalContext
     
@@ -18,15 +17,13 @@ struct ZeenaView<Content>: View where Content: View {
                 VStack(spacing: 0) {
                     if Pitch.isValid(note + 1) {
                         PitchContainerView(conductor: viewConductor,
-                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note + 1)),
-                                           pitchView: pitchView)
+                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note + 1)))
                     } else {
                         Color.clear
                     }
                     if Pitch.isValid(note) {
                         PitchContainerView(conductor: viewConductor,
-                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                           pitchView: pitchView)
+                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note)))
                     } else {
                         Color.clear
                     }
@@ -37,8 +34,7 @@ struct ZeenaView<Content>: View where Content: View {
             if intervalClass == .seven {
                 if Pitch.isValid(note) {
                     return AnyView(PitchContainerView(conductor: viewConductor,
-                                                      pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                                      pitchView: pitchView)
+                                                      pitch: tonalContext.pitch(for: MIDINoteNumber(note)))
                         .overlay {
                             if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
                                 GeometryReader { proxy in
@@ -46,8 +42,7 @@ struct ZeenaView<Content>: View where Content: View {
                                     ZStack {
                                         PitchContainerView(conductor: viewConductor,
                                                            pitch: tonalContext.pitch(for: MIDINoteNumber(note - 1)),
-                                                           zIndex: 1,
-                                                           pitchView: pitchView)
+                                                           zIndex: 1)
                                         .frame(width: ttLength, height: ttLength)
                                     }
                                     .offset(x: -ttLength / 2.0,
@@ -60,8 +55,7 @@ struct ZeenaView<Content>: View where Content: View {
                 }
             } else if intervalClass != .six && Pitch.isValid(note) {
                 return AnyView(PitchContainerView(conductor: viewConductor,
-                                                  pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
-                                                  pitchView: pitchView))
+                                                  pitch: tonalContext.pitch(for: MIDINoteNumber(note))))
             } else {
                 return AnyView(EmptyView())
             }
@@ -86,5 +80,6 @@ struct ZeenaView<Content>: View where Content: View {
         }
         .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
+        
     }
 }

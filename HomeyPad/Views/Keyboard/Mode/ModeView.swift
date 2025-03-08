@@ -7,8 +7,8 @@ public struct ModeView: View {
     let columnIndex: Int
     
     @ObservedObject    var thisConductor: ViewConductor
-    @ObservedObject    var viewConductor: ViewConductor
-    @ObservedObject    var modeConductor: ViewConductor
+    @EnvironmentObject var viewConductor: ViewConductor
+    @EnvironmentObject var modeConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
 
     public var body: some View {

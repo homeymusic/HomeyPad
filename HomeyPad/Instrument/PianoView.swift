@@ -2,8 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 import MIDIKitCore
 
-struct PianoView<Content>: View where Content: View {
-    let pitchView: (Pitch) -> Content
+struct PianoView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var piano: Piano
 
@@ -33,8 +32,7 @@ struct PianoView<Content>: View where Content: View {
             if pitch.isNatural {
                 return AnyView(
                     PitchContainerView(conductor: viewConductor,
-                                         pitch: pitch,
-                                         pitchView: pitchView)
+                                         pitch: pitch)
                     .overlay {
                         if Pitch.isValid(note - 1) {
                             let pitch = tonalContext.pitch(for: MIDINoteNumber(note - 1))
@@ -43,8 +41,7 @@ struct PianoView<Content>: View where Content: View {
                                     ZStack {
                                         PitchContainerView(conductor: viewConductor,
                                                                  pitch: pitch,
-                                                                 zIndex: 1,
-                                                                 pitchView: pitchView)
+                                                                 zIndex: 1)
                                         .frame(width: proxy.size.width / viewConductor.goldenRatio,
                                                height: proxy.size.height / viewConductor.goldenRatio)
                                     }

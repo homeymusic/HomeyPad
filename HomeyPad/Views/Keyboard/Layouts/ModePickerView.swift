@@ -2,10 +2,8 @@ import SwiftUI
 import HomeyMusicKit
 import MIDIKitCore
 
-struct ModePickerView<Content>: View where Content: View {
+struct ModePickerView: View {
     // Update the closure to include the columnIndex parameter.
-    let modeView: (Mode, Int) -> Content
-    
     @ObservedObject var modeConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
     
@@ -15,8 +13,7 @@ struct ModePickerView<Content>: View where Content: View {
                 let mode = tonalContext.modePickerModes[index]
                 ModeContainerView(conductor: modeConductor,
                                   mode: mode,
-                                  columnIndex: index,
-                                  modeView: modeView)
+                                  columnIndex: index)
             }
         }
         .animation(modeConductor.animationStyle, value: tonalContext.mode)
