@@ -2,8 +2,6 @@ import SwiftUI
 import HomeyMusicKit
 
 final class InstrumentalContext: ObservableObject {
-    let appDefaults = UserDefaults.standard
-
     @Published var layoutChoice: LayoutChoice
     @Published var stringsLayoutChoice: StringsLayoutChoice
     @Published var instrumentType: InstrumentType = .diamanti {
@@ -15,28 +13,8 @@ final class InstrumentalContext: ObservableObject {
     }
     @Published var stringInstrumentType: InstrumentType = .banjo
 
-    // Dictionary mapping instrument types to instrument instances.
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
-        InstrumentType.allCases.reduce(into: [InstrumentType: Instrument]()) { mapping, instrumentType in
-            switch instrumentType {
-            case .isomorphic:
-                mapping[instrumentType] = Isomorphic()
-            case .diamanti:
-                mapping[instrumentType] = Diamanti()
-            case .piano:
-                mapping[instrumentType] = Piano()
-            case .violin:
-                mapping[instrumentType] = Violin()
-            case .cello:
-                mapping[instrumentType] = Cello()
-            case .bass:
-                mapping[instrumentType] = Bass()
-            case .banjo:
-                mapping[instrumentType] = Banjo()
-            case .guitar:
-                mapping[instrumentType] = Guitar()
-            }
-        }
+        Dictionary(uniqueKeysWithValues: InstrumentType.allCases.map { ($0, $0.instrument) })
     }()
     
     /// Returns the current instrument instance based on instrumentType.
@@ -56,23 +34,9 @@ final class InstrumentalContext: ObservableObject {
     }
     
     init() {
-        let defaultLayoutChoice: LayoutChoice = .diamanti
+        self.layoutChoice = LayoutChoice.diamanti
         
-        appDefaults.register(defaults: [
-            "layoutChoice": defaultLayoutChoice.rawValue
-        ])
-        
-        self.layoutChoice = LayoutChoice(
-            rawValue: appDefaults.string(forKey: "layoutChoice") ?? defaultLayoutChoice.rawValue
-        ) ?? defaultLayoutChoice
-        
-        let defaultStringsLayoutChoice: StringsLayoutChoice = .violin
-        appDefaults.register(defaults: [
-            "stringsLayoutChoice": defaultStringsLayoutChoice.rawValue
-        ])
-        self.stringsLayoutChoice = StringsLayoutChoice(
-            rawValue: appDefaults.string(forKey: "stringsLayoutChoice") ?? defaultStringsLayoutChoice.rawValue
-        ) ?? defaultStringsLayoutChoice
+        self.stringsLayoutChoice = StringsLayoutChoice.violin
     }
     
     public var instruments: [InstrumentType] {

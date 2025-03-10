@@ -51,3 +51,18 @@ public extension InstrumentType {
     }
     
 }
+
+extension InstrumentType {
+    var instrument: Instrument {
+        switch self {
+        case .isomorphic: return Isomorphic()
+        case .diamanti:   return Diamanti()
+        case .piano:      return Piano()
+        case .violin:     return Violin()
+        case .cello:      return Cello()
+        case .bass:       return Bass()
+        case .banjo:      return Banjo()
+        case .guitar:     return Guitar()
+        }
+    }
+}	
