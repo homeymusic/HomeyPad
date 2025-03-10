@@ -12,7 +12,28 @@ final class InstrumentalContext: ObservableObject {
     @Published var stringInstrumentType: InstrumentType
 
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
-        Dictionary(uniqueKeysWithValues: InstrumentType.allCases.map { ($0, $0.instrument) })
+        var mapping: [InstrumentType: Instrument] = [:]
+        InstrumentType.allCases.forEach { instrumentType in
+            switch instrumentType {
+            case .isomorphic:
+                mapping[instrumentType] = Isomorphic()
+            case .diamanti:
+                mapping[instrumentType] = Diamanti()
+            case .piano:
+                mapping[instrumentType] = Piano()
+            case .violin:
+                mapping[instrumentType] = Violin()
+            case .cello:
+                mapping[instrumentType] = Cello()
+            case .bass:
+                mapping[instrumentType] = Bass()
+            case .banjo:
+                mapping[instrumentType] = Banjo()
+            case .guitar:
+                mapping[instrumentType] = Guitar()
+            }
+        }
+        return mapping
     }()
     
     /// Returns the current instrument instance based on instrumentType.

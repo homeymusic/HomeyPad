@@ -3,6 +3,7 @@ import HomeyMusicKit
 struct KeyboardKeyLabelsPopoverView: View {
     @ObservedObject var viewConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalContext: NotationalContext
 
     var body: some View {
@@ -15,7 +16,7 @@ struct KeyboardKeyLabelsPopoverView: View {
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: notationalContext.noteBinding(for: key))
+                                   isOn: notationalContext.noteBinding(for: instrumentalContext.instrumentType, choice: key))
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
@@ -54,7 +55,7 @@ struct KeyboardKeyLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: notationalContext.intervalBinding(for: key))
+                               isOn: notationalContext.intervalBinding(for: instrumentalContext.instrumentType, choice: key))
                         .tint(Color.gray)
                     }
                     if key == .symbol {

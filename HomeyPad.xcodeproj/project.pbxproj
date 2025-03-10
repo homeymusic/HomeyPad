@@ -39,7 +39,6 @@
 		B07897E12CBABE0A00DBBAE2 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E02CBABE0A00DBBAE2 /* AudioKit */; };
 		B07897E72CBABEAF00DBBAE2 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = B07897E62CBABEAF00DBBAE2 /* DunneAudioKit */; };
 		B079AA732CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079AA722CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift */; };
-		B088D6C12D78896F00962CDF /* InstrumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088D6C02D78896B00962CDF /* InstrumentType.swift */; };
 		B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1452CBD2DB800130B06 /* HeaderView.swift */; };
 		B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */; };
 		B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1472CBD2DB800130B06 /* HelpView.swift */; };
@@ -104,7 +103,6 @@
 		B06CC5A52D6D27A700290353 /* ModeRectangles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeRectangles.swift; sourceTree = "<group>"; };
 		B06CC5A92D6D28A500290353 /* ModeKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeKeyboardView.swift; sourceTree = "<group>"; };
 		B079AA722CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPickerPitchLabelsPopoverView.swift; sourceTree = "<group>"; };
-		B088D6C02D78896B00962CDF /* InstrumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentType.swift; sourceTree = "<group>"; };
 		B093E1452CBD2DB800130B06 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPopoverView.swift; sourceTree = "<group>"; };
 		B093E1472CBD2DB800130B06 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 		B01A30012D7A8DE400A95DDD /* Instrument */ = {
 			isa = PBXGroup;
 			children = (
-				B088D6C02D78896B00962CDF /* InstrumentType.swift */,
 				B01A30022D7A8DF200A95DDD /* Instrument.swift */,
 				B01A30082D7B393000A95DDD /* KeyboardInstrument.swift */,
 				B01A300C2D7B9B0F00A95DDD /* Isomorphic.swift */,
@@ -435,7 +432,6 @@
 				B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* InstrumentView.swift in Sources */,
-				B088D6C12D78896F00962CDF /* InstrumentType.swift in Sources */,
 				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
 				B01A30192D7BAE4800A95DDD /* StringInstrument.swift in Sources */,
 				B06CC5AA2D6D28A900290353 /* ModeKeyboardView.swift in Sources */,
