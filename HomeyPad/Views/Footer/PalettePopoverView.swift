@@ -1,33 +1,29 @@
-//
-//  PalettePopoverView.swift
-//  HomeyPad
-//
-//  Created by Brian McAuliff Mulloy on 4/5/24.
-//
-
 import SwiftUI
 import HomeyMusicKit
 
 struct PalettePopoverView: View {
-    @ObservedObject var conductor: ViewConductor
+    @EnvironmentObject var tonalContext: TonalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
+    @EnvironmentObject var notationalContext: NotationalContext
     
     var body: some View {
         VStack(spacing: 10.0) {
-            Picker("", selection: $conductor.layoutPalette.choices[conductor.layoutChoice]) {
-                ForEach(PaletteChoice.allCases) { paletteChoice in
+            
+            Picker("", selection: notationalContext.colorPaletteBinding(for: instrumentalContext.instrumentType)) {
+                ForEach(ColorPaletteChoice.allCases, id: \.self) { paletteChoice in
                     Image(systemName: paletteChoice.icon)
-                        .tag(paletteChoice as PaletteChoice?)
+                        .tag(paletteChoice)
                 }
             }
             .pickerStyle(.segmented)
-
+            
             Grid {
                 GridRow {
                     Image(systemName: "pencil.and.outline")
                         .gridCellAnchor(.center)
                         .foregroundColor(.white)
                     Toggle(LayoutPalette.outlineLabel,
-                           isOn: conductor.outlineBinding())
+                           isOn: notationalContext.outlineBinding(for: instrumentalContext.instrumentType))
                     .tint(Color.gray)
                     .foregroundColor(.white)
                 }

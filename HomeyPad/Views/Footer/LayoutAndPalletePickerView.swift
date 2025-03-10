@@ -4,8 +4,9 @@ import HomeyMusicKit
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor
     
-    @EnvironmentObject var instrumentContext: InstrumentalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
+    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
     
     var body: some View {
         HStack(spacing: 0) {
@@ -48,8 +49,8 @@ struct LayoutAndPalletePickerView: View {
             })
             .padding(.trailing, 10)
             
-            Picker("", selection: $instrumentContext.instrumentType) {
-                ForEach(instrumentContext.instruments, id:\.self) { instrument in
+            Picker("", selection: $instrumentalContext.instrumentType) {
+                ForEach(instrumentalContext.instruments, id:\.self) { instrument in
                     Image(systemName: instrument.icon)
                         .tag(instrument)
                 }
@@ -62,7 +63,7 @@ struct LayoutAndPalletePickerView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: viewConductor.paletteChoice.icon)
+                        Image(systemName: ColorPaletteChoice.subtle.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -76,7 +77,7 @@ struct LayoutAndPalletePickerView: View {
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
-                        PalettePopoverView(conductor: viewConductor)
+                        PalettePopoverView()
                             .presentationCompactAdaptation(.popover)
                     }
                     .scrollIndicatorsFlash(onAppear: true)

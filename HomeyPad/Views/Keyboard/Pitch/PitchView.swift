@@ -20,6 +20,7 @@ public struct PitchView: View {
 
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentContext: InstrumentalContext
+    @EnvironmentObject var notationalContext: NotationalContext
 
     var pitchInterval: Interval {
         return tonalContext.interval(fromTonicTo: pitch)
@@ -77,7 +78,7 @@ public struct PitchView: View {
     }
     
     var accentColor: Color {
-        switch thisConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
         case .subtle:
             Color(HomeyPad.secondaryColor)
         case .loud:
@@ -96,7 +97,7 @@ public struct PitchView: View {
         let activeColor: Color
         let inactiveColor: Color
 
-        switch thisConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
         case .subtle:
             activeColor = Color(pitchInterval.majorMinor.color)
             inactiveColor = Color(HomeyPad.primaryColor)
@@ -121,7 +122,7 @@ public struct PitchView: View {
     }
     
     var outlineColor: Color {
-        switch thisConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
         case .subtle:
             return isActivated ? Color(HomeyPad.primaryColor) : pitchInterval.majorMinor.color
         case .loud:
@@ -132,18 +133,11 @@ public struct PitchView: View {
     }
     
     var outlineKeyColor: Color {
-        switch thisConductor.paletteChoice {
-        case .subtle:
-            return keyColor
-        case .loud:
-            return keyColor
-        case .ebonyIvory:
-            return keyColor
-        }
+        keyColor
     }
     
     var outline: Bool {
-        return thisConductor.outlineChoice &&
+        return notationalContext.outline[instrumentContext.instrumentType]! &&
         (pitchInterval.isTonic || pitchInterval.isOctave ||
          (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.mode.intervalClasses.contains([pitchInterval.intervalClass])))
     }
