@@ -21,7 +21,6 @@ public struct PitchContainerView: View {
         self.containerType = containerType
         self.pitchView = PitchView(
             pitch: pitch,
-            thisConductor: conductor,
             containerType: containerType
         )
     }

@@ -136,12 +136,12 @@ struct HelpPopoverView: View {
                         }
                 }
                 GridRow {
-                    Text("\(TonicPicker.tonic.rawValue)")
+                    Text("\(InstrumentType.tonicPicker.rawValue)")
                     HStack {
-                        Image(systemName: TonicPicker.tonic.icon)
+                        Image(systemName: InstrumentType.tonicPicker.icon)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 17, height: 17)
-                        Text(TonicPicker.tonic.label)
+                        Text(InstrumentType.tonicPicker.label)
                     }
                 }
                 GridRow {

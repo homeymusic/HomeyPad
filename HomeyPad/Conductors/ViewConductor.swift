@@ -31,10 +31,6 @@ class ViewConductor: ObservableObject {
 
     let animationStyle: Animation = Animation.linear
     
-    var showModes: Bool {
-        noteLabel[.mode]! || noteLabel[.guide]!
-    }
-    
     @Published var synthConductor: SynthConductor?
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {
@@ -76,11 +72,6 @@ class ViewConductor: ObservableObject {
         layoutPalette.choices[layoutChoice] = LayoutPalette.defaultLayoutPalette[layoutChoice]
         layoutPalette.outlineChoice[layoutChoice] = LayoutPalette.defaultLayoutOutline[layoutChoice]
         buzz()
-    }
-    
-    var labelsCount: Int {
-        Array(noteLabels[layoutChoice]!.values).filter{$0}.count +
-        Array(intervalLabels[layoutChoice]!.values).filter{$0}.count
     }
     
     var areLabelsDefault: Bool {
@@ -318,9 +309,4 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    func tritoneLength(proxySize: CGSize) -> CGFloat {
-        return min(proxySize.height * 1/3, proxySize.width)
-    }
-    
 }
-

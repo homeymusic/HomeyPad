@@ -9,7 +9,7 @@ struct KeyboardKeyLabelsPopoverView: View {
     var body: some View {
         VStack(spacing: 0.0) {
             Grid {
-                ForEach(NoteLabelChoice.allCases, id: \.self) {key in
+                ForEach(NoteLabelChoice.pitchCases, id: \.self) {key in
                     if key != .octave && key != .accidentals {
                         GridRow {
                             key.image

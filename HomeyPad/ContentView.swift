@@ -7,16 +7,20 @@ struct ContentView: View {
     @StateObject private var tonicConductor: TonicConductor
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
-
+    
     @State var showTonicPicker: Bool
     
     let tonalContext: TonalContext
+    let instrumentalContext: InstrumentalContext
     let notationalTonicContext: NotationalTonicContext
-
-    init(tonalContext: TonalContext, notationalTonicContext: NotationalTonicContext) {
+    
+    init(tonalContext: TonalContext,
+         instrumentalContext: InstrumentalContext,
+         notationalTonicContext: NotationalTonicContext) {
         self.tonalContext = tonalContext
+        self.instrumentalContext = instrumentalContext
         self.notationalTonicContext = notationalTonicContext
-
+        
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -90,7 +94,7 @@ struct ContentView: View {
         
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.diamanti]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.diamanti]
-               
+        
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
@@ -129,7 +133,7 @@ struct ContentView: View {
                                    tonicConductor: tonicConductor,
                                    modeConductor: modeConductor,
                                    showTonicPicker: $showTonicPicker)
-                            .frame(height: settingsHeight)
+                        .frame(height: settingsHeight)
                         Spacer()
                     }
                     // Tonic Picker & Keyboard
@@ -137,14 +141,13 @@ struct ContentView: View {
                         // Tonic Picker
                         if showTonicPicker {
                             VStack {
-                                
                                 TonicKeyboardView(
                                     tonicConductor: tonicConductor
                                 )
                                 .aspectRatio(13.0, contentMode: .fit)
                                 .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
-                                if modeConductor.showModes {
+                                if notationalTonicContext.showModes {
                                     ModeKeyboardView(
                                         modeConductor: modeConductor
                                     )
@@ -160,28 +163,28 @@ struct ContentView: View {
                             }
                         }
                         
-//                        if HomeyPad.formFactor == .iPad && instrumentContext.instrument is KeyboardInstrument {
-//                            InstrumentView(
-//                                conductor: viewConductor
-//                            ) { pitch in
-//                                PitchView(
-//                                    pitch: pitch,
-//                                    thisConductor: viewConductor,
-//                                    tonicConductor: tonicConductor,
-//                                    viewConductor: viewConductor,
-//                                    modeConductor: modeConductor
-//                                )
-//                            }
-//                            .aspectRatio(4.0, contentMode: .fit)
-//                            .ignoresSafeArea(edges:.horizontal)
-//                        }
+                        //                        if HomeyPad.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
+                        //                            InstrumentView(
+                        //                                conductor: viewConductor
+                        //                            ) { pitch in
+                        //                                PitchView(
+                        //                                    pitch: pitch,
+                        //                                    thisConductor: viewConductor,
+                        //                                    tonicConductor: tonicConductor,
+                        //                                    viewConductor: viewConductor,
+                        //                                    modeConductor: modeConductor
+                        //                                )
+                        //                            }
+                        //                            .aspectRatio(4.0, contentMode: .fit)
+                        //                            .ignoresSafeArea(edges:.horizontal)
+                        //                        }
                         
-//                        if !HomeyPad.formFactor == .iPad {
-                            InstrumentView(
-                                conductor: viewConductor
-                            )
-                            .ignoresSafeArea(edges:.horizontal)
-// mm                         }
+                        //                        if !HomeyPad.formFactor == .iPad {
+                        InstrumentView(
+                            conductor: viewConductor
+                        )
+                        .ignoresSafeArea(edges:.horizontal)
+                        //                          }
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
@@ -191,7 +194,7 @@ struct ContentView: View {
                         FooterView(
                             viewConductor: viewConductor
                         )
-                            .frame(height: settingsHeight)
+                        .frame(height: settingsHeight)
                     }
                     
                 }
@@ -237,7 +240,7 @@ struct ContentView: View {
             .environmentObject(tonicConductor)
             .environmentObject(modeConductor)
             .environmentObject(viewConductor)
-
+            
         }
         .preferredColorScheme(.dark)
     }

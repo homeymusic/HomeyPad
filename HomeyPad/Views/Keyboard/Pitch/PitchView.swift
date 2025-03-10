@@ -11,16 +11,14 @@ public enum ContainerType {
 public struct PitchView: View {
     
     @ObservedObject var pitch: Pitch
-    @ObservedObject var thisConductor: ViewConductor
     let containerType: ContainerType
 
-    @EnvironmentObject var tonicConductor: ViewConductor
-    @EnvironmentObject var viewConductor: ViewConductor
     @EnvironmentObject var modeConductor: ViewConductor
 
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var instrumentContext: InstrumentalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalContext: NotationalContext
+    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
     var pitchInterval: Interval {
         return tonalContext.interval(fromTonicTo: pitch)
@@ -31,7 +29,7 @@ public struct PitchView: View {
     }
     
     var borderHeightApparentSize: CGFloat {
-        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? borderWidthApparentSize / 2 : borderWidthApparentSize
+        instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? borderWidthApparentSize / 2 : borderWidthApparentSize
     }
     var outlineWidth: CGFloat {
         borderWidthApparentSize * outlineSize
@@ -41,12 +39,12 @@ public struct PitchView: View {
     }
         
     public var body: some View {
-        let alignment: Alignment = instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? .top : .center
+        let alignment: Alignment = instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? .top : .center
         GeometryReader { proxy in
-            ZStack(alignment: instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? .bottom : .center) {
+            ZStack(alignment: instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? .bottom : .center) {
                 
                 ZStack(alignment: alignment) {
-                    KeyRectangle(fillColor: thisConductor.layoutChoice == .tonic ? Color(UIColor.systemGray6) : .black, pitchView: self, proxySize: proxy.size)
+                    KeyRectangle(fillColor: containerType != .tonicPicker ? Color(UIColor.systemGray6) : .black, pitchView: self, proxySize: proxy.size)
                         .overlay(alignment: alignment) {
                             if outline {
                                 KeyRectangle(fillColor: outlineColor, pitchView: self, proxySize: proxy.size)
@@ -74,11 +72,11 @@ public struct PitchView: View {
     }
     
     func darkenSmallKeys(color: Color) -> Color {
-        return instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? (isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1)) : color
+        return instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? (isSmall ? color.adjust(brightness: -0.1) : color.adjust(brightness: +0.1)) : color
     }
     
     var accentColor: Color {
-        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             Color(HomeyPad.secondaryColor)
         case .loud:
@@ -90,14 +88,14 @@ public struct PitchView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        thisConductor.layoutChoice == .tonic ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
+        containerType != .tonicPicker ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
     }
 
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color
 
-        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             activeColor = Color(pitchInterval.majorMinor.color)
             inactiveColor = Color(HomeyPad.primaryColor)
@@ -122,7 +120,7 @@ public struct PitchView: View {
     }
     
     var outlineColor: Color {
-        switch notationalContext.colorPalette[instrumentContext.instrumentType]! {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             return isActivated ? Color(HomeyPad.primaryColor) : pitchInterval.majorMinor.color
         case .loud:
@@ -137,13 +135,13 @@ public struct PitchView: View {
     }
     
     var outline: Bool {
-        return notationalContext.outline[instrumentContext.instrumentType]! &&
+        return notationalContext.outline[instrumentalContext.instrumentType]! &&
         (pitchInterval.isTonic || pitchInterval.isOctave ||
-         (modeConductor.showModes && thisConductor.layoutChoice != .tonic && tonalContext.mode.intervalClasses.contains([pitchInterval.intervalClass])))
+         (notationalTonicContext.showModes && containerType != .tonicPicker && tonalContext.mode.intervalClasses.contains([pitchInterval.intervalClass])))
     }
     
     var isSmall: Bool {
-        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic && !pitch.isNatural
+        instrumentalContext.instrumentType == .piano && containerType != .tonicPicker && !pitch.isNatural
     }
     
     var backgroundBorderSize: CGFloat {
@@ -164,7 +162,7 @@ public struct PitchView: View {
     }
     
     func topPadding(_ size: CGSize) -> CGFloat {
-        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? relativeCornerRadius(in: size) : 0.0
+        instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? relativeCornerRadius(in: size) : 0.0
     }
     
     func leadingPadding(_ size: CGSize) -> CGFloat {
@@ -176,7 +174,7 @@ public struct PitchView: View {
     }
     
     func negativeTopPadding(_ size: CGSize) -> CGFloat {
-        instrumentContext.instrumentType == .piano && thisConductor.layoutChoice != .tonic ? -relativeCornerRadius(in: size) : 0.0
+        instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? -relativeCornerRadius(in: size) : 0.0
     }
     
     var rotation: CGFloat {

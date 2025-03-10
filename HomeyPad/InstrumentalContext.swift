@@ -31,6 +31,8 @@ final class InstrumentalContext: ObservableObject {
                 mapping[instrumentType] = Banjo()
             case .guitar:
                 mapping[instrumentType] = Guitar()
+            case .tonicPicker:
+                mapping[instrumentType] = TonicPicker()
             }
         }
         return mapping

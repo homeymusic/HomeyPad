@@ -6,10 +6,11 @@ public struct PitchLabelView: View {
     var proxySize: CGSize
     
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var instrumentContext: InstrumentalContext
-    
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
+    @EnvironmentObject var notationalContext: NotationalContext
+
     public var body: some View {
-        let diamondPadding: CGFloat = pitchView.containerType == .diamond ? 0.0 : 0.5 * pitchView.thisConductor.tritoneLength(proxySize: proxySize)
+        let diamondPadding: CGFloat = pitchView.containerType == .diamond ? 0.0 : 0.5 * DiamantiView.tritoneLength(proxySize: proxySize)
         let topBottomPadding = pitchView.outline ? 0.0 : 0.5 * pitchView.outlineHeight
         let extraPadding = diamondPadding + topBottomPadding
         return VStack(spacing: 0.0) {
@@ -33,7 +34,7 @@ public struct PitchLabelView: View {
         var rotation: Angle = .degrees(0)
         
         @EnvironmentObject var tonalContext: TonalContext
-        @EnvironmentObject var instrumentContext: InstrumentalContext
+        @EnvironmentObject var instrumentalContext: InstrumentalContext
         @EnvironmentObject var notationalContext: NotationalContext
         @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
@@ -49,7 +50,7 @@ public struct PitchLabelView: View {
             
             
             VStack(spacing: 2) {
-                if instrumentContext.instrumentType == .piano && pitchView.containerType != .tonicPicker {
+                if instrumentalContext.instrumentType == .piano && pitchView.containerType != .tonicPicker {
                     pianoLayoutSpacer
                 }
                 VStack(spacing: 1) {
@@ -74,47 +75,47 @@ public struct PitchLabelView: View {
         var noteLabels: some View {
             AnyView(
                 Group {
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.letter]! {
+                    if showNoteLabel(for: .letter) {
                         overlayText("\(pitchView.pitch.letter(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.fixedDo]! {
+                    if showNoteLabel(for: .fixedDo) {
                         overlayText("\(pitchView.pitch.fixedDo(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.month]! {
+                    if showNoteLabel(for: .month) {
                         overlayText("\(Calendar.current.shortMonthSymbols[(pitchView.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.midi]! {
+                    if showNoteLabel(for: .midi) {
                         overlayText(String(pitchView.pitch.midiNote.number))
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.wavelength]! {
+                    if showNoteLabel(for: .wavelength) {
                         overlayText("\("λ") \(pitchView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.wavenumber]! {
+                    if showNoteLabel(for: .wavenumber) {
                         overlayText("\("k") \(pitchView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.period]! {
+                    if showNoteLabel(for: .period) {
                         overlayText("\("T") \((pitchView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.frequency]! {
+                    if showNoteLabel(for: .frequency) {
                         overlayText("\("f") \(pitchView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
                     } else {
                         EmptyView()
                     }
-                    if thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.cochlea]! {
+                    if showNoteLabel(for: .cochlea) {
                         overlayText("\(pitchView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
                     } else {
                         EmptyView()
@@ -124,7 +125,7 @@ public struct PitchLabelView: View {
         }
         
         var symbolIcon: some View {
-            if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.symbol]! {
+            if showIntervalLabel(for: .symbol) {
                 return AnyView(
                     Color.clear.overlay(
                         pitchView.pitchInterval.consonanceDissonance.image
@@ -137,7 +138,7 @@ public struct PitchLabelView: View {
                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.width,
                                    maxHeight: 0.8 *
                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.height /
-                                   CGFloat(pitchView.thisConductor.labelsCount))
+                                   CGFloat(notationalContext.labelsCount(for: instrumentalContext.instrumentType)))
                             .scaleEffect(pitchView.pitchInterval.isTonic ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 0.3),
                                        value: pitchView.pitchInterval.isTonic)
@@ -149,31 +150,31 @@ public struct PitchLabelView: View {
         
         var intervalLabels: some View {
             return Group {
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.interval]! {
+                if showIntervalLabel(for: .interval) {
                     overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: tonalContext.pitchDirection)))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.roman]! {
+                if showIntervalLabel(for: .roman) {
                     overlayText(String(pitchView.pitchInterval.roman(pitchDirection: tonalContext.pitchDirection)))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.degree]! {
+                if showIntervalLabel(for: .degree) {
                     overlayText(String(pitchView.pitchInterval.degree(pitchDirection: tonalContext.pitchDirection)))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.integer]! {
+                if showIntervalLabel(for: .integer) {
                     overlayText(String(pitchView.pitchInterval.distance))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.movableDo]! {
+                if showIntervalLabel(for: .movableDo) {
                     overlayText(pitchView.pitchInterval.movableDo)
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.wavelengthRatio]! {
+                if showIntervalLabel(for: .wavelengthRatio) {
                     overlayText(String(pitchView.pitchInterval.wavelengthRatio))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.wavenumberRatio]! {
+                if showIntervalLabel(for: .wavenumberRatio) {
                     overlayText(String(pitchView.pitchInterval.wavenumberRatio))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.periodRatio]! {
+                if showIntervalLabel(for: .periodRatio) {
                     overlayText(String(pitchView.pitchInterval.periodRatio))
                 }
-                if thisNotationalContext.intervalLabels[instrumentContext.instrumentType]![.frequencyRatio]! {
+                if showIntervalLabel(for: .frequencyRatio) {
                     overlayText(String(pitchView.pitchInterval.frequencyRatio))
                 }
             }
@@ -190,13 +191,15 @@ public struct PitchLabelView: View {
         }
         
         var isActivated: Bool {
-            pitchView.thisConductor.layoutChoice == .tonic ? pitchView.pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitchView.pitch.isActivated
+            pitchView.containerType == .tonicPicker ?
+            pitchView.pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) :
+            pitchView.pitch.isActivated
         }
         
         var textColor: Color {
             let activeColor: Color
             let inactiveColor: Color
-            switch pitchView.thisConductor.paletteChoice {
+            switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
             case .subtle:
                 activeColor = Color(HomeyPad.primaryColor)
                 inactiveColor = Color(pitchView.pitchInterval.majorMinor.color)
@@ -210,7 +213,24 @@ public struct PitchLabelView: View {
         }
         
         var octave: String {
-            thisNotationalContext.noteLabels[instrumentContext.instrumentType]![.octave]! ? String(pitchView.pitch.octave) : ""
+            thisNotationalContext.noteLabels[instrumentalContext.instrumentType]![.octave]! ? String(pitchView.pitch.octave) : ""
         }
+        
+        func showNoteLabel(for key: NoteLabelChoice) -> Bool {
+            if pitchView.containerType == .tonicPicker {
+                return notationalTonicContext.noteLabels[.tonicPicker]![key]!
+            } else {
+                return notationalContext.noteLabels[instrumentalContext.instrumentType]![key]!
+            }
+        }
+        
+        func showIntervalLabel(for key: IntervalLabelChoice) -> Bool {
+            if pitchView.containerType == .tonicPicker {
+                return notationalTonicContext.intervalLabels[.tonicPicker]![key]!
+            } else {
+                return notationalContext.intervalLabels[instrumentalContext.instrumentType]![key]!
+            }
+        }
+
     }
 }

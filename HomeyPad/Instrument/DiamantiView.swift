@@ -6,7 +6,7 @@ struct DiamantiView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var diamanti: Diamanti
     
-    @EnvironmentObject var instrumentContext: InstrumentalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
     
     // MARK: - Helper for rendering a key view for a given note
@@ -41,7 +41,7 @@ struct DiamantiView: View {
                         .overlay {
                             if Pitch.isValid(note - 1) && Pitch.isValid(note - 2) {
                                 GeometryReader { proxy in
-                                    let ttLength = viewConductor.tritoneLength(proxySize: proxy.size)
+                                    let ttLength = DiamantiView.tritoneLength(proxySize: proxy.size)
                                     ZStack {
                                         PitchContainerView(
                                             conductor: viewConductor,
@@ -91,4 +91,9 @@ struct DiamantiView: View {
         .clipShape(Rectangle())
         
     }
+    
+    static func tritoneLength(proxySize: CGSize) -> CGFloat {
+        return min(proxySize.height * 1/3, proxySize.width)
+    }
+
 }

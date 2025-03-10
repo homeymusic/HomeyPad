@@ -5,9 +5,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
     @ObservedObject var modeConductor: ViewConductor
     
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalTonicContext: NotationalTonicContext
-    
 
     var body: some View {
         VStack(spacing: 0.0) {
@@ -19,7 +17,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: notationalTonicContext.noteBinding(for: instrumentalContext.instrumentType, choice: key))
+                                   isOn: notationalTonicContext.noteBinding(for: .tonicPicker, choice: key))
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
@@ -49,7 +47,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: notationalTonicContext.intervalBinding(for: instrumentalContext.instrumentType, choice: key))
+                               isOn: notationalTonicContext.intervalBinding(for: .tonicPicker, choice: key))
                         .tint(Color.gray)
                     }
                     if key == .symbol {
@@ -65,7 +63,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: modeConductor.noteLabelBinding(for: key))
+                               isOn: notationalTonicContext.noteBinding(for: .tonicPicker, choice: key))
                         .tint(Color.gray)
                         .foregroundColor(.white)
                     }
