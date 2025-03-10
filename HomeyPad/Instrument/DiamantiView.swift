@@ -3,7 +3,6 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct DiamantiView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var diamanti: Diamanti
     
     @EnvironmentObject var instrumentalContext: InstrumentalContext
@@ -16,14 +15,12 @@ struct DiamantiView: View {
             return AnyView(
                 VStack(spacing: 0) {
                     if Pitch.isValid(note + 1) {
-                        PitchContainerView(conductor: viewConductor,
-                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note + 1)))
+                        PitchContainerView(pitch: tonalContext.pitch(for: MIDINoteNumber(note + 1)))
                     } else {
                         Color.clear
                     }
                     if Pitch.isValid(note) {
-                        PitchContainerView(conductor: viewConductor,
-                                           pitch: tonalContext.pitch(for: MIDINoteNumber(note)))
+                        PitchContainerView(pitch: tonalContext.pitch(for: MIDINoteNumber(note)))
                     } else {
                         Color.clear
                     }
@@ -34,7 +31,6 @@ struct DiamantiView: View {
             if intervalClass == .seven {
                 if Pitch.isValid(note) {
                     return AnyView(PitchContainerView(
-                        conductor: viewConductor,
                         pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                         containerType: .span
                     )
@@ -44,7 +40,6 @@ struct DiamantiView: View {
                                     let ttLength = DiamantiView.tritoneLength(proxySize: proxy.size)
                                     ZStack {
                                         PitchContainerView(
-                                            conductor: viewConductor,
                                             pitch: tonalContext.pitch(for: MIDINoteNumber(note - 1)),
                                             zIndex: 1,
                                             containerType: .diamond
@@ -61,7 +56,6 @@ struct DiamantiView: View {
                 }
             } else if intervalClass != .six && Pitch.isValid(note) {
                 return AnyView(PitchContainerView(
-                    conductor: viewConductor,
                     pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                     containerType: .span
                 ))
@@ -87,7 +81,7 @@ struct DiamantiView: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(HomeyPad.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
         
     }

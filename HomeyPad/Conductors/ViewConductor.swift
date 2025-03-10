@@ -29,8 +29,6 @@ class ViewConductor: ObservableObject {
     }
     @StateObject var tonalContext: TonalContext
 
-    let animationStyle: Animation = Animation.linear
-    
     @Published var synthConductor: SynthConductor?
     
     @Published var layoutChoice: LayoutChoice = .isomorphic {

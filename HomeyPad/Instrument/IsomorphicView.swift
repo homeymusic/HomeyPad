@@ -3,7 +3,6 @@ import MIDIKitCore
 import HomeyMusicKit
 
 struct IsomorphicView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var isomorphic: Isomorphic
 
     @EnvironmentObject var tonalContext: TonalContext
@@ -19,7 +18,6 @@ struct IsomorphicView: View {
                             if Pitch.isValid(linearIndex) {
                                 let pitch = tonalContext.pitch(for: MIDINoteNumber(linearIndex))
                                 PitchContainerView(
-                                    conductor: viewConductor,
                                     pitch: pitch
                                 )
                             } else {
@@ -30,7 +28,7 @@ struct IsomorphicView: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(HomeyPad.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

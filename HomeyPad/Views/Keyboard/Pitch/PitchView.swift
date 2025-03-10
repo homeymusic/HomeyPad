@@ -13,8 +13,6 @@ public struct PitchView: View {
     @ObservedObject var pitch: Pitch
     let containerType: ContainerType
 
-    @EnvironmentObject var modeConductor: ViewConductor
-
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalContext: NotationalContext

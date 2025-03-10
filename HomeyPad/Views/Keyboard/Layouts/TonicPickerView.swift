@@ -11,7 +11,6 @@ struct TonicPickerView: View {
             ForEach(tonalContext.tonicPickerNotes, id: \.self) { note in
                 if Pitch.isValid(note) {
                     PitchContainerView(
-                        conductor: tonicConductor,
                         pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                         containerType: .tonicPicker
                     )
@@ -20,7 +19,7 @@ struct TonicPickerView: View {
                 }
             }
         }
-        .animation(tonicConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(HomeyPad.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

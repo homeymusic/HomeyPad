@@ -3,7 +3,6 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct StringsView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
     @ObservedObject var stringInstrument: StringInstrument
 
@@ -20,8 +19,7 @@ struct StringsView: View {
                             let note = stringInstrument.openStringsMIDI[string] + fret
                             if (Pitch.isValid(note)) {
                                 let pitch = tonalContext.pitch(for: MIDINoteNumber(note))
-                                PitchContainerView(conductor: viewConductor,
-                                                         pitch: pitch)
+                                PitchContainerView(pitch: pitch)
                             } else {
                                 Color.clear
                             }
@@ -30,7 +28,7 @@ struct StringsView: View {
                 }
             }
         }
-        .animation(viewConductor.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(HomeyPad.animationStyle, value: tonalContext.tonicMIDI)
         .clipShape(Rectangle())
     }
 }

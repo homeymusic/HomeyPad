@@ -6,10 +6,9 @@ public struct ModeView: View {
     let mode: Mode
     let columnIndex: Int
     
-    @ObservedObject    var thisConductor: ViewConductor
-    @EnvironmentObject var viewConductor: ViewConductor
-    @EnvironmentObject var modeConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
+    @EnvironmentObject var notationalContext: NotationalContext
 
     public var body: some View {
         let alignment: Alignment = .center
@@ -48,7 +47,7 @@ public struct ModeView: View {
     }
     
     var accentColor: Color {
-        switch viewConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             Color(HomeyPad.secondaryColor)
         case .loud:
@@ -64,7 +63,7 @@ public struct ModeView: View {
     }
 
     var keyColor: Color {
-        switch viewConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             return Color(HomeyPad.primaryColor)
         case .loud:
@@ -93,7 +92,7 @@ public struct ModeView: View {
     }
     
     var outlineColor: Color {
-        switch viewConductor.paletteChoice {
+        switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
         case .subtle:
             return Color(mode.majorMinor.color)
         case .loud:
@@ -108,7 +107,7 @@ public struct ModeView: View {
     }
     
     var outline: Bool {
-        viewConductor.outlineChoice && (mode == tonalContext.mode)
+        notationalContext.outline[instrumentalContext.instrumentType]! && (mode == tonalContext.mode)
     }
     
     var isSmall: Bool {

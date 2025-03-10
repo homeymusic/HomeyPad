@@ -123,6 +123,7 @@ struct ContentView: View {
     
     var body: some View {
         let settingsHeight = 30.0
+        
         GeometryReader { proxy in
             ZStack {
                 Color.black
@@ -140,27 +141,10 @@ struct ContentView: View {
                     VStack {
                         // Tonic Picker
                         if showTonicPicker {
-                            VStack {
-                                TonicKeyboardView(
-                                    tonicConductor: tonicConductor
-                                )
-                                .aspectRatio(13.0, contentMode: .fit)
-                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
-                                
-                                if notationalTonicContext.showModes {
-                                    ModeKeyboardView(
-                                        modeConductor: modeConductor
-                                    )
-                                    .aspectRatio(13.0 * 2.0, contentMode: .fit)
-                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
-                                }
-                                
-                            }
-                            .padding(7.0)
-                            .background {
-                                RoundedRectangle(cornerRadius: 7.0)
-                                    .fill(Color(UIColor.systemGray6))
-                            }
+                            TonicAndModePickerView(
+                                tonicConductor: tonicConductor,
+                                modeConductor: modeConductor
+                            )
                         }
                         
                         //                        if HomeyPad.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {

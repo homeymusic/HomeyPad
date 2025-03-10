@@ -19,6 +19,10 @@ public struct ModeLabelView: View {
         let proxySize: CGSize
         var rotation: Angle = .degrees(0)
 
+        @EnvironmentObject var instrumentalContext: InstrumentalContext
+        @EnvironmentObject var notationalContext: NotationalContext
+        @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+        
         var body: some View {
             VStack(spacing: 2) {
                 VStack(spacing: 1) {
@@ -34,7 +38,7 @@ public struct ModeLabelView: View {
         var guideModeLabel: some View {
             AnyView(
                 HStack(spacing: 0.0) {
-                    if modeView.modeConductor.noteLabel[.mode]! {
+                    if notationalTonicContext.noteLabels[.tonicPicker]![.mode]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 Text(modeView.mode.shortHand)
@@ -45,14 +49,14 @@ public struct ModeLabelView: View {
                                 .cornerRadius(3.0)
                         )
                     }
-                    if modeView.modeConductor.noteLabel[.guide]! {
+                    if notationalTonicContext.noteLabels[.tonicPicker]![.guide]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {
                                 guideIconImages
                             }
                                 .aspectRatio(modeView.mode.scale == .pentatonic ? 3.0 : 2.0, contentMode: .fit)
                                 .padding(2.0)
-                                .background(modeView.viewConductor.paletteChoice == .loud ? Color(HomeyPad.primaryColor) : modeView.keyColor)
+                                .background(notationalContext.colorPalette[instrumentalContext.instrumentType]! == .loud ? Color(HomeyPad.primaryColor) : modeView.keyColor)
                                 .cornerRadius(3.0)
                         )
                     }
@@ -70,7 +74,7 @@ public struct ModeLabelView: View {
                         Image(systemName: modeView.mode.pitchDirection.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor :  modeView.mode.pitchDirection.majorMinor.color))
+                            .foregroundColor(Color((notationalContext.colorPalette[instrumentalContext.instrumentType]! == .ebonyIvory) ? modeView.accentColor :  modeView.mode.pitchDirection.majorMinor.color))
                     )
                 Image(systemName: "square")
                     .resizable()
@@ -80,7 +84,7 @@ public struct ModeLabelView: View {
                         Image(systemName: modeView.mode.chordShape.icon)
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor : modeView.mode.chordShape.majorMinor.color))
+                            .foregroundColor(Color(notationalContext.colorPalette[instrumentalContext.instrumentType]! == .ebonyIvory ? modeView.accentColor : modeView.mode.chordShape.majorMinor.color))
                     )
                 if modeView.mode.scale == .pentatonic {
                     Image(systemName: "square")
@@ -91,7 +95,7 @@ public struct ModeLabelView: View {
                             Image(systemName: Scale.pentatonic.icon)
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor(Color(modeView.viewConductor.paletteChoice == .ebonyIvory ? modeView.accentColor : modeView.mode.majorMinor.color))
+                                .foregroundColor(Color(notationalContext.colorPalette[instrumentalContext.instrumentType]! == .ebonyIvory ? modeView.accentColor : modeView.mode.majorMinor.color))
                         )
                 }
             }
@@ -102,7 +106,7 @@ public struct ModeLabelView: View {
         }
         
         var textColor: Color {
-            switch modeView.viewConductor.paletteChoice {
+            switch notationalContext.colorPalette[instrumentalContext.instrumentType]! {
             case .subtle:
                 return modeView.mode.majorMinor.color
             case .loud:
@@ -113,5 +117,6 @@ public struct ModeLabelView: View {
         }
 
     }
+    
 }
 

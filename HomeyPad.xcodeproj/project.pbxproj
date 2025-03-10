@@ -25,6 +25,7 @@
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
 		B0279BC22D7F7C50002E8C01 /* TonicPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0279BC12D7F7C4B002E8C01 /* TonicPicker.swift */; };
+		B0279BC42D7F938C002E8C01 /* TonicAndModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */; };
 		B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02851D02D6F63F5009B7F92 /* SynthConductor.swift */; };
 		B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0663C592D7728A7003C936F /* TonicConductor.swift */; };
 		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
@@ -89,6 +90,7 @@
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0279BC12D7F7C4B002E8C01 /* TonicPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPicker.swift; sourceTree = "<group>"; };
+		B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicAndModePickerView.swift; sourceTree = "<group>"; };
 		B02851D02D6F63F5009B7F92 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B0663C592D7728A7003C936F /* TonicConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicConductor.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		B093E14B2CBD2DB800130B06 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */,
 				B093E1452CBD2DB800130B06 /* HeaderView.swift */,
 				B093E1482CBD2DB800130B06 /* OctaveShiftView.swift */,
 				B093E14A2CBD2DB800130B06 /* TonicPickerSettingsView.swift */,
@@ -410,6 +413,7 @@
 				B0C7FD3C2BBAFB29006FF26F /* StringsView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B06CC5A02D6D21DC00290353 /* ModeView.swift in Sources */,
+				B0279BC42D7F938C002E8C01 /* TonicAndModePickerView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
 				B01A30092D7B393600A95DDD /* KeyboardInstrument.swift in Sources */,
 				B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */,

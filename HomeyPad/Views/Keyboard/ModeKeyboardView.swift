@@ -9,9 +9,7 @@ public struct ModeKeyboardView: Identifiable, View {
     
     public var body: some View {
         ZStack {
-            ModePickerView(
-                modeConductor: modeConductor
-            )            
+            ModePickerView()            
             KeyboardKeyMultitouchView { touches in
                 modeConductor.modeLocations = touches
             }

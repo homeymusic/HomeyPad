@@ -1,14 +1,3 @@
-//{ mode, columnIndex in
-//   ModeView(mode: mode,
-//            columnIndex: columnIndex,
-//            thisConductor: modeConductor,
-//            viewConductor: viewConductor,
-//            modeConductor: modeConductor
-//            )
-//   .aspectRatio(2.0, contentMode: .fit)
-//}
-//
-
 import SwiftUI
 import HomeyMusicKit
 
@@ -16,17 +5,14 @@ import HomeyMusicKit
 public struct ModeContainerView: View {
     // Update the closure type to accept a Mode and a columnIndex.
     var mode: Mode
-    @ObservedObject var conductor: ViewConductor
     var columnIndex: Int  // Pass the column position from ModePickerView.
     var modeView: ModeView
-    init(conductor: ViewConductor,
-         mode: Mode,
+    init(mode: Mode,
          columnIndex: Int)
     {
-        self.conductor = conductor
         self.mode = mode
         self.columnIndex = columnIndex
-        self.modeView = ModeView(mode: mode,  columnIndex: columnIndex, thisConductor: conductor)
+        self.modeView = ModeView(mode: mode,  columnIndex: columnIndex)
     }
 
     func rect(rect: CGRect) -> some View {

@@ -55,7 +55,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(viewConductor.animationStyle, value: viewConductor.layoutChoice)
+            .animation(HomeyPad.animationStyle, value: viewConductor.layoutChoice)
         }
     }
 }

@@ -14,42 +14,34 @@ public struct InstrumentView: Identifiable, View {
             switch instrumentalContext.instrumentType {
             case .isomorphic:
                 IsomorphicView(
-                    viewConductor: conductor,
                     isomorphic: instrumentalContext.instrument as! Isomorphic
                 )
             case .diamanti:
                 DiamantiView(
-                    viewConductor: conductor,
                     diamanti: instrumentalContext.instrument as! Diamanti
                 )
             case .piano:
                 PianoView(
-                    viewConductor: conductor,
                     piano: instrumentalContext.instrument as! Piano
                 )
             case .guitar:
                 StringsView(
-                    viewConductor: conductor,
                     stringInstrument: instrumentalContext.instrument as! Guitar
                 )
             case .bass:
                 StringsView(
-                    viewConductor: conductor,
                     stringInstrument: instrumentalContext.instrument as! Bass
                 )
             case .violin:
                 StringsView(
-                    viewConductor: conductor,
                     stringInstrument: instrumentalContext.instrument as! Violin
                 )
             case .cello:
                 StringsView(
-                    viewConductor: conductor,
                     stringInstrument: instrumentalContext.instrument as! Cello
                 )
             case .banjo:
                 StringsView(
-                    viewConductor: conductor,
                     stringInstrument: instrumentalContext.instrument as! Banjo
                 )
             default:
