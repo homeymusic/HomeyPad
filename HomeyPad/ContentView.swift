@@ -11,9 +11,11 @@ struct ContentView: View {
     @State var showTonicPicker: Bool
     
     let tonalContext: TonalContext
+    let notationalTonicContext: NotationalTonicContext
 
-    init(tonalContext: TonalContext) {
+    init(tonalContext: TonalContext, notationalTonicContext: NotationalTonicContext) {
         self.tonalContext = tonalContext
+        self.notationalTonicContext = notationalTonicContext
 
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
@@ -133,10 +135,10 @@ struct ContentView: View {
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        if showTonicPicker && (tonicConductor.showTonicLabels || modeConductor.showModes) {
+                        if showTonicPicker && (notationalTonicContext.showTonicLabels || modeConductor.showModes) {
                             VStack {
                                 
-                                if tonicConductor.showTonicLabels {
+                                if notationalTonicContext.showTonicLabels {
                                     TonicKeyboardView(
                                         tonicConductor: tonicConductor
                                     )

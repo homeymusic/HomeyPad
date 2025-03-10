@@ -5,7 +5,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
     @ObservedObject var modeConductor: ViewConductor
     
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var notationalTonicContext: NotationalContext
+    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
     var body: some View {
         VStack(spacing: 0.0) {

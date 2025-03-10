@@ -8,7 +8,7 @@ struct HomeyPad: App {
     @StateObject private var instrumentalContext: InstrumentalContext
     @StateObject private var tonalContext: TonalContext
     @StateObject private var notationalContext: NotationalContext
-    @StateObject private var notationalTonicContext: NotationalContext
+    @StateObject private var notationalTonicContext: NotationalTonicContext
     @StateObject private var midiContext: MIDIContext
 
     init() {
@@ -16,7 +16,7 @@ struct HomeyPad: App {
         let instrumentContext = InstrumentalContext()
         let tonalContext = TonalContext()
         let notationalContext = NotationalContext()
-        let notationalTonicContext = NotationalContext()
+        let notationalTonicContext = NotationalTonicContext()
 
         // Now assign them to the state objects using the underscore syntax.
         _instrumentalContext = StateObject(wrappedValue: instrumentContext)
@@ -45,7 +45,10 @@ struct HomeyPad: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(tonalContext: tonalContext)
+            ContentView(
+                tonalContext: tonalContext,
+                notationalTonicContext: notationalTonicContext
+            )
                 .environmentObject(instrumentalContext)
                 .environmentObject(tonalContext)
                 .environmentObject(notationalContext)

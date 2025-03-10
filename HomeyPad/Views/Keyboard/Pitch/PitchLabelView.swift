@@ -35,8 +35,19 @@ public struct PitchLabelView: View {
         @EnvironmentObject var tonalContext: TonalContext
         @EnvironmentObject var instrumentContext: InstrumentalContext
         @EnvironmentObject var notationalContext: NotationalContext
+        @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
+        var thisNotationalContext: NotationalContext {
+            pitchView.containerType == .tonicPicker ? notationalTonicContext : notationalContext
+        }
+        
         var body: some View {
+            
+            if pitchView.containerType == .tonicPicker {
+                
+            }
+            
+            
             VStack(spacing: 2) {
                 if instrumentContext.instrumentType == .piano && pitchView.containerType != .tonicPicker {
                     pianoLayoutSpacer
@@ -63,47 +74,47 @@ public struct PitchLabelView: View {
         var noteLabels: some View {
             AnyView(
                 Group {
-                    if notationalContext.noteLabels[.letter] ?? false {
+                    if thisNotationalContext.noteLabels[.letter] ?? false {
                         overlayText("\(pitchView.pitch.letter(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.fixedDo]! {
+                    if thisNotationalContext.noteLabels[.fixedDo]! {
                         overlayText("\(pitchView.pitch.fixedDo(using: tonalContext.accidental))\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.month]! {
+                    if thisNotationalContext.noteLabels[.month]! {
                         overlayText("\(Calendar.current.shortMonthSymbols[(pitchView.pitch.pitchClass.intValue + 3) % 12].capitalized)\(octave)")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.midi]! {
+                    if thisNotationalContext.noteLabels[.midi]! {
                         overlayText(String(pitchView.pitch.midiNote.number))
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.wavelength]! {
+                    if thisNotationalContext.noteLabels[.wavelength]! {
                         overlayText("\("λ") \(pitchView.pitch.wavelength.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.wavenumber]! {
+                    if thisNotationalContext.noteLabels[.wavenumber]! {
                         overlayText("\("k") \(pitchView.pitch.wavenumber.formatted(.number.notation(.compactName).precision(.significantDigits(3))))m⁻¹")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.period]! {
+                    if thisNotationalContext.noteLabels[.period]! {
                         overlayText("\("T") \((pitchView.pitch.fundamentalPeriod * 1000.0).formatted(.number.notation(.compactName).precision(.significantDigits(4))))ms")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.frequency]! {
+                    if thisNotationalContext.noteLabels[.frequency]! {
                         overlayText("\("f") \(pitchView.pitch.fundamentalFrequency.formatted(.number.notation(.compactName).precision(.significantDigits(3))))Hz")
                     } else {
                         EmptyView()
                     }
-                    if notationalContext.noteLabels[.cochlea]! {
+                    if thisNotationalContext.noteLabels[.cochlea]! {
                         overlayText("\(pitchView.pitch.cochlea.formatted(.number.notation(.compactName).precision(.significantDigits(3))))%")
                     } else {
                         EmptyView()
@@ -113,7 +124,7 @@ public struct PitchLabelView: View {
         }
         
         var symbolIcon: some View {
-            if notationalContext.intervalLabels[.symbol]! {
+            if thisNotationalContext.intervalLabels[.symbol]! {
                 return AnyView(
                     Color.clear.overlay(
                         pitchView.pitchInterval.consonanceDissonance.image
@@ -138,31 +149,31 @@ public struct PitchLabelView: View {
         
         var intervalLabels: some View {
             return Group {
-                if notationalContext.intervalLabels[.interval]! {
+                if thisNotationalContext.intervalLabels[.interval]! {
                     overlayText(String(pitchView.pitchInterval.intervalClass.shorthand(for: tonalContext.pitchDirection)))
                 }
-                if notationalContext.intervalLabels[.roman]! {
+                if thisNotationalContext.intervalLabels[.roman]! {
                     overlayText(String(pitchView.pitchInterval.roman(pitchDirection: tonalContext.pitchDirection)))
                 }
-                if notationalContext.intervalLabels[.degree]! {
+                if thisNotationalContext.intervalLabels[.degree]! {
                     overlayText(String(pitchView.pitchInterval.degree(pitchDirection: tonalContext.pitchDirection)))
                 }
-                if notationalContext.intervalLabels[.integer]! {
+                if thisNotationalContext.intervalLabels[.integer]! {
                     overlayText(String(pitchView.pitchInterval.distance))
                 }
-                if notationalContext.intervalLabels[.movableDo]! {
+                if thisNotationalContext.intervalLabels[.movableDo]! {
                     overlayText(pitchView.pitchInterval.movableDo)
                 }
-                if notationalContext.intervalLabels[.wavelengthRatio]! {
+                if thisNotationalContext.intervalLabels[.wavelengthRatio]! {
                     overlayText(String(pitchView.pitchInterval.wavelengthRatio))
                 }
-                if notationalContext.intervalLabels[.wavenumberRatio]! {
+                if thisNotationalContext.intervalLabels[.wavenumberRatio]! {
                     overlayText(String(pitchView.pitchInterval.wavenumberRatio))
                 }
-                if notationalContext.intervalLabels[.periodRatio]! {
+                if thisNotationalContext.intervalLabels[.periodRatio]! {
                     overlayText(String(pitchView.pitchInterval.periodRatio))
                 }
-                if notationalContext.intervalLabels[.frequencyRatio]! {
+                if thisNotationalContext.intervalLabels[.frequencyRatio]! {
                     overlayText(String(pitchView.pitchInterval.frequencyRatio))
                 }
             }
@@ -199,7 +210,7 @@ public struct PitchLabelView: View {
         }
         
         var octave: String {
-            notationalContext.noteLabels[.octave]! ? String(pitchView.pitch.octave) : ""
+            thisNotationalContext.noteLabels[.octave]! ? String(pitchView.pitch.octave) : ""
         }
     }
 }

@@ -1,13 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
 
-public enum ContainerType {
-    case basic
-    case diamond
-    case span
-    case tonicPicker
-}
-
 public struct PitchContainerView: View {
     var pitch: Pitch
     @ObservedObject var conductor: ViewConductor
