@@ -86,7 +86,7 @@ public struct PitchView: View {
         
     // Local variable to check activation based on layout
     var isActivated: Bool {
-        containerType != .tonicPicker ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
+        containerType == .tonicPicker ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
     }
 
     var keyColor: Color {
