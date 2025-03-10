@@ -5,7 +5,8 @@ struct TonicPickerPitchLabelsPopoverView: View {
     @ObservedObject var modeConductor: ViewConductor
     
     @EnvironmentObject var tonalContext: TonalContext
-    
+    @EnvironmentObject var notationalTonicContext: NotationalContext
+
     var body: some View {
         VStack(spacing: 0.0) {
             Grid {
@@ -16,7 +17,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: tonicConductor.noteLabelBinding(for: key))
+                                   isOn: notationalTonicContext.noteBinding(for: key))
                             .tint(Color.gray)
                             .foregroundColor(.white)
                         }
@@ -46,7 +47,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
                         Toggle(key.label,
-                               isOn: tonicConductor.intervalLabelBinding(for: key))
+                               isOn: notationalTonicContext.intervalBinding(for: key))
                         .tint(Color.gray)
                     }
                     if key == .symbol {

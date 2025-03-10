@@ -8,6 +8,7 @@ struct HomeyPad: App {
     @StateObject private var instrumentalContext: InstrumentalContext
     @StateObject private var tonalContext: TonalContext
     @StateObject private var notationalContext: NotationalContext
+    @StateObject private var notationalTonicContext: NotationalContext
     @StateObject private var midiContext: MIDIContext
 
     init() {
@@ -15,11 +16,13 @@ struct HomeyPad: App {
         let instrumentContext = InstrumentalContext()
         let tonalContext = TonalContext()
         let notationalContext = NotationalContext()
-        
+        let notationalTonicContext = NotationalContext()
+
         // Now assign them to the state objects using the underscore syntax.
         _instrumentalContext = StateObject(wrappedValue: instrumentContext)
         _tonalContext = StateObject(wrappedValue: tonalContext)
         _notationalContext = StateObject(wrappedValue: notationalContext)
+        _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
 
         // You can also add callbacks now.
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
@@ -46,6 +49,7 @@ struct HomeyPad: App {
                 .environmentObject(instrumentalContext)
                 .environmentObject(tonalContext)
                 .environmentObject(notationalContext)
+                .environmentObject(notationalTonicContext)            
                 .environmentObject(midiContext)
         }
     }
