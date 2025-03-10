@@ -1,14 +1,13 @@
 import SwiftUI
 import HomeyMusicKit
 
-final class InstrumentContext: ObservableObject {
+final class InstrumentalContext: ObservableObject {
     let appDefaults = UserDefaults.standard
 
     @Published var layoutChoice: LayoutChoice
     @Published var stringsLayoutChoice: StringsLayoutChoice
     @Published var instrumentType: InstrumentType = .diamanti {
         didSet {
-            print("instrumentType didSet:", instrumentType)
             if instrumentType.isStringInstrument {
                 stringInstrumentType = instrumentType
             }

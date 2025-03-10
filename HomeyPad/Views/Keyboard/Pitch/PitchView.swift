@@ -12,7 +12,7 @@ public struct PitchView: View {
     @EnvironmentObject var modeConductor: ViewConductor
 
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var instrumentContext: InstrumentContext
+    @EnvironmentObject var instrumentContext: InstrumentalContext
 
     var pitchInterval: Interval {
         return tonalContext.interval(fromTonicTo: pitch)

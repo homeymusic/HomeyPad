@@ -5,42 +5,47 @@ import HomeyMusicKit
 @main
 struct HomeyPad: App {
     
-    @StateObject private var appContext: InstrumentContext
+    @StateObject private var instrumentalContext: InstrumentalContext
     @StateObject private var tonalContext: TonalContext
+    @StateObject private var notationalContext: NotationalContext
     @StateObject private var midiContext: MIDIContext
 
     init() {
         // Initialize appContext and tonalContext as local variables.
-        let appCtx = InstrumentContext()
-        let tonalCtx = TonalContext()
+        let instrumentContext = InstrumentalContext()
+        let tonalContext = TonalContext()
+        let notationalContext = NotationalContext()
         
         // Now assign them to the state objects using the underscore syntax.
-        _appContext = StateObject(wrappedValue: appCtx)
-        _tonalContext = StateObject(wrappedValue: tonalCtx)
-        
+        _instrumentalContext = StateObject(wrappedValue: instrumentContext)
+        _tonalContext = StateObject(wrappedValue: tonalContext)
+        _notationalContext = StateObject(wrappedValue: notationalContext)
+
+        // You can also add callbacks now.
+        tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
+            if oldTonicPitch != newTonicPitch {
+                buzz()
+            }
+        }
+
         // Now it's safe to use them to initialize midiContext.
         _midiContext = StateObject(wrappedValue: MIDIContext(
-            tonalContext: tonalCtx,
-            instrumentMIDIChannelProvider: { appCtx.instrumentType.rawValue },
+            tonalContext: tonalContext,
+            instrumentMIDIChannelProvider: { instrumentContext.instrumentType.rawValue },
             tonicMIDIChannel: TonicPicker.tonic.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
             manufacturer: "Homey Music"
         ))
         
-        // You can also add callbacks now.
-        tonalCtx.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
-            if oldTonicPitch != newTonicPitch {
-                buzz()
-            }
-        }
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView(appContext: appContext, tonalContext: tonalContext)
-                .environmentObject(appContext)
+            ContentView(tonalContext: tonalContext)
+                .environmentObject(instrumentalContext)
                 .environmentObject(tonalContext)
+                .environmentObject(notationalContext)
                 .environmentObject(midiContext)
         }
     }

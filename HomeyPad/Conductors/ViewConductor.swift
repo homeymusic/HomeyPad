@@ -125,6 +125,11 @@ class ViewConductor: ObservableObject {
     
     @Published var layoutLabel: LayoutLabel = LayoutLabel()
     
+    // TODO: move all the UI choices pinned to layout choice elsewhere.
+    // maybe into the Instrument instance?
+    // but we are then mixing notational context with instrument context?
+    // or in this case putting info stickies on the instrument is the instrument?
+    
     var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] {
         layoutLabel.noteLabelChoices
     }

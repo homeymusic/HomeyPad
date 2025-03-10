@@ -5,6 +5,7 @@ public enum ContainerType {
     case basic
     case diamond
     case span
+    case tonicPicker
 }
 
 public struct PitchContainerView: View {

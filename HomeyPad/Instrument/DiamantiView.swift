@@ -6,7 +6,7 @@ struct DiamantiView: View {
     @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var diamanti: Diamanti
     
-    @EnvironmentObject var instrumentContext: InstrumentContext
+    @EnvironmentObject var instrumentContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
     
     // MARK: - Helper for rendering a key view for a given note

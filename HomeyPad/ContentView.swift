@@ -10,11 +10,9 @@ struct ContentView: View {
 
     @State var showTonicPicker: Bool
     
-    let instrumentContext: InstrumentContext
     let tonalContext: TonalContext
 
-    init(appContext: InstrumentContext, tonalContext: TonalContext) {
-        self.instrumentContext = appContext
+    init(tonalContext: TonalContext) {
         self.tonalContext = tonalContext
 
         // Set up for encoding and decoding the user default dictionaries

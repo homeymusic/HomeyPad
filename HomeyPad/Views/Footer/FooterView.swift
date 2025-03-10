@@ -11,7 +11,7 @@ import HomeyMusicKit
 struct FooterView: View {
     @ObservedObject var viewConductor: ViewConductor
 
-    @EnvironmentObject var instrumentContext: InstrumentContext
+    @EnvironmentObject var instrumentContext: InstrumentalContext
 
     var body: some View {
         HStack {

@@ -10,8 +10,11 @@ struct TonicPickerView: View {
         HStack(spacing: 0) {
             ForEach(tonalContext.tonicPickerNotes, id: \.self) { note in
                 if Pitch.isValid(note) {
-                    PitchContainerView(conductor: tonicConductor,
-                                       pitch: tonalContext.pitch(for: MIDINoteNumber(note)))
+                    PitchContainerView(
+                        conductor: tonicConductor,
+                        pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
+                        containerType: .tonicPicker
+                    )
                 } else {
                     Color.clear
                 }

@@ -50,7 +50,7 @@
 		B093E1582CBD2DD600130B06 /* LayoutAndPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */; };
 		B093E1592CBD2DD600130B06 /* PalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */; };
 		B093E15A2CBD2DD600130B06 /* RowsColsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */; };
-		B099FF632D776CE400646A4A /* InstrumentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099FF622D776CDF00646A4A /* InstrumentContext.swift */; };
+		B099FF632D776CE400646A4A /* InstrumentalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099FF622D776CDF00646A4A /* InstrumentalContext.swift */; };
 		B0BF8E2C2CBD99F000E76B57 /* ViewConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 		B0C7FD302BBAFB16006FF26F /* PitchRectangles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7FD2C2BBAFB16006FF26F /* PitchRectangles.swift */; };
@@ -115,7 +115,7 @@
 		B093E1532CBD2DD600130B06 /* LayoutAndPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAndPalletePickerView.swift; sourceTree = "<group>"; };
 		B093E1542CBD2DD600130B06 /* PalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePopoverView.swift; sourceTree = "<group>"; };
 		B093E1552CBD2DD600130B06 /* RowsColsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowsColsPickerView.swift; sourceTree = "<group>"; };
-		B099FF622D776CDF00646A4A /* InstrumentContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentContext.swift; sourceTree = "<group>"; };
+		B099FF622D776CDF00646A4A /* InstrumentalContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentalContext.swift; sourceTree = "<group>"; };
 		B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConductor.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B0C7FD1E2BBAFB16006FF26F /* PitchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchContainerView.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
 				B01A2FFF2D7A8A4400A95DDD /* TonicPicker.swift */,
-				B099FF622D776CDF00646A4A /* InstrumentContext.swift */,
+				B099FF622D776CDF00646A4A /* InstrumentalContext.swift */,
 				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B01A30012D7A8DE400A95DDD /* Instrument */,
 				B0BF8E292CBD99F000E76B57 /* Conductors */,
@@ -416,7 +416,7 @@
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
 				B01A30092D7B393600A95DDD /* KeyboardInstrument.swift in Sources */,
 				B0F4FA4A2CBDC776004AC8E6 /* KeyboardKeyLabelsPopoverView.swift in Sources */,
-				B099FF632D776CE400646A4A /* InstrumentContext.swift in Sources */,
+				B099FF632D776CE400646A4A /* InstrumentalContext.swift in Sources */,
 				B01A301D2D7BAF8200A95DDD /* Bass.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
 				B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */,

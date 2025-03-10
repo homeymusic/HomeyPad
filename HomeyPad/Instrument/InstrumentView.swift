@@ -5,7 +5,7 @@ import HomeyMusicKit
 public struct InstrumentView: Identifiable, View {
     @ObservedObject var conductor: ViewConductor
     
-    @EnvironmentObject var instrumentContext: InstrumentContext
+    @EnvironmentObject var instrumentContext: InstrumentalContext
     
     public let id = UUID()
     

@@ -4,7 +4,7 @@ import HomeyMusicKit
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor
     
-    @EnvironmentObject var instrumentContext: InstrumentContext
+    @EnvironmentObject var instrumentContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
     
     var body: some View {
