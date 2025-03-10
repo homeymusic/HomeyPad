@@ -21,7 +21,7 @@ public enum InstrumentType: MIDIChannel, CaseIterable, Identifiable, Codable {
     public var icon: String {
         switch self {
         case .isomorphic: return "rectangle.split.2x1"
-        case .diamanti:  return "rectangle.split.2x2"
+        case .diamanti:   return "rectangle.split.2x2"
         case .piano:      return "pianokeys"
         case .violin:     return "guitars"
         case .cello:      return "guitars"

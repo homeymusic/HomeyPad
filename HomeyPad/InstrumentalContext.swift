@@ -2,16 +2,14 @@ import SwiftUI
 import HomeyMusicKit
 
 final class InstrumentalContext: ObservableObject {
-    @Published var layoutChoice: LayoutChoice
-    @Published var stringsLayoutChoice: StringsLayoutChoice
-    @Published var instrumentType: InstrumentType = .diamanti {
+    @Published var instrumentType: InstrumentType {
         didSet {
             if instrumentType.isStringInstrument {
                 stringInstrumentType = instrumentType
             }
         }
     }
-    @Published var stringInstrumentType: InstrumentType = .banjo
+    @Published var stringInstrumentType: InstrumentType
 
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
         Dictionary(uniqueKeysWithValues: InstrumentType.allCases.map { ($0, $0.instrument) })
@@ -34,9 +32,8 @@ final class InstrumentalContext: ObservableObject {
     }
     
     init() {
-        self.layoutChoice = LayoutChoice.diamanti
-        
-        self.stringsLayoutChoice = StringsLayoutChoice.violin
+        self.instrumentType = .diamanti
+        self.stringInstrumentType = .violin
     }
     
     public var instruments: [InstrumentType] {
