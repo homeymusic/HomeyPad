@@ -135,16 +135,14 @@ struct ContentView: View {
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        if showTonicPicker && (notationalTonicContext.showTonicLabels || modeConductor.showModes) {
+                        if showTonicPicker {
                             VStack {
                                 
-                                if notationalTonicContext.showTonicLabels {
-                                    TonicKeyboardView(
-                                        tonicConductor: tonicConductor
-                                    )
-                                    .aspectRatio(13.0, contentMode: .fit)
-                                    .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
-                                }
+                                TonicKeyboardView(
+                                    tonicConductor: tonicConductor
+                                )
+                                .aspectRatio(13.0, contentMode: .fit)
+                                .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                                 
                                 if modeConductor.showModes {
                                     ModeKeyboardView(
