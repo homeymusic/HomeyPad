@@ -24,7 +24,7 @@ struct KeyboardKeyLabelsPopoverView: View {
                             GridRow {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
+//                                    .foregroundColor(viewConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
                                 Picker("", selection: $tonalContext.accidental) {
                                     ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
@@ -32,17 +32,17 @@ struct KeyboardKeyLabelsPopoverView: View {
                                     }
                                 }
                                 .pickerStyle(.segmented)
-                                .disabled(!viewConductor.enableAccidentalPicker())
+//                                .disabled(!viewConductor.enableAccidentalPicker())
                             }
                             GridRow {
-                                Image(systemName: "4.square")
-                                    .gridCellAnchor(.center)
-                                    .foregroundColor(viewConductor.enableOctavePicker() ? .white : Color(UIColor.darkGray))
-                                Toggle(NoteLabelChoice.octave.label,
-                                       isOn: viewConductor.noteLabelBinding(for: .octave))
-                                .tint(Color.gray)
-                                .foregroundColor(viewConductor.enableOctavePicker() ? .white : Color(UIColor.darkGray))
-                                .disabled(!viewConductor.enableOctavePicker())
+//                                Image(systemName: "4.square")
+//                                    .gridCellAnchor(.center)
+//                                    .foregroundColor(viewConductor.enableOctavePicker() ? .white : Color(UIColor.darkGray))
+//                                Toggle(NoteLabelChoice.octave.label,
+//                                       isOn: viewConductor.noteLabelBinding(for: .octave))
+//                                .tint(Color.gray)
+//                                .foregroundColor(viewConductor.enableOctavePicker() ? .white : Color(UIColor.darkGray))
+//                                .disabled(!viewConductor.enableOctavePicker())
                             }
                         }
                     }

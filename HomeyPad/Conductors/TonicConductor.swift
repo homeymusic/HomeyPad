@@ -11,10 +11,7 @@ final class TonicConductor: ViewConductor {
     ) {
         super.init(
             layoutChoice: .tonic,
-            stringsLayoutChoice: stringsLayoutChoice,
             latching: latching,
-            layoutPalette: layoutPalette,
-            layoutLabel: layoutLabel,
             sendTonicState: true,
             tonalContext: tonalContext
         )

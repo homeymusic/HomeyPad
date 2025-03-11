@@ -2,8 +2,6 @@ import SwiftUI
 import HomeyMusicKit
 
 struct OctaveShiftView: View {
-    @ObservedObject var tonicConductor: ViewConductor
-
     @EnvironmentObject var tonalContext: TonalContext
     
     var body: some View {

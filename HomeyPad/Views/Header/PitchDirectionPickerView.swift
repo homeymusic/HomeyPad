@@ -2,7 +2,6 @@ import SwiftUI
 import HomeyMusicKit
 
 struct PitchDirectionPickerView: View {
-    @ObservedObject var tonicConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
 
     var body: some View {

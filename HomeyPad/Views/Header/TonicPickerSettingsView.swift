@@ -2,18 +2,13 @@ import SwiftUI
 import HomeyMusicKit
 
 struct TonicPickerSettingsView: View {
-    @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var modeConductor: ViewConductor
-    
-    @Binding var showTonicPicker: Bool
-
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
     var body: some View {
         HStack {
             
-            if showTonicPicker {
+            if notationalTonicContext.showTonicPicker {
                 Button(action: {
                     notationalTonicContext.showLabelsPopover.toggle()
                 }) {
@@ -33,7 +28,7 @@ struct TonicPickerSettingsView: View {
                             .padding([.top, .bottom], 7)
                         Divider()
                         ScrollView(.vertical) {
-                            TonicPickerPitchLabelsPopoverView(tonicConductor: tonicConductor, modeConductor: modeConductor)
+                            TonicPickerPitchLabelsPopoverView()
                                 .presentationCompactAdaptation(.popover)
                         }
                         .scrollIndicatorsFlash(onAppear: true)
@@ -55,13 +50,13 @@ struct TonicPickerSettingsView: View {
             
             Button(action: {
                 withAnimation {
-                    showTonicPicker.toggle()
+                    notationalTonicContext.showTonicPicker.toggle()
                     buzz()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: showTonicPicker ? LayoutChoice.tonic.icon + ".fill" : LayoutChoice.tonic.icon)
+                        Image(systemName: notationalTonicContext.showTonicPicker ? LayoutChoice.tonic.icon + ".fill" : LayoutChoice.tonic.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -70,7 +65,7 @@ struct TonicPickerSettingsView: View {
                 .padding(30.0)
             }
             
-            if showTonicPicker {
+            if notationalTonicContext.showTonicPicker {
                 Button(action: {
                     tonalContext.resetToDefault()
                 }) {

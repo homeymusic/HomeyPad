@@ -8,8 +8,6 @@ struct ContentView: View {
     @StateObject private var modeConductor: ViewConductor
     @StateObject private var viewConductor: ViewConductor
     
-    @State var showTonicPicker: Bool
-    
     let tonalContext: TonalContext
     let instrumentalContext: InstrumentalContext
     let notationalTonicContext: NotationalTonicContext
@@ -24,12 +22,6 @@ struct ContentView: View {
         // Set up for encoding and decoding the user default dictionaries
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        
-        // Show Tonic Picker
-        defaults.register(defaults: [
-            "showTonicPicker" : false
-        ])
-        showTonicPicker = defaults.bool(forKey: "showTonicPicker")
         
         // Latching
         defaults.register(defaults: [
@@ -67,54 +59,24 @@ struct ContentView: View {
                 tonicLayoutLabel = loadedTonicLayoutLabel
             }
         }
-        
-        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
-            defaults.register(defaults: [
-                "modeLayoutLabel" : encodedDefaultLayoutLabel
-            ])
-        }
-        var modeLayoutLabel: LayoutLabel = defaultLayoutLabel
-        if let savedModeLayoutLabel = defaults.object(forKey: "modeLayoutLabel") as? Data {
-            if let loadedModeLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedModeLayoutLabel) {
-                modeLayoutLabel = loadedModeLayoutLabel
-            }
-        }
-        
-        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
-            defaults.register(defaults: [
-                "viewLayoutLabel" : encodedDefaultLayoutLabel
-            ])
-        }
-        var viewLayoutLabel: LayoutLabel = defaultLayoutLabel
-        if let savedViewLayoutLabel = defaults.object(forKey: "viewLayoutLabel") as? Data {
-            if let loadedViewLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedViewLayoutLabel) {
-                viewLayoutLabel = loadedViewLayoutLabel
-            }
-        }
-        
+                
         viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.diamanti]
         viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.diamanti]
         
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
-            layoutPalette: viewLayoutPalette,
             layoutLabel: tonicLayoutLabel,
             tonalContext: tonalContext
         ))
         
         _modeConductor = StateObject(wrappedValue: ViewConductor(
             layoutChoice: .mode,
-            layoutPalette: viewLayoutPalette,
-            layoutLabel: modeLayoutLabel,
             sendTonicState: false,
             tonalContext: tonalContext
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
             layoutChoice: .diamanti,
-            stringsLayoutChoice: .banjo,
             latching: latching,
-            layoutPalette: viewLayoutPalette,
-            layoutLabel: viewLayoutLabel,
             sendTonicState: false,
             tonalContext: tonalContext
         ))
@@ -130,23 +92,17 @@ struct ContentView: View {
                 ZStack() {
                     // Header
                     VStack {
-                        HeaderView(viewConductor: viewConductor,
-                                   tonicConductor: tonicConductor,
-                                   modeConductor: modeConductor,
-                                   showTonicPicker: $showTonicPicker)
+                        HeaderView()
                         .frame(height: settingsHeight)
                         Spacer()
                     }
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        if showTonicPicker {
-                            TonicAndModePickerView(
-                                tonicConductor: tonicConductor,
-                                modeConductor: modeConductor
-                            )
-                        }
-                        
+                        TonicAndModePickerView(
+                            tonicConductor: tonicConductor,
+                            modeConductor: modeConductor
+                        )
                         //                        if HomeyPad.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
                         //                            InstrumentView(
                         //                                conductor: viewConductor
@@ -185,42 +141,6 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .onChange(of: viewConductor.layoutChoice) {
-                tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
-                tonicConductor.layoutPalette.outlineChoice[.tonic] = viewConductor.layoutPalette.outlineChoice[viewConductor.layoutChoice]
-                defaults.set(viewConductor.layoutChoice.rawValue, forKey: "layoutChoice")
-            }
-            .onChange(of: viewConductor.stringsLayoutChoice) {
-                defaults.set(viewConductor.stringsLayoutChoice.rawValue, forKey: "stringsLayoutChoice")
-            }
-            .onChange(of: showTonicPicker) {
-                defaults.set(showTonicPicker, forKey: "showTonicPicker")
-            }
-            .onChange(of: viewConductor.latching) {
-                defaults.set(viewConductor.latching, forKey: "latching")
-            }
-            .onChange(of: viewConductor.layoutPalette) {
-                tonicConductor.layoutPalette.choices[.tonic] = viewConductor.layoutPalette.choices[viewConductor.layoutChoice]
-                tonicConductor.layoutPalette.outlineChoice[.tonic] = viewConductor.layoutPalette.outlineChoice[viewConductor.layoutChoice]
-                if let encodedViewLayoutPalette = try? JSONEncoder().encode(viewConductor.layoutPalette) {
-                    defaults.set(encodedViewLayoutPalette, forKey: "viewLayoutPalette")
-                }
-            }
-            .onChange(of: tonicConductor.layoutLabel) {
-                if let encodedTonicLayoutLabel = try? JSONEncoder().encode(tonicConductor.layoutLabel) {
-                    defaults.set(encodedTonicLayoutLabel, forKey: "tonicLayoutLabel")
-                }
-            }
-            .onChange(of: modeConductor.layoutLabel) {
-                if let encodedModeLayoutLabel = try? JSONEncoder().encode(modeConductor.layoutLabel) {
-                    defaults.set(encodedModeLayoutLabel, forKey: "modeLayoutLabel")
-                }
-            }
-            .onChange(of: viewConductor.layoutLabel) {
-                if let encodedViewLayoutLabel = try? JSONEncoder().encode(viewConductor.layoutLabel) {
-                    defaults.set(encodedViewLayoutLabel, forKey: "viewLayoutLabel")
-                }
-            }
             .environmentObject(tonicConductor)
             .environmentObject(modeConductor)
             .environmentObject(viewConductor)

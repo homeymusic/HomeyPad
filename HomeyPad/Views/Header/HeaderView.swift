@@ -2,27 +2,18 @@ import SwiftUI
 import HomeyMusicKit
 
 struct HeaderView: View {
-    @ObservedObject var viewConductor: ViewConductor
-    @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var modeConductor: ViewConductor
-    
-    @Binding var showTonicPicker: Bool
+    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
     
     var body: some View {
         HStack {
             HStack(spacing: 0.0) {
-                OctaveShiftView(tonicConductor: tonicConductor)
+                OctaveShiftView()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            TonicPickerSettingsView(
-                tonicConductor: tonicConductor,
-                modeConductor: modeConductor,
-                showTonicPicker: $showTonicPicker)
+            TonicPickerSettingsView()
             HStack(spacing: 15) {
-                PitchDirectionPickerView(
-                    tonicConductor: tonicConductor
-                )
-                HelpView(viewConductor: viewConductor)
+                PitchDirectionPickerView()
+                HelpView()
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }

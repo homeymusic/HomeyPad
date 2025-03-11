@@ -1,9 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
 struct TonicPickerPitchLabelsPopoverView: View {
-    @ObservedObject var tonicConductor: ViewConductor
-    @ObservedObject var modeConductor: ViewConductor
-    
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var notationalTonicContext: NotationalTonicContext
 
@@ -25,7 +22,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                             GridRow {
                                 Image(systemName: NoteLabelChoice.accidentals.icon)
                                     .gridCellAnchor(.center)
-                                    .foregroundColor(tonicConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
+//                                    .foregroundColor(tonicConductor.enableAccidentalPicker() ? .white : Color(UIColor.darkGray))
                                 Picker("", selection: $tonalContext.accidental) {
                                     ForEach(Accidental.displayCases) { accidental in
                                         Text(accidental.icon)
@@ -33,7 +30,7 @@ struct TonicPickerPitchLabelsPopoverView: View {
                                     }
                                 }
                                 .pickerStyle(.segmented)
-                                .disabled(!tonicConductor.enableAccidentalPicker())
+//                                .disabled(!tonicConductor.enableAccidentalPicker())
                             }
                         }
                     }

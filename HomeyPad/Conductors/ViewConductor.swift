@@ -6,10 +6,7 @@ class ViewConductor: ObservableObject {
     
     init(
         layoutChoice: LayoutChoice,
-        stringsLayoutChoice: StringsLayoutChoice = .violin,
         latching: Bool = false,
-        layoutPalette: LayoutPalette = LayoutPalette(),
-        layoutLabel: LayoutLabel = LayoutLabel(),
         sendTonicState: Bool = false,
         tonalContext: TonalContext
     ) {
@@ -18,10 +15,7 @@ class ViewConductor: ObservableObject {
         
         // Set up other properties.
         self.layoutChoice        = layoutChoice
-        self.stringsLayoutChoice = stringsLayoutChoice
         self.latching            = latching
-        self.layoutPalette       = layoutPalette
-        self.layoutLabel         = layoutLabel
         
         if layoutChoice != .mode && layoutChoice != .tonic {
             synthConductor = SynthConductor()
@@ -39,14 +33,6 @@ class ViewConductor: ObservableObject {
         }
     }
     
-    @Published var stringsLayoutChoice: StringsLayoutChoice = .violin {
-        didSet(oldStringsLayoutChoice) {
-            if oldStringsLayoutChoice != stringsLayoutChoice {
-                buzz()
-            }
-        }
-    }
-    
     @Published var latching: Bool = false {
         willSet {
             tonalContext.activatedPitches.forEach {
@@ -57,123 +43,6 @@ class ViewConductor: ObservableObject {
         didSet {
             buzz()
         }
-    }
-    
-    @Published var showHelp: Bool = false
-    
-    var isPaletteDefault: Bool {
-        layoutPalette.choices[layoutChoice] == LayoutPalette.defaultLayoutPalette[layoutChoice] &&
-        layoutPalette.outlineChoice[layoutChoice] == LayoutPalette.defaultLayoutOutline[layoutChoice]
-    }
-    
-    func resetPaletteChoice() {
-        layoutPalette.choices[layoutChoice] = LayoutPalette.defaultLayoutPalette[layoutChoice]
-        layoutPalette.outlineChoice[layoutChoice] = LayoutPalette.defaultLayoutOutline[layoutChoice]
-        buzz()
-    }
-    
-    var areLabelsDefault: Bool {
-        noteLabels[layoutChoice] == LayoutLabel.defaultNoteLabels[layoutChoice] &&
-        intervalLabels[layoutChoice] == LayoutLabel.defaultIntervalLabels[layoutChoice]
-    }
-    
-    func resetLabels() {
-        resetNoteLabels()
-        resetIntervalLabels()
-        buzz()
-    }
-    
-    func resetNoteLabels() {
-        layoutLabel.noteLabelChoices[layoutChoice] = LayoutLabel.defaultNoteLabels[layoutChoice]
-    }
-    
-    func resetIntervalLabels() {
-        layoutLabel.intervalLabelChoices[layoutChoice] = LayoutLabel.defaultIntervalLabels[layoutChoice]
-    }
-        
-    var paletteChoice: PaletteChoice {
-        layoutPalette.choices[layoutChoice]!
-    }
-    
-    var outlineChoice: Bool {
-        layoutPalette.outlineChoice[layoutChoice]!
-    }
-    
-    @Published var layoutPalette: LayoutPalette = LayoutPalette() {
-        willSet(newLayoutPalette) {
-            buzz()
-        }
-    }
-    
-    @Published var layoutLabel: LayoutLabel = LayoutLabel()
-    
-    // TODO: move all the UI choices pinned to layout choice elsewhere.
-    // maybe into the Instrument instance?
-    // but we are then mixing notational context with instrument context?
-    // or in this case putting info stickies on the instrument is the instrument?
-    
-    var noteLabels: [LayoutChoice: [NoteLabelChoice: Bool]] {
-        layoutLabel.noteLabelChoices
-    }
-    
-    var noteLabel: [NoteLabelChoice: Bool] {
-        noteLabels[layoutChoice]!
-    }
-    
-    var intervalLabels: [LayoutChoice: [IntervalLabelChoice: Bool]] {
-        layoutLabel.intervalLabelChoices
-    }
-    
-    var intervalLabel: [IntervalLabelChoice: Bool] {
-        intervalLabels[layoutChoice]!
-    }
-    
-    public func noteLabelBinding(for key: NoteLabelChoice) -> Binding<Bool> {
-        return Binding(
-            get: {
-                return self.noteLabels[self.layoutChoice]![key] ?? false
-            },
-            set: {
-                self.layoutLabel.noteLabelChoices[self.layoutChoice]![key] = $0
-            }
-        )
-    }
-    
-    public func intervalLabelBinding(for key: IntervalLabelChoice) -> Binding<Bool> {
-        return Binding(
-            get: {
-                return self.intervalLabels[self.layoutChoice]![key] ?? false
-            },
-            set: {
-                self.layoutLabel.intervalLabelChoices[self.layoutChoice]![key] = $0
-            }
-        )
-    }
-    
-    public func outlineBinding() -> Binding<Bool> {
-        return Binding(
-            get: {
-                return self.layoutPalette.outlineChoice[self.layoutChoice]!
-            },
-            set: {
-                self.layoutPalette.outlineChoice[self.layoutChoice]! = $0
-            }
-        )
-    }
-    
-    var showSymbols: Bool {
-        intervalLabels[layoutChoice]![.symbol]!
-    }
-    
-    func enableAccidentalPicker() -> Bool {
-        return noteLabels[layoutChoice]![.letter]! ||
-        noteLabels[layoutChoice]![.fixedDo]!
-    }
-    
-    func enableOctavePicker() -> Bool {
-        return noteLabels[layoutChoice]![.letter]! ||
-        noteLabels[layoutChoice]![.fixedDo]! ||
-        noteLabels[layoutChoice]![.month]!
     }
     
     var pitchRectInfos: [PitchRectInfo] = []

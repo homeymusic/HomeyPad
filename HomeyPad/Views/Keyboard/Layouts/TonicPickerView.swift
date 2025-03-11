@@ -3,8 +3,6 @@ import HomeyMusicKit
 import MIDIKitCore
 
 struct TonicPickerView: View {
-    @ObservedObject var tonicConductor: ViewConductor
-    
     @EnvironmentObject var tonalContext: TonalContext
     var body: some View {
         HStack(spacing: 0) {

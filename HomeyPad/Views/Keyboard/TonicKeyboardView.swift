@@ -9,9 +9,7 @@ public struct TonicKeyboardView: Identifiable, View {
     
     public var body: some View {
         ZStack {
-            TonicPickerView(
-                tonicConductor: tonicConductor
-            )
+            TonicPickerView()
             KeyboardKeyMultitouchView { touches in
                 tonicConductor.pitchLocations = touches
             }            
