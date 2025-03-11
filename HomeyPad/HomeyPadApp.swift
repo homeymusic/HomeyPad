@@ -9,7 +9,7 @@ struct HomeyPad: App {
     @StateObject private var tonalContext: TonalContext
     @StateObject private var notationalContext: NotationalContext
     @StateObject private var notationalTonicContext: NotationalTonicContext
-    @StateObject private var midiContext: MIDIContext
+    @StateObject private var midiConductor: MIDIConductor
 
     init() {
         // Initialize appContext and tonalContext as local variables.
@@ -31,8 +31,8 @@ struct HomeyPad: App {
             }
         }
 
-        // Now it's safe to use them to initialize midiContext.
-        _midiContext = StateObject(wrappedValue: MIDIContext(
+        // Now it's safe to use them to initialize midiConductor.
+        _midiConductor = StateObject(wrappedValue: MIDIConductor(
             tonalContext: tonalContext,
             instrumentMIDIChannelProvider: { instrumentalContext.instrumentType.rawValue },
             tonicMIDIChannel: InstrumentType.tonicPicker.rawValue,
@@ -54,7 +54,7 @@ struct HomeyPad: App {
                 .environmentObject(tonalContext)
                 .environmentObject(notationalContext)
                 .environmentObject(notationalTonicContext)            
-                .environmentObject(midiContext)
+                .environmentObject(midiConductor)
         }
     }
     

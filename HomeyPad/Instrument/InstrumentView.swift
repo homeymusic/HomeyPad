@@ -49,6 +49,9 @@ public struct InstrumentView: Identifiable, View {
             }
             
             KeyboardKeyMultitouchView { touches in
+                // TODO: add a fn to InstrumentalContext:
+                // instrumentalContext.setPitchLocations(touches, tonalContext, synthConductor)
+                // and move the ViewConductor capability to there.
                 conductor.pitchLocations = touches
             }
             
