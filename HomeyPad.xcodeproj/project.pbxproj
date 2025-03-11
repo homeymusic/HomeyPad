@@ -28,8 +28,6 @@
 		B0279BC42D7F938C002E8C01 /* TonicAndModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */; };
 		B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02851D02D6F63F5009B7F92 /* SynthConductor.swift */; };
 		B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0663C592D7728A7003C936F /* TonicConductor.swift */; };
-		B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */; };
-		B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */; };
 		B06CC5922D6D193500290353 /* PitchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC5912D6D193500290353 /* PitchLabelView.swift */; };
 		B06CC5952D6D1DF100290353 /* ModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC5942D6D1DEC00290353 /* ModePickerView.swift */; };
 		B06CC5A02D6D21DC00290353 /* ModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC59F2D6D21D800290353 /* ModeView.swift */; };
@@ -95,8 +93,6 @@
 		B0663C592D7728A7003C936F /* TonicConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicConductor.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
-		B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPalette.swift; sourceTree = "<group>"; };
-		B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutLabel.swift; sourceTree = "<group>"; };
 		B06CC5912D6D193500290353 /* PitchLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchLabelView.swift; sourceTree = "<group>"; };
 		B06CC5942D6D1DEC00290353 /* ModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModePickerView.swift; sourceTree = "<group>"; };
 		B06CC59F2D6D21D800290353 /* ModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeView.swift; sourceTree = "<group>"; };
@@ -225,8 +221,6 @@
 			children = (
 				B0E25F7D2BC7EF640072A09A /* TonicPickerView.swift */,
 				B06CC5942D6D1DEC00290353 /* ModePickerView.swift */,
-				B067B6EA2BCF035F00BC6C45 /* LayoutPalette.swift */,
-				B067B6EC2BCF199400BC6C45 /* LayoutLabel.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -436,10 +430,8 @@
 				B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */,
 				B0E25F7E2BC7EF640072A09A /* TonicPickerView.swift in Sources */,
 				B0C7FD342BBAFB16006FF26F /* InstrumentView.swift in Sources */,
-				B067B6EB2BCF035F00BC6C45 /* LayoutPalette.swift in Sources */,
 				B01A30192D7BAE4800A95DDD /* StringInstrument.swift in Sources */,
 				B06CC5AA2D6D28A900290353 /* ModeKeyboardView.swift in Sources */,
-				B067B6ED2BCF199400BC6C45 /* LayoutLabel.swift in Sources */,
 				B079AA732CC055A0008A86D2 /* TonicPickerPitchLabelsPopoverView.swift in Sources */,
 				B01A300D2D7B9B1300A95DDD /* Isomorphic.swift in Sources */,
 				B0C7FD3B2BBAFB29006FF26F /* IsomorphicView.swift in Sources */,

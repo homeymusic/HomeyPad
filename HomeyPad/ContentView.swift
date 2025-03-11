@@ -29,42 +29,7 @@ struct ContentView: View {
         ])
         let latching = defaults.bool(forKey: "latching")
         
-        // Set up for layout palettes
-        let defaultLayoutPalette = LayoutPalette()
-        
-        // Palette selection for each layout in main view
-        if let encodedDefaultLayoutPalette = try? encoder.encode(defaultLayoutPalette) {
-            defaults.register(defaults: [
-                "viewLayoutPalette" : encodedDefaultLayoutPalette
-            ])
-        }
-        var viewLayoutPalette: LayoutPalette = defaultLayoutPalette
-        if let savedViewLayoutPalette = defaults.object(forKey: "viewLayoutPalette") as? Data {
-            if let loadedViewLayoutPalette = try? decoder.decode(LayoutPalette.self, from: savedViewLayoutPalette) {
-                viewLayoutPalette = loadedViewLayoutPalette
-            }
-        }
-        
-        // Note label selections
-        let defaultLayoutLabel = LayoutLabel()
-        
-        if let encodedDefaultLayoutLabel = try? encoder.encode(defaultLayoutLabel) {
-            defaults.register(defaults: [
-                "tonicLayoutLabel" : encodedDefaultLayoutLabel
-            ])
-        }
-        var tonicLayoutLabel: LayoutLabel = defaultLayoutLabel
-        if let savedTonicLayoutLabel = defaults.object(forKey: "tonicLayoutLabel") as? Data {
-            if let loadedTonicLayoutLabel = try? decoder.decode(LayoutLabel.self, from: savedTonicLayoutLabel) {
-                tonicLayoutLabel = loadedTonicLayoutLabel
-            }
-        }
-                
-        viewLayoutPalette.choices[.tonic] = viewLayoutPalette.choices[.diamanti]
-        viewLayoutPalette.outlineChoice[.tonic] = viewLayoutPalette.outlineChoice[.diamanti]
-        
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
-            layoutLabel: tonicLayoutLabel,
             tonalContext: tonalContext
         ))
         

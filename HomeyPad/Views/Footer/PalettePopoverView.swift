@@ -22,7 +22,7 @@ struct PalettePopoverView: View {
                     Image(systemName: "pencil.and.outline")
                         .gridCellAnchor(.center)
                         .foregroundColor(.white)
-                    Toggle(LayoutPalette.outlineLabel,
+                    Toggle(notationalContext.outlineLabel,
                            isOn: notationalContext.outlineBinding(for: instrumentalContext.instrumentType))
                     .tint(Color.gray)
                     .foregroundColor(.white)
