@@ -48,7 +48,6 @@ struct FooterView: View {
                     .pickerStyle(.segmented)
                 } else {
                     RowsColsPickerView(
-                        viewConductor: viewConductor,
                         keyboardInstrument: instrumentalContext.keyboardInstrument
                     )
                 }

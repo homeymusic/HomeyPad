@@ -176,10 +176,6 @@ class ViewConductor: ObservableObject {
         noteLabels[layoutChoice]![.month]!
     }
     
-    @Published var showKeyLabelsPopover: Bool = false
-    
-    @Published var showPalettePopover: Bool = false
-    
     var pitchRectInfos: [PitchRectInfo] = []
     var modeRectInfos: [ModeRectInfo] = []
     

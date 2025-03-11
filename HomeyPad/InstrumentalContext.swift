@@ -10,7 +10,7 @@ final class InstrumentalContext: ObservableObject {
         }
     }
     @Published var stringInstrumentType: InstrumentType
-
+        
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
         var mapping: [InstrumentType: Instrument] = [:]
         InstrumentType.allCases.forEach { instrumentType in

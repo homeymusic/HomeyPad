@@ -2,7 +2,6 @@ import SwiftUI
 import HomeyMusicKit
 
 struct RowsColsPickerView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @ObservedObject var keyboardInstrument: KeyboardInstrument
     
     @EnvironmentObject var tonalContext: TonalContext

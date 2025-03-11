@@ -8,13 +8,14 @@ struct TonicPickerSettingsView: View {
     @Binding var showTonicPicker: Bool
 
     @EnvironmentObject var tonalContext: TonalContext
-    
+    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+
     var body: some View {
         HStack {
             
             if showTonicPicker {
                 Button(action: {
-                    tonicConductor.showKeyLabelsPopover.toggle()
+                    notationalTonicContext.showLabelsPopover.toggle()
                 }) {
                     ZStack {
                         Color.clear.overlay(
@@ -25,7 +26,7 @@ struct TonicPickerSettingsView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
-                .popover(isPresented: $tonicConductor.showKeyLabelsPopover,
+                .popover(isPresented: $notationalTonicContext.showLabelsPopover,
                          content: {
                     VStack(spacing: 0) {
                         Image(systemName: LayoutChoice.tonic.icon + ".fill")
@@ -38,15 +39,14 @@ struct TonicPickerSettingsView: View {
                         .scrollIndicatorsFlash(onAppear: true)
                         Divider()
                         Button(action: {
-                            tonicConductor.resetLabels()
-                            modeConductor.resetLabels()
+                            notationalTonicContext.resetLabels(for: InstrumentType.tonicPicker)
                         }, label: {
                             Image(systemName: "gobackward")
                                 .gridCellAnchor(.center)
-                                .foregroundColor(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault ? .gray : .white)
+                                .foregroundColor(notationalTonicContext.areLabelsDefault(for: InstrumentType.tonicPicker) ? .gray : .white)
                         })
                         .gridCellColumns(2)
-                        .disabled(tonicConductor.areLabelsDefault && modeConductor.areLabelsDefault)
+                        .disabled(notationalTonicContext.areLabelsDefault(for: InstrumentType.tonicPicker))
                         .padding([.top, .bottom], 7)
                     }
                 })

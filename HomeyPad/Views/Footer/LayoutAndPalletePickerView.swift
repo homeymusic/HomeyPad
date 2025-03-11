@@ -4,15 +4,15 @@ import HomeyMusicKit
 struct LayoutAndPalletePickerView: View {
     @ObservedObject var viewConductor: ViewConductor
     
-    @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
-    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+    @EnvironmentObject var instrumentalContext: InstrumentalContext
+    @EnvironmentObject var notationalContext: NotationalContext
     
     var body: some View {
         HStack(spacing: 0) {
             
             Button(action: {
-                viewConductor.showKeyLabelsPopover.toggle()
+                notationalContext.showLabelsPopover.toggle()
             }) {
                 ZStack {
                     Color.clear.overlay(
@@ -23,10 +23,10 @@ struct LayoutAndPalletePickerView: View {
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .popover(isPresented: $viewConductor.showKeyLabelsPopover,
+            .popover(isPresented: $notationalContext.showLabelsPopover,
                      content: {
                 VStack(spacing: 0) {
-                    Image(systemName: viewConductor.layoutChoice.icon)
+                    Image(systemName: instrumentalContext.instrumentType.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
@@ -36,14 +36,14 @@ struct LayoutAndPalletePickerView: View {
                     .scrollIndicatorsFlash(onAppear: true)
                     Divider()
                     Button(action: {
-                        viewConductor.resetLabels()
+                        notationalContext.resetLabels(for: instrumentalContext.instrumentType)
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
-                            .foregroundColor(viewConductor.areLabelsDefault ? .gray : .white)
+                            .foregroundColor(notationalContext.areLabelsDefault(for: instrumentalContext.instrumentType) ? .gray : .white)
                     })
                     .gridCellColumns(2)
-                    .disabled(viewConductor.areLabelsDefault)
+                    .disabled(notationalContext.areLabelsDefault(for: instrumentalContext.instrumentType))
                     .padding([.top, .bottom], 7)
                 }
             })
@@ -59,7 +59,7 @@ struct LayoutAndPalletePickerView: View {
             .pickerStyle(.segmented)
                                     
             Button(action: {
-                viewConductor.showPalettePopover.toggle()
+                notationalContext.showPalettePopover.toggle()
             }) {
                 ZStack {
                     Color.clear.overlay(
@@ -70,10 +70,10 @@ struct LayoutAndPalletePickerView: View {
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .popover(isPresented: $viewConductor.showPalettePopover,
+            .popover(isPresented: $notationalContext.showPalettePopover,
                      content: {
                 VStack(spacing: 0) {
-                    Image(systemName: viewConductor.layoutChoice.icon)
+                    Image(systemName: instrumentalContext.instrumentType.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
@@ -85,14 +85,14 @@ struct LayoutAndPalletePickerView: View {
                     Divider()
                     
                     Button(action: {
-                        viewConductor.resetPaletteChoice()
+                        notationalContext.resetColorPalette(for: instrumentalContext.instrumentType)
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
-                            .foregroundColor(viewConductor.isPaletteDefault ? .gray : .white)
+                            .foregroundColor(notationalContext.isColorPaletteDefault(for: instrumentalContext.instrumentType) ? .gray : .white)
                     })
                     .padding([.top, .bottom], 7)
-                    .disabled(viewConductor.isPaletteDefault)
+                    .disabled(notationalContext.isColorPaletteDefault(for: instrumentalContext.instrumentType))
                                                         
                 }
             })
