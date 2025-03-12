@@ -26,7 +26,6 @@
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
 		B0279BC22D7F7C50002E8C01 /* TonicPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0279BC12D7F7C4B002E8C01 /* TonicPicker.swift */; };
 		B0279BC42D7F938C002E8C01 /* TonicAndModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */; };
-		B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02851D02D6F63F5009B7F92 /* SynthConductor.swift */; };
 		B0663C5A2D7728AD003C936F /* TonicConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0663C592D7728A7003C936F /* TonicConductor.swift */; };
 		B06CC5922D6D193500290353 /* PitchLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC5912D6D193500290353 /* PitchLabelView.swift */; };
 		B06CC5952D6D1DF100290353 /* ModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CC5942D6D1DEC00290353 /* ModePickerView.swift */; };
@@ -89,7 +88,6 @@
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0279BC12D7F7C4B002E8C01 /* TonicPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicPicker.swift; sourceTree = "<group>"; };
 		B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicAndModePickerView.swift; sourceTree = "<group>"; };
-		B02851D02D6F63F5009B7F92 /* SynthConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthConductor.swift; sourceTree = "<group>"; };
 		B0663C592D7728A7003C936F /* TonicConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicConductor.swift; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeyPad.entitlements; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 			children = (
 				B0663C592D7728A7003C936F /* TonicConductor.swift */,
 				B0BF8E282CBD99F000E76B57 /* ViewConductor.swift */,
-				B02851D02D6F63F5009B7F92 /* SynthConductor.swift */,
 			);
 			path = Conductors;
 			sourceTree = "<group>";
@@ -414,7 +411,6 @@
 				B099FF632D776CE400646A4A /* InstrumentalContext.swift in Sources */,
 				B01A301D2D7BAF8200A95DDD /* Bass.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
-				B02851D12D6F63F5009B7F92 /* SynthConductor.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
 				B01A30172D7BA46600A95DDD /* Piano.swift in Sources */,
 				B06CC5A22D6D258C00290353 /* ModeLabelView.swift in Sources */,
@@ -674,7 +670,7 @@
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.4;
+				minimumVersion = 5.6.2;
 			};
 		};
 		B07897E52CBABEAF00DBBAE2 /* XCRemoteSwiftPackageReference "DunneAudioKit" */ = {
