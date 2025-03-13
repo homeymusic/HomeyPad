@@ -136,15 +136,6 @@ struct HelpPopoverView: View {
                         }
                 }
                 GridRow {
-                    Text("\(InstrumentType.tonicPicker.rawValue)")
-                    HStack {
-                        Image(systemName: InstrumentType.tonicPicker.icon)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: 17, height: 17)
-                        Text(InstrumentType.tonicPicker.label)
-                    }
-                }
-                GridRow {
                     Text("MIDI CC Parameters")
                         .font(.caption)
                         .gridCellColumns(2)

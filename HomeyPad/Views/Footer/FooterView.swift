@@ -15,27 +15,30 @@ struct FooterView: View {
 
     var body: some View {
         HStack {
-            Spacer()
-            Button(action: {
-                withAnimation {
-                    viewConductor.latching.toggle()
+            HStack {
+                Button(action: {
+                    withAnimation {
+                        viewConductor.latching.toggle()
+                    }
+                }) {
+                    ZStack {
+                        Color.clear.overlay(
+                            Image(systemName: viewConductor.latching ? "pin.fill" : "pin.slash")
+                                .foregroundColor(.white)
+                                .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.latching ? .black : .thin))
+                        )
+                        .aspectRatio(1.0, contentMode: .fit)
+                    }
                 }
-            }) {
-                ZStack {
-                    Color.clear.overlay(
-                        Image(systemName: viewConductor.latching ? "pin.fill" : "pin.slash")
-                            .foregroundColor(.white)
-                            .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.latching ? .black : .thin))
-                    )
-                    .aspectRatio(1.0, contentMode: .fit)
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             
-            LayoutAndPalletePickerView(
-                viewConductor: viewConductor
-            )
-            .id(instrumentalContext.instrumentType)
+            HStack {
+                InstrumentAndPalletePickerView(
+                    viewConductor: viewConductor
+                )
+                .id(instrumentalContext.instrumentType)
+            }
             
             HStack {
                 if instrumentalContext.instrumentType.isStringInstrument {

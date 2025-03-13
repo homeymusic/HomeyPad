@@ -23,7 +23,13 @@ public struct PitchView: View {
     }
     
     var borderWidthApparentSize: CGFloat {
-        isSmall ? 2.0 * backgroundBorderSize : backgroundBorderSize
+        if isSmall {
+            5.0 * backgroundBorderSize
+        } else if containerType == .diamond {
+            2.0 * backgroundBorderSize
+        } else {
+            backgroundBorderSize
+        }
     }
     
     var borderHeightApparentSize: CGFloat {
@@ -42,7 +48,7 @@ public struct PitchView: View {
             ZStack(alignment: instrumentalContext.instrumentType == .piano && containerType != .tonicPicker ? .bottom : .center) {
                 
                 ZStack(alignment: alignment) {
-                    KeyRectangle(fillColor: containerType != .tonicPicker ? Color(UIColor.systemGray6) : .black, pitchView: self, proxySize: proxy.size)
+                    KeyRectangle(fillColor: backgroundColor, pitchView: self, proxySize: proxy.size)
                         .overlay(alignment: alignment) {
                             if outline {
                                 KeyRectangle(fillColor: outlineColor, pitchView: self, proxySize: proxy.size)
@@ -89,6 +95,10 @@ public struct PitchView: View {
         containerType == .tonicPicker ? pitch.pitchClass.isActivated(in: tonalContext.activatedPitches) : pitch.isActivated
     }
 
+    var backgroundColor: Color {
+        .black
+    }
+    
     var keyColor: Color {
         let activeColor: Color
         let inactiveColor: Color

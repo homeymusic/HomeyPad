@@ -37,7 +37,7 @@ public struct ModeLabelView: View {
         
         var guideModeLabel: some View {
             AnyView(
-                HStack(spacing: 0.0) {
+                VStack(spacing: 0.0) {
                     if notationalTonicContext.noteLabels[.tonicPicker]![.mode]! {
                         Color.clear.overlay(
                             HStack(spacing: 1.0) {

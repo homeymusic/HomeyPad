@@ -16,6 +16,10 @@ public struct InstrumentView: Identifiable, View {
                 IsomorphicView(
                     isomorphic: instrumentalContext.instrument as! Isomorphic
                 )
+            case .tonnetz:
+                TonnetzView(
+                    tonnetz: instrumentalContext.instrument as! Tonnetz
+                )
             case .diamanti:
                 DiamantiView(
                     diamanti: instrumentalContext.instrument as! Diamanti

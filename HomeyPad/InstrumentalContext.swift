@@ -17,6 +17,8 @@ final class InstrumentalContext: ObservableObject {
             switch instrumentType {
             case .isomorphic:
                 mapping[instrumentType] = Isomorphic()
+            case .tonnetz:
+                mapping[instrumentType] = Tonnetz()
             case .diamanti:
                 mapping[instrumentType] = Diamanti()
             case .piano:

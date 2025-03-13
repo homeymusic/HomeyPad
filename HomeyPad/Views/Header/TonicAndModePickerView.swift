@@ -21,15 +21,24 @@ struct TonicAndModePickerView: View {
                     ModeKeyboardView(
                         modeConductor: modeConductor
                     )
-                    .aspectRatio(13.0 * 2.0, contentMode: .fit)
+                    .aspectRatio(13.0 * aspectMultiplier, contentMode: .fit)
                     .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
                 }
             }
             .padding(7.0)
             .background {
                 RoundedRectangle(cornerRadius: 7.0)
-                    .fill(Color(UIColor.systemGray6))
+                    .fill(.black)
             }
+        }
+    }
+    
+    var aspectMultiplier: CGFloat {
+        if notationalTonicContext.noteLabels[.tonicPicker]![.mode]! &&
+           notationalTonicContext.noteLabels[.tonicPicker]![.guide]! {
+            return HomeyPad.goldenRatio
+        } else {
+            return 2.0
         }
     }
 }
