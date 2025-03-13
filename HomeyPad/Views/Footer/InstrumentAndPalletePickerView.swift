@@ -27,7 +27,6 @@ struct InstrumentAndPalletePickerView: View {
                     KeyboardKeyLabelsPopoverView()
                         .presentationCompactAdaptation(.popover)
                 }
-                .scrollIndicatorsFlash(onAppear: true)
                 Divider()
                 Button(action: {
                     notationalContext.resetLabels(for: instrumentalContext.instrumentType)
@@ -76,7 +75,6 @@ struct InstrumentAndPalletePickerView: View {
                     PalettePopoverView()
                         .presentationCompactAdaptation(.popover)
                 }
-                .scrollIndicatorsFlash(onAppear: true)
                 
                 Divider()
                 

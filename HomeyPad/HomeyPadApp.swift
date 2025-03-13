@@ -11,7 +11,7 @@ struct HomeyPad: App {
     @StateObject private var notationalTonicContext: NotationalTonicContext
     @StateObject private var midiConductor: MIDIConductor
     @StateObject private var synthConductor: SynthConductor
-
+    
     init() {
         // Initialize appContext and tonalContext as local variables.
         let instrumentalContext = InstrumentalContext()
@@ -25,14 +25,28 @@ struct HomeyPad: App {
         _tonalContext = StateObject(wrappedValue: tonalContext)
         _notationalContext = StateObject(wrappedValue: notationalContext)
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
-
-        // You can also add callbacks now.
+        
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
             if oldTonicPitch != newTonicPitch {
+                print("oldTonicPitch != newTonicPitch")
                 buzz()
             }
         }
-
+        
+        tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
+            if oldPitchDirection != newPitchDirection {
+                print("oldPitchDirection != newPitchDirection")
+                buzz()
+            }
+        }
+        
+        tonalContext.addDidSetModeCallbacks { oldMode, newMode in
+            if oldMode != newMode {
+                print("oldMode != newMode")
+                buzz()
+            }
+        }
+        
         for pitch in tonalContext.allPitches {
             pitch.addOnActivateCallback { activatedPitch in
                 synthCondutor.noteOn(pitch: activatedPitch)
@@ -62,11 +76,11 @@ struct HomeyPad: App {
                 instrumentalContext: instrumentalContext,
                 notationalTonicContext: notationalTonicContext
             )
-                .environmentObject(instrumentalContext)
-                .environmentObject(tonalContext)
-                .environmentObject(notationalContext)
-                .environmentObject(notationalTonicContext)            
-                .environmentObject(midiConductor)
+            .environmentObject(instrumentalContext)
+            .environmentObject(tonalContext)
+            .environmentObject(notationalContext)
+            .environmentObject(notationalTonicContext)            
+            .environmentObject(midiConductor)
         }
     }
     
@@ -74,11 +88,11 @@ struct HomeyPad: App {
         case iPad
         case iPhone
     }
-
+    
     static let formFactor: FormFactor = UIScreen.main.bounds.size.width > 1000 ? .iPad : .iPhone
     static let primaryColor: CGColor = #colorLiteral(red: 0.4, green: 0.2666666667, blue: 0.2, alpha: 1)
     static let secondaryColor: CGColor = #colorLiteral(red: 0.9529411765, green: 0.8666666667, blue: 0.6705882353, alpha: 1)
     static let goldenRatio = (1 + sqrt(5)) / 2
     static let animationStyle: Animation = Animation.linear
-
+    
 }

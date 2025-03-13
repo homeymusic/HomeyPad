@@ -138,7 +138,7 @@ public struct PitchLabelView: View {
                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.width,
                                    maxHeight: 0.8 *
                                    pitchView.pitchInterval.consonanceDissonance.imageScale * proxySize.height /
-                                   CGFloat(notationalContext.labelsCount(for: instrumentalContext.instrumentType)))
+                                   (pitchView.containerType == .tonicPicker ? CGFloat(notationalTonicContext.labelsCount(for: InstrumentType.tonicPicker)) : CGFloat(notationalContext.labelsCount(for: instrumentalContext.instrumentType))))
                             .scaleEffect(pitchView.pitchInterval.isTonic ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 0.3),
                                        value: pitchView.pitchInterval.isTonic)

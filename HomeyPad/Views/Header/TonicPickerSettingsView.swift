@@ -31,7 +31,6 @@ struct TonicPickerSettingsView: View {
                             TonicPickerPitchLabelsPopoverView()
                                 .presentationCompactAdaptation(.popover)
                         }
-                        .scrollIndicatorsFlash(onAppear: true)
                         Divider()
                         Button(action: {
                             notationalTonicContext.resetLabels(for: InstrumentType.tonicPicker)
@@ -51,7 +50,6 @@ struct TonicPickerSettingsView: View {
             Button(action: {
                 withAnimation {
                     notationalTonicContext.showTonicPicker.toggle()
-                    buzz()
                 }
             }) {
                 ZStack {
