@@ -6,7 +6,8 @@ public struct InstrumentView: Identifiable, View {
     @ObservedObject var conductor: ViewConductor
     
     @EnvironmentObject var instrumentalContext: InstrumentalContext
-    
+    @EnvironmentObject var tonalContext: TonalContext
+
     public let id = UUID()
     
     public var body: some View {
@@ -53,15 +54,12 @@ public struct InstrumentView: Identifiable, View {
             }
             
             KeyboardKeyMultitouchView { touches in
-                // TODO: add a fn to InstrumentalContext:
-                // instrumentalContext.setPitchLocations(touches, tonalContext, synthConductor)
-                // and move the ViewConductor capability to there.
-                conductor.pitchLocations = touches
+                instrumentalContext.setPitchLocations(pitchLocations: touches, tonalContext: tonalContext)
             }
             
         }
         .onPreferenceChange(PitchRectsKey.self) { keyRectInfos in
-            conductor.pitchRectInfos = keyRectInfos
+            instrumentalContext.pitchRectInfos = keyRectInfos
         }
     }
 }

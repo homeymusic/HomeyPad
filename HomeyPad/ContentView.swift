@@ -23,26 +23,21 @@ struct ContentView: View {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         
-        // Latching
-        defaults.register(defaults: [
-            "latching" : false
-        ])
-        let latching = defaults.bool(forKey: "latching")
-        
+//        // Latching
+//        defaults.register(defaults: [
+//            "latching" : false
+//        ])
+//        let latching = defaults.bool(forKey: "latching")
+//        
         _tonicConductor = StateObject(wrappedValue: TonicConductor(
             tonalContext: tonalContext
         ))
         
         _modeConductor = StateObject(wrappedValue: ViewConductor(
-            layoutChoice: .mode,
-            sendTonicState: false,
             tonalContext: tonalContext
         ))
         
         _viewConductor = StateObject(wrappedValue: ViewConductor(
-            layoutChoice: .diamanti,
-            latching: latching,
-            sendTonicState: false,
             tonalContext: tonalContext
         ))
         

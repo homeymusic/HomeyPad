@@ -18,14 +18,14 @@ struct FooterView: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        viewConductor.latching.toggle()
+                        instrumentalContext.latching.toggle()
                     }
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: viewConductor.latching ? "pin.fill" : "pin.slash")
+                            Image(systemName: instrumentalContext.latching ? "pin.fill" : "pin.slash")
                                 .foregroundColor(.white)
-                                .font(Font.system(size: .leastNormalMagnitude, weight: viewConductor.latching ? .black : .thin))
+                                .font(Font.system(size: .leastNormalMagnitude, weight: instrumentalContext.latching ? .black : .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
@@ -57,7 +57,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(HomeyPad.animationStyle, value: viewConductor.layoutChoice)
+            .animation(HomeyPad.animationStyle, value: instrumentalContext.instrumentType)
         }
     }
 }

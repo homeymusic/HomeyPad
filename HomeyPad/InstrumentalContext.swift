@@ -10,7 +10,9 @@ final class InstrumentalContext: ObservableObject {
         }
     }
     @Published var stringInstrumentType: InstrumentType
-        
+    
+    @Published var latching: Bool
+    
     private(set) var instrumentByType: [InstrumentType: Instrument] = {
         var mapping: [InstrumentType: Instrument] = [:]
         InstrumentType.allCases.forEach { instrumentType in
@@ -59,9 +61,90 @@ final class InstrumentalContext: ObservableObject {
     init() {
         self.instrumentType = .diamanti
         self.stringInstrumentType = .violin
+        self.latching = false
     }
     
     public var instruments: [InstrumentType] {
         InstrumentType.keyboardInstruments + [self.stringInstrumentType]
+    }
+    
+    var pitchRectInfos: [PitchRectInfo] = []
+    private var isTonicLocked = false
+    private var latchingTouchedPitches = Set<Pitch>()
+    @Published var synthConductor: SynthConductor = SynthConductor()
+    
+    private func updateTonic(_ newTonicPitch: Pitch, tonalContext: TonalContext) {
+        if newTonicPitch != tonalContext.tonicPitch {
+            // Adjust pitch direction if the new tonic is an octave shift
+            if newTonicPitch.isOctave(relativeTo: tonalContext.tonicPitch) {
+                tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
+            }
+            tonalContext.tonicPitch = newTonicPitch
+        }
+    }
+
+    public func setPitchLocations(pitchLocations: [CGPoint], tonalContext: TonalContext) {
+        print("pitchLocations", pitchLocations)
+        print("tonalContext", tonalContext)
+        var touchedPitches = Set<Pitch>()
+        
+        // Process the touch locations and determine which keys are touched
+        for location in pitchLocations {
+            var pitch: Pitch?
+            var highestZindex = -1
+            
+            // Find the pitch at this location with the highest Z-index
+            for info in pitchRectInfos where info.rect.contains(location) {
+                if pitch == nil || info.zIndex > highestZindex {
+                    pitch = info.pitch
+                    highestZindex = info.zIndex
+                }
+            }
+            
+            if let p = pitch {
+                touchedPitches.insert(p)
+                
+                if instrumentType == .tonicPicker {
+                    // Handle tonic mode
+                    if !isTonicLocked {
+                        updateTonic(p, tonalContext: tonalContext)
+                        isTonicLocked = true
+                    }
+                } else {
+                    if latching {
+                        if !latchingTouchedPitches.contains(p) {
+                            latchingTouchedPitches.insert(p)
+                            // Toggle pitch activation
+                            if p.isActivated {
+                                synthConductor.noteOff(pitch: p)
+                                p.deactivate()
+                            } else {
+                                synthConductor.noteOn(pitch: p)
+                                p.activate()
+                            }
+                        }
+                    } else {
+                        if !p.isActivated {
+                            synthConductor.noteOn(pitch: p)
+                            p.activate()
+                        }
+                    }
+                }
+            }
+        }
+        
+        if !latching {
+            for pitch in tonalContext.activatedPitches {
+                if !touchedPitches.contains(pitch) {
+                    synthConductor.noteOff(pitch: pitch)
+                    pitch.deactivate()
+                }
+            }
+        }
+        
+        if pitchLocations.isEmpty {
+            isTonicLocked = false
+            latchingTouchedPitches.removeAll()  // Clear for the next interaction
+        }
     }
 }
