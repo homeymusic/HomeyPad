@@ -16,7 +16,7 @@ public struct ModeView: View {
             ZStack(alignment: .center) {
                 
                 ZStack(alignment: alignment) {
-                    ModeRectangle(fillColor: Color(UIColor.systemGray6), modeView: self, proxySize: proxy.size)
+                    ModeRectangle(fillColor: .black, modeView: self, proxySize: proxy.size)
                         .overlay(alignment: alignment) {
                             if outline {
                                 ModeRectangle(fillColor: outlineColor, modeView: self, proxySize: proxy.size)

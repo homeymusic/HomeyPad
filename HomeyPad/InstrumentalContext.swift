@@ -128,7 +128,6 @@ final class InstrumentalContext: ObservableObject {
     private var isTonicLocked = false
     
     public func setTonicLocations(tonicLocations: [CGPoint], tonalContext: TonalContext) {
-        print("tonicLocations", tonicLocations)
         for location in tonicLocations {
             var tonicPitch: Pitch?
             
@@ -153,7 +152,6 @@ final class InstrumentalContext: ObservableObject {
     
     
     private func updateTonic(_ newTonicPitch: Pitch, tonalContext: TonalContext) {
-        print("updateTonic")
         if newTonicPitch != tonalContext.tonicPitch {
             // Adjust pitch direction if the new tonic is an octave shift
             if newTonicPitch.isOctave(relativeTo: tonalContext.tonicPitch) {
@@ -167,7 +165,6 @@ final class InstrumentalContext: ObservableObject {
     private var isModeLocked = false
     
     public func setModeLocations(modeLocations: [CGPoint], tonalContext: TonalContext) {
-        print("modeLocations", modeLocations)
         for location in modeLocations {
             var mode: Mode?
             
@@ -192,7 +189,6 @@ final class InstrumentalContext: ObservableObject {
     }
     
     private func updateMode(_ newMode: Mode, tonalContext: TonalContext) {
-        print("updateMode")
         if newMode != tonalContext.mode {
             // Adjust pitch direction if the new tonic is an octave shift
             tonalContext.mode = newMode
