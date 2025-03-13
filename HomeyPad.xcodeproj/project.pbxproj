@@ -53,7 +53,6 @@
 				B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */,
 				B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
-				B0CF33DD2CA89078002F6B55 /* Frameworks */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,13 +104,6 @@
 				B093E1522CBD2DD600130B06 /* FooterView.swift */,
 			);
 			path = Footer;
-			sourceTree = "<group>";
-		};
-		B0CF33DD2CA89078002F6B55 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
