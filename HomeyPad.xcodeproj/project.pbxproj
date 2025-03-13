@@ -72,7 +72,6 @@
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
-				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
 			);
@@ -82,6 +81,7 @@
 		B0497EFA2BB8B41900AE9FC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B02673452BAF6C7C00DDFA62 /* ContentView.swift */,
 				B093E14B2CBD2DB800130B06 /* Header */,
 				B093E1562CBD2DD600130B06 /* Footer */,
 			);
@@ -91,8 +91,8 @@
 		B093E14B2CBD2DB800130B06 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */,
 				B093E1452CBD2DB800130B06 /* HeaderView.swift */,
+				B0279BC32D7F9384002E8C01 /* TonicAndModePickerView.swift */,
 				B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */,
 				B093E1472CBD2DB800130B06 /* HelpView.swift */,
 			);
