@@ -53,7 +53,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(HomeyPad.animationStyle, value: instrumentalContext.instrumentType)
+            .animation(HomeyMusicKit.animationStyle, value: instrumentalContext.instrumentType)
         }
     }
 }

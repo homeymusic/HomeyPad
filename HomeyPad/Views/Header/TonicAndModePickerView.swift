@@ -29,7 +29,7 @@ struct TonicAndModePickerView: View {
     var aspectMultiplier: CGFloat {
         if notationalTonicContext.noteLabels[.tonicPicker]![.mode]! &&
            notationalTonicContext.noteLabels[.tonicPicker]![.guide]! {
-            return HomeyPad.goldenRatio
+            return HomeyMusicKit.goldenRatio
         } else {
             return 2.0
         }

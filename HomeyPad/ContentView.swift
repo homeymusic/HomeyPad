@@ -45,7 +45,7 @@ struct ContentView: View {
                     VStack {
                         // Tonic Picker
                         TonicAndModePickerView()
-                        //                        if HomeyPad.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
+                        //                        if HomeyMusicKit.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
                         //                            InstrumentView(
                         //                                conductor: viewConductor
                         //                            ) { pitch in
@@ -61,7 +61,7 @@ struct ContentView: View {
                         //                            .ignoresSafeArea(edges:.horizontal)
                         //                        }
                         
-                        //                        if !HomeyPad.formFactor == .iPad {
+                        //                        if !HomeyMusicKit.formFactor == .iPad {
                         InstrumentView()
                         .ignoresSafeArea(edges:.horizontal)
                         //                          }
