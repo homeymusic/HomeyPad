@@ -9,7 +9,7 @@ struct ContentView: View {
     let instrumentalContext: InstrumentalContext
     let notationalTonicContext: NotationalTonicContext
     
-    init(tonalContext: TonalContext,
+    public init(tonalContext: TonalContext,
          instrumentalContext: InstrumentalContext,
          notationalTonicContext: NotationalTonicContext) {
         self.tonalContext = tonalContext
