@@ -122,6 +122,8 @@ public struct PitchView: View {
     var outlineSize: CGFloat {
         if pitchInterval.isTonic {
             return 3.0
+        } else if containerType == .diamond {
+            return 1.5
         } else {
             return 2.0
         }
