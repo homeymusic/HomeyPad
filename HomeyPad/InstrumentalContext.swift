@@ -70,7 +70,6 @@ final class InstrumentalContext: ObservableObject {
     
     var pitchRectInfos: [PitchRectInfo] = []
     private var latchingTouchedPitches = Set<Pitch>()
-    @Published var synthConductor: SynthConductor = SynthConductor()
     
     public func setPitchLocations(
         pitchLocations: [CGPoint],
@@ -99,16 +98,13 @@ final class InstrumentalContext: ObservableObject {
                         latchingTouchedPitches.insert(p)
                         // Toggle pitch activation
                         if p.isActivated {
-                            synthConductor.noteOff(pitch: p)
                             p.deactivate()
                         } else {
-                            synthConductor.noteOn(pitch: p)
                             p.activate()
                         }
                     }
                 } else {
                     if !p.isActivated {
-                        synthConductor.noteOn(pitch: p)
                         p.activate()
                     }
                 }
@@ -118,7 +114,6 @@ final class InstrumentalContext: ObservableObject {
         if !latching {
             for pitch in tonalContext.activatedPitches {
                 if !touchedPitches.contains(pitch) {
-                    synthConductor.noteOff(pitch: pitch)
                     pitch.deactivate()
                 }
             }

@@ -10,6 +10,7 @@ struct HomeyPad: App {
     @StateObject private var notationalContext: NotationalContext
     @StateObject private var notationalTonicContext: NotationalTonicContext
     @StateObject private var midiConductor: MIDIConductor
+    @StateObject private var synthConductor: SynthConductor
 
     init() {
         // Initialize appContext and tonalContext as local variables.
@@ -17,7 +18,8 @@ struct HomeyPad: App {
         let tonalContext = TonalContext()
         let notationalContext = NotationalContext()
         let notationalTonicContext = NotationalTonicContext()
-
+        let synthCondutor = SynthConductor()
+        
         // Now assign them to the state objects using the underscore syntax.
         _instrumentalContext = StateObject(wrappedValue: instrumentalContext)
         _tonalContext = StateObject(wrappedValue: tonalContext)
@@ -31,6 +33,15 @@ struct HomeyPad: App {
             }
         }
 
+        for pitch in tonalContext.allPitches {
+            pitch.addOnActivateCallback { activatedPitch in
+                synthCondutor.noteOn(pitch: activatedPitch)
+            }
+            pitch.addOnDeactivateCallback { deactivatedPitch in
+                synthCondutor.noteOff(pitch: deactivatedPitch)
+            }
+        }
+        
         // Now it's safe to use them to initialize midiConductor.
         _midiConductor = StateObject(wrappedValue: MIDIConductor(
             tonalContext: tonalContext,
@@ -41,6 +52,7 @@ struct HomeyPad: App {
             manufacturer: "Homey Music"
         ))
         
+        _synthConductor = StateObject(wrappedValue: synthCondutor)
     }
     
     var body: some Scene {
