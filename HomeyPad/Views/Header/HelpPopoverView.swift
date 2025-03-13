@@ -45,11 +45,11 @@ struct HelpPopoverView: View {
                         Text(mami.label.capitalized)
                     }
                 }
-                GridRow {
-                    Text("Intervals")
-                        .font(Font.caption)
-                        .gridCellColumns(2)
-                }
+//                GridRow {
+//                    Text("Intervals")
+//                        .font(Font.caption)
+//                        .gridCellColumns(2)
+//                }
 //                ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
 //                    GridRow {
 //                        intervalClass.consonanceDissonance.image
