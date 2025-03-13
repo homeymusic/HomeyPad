@@ -1,10 +1,7 @@
 import SwiftUI
 import HomeyMusicKit
 
-/// Touch-oriented musical keyboard
 public struct TonicKeyboardView: Identifiable, View {
-    @ObservedObject var tonicConductor: ViewConductor
-    
     @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
     
@@ -14,16 +11,13 @@ public struct TonicKeyboardView: Identifiable, View {
         ZStack {
             TonicPickerView()
             KeyboardKeyMultitouchView { touches in
-                
-                
-                instrumentalContext.setPitchLocations(
-                    pitchLocations: touches,
+                instrumentalContext.setTonicLocations(
+                    tonicLocations: touches,
                     tonalContext: tonalContext
                 )
             }
-            .onPreferenceChange(PitchRectsKey.self) { keyRectInfos in
-                instrumentalContext.pitchRectInfos = keyRectInfos
-            }
+        }.onPreferenceChange(TonicRectsKey.self) { tonicRectInfos in
+            instrumentalContext.tonicRectInfos = tonicRectInfos
         }
     }
-} 
+}

@@ -1,7 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
 
-/// For accumulating key rects.
 struct ModeRectsKey: PreferenceKey {
     static var defaultValue: [ModeRectInfo] = []
 

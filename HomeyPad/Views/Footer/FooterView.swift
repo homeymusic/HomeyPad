@@ -9,8 +9,6 @@ import SwiftUI
 import HomeyMusicKit
 
 struct FooterView: View {
-    @ObservedObject var viewConductor: ViewConductor
-
     @EnvironmentObject var instrumentalContext: InstrumentalContext
 
     var body: some View {
@@ -34,9 +32,7 @@ struct FooterView: View {
             }
             
             HStack {
-                InstrumentAndPalletePickerView(
-                    viewConductor: viewConductor
-                )
+                InstrumentAndPalletePickerView()
                 .id(instrumentalContext.instrumentType)
             }
             

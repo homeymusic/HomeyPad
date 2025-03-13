@@ -69,23 +69,13 @@ final class InstrumentalContext: ObservableObject {
     }
     
     var pitchRectInfos: [PitchRectInfo] = []
-    private var isTonicLocked = false
     private var latchingTouchedPitches = Set<Pitch>()
     @Published var synthConductor: SynthConductor = SynthConductor()
     
-    private func updateTonic(_ newTonicPitch: Pitch, tonalContext: TonalContext) {
-        if newTonicPitch != tonalContext.tonicPitch {
-            // Adjust pitch direction if the new tonic is an octave shift
-            if newTonicPitch.isOctave(relativeTo: tonalContext.tonicPitch) {
-                tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
-            }
-            tonalContext.tonicPitch = newTonicPitch
-        }
-    }
-
-    public func setPitchLocations(pitchLocations: [CGPoint], tonalContext: TonalContext) {
-        print("pitchLocations", pitchLocations)
-        print("tonalContext", tonalContext)
+    public func setPitchLocations(
+        pitchLocations: [CGPoint],
+        tonalContext: TonalContext
+    ) {
         var touchedPitches = Set<Pitch>()
         
         // Process the touch locations and determine which keys are touched
@@ -104,30 +94,22 @@ final class InstrumentalContext: ObservableObject {
             if let p = pitch {
                 touchedPitches.insert(p)
                 
-                if instrumentType == .tonicPicker {
-                    // Handle tonic mode
-                    if !isTonicLocked {
-                        updateTonic(p, tonalContext: tonalContext)
-                        isTonicLocked = true
-                    }
-                } else {
-                    if latching {
-                        if !latchingTouchedPitches.contains(p) {
-                            latchingTouchedPitches.insert(p)
-                            // Toggle pitch activation
-                            if p.isActivated {
-                                synthConductor.noteOff(pitch: p)
-                                p.deactivate()
-                            } else {
-                                synthConductor.noteOn(pitch: p)
-                                p.activate()
-                            }
-                        }
-                    } else {
-                        if !p.isActivated {
+                if latching {
+                    if !latchingTouchedPitches.contains(p) {
+                        latchingTouchedPitches.insert(p)
+                        // Toggle pitch activation
+                        if p.isActivated {
+                            synthConductor.noteOff(pitch: p)
+                            p.deactivate()
+                        } else {
                             synthConductor.noteOn(pitch: p)
                             p.activate()
                         }
+                    }
+                } else {
+                    if !p.isActivated {
+                        synthConductor.noteOn(pitch: p)
+                        p.activate()
                     }
                 }
             }
@@ -143,8 +125,84 @@ final class InstrumentalContext: ObservableObject {
         }
         
         if pitchLocations.isEmpty {
-            isTonicLocked = false
             latchingTouchedPitches.removeAll()  // Clear for the next interaction
         }
     }
+        
+    var tonicRectInfos: [TonicRectInfo] = []
+    private var isTonicLocked = false
+    
+    public func setTonicLocations(tonicLocations: [CGPoint], tonalContext: TonalContext) {
+        print("tonicLocations", tonicLocations)
+        for location in tonicLocations {
+            var tonicPitch: Pitch?
+            
+            for info in tonicRectInfos where info.rect.contains(location) {
+                if tonicPitch == nil {
+                    tonicPitch = info.pitch
+                }
+            }
+            
+            if let t = tonicPitch {
+                if !isTonicLocked {
+                    updateTonic(t, tonalContext: tonalContext)
+                    isTonicLocked = true
+                }
+            }
+        }
+        
+        if tonicLocations.isEmpty {
+            isTonicLocked = false
+        }
+    }
+    
+    
+    private func updateTonic(_ newTonicPitch: Pitch, tonalContext: TonalContext) {
+        print("updateTonic")
+        if newTonicPitch != tonalContext.tonicPitch {
+            // Adjust pitch direction if the new tonic is an octave shift
+            if newTonicPitch.isOctave(relativeTo: tonalContext.tonicPitch) {
+                tonalContext.pitchDirection = newTonicPitch.midiNote.number > tonalContext.tonicPitch.midiNote.number ? .downward : .upward
+            }
+            tonalContext.tonicPitch = newTonicPitch
+        }
+    }
+    
+    var modeRectInfos: [ModeRectInfo] = []
+    private var isModeLocked = false
+    
+    public func setModeLocations(modeLocations: [CGPoint], tonalContext: TonalContext) {
+        print("modeLocations", modeLocations)
+        for location in modeLocations {
+            var mode: Mode?
+            
+            // Find the pitch at this location with the highest Z-index
+            for info in modeRectInfos where info.rect.contains(location) {
+                if mode == nil {
+                    mode = info.mode
+                }
+            }
+            
+            if let m = mode {
+                if !isModeLocked {
+                    updateMode(m, tonalContext: tonalContext)
+                    isModeLocked = true
+                }
+            }
+        }
+        
+        if modeLocations.isEmpty {
+            isModeLocked = false
+        }
+    }
+    
+    private func updateMode(_ newMode: Mode, tonalContext: TonalContext) {
+        print("updateMode")
+        if newMode != tonalContext.mode {
+            // Adjust pitch direction if the new tonic is an octave shift
+            tonalContext.mode = newMode
+        }
+    }
+    
+    
 }

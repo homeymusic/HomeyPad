@@ -1,7 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
 struct KeyboardKeyLabelsPopoverView: View {
-    @ObservedObject var viewConductor: ViewConductor
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalContext: NotationalContext

@@ -8,7 +8,7 @@ struct TonicPickerView: View {
         HStack(spacing: 0) {
             ForEach(tonalContext.tonicPickerNotes, id: \.self) { note in
                 if Pitch.isValid(note) {
-                    PitchContainerView(
+                    TonicContainerView(
                         pitch: tonalContext.pitch(for: MIDINoteNumber(note)),
                         containerType: .tonicPicker
                     )
@@ -17,7 +17,7 @@ struct TonicPickerView: View {
                 }
             }
         }
-        .animation(HomeyPad.animationStyle, value: tonalContext.tonicMIDI)
+        .animation(HomeyPad.animationStyle, value: tonalContext.tonicPitch)
         .clipShape(Rectangle())
     }
 }

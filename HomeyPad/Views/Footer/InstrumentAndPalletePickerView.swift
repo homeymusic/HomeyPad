@@ -2,8 +2,6 @@ import SwiftUI
 import HomeyMusicKit
 
 struct InstrumentAndPalletePickerView: View {
-    @ObservedObject var viewConductor: ViewConductor
-    
     @EnvironmentObject var tonalContext: TonalContext
     @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var notationalContext: NotationalContext
@@ -26,7 +24,7 @@ struct InstrumentAndPalletePickerView: View {
                     .padding([.top, .bottom], 7)
                 Divider()
                 ScrollView(.vertical) {
-                    KeyboardKeyLabelsPopoverView(viewConductor: viewConductor)
+                    KeyboardKeyLabelsPopoverView()
                         .presentationCompactAdaptation(.popover)
                 }
                 .scrollIndicatorsFlash(onAppear: true)

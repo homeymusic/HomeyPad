@@ -3,8 +3,6 @@ import HomeyMusicKit
 
 /// Touch-oriented musical keyboard
 public struct InstrumentView: Identifiable, View {
-    @ObservedObject var conductor: ViewConductor
-    
     @EnvironmentObject var instrumentalContext: InstrumentalContext
     @EnvironmentObject var tonalContext: TonalContext
 

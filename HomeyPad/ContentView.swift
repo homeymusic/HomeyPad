@@ -4,9 +4,6 @@ import HomeyMusicKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
-    @StateObject private var tonicConductor: TonicConductor
-    @StateObject private var modeConductor: ViewConductor
-    @StateObject private var viewConductor: ViewConductor
     
     let tonalContext: TonalContext
     let instrumentalContext: InstrumentalContext
@@ -29,18 +26,6 @@ struct ContentView: View {
 //        ])
 //        let latching = defaults.bool(forKey: "latching")
 //        
-        _tonicConductor = StateObject(wrappedValue: TonicConductor(
-            tonalContext: tonalContext
-        ))
-        
-        _modeConductor = StateObject(wrappedValue: ViewConductor(
-            tonalContext: tonalContext
-        ))
-        
-        _viewConductor = StateObject(wrappedValue: ViewConductor(
-            tonalContext: tonalContext
-        ))
-        
     }
     
     var body: some View {
@@ -59,10 +44,7 @@ struct ContentView: View {
                     // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
-                        TonicAndModePickerView(
-                            tonicConductor: tonicConductor,
-                            modeConductor: modeConductor
-                        )
+                        TonicAndModePickerView()
                         //                        if HomeyPad.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
                         //                            InstrumentView(
                         //                                conductor: viewConductor
@@ -80,9 +62,7 @@ struct ContentView: View {
                         //                        }
                         
                         //                        if !HomeyPad.formFactor == .iPad {
-                        InstrumentView(
-                            conductor: viewConductor
-                        )
+                        InstrumentView()
                         .ignoresSafeArea(edges:.horizontal)
                         //                          }
                     }
@@ -91,9 +71,7 @@ struct ContentView: View {
                     // Footer
                     VStack {
                         Spacer()
-                        FooterView(
-                            viewConductor: viewConductor
-                        )
+                        FooterView()
                         .frame(height: settingsHeight)
                     }
                     
@@ -101,9 +79,6 @@ struct ContentView: View {
             }
             .statusBarHidden(true)
             .background(.black)
-            .environmentObject(tonicConductor)
-            .environmentObject(modeConductor)
-            .environmentObject(viewConductor)
             
         }
         .preferredColorScheme(.dark)
