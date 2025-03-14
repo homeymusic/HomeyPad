@@ -27,25 +27,37 @@ struct HomeyPad: App {
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
         
                 
+
+        
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
             if oldTonicPitch != newTonicPitch {
                 
-                if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
-                    tonalContext.mode = Mode(
-                        rawValue: modulo(
-                            tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
-                        ))!
+                print("oldTonicPitch", oldTonicPitch.midiNote.number)
+                print("newTonicPitch", newTonicPitch.midiNote.number)
+                
+                if newTonicPitch.isOctave(relativeTo: oldTonicPitch) {
+                    if newTonicPitch.midiNote.number > oldTonicPitch.midiNote.number {
+                        tonalContext._pitchDirection = .downward
+                    } else {
+                        tonalContext._pitchDirection = .upward
+                    }
+                } else if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
+                    if (notationalTonicContext.showModes) {
+                        tonalContext.mode = Mode(
+                            rawValue: modulo(
+                                tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
+                            ))!
+                    }
                 }
                 
-
                 buzz()
             }
         }
         
         tonalContext.addDidSetModeCallbacks { oldMode, newMode in
             if oldMode != newMode {
-                if newMode.pitchDirection != .mixed {
-                    tonalContext.pitchDirection = newMode.pitchDirection
+                if notationalTonicContext.showModes && newMode.pitchDirection != .mixed {
+                    tonalContext._pitchDirection = newMode.pitchDirection
                 }
                 buzz()
             }
