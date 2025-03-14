@@ -26,20 +26,33 @@ struct HomeyPad: App {
         _notationalContext = StateObject(wrappedValue: notationalContext)
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
         
+                
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
             if oldTonicPitch != newTonicPitch {
-                buzz()
-            }
-        }
-        
-        tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
-            if oldPitchDirection != newPitchDirection {
+                
+                if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
+                    tonalContext.mode = Mode(
+                        rawValue: modulo(
+                            tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
+                        ))!
+                }
+                
+
                 buzz()
             }
         }
         
         tonalContext.addDidSetModeCallbacks { oldMode, newMode in
             if oldMode != newMode {
+                if newMode.pitchDirection != .mixed {
+                    tonalContext.pitchDirection = newMode.pitchDirection
+                }
+                buzz()
+            }
+        }
+        
+        tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
+            if oldPitchDirection != newPitchDirection {
                 buzz()
             }
         }
