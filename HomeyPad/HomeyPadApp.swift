@@ -53,6 +53,14 @@ struct HomeyPad: App {
         
         tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
             if oldPitchDirection != newPitchDirection {
+                switch (oldPitchDirection, newPitchDirection) {
+                    case (.upward, .downward):
+                    tonalContext.shiftUpOneOctave()
+                    case (.downward, .upward):
+                    tonalContext.shiftDownOneOctave()
+                    default:
+                        break
+                    }
                 buzz()
             }
         }
