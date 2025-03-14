@@ -10,13 +10,14 @@ import HomeyMusicKit
 
 struct FooterView: View {
     @EnvironmentObject var instrumentalContext: InstrumentalContext
+    @EnvironmentObject var tonalContext: TonalContext
 
     var body: some View {
         HStack {
             HStack {
                 Button(action: {
                     withAnimation {
-                        instrumentalContext.latching.toggle()
+                        instrumentalContext.toggleLatching(with: tonalContext)
                     }
                 }) {
                     ZStack {
