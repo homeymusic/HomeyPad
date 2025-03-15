@@ -31,10 +31,6 @@ struct HomeyPad: App {
         
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
             if oldTonicPitch != newTonicPitch {
-                
-                print("oldTonicPitch", oldTonicPitch.midiNote.number)
-                print("newTonicPitch", newTonicPitch.midiNote.number)
-                
                 if newTonicPitch.isOctave(relativeTo: oldTonicPitch) {
                     if newTonicPitch.midiNote.number > oldTonicPitch.midiNote.number {
                         tonalContext._pitchDirection = .downward
