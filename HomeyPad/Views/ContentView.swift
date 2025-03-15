@@ -16,16 +16,6 @@ struct ContentView: View {
         self.instrumentalContext = instrumentalContext
         self.notationalTonicContext = notationalTonicContext
         
-        // Set up for encoding and decoding the user default dictionaries
-        let encoder = JSONEncoder()
-        let decoder = JSONDecoder()
-        
-//        // Latching
-//        defaults.register(defaults: [
-//            "latching" : false
-//        ])
-//        let latching = defaults.bool(forKey: "latching")
-//        
     }
     
     var body: some View {
