@@ -41,7 +41,7 @@ struct HomeyPad: App {
                     } else {
                         tonalContext._pitchDirection = .upward
                     }
-                } else if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
+                } else if oldTonicPitch.pitchClass.intValue != newTonicPitch.pitchClass.intValue {
                     if (notationalTonicContext.showModes) {
                         tonalContext.mode = Mode(
                             rawValue: modulo(
