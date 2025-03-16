@@ -85,7 +85,7 @@ struct HomeyPad: App {
         // Now it's safe to use them to initialize midiConductor.
         _midiConductor = StateObject(wrappedValue: MIDIConductor(
             tonalContext: tonalContext,
-            instrumentMIDIChannelProvider: { instrumentalContext.instrumentType.rawValue },
+            instrumentMIDIChannelProvider: { instrumentalContext.instrumentChoice.rawValue },
             tonicMIDIChannel: InstrumentChoice.tonicPicker.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",

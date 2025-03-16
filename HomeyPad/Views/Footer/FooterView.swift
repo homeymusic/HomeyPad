@@ -34,12 +34,12 @@ struct FooterView: View {
             
             HStack {
                 InstrumentAndPalletePickerView()
-                .id(instrumentalContext.instrumentType)
+                .id(instrumentalContext.instrumentChoice)
             }
             
             HStack {
-                if instrumentalContext.instrumentType.isStringInstrument {
-                    Picker("", selection: $instrumentalContext.instrumentType) {
+                if instrumentalContext.instrumentChoice.isStringInstrument {
+                    Picker("", selection: $instrumentalContext.instrumentChoice) {
                         ForEach(InstrumentChoice.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
                                 .tag(stringInstrument)
@@ -54,7 +54,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(HomeyMusicKit.animationStyle, value: instrumentalContext.instrumentType)
+            .animation(HomeyMusicKit.animationStyle, value: instrumentalContext.instrumentChoice)
         }
     }
 }
