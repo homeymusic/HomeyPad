@@ -26,11 +26,9 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(ConsonanceDissonance.allCases, id: \.self) { codi in
-                    if (codi != .octave) {
-                        GridRow {
-                            codi.image
-                            Text(codi.label.capitalized)
-                        }
+                    GridRow {
+                        codi.image
+                        Text(codi.label.capitalized)
                     }
                 }
                 GridRow {
@@ -45,18 +43,18 @@ struct HelpPopoverView: View {
                         Text(mami.label.capitalized)
                     }
                 }
-//                GridRow {
-//                    Text("Intervals")
-//                        .font(Font.caption)
-//                        .gridCellColumns(2)
-//                }
-//                ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
-//                    GridRow {
-//                        intervalClass.consonanceDissonance.image
-//                            .foregroundColor(Color(intervalClass.majorMinor.color))
-//                        Text("\(intervalClass.label.capitalized)")
-//                    }
-//                }
+                //                GridRow {
+                //                    Text("Intervals")
+                //                        .font(Font.caption)
+                //                        .gridCellColumns(2)
+                //                }
+                //                ForEach(IntervalClass.allCases, id: \.self) { intervalClass in
+                //                    GridRow {
+                //                        intervalClass.consonanceDissonance.image
+                //                            .foregroundColor(Color(intervalClass.majorMinor.color))
+                //                        Text("\(intervalClass.label.capitalized)")
+                //                    }
+                //                }
                 GridRow {
                     Text("Pitch Directions")
                         .font(.caption)
@@ -125,15 +123,15 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(InstrumentChoice.allCases, id: \.self) { instrumentChoice in
-                        GridRow {
-                            Text("\(instrumentChoice.midiChannelLabel)")
-                            HStack {
-                                Image(systemName: instrumentChoice.icon)
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: 17, height: 17)
-                                Text(instrumentChoice.label)
-                            }
+                    GridRow {
+                        Text("\(instrumentChoice.midiChannelLabel)")
+                        HStack {
+                            Image(systemName: instrumentChoice.icon)
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 17, height: 17)
+                            Text(instrumentChoice.label)
                         }
+                    }
                 }
                 GridRow {
                     Text("MIDI CC Parameters")
