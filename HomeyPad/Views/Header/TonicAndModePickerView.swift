@@ -21,7 +21,7 @@ struct TonicAndModePickerView: View {
             .padding(7.0)
             .background {
                 RoundedRectangle(cornerRadius: 7.0)
-                    .fill(.black)
+                    .fill(Color(HomeyMusicKit.backgroundColor))
             }
         }
     }

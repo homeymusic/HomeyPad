@@ -23,7 +23,7 @@ struct ContentView: View {
         
         GeometryReader { proxy in
             ZStack {
-                Color.black
+                Color(HomeyMusicKit.backgroundColor)
                 ZStack() {
                     // Header
                     VStack {
@@ -68,7 +68,7 @@ struct ContentView: View {
                 }
             }
             .statusBarHidden(true)
-            .background(.black)
+            .background(Color(HomeyMusicKit.backgroundColor))
             
         }
         .preferredColorScheme(.dark)
