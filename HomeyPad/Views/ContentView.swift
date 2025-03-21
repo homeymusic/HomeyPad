@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import HomeyMusicKit
+import UIKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
@@ -35,26 +36,9 @@ struct ContentView: View {
                     VStack {
                         // Tonic Picker
                         TonicAndModePickerView()
-                        //                        if HomeyMusicKit.formFactor == .iPad && instrumentalContext.instrument is KeyboardInstrument {
-                        //                            InstrumentView(
-                        //                                conductor: viewConductor
-                        //                            ) { pitch in
-                        //                                PitchView(
-                        //                                    pitch: pitch,
-                        //                                    thisConductor: viewConductor,
-                        //                                    tonicConductor: tonicConductor,
-                        //                                    viewConductor: viewConductor,
-                        //                                    modeConductor: modeConductor
-                        //                                )
-                        //                            }
-                        //                            .aspectRatio(4.0, contentMode: .fit)
-                        //                            .ignoresSafeArea(edges:.horizontal)
-                        //                        }
                         
-                        //                        if !HomeyMusicKit.formFactor == .iPad {
                         InstrumentView()
-                        .ignoresSafeArea(edges:.horizontal)
-                        //                          }
+                            .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
