@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import HomeyMusicKit
+import Combine
 
 @main
 struct HomeyPad: App {
@@ -12,6 +13,9 @@ struct HomeyPad: App {
     @StateObject private var midiConductor: MIDIConductor
     @StateObject private var synthConductor: SynthConductor
     
+    // Store Combine subscriptions.
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
         // Initialize appContext and tonalContext as local variables.
         let instrumentalContext = InstrumentalContext()
@@ -26,14 +30,18 @@ struct HomeyPad: App {
         _notationalContext = StateObject(wrappedValue: notationalContext)
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
         
-        
+        // Subscribe to each pitch’s activation publisher.
         for pitch in tonalContext.allPitches {
-            pitch.addOnActivateCallback { activatedPitch in
-                synthCondutor.noteOn(pitch: activatedPitch)
-            }
-            pitch.addOnDeactivateCallback { deactivatedPitch in
-                synthCondutor.noteOff(pitch: deactivatedPitch)
-            }
+            pitch.$isActivated
+                .removeDuplicates()
+                .sink { isActivated in
+                    if isActivated {
+                        synthCondutor.noteOn(pitch: pitch)
+                    } else {
+                        synthCondutor.noteOff(pitch: pitch)
+                    }
+                }
+                .store(in: &cancellables)
         }
         
         // Now it's safe to use them to initialize midiConductor.
