@@ -47,7 +47,7 @@ struct HomeyPad: App {
         tonalContext.addDidSetModeCallbacks { oldMode, newMode in
             if oldMode != newMode {
                 if notationalTonicContext.showModes && newMode.pitchDirection != .mixed {
-                    tonalContext._pitchDirection = newMode.pitchDirection
+                    tonalContext.pitchDirection = newMode.pitchDirection
                 }
                 buzz()
             }
