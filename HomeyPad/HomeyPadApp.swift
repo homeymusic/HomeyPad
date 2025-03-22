@@ -27,44 +27,6 @@ struct HomeyPad: App {
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
         
         
-        
-        
-        tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
-            if oldTonicPitch != newTonicPitch {
-                if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
-                    tonalContext.mode = Mode(
-                        rawValue: modulo(
-                            tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
-                        ))!
-                }
-                
-                buzz()
-            }
-        }
-        
-        tonalContext.addDidSetModeCallbacks { oldMode, newMode in
-            if oldMode != newMode {
-                if newMode.pitchDirection != .mixed {
-                    tonalContext.pitchDirection = newMode.pitchDirection
-                }
-                buzz()
-            }
-        }
-        
-        tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
-            if oldPitchDirection != newPitchDirection {
-                switch (oldPitchDirection, newPitchDirection) {
-                case (.upward, .downward):
-                    tonalContext.shiftUpOneOctave()
-                case (.downward, .upward):
-                    tonalContext.shiftDownOneOctave()
-                default:
-                    break
-                }
-                buzz()
-            }
-        }
-        
         for pitch in tonalContext.allPitches {
             pitch.addOnActivateCallback { activatedPitch in
                 synthCondutor.noteOn(pitch: activatedPitch)
