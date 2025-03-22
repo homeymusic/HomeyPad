@@ -26,18 +26,16 @@ struct HomeyPad: App {
         _notationalContext = StateObject(wrappedValue: notationalContext)
         _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
         
-                
-
+        
+        
         
         tonalContext.addDidSetTonicPitchCallbacks { oldTonicPitch, newTonicPitch in
             if oldTonicPitch != newTonicPitch {
                 if oldTonicPitch.pitchClass != newTonicPitch.pitchClass {
-                    if (notationalTonicContext.showModes) {
-                        tonalContext.mode = Mode(
-                            rawValue: modulo(
-                                tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
-                            ))!
-                    }
+                    tonalContext.mode = Mode(
+                        rawValue: modulo(
+                            tonalContext.mode.rawValue + Int(newTonicPitch.distance(from: oldTonicPitch)), 12
+                        ))!
                 }
                 
                 buzz()
@@ -46,7 +44,7 @@ struct HomeyPad: App {
         
         tonalContext.addDidSetModeCallbacks { oldMode, newMode in
             if oldMode != newMode {
-                if notationalTonicContext.showModes && newMode.pitchDirection != .mixed {
+                if newMode.pitchDirection != .mixed {
                     tonalContext.pitchDirection = newMode.pitchDirection
                 }
                 buzz()
@@ -56,13 +54,13 @@ struct HomeyPad: App {
         tonalContext.addDidSetPitchDirectionCallbacks { oldPitchDirection, newPitchDirection in
             if oldPitchDirection != newPitchDirection {
                 switch (oldPitchDirection, newPitchDirection) {
-                    case (.upward, .downward):
+                case (.upward, .downward):
                     tonalContext.shiftUpOneOctave()
-                    case (.downward, .upward):
+                case (.downward, .upward):
                     tonalContext.shiftDownOneOctave()
-                    default:
-                        break
-                    }
+                default:
+                    break
+                }
                 buzz()
             }
         }
@@ -99,7 +97,7 @@ struct HomeyPad: App {
             .environmentObject(instrumentalContext)
             .environmentObject(tonalContext)
             .environmentObject(notationalContext)
-            .environmentObject(notationalTonicContext)            
+            .environmentObject(notationalTonicContext)
             .environmentObject(midiConductor)
         }
     }
