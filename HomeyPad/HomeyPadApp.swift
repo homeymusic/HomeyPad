@@ -44,15 +44,21 @@ struct HomeyPad: App {
                 .store(in: &cancellables)
         }
         
-        // Now it's safe to use them to initialize midiConductor.
-        _midiConductor = StateObject(wrappedValue: MIDIConductor(
+        // Create a local instance of MIDIConductor.
+        let midiConductorInstance = MIDIConductor(
             tonalContext: tonalContext,
             instrumentMIDIChannelProvider: { instrumentalContext.instrumentChoice.rawValue },
             tonicMIDIChannel: InstrumentChoice.tonicPicker.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
             manufacturer: "Homey Music"
-        ))
+        )
+        
+        // Assign it to the state object.
+        _midiConductor = StateObject(wrappedValue: midiConductorInstance)
+        
+        // Now call the statusRequest on the instance.
+        midiConductorInstance.statusRequest()
         
         _synthConductor = StateObject(wrappedValue: synthCondutor)
     }
