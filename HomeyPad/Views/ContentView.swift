@@ -1,7 +1,6 @@
 import SwiftUI
 import AVFoundation
 import HomeyMusicKit
-import UIKit
 
 struct ContentView: View {
     let defaults = UserDefaults.standard
@@ -51,10 +50,21 @@ struct ContentView: View {
                     
                 }
             }
-            .statusBarHidden(true)
+            .statusBarHiddenCrossPlatform(true)
             .background(Color(HomeyMusicKit.backgroundColor))
             
         }
         .preferredColorScheme(.dark)
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func statusBarHiddenCrossPlatform(_ hidden: Bool) -> some View {
+        #if os(iOS)
+        self.statusBarHidden(hidden)
+        #else
+        self
+        #endif
     }
 }
