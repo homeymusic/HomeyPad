@@ -58,7 +58,7 @@ struct HomeyPad: App {
         _midiConductor = StateObject(wrappedValue: midiConductorInstance)
         
         // Now call the statusRequest on the instance.
-        midiConductorInstance.statusRequest()
+        midiConductorInstance.setup()
         
         _synthConductor = StateObject(wrappedValue: synthCondutor)
     }
