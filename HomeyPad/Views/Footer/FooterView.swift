@@ -9,10 +9,11 @@ import SwiftUI
 import HomeyMusicKit
 
 struct FooterView: View {
-    @EnvironmentObject var instrumentalContext: InstrumentalContext
-    @EnvironmentObject var tonalContext: TonalContext
+    @Environment(InstrumentalContext.self) var instrumentalContext
+    @Environment(TonalContext.self) var tonalContext
 
     var body: some View {
+        @Bindable var instrumentalContext = instrumentalContext
         HStack {
             HStack {
                 Button(action: {

@@ -3,7 +3,7 @@ import HomeyMusicKit
 
 struct TonicAndModePickerView: View {
     
-    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+    @Environment(NotationalTonicContext.self) var notationalTonicContext
     
     var body: some View {
         if notationalTonicContext.showTonicPicker {

@@ -1,66 +1,86 @@
 import SwiftUI
 import AVFoundation
 import HomeyMusicKit
-import Combine
 
 @main
 struct HomeyPad: App {
     
-    @StateObject private var instrumentalContext: InstrumentalContext
-    @StateObject private var tonalContext: TonalContext
-    @StateObject private var notationalContext: NotationalContext
-    @StateObject private var notationalTonicContext: NotationalTonicContext
-    @StateObject private var midiConductor: MIDIConductor
-    @StateObject private var synthConductor: SynthConductor
+    @State private var instrumentalContext: InstrumentalContext
+    @State private var tonalContext: TonalContext
+    @State private var notationalContext: NotationalContext
+    @State private var notationalTonicContext: NotationalTonicContext
+    @State private var midiConductor: MIDIConductor
+    @State private var synthConductor: SynthConductor
     
-    // Store Combine subscriptions.
-    private var cancellables = Set<AnyCancellable>()
-
     init() {
-        // Initialize appContext and tonalContext as local variables.
-        let instrumentalContext = InstrumentalContext()
-        let tonalContext = TonalContext()
-        let notationalContext = NotationalContext()
-        let notationalTonicContext = NotationalTonicContext()
-        let synthCondutor = SynthConductor()
+        // Create local instances
+        let __instrumentalContext = InstrumentalContext()
+        let __tonalContext = TonalContext()
+        let __notationalContext = NotationalContext()
+        let __synthConductor = SynthConductor()
         
-        // Now assign them to the state objects using the underscore syntax.
-        _instrumentalContext = StateObject(wrappedValue: instrumentalContext)
-        _tonalContext = StateObject(wrappedValue: tonalContext)
-        _notationalContext = StateObject(wrappedValue: notationalContext)
-        _notationalTonicContext = StateObject(wrappedValue: notationalTonicContext)
+        // Set up callback approach for pitch activation -> noteOn/noteOff
+//        for pitch in __tonalContext.allPitches {
+//            // If your Pitch class has `public var onActivationChanged: ((Pitch,Bool)->Void)?`
+//            pitch.onActivationChanged = { [weak __synthConductor, weak pitch] _, isActivated in
+//                guard let synthConductor = __synthConductor, let pitch = pitch else { return }
+//                if isActivated {
+//                    print("if isActivated synth on")
+//                    synthConductor.noteOn(pitch: pitch)
+//                } else {
+//                    print("else !isActivated synth off")
+//                    synthConductor.noteOff(pitch: pitch)
+//                }
+//            }
+//        }
+//        
         
-        // Subscribe to each pitch’s activation publisher.
-        for pitch in tonalContext.allPitches {
-            pitch.$isActivated
-                .removeDuplicates()
-                .sink { isActivated in
-                    if isActivated {
-                        synthCondutor.noteOn(pitch: pitch)
-                    } else {
-                        synthCondutor.noteOff(pitch: pitch)
-                    }
+//        for pitch in __tonalContext.allPitches {
+//            pitch.onActivationChanged = { [weak __synthConductor] pitch, isActivated in
+//                guard let synthConductor = __synthConductor else { return }
+//                if isActivated {
+//                    print("if isActivated synth on")
+//                    synthConductor.noteOn(pitch: pitch)
+//                } else {
+//                    print("else !isActivated synth off")
+//                    synthConductor.noteOff(pitch: pitch)
+//                }
+//            }
+//        }
+//
+        
+        for pitch in __tonalContext.allPitches {
+            pitch.onActivationChanged = { pitch, isActivated in
+                // Temporarily capture synthConductor strongly for testing
+                let synthConductor = __synthConductor
+                if isActivated {
+                    print("if isActivated synth on")
+                    synthConductor.noteOn(pitch: pitch)
+                } else {
+                    print("else !isActivated synth off")
+                    synthConductor.noteOff(pitch: pitch)
                 }
-                .store(in: &cancellables)
+            }
         }
-        
-        // Create a local instance of MIDIConductor.
-        let midiConductorInstance = MIDIConductor(
-            tonalContext: tonalContext,
-            instrumentMIDIChannelProvider: { instrumentalContext.instrumentChoice.rawValue },
+        // Create a local instance of MIDIConductor
+        let __midiConductor = MIDIConductor(
+            tonalContext: __tonalContext,
+            instrumentMIDIChannelProvider: { __instrumentalContext.instrumentChoice.rawValue },
             tonicMIDIChannel: InstrumentChoice.tonicPicker.rawValue,
             clientName: "HomeyPad",
             model: "Homey Pad iOS",
             manufacturer: "Homey Music"
         )
         
-        // Assign it to the state object.
-        _midiConductor = StateObject(wrappedValue: midiConductorInstance)
+        __midiConductor.setup() // start MIDI services
         
-        // Now call the statusRequest on the instance.
-        midiConductorInstance.setup()
-        
-        _synthConductor = StateObject(wrappedValue: synthCondutor)
+        // Assign them to @StateObservable properties:
+        self.instrumentalContext = __instrumentalContext
+        self.tonalContext = __tonalContext
+        self.notationalContext = __notationalContext
+        self.notationalTonicContext = NotationalTonicContext()
+        self.synthConductor = __synthConductor
+        self.midiConductor = __midiConductor
     }
     
     var body: some Scene {
@@ -70,11 +90,11 @@ struct HomeyPad: App {
                 instrumentalContext: instrumentalContext,
                 notationalTonicContext: notationalTonicContext
             )
-            .environmentObject(instrumentalContext)
-            .environmentObject(tonalContext)
-            .environmentObject(notationalContext)
-            .environmentObject(notationalTonicContext)
-            .environmentObject(midiConductor)
+            .environment(tonalContext)
+            .environment(instrumentalContext)
+            .environment(notationalTonicContext)
+            .environment(notationalContext)
+            .environment(midiConductor)
         }
     }
     

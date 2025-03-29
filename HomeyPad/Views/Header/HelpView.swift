@@ -2,11 +2,12 @@ import SwiftUI
 import HomeyMusicKit
 
 struct HelpView: View {
-    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+    @Environment(NotationalTonicContext.self) var notationalTonicContext
 
     static let icon = "questionmark.circle"
     
     var body: some View {
+        @Bindable var notationalTonicContext = notationalTonicContext
         HStack(spacing: 0) {
             Button(action: {
                 withAnimation {

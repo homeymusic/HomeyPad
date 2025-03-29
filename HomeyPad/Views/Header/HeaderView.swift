@@ -2,7 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 struct HeaderView: View {
-    @EnvironmentObject var notationalTonicContext: NotationalTonicContext
+    @Environment(NotationalTonicContext.self) var notationalTonicContext
     
     var body: some View {
         HStack {
