@@ -13,11 +13,7 @@ struct HomeyPad: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(
-                tonalContext: orchestrator.tonalContext,
-                instrumentalContext: orchestrator.instrumentalContext,
-                notationalTonicContext: orchestrator.notationalTonicContext
-            )
+            ContentView()
             .environment(orchestrator.tonalContext)
             .environment(orchestrator.instrumentalContext)
             .environment(orchestrator.notationalTonicContext)

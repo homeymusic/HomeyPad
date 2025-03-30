@@ -3,21 +3,6 @@ import AVFoundation
 import HomeyMusicKit
 
 struct ContentView: View {
-    let defaults = UserDefaults.standard
-    
-    let tonalContext: TonalContext
-    let instrumentalContext: InstrumentalContext
-    let notationalTonicContext: NotationalTonicContext
-    
-    public init(tonalContext: TonalContext,
-         instrumentalContext: InstrumentalContext,
-         notationalTonicContext: NotationalTonicContext) {
-        self.tonalContext = tonalContext
-        self.instrumentalContext = instrumentalContext
-        self.notationalTonicContext = notationalTonicContext
-        
-    }
-    
     var body: some View {
         let settingsHeight = 30.0
         
