@@ -1,5 +1,4 @@
 import SwiftUI
-import AVFoundation
 import HomeyMusicKit
 
 struct ContentView: View {
@@ -8,15 +7,12 @@ struct ContentView: View {
         
         GeometryReader { proxy in
             ZStack {
-                Color(HomeyMusicKit.backgroundColor)
                 ZStack() {
-                    // Header
                     VStack {
                         HeaderView()
                         .frame(height: settingsHeight)
                         Spacer()
                     }
-                    // Tonic Picker & Keyboard
                     VStack {
                         // Tonic Picker
                         TonicAndModePickerView()
@@ -26,7 +22,6 @@ struct ContentView: View {
                     }
                     .frame(height: .infinity)
                     .padding([.top, .bottom], settingsHeight + 5.0)
-                    // Footer
                     VStack {
                         Spacer()
                         FooterView()
@@ -37,7 +32,6 @@ struct ContentView: View {
             }
             .statusBarHiddenCrossPlatform(true)
             .background(Color(HomeyMusicKit.backgroundColor))
-            
         }
         .preferredColorScheme(.dark)
     }
