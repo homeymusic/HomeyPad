@@ -13,7 +13,7 @@ struct ContentView: View {
                         .frame(height: settingsHeight)
                         Spacer()
                     }
-                    VStack {
+                    VStack(spacing: 5) {
                         // Tonic Picker
                         TonicAndModePickerView()
                         
@@ -21,7 +21,7 @@ struct ContentView: View {
                             .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)
-                    .padding([.top, .bottom], settingsHeight + 5.0)
+                    .padding([.top, .bottom], settingsHeight + 5)
                     VStack {
                         Spacer()
                         FooterView()

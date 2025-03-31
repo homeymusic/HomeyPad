@@ -6,7 +6,8 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            HStack(spacing: 0.0) {
+            HStack(spacing: 15) {
+                ResetView()
                 OctaveShiftView()
             }
             .frame(maxWidth: .infinity, alignment: .leading)

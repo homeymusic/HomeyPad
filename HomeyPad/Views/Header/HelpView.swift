@@ -4,9 +4,9 @@ import HomeyMusicKit
 struct HelpView: View {
     @Environment(NotationalTonicContext.self) var notationalTonicContext
 
-    static let icon = "questionmark.circle"
     
     var body: some View {
+        let icon = "questionmark.circle"
         @Bindable var notationalTonicContext = notationalTonicContext
         HStack(spacing: 0) {
             Button(action: {
@@ -16,7 +16,7 @@ struct HelpView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: notationalTonicContext.showHelp ? HelpView.icon + ".fill" : HelpView.icon)
+                        Image(systemName: notationalTonicContext.showHelp ? icon + ".fill" : icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
