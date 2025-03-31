@@ -23,7 +23,7 @@ struct TonicAndModePickerView: View {
     
     var aspectMultiplier: CGFloat {
         if notationalTonicContext.noteLabels[.tonicPicker]![.mode]! &&
-            notationalTonicContext.noteLabels[.tonicPicker]![.guide]! {
+            notationalTonicContext.noteLabels[.tonicPicker]![.map]! {
             return 1.0
         } else {
             return 2.0
