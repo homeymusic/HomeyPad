@@ -11,7 +11,7 @@ struct HeaderView: View {
                 OctaveShiftView()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            TonicPickerSettingsView()
+            TonicModePickerNotationView()
             HStack(spacing: 15) {
                 PitchDirectionPickerView()
                 HelpView()
