@@ -8,13 +8,13 @@ struct TonicAndModePickerView: View {
     var body: some View {
         VStack(spacing: 5) {
             if notationalTonicContext.showTonicPicker {
-                TonicKeyboardView()
+                TonicInstrumentView()
                     .aspectRatio(13.0, contentMode: .fit)
                     .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
             }
             
             if notationalTonicContext.showModePicker {
-                ModeKeyboardView()
+                ModeInstrumentView()
                     .aspectRatio(13.0 * aspectMultiplier, contentMode: .fit)
                     .transition(.scale(.leastNonzeroMagnitude, anchor: .bottom))
             }
