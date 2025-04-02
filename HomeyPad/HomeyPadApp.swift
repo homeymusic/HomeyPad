@@ -5,20 +5,16 @@ import HomeyMusicKit
 @main
 struct HomeyPad: App {
     
-    @State private var orchestrator: Orchestrator
-    
-    init() {
-        self.orchestrator = Orchestrator()
-    }
+    // Single-liner: create and setup in one go.
+    @State private var orchestrator = Orchestrator().setup()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environment(orchestrator.tonalContext)
-            .environment(orchestrator.instrumentalContext)
-            .environment(orchestrator.notationalTonicContext)
-            .environment(orchestrator.notationalContext)
+                .environment(orchestrator.tonalContext)
+                .environment(orchestrator.instrumentalContext)
+                .environment(orchestrator.notationalTonicContext)
+                .environment(orchestrator.notationalContext)
         }
     }
-    
 }
