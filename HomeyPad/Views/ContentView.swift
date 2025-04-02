@@ -14,7 +14,6 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack(spacing: 5) {
-                        // Tonic Picker
                         TonicAndModePickerView()
                         
                         InstrumentView()
