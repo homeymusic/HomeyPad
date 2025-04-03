@@ -18,7 +18,7 @@ struct FooterView: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        instrumentalContext.toggleLatching(with: tonalContext)
+                        instrumentalContext.latching.toggle()
                     }
                 }) {
                     ZStack {
