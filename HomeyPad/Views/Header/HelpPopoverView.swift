@@ -73,7 +73,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(ChordShape.allCases, id: \.self) { chord in
+                ForEach(Chord.allCases, id: \.self) { chord in
                     GridRow {
                         Image(systemName: chord.icon)
                             .aspectRatio(1.0, contentMode: .fit)
