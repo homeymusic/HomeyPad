@@ -2,6 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 struct ContentView: View {
+    @Environment(\.modelContext) var modelContext
     var body: some View {
         let settingsHeight = 30.0
         
@@ -33,6 +34,9 @@ struct ContentView: View {
             .background(Color(HomeyMusicKit.backgroundColor))
         }
         .preferredColorScheme(.dark)
+        .onAppear() {
+            ColorPalette.seedSystemData(modelContext: modelContext)
+        }
     }
 }
 
