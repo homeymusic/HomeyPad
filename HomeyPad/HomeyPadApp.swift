@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import AVFoundation
 import HomeyMusicKit
 
@@ -16,5 +17,6 @@ struct HomeyPad: App {
                 .environment(orchestrator.notationalTonicContext)
                 .environment(orchestrator.notationalContext)
         }
+        .modelContainer(for: ColorPalette.self)
     }
 }
