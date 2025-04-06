@@ -3,6 +3,7 @@ import HomeyMusicKit
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
+    
     var body: some View {
         let settingsHeight = 30.0
         
