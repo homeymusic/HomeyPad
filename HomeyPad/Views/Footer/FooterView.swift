@@ -24,7 +24,7 @@ struct FooterView: View {
                     ZStack {
                         Color.clear.overlay(
                             Image(systemName: instrumentalContext.latching ? "pin.fill" : "pin.slash")
-                                .foregroundColor(.white)
+                                .foregroundColor(.accentColor)
                                 .font(Font.system(size: .leastNormalMagnitude, weight: instrumentalContext.latching ? .black : .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
@@ -53,7 +53,7 @@ struct FooterView: View {
                     )
                 }
             }
-            .foregroundColor(.white)
+            .foregroundColor(.accentColor)
             .frame(maxWidth: .infinity, alignment: .trailing)
             .animation(HomeyMusicKit.animationStyle, value: instrumentalContext.instrumentChoice)
         }

@@ -17,7 +17,7 @@ struct HelpView: View {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: notationalTonicContext.showHelp ? icon + ".fill" : icon)
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)

@@ -17,7 +17,7 @@ struct ResetView: View {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "gobackward")
-                            .foregroundColor(tonalContext.isDefault ? .gray : .white)
+                            .foregroundColor(tonalContext.isDefault ? .gray : .accentColor)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
