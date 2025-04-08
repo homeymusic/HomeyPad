@@ -34,7 +34,7 @@ struct FooterView: View {
             }
             
             HStack {
-                InstrumentAndPalletePickerView()
+                NotationInstrumentPalletePickerView()
                 .id(instrumentalContext.instrumentChoice)
             }
             

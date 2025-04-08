@@ -25,7 +25,7 @@ struct HelpView: View {
             }
             .popover(isPresented: $notationalTonicContext.showHelp, content: {
                 VStack(spacing: 0) {
-                    HelpPopoverView().presentationCompactAdaptation(.popover)
+                    HelpPopoverView().presentationCompactAdaptation(.none)
                 }
             })
         }

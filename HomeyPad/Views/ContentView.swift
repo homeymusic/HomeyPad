@@ -6,6 +6,8 @@ struct ContentView: View {
     
     var body: some View {
         let settingsHeight = 30.0
+        let settingsBuffer = 5.0
+        let homeIndicatorBuffer = 10.0
         
         GeometryReader { proxy in
             ZStack {
@@ -15,14 +17,15 @@ struct ContentView: View {
                         .frame(height: settingsHeight)
                         Spacer()
                     }
-                    VStack(spacing: 5) {
+                    VStack(spacing: settingsBuffer) {
                         TonicAndModePickerView()
                         
                         InstrumentView()
                             .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)
-                    .padding([.top, .bottom], settingsHeight + 5)
+                    .padding(.top, settingsHeight + settingsBuffer)
+                    .padding(.bottom, settingsHeight + settingsBuffer + homeIndicatorBuffer / 2.0)
                     VStack {
                         Spacer()
                         FooterView()
@@ -33,6 +36,7 @@ struct ContentView: View {
             }
             .statusBarHiddenCrossPlatform(true)
             .background(Color(HomeyMusicKit.backgroundColor))
+            .padding(.bottom, homeIndicatorBuffer)
         }
         .preferredColorScheme(.dark)
         .onAppear {
