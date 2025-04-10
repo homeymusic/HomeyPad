@@ -2,7 +2,8 @@ import SwiftUI
 import HomeyMusicKit
 
 struct HelpPopoverView: View {
-    
+    @State var colorPalette: ColorPalette?
+
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
@@ -182,6 +183,18 @@ struct HelpPopoverView: View {
             .lineLimit(1)
             .frame(width: 270)
             .padding(10)
+        }
+        .onAppear {
+            colorPalette = ColorPalette.fetchColorPalette(
+                colorPaletteName: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]!,
+                modelContext: modelContext
+            )
+        }
+        .onChange(of: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]) {
+            colorPalette = ColorPalette.fetchColorPalette(
+                colorPaletteName: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]!,
+                modelContext: modelContext
+            )
         }
     }
 }

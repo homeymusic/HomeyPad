@@ -1,5 +1,5 @@
 {
-  "originHash" : "dcba306ea8a9082685a57eb6d6e6c0afedc33b3dcbbbc13baf5c0b7a41ecdc7e",
+  "originHash" : "da5937b250a6f02f7702b0162529e86cd5c339300dda25c7cf7ffa2e7a93eaf6",
   "pins" : [
     {
       "identity" : "audiokit",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AudioKit/AudioKitEX",
       "state" : {
-        "revision" : "cb1a1276978ffc08e00d4774c0617aa8a58a17c4",
-        "version" : "5.6.1"
+        "revision" : "23e8e3bffd9fbc1dffa72f1d47c7f714dd777288",
+        "version" : "5.6.2"
       }
     },
     {
