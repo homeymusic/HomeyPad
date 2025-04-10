@@ -157,7 +157,7 @@ struct HelpPopoverView: View {
                             .gridCellColumns(2)
                     }
                     GridRow {
-                        Text("The design of Homey Pad including layout, color palette, user interactions and icon language is released under an [Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).")
+                        Text("The design of Homey Pad including layout, color palette, user interactions and icon language is released under an [Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).")
                             .gridCellColumns(2)
                     }
                     GridRow {
@@ -169,7 +169,7 @@ struct HelpPopoverView: View {
                     GridRow {
                         (
                             Text(Image(systemName: "c.circle")) +
-                            Text(" 2023-2024 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. Homey Pad, Homey Visuals, Homey Work, and HomeyMusicKit are product names and trademarks of [Homey Music](https://homeymusic.com).")
+                            Text(" 2023-2025 [Homey Music](https://homeymusic.com), a registered trade name of Ballet, LLC. All other rights reserved. Homey Pad, Homey Visuals, Homey Work, and HomeyMusicKit are product names and trademarks of [Homey Music](https://homeymusic.com).")
                         )
                         .gridCellColumns(2)
                     }
