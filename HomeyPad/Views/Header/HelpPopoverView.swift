@@ -181,18 +181,6 @@ struct HelpPopoverView: View {
             .frame(width: 270)
             .padding(10)
         }
-        .onAppear {
-            colorPalette = ColorPalette.fetchColorPalette(
-                colorPaletteName: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]!,
-                modelContext: modelContext
-            )
-        }
-        .onChange(of: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]) {
-            colorPalette = ColorPalette.fetchColorPalette(
-                colorPaletteName: notationalContext.colorPaletteName[instrumentalContext.instrumentChoice]!,
-                modelContext: modelContext
-            )
-        }
     }
 }
 

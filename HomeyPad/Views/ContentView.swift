@@ -35,7 +35,7 @@ struct ContentView: View {
                 }
             }
             .statusBarHiddenCrossPlatform(true)
-            .background(Color(HomeyMusicKit.backgroundColor))
+            .background(.black)
             .padding(.bottom, homeIndicatorBuffer)
         }
         .preferredColorScheme(.dark)
