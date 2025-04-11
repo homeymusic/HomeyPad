@@ -4,10 +4,12 @@ import HomeyMusicKit
 struct HelpPopoverView: View {
     @Environment(InstrumentalContext.self) var instrumentalContext
     @Environment(NotationalContext.self) var notationalContext
-    @State var colorPalette: ColorPalette?
     @Environment(\.modelContext) var modelContext
 
     var body: some View {
+        
+        let colorPalette: ColorPalette = notationalContext.colorPalette
+        
         HStack(alignment: .center) {
             Spacer()
             Text("Homey Pad")
@@ -41,7 +43,7 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(MajorMinor.allCases, id: \.self) { mami in
-                    let imageColor = colorPalette?.majorMinorColor(majorMinor: mami) ?? .clear
+                    let imageColor = colorPalette.majorMinorColor(majorMinor: mami)
                     GridRow {
                         mami.image
                             .foregroundColor(imageColor)
@@ -54,7 +56,7 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
-                    let imageColor = colorPalette?.majorMinorColor(majorMinor: pitchDirection.majorMinor) ?? .clear
+                    let imageColor = colorPalette.majorMinorColor(majorMinor: pitchDirection.majorMinor)
                     GridRow {
                         pitchDirection.image
                             .aspectRatio(1.0, contentMode: .fit)
@@ -68,7 +70,7 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 ForEach(Chord.allCases, id: \.self) { chord in
-                    let imageColor = colorPalette?.majorMinorColor(majorMinor: chord.majorMinor) ?? .clear
+                    let imageColor = colorPalette.majorMinorColor(majorMinor: chord.majorMinor)
                     GridRow {
                         Image(systemName: chord.icon)
                             .aspectRatio(1.0, contentMode: .fit)
@@ -85,7 +87,7 @@ struct HelpPopoverView: View {
                 ForEach(Mode.allCases, id: \.self) { mode in
                     GridRow {
                         HStack(spacing: 0) {
-                            let pitchDirectionImageColor = colorPalette?.majorMinorColor(majorMinor: mode.pitchDirection.majorMinor) ?? .clear
+                            let pitchDirectionImageColor = colorPalette.majorMinorColor(majorMinor: mode.pitchDirection.majorMinor)
                             Image(systemName: "square")
                                 .foregroundColor(.clear)
                                 .overlay(
@@ -94,7 +96,7 @@ struct HelpPopoverView: View {
                                         .foregroundColor(pitchDirectionImageColor)
                                 )
                             if (mode.scale == .pentatonic) {
-                                let modeImageColor = colorPalette?.majorMinorColor(majorMinor: mode.majorMinor) ?? .clear
+                                let modeImageColor = colorPalette.majorMinorColor(majorMinor: mode.majorMinor)
                                 Image(systemName: "square")
                                     .foregroundColor(.clear)
                                     .overlay(
@@ -103,7 +105,7 @@ struct HelpPopoverView: View {
                                             .foregroundColor(modeImageColor)
                                     )
                             }
-                            let chordShapeImageColor = colorPalette?.majorMinorColor(majorMinor: mode.chordShape.majorMinor) ?? .clear
+                            let chordShapeImageColor = colorPalette.majorMinorColor(majorMinor: mode.chordShape.majorMinor)
                             Image(systemName: "square")
                                 .foregroundColor(.clear)
                                 .overlay(
