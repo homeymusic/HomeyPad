@@ -17,6 +17,6 @@ struct HomeyPad: App {
                 .environment(orchestrator.notationalTonicContext)
                 .environment(orchestrator.notationalContext)
         }
-        .modelContainer(for: ColorPalette.self)
+        .modelContainer(for: [IntervalColorPalette.self, PitchColorPalette.self])
     }
 }

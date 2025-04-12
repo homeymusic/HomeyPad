@@ -40,7 +40,8 @@ struct ContentView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
-            ColorPalette.seedSystemData(modelContext: modelContext)
+            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext)
+            PitchColorPalette.seedSystemPitchPalettes(modelContext: modelContext)
         }
     }
     
