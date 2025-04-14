@@ -3,6 +3,7 @@ import HomeyMusicKit
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
+    @Environment(NotationalContext.self) public var notationalContext
     
     var body: some View {
         let settingsHeight = 30.0
@@ -40,7 +41,7 @@ struct ContentView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
-            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext)
+            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext, notationalContext: notationalContext)
             PitchColorPalette.seedSystemPitchPalettes(modelContext: modelContext)
         }
     }
