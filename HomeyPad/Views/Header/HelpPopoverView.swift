@@ -8,7 +8,7 @@ struct HelpPopoverView: View {
 
     var body: some View {
         
-        let colorPalette: ColorPalette = notationalContext.colorPalette
+        let colorPalette: ColorPalette = notationalContext.colorPalette(for: instrumentalContext.instrumentChoice)
         
         HStack(alignment: .center) {
             Spacer()

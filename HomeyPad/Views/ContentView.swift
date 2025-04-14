@@ -43,6 +43,7 @@ struct ContentView: View {
         .onAppear {
             IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext, notationalContext: notationalContext)
             PitchColorPalette.seedSystemPitchPalettes(modelContext: modelContext)
+            notationalContext.loadColorPaletteIDs(modelContext: modelContext)
         }
     }
     
