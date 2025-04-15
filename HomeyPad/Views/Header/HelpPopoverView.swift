@@ -42,7 +42,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(MajorMinor.allCases, id: \.self) { mami in
+                ForEach(MajorMinor.allCases.sorted { $0.majorMinorMagnitude > $1.majorMinorMagnitude }, id: \.self) { mami in
                     let imageColor = colorPalette.majorMinorColor(majorMinor: mami)
                     GridRow {
                         mami.image
@@ -55,7 +55,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(PitchDirection.allCases, id: \.self) { pitchDirection in
+                ForEach(PitchDirection.allCases.sorted { $0.majorMinorMagnitude > $1.majorMinorMagnitude }, id: \.self) { pitchDirection in
                     let imageColor = colorPalette.majorMinorColor(majorMinor: pitchDirection.majorMinor)
                     GridRow {
                         pitchDirection.image
@@ -69,7 +69,8 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(Chord.allCases, id: \.self) { chord in
+                ForEach(Chord.allCases.sorted { $0.majorMinorMagnitude > $1.majorMinorMagnitude },
+                        id: \.self) { chord in
                     let imageColor = colorPalette.majorMinorColor(majorMinor: chord.majorMinor)
                     GridRow {
                         Image(systemName: chord.icon)
@@ -84,38 +85,27 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(Mode.allCases, id: \.self) { mode in
-                    GridRow {
-                        HStack(spacing: 0) {
-                            let pitchDirectionImageColor = colorPalette.majorMinorColor(majorMinor: mode.pitchDirection.majorMinor)
-                            Image(systemName: "square")
-                                .foregroundColor(.clear)
-                                .overlay(
-                                    Image(systemName: mode.pitchDirection.icon)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .foregroundColor(pitchDirectionImageColor)
-                                )
-                            if (mode.scale == .pentatonic) {
-                                let modeImageColor = colorPalette.majorMinorColor(majorMinor: mode.majorMinor)
-                                Image(systemName: "square")
-                                    .foregroundColor(.clear)
-                                    .overlay(
-                                        Image(systemName: Scale.pentatonic.icon)
-                                            .aspectRatio(1.0, contentMode: .fit)
-                                            .foregroundColor(modeImageColor)
-                                    )
-                            }
-                            let chordShapeImageColor = colorPalette.majorMinorColor(majorMinor: mode.chordShape.majorMinor)
-                            Image(systemName: "square")
-                                .foregroundColor(.clear)
-                                .overlay(
-                                    Image(systemName: mode.chordShape.icon)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .foregroundColor(chordShapeImageColor)
-                                )
-                        }
-                        Text("\(mode.label.capitalized)")
-                    }
+                GridRow {
+                    Text("Heptatonic")
+                        .font(.caption2)
+                        .gridCellColumns(2)
+                }
+                let heptatonicModes = Mode.allCases
+                    .filter { $0.scaleCount == .heptatonic }
+                    .sorted { $0.majorMinorMagnitude > $1.majorMinorMagnitude }
+                ForEach(heptatonicModes, id: \.self) { mode in
+                    modeRow(mode: mode, colorPalette: colorPalette)
+                }
+                GridRow {
+                    Text("Pentatonic")
+                        .font(.caption2)
+                        .gridCellColumns(2)
+                }
+                let pentatonicModes = Mode.allCases
+                    .filter { $0.scaleCount == .pentatonic }
+                    .sorted { $0.majorMinorMagnitude > $1.majorMinorMagnitude }
+                ForEach(pentatonicModes, id: \.self) { mode in
+                    modeRow(mode: mode, colorPalette: colorPalette)
                 }
                 GridRow {
                     Text("MIDI Channels")
@@ -124,12 +114,12 @@ struct HelpPopoverView: View {
                 }
                 ForEach(InstrumentChoice.allCases, id: \.self) { instrumentChoice in
                     GridRow {
-                        Text("\(instrumentChoice.midiChannelLabel)")
+                        Text(instrumentChoice.midiChannelLabel)
                         HStack {
                             Image(systemName: instrumentChoice.icon)
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .frame(width: 17, height: 17)
-                            Text(instrumentChoice.label)
+                            Text(instrumentChoice.label.capitalized)
                         }
                     }
                 }
@@ -186,3 +176,36 @@ struct HelpPopoverView: View {
     }
 }
 
+func modeRow(mode: Mode, colorPalette: ColorPalette) -> some View {
+    GridRow {
+        HStack(spacing: 0) {
+            let pitchDirectionImageColor = colorPalette.majorMinorColor(majorMinor: mode.pitchDirection.majorMinor)
+            Image(systemName: "square")
+                .foregroundColor(.clear)
+                .overlay(
+                    Image(systemName: mode.pitchDirection.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(pitchDirectionImageColor)
+                )
+            if (mode.scaleCount == .pentatonic) {
+                let modeImageColor = colorPalette.majorMinorColor(majorMinor: mode.majorMinor)
+                Image(systemName: "square")
+                    .foregroundColor(.clear)
+                    .overlay(
+                        Image(systemName: ScaleCount.pentatonic.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .foregroundColor(modeImageColor)
+                    )
+            }
+            let chordShapeImageColor = colorPalette.majorMinorColor(majorMinor: mode.chordShape.majorMinor)
+            Image(systemName: "square")
+                .foregroundColor(.clear)
+                .overlay(
+                    Image(systemName: mode.chordShape.icon)
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .foregroundColor(chordShapeImageColor)
+                )
+        }
+        Text(mode.label.capitalized)
+    }
+}
