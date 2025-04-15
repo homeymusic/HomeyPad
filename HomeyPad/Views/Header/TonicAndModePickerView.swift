@@ -41,7 +41,7 @@ struct TonicAndModePickerView: View {
                 Group {
                     let strokeStyle = StrokeStyle(
                         lineWidth: 1,
-                        dash: instrumentalContext.areModeAndTonicLinked ? [] : [8, 2]
+                        dash: instrumentalContext.areModeAndTonicLinked ? [] : [3, 1]
                     )
                     switch feetDirection {
                     case .left:
@@ -54,18 +54,24 @@ struct TonicAndModePickerView: View {
                 }
                 if  instrumentalContext.areModeAndTonicLinked {
                     Image(systemName: "personalhotspot.circle.fill")
-                        .font(Font.system(.title, weight: .black))
+                        .font(.title)
                         .background(
                             Rectangle()
                                 .fill(.black)
                         )
                 } else {
-                    HomeyMusicKit.modeAndTonicUnlinkedImage
-                        .font(Font.system(.title, weight: .thin))
+                    Image(systemName: "personalhotspot.circle.fill")
+                        .font(.title)
                         .background(
-                            // The overlay draws a white border around the padded background
                             Rectangle()
                                 .fill(.black)
+                        )
+                        .foregroundColor(.clear)
+                        .overlay(
+                            HomeyMusicKit.modeAndTonicUnlinkedImage
+                                .foregroundColor(.white)
+                                .font(.callout)
+                                .padding([.top, .bottom], 3)
                         )
                 }
             }
