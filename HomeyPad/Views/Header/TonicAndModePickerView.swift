@@ -75,7 +75,7 @@ struct TonicAndModePickerView: View {
                         )
                 }
             }
-            .aspectRatio(1/2, contentMode: .fit)
+            .aspectRatio(1/4, contentMode: .fit)
             .padding([.top, .bottom], 16)
         }
     }
