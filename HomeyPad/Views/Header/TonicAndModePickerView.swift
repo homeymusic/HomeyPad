@@ -9,7 +9,7 @@ struct TonicAndModePickerView: View {
     var body: some View {
         if isModeOrTonicPickersShown {
             HStack(spacing: 5) {
-                modeAndTonicPickerToggleView(feetDirection: .right)
+                if areModeAndTonicPickersShown {modeAndTonicPickerToggleView(feetDirection: .right)}
                 VStack(spacing: 5) {
                     if notationalTonicContext.showTonicPicker {
                         TonicInstrumentView()
@@ -20,7 +20,7 @@ struct TonicAndModePickerView: View {
                             .aspectRatio(horizontalCellCount * aspectMultiplier, contentMode: .fit)
                     }
                 }
-                modeAndTonicPickerToggleView(feetDirection: .left)
+                if areModeAndTonicPickersShown {modeAndTonicPickerToggleView(feetDirection: .left)}
             }
             // Lock the entire TonicAndModePickerView to the ratio we computed
             .aspectRatio(ratio, contentMode: .fit)
@@ -47,30 +47,25 @@ struct TonicAndModePickerView: View {
                     case .left:
                         VerticalLineWithFeet(direction: .right)
                             .stroke(style: strokeStyle)
-                            .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
                     case .right:
                         VerticalLineWithFeet(direction: .left)
                             .stroke(style: strokeStyle)
-                            .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
                     }
                 }
                 if  instrumentalContext.areModeAndTonicLinked {
                     Image(systemName: "personalhotspot.circle.fill")
-                        .font(Font.system(.title2, weight: .black))
-                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                        .font(Font.system(.title, weight: .black))
                         .background(
-                            // The overlay draws a white border around the padded background
                             Rectangle()
-                                .fill(areModeAndTonicPickersShown ? .black : .clear)
+                                .fill(.black)
                         )
                 } else {
                     HomeyMusicKit.modeAndTonicUnlinkedImage
-                        .font(Font.system(.title2, weight: .thin))
-                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                        .font(Font.system(.title, weight: .thin))
                         .background(
                             // The overlay draws a white border around the padded background
                             Rectangle()
-                                .fill(areModeAndTonicPickersShown ? .black : .clear)
+                                .fill(.black)
                         )
                 }
             }
