@@ -2,22 +2,14 @@ import SwiftUI
 import HomeyMusicKit
 
 struct TonicAndModePickerView: View {
+    @Environment(InstrumentalContext.self) var instrumentalContext
     @Environment(NotationalTonicContext.self) var notationalTonicContext
     let horizontalCellCount = 13.0
 
     var body: some View {
         if isModeOrTonicPickersShown {
             HStack(spacing: 5) {
-                ZStack {
-                    Rectangle()
-                        .fill(areModeAndTonicPickersShown ? .white : .clear)
-                        .frame(width: 1)
-                    
-                    Image(systemName: "personalhotspot")
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
-                }
-                
+                modeAndTonicPickerToggleView(feetDirection: .right)
                 VStack(spacing: 5) {
                     if notationalTonicContext.showTonicPicker {
                         TonicInstrumentView()
@@ -28,22 +20,62 @@ struct TonicAndModePickerView: View {
                             .aspectRatio(horizontalCellCount * aspectMultiplier, contentMode: .fit)
                     }
                 }
-                
-                
-                ZStack {
-                    Rectangle()
-                        .fill(areModeAndTonicPickersShown ? .white : .clear)
-                        .frame(width: 1)
-                    
-                    Image(systemName: "personalhotspot")
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
-                }
+                modeAndTonicPickerToggleView(feetDirection: .left)
             }
             // Lock the entire TonicAndModePickerView to the ratio we computed
             .aspectRatio(ratio, contentMode: .fit)
         } else {
             EmptyView()
+        }
+    }
+    
+    func modeAndTonicPickerToggleView(feetDirection: FeetDirection) -> some View {
+        Button(action: {
+            withAnimation {
+                print("areModeAndTonicLinked", instrumentalContext.areModeAndTonicLinked)
+                instrumentalContext.areModeAndTonicLinked.toggle()
+                buzz()
+            }
+        }) {
+            ZStack {                
+                Group {
+                    let strokeStyle = StrokeStyle(
+                        lineWidth: 1,
+                        dash: instrumentalContext.areModeAndTonicLinked ? [] : [8, 2]
+                    )
+                    switch feetDirection {
+                    case .left:
+                        VerticalLineWithFeet(direction: .right)
+                            .stroke(style: strokeStyle)
+                            .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                    case .right:
+                        VerticalLineWithFeet(direction: .left)
+                            .stroke(style: strokeStyle)
+                            .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                    }
+                }
+                if  instrumentalContext.areModeAndTonicLinked {
+                    Image(systemName: "personalhotspot.circle.fill")
+                        .font(Font.system(.title2, weight: .black))
+                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                        .background(
+                            // The overlay draws a white border around the padded background
+                            Rectangle()
+                                .fill(areModeAndTonicPickersShown ? .black : .clear)
+                        )
+                } else {
+                    HomeyMusicKit.modeAndTonicUnlinkedImage
+                        .font(Font.system(.title2, weight: .thin))
+                        .foregroundColor(areModeAndTonicPickersShown ? .white : .clear)
+                        .background(
+                            // The overlay draws a white border around the padded background
+                            Rectangle()
+                                .fill(areModeAndTonicPickersShown ? .black : .clear)
+                        )
+                }
+            }
+            .aspectRatio(1/2, contentMode: .fit)
+            .padding([.top, .bottom], 16)
         }
     }
     
@@ -80,6 +112,38 @@ struct TonicAndModePickerView: View {
             return 1.0
         } else {
             return 2.0
+        }
+    }
+    
+    enum FeetDirection {
+        case left
+        case right
+    }
+
+    struct VerticalLineWithFeet: Shape {
+        let direction: FeetDirection
+
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+
+            let centerX = rect.midX
+            let topY = rect.minY
+            let bottomY = rect.maxY
+            let edgeX = direction == .left ? rect.maxX : rect.minX
+
+            // Vertical line
+            path.move(to: CGPoint(x: centerX, y: topY))
+            path.addLine(to: CGPoint(x: centerX, y: bottomY))
+
+            // Top foot
+            path.move(to: CGPoint(x: centerX, y: topY))
+            path.addLine(to: CGPoint(x: edgeX, y: topY))
+
+            // Bottom foot
+            path.move(to: CGPoint(x: centerX, y: bottomY))
+            path.addLine(to: CGPoint(x: edgeX, y: bottomY))
+
+            return path
         }
     }
 }
