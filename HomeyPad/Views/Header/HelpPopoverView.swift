@@ -73,7 +73,8 @@ struct HelpPopoverView: View {
                         id: \.self) { chord in
                     let imageColor = colorPalette.majorMinorColor(majorMinor: chord.majorMinor)
                     GridRow {
-                        Image(systemName: chord.icon)
+                        chord.image
+//r                        Image(systemName: chord.icon)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 17, height: 17)
                             .foregroundColor(imageColor)
@@ -183,25 +184,25 @@ func modeRow(mode: Mode, colorPalette: ColorPalette) -> some View {
             Image(systemName: "square")
                 .foregroundColor(.clear)
                 .overlay(
-                    Image(systemName: mode.pitchDirection.icon)
+                    mode.pitchDirection.image
                         .aspectRatio(1.0, contentMode: .fit)
                         .foregroundColor(pitchDirectionImageColor)
                 )
-            if (mode.scaleCount == .pentatonic) {
-                let modeImageColor = colorPalette.majorMinorColor(majorMinor: mode.majorMinor)
-                Image(systemName: "square")
-                    .foregroundColor(.clear)
-                    .overlay(
-                        Image(systemName: ScaleCount.pentatonic.icon)
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .foregroundColor(modeImageColor)
-                    )
-            }
+//            if (mode.scaleCount == .pentatonic) {
+//                let modeImageColor = colorPalette.majorMinorColor(majorMinor: mode.majorMinor)
+//                Image(systemName: "square")
+//                    .foregroundColor(.clear)
+//                    .overlay(
+//                        Image(systemName: ScaleCount.pentatonic.icon)
+//                            .aspectRatio(1.0, contentMode: .fit)
+//                            .foregroundColor(modeImageColor)
+//                    )
+//            }
             let chordShapeImageColor = colorPalette.majorMinorColor(majorMinor: mode.chordShape.majorMinor)
             Image(systemName: "square")
                 .foregroundColor(.clear)
                 .overlay(
-                    Image(systemName: mode.chordShape.icon)
+                    mode.image
                         .aspectRatio(1.0, contentMode: .fit)
                         .foregroundColor(chordShapeImageColor)
                 )
