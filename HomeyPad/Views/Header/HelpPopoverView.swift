@@ -113,7 +113,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(InstrumentChoice.allCases, id: \.self) { instrumentChoice in
+                ForEach(InstrumentChoice.allInstruments, id: \.self) { instrumentChoice in
                     GridRow {
                         Text(instrumentChoice.midiChannelLabel)
                         HStack {
