@@ -18,14 +18,14 @@ struct FooterView: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        instrumentalContext.latching.toggle()
+                        instrumentalContext.instrument.latching.toggle()
                     }
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: instrumentalContext.latching ? "pin.fill" : "pin.slash")
+                            Image(systemName: instrumentalContext.instrument.latching ? "pin.fill" : "pin.slash")
                                 .foregroundColor(.white)
-                                .font(Font.system(size: .leastNormalMagnitude, weight: instrumentalContext.latching ? .black : .thin))
+                                .font(Font.system(size: .leastNormalMagnitude, weight: instrumentalContext.instrument.latching ? .black : .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
