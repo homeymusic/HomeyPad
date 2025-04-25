@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B026733F2BAF6C7C00DDFA62"
-               BuildableName = "HomeyPad.app"
-               BlueprintName = "HomeyPad"
+               BuildableName = "Homey Pad.app"
+               BlueprintName = "Homey Pad"
                ReferencedContainer = "container:HomeyPad.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B026733F2BAF6C7C00DDFA62"
-            BuildableName = "HomeyPad.app"
-            BlueprintName = "HomeyPad"
+            BuildableName = "Homey Pad.app"
+            BlueprintName = "Homey Pad"
             ReferencedContainer = "container:HomeyPad.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,8 +74,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B026733F2BAF6C7C00DDFA62"
-            BuildableName = "HomeyPad.app"
-            BlueprintName = "HomeyPad"
+            BuildableName = "Homey Pad.app"
+            BlueprintName = "Homey Pad"
             ReferencedContainer = "container:HomeyPad.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

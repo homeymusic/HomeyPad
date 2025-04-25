@@ -6,7 +6,8 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(NotationalContext.self) public var notationalContext
-    
+    @Environment(InstrumentalContext.self) public var instrumentalContext
+
     var body: some View {
         let settingsHeight = 30.0
         let settingsBuffer = 5.0
@@ -23,7 +24,7 @@ struct ContentView: View {
                     VStack(spacing: settingsBuffer) {
                         TonicModePickerView()
                         
-                        InstrumentView()
+                        InstrumentView(instrumentalContext.instrument)
                             .ignoresSafeArea(edges:.horizontal)
                     }
                     .frame(height: .infinity)

@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B02673402BAF6C7C00DDFA62 /* HomeyPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeyPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B02673402BAF6C7C00DDFA62 /* Homey Pad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homey Pad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		B02673412BAF6C7C00DDFA62 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B02673402BAF6C7C00DDFA62 /* HomeyPad.app */,
+				B02673402BAF6C7C00DDFA62 /* Homey Pad.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,9 +109,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B026733F2BAF6C7C00DDFA62 /* HomeyPad */ = {
+		B026733F2BAF6C7C00DDFA62 /* Homey Pad */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B026734E2BAF6C7D00DDFA62 /* Build configuration list for PBXNativeTarget "HomeyPad" */;
+			buildConfigurationList = B026734E2BAF6C7D00DDFA62 /* Build configuration list for PBXNativeTarget "Homey Pad" */;
 			buildPhases = (
 				B026733C2BAF6C7C00DDFA62 /* Sources */,
 				B026733D2BAF6C7C00DDFA62 /* Frameworks */,
@@ -121,12 +121,12 @@
 			);
 			dependencies = (
 			);
-			name = HomeyPad;
+			name = "Homey Pad";
 			packageProductDependencies = (
 				B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */,
 			);
 			productName = HomeyPad;
-			productReference = B02673402BAF6C7C00DDFA62 /* HomeyPad.app */;
+			productReference = B02673402BAF6C7C00DDFA62 /* Homey Pad.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -159,7 +159,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B026733F2BAF6C7C00DDFA62 /* HomeyPad */,
+				B026733F2BAF6C7C00DDFA62 /* Homey Pad */,
 			);
 		};
 /* End PBXProject section */
@@ -409,7 +409,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B026734E2BAF6C7D00DDFA62 /* Build configuration list for PBXNativeTarget "HomeyPad" */ = {
+		B026734E2BAF6C7D00DDFA62 /* Build configuration list for PBXNativeTarget "Homey Pad" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B026734F2BAF6C7D00DDFA62 /* Debug */,
