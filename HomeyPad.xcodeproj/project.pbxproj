@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B005B2392DBD9C1600737188 /* Instrument+ModelContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */; };
 		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instrument+ModelContext.swift"; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* Homey Pad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homey Pad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B005B2372DBD9BF500737188 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B02673372BAF6C7C00DDFA62 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +78,7 @@
 		B02673422BAF6C7C00DDFA62 /* HomeyPad */ = {
 			isa = PBXGroup;
 			children = (
+				B005B2372DBD9BF500737188 /* Models */,
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
 				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
@@ -188,6 +199,7 @@
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
+				B005B2392DBD9C1600737188 /* Instrument+ModelContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
