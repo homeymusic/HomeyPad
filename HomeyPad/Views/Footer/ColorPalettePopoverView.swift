@@ -31,11 +31,14 @@ struct ColorPalettePopoverView: View {
 
         ScrollViewReader { scrollProxy in
             Grid {
+                
                 ForEach(intervalColorPalettes, id: \.self) {intervalColorPalette in
-                    ColorPaletteGridRow(listedColorPalette: intervalColorPalette)
+                    ColorPaletteGridRow(colorPalette: intervalColorPalette)
                         .id(intervalColorPalette.id)
                 }
+                
                 Divider()
+                
                 GridRow {
                     Image(systemName: "pencil.and.outline")
                         .gridCellAnchor(.center)
@@ -59,70 +62,101 @@ struct ColorPalettePopoverView: View {
                 Divider()
                 
                 ForEach(pitchColorPalettes, id: \.self) {pitchColorPalette in
-                    ColorPaletteGridRow(listedColorPalette: pitchColorPalette)
+                    ColorPaletteGridRow(colorPalette: pitchColorPalette)
                         .id(pitchColorPalette.id)
                 }
                 
             }
             .padding(10)
             .onAppear {
-                if let selectedPalette = notationalContext.colorPalettes[instrumentalContext.instrumentChoice] {
-                    scrollProxy.scrollTo(selectedPalette.id, anchor: .center)
-                }
+                let selectedPalette = instrument.colorPalette
+                scrollProxy.scrollTo(selectedPalette.id, anchor: .center)
             }
         }
     }
 }
 
 struct ColorPaletteGridRow: View {
-    let listedColorPalette: ColorPalette
-    
-    @Environment(InstrumentalContext.self) var instrumentalContext
-    @Environment(NotationalContext.self) var notationalContext
-    
+    /// A single palette (either IntervalColorPalette or PitchColorPalette)
+    let colorPalette: ColorPalette
+
+    @Environment(\.modelContext)           private var modelContext
+    @Environment(InstrumentalContext.self) private var instrumentalContext
+
     var body: some View {
-        // 1) Get a binding to the *current* palette for the selected instrument
-        let paletteBinding = notationalContext.colorPaletteBinding(for: instrumentalContext.instrumentChoice)
-        
+        // 1) Fetch the exact instrument model we’re editing
+        let instrument = modelContext.instrument(
+            for: instrumentalContext.instrumentChoice
+        )
+
+        // 2) Compute whether *this* palette is currently assigned to that instrument
+        let isColorPaletteSelected: Bool = {
+            switch colorPalette {
+            case let intervalColorPalette as IntervalColorPalette:
+                return instrument.intervalColorPalette?.id
+                    == intervalColorPalette.id
+
+            case let pitchColorPalette as PitchColorPalette:
+                return instrument.pitchColorPalette?.id
+                    == pitchColorPalette.id
+
+            default:
+                return false
+            }
+        }()
+
         GridRow {
-            switch listedColorPalette {
-            case let intervalPalette as IntervalColorPalette:
-                IntervalColorPaletteImage(intervalColorPalette: intervalPalette)
-                    .foregroundColor(.white)
-            case let pitchPalette as PitchColorPalette:
-                PitchColorPaletteImage(pitchColorPalette: pitchPalette)
-                    .foregroundColor(.white)
+            // 3) Render the thumbnail image
+            switch colorPalette {
+            case let intervalColorPalette as IntervalColorPalette:
+                IntervalColorPaletteImage(
+                  intervalColorPalette: intervalColorPalette
+                )
+                .foregroundColor(.white)
+
+            case let pitchColorPalette as PitchColorPalette:
+                PitchColorPaletteImage(
+                  pitchColorPalette: pitchColorPalette
+                )
+                .foregroundColor(.white)
+
             default:
                 EmptyView()
             }
-            
+
+            // 4) Name + checkmark
             HStack {
-                Text(listedColorPalette.name)
+                Text(colorPalette.name)
                     .lineLimit(1)
                     .foregroundColor(.white)
-                
+
                 Spacer()
-                
-                // 2) If this listed palette is the same as the binding’s value, show checkmark
-                if listedColorPalette.id == paletteBinding.wrappedValue.id {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                } else {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.clear)
-                }
+
+                Image(systemName: "checkmark")
+                    .foregroundColor(
+                      isColorPaletteSelected ? .white : .clear
+                    )
             }
         }
         .gridCellAnchor(.leading)
         .contentShape(Rectangle())
         .onTapGesture {
-            // 3) When tapping, set the binding’s value to the new palette
-            if paletteBinding.wrappedValue.id != listedColorPalette.id {
-                buzz()
-                // This automatically updates `colorPalettes[instrumentChoice]`
-                // and also triggers the "saveColorPaletteIDs()" logic
-                paletteBinding.wrappedValue = listedColorPalette
+            // 5) When tapped, write the new palette into the instrument
+            try? modelContext.transaction {
+                switch colorPalette {
+                case let intervalColorPalette as IntervalColorPalette:
+                    instrument.intervalColorPalette = intervalColorPalette
+                    instrument.pitchColorPalette    = nil
+                    
+                case let pitchColorPalette as PitchColorPalette:
+                    instrument.pitchColorPalette = pitchColorPalette
+                    instrument.intervalColorPalette = nil
+
+                default:
+                    break
+                }
             }
+            buzz()
         }
         .padding(3)
     }
