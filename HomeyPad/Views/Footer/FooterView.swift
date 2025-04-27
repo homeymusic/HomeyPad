@@ -53,9 +53,9 @@ struct FooterView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                } else {
+                } else if let keyboardInstrument = instrument as? KeyboardInstrument {
                     RowsColsPickerView(
-                        keyboardInstrument: instrumentalContext.keyboardInstrument
+                        keyboardInstrument: keyboardInstrument
                     )
                 }
             }
