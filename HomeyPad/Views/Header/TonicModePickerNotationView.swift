@@ -5,13 +5,16 @@ public struct TonicModePickerNotationView: View {
     @Environment(AppContext.self) var appContext
     @Environment(TonalContext.self) var tonalContext
     @Environment(NotationalContext.self) var notationalContext
-    @Environment(NotationalTonicContext.self) var notationalTonicContext
     @Environment(InstrumentalContext.self) var instrumentalContext
+    @Environment(\.modelContext) var modelContext
     
+    private var tonicPicker: TonicPicker {
+        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+    }
+
     public init() { }
     public var body: some View {
         @Bindable var appContext = appContext
-        @Bindable var notationalTonicContext = notationalTonicContext
         
         HStack {
             
@@ -20,19 +23,19 @@ public struct TonicModePickerNotationView: View {
             }) {
                 Color.clear.overlay(
                     Image(systemName: "tag")
-                        .foregroundColor(!(notationalTonicContext.showTonicPicker || notationalTonicContext.showModePicker) ? .gray : .white)
+                        .foregroundColor(!(appContext.showTonicPicker || appContext.showModePicker) ? .gray : .white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                 )
                 .aspectRatio(1.0, contentMode: .fit)
             }
-            .disabled(!(notationalTonicContext.showTonicPicker || notationalTonicContext.showModePicker))
+            .disabled(!(appContext.showTonicPicker || appContext.showModePicker))
             .popover(isPresented: $appContext.showTonicModeLabelsPopover, content: {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
-                        if notationalTonicContext.showTonicPicker {
+                        if appContext.showTonicPicker {
                             Image(systemName: InstrumentChoice.tonicPicker.filledIcon)
                         }
-                        if notationalTonicContext.showModePicker {
+                        if appContext.showModePicker {
                             Image(systemName: InstrumentChoice.modePicker.filledIcon)
                         }
                     }
@@ -44,14 +47,14 @@ public struct TonicModePickerNotationView: View {
                     }
                     Divider()
                     Button(action: {
-                        notationalTonicContext.resetLabels()
+                        tonicPicker.resetDefaultLabelChoices()
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
-                            .foregroundColor(notationalTonicContext.areLabelsDefault(for: InstrumentChoice.tonicPicker) ? .gray : .white)
+                            .foregroundColor(tonicPicker.areDefaultLabelChoices ? .gray : .white)
                     })
                     .gridCellColumns(2)
-                    .disabled(notationalTonicContext.areLabelsDefault(for: InstrumentChoice.tonicPicker))
+                    .disabled(tonicPicker.areDefaultLabelChoices)
                     .padding([.top, .bottom], 7)
                 }
             })
@@ -59,12 +62,12 @@ public struct TonicModePickerNotationView: View {
             
             Button(action: {
                 withAnimation {
-                    notationalTonicContext.showTonicPicker.toggle()
+                    appContext.showTonicPicker.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: notationalTonicContext.showTonicPicker ? InstrumentChoice.tonicPicker.filledIcon : InstrumentChoice.tonicPicker.icon)
+                        Image(systemName: appContext.showTonicPicker ? InstrumentChoice.tonicPicker.filledIcon : InstrumentChoice.tonicPicker.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -75,12 +78,12 @@ public struct TonicModePickerNotationView: View {
             
             Button(action: {
                 withAnimation {
-                    notationalTonicContext.showModePicker.toggle()
+                    appContext.showModePicker.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: notationalTonicContext.showModePicker ? InstrumentChoice.modePicker.filledIcon :
+                        Image(systemName: appContext.showModePicker ? InstrumentChoice.modePicker.filledIcon :
                                 InstrumentChoice.modePicker.icon)
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
@@ -88,9 +91,9 @@ public struct TonicModePickerNotationView: View {
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .onChange(of: notationalTonicContext.showModePicker) {
-                if notationalTonicContext.showModePicker {
-                    notationalContext.outline[instrumentalContext.instrumentChoice] = true
+            .onChange(of: appContext.showModePicker) {
+                if appContext.showModePicker {
+                    tonicPicker.showOutlines = true
                 }
             }
         }

@@ -35,6 +35,7 @@ struct FooterView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                     }
                 }
+
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             

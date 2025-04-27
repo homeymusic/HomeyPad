@@ -6,8 +6,12 @@ public struct TonicModePickerView: View {
     @Environment(AppContext.self) var appContext
     @Environment(InstrumentalContext.self) var instrumentalContext
     let horizontalCellCount = 13.0
+    private let instrument: any Instrument
 
-    public init() { }
+    public init(_ instrument: any Instrument) {
+        self.instrument = instrument
+    }
+
     public var body: some View {
         @Bindable var appContext = appContext
 
@@ -16,11 +20,11 @@ public struct TonicModePickerView: View {
                 if areModeAndTonicPickersShown {modeAndTonicPickerToggleView(feetDirection: .right)}
                 VStack(spacing: 5) {
                     if appContext.showTonicPicker {
-                        TonicInstrumentView()
+                        TonicInstrumentView(tonicPicker: modelContext.instrument(for: .tonicPicker) as! TonicPicker)
                             .aspectRatio(horizontalCellCount, contentMode: .fit)
                     }
                     if appContext.showModePicker {
-                        ModeInstrumentView()
+                        ModeInstrumentView(tonicPicker: modelContext.instrument(for: .tonicPicker) as! TonicPicker)
                             .aspectRatio(horizontalCellCount * aspectMultiplier, contentMode: .fit)
                     }
                 }

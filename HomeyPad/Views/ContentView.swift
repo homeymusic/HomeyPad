@@ -22,7 +22,7 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack(spacing: settingsBuffer) {
-                        TonicModePickerView()
+                        TonicModePickerView(modelContext.instrument(for: .tonicPicker))
                         
                         InstrumentView(modelContext.instrument(for: instrumentalContext.instrumentChoice))
                             .ignoresSafeArea(edges:.horizontal)

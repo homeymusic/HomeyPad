@@ -2,28 +2,28 @@ import SwiftUI
 import HomeyMusicKit
 
 struct HelpView: View {
-    @Environment(NotationalTonicContext.self) var notationalTonicContext
-
+    @Environment(AppContext.self) var appContext
     
     var body: some View {
+        @Bindable var appContext = appContext
+
         let icon = "questionmark.circle"
-        @Bindable var notationalTonicContext = notationalTonicContext
         HStack(spacing: 0) {
             Button(action: {
                 withAnimation {
-                    notationalTonicContext.showHelp.toggle()
+                    appContext.showHelp.toggle()
                 }
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: notationalTonicContext.showHelp ? icon + ".fill" : icon)
+                        Image(systemName: appContext.showHelp ? icon + ".fill" : icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .popover(isPresented: $notationalTonicContext.showHelp, content: {
+            .popover(isPresented: $appContext.showHelp, content: {
                 VStack(spacing: 0) {
                     HelpPopoverView().presentationCompactAdaptation(.none)
                 }

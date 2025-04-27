@@ -2,14 +2,21 @@ import SwiftUI
 import HomeyMusicKit
 
 struct TonicModePickerNotationPopoverView: View {
+    @Environment(\.modelContext)            private var modelContext
+
     @Environment(TonalContext.self) var tonalContext
-    @Environment(NotationalTonicContext.self) var notationalTonicContext
+    @Environment(AppContext.self) var appContext
+    
+    private var tonicPicker: TonicPicker {
+        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+    }
 
     var body: some View {
+        @Bindable var appContext = appContext
         @Bindable var tonalContext = tonalContext
         VStack(spacing: 0.0) {
             Grid {
-                if notationalTonicContext.showTonicPicker {
+                if appContext.showTonicPicker {
                     ForEach(IntervalLabelChoice.intervalClassCases, id: \.self) {key in
                         if key == .symbol {
                             Divider()
@@ -19,7 +26,7 @@ struct TonicModePickerNotationPopoverView: View {
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: notationalTonicContext.intervalBinding(for: .tonicPicker, choice: key))
+                                   isOn: intervalBinding(for: key))
                             .gridCellAnchor(.leading)
                             .tint(Color.gray)
                         }
@@ -34,7 +41,7 @@ struct TonicModePickerNotationPopoverView: View {
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
                                 Toggle(key.label,
-                                       isOn: notationalTonicContext.noteBinding(for: .tonicPicker, choice: key))
+                                       isOn: pitchBinding(for: key))
                                 .gridCellAnchor(.leading)
                                 .tint(Color.gray)
                                 .foregroundColor(.white)
@@ -55,17 +62,17 @@ struct TonicModePickerNotationPopoverView: View {
                         }
                     }
                 }
-                if notationalTonicContext.showTonicPicker && notationalTonicContext.showModePicker {
+                if appContext.showTonicPicker && appContext.showModePicker {
                     Divider()
                 }
-                if notationalTonicContext.showModePicker {
+                if appContext.showModePicker {
                     ForEach(PitchLabelChoice.modeCases, id: \.self) {key in
                         GridRow {
                             key.image
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
                             Toggle(key.label,
-                                   isOn: notationalTonicContext.noteBinding(for: .tonicPicker, choice: key))
+                                   isOn: pitchBinding(for: key))
                             .gridCellAnchor(.leading)
                             .tint(Color.gray)
                             .foregroundColor(.white)
@@ -75,5 +82,39 @@ struct TonicModePickerNotationPopoverView: View {
             }
             .padding(10)
         }
+    }
+    private func pitchBinding(for choice: PitchLabelChoice) -> Binding<Bool> {
+        Binding(
+            get: {
+                tonicPicker.pitchLabelChoices.contains(choice)
+            },
+            set: { isOn in
+                try? modelContext.transaction {
+                    if isOn {
+                        // inserting into a Set is idempotent
+                        tonicPicker.pitchLabelChoices.insert(choice)
+                    } else {
+                        tonicPicker.pitchLabelChoices.remove(choice)
+                    }
+                }
+            }
+        )
+    }
+    
+    private func intervalBinding(for choice: IntervalLabelChoice) -> Binding<Bool> {
+        Binding(
+            get: {
+                tonicPicker.intervalLabelChoices.contains(choice)
+            },
+            set: { isOn in
+                try? modelContext.transaction {
+                    if isOn {
+                        tonicPicker.intervalLabelChoices.insert(choice)
+                    } else {
+                        tonicPicker.intervalLabelChoices.remove(choice)
+                    }
+                }
+            }
+        )
     }
 }

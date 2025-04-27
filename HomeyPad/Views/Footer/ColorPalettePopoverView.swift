@@ -3,10 +3,10 @@ import SwiftData
 import HomeyMusicKit
 
 struct ColorPalettePopoverView: View {
+    @Environment(\.modelContext) var modelContext
+    @Environment(AppContext.self) var appContext
     @Environment(InstrumentalContext.self) var instrumentalContext
     @Environment(NotationalContext.self) var notationalContext
-    @Environment(NotationalTonicContext.self) var notationalTonicContext
-    @Environment(\.modelContext) var modelContext
     
     @Query(
         sort: \IntervalColorPalette.position, order: .forward
@@ -17,6 +17,18 @@ struct ColorPalettePopoverView: View {
     ) var pitchColorPalettes: [PitchColorPalette]
     
     var body: some View {
+        let instrument = modelContext.instrument(for: instrumentalContext.instrumentChoice)
+
+        // 2) Create a Binding<Bool> for showOutlines
+        let showOutlinesBinding = Binding<Bool>(
+          get: { instrument.showOutlines },
+          set: { newValue in
+            try? modelContext.transaction {
+              instrument.showOutlines = newValue
+            }
+          }
+        )
+
         ScrollViewReader { scrollProxy in
             Grid {
                 ForEach(intervalColorPalettes, id: \.self) {intervalColorPalette in
@@ -29,16 +41,16 @@ struct ColorPalettePopoverView: View {
                         .gridCellAnchor(.center)
                         .foregroundColor(.white)
                     Toggle(
-                        notationalContext.outlineLabel,
-                        isOn: notationalContext.outlineBinding(for: instrumentalContext.instrumentChoice)
+                        "Outline",
+                        isOn: showOutlinesBinding
                     )
                     .tint(Color.gray)
                     .foregroundColor(.white)
-                    .onChange(of: notationalContext.outline[instrumentalContext.instrumentChoice]) { oldValue, newValue in
+                    .onChange(of: instrument.showOutlines) {
                         buzz()
-                        if newValue == false {
+                        if instrument.showOutlines == false {
                             withAnimation {
-                                notationalTonicContext.showModePicker = false
+                                appContext.showModePicker = false
                             }
                         }
                     }

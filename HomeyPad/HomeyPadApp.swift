@@ -16,7 +16,6 @@ struct HomeyPad: App {
                 .environment(appContext)
                 .environment(orchestrator.tonalContext)
                 .environment(orchestrator.instrumentalContext)
-                .environment(orchestrator.notationalTonicContext)
                 .environment(orchestrator.notationalContext)
         }
         .modelContainer(for: [

@@ -33,7 +33,7 @@ struct NotationPopoverView: View {
                 Divider()
                 
                 // — PITCH LABELS —
-                ForEach(PitchLabelChoice.allCases, id: \.self) { choice in
+                ForEach(PitchLabelChoice.pitchCases, id: \.self) { choice in
                     // skip any special ones if you like
                     if choice != .accidentals {
                         GridRow {

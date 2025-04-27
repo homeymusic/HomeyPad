@@ -9,4 +9,5 @@ public final class AppContext {
     public var showColorPalettePopover: Bool = false
     public var showEditColorPaletteSheet: Bool = false
     public var showTonicModeLabelsPopover: Bool = false
+    public var showHelp: Bool = false
 }
