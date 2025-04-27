@@ -11,6 +11,12 @@
 		B005B23B2DBDC1DA00737188 /* NotationPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23A2DBDC1DA00737188 /* NotationPopoverView.swift */; };
 		B005B23D2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23C2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift */; };
 		B005B23F2DBDC2BE00737188 /* ColorPalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23E2DBDC2BE00737188 /* ColorPalettePopoverView.swift */; };
+		B005B2412DBDCC7100737188 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2402DBDCC6E00737188 /* AppContext.swift */; };
+		B005B2452DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */; };
+		B005B2462DBDCDAA00737188 /* TonicModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */; };
+		B005B2472DBDCDAA00737188 /* TonicModePickerNotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */; };
+		B005B24B2DBDCDBC00737188 /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */; };
+		B005B24C2DBDCDBC00737188 /* PitchDirectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */; };
 		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
 		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
@@ -28,6 +34,12 @@
 		B005B23A2DBDC1DA00737188 /* NotationPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotationPopoverView.swift; sourceTree = "<group>"; };
 		B005B23C2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotationInstrumentPalletePickerView.swift; sourceTree = "<group>"; };
 		B005B23E2DBDC2BE00737188 /* ColorPalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalettePopoverView.swift; sourceTree = "<group>"; };
+		B005B2402DBDCC6E00737188 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerNotationPopoverView.swift; sourceTree = "<group>"; };
+		B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerNotationView.swift; sourceTree = "<group>"; };
+		B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerView.swift; sourceTree = "<group>"; };
+		B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
+		B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDirectionPickerView.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* Homey Pad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homey Pad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +96,7 @@
 		B02673422BAF6C7C00DDFA62 /* HomeyPad */ = {
 			isa = PBXGroup;
 			children = (
+				B005B2402DBDCC6E00737188 /* AppContext.swift */,
 				B005B2372DBD9BF500737188 /* Models */,
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
@@ -108,6 +121,11 @@
 			isa = PBXGroup;
 			children = (
 				B0BDB6EF2D99BB78004617C0 /* ResetView.swift */,
+				B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */,
+				B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */,
+				B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */,
+				B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */,
+				B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */,
 				B093E1452CBD2DB800130B06 /* HeaderView.swift */,
 				B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */,
 				B093E1472CBD2DB800130B06 /* HelpView.swift */,
@@ -202,10 +220,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0BDB6F02D99BB7B004617C0 /* ResetView.swift in Sources */,
+				B005B2412DBDCC7100737188 /* AppContext.swift in Sources */,
 				B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */,
+				B005B2452DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift in Sources */,
+				B005B2462DBDCDAA00737188 /* TonicModePickerView.swift in Sources */,
+				B005B2472DBDCDAA00737188 /* TonicModePickerNotationView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,
 				B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */,
+				B005B24B2DBDCDBC00737188 /* OctaveShiftView.swift in Sources */,
+				B005B24C2DBDCDBC00737188 /* PitchDirectionPickerView.swift in Sources */,
 				B005B23F2DBDC2BE00737188 /* ColorPalettePopoverView.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,

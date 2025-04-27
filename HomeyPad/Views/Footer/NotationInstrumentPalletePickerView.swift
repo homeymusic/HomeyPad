@@ -4,7 +4,7 @@ import HomeyMusicKit
 public struct NotationInstrumentPalletePickerView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Environment(TonalContext.self) var tonalContext
+    @Environment(AppContext.self) var appContext
     @Environment(InstrumentalContext.self) var instrumentalContext
     @Environment(NotationalContext.self) var notationalContext
     
@@ -15,13 +15,14 @@ public struct NotationInstrumentPalletePickerView: View {
     public init() { }
     
     public var body: some View {
+        @Bindable var appContext = appContext
         @Bindable var notationalContext = notationalContext
         @Bindable var instrumentalContext = instrumentalContext
         
         Group {
             
             Button(action: {
-                notationalContext.showLabelsPopover.toggle()
+                appContext.showLabelsPopover.toggle()
             }) {
                 ZStack {
                     Image(systemName: "tag")
@@ -30,7 +31,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .popover(isPresented: $notationalContext.showLabelsPopover, content: {
+            .popover(isPresented: $appContext.showLabelsPopover, content: {
                 VStack(spacing: 0) {
                     Image(systemName: instrument.instrumentChoice.icon)
                         .padding([.top, .bottom], 7)
@@ -70,15 +71,15 @@ public struct NotationInstrumentPalletePickerView: View {
                 }
                 .pickerStyle(.segmented)
                 .onChange(of: instrumentalContext.instrumentChoice) {
-                    notationalContext.showColorPalettePopover = false
-                    notationalContext.showEditColorPaletteSheet = false
-                    notationalContext.showLabelsPopover = false
+                    appContext.showColorPalettePopover = false
+                    appContext.showEditColorPaletteSheet = false
+                    appContext.showLabelsPopover = false
                 }
             }
             
             Button(action: {
-                notationalContext.showColorPalettePopover.toggle()
-                notationalContext.showEditColorPaletteSheet = false
+                appContext.showColorPalettePopover.toggle()
+                appContext.showEditColorPaletteSheet = false
             }) {
                 ZStack {
                     Image(systemName: "paintpalette")
@@ -87,7 +88,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         .aspectRatio(1.0, contentMode: .fit)
                 }
             }
-            .popover(isPresented: $notationalContext.showColorPalettePopover,
+            .popover(isPresented: $appContext.showColorPalettePopover,
                      content: {
                 VStack(spacing: 0) {
                     Image(systemName: instrumentalContext.instrumentChoice.icon)
@@ -102,16 +103,16 @@ public struct NotationInstrumentPalletePickerView: View {
                         HStack {
                             Spacer()
                             Button("", systemImage: "paintbrush.pointed", action: {
-                                notationalContext.showEditColorPaletteSheet = true
+                                appContext.showEditColorPaletteSheet = true
                             })
 #if !os(macOS)
-                            .fullScreenCover(isPresented: $notationalContext.showEditColorPaletteSheet) {
+                            .fullScreenCover(isPresented: $appContext.showEditColorPaletteSheet) {
                                 ColorPaletteManagerView()
                                     .background(Color.systemGray6)
                                     .scrollContentBackground(.hidden)
                             }
 #else
-                            .sheet(isPresented: $notationalContext.showEditColorPaletteSheet) {
+                            .sheet(isPresented: $appContext.showEditColorPaletteSheet) {
                                 ColorPaletteManagerView()
                             }
 #endif
