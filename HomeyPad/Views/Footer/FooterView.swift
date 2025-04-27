@@ -9,8 +9,13 @@ import SwiftUI
 import HomeyMusicKit
 
 struct FooterView: View {
-    @Environment(InstrumentalContext.self) var instrumentalContext
-    @Environment(TonalContext.self) var tonalContext
+    
+    @Environment(\.modelContext)            private var modelContext
+    @Environment(InstrumentalContext.self)  private var instrumentalContext
+    
+    private var instrument: any Instrument {
+        modelContext.instrument(for: instrumentalContext.instrumentChoice)
+    }
 
     var body: some View {
         @Bindable var instrumentalContext = instrumentalContext
@@ -18,14 +23,14 @@ struct FooterView: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        instrumentalContext.instrument.latching.toggle()
+                        instrument.latching.toggle()
                     }
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: instrumentalContext.instrument.latching ? "pin.fill" : "pin.slash")
+                            Image(systemName: instrument.latching ? "pin.fill" : "pin.slash")
                                 .foregroundColor(.white)
-                                .font(Font.system(size: .leastNormalMagnitude, weight: instrumentalContext.instrument.latching ? .black : .thin))
+                                .font(Font.system(size: .leastNormalMagnitude, weight: instrument.latching ? .black : .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
@@ -39,7 +44,7 @@ struct FooterView: View {
             }
             
             HStack {
-                if instrumentalContext.instrumentChoice.isStringInstrument {
+                if instrument.instrumentChoice.isStringInstrument {
                     Picker("", selection: $instrumentalContext.instrumentChoice) {
                         ForEach(InstrumentChoice.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
