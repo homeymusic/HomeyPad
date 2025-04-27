@@ -114,7 +114,9 @@ struct HelpPopoverView: View {
                 }
                 ForEach(InstrumentChoice.allInstruments, id: \.self) { instrumentChoice in
                     GridRow {
-                        Text(instrumentChoice.midiChannelLabel)
+                        Image(systemName: instrumentChoice.midiChannel.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 17, height: 17)
                         HStack {
                             Image(systemName: instrumentChoice.icon)
                                 .aspectRatio(1.0, contentMode: .fit)
@@ -129,15 +131,21 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 GridRow {
-                    Text("16")
+                    Image(systemName: "16.square.fill")
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .frame(width: 17, height: 17)
                     Text("Tonic: 0 to 127 Notes")
                 }
                 GridRow {
-                    Text("17")
+                    Image(systemName: "17.square.fill")
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .frame(width: 17, height: 17)
                     Text("Direction: < 0, = 1, > 2")
                 }
                 GridRow {
-                    Text("18")
+                    Image(systemName: "18.square.fill")
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .frame(width: 17, height: 17)
                     Text("Mode: 0 ION to 11 LOC")
                 }
                 Divider()
