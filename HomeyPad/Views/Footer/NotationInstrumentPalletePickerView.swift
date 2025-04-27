@@ -6,7 +6,6 @@ public struct NotationInstrumentPalletePickerView: View {
 
     @Environment(AppContext.self) var appContext
     @Environment(InstrumentalContext.self) var instrumentalContext
-    @Environment(NotationalContext.self) var notationalContext
     
     private var instrument: any Instrument {
         modelContext.instrument(for: instrumentalContext.instrumentChoice)
@@ -16,7 +15,6 @@ public struct NotationInstrumentPalletePickerView: View {
     
     public var body: some View {
         @Bindable var appContext = appContext
-        @Bindable var notationalContext = notationalContext
         @Bindable var instrumentalContext = instrumentalContext
         
         Group {
@@ -122,13 +120,13 @@ public struct NotationInstrumentPalletePickerView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                notationalContext.resetColorPalette(for: instrumentalContext.instrumentChoice)
+                                instrument.intervalColorPalette = IntervalColorPalette.homey
                             }, label: {
                                 Image(systemName: "gobackward")
-                                    .foregroundColor(notationalContext.isColorPaletteDefault(for: instrumentalContext.instrumentChoice) ? .gray : .white)
+                                    .foregroundColor(false ? .gray : .white)
                             })
                             .padding([.top, .bottom], 7)
-                            .disabled(notationalContext.isColorPaletteDefault(for: instrumentalContext.instrumentChoice))
+                            .disabled(false)
                             Spacer()
                         }
                     }

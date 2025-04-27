@@ -6,7 +6,6 @@ struct ColorPalettePopoverView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) var appContext
     @Environment(InstrumentalContext.self) var instrumentalContext
-    @Environment(NotationalContext.self) var notationalContext
     
     @Query(
         sort: \IntervalColorPalette.position, order: .forward

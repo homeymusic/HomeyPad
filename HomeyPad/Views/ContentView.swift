@@ -5,7 +5,6 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Environment(NotationalContext.self) public var notationalContext
     @Environment(InstrumentalContext.self) public var instrumentalContext
 
     var body: some View {
@@ -44,9 +43,8 @@ struct ContentView: View {
         }
         .preferredColorScheme(.dark)
         .onAppear {
-            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext, notationalContext: notationalContext)
+            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext)
             PitchColorPalette.seedSystemPitchPalettes(modelContext: modelContext)
-            notationalContext.loadColorPaletteIDs(modelContext: modelContext)
         }
     }
     

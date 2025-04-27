@@ -3,12 +3,11 @@ import HomeyMusicKit
 
 struct HelpPopoverView: View {
     @Environment(InstrumentalContext.self) var instrumentalContext
-    @Environment(NotationalContext.self) var notationalContext
     @Environment(\.modelContext) var modelContext
 
     var body: some View {
         
-        let colorPalette: ColorPalette = notationalContext.colorPalette(for: instrumentalContext.instrumentChoice)
+        let colorPalette: ColorPalette = modelContext.instrument(for: instrumentalContext.instrumentChoice).colorPalette
         
         HStack(alignment: .center) {
             Spacer()
