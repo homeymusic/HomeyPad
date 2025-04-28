@@ -3,7 +3,6 @@ import HomeyMusicKit
 
 public struct OctaveShiftView: View {
     let instrument: Instrument
-    @Environment(TonalContext.self) var tonalContext
     
     public init(instrument: Instrument) { self.instrument = instrument}
     

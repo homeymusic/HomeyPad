@@ -3,7 +3,6 @@ import HomeyMusicKit
 
 public struct TonicModePickerNotationView: View {
     @Environment(AppContext.self) var appContext
-    @Environment(TonalContext.self) var tonalContext
     @Environment(InstrumentalContext.self) var instrumentalContext
     @Environment(\.modelContext) var modelContext
     
