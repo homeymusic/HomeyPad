@@ -131,19 +131,19 @@ struct HelpPopoverView: View {
                         .gridCellColumns(2)
                 }
                 GridRow {
-                    Image(systemName: "16.square.fill")
+                    Image(systemName: "16.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
                     Text("Tonic: 0 to 127 Notes")
                 }
                 GridRow {
-                    Image(systemName: "17.square.fill")
+                    Image(systemName: "17.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
                     Text("Direction: < 0, = 1, > 2")
                 }
                 GridRow {
-                    Image(systemName: "18.square.fill")
+                    Image(systemName: "18.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
                     Text("Mode: 0 ION to 11 LOC")
