@@ -4,7 +4,6 @@ import HomeyMusicKit
 
 struct NotationPopoverView: View {
     @Environment(\.modelContext)            private var modelContext
-    @Environment(TonalContext.self)         private var tonalContext
     @Environment(InstrumentalContext.self)  private var instrumentalContext
     
     private var instrument: any Instrument {
@@ -12,7 +11,6 @@ struct NotationPopoverView: View {
     }
     
     var body: some View {
-        @Bindable var tonalContext = tonalContext
         VStack(spacing: 0) {
             Grid {
                 // — INTERVAL LABELS —
@@ -52,9 +50,13 @@ struct NotationPopoverView: View {
                                 choice.image
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
-                                Picker("", selection: $tonalContext.accidental) {
+                                Picker("", selection: Binding<Accidental>(
+                                    get: { instrument.accidental },
+                                    set: { instrument.accidental = $0 }
+                                )) {
                                     ForEach(Accidental.displayCases) { acc in
-                                        Text(acc.icon).tag(acc)
+                                        Text(acc.icon)
+                                            .tag(acc)
                                     }
                                 }
                                 .pickerStyle(.segmented)
