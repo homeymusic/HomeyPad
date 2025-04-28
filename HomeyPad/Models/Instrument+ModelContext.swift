@@ -1,51 +1,40 @@
-// ModelContext+Instrument.swift
-
 import SwiftData
 import HomeyMusicKit
 
 public extension ModelContext {
-  /// Fetches or lazily creates the one-and-only instrument for this choice.
-  @MainActor
-  func instrument(for choice: InstrumentChoice) -> any Instrument {
-    switch choice {
-    case .linear:
-      return fetchOrCreate(Linear.self)      { Linear() }
-    case .tonnetz:
-      return fetchOrCreate(Tonnetz.self)     { Tonnetz() }
-    case .diamanti:
-      return fetchOrCreate(Diamanti.self)    { Diamanti() }
-    case .piano:
-      return fetchOrCreate(Piano.self)       { Piano() }
-    case .violin:
-      return fetchOrCreate(Violin.self)      { Violin() }
-    case .cello:
-      return fetchOrCreate(Cello.self)       { Cello() }
-    case .bass:
-      return fetchOrCreate(Bass.self)        { Bass() }
-    case .banjo:
-      return fetchOrCreate(Banjo.self)       { Banjo() }
-    case .guitar:
-      return fetchOrCreate(Guitar.self)      { Guitar() }
-    case .modePicker:
-      return fetchOrCreate(ModePicker.self)  { ModePicker() }
-    case .tonicPicker:
-      return fetchOrCreate(TonicPicker.self) { TonicPicker() }
+    private static let sharedSynthConductor = SynthConductor()
+    
+    @MainActor
+    func instrument(for choice: InstrumentChoice) -> any Instrument {
+        let instrument: any Instrument = switch choice {
+        case .linear:     fetchOrCreate(Linear.self)      { Linear() }
+        case .tonnetz:    fetchOrCreate(Tonnetz.self)     { Tonnetz() }
+        case .diamanti:   fetchOrCreate(Diamanti.self)    { Diamanti() }
+        case .piano:      fetchOrCreate(Piano.self)       { Piano() }
+        case .violin:     fetchOrCreate(Violin.self)      { Violin() }
+        case .cello:      fetchOrCreate(Cello.self)       { Cello() }
+        case .bass:       fetchOrCreate(Bass.self)        { Bass() }
+        case .banjo:      fetchOrCreate(Banjo.self)       { Banjo() }
+        case .guitar:     fetchOrCreate(Guitar.self)      { Guitar() }
+        case .modePicker: fetchOrCreate(ModePicker.self)  { ModePicker() }
+        case .tonicPicker:fetchOrCreate(TonicPicker.self) { TonicPicker() }
+        }
+        
+        instrument.synthConductor = Self.sharedSynthConductor
+        
+        return instrument
     }
-  }
-
-  /// Helper that fetches the first `T` or inserts a new one if none found.
-  @MainActor
-  private func fetchOrCreate<T: PersistentModel>(
-    _ type: T.Type,
-    create: () -> T
-  ) -> T {
-    // try fetch
-    if let existing = (try? fetch(FetchDescriptor<T>()))?.first {
-      return existing
+    
+    @MainActor
+    private func fetchOrCreate<T: PersistentModel>(
+        _ type: T.Type,
+        create: () -> T
+    ) -> T {
+        if let existing = (try? fetch(FetchDescriptor<T>()))?.first {
+            return existing
+        }
+        let newInst = create()
+        insert(newInst)
+        return newInst
     }
-    // otherwise insert a new instance
-    let newInst = create()
-    insert(newInst)
-    return newInst
-  }
 }
