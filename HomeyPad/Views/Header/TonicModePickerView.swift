@@ -4,7 +4,6 @@ import HomeyMusicKit
 public struct TonicModePickerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppContext.self) var appContext
-    @Environment(InstrumentalContext.self) var instrumentalContext
     let horizontalCellCount = 13.0
     private let instrument: any Instrument
 
@@ -37,9 +36,10 @@ public struct TonicModePickerView: View {
     }
     
     func modeAndTonicPickerToggleView(feetDirection: FeetDirection) -> some View {
-        Button(action: {
+        let tonicPicker = instrument as! TonicPicker
+        return Button(action: {
             withAnimation {
-                instrumentalContext.areModeAndTonicLinked.toggle()
+                tonicPicker.areModeAndTonicLinked.toggle()
                 buzz()
             }
         }) {
@@ -47,7 +47,7 @@ public struct TonicModePickerView: View {
                 Group {
                     let strokeStyle = StrokeStyle(
                         lineWidth: 1,
-                        dash: instrumentalContext.areModeAndTonicLinked ? [] : [3, 1]
+                        dash: tonicPicker.areModeAndTonicLinked ? [] : [3, 1]
                     )
                     switch feetDirection {
                     case .left:
@@ -58,7 +58,7 @@ public struct TonicModePickerView: View {
                             .stroke(style: strokeStyle)
                     }
                 }
-                if  instrumentalContext.areModeAndTonicLinked {
+                if  tonicPicker.areModeAndTonicLinked {
                     Image(systemName: "personalhotspot.circle.fill")
                         .font(.title)
                         .background(

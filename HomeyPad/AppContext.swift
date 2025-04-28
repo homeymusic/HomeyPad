@@ -19,10 +19,6 @@ public final class AppContext {
     @AppStorage("stringInstrumentChoice")
     private var stringInstrumentChoiceRaw: Int = Int(InstrumentChoice.defaultStringInstrumentChoice.rawValue)
     
-    @ObservationIgnored
-    @AppStorage("areModeAndTonicLinked")
-    public var areModeAndTonicLinkedRaw: Bool = true
-    
     public var beforeInstrumentChange: ((InstrumentChoice) -> Void)?
     public var afterInstrumentChange: ((InstrumentChoice) -> Void)?
 
@@ -49,15 +45,8 @@ public final class AppContext {
         }
     }
     
-    public var areModeAndTonicLinked: Bool = true {
-        didSet {
-            areModeAndTonicLinkedRaw = areModeAndTonicLinked
-        }
-    }
-    
     public init() {
         self.instrumentChoice = InstrumentChoice(rawValue: instrumentChoiceRaw) ?? InstrumentChoice.default
         self.stringInstrumentChoice = InstrumentChoice(rawValue: stringInstrumentChoiceRaw) ?? InstrumentChoice.defaultStringInstrumentChoice
-        self.areModeAndTonicLinked = areModeAndTonicLinked
     }
 }

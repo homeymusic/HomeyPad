@@ -1,8 +1,6 @@
 import SwiftUI
 import HomeyMusicKit
 
-import SwiftUI
-
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) public var appContext
