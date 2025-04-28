@@ -2,29 +2,30 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct OctaveShiftView: View {
+    let instrument: Instrument
     @Environment(TonalContext.self) var tonalContext
     
-    public init() { }
+    public init(instrument: Instrument) { self.instrument = instrument}
     
     public var body: some View {
         HStack(spacing: 0) {
             // Downward octave shift button
             Button(action: {
-                tonalContext.shiftDownOneOctave()
+                instrument.shiftDownOneOctave()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.down")
-                        .foregroundColor(tonalContext.canShiftDownOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(instrument.canShiftDownOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!tonalContext.canShiftDownOneOctave)
+            .disabled(!instrument.canShiftDownOneOctave)
             
             divider
             
             // Display the octave shift value
-            Text(tonalContext.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+            Text(instrument.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                 .foregroundColor(.white)
                 .fixedSize(horizontal: true, vertical: false)
                 .frame(width: 44)
@@ -33,16 +34,16 @@ public struct OctaveShiftView: View {
             
             // Upward octave shift button
             Button(action: {
-                tonalContext.shiftUpOneOctave()
+                instrument.shiftUpOneOctave()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.up")
-                        .foregroundColor(tonalContext.canShiftUpOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(instrument.canShiftUpOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!tonalContext.canShiftUpOneOctave)
+            .disabled(!instrument.canShiftUpOneOctave)
         }
         .background(Color.systemGray6)
         .clipShape(RoundedRectangle(cornerRadius: 8))

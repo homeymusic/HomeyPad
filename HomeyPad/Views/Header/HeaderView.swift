@@ -11,11 +11,12 @@ struct HeaderView: View {
         modelContext
           .instrument(for: instrumentalContext.instrumentChoice)
     }
+    
     var body: some View {
         HStack {
             HStack(spacing: 15) {
-                ResetView()
-                OctaveShiftView()
+                ResetView(instrument: instrument)
+                OctaveShiftView(instrument: instrument)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             TonicModePickerNotationView()

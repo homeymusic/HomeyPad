@@ -3,7 +3,6 @@ import HomeyMusicKit
 
 public struct PitchDirectionPickerView: View {
     @Bindable var tonality: Tonality
-    @Environment(\.modelContext) private var modelContext
 
     public var body: some View {
         HStack(spacing: 0) {
