@@ -4,10 +4,10 @@ import HomeyMusicKit
 
 struct NotationPopoverView: View {
     @Environment(\.modelContext)            private var modelContext
-    @Environment(InstrumentalContext.self)  private var instrumentalContext
+    @Environment(AppContext.self)  private var appContext
     
     private var instrument: any Instrument {
-        modelContext.instrument(for: instrumentalContext.instrumentChoice)
+        modelContext.instrument(for: appContext.instrumentChoice)
     }
     
     var body: some View {

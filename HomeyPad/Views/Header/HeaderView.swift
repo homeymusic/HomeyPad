@@ -3,13 +3,13 @@ import HomeyMusicKit
 
 struct HeaderView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(InstrumentalContext.self) private var instrumentalContext
+    @Environment(AppContext.self) private var appContext
 
     // pull your instrument once
     private var instrument: Instrument {
         // force-cast because we know all of your concrete models
         modelContext
-          .instrument(for: instrumentalContext.instrumentChoice)
+          .instrument(for: appContext.instrumentChoice)
     }
     
     var body: some View {

@@ -11,14 +11,14 @@ import HomeyMusicKit
 struct FooterView: View {
     
     @Environment(\.modelContext)            private var modelContext
-    @Environment(InstrumentalContext.self)  private var instrumentalContext
-    
+    @Environment(AppContext.self)  private var appContext
+
     private var instrument: any Instrument {
-        modelContext.instrument(for: instrumentalContext.instrumentChoice)
+        modelContext.instrument(for: appContext.instrumentChoice)
     }
 
     var body: some View {
-        @Bindable var instrumentalContext = instrumentalContext
+        @Bindable var appContext = appContext
         HStack {
             HStack {
                 Button(action: {
@@ -41,12 +41,12 @@ struct FooterView: View {
             
             HStack {
                 NotationInstrumentPalletePickerView()
-                .id(instrumentalContext.instrumentChoice)
+                .id(appContext.instrumentChoice)
             }
             
             HStack {
                 if instrument.instrumentChoice.isStringInstrument {
-                    Picker("", selection: $instrumentalContext.instrumentChoice) {
+                    Picker("", selection: $appContext.instrumentChoice) {
                         ForEach(InstrumentChoice.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
                                 .tag(stringInstrument)
@@ -61,7 +61,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(HomeyMusicKit.animationStyle, value: instrumentalContext.instrumentChoice)
+            .animation(HomeyMusicKit.animationStyle, value: appContext.instrumentChoice)
         }
     }
 }

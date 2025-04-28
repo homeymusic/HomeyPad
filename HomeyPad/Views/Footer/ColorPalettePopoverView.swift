@@ -5,7 +5,6 @@ import HomeyMusicKit
 struct ColorPalettePopoverView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) var appContext
-    @Environment(InstrumentalContext.self) var instrumentalContext
     
     @Query(
         sort: \IntervalColorPalette.position, order: .forward
@@ -16,7 +15,7 @@ struct ColorPalettePopoverView: View {
     ) var pitchColorPalettes: [PitchColorPalette]
     
     var body: some View {
-        let instrument = modelContext.instrument(for: instrumentalContext.instrumentChoice)
+        let instrument = modelContext.instrument(for: appContext.instrumentChoice)
 
         // 2) Create a Binding<Bool> for showOutlines
         let showOutlinesBinding = Binding<Bool>(
@@ -80,12 +79,13 @@ struct ColorPaletteGridRow: View {
     let colorPalette: ColorPalette
 
     @Environment(\.modelContext)           private var modelContext
-    @Environment(InstrumentalContext.self) private var instrumentalContext
+    @Environment(AppContext.self) var appContext
+
 
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
         let instrument = modelContext.instrument(
-            for: instrumentalContext.instrumentChoice
+            for: appContext.instrumentChoice
         )
 
         // 2) Compute whether *this* palette is currently assigned to that instrument

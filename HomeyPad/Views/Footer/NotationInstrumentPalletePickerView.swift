@@ -5,17 +5,15 @@ public struct NotationInstrumentPalletePickerView: View {
     @Environment(\.modelContext) private var modelContext
 
     @Environment(AppContext.self) var appContext
-    @Environment(InstrumentalContext.self) var instrumentalContext
     
     private var instrument: any Instrument {
-        modelContext.instrument(for: instrumentalContext.instrumentChoice)
+        modelContext.instrument(for: appContext.instrumentChoice)
     }
 
     public init() { }
     
     public var body: some View {
         @Bindable var appContext = appContext
-        @Bindable var instrumentalContext = instrumentalContext
         
         Group {
             
@@ -54,12 +52,12 @@ public struct NotationInstrumentPalletePickerView: View {
             
             HStack {
                 Picker("", selection: Binding(
-                    get: { instrumentalContext.instrumentChoice },
+                    get: { appContext.instrumentChoice },
                     set: { newValue in
-                        instrumentalContext.instrumentChoice = newValue
+                        appContext.instrumentChoice = newValue
                     }
                 )) {
-                    ForEach(InstrumentChoice.keyboardInstruments + [instrumentalContext.stringInstrumentChoice], id:\.self) { instrument in
+                    ForEach(InstrumentChoice.keyboardInstruments + [appContext.stringInstrumentChoice], id:\.self) { instrument in
                         Image(systemName: instrument.icon)
                             .resizable()
                             .scaledToFit()
@@ -68,7 +66,7 @@ public struct NotationInstrumentPalletePickerView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: instrumentalContext.instrumentChoice) {
+                .onChange(of: appContext.instrumentChoice) {
                     appContext.showColorPalettePopover = false
                     appContext.showEditColorPaletteSheet = false
                     appContext.showLabelsPopover = false
@@ -89,7 +87,7 @@ public struct NotationInstrumentPalletePickerView: View {
             .popover(isPresented: $appContext.showColorPalettePopover,
                      content: {
                 VStack(spacing: 0) {
-                    Image(systemName: instrumentalContext.instrumentChoice.icon)
+                    Image(systemName: appContext.instrumentChoice.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {

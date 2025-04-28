@@ -8,8 +8,9 @@ struct HomeyPad: App {
     
     // Single-liner: create and setup in one go.
     @State private var appContext = AppContext()
-    @State private var orchestrator = Orchestrator().setup()
-
+//    @State private var orchestrator = Orchestrator().setup()
+    @State private var instrumentalContext = InstrumentalContext()
+    
     public static let synthConductor = SynthConductor()
     public static let midiConductor = {
         let mc = MIDIConductor(
@@ -25,8 +26,7 @@ struct HomeyPad: App {
         WindowGroup {
             ContentView()
                 .environment(appContext)
-                .environment(orchestrator.tonalContext)
-                .environment(orchestrator.instrumentalContext)
+                .environment(instrumentalContext)
         }
         .modelContainer(for: [
             Diamanti.self,
