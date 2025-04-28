@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B005B2392DBD9C1600737188 /* Instrument+ModelContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */; };
+		B005B2392DBD9C1600737188 /* Instrument+Synth+MIDI+ModelContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2382DBD9C0E00737188 /* Instrument+Synth+MIDI+ModelContext.swift */; };
 		B005B23B2DBDC1DA00737188 /* NotationPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23A2DBDC1DA00737188 /* NotationPopoverView.swift */; };
 		B005B23D2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23C2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift */; };
 		B005B23F2DBDC2BE00737188 /* ColorPalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23E2DBDC2BE00737188 /* ColorPalettePopoverView.swift */; };
@@ -30,7 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instrument+ModelContext.swift"; sourceTree = "<group>"; };
+		B005B2382DBD9C0E00737188 /* Instrument+Synth+MIDI+ModelContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instrument+Synth+MIDI+ModelContext.swift"; sourceTree = "<group>"; };
 		B005B23A2DBDC1DA00737188 /* NotationPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotationPopoverView.swift; sourceTree = "<group>"; };
 		B005B23C2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotationInstrumentPalletePickerView.swift; sourceTree = "<group>"; };
 		B005B23E2DBDC2BE00737188 /* ColorPalettePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalettePopoverView.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		B005B2372DBD9BF500737188 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B005B2382DBD9C0E00737188 /* Instrument+ModelContext.swift */,
+				B005B2382DBD9C0E00737188 /* Instrument+Synth+MIDI+ModelContext.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
 				B005B23D2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift in Sources */,
 				B005B23B2DBDC1DA00737188 /* NotationPopoverView.swift in Sources */,
-				B005B2392DBD9C1600737188 /* Instrument+ModelContext.swift in Sources */,
+				B005B2392DBD9C1600737188 /* Instrument+Synth+MIDI+ModelContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,8 +2,17 @@ import SwiftData
 import HomeyMusicKit
 
 public extension ModelContext {
-    private static let sharedSynthConductor = SynthConductor()
-    
+    private static let synthConductor = SynthConductor()
+    private static let midiConductor = {
+        let mc = MIDIConductor(
+            clientName:   "Homey Pad",
+            model:        "Homey Pad iOS",
+            manufacturer: "Homey Music"
+        )
+        mc.setup()
+        return mc
+    }()
+
     @MainActor
     func instrument(for choice: InstrumentChoice) -> any Instrument {
         let instrument: any Instrument = switch choice {
@@ -20,8 +29,9 @@ public extension ModelContext {
         case .tonicPicker:fetchOrCreate(TonicPicker.self) { TonicPicker() }
         }
         
-        instrument.synthConductor = Self.sharedSynthConductor
-        
+        instrument.synthConductor = Self.synthConductor
+        instrument.midiConductor = Self.midiConductor
+
         return instrument
     }
     
