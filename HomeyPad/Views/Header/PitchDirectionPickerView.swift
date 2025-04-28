@@ -2,14 +2,8 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct PitchDirectionPickerView: View {
+    @Bindable var tonality: Tonality
     @Environment(\.modelContext) private var modelContext
-    @Environment(InstrumentalContext.self) private var instrumentalContext
-
-    private var instrument: any Instrument {
-        modelContext.instrument(for: instrumentalContext.instrumentChoice)
-    }
-
-    public init() {}
 
     public var body: some View {
         HStack(spacing: 0) {
@@ -26,11 +20,11 @@ public struct PitchDirectionPickerView: View {
     }
 
     private func pitchDirectionButton(_ direction: PitchDirection) -> some View {
-        let isSelected = (instrument.pitchDirection == direction)
+        let isSelected = (tonality.pitchDirection == direction)
 
         return Button(action: {
             guard !isSelected else { return }
-            instrument.pitchDirection = direction
+            tonality.pitchDirection = direction
         }) {
             Color.clear
                 .overlay(Image(systemName: direction.icon).foregroundColor(.white))

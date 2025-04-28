@@ -10,6 +10,17 @@ struct HomeyPad: App {
     @State private var appContext = AppContext()
     @State private var orchestrator = Orchestrator().setup()
 
+    public static let synthConductor = SynthConductor()
+    public static let midiConductor = {
+        let mc = MIDIConductor(
+            clientName:   "Homey Pad",
+            model:        "Homey Pad iOS",
+            manufacturer: "Homey Music"
+        )
+        mc.setup()
+        return mc
+    }()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
