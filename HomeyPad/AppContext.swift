@@ -11,6 +11,10 @@ public final class AppContext {
     public var showEditColorPaletteSheet: Bool = false
     public var showTonicModeLabelsPopover: Bool = false
     public var showHelp: Bool = false
+    
+    
+    public var latchedMIDINoteNumbers: [MIDINoteNumber] = []
+    
     @ObservationIgnored
     @AppStorage("instrumentChoice")
     private var instrumentChoiceRaw: Int = Int(InstrumentChoice.default.rawValue)

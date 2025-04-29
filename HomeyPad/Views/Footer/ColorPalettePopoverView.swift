@@ -14,19 +14,24 @@ struct ColorPalettePopoverView: View {
         sort: \PitchColorPalette.position, order: .forward
     ) var pitchColorPalettes: [PitchColorPalette]
     
+    private var tonicPicker: TonicPicker {
+        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+    }
+    
     var body: some View {
         let instrument = modelContext.instrument(for: appContext.instrumentChoice)
-
+        
         // 2) Create a Binding<Bool> for showOutlines
         let showOutlinesBinding = Binding<Bool>(
-          get: { instrument.showOutlines },
-          set: { newValue in
-            try? modelContext.transaction {
-              instrument.showOutlines = newValue
+            get: { instrument.showOutlines },
+            set: { newValue in
+                try? modelContext.transaction {
+                    instrument.showOutlines = newValue
+                    tonicPicker.showOutlines = newValue
+                }
             }
-          }
         )
-
+        
         ScrollViewReader { scrollProxy in
             Grid {
                 
@@ -49,11 +54,11 @@ struct ColorPalettePopoverView: View {
                     .foregroundColor(.white)
                     .onChange(of: instrument.showOutlines) {
                         buzz()
-                        if instrument.showOutlines == false {
-                            withAnimation {
-                                appContext.showModePicker = false
-                            }
-                        }
+//                        if instrument.showOutlines == false {
+//                            withAnimation {
+//                                appContext.showModePicker = false
+//                            }
+//                        }
                     }
                 }
                 
@@ -77,63 +82,63 @@ struct ColorPalettePopoverView: View {
 struct ColorPaletteGridRow: View {
     /// A single palette (either IntervalColorPalette or PitchColorPalette)
     let colorPalette: ColorPalette
-
+    
     @Environment(\.modelContext)           private var modelContext
     @Environment(AppContext.self) var appContext
-
-
+    
+    
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
         let instrument = modelContext.instrument(
             for: appContext.instrumentChoice
         )
-
+        
         // 2) Compute whether *this* palette is currently assigned to that instrument
         let isColorPaletteSelected: Bool = {
             switch colorPalette {
             case let intervalColorPalette as IntervalColorPalette:
                 return instrument.intervalColorPalette?.id
-                    == intervalColorPalette.id
-
+                == intervalColorPalette.id
+                
             case let pitchColorPalette as PitchColorPalette:
                 return instrument.pitchColorPalette?.id
-                    == pitchColorPalette.id
-
+                == pitchColorPalette.id
+                
             default:
                 return false
             }
         }()
-
+        
         GridRow {
             // 3) Render the thumbnail image
             switch colorPalette {
             case let intervalColorPalette as IntervalColorPalette:
                 IntervalColorPaletteImage(
-                  intervalColorPalette: intervalColorPalette
+                    intervalColorPalette: intervalColorPalette
                 )
                 .foregroundColor(.white)
-
+                
             case let pitchColorPalette as PitchColorPalette:
                 PitchColorPaletteImage(
-                  pitchColorPalette: pitchColorPalette
+                    pitchColorPalette: pitchColorPalette
                 )
                 .foregroundColor(.white)
-
+                
             default:
                 EmptyView()
             }
-
+            
             // 4) Name + checkmark
             HStack {
                 Text(colorPalette.name)
                     .lineLimit(1)
                     .foregroundColor(.white)
-
+                
                 Spacer()
-
+                
                 Image(systemName: "checkmark")
                     .foregroundColor(
-                      isColorPaletteSelected ? .white : .clear
+                        isColorPaletteSelected ? .white : .clear
                     )
             }
         }
@@ -150,7 +155,7 @@ struct ColorPaletteGridRow: View {
                 case let pitchColorPalette as PitchColorPalette:
                     instrument.pitchColorPalette = pitchColorPalette
                     instrument.intervalColorPalette = nil
-
+                    
                 default:
                     break
                 }

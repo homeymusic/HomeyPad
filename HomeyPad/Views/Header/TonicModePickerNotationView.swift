@@ -9,10 +9,15 @@ public struct TonicModePickerNotationView: View {
         modelContext.instrument(for: .tonicPicker) as! TonicPicker
     }
 
+    private var instrument: Instrument {
+        modelContext.instrument(for: appContext.instrumentChoice)
+    }
+    
     public init() { }
     public var body: some View {
         @Bindable var appContext = appContext
-        
+        let shouldAutoModeAndTonicBeEnabled = appContext.showTonicPicker && appContext.showModePicker
+
         HStack {
             
             Button(action: {
@@ -89,10 +94,22 @@ public struct TonicModePickerNotationView: View {
                 }
             }
             .onChange(of: appContext.showModePicker) {
-                if appContext.showModePicker {
-                    tonicPicker.showOutlines = true
+                withAnimation {
+                    if appContext.showModePicker {
+                        instrument.showOutlines = true
+                    }
+                    instrument.showModeOutlines = appContext.showModePicker
+                    tonicPicker.showModeOutlines = appContext.showModePicker
                 }
             }
         }
+        .onChange(of: shouldAutoModeAndTonicBeEnabled) {
+            tonicPicker.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
+        }
+        // also seed it once when the view first appears
+        .onAppear {
+            tonicPicker.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
+        }
+
     }
 }

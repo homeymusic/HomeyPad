@@ -19,10 +19,21 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack(spacing: settingsBuffer) {
+                        let instrument = modelContext.instrument(for: appContext.instrumentChoice)
+                        
                         TonicModePickerView(modelContext.instrument(for: .tonicPicker))
                         
-                        InstrumentView(modelContext.instrument(for: appContext.instrumentChoice))
-                            .ignoresSafeArea(edges:.horizontal)
+                        InstrumentView(instrument)
+                            .ignoresSafeArea(edges: .horizontal)
+                            .onAppear {
+                                instrument.showModeOutlines = appContext.showModePicker
+                            }
+                            .onChange(of: appContext.instrumentChoice) {
+                                if instrument.latching {
+                                    instrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
+                                }
+                                appContext.latchedMIDINoteNumbers = []
+                            }
                     }
                     .frame(height: .infinity)
                     .padding(.top, settingsHeight + settingsBuffer)
