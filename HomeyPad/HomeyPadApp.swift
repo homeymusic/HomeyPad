@@ -7,6 +7,7 @@ import HomeyMusicKit
 struct HomeyPad: App {
     
     @State private var appContext = AppContext()
+    public static let pitches = Pitch.allPitches()
     public static let synthConductor = SynthConductor()
     public static let midiConductor = {
         let mc = MIDIConductor(
