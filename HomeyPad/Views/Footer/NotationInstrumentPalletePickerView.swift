@@ -103,7 +103,7 @@ public struct NotationInstrumentPalletePickerView: View {
                             })
 #if !os(macOS)
                             .fullScreenCover(isPresented: $appContext.showEditColorPaletteSheet) {
-                                ColorPaletteManagerView()
+                                ColorPaletteManagerView(instrument: instrument)
                                     .background(Color.systemGray6)
                                     .scrollContentBackground(.hidden)
                             }
