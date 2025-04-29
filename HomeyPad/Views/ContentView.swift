@@ -51,10 +51,6 @@ struct ContentView: View {
             .padding(.bottom, homeIndicatorBuffer)
         }
         .preferredColorScheme(.dark)
-        .onAppear {
-            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: modelContext)
-            PitchColorPalette.seedSystemPitchPalettes(modelContext: modelContext)
-        }
     }
     
 }

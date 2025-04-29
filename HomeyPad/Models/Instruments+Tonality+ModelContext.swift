@@ -1,4 +1,5 @@
 import SwiftData
+import Foundation
 import HomeyMusicKit
 
 public extension ModelContext {
@@ -7,7 +8,7 @@ public extension ModelContext {
     func tonality() -> Tonality {
         fetchOrCreate(Tonality.self) { Tonality() }
     }
-
+    
     @MainActor
     func instrument(for choice: InstrumentChoice) -> any Instrument {
         let instrument: any Instrument
@@ -38,7 +39,7 @@ public extension ModelContext {
         
         instrument.synthConductor = HomeyPad.synthConductor
         instrument.midiConductor  = HomeyPad.midiConductor
-        
+        ensureColorPalette(on: instrument)
         return instrument
     }
     
@@ -55,5 +56,32 @@ public extension ModelContext {
         let newObject = create()
         insert(newObject)
         return newObject
+    }
+    
+    @MainActor
+    private func ensureColorPalette(on instrument: any Instrument) {
+        guard
+            instrument.intervalColorPalette == nil,
+            instrument.pitchColorPalette    == nil
+        else { return }
+        
+        let descriptor = FetchDescriptor<IntervalColorPalette>(
+            sortBy: [SortDescriptor(\.position)]
+        )
+        
+        // Try to fetch any existing palettes
+        var palettes = (try? fetch(descriptor)) ?? []
+        
+        // If none exist, seed the system defaults and re-fetch
+        if palettes.isEmpty {
+            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: self)
+            PitchColorPalette.seedSystemPitchPalettes(modelContext: self)
+            palettes = (try? fetch(descriptor)) ?? []
+        }
+        
+        // Assign the first available interval palette
+        if let first = palettes.first {
+            instrument.intervalColorPalette = first
+        }
     }
 }
