@@ -10,6 +10,7 @@ struct ResetView: View {
         HStack(spacing: 0) {
             Button(action: {
                 instrument.resetTonality()
+                buzz()
             }) {
                 ZStack {
                     Color.clear.overlay(

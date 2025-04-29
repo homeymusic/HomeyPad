@@ -11,6 +11,7 @@ public struct OctaveShiftView: View {
             // Downward octave shift button
             Button(action: {
                 instrument.shiftDownOneOctave()
+                buzz()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.down")
@@ -34,6 +35,7 @@ public struct OctaveShiftView: View {
             // Upward octave shift button
             Button(action: {
                 instrument.shiftUpOneOctave()
+                buzz()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.up")

@@ -86,6 +86,9 @@ struct ColorPaletteGridRow: View {
     @Environment(\.modelContext)           private var modelContext
     @Environment(AppContext.self) var appContext
     
+    private var tonicPicker: TonicPicker {
+        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+    }
     
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
@@ -149,13 +152,13 @@ struct ColorPaletteGridRow: View {
             try? modelContext.transaction {
                 switch colorPalette {
                 case let intervalColorPalette as IntervalColorPalette:
-                    instrument.intervalColorPalette = intervalColorPalette
-                    instrument.pitchColorPalette    = nil
-                    
+                    instrument.colorPalette = intervalColorPalette
+                    tonicPicker.colorPalette = intervalColorPalette
+
                 case let pitchColorPalette as PitchColorPalette:
-                    instrument.pitchColorPalette = pitchColorPalette
-                    instrument.intervalColorPalette = nil
-                    
+                    instrument.colorPalette = pitchColorPalette
+                    tonicPicker.colorPalette = pitchColorPalette
+
                 default:
                     break
                 }

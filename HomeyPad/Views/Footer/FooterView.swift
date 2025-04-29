@@ -24,6 +24,7 @@ struct FooterView: View {
                 Button(action: {
                     withAnimation {
                         instrument.latching.toggle()
+                        buzz()
                     }
                 }) {
                     ZStack {

@@ -1,11 +1,13 @@
 import SwiftUI
+import SwiftData
 import HomeyMusicKit
 
 public struct NotationInstrumentPalletePickerView: View {
     @Environment(\.modelContext) private var modelContext
 
     @Environment(AppContext.self) var appContext
-    
+    @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
+
     private var instrument: any Instrument {
         modelContext.instrument(for: appContext.instrumentChoice)
     }
@@ -22,6 +24,7 @@ public struct NotationInstrumentPalletePickerView: View {
             
             Button(action: {
                 appContext.showLabelsPopover.toggle()
+                buzz()
             }) {
                 ZStack {
                     Image(systemName: "tag")
@@ -88,12 +91,14 @@ public struct NotationInstrumentPalletePickerView: View {
                     appContext.showColorPalettePopover = false
                     appContext.showEditColorPaletteSheet = false
                     appContext.showLabelsPopover = false
+                    buzz()
                 }
             }
             
             Button(action: {
                 appContext.showColorPalettePopover.toggle()
                 appContext.showEditColorPaletteSheet = false
+                buzz()
             }) {
                 ZStack {
                     Image(systemName: "paintpalette")
@@ -118,6 +123,7 @@ public struct NotationInstrumentPalletePickerView: View {
                             Spacer()
                             Button("", systemImage: "paintbrush.pointed", action: {
                                 appContext.showEditColorPaletteSheet = true
+                                buzz()
                             })
 #if !os(macOS)
                             .fullScreenCover(isPresented: $appContext.showEditColorPaletteSheet) {
@@ -136,11 +142,16 @@ public struct NotationInstrumentPalletePickerView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                instrument.intervalColorPalette = IntervalColorPalette.homey
+                                instrument.colorPalette = defaultColorPalette
+                                tonicPicker.colorPalette = defaultColorPalette
+                                instrument.showOutlines = true
+                                tonicPicker.showOutlines = true
+                                buzz()
                             }, label: {
                                 Image(systemName: "gobackward")
-                                    .foregroundColor(false ? .gray : .white)
+                                    .foregroundColor(isDefaultColorPalette ? .gray : .white)
                             })
+                            .disabled(isDefaultColorPalette)
                             .padding([.top, .bottom], 7)
                             .disabled(false)
                             Spacer()
@@ -150,5 +161,14 @@ public struct NotationInstrumentPalletePickerView: View {
             })
             .padding(.leading, 5)
         }
+    }
+    
+    var defaultColorPalette: IntervalColorPalette {
+        (intervalColorPalettes.first ?? IntervalColorPalette.homey)
+    }
+
+    var isDefaultColorPalette: Bool {
+        (defaultColorPalette == (instrument.colorPalette as? IntervalColorPalette)) &&
+        instrument.showOutlines == true
     }
 }

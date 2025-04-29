@@ -22,6 +22,7 @@ public struct TonicModePickerNotationView: View {
             
             Button(action: {
                 appContext.showTonicModeLabelsPopover.toggle()
+                buzz()
             }) {
                 Color.clear.overlay(
                     Image(systemName: "tag")
@@ -50,6 +51,7 @@ public struct TonicModePickerNotationView: View {
                     Divider()
                     Button(action: {
                         tonicPicker.resetDefaultLabelChoices()
+                        buzz()
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
@@ -65,6 +67,7 @@ public struct TonicModePickerNotationView: View {
             Button(action: {
                 withAnimation {
                     appContext.showTonicPicker.toggle()
+                    buzz()
                 }
             }) {
                 ZStack {
@@ -81,6 +84,7 @@ public struct TonicModePickerNotationView: View {
             Button(action: {
                 withAnimation {
                     appContext.showModePicker.toggle()
+                    buzz()
                 }
             }) {
                 ZStack {

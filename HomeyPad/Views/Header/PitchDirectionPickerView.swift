@@ -24,6 +24,7 @@ public struct PitchDirectionPickerView: View {
         return Button(action: {
             guard !isSelected else { return }
             tonality.pitchDirection = direction
+            buzz()
         }) {
             Color.clear
                 .overlay(Image(systemName: direction.icon).foregroundColor(.white))
