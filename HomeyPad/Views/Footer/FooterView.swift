@@ -14,7 +14,7 @@ struct FooterView: View {
     @Environment(AppContext.self)  private var appContext
 
     private var instrument: any Instrument {
-        modelContext.instrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentChoice)
     }
 
     var body: some View {

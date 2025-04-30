@@ -9,7 +9,7 @@ struct HeaderView: View {
     private var instrument: Instrument {
         // force-cast because we know all of your concrete models
         modelContext
-          .instrument(for: appContext.instrumentChoice)
+          .singletonInstrument(for: appContext.instrumentChoice)
     }
     
     var body: some View {

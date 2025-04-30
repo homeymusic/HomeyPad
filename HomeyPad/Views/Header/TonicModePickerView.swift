@@ -19,11 +19,11 @@ public struct TonicModePickerView: View {
                 if areModeAndTonicPickersShown {modeAndTonicPickerToggleView(feetDirection: .right)}
                 VStack(spacing: 5) {
                     if appContext.showTonicPicker {
-                        TonicInstrumentView(tonicPicker: modelContext.instrument(for: .tonicPicker) as! TonicPicker)
+                        TonicInstrumentView(tonicPicker: modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker)
                             .aspectRatio(horizontalCellCount, contentMode: .fit)
                     }
                     if appContext.showModePicker {
-                        ModeInstrumentView(tonicPicker: modelContext.instrument(for: .tonicPicker) as! TonicPicker)
+                        ModeInstrumentView(tonicPicker: modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker)
                             .aspectRatio(horizontalCellCount * aspectMultiplier, contentMode: .fit)
                     }
                 }
@@ -107,8 +107,8 @@ public struct TonicModePickerView: View {
     }
     
     var areBothModeNoteLabelsShown: Bool {
-        modelContext.instrument(for: .tonicPicker).pitchLabelChoices.contains(.mode) &&
-        modelContext.instrument(for: .tonicPicker).pitchLabelChoices.contains(.map)
+        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelChoices.contains(.mode) &&
+        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelChoices.contains(.map)
     }
  
     var aspectMultiplier: CGFloat {

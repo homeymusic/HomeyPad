@@ -15,11 +15,11 @@ struct ColorPalettePopoverView: View {
     ) var pitchColorPalettes: [PitchColorPalette]
     
     private var tonicPicker: TonicPicker {
-        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
     
     var body: some View {
-        let instrument = modelContext.instrument(for: appContext.instrumentChoice)
+        let instrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
         
         // 2) Create a Binding<Bool> for showOutlines
         let showOutlinesBinding = Binding<Bool>(
@@ -87,12 +87,12 @@ struct ColorPaletteGridRow: View {
     @Environment(AppContext.self) var appContext
     
     private var tonicPicker: TonicPicker {
-        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
     
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
-        let instrument = modelContext.instrument(
+        let instrument = modelContext.singletonInstrument(
             for: appContext.instrumentChoice
         )
         

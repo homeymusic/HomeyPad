@@ -19,10 +19,10 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack(spacing: settingsBuffer) {
-                        let tonicPicker = modelContext.instrument(for: InstrumentChoice.tonicPicker)
+                        let tonicPicker = modelContext.singletonInstrument(for: InstrumentChoice.tonicPicker)
                         TonicModePickerView(tonicPicker)
                         
-                        let instrument = modelContext.instrument(for: appContext.instrumentChoice)
+                        let instrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
                         InstrumentView(instrument)
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {

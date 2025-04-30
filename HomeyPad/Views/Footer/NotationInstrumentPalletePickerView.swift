@@ -9,10 +9,10 @@ public struct NotationInstrumentPalletePickerView: View {
     @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
 
     private var instrument: any Instrument {
-        modelContext.instrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentChoice)
     }
     private var tonicPicker: TonicPicker {
-        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
 
     public init() { }
@@ -61,8 +61,8 @@ public struct NotationInstrumentPalletePickerView: View {
                     get: { appContext.instrumentChoice },
                     set: { newInstrumentChoice in
                         // 1️⃣ Fetch the “old” and the “new” instrument
-                        let oldInstrument = modelContext.instrument(for: appContext.instrumentChoice)
-                        let newInstrument = modelContext.instrument(for: newInstrumentChoice)
+                        let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
+                        let newInstrument = modelContext.singletonInstrument(for: newInstrumentChoice)
                         
                         if oldInstrument.latching && newInstrument.latching {
                             appContext.latchedMIDINoteNumbers  = oldInstrument.activatedPitches.map { $0.midiNote.number }

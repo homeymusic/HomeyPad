@@ -10,7 +10,7 @@ public extension ModelContext {
     }
     
     @MainActor
-    func instrument(for choice: InstrumentChoice) -> any Instrument {
+    func singletonInstrument(for choice: InstrumentChoice) -> any Instrument {
         let instrument: any Instrument
         switch choice {
         case .linear:

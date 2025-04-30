@@ -6,11 +6,11 @@ public struct TonicModePickerNotationView: View {
     @Environment(\.modelContext) var modelContext
     
     private var tonicPicker: TonicPicker {
-        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
 
     private var instrument: Instrument {
-        modelContext.instrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentChoice)
     }
     
     public init() { }

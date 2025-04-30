@@ -7,7 +7,7 @@ struct TonicModePickerNotationPopoverView: View {
     @Environment(AppContext.self) var appContext
     
     private var tonicPicker: TonicPicker {
-        modelContext.instrument(for: .tonicPicker) as! TonicPicker
+        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
 
     var body: some View {

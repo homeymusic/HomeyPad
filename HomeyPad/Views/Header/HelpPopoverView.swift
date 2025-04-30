@@ -7,7 +7,7 @@ struct HelpPopoverView: View {
 
     var body: some View {
         
-        let colorPalette: ColorPalette = modelContext.instrument(for: appContext.instrumentChoice).colorPalette
+        let colorPalette: ColorPalette = modelContext.singletonInstrument(for: appContext.instrumentChoice).colorPalette
         
         HStack(alignment: .center) {
             Spacer()
