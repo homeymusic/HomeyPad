@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import HomeyMusicKit
 
 @MainActor
@@ -26,6 +27,7 @@ public final class AppContext {
     public var beforeInstrumentChange: ((InstrumentChoice) -> Void)?
     public var afterInstrumentChange: ((InstrumentChoice) -> Void)?
 
+    
     public var instrumentChoice: InstrumentChoice = InstrumentChoice.default {
         
         willSet {

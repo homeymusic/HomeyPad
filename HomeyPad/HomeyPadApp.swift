@@ -9,14 +9,16 @@ struct HomeyPad: App {
     @State private var appContext = AppContext()
     public static let pitches = Pitch.allPitches()
     public static let synthConductor = SynthConductor()
-    public static let midiConductor = {
-        let mc = MIDIConductor(
+    public static let instrumentCache = InstrumentCache()
+    public static let midiConductor =  {
+        let midiConductor = MIDIConductor(
             clientName:   "Homey Pad",
             model:        "Homey Pad iOS",
-            manufacturer: "Homey Music"
+            manufacturer: "Homey Music",
+            instrumentCache: HomeyPad.instrumentCache
         )
-        mc.setup()
-        return mc
+        midiConductor.setup()
+        return midiConductor
     }()
 
     var body: some Scene {

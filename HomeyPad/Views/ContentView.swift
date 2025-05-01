@@ -27,12 +27,14 @@ struct ContentView: View {
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
                                 instrument.showModeOutlines = appContext.showModePicker
+                                HomeyPad.instrumentCache.set([instrument])
                             }
                             .onChange(of: appContext.instrumentChoice) {
                                 if instrument.latching {
                                     instrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
+                                HomeyPad.instrumentCache.set([instrument])
                             }
                     }
                     .frame(height: .infinity)
