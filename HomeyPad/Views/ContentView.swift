@@ -28,6 +28,7 @@ struct ContentView: View {
                             .onAppear {
                                 instrument.showModeOutlines = appContext.showModePicker
                                 HomeyPad.instrumentCache.set([instrument])
+                                HomeyPad.instrumentCache.selectInstrument(instrument)
                             }
                             .onChange(of: appContext.instrumentChoice) {
                                 if instrument.latching {
@@ -35,6 +36,7 @@ struct ContentView: View {
                                 }
                                 appContext.latchedMIDINoteNumbers = []
                                 HomeyPad.instrumentCache.set([instrument])
+                                HomeyPad.instrumentCache.selectInstrument(instrument)
                             }
                     }
                     .frame(height: .infinity)
