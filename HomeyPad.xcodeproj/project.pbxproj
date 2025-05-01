@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		B093E14D2CBD2DB800130B06 /* HelpPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */; };
 		B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1472CBD2DB800130B06 /* HelpView.swift */; };
 		B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1522CBD2DD600130B06 /* FooterView.swift */; };
+		B09A9D412DC3E6B70013C831 /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B09A9D402DC3E6B70013C831 /* HomeyMusicKit */; };
 		B0BDB6F02D99BB7B004617C0 /* ResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDB6EF2D99BB78004617C0 /* ResetView.swift */; };
 		B0BF9C8B2BD090A0003B985B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
@@ -52,7 +53,6 @@
 		B093E1522CBD2DD600130B06 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		B0BDB6EF2D99BB78004617C0 /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
 		B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HomeyMusicKit; path = ../HomeyMusicKit; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09A9D412DC3E6B70013C831 /* HomeyMusicKit in Frameworks */,
 				B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,7 +79,6 @@
 		B02673372BAF6C7C00DDFA62 = {
 			isa = PBXGroup;
 			children = (
-				B0CF33DC2CA88D32002F6B55 /* HomeyMusicKit */,
 				B0BF9C8A2BD090A0003B985B /* PrivacyInfo.xcprivacy */,
 				B02673422BAF6C7C00DDFA62 /* HomeyPad */,
 				B02673412BAF6C7C00DDFA62 /* Products */,
@@ -162,6 +162,7 @@
 			name = "Homey Pad";
 			packageProductDependencies = (
 				B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */,
+				B09A9D402DC3E6B70013C831 /* HomeyMusicKit */,
 			);
 			productName = HomeyPad;
 			productReference = B02673402BAF6C7C00DDFA62 /* Homey Pad.app */;
@@ -192,6 +193,7 @@
 			);
 			mainGroup = B02673372BAF6C7C00DDFA62;
 			packageReferences = (
+				B09A9D3F2DC3E6B70013C831 /* XCLocalSwiftPackageReference "../HomeyMusicKit" */,
 			);
 			productRefGroup = B02673412BAF6C7C00DDFA62 /* Products */;
 			projectDirPath = "";
@@ -468,8 +470,19 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		B09A9D3F2DC3E6B70013C831 /* XCLocalSwiftPackageReference "../HomeyMusicKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../HomeyMusicKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeyMusicKit;
+		};
+		B09A9D402DC3E6B70013C831 /* HomeyMusicKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomeyMusicKit;
 		};
