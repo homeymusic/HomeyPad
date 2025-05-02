@@ -11,9 +11,6 @@ struct HomeyPad: App {
     @State private var instrumentCache: InstrumentCache
     @State private var midiConductor: MIDIConductor
 
-    /// you can still keep this static array of all pitches
-    public static let pitches = Pitch.allPitches()
-
     init() {
         // build each one with verbose camelCase names
         let appContext      = AppContext()
