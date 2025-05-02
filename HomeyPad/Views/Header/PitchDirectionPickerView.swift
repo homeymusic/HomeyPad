@@ -18,16 +18,26 @@ public struct PitchDirectionPickerView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 
-    private func pitchDirectionButton(_ direction: PitchDirection) -> some View {
-        let isSelected = (tonality.pitchDirection == direction)
+    private func pitchDirectionButton(_ pitchDirection: PitchDirection) -> some View {
+        let isSelected = (tonality.pitchDirection == pitchDirection)
 
         return Button(action: {
             guard !isSelected else { return }
-            tonality.pitchDirection = direction
+            switch (tonality.pitchDirection, pitchDirection) {
+            case (.upward, .downward):
+                tonality.shiftUpOneOctave()
+            case (.downward, .upward):
+                tonality.shiftDownOneOctave()
+            case (.downward, .mixed):
+                tonality.shiftDownOneOctave()
+            default:
+                break
+            }
+            tonality.pitchDirection = pitchDirection
             buzz()
         }) {
             Color.clear
-                .overlay(Image(systemName: direction.icon).foregroundColor(.white))
+                .overlay(Image(systemName: pitchDirection.icon).foregroundColor(.white))
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
                 .background(isSelected ? Color.systemGray2 : Color.clear)

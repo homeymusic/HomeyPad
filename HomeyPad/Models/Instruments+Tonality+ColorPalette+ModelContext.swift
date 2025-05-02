@@ -14,31 +14,30 @@ public extension ModelContext {
         let instrument: any Instrument
         switch choice {
         case .linear:
-            instrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
         case .tonnetz:
-            instrument = fetchOrCreate(Tonnetz.self) { Tonnetz(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Tonnetz.self) { Tonnetz(tonality: tonality()) }
         case .diamanti:
-            instrument = fetchOrCreate(Diamanti.self) { Diamanti(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Diamanti.self) { Diamanti(tonality: tonality()) }
         case .piano:
-            instrument = fetchOrCreate(Piano.self) { Piano(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Piano.self) { Piano(tonality: tonality()) }
         case .violin:
-            instrument = fetchOrCreate(Violin.self) { Violin(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Violin.self) { Violin(tonality: tonality()) }
         case .cello:
-            instrument = fetchOrCreate(Cello.self) { Cello(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Cello.self) { Cello(tonality: tonality()) }
         case .bass:
-            instrument = fetchOrCreate(Bass.self) { Bass(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Bass.self) { Bass(tonality: tonality()) }
         case .banjo:
-            instrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality()) }
         case .guitar:
-            instrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
         case .modePicker:
-            instrument = fetchOrCreate(ModePicker.self) { ModePicker(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(ModePicker.self) { ModePicker(tonality: tonality()) }
         case .tonicPicker:
-            instrument = fetchOrCreate(TonicPicker.self) { TonicPicker(tonality: tonality(), pitches: HomeyPad.pitches ) }
+            instrument = fetchOrCreate(TonicPicker.self) { TonicPicker(tonality: tonality()) }
         }
         
-        instrument.pitches = HomeyPad.pitches
-        ensureColorPalette(on: instrument)        
+        ensureColorPalette(on: instrument)
         return instrument
     }
     
