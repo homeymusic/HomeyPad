@@ -18,7 +18,7 @@
 		B005B24B2DBDCDBC00737188 /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */; };
 		B005B24C2DBDCDBC00737188 /* PitchDirectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */; };
 		B023C5DD2CC2E27F00AC4D5F /* HomeyMusicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B023C5DC2CC2E27F00AC4D5F /* HomeyMusicKit */; };
-		B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */; };
+		B02673442BAF6C7C00DDFA62 /* HomeyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673432BAF6C7C00DDFA62 /* HomeyPad.swift */; };
 		B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02673452BAF6C7C00DDFA62 /* ContentView.swift */; };
 		B02673482BAF6C7D00DDFA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02673472BAF6C7D00DDFA62 /* Assets.xcassets */; };
 		B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093E1452CBD2DB800130B06 /* HeaderView.swift */; };
@@ -42,7 +42,7 @@
 		B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
 		B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDirectionPickerView.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* Homey Pad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homey Pad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPadApp.swift; sourceTree = "<group>"; };
+		B02673432BAF6C7C00DDFA62 /* HomeyPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeyPad.swift; sourceTree = "<group>"; };
 		B02673452BAF6C7C00DDFA62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02673472BAF6C7D00DDFA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B067B6DC2BCC662A00BC6C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 				B005B2372DBD9BF500737188 /* Models */,
 				B067B6DF2BCC699300BC6C45 /* HomeyPad.entitlements */,
 				B067B6DC2BCC662A00BC6C45 /* Info.plist */,
-				B02673432BAF6C7C00DDFA62 /* HomeyPadApp.swift */,
+				B02673432BAF6C7C00DDFA62 /* HomeyPad.swift */,
 				B0497EFA2BB8B41900AE9FC0 /* Views */,
 				B02673472BAF6C7D00DDFA62 /* Assets.xcassets */,
 			);
@@ -234,7 +234,7 @@
 				B005B24C2DBDCDBC00737188 /* PitchDirectionPickerView.swift in Sources */,
 				B005B23F2DBDC2BE00737188 /* ColorPalettePopoverView.swift in Sources */,
 				B093E14E2CBD2DB800130B06 /* HelpView.swift in Sources */,
-				B02673442BAF6C7C00DDFA62 /* HomeyPadApp.swift in Sources */,
+				B02673442BAF6C7C00DDFA62 /* HomeyPad.swift in Sources */,
 				B005B23D2DBDC27300737188 /* NotationInstrumentPalletePickerView.swift in Sources */,
 				B005B23B2DBDC1DA00737188 /* NotationPopoverView.swift in Sources */,
 				B005B2392DBD9C1600737188 /* Instruments+Tonality+ColorPalette+ModelContext.swift in Sources */,
