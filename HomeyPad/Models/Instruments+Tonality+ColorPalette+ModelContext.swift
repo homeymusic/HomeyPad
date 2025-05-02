@@ -38,8 +38,6 @@ public extension ModelContext {
         }
         
         instrument.pitches = HomeyPad.pitches
-        instrument.synthConductor = HomeyPad.synthConductor
-        instrument.midiConductor  = HomeyPad.midiConductor
         ensureColorPalette(on: instrument)        
         return instrument
     }

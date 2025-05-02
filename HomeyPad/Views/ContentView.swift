@@ -4,6 +4,7 @@ import HomeyMusicKit
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) public var appContext
+    @Environment(InstrumentCache.self) public var instrumentCache
 
     var body: some View {
         let settingsHeight = 30.0
@@ -27,16 +28,16 @@ struct ContentView: View {
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
                                 instrument.showModeOutlines = appContext.showModePicker
-                                HomeyPad.instrumentCache.set([instrument])
-                                HomeyPad.instrumentCache.selectInstrument(instrument)
+                                instrumentCache.set([instrument])
+                                instrumentCache.selectInstrument(instrument)
                             }
                             .onChange(of: appContext.instrumentChoice) {
                                 if instrument.latching {
                                     instrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
-                                HomeyPad.instrumentCache.set([instrument])
-                                HomeyPad.instrumentCache.selectInstrument(instrument)
+                                instrumentCache.set([instrument])
+                                instrumentCache.selectInstrument(instrument)
                             }
                     }
                     .frame(height: .infinity)
