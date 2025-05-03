@@ -6,7 +6,7 @@ struct HeaderView: View {
     @Environment(AppContext.self) private var appContext
 
     // pull your instrument once
-    private var instrument: Instrument {
+    private var instrument: MusicalInstrument {
         // force-cast because we know all of your concrete models
         modelContext
           .singletonInstrument(for: appContext.instrumentType)

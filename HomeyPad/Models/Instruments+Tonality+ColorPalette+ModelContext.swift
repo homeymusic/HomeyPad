@@ -10,8 +10,8 @@ public extension ModelContext {
     }
     
     @MainActor
-    func singletonInstrument(for type: InstrumentType) -> any Instrument {
-        let instrument: any Instrument
+    func singletonInstrument(for type: InstrumentType) -> any MusicalInstrument {
+        let instrument: any MusicalInstrument
         switch type {
         case .linear:
             instrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
@@ -57,7 +57,7 @@ public extension ModelContext {
     }
     
     @MainActor
-    func ensureColorPalette(on instrument: any Instrument) {
+    func ensureColorPalette(on instrument: any MusicalInstrument) {
         guard
             instrument.intervalColorPalette == nil,
             instrument.pitchColorPalette    == nil

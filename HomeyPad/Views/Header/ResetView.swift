@@ -2,9 +2,9 @@ import SwiftUI
 import HomeyMusicKit
 
 struct ResetView: View {
-    let instrument: Instrument
+    let instrument: MusicalInstrument
     
-    public init(instrument: Instrument) { self.instrument = instrument}
+    public init(instrument: MusicalInstrument) { self.instrument = instrument}
 
     var body: some View {
         HStack(spacing: 0) {

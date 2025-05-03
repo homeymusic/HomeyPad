@@ -5,9 +5,9 @@ public struct TonicModePickerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppContext.self) var appContext
     let horizontalCellCount = 13.0
-    private let instrument: any Instrument
+    private let instrument: any MusicalInstrument
 
-    public init(_ instrument: any Instrument) {
+    public init(_ instrument: any MusicalInstrument) {
         self.instrument = instrument
     }
 

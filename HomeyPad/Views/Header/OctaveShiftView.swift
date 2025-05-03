@@ -2,9 +2,9 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct OctaveShiftView: View {
-    let instrument: Instrument
+    let instrument: MusicalInstrument
     
-    public init(instrument: Instrument) { self.instrument = instrument}
+    public init(instrument: MusicalInstrument) { self.instrument = instrument}
     
     public var body: some View {
         HStack(spacing: 0) {

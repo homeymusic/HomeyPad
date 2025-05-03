@@ -6,7 +6,7 @@ struct NotationPopoverView: View {
     @Environment(\.modelContext)            private var modelContext
     @Environment(AppContext.self)  private var appContext
     
-    private var instrument: any Instrument {
+    private var instrument: any MusicalInstrument {
         modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     

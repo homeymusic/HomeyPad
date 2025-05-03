@@ -9,7 +9,7 @@ public struct TonicModePickerNotationView: View {
         modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
 
-    private var instrument: Instrument {
+    private var instrument: MusicalInstrument {
         modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     

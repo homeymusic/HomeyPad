@@ -8,7 +8,7 @@ public struct NotationInstrumentPalletePickerView: View {
     @Environment(AppContext.self) var appContext
     @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
 
-    private var instrument: any Instrument {
+    private var instrument: any MusicalInstrument {
         modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     private var tonicPicker: TonicPicker {
