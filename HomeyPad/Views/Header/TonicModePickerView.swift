@@ -107,8 +107,8 @@ public struct TonicModePickerView: View {
     }
     
     var areBothModeNoteLabelsShown: Bool {
-        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelChoices.contains(.mode) &&
-        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelChoices.contains(.map)
+        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelTypes.contains(.mode) &&
+        modelContext.singletonInstrument(for: .tonicPicker).pitchLabelTypes.contains(.map)
     }
  
     var aspectMultiplier: CGFloat {

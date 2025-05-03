@@ -10,9 +10,9 @@ public extension ModelContext {
     }
     
     @MainActor
-    func singletonInstrument(for choice: InstrumentType) -> any Instrument {
+    func singletonInstrument(for type: InstrumentType) -> any Instrument {
         let instrument: any Instrument
-        switch choice {
+        switch type {
         case .linear:
             instrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
         case .tonnetz:

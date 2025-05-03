@@ -50,15 +50,15 @@ public struct TonicModePickerNotationView: View {
                     }
                     Divider()
                     Button(action: {
-                        tonicPicker.resetDefaultLabelChoices()
+                        tonicPicker.resetDefaultLabelTypes()
                         buzz()
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
-                            .foregroundColor(tonicPicker.areDefaultLabelChoices ? .gray : .white)
+                            .foregroundColor(tonicPicker.areDefaultLabelTypes ? .gray : .white)
                     })
                     .gridCellColumns(2)
-                    .disabled(tonicPicker.areDefaultLabelChoices)
+                    .disabled(tonicPicker.areDefaultLabelTypes)
                     .padding([.top, .bottom], 7)
                 }
             })

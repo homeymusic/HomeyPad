@@ -14,15 +14,15 @@ struct NotationPopoverView: View {
         VStack(spacing: 0) {
             Grid {
                 // — INTERVAL LABELS —
-                ForEach(IntervalLabelChoice.allCases, id: \.self) { choice in
-                    if choice == .symbol {
+                ForEach(IntervalLabelType.allCases, id: \.self) { type in
+                    if type == .symbol {
                         Divider()
                     }
                     GridRow {
-                        choice.image
+                        type.image
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
-                        Toggle(choice.label, isOn: intervalBinding(for: choice))
+                        Toggle(type.label, isOn: intervalBinding(for: type))
                             .gridCellAnchor(.leading)
                             .tint(.gray)
                     }
@@ -31,23 +31,23 @@ struct NotationPopoverView: View {
                 Divider()
                 
                 // — PITCH LABELS —
-                ForEach(PitchLabelChoice.pitchCases, id: \.self) { choice in
+                ForEach(PitchLabelType.pitchCases, id: \.self) { type in
                     // skip any special ones if you like
-                    if choice != .accidentals {
+                    if type != .accidentals {
                         GridRow {
-                            choice.image
+                            type.image
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
-                            Toggle(choice.label, isOn: pitchBinding(for: choice))
+                            Toggle(type.label, isOn: pitchBinding(for: type))
                                 .gridCellAnchor(.leading)
                                 .tint(.gray)
                         }
                         
                         // if you need the “fixed Do” submenu
-                        if choice == .fixedDo {
+                        if type == .fixedDo {
                             // Accidentals‐picker
                             GridRow {
-                                choice.image
+                                type.image
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
                                 Picker("", selection: Binding<Accidental>(
@@ -69,37 +69,37 @@ struct NotationPopoverView: View {
         }
     }
     
-    // MARK: – Helpers to bind each choice to its array membership
+    // MARK: – Helpers to bind each type to its array membership
     
-    private func pitchBinding(for choice: PitchLabelChoice) -> Binding<Bool> {
+    private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                instrument.pitchLabelChoices.contains(choice)
+                instrument.pitchLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        instrument.pitchLabelChoices.insert(choice)
+                        instrument.pitchLabelTypes.insert(type)
                     } else {
-                        instrument.pitchLabelChoices.remove(choice)
+                        instrument.pitchLabelTypes.remove(type)
                     }
                 }
             }
         )
     }
     
-    private func intervalBinding(for choice: IntervalLabelChoice) -> Binding<Bool> {
+    private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                instrument.intervalLabelChoices.contains(choice)
+                instrument.intervalLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        instrument.intervalLabelChoices.insert(choice)
+                        instrument.intervalLabelTypes.insert(type)
                     } else {
-                        instrument.intervalLabelChoices.remove(choice)
+                        instrument.intervalLabelTypes.remove(type)
                     }
                 }
             }

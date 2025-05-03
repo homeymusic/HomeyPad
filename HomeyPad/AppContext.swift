@@ -21,8 +21,8 @@ public final class AppContext {
     private var instrumentTypeRaw: Int = Int(InstrumentType.default.rawValue)
     
     @ObservationIgnored
-    @AppStorage("stringInstrumentChoice")
-    private var stringInstrumentChoiceRaw: Int = Int(InstrumentType.defaultStringInstrumentChoice.rawValue)
+    @AppStorage("stringInstrumentType")
+    private var stringInstrumentTypeRaw: Int = Int(InstrumentType.defaultStringInstrumentType.rawValue)
     
     public var beforeInstrumentChange: ((InstrumentType) -> Void)?
     public var afterInstrumentChange: ((InstrumentType) -> Void)?
@@ -36,23 +36,23 @@ public final class AppContext {
         
         didSet {
             instrumentTypeRaw = Int(instrumentType.rawValue)
-            // Keep stringInstrumentChoice in sync if the instrument is a string.
+            // Keep stringInstrumentType in sync if the instrument is a string.
             if instrumentType.isStringInstrument {
-                stringInstrumentChoice = instrumentType
-                stringInstrumentChoiceRaw = Int(instrumentType.rawValue)
+                stringInstrumentType = instrumentType
+                stringInstrumentTypeRaw = Int(instrumentType.rawValue)
             }
             afterInstrumentChange?(instrumentType)
         }
     }
     
-    public var stringInstrumentChoice: InstrumentType  = InstrumentType.defaultStringInstrumentChoice {
+    public var stringInstrumentType: InstrumentType  = InstrumentType.defaultStringInstrumentType {
         didSet {
-            stringInstrumentChoiceRaw = Int(stringInstrumentChoice.rawValue)
+            stringInstrumentTypeRaw = Int(stringInstrumentType.rawValue)
         }
     }
     
     public init() {
         self.instrumentType = InstrumentType(rawValue: instrumentTypeRaw) ?? InstrumentType.default
-        self.stringInstrumentChoice = InstrumentType(rawValue: stringInstrumentChoiceRaw) ?? InstrumentType.defaultStringInstrumentChoice
+        self.stringInstrumentType = InstrumentType(rawValue: stringInstrumentTypeRaw) ?? InstrumentType.defaultStringInstrumentType
     }
 }

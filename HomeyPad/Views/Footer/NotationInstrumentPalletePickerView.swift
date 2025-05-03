@@ -44,14 +44,14 @@ public struct NotationInstrumentPalletePickerView: View {
                     }
                     Divider()
                     Button(action: {
-                        instrument.resetDefaultLabelChoices()
+                        instrument.resetDefaultLabelTypes()
                         buzz()
                     }, label: {
                         Image(systemName: "gobackward")
-                            .foregroundColor(instrument.areDefaultLabelChoices ? .gray : .white)
+                            .foregroundColor(instrument.areDefaultLabelTypes ? .gray : .white)
                     })
                     .padding([.top, .bottom], 7)
-                    .disabled(instrument.areDefaultLabelChoices)
+                    .disabled(instrument.areDefaultLabelTypes)
                 }
             })
             .padding(.trailing, 5)
@@ -59,10 +59,10 @@ public struct NotationInstrumentPalletePickerView: View {
             HStack {
                 Picker("", selection: Binding(
                     get: { appContext.instrumentType },
-                    set: { newInstrumentChoice in
+                    set: { newInstrumentType in
                         // 1️⃣ Fetch the “old” and the “new” instrument
                         let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
-                        let newInstrument = modelContext.singletonInstrument(for: newInstrumentChoice)
+                        let newInstrument = modelContext.singletonInstrument(for: newInstrumentType)
                         
                         if oldInstrument.latching && newInstrument.latching {
                             appContext.latchedMIDINoteNumbers  = oldInstrument.tonality.activatedPitches.map { $0.midiNote.number }
@@ -75,10 +75,10 @@ public struct NotationInstrumentPalletePickerView: View {
                         tonicPicker.showModeOutlines = appContext.showModePicker
                         newInstrument.showModeOutlines = appContext.showModePicker
 
-                        appContext.instrumentType = newInstrumentChoice
+                        appContext.instrumentType = newInstrumentType
                     }
                 )) {
-                    ForEach(InstrumentType.keyboardInstruments + [appContext.stringInstrumentChoice], id:\.self) { instrument in
+                    ForEach(InstrumentType.keyboardInstruments + [appContext.stringInstrumentType], id:\.self) { instrument in
                         Image(systemName: instrument.icon)
                             .resizable()
                             .scaledToFit()

@@ -15,7 +15,7 @@ struct TonicModePickerNotationPopoverView: View {
         VStack(spacing: 0.0) {
             Grid {
                 if appContext.showTonicPicker {
-                    ForEach(IntervalLabelChoice.intervalClassCases, id: \.self) {key in
+                    ForEach(IntervalLabelType.intervalClassCases, id: \.self) {key in
                         if key == .symbol {
                             Divider()
                         }
@@ -32,7 +32,7 @@ struct TonicModePickerNotationPopoverView: View {
 
                     Divider()
 
-                    ForEach(PitchLabelChoice.pitchClassCases, id: \.self) {key in
+                    ForEach(PitchLabelType.pitchClassCases, id: \.self) {key in
                         if key != .accidentals {
                             GridRow {
                                 key.image
@@ -46,7 +46,7 @@ struct TonicModePickerNotationPopoverView: View {
                             }
                             if key == .letter {
                                 GridRow {
-                                    Image(systemName: PitchLabelChoice.accidentals.icon)
+                                    Image(systemName: PitchLabelType.accidentals.icon)
                                         .gridCellAnchor(.center)
                                     Picker("", selection: Binding<Accidental>(
                                         get: { tonicPicker.tonality.accidental },
@@ -67,7 +67,7 @@ struct TonicModePickerNotationPopoverView: View {
                     Divider()
                 }
                 if appContext.showModePicker {
-                    ForEach(PitchLabelChoice.modeCases, id: \.self) {key in
+                    ForEach(PitchLabelType.modeCases, id: \.self) {key in
                         GridRow {
                             key.image
                                 .gridCellAnchor(.center)
@@ -84,35 +84,35 @@ struct TonicModePickerNotationPopoverView: View {
             .padding(10)
         }
     }
-    private func pitchBinding(for choice: PitchLabelChoice) -> Binding<Bool> {
+    private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonicPicker.pitchLabelChoices.contains(choice)
+                tonicPicker.pitchLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        tonicPicker.pitchLabelChoices.insert(choice)
+                        tonicPicker.pitchLabelTypes.insert(type)
                     } else {
-                        tonicPicker.pitchLabelChoices.remove(choice)
+                        tonicPicker.pitchLabelTypes.remove(type)
                     }
                 }
             }
         )
     }
     
-    private func intervalBinding(for choice: IntervalLabelChoice) -> Binding<Bool> {
+    private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonicPicker.intervalLabelChoices.contains(choice)
+                tonicPicker.intervalLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        tonicPicker.intervalLabelChoices.insert(choice)
+                        tonicPicker.intervalLabelTypes.insert(type)
                     } else {
-                        tonicPicker.intervalLabelChoices.remove(choice)
+                        tonicPicker.intervalLabelTypes.remove(type)
                     }
                 }
             }
