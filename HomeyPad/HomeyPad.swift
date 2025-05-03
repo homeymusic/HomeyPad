@@ -9,7 +9,7 @@ struct HomeyPad: App {
     @State private var synthConductor: SynthConductor
     @State private var instrumentCache: InstrumentCache
     @State private var midiConductor: MIDIConductor
-
+    
     init() {
         let appContext      = AppContext()
         let synthConductor  = SynthConductor()
@@ -21,13 +21,13 @@ struct HomeyPad: App {
             instrumentCache: instrumentCache
         )
         midiConductor.setup()
-
+        
         _appContext      = State(initialValue: appContext)
         _synthConductor  = State(initialValue: synthConductor)
         _instrumentCache = State(initialValue: instrumentCache)
         _midiConductor   = State(initialValue: midiConductor)
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

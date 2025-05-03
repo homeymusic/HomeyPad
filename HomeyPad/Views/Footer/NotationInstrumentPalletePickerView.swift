@@ -65,7 +65,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         let newInstrument = modelContext.singletonInstrument(for: newInstrumentChoice)
                         
                         if oldInstrument.latching && newInstrument.latching {
-                            appContext.latchedMIDINoteNumbers  = oldInstrument.activatedPitches.map { $0.midiNote.number }
+                            appContext.latchedMIDINoteNumbers  = oldInstrument.tonality.activatedPitches.map { $0.midiNote.number }
                         } else {
                             oldInstrument.deactivateAllMIDINoteNumbers()
                         }
