@@ -10,7 +10,7 @@ public struct TonicModePickerNotationView: View {
     }
 
     private var instrument: Instrument {
-        modelContext.singletonInstrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     
     public init() { }
@@ -36,10 +36,10 @@ public struct TonicModePickerNotationView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         if appContext.showTonicPicker {
-                            Image(systemName: InstrumentChoice.tonicPicker.filledIcon)
+                            Image(systemName: InstrumentType.tonicPicker.filledIcon)
                         }
                         if appContext.showModePicker {
-                            Image(systemName: InstrumentChoice.modePicker.filledIcon)
+                            Image(systemName: InstrumentType.modePicker.filledIcon)
                         }
                     }
                     .padding([.top, .bottom], 7)
@@ -72,7 +72,7 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showTonicPicker ? InstrumentChoice.tonicPicker.filledIcon : InstrumentChoice.tonicPicker.icon)
+                        Image(systemName: appContext.showTonicPicker ? InstrumentType.tonicPicker.filledIcon : InstrumentType.tonicPicker.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -89,8 +89,8 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showModePicker ? InstrumentChoice.modePicker.filledIcon :
-                                InstrumentChoice.modePicker.icon)
+                        Image(systemName: appContext.showModePicker ? InstrumentType.modePicker.filledIcon :
+                                InstrumentType.modePicker.icon)
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )

@@ -17,42 +17,42 @@ public final class AppContext {
     public var latchedMIDINoteNumbers: [MIDINoteNumber] = []
     
     @ObservationIgnored
-    @AppStorage("instrumentChoice")
-    private var instrumentChoiceRaw: Int = Int(InstrumentChoice.default.rawValue)
+    @AppStorage("instrumentType")
+    private var instrumentTypeRaw: Int = Int(InstrumentType.default.rawValue)
     
     @ObservationIgnored
     @AppStorage("stringInstrumentChoice")
-    private var stringInstrumentChoiceRaw: Int = Int(InstrumentChoice.defaultStringInstrumentChoice.rawValue)
+    private var stringInstrumentChoiceRaw: Int = Int(InstrumentType.defaultStringInstrumentChoice.rawValue)
     
-    public var beforeInstrumentChange: ((InstrumentChoice) -> Void)?
-    public var afterInstrumentChange: ((InstrumentChoice) -> Void)?
+    public var beforeInstrumentChange: ((InstrumentType) -> Void)?
+    public var afterInstrumentChange: ((InstrumentType) -> Void)?
 
     
-    public var instrumentChoice: InstrumentChoice = InstrumentChoice.default {
+    public var instrumentType: InstrumentType = InstrumentType.default {
         
         willSet {
-            beforeInstrumentChange?(instrumentChoice)
+            beforeInstrumentChange?(instrumentType)
         }
         
         didSet {
-            instrumentChoiceRaw = Int(instrumentChoice.rawValue)
+            instrumentTypeRaw = Int(instrumentType.rawValue)
             // Keep stringInstrumentChoice in sync if the instrument is a string.
-            if instrumentChoice.isStringInstrument {
-                stringInstrumentChoice = instrumentChoice
-                stringInstrumentChoiceRaw = Int(instrumentChoice.rawValue)
+            if instrumentType.isStringInstrument {
+                stringInstrumentChoice = instrumentType
+                stringInstrumentChoiceRaw = Int(instrumentType.rawValue)
             }
-            afterInstrumentChange?(instrumentChoice)
+            afterInstrumentChange?(instrumentType)
         }
     }
     
-    public var stringInstrumentChoice: InstrumentChoice  = InstrumentChoice.defaultStringInstrumentChoice {
+    public var stringInstrumentChoice: InstrumentType  = InstrumentType.defaultStringInstrumentChoice {
         didSet {
             stringInstrumentChoiceRaw = Int(stringInstrumentChoice.rawValue)
         }
     }
     
     public init() {
-        self.instrumentChoice = InstrumentChoice(rawValue: instrumentChoiceRaw) ?? InstrumentChoice.default
-        self.stringInstrumentChoice = InstrumentChoice(rawValue: stringInstrumentChoiceRaw) ?? InstrumentChoice.defaultStringInstrumentChoice
+        self.instrumentType = InstrumentType(rawValue: instrumentTypeRaw) ?? InstrumentType.default
+        self.stringInstrumentChoice = InstrumentType(rawValue: stringInstrumentChoiceRaw) ?? InstrumentType.defaultStringInstrumentChoice
     }
 }

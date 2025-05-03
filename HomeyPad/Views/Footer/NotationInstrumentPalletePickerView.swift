@@ -9,7 +9,7 @@ public struct NotationInstrumentPalletePickerView: View {
     @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
 
     private var instrument: any Instrument {
-        modelContext.singletonInstrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     private var tonicPicker: TonicPicker {
         modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
@@ -35,7 +35,7 @@ public struct NotationInstrumentPalletePickerView: View {
             }
             .popover(isPresented: $appContext.showLabelsPopover, content: {
                 VStack(spacing: 0) {
-                    Image(systemName: instrument.instrumentChoice.icon)
+                    Image(systemName: instrument.instrumentType.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
@@ -58,10 +58,10 @@ public struct NotationInstrumentPalletePickerView: View {
             
             HStack {
                 Picker("", selection: Binding(
-                    get: { appContext.instrumentChoice },
+                    get: { appContext.instrumentType },
                     set: { newInstrumentChoice in
                         // 1️⃣ Fetch the “old” and the “new” instrument
-                        let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
+                        let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
                         let newInstrument = modelContext.singletonInstrument(for: newInstrumentChoice)
                         
                         if oldInstrument.latching && newInstrument.latching {
@@ -75,10 +75,10 @@ public struct NotationInstrumentPalletePickerView: View {
                         tonicPicker.showModeOutlines = appContext.showModePicker
                         newInstrument.showModeOutlines = appContext.showModePicker
 
-                        appContext.instrumentChoice = newInstrumentChoice
+                        appContext.instrumentType = newInstrumentChoice
                     }
                 )) {
-                    ForEach(InstrumentChoice.keyboardInstruments + [appContext.stringInstrumentChoice], id:\.self) { instrument in
+                    ForEach(InstrumentType.keyboardInstruments + [appContext.stringInstrumentChoice], id:\.self) { instrument in
                         Image(systemName: instrument.icon)
                             .resizable()
                             .scaledToFit()
@@ -87,7 +87,7 @@ public struct NotationInstrumentPalletePickerView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: appContext.instrumentChoice) {
+                .onChange(of: appContext.instrumentType) {
                     appContext.showColorPalettePopover = false
                     appContext.showEditColorPaletteSheet = false
                     appContext.showLabelsPopover = false
@@ -110,7 +110,7 @@ public struct NotationInstrumentPalletePickerView: View {
             .popover(isPresented: $appContext.showColorPalettePopover,
                      content: {
                 VStack(spacing: 0) {
-                    Image(systemName: appContext.instrumentChoice.icon)
+                    Image(systemName: appContext.instrumentType.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {

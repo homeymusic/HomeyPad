@@ -14,7 +14,7 @@ struct FooterView: View {
     @Environment(AppContext.self)  private var appContext
 
     private var instrument: any Instrument {
-        modelContext.singletonInstrument(for: appContext.instrumentChoice)
+        modelContext.singletonInstrument(for: appContext.instrumentType)
     }
 
     var body: some View {
@@ -42,13 +42,13 @@ struct FooterView: View {
             
             HStack {
                 NotationInstrumentPalletePickerView()
-                .id(appContext.instrumentChoice)
+                .id(appContext.instrumentType)
             }
             
             HStack {
-                if instrument.instrumentChoice.isStringInstrument {
-                    Picker("", selection: $appContext.instrumentChoice) {
-                        ForEach(InstrumentChoice.stringInstruments) { stringInstrument in
+                if instrument.instrumentType.isStringInstrument {
+                    Picker("", selection: $appContext.instrumentType) {
+                        ForEach(InstrumentType.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
                                 .tag(stringInstrument)
                         }
@@ -62,7 +62,7 @@ struct FooterView: View {
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .animation(HomeyMusicKit.animationStyle, value: appContext.instrumentChoice)
+            .animation(HomeyMusicKit.animationStyle, value: appContext.instrumentType)
         }
     }
 }

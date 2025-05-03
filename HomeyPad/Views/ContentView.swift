@@ -20,10 +20,10 @@ struct ContentView: View {
                         Spacer()
                     }
                     VStack(spacing: settingsBuffer) {
-                        let tonicPicker = modelContext.singletonInstrument(for: InstrumentChoice.tonicPicker)
+                        let tonicPicker = modelContext.singletonInstrument(for: InstrumentType.tonicPicker)
                         TonicModePickerView(tonicPicker)
                         
-                        let instrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
+                        let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)
                         InstrumentView(instrument)
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
@@ -31,7 +31,7 @@ struct ContentView: View {
                                 instrumentCache.set([instrument])
                                 instrumentCache.selectInstrument(instrument)
                             }
-                            .onChange(of: appContext.instrumentChoice) {
+                            .onChange(of: appContext.instrumentType) {
                                 if instrument.latching {
                                     instrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }

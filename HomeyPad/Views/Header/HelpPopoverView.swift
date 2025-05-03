@@ -7,7 +7,7 @@ struct HelpPopoverView: View {
 
     var body: some View {
         
-        let colorPalette: ColorPalette = modelContext.singletonInstrument(for: appContext.instrumentChoice).colorPalette
+        let colorPalette: ColorPalette = modelContext.singletonInstrument(for: appContext.instrumentType).colorPalette
         
         HStack(alignment: .center) {
             Spacer()
@@ -112,16 +112,16 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(InstrumentChoice.allInstruments, id: \.self) { instrumentChoice in
+                ForEach(InstrumentType.allInstruments, id: \.self) { instrumentType in
                     GridRow {
-                        Image(systemName: instrumentChoice.midiChannel.icon)
+                        Image(systemName: instrumentType.midiChannel.icon)
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 17, height: 17)
                         HStack {
-                            Image(systemName: instrumentChoice.icon)
+                            Image(systemName: instrumentType.icon)
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .frame(width: 17, height: 17)
-                            Text(instrumentChoice.label.capitalized)
+                            Text(instrumentType.label.capitalized)
                         }
                     }
                 }

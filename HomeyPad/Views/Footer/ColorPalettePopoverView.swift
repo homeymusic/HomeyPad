@@ -19,7 +19,7 @@ struct ColorPalettePopoverView: View {
     }
     
     var body: some View {
-        let instrument = modelContext.singletonInstrument(for: appContext.instrumentChoice)
+        let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)
         
         // 2) Create a Binding<Bool> for showOutlines
         let showOutlinesBinding = Binding<Bool>(
@@ -93,7 +93,7 @@ struct ColorPaletteGridRow: View {
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
         let instrument = modelContext.singletonInstrument(
-            for: appContext.instrumentChoice
+            for: appContext.instrumentType
         )
         
         // 2) Compute whether *this* palette is currently assigned to that instrument
