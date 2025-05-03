@@ -5,14 +5,12 @@ import HomeyMusicKit
 
 @main
 struct HomeyPad: App {
-    // — all your singletons moved into @State
     @State private var appContext: AppContext
     @State private var synthConductor: SynthConductor
     @State private var instrumentCache: InstrumentCache
     @State private var midiConductor: MIDIConductor
 
     init() {
-        // build each one with verbose camelCase names
         let appContext      = AppContext()
         let synthConductor  = SynthConductor()
         let instrumentCache = InstrumentCache()
@@ -24,7 +22,6 @@ struct HomeyPad: App {
         )
         midiConductor.setup()
 
-        // wire them into @State
         _appContext      = State(initialValue: appContext)
         _synthConductor  = State(initialValue: synthConductor)
         _instrumentCache = State(initialValue: instrumentCache)

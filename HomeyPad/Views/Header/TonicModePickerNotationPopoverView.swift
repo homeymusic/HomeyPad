@@ -49,8 +49,8 @@ struct TonicModePickerNotationPopoverView: View {
                                     Image(systemName: PitchLabelChoice.accidentals.icon)
                                         .gridCellAnchor(.center)
                                     Picker("", selection: Binding<Accidental>(
-                                        get: { tonicPicker.accidental },
-                                        set: { tonicPicker.accidental = $0 }
+                                        get: { tonicPicker.tonality.accidental },
+                                        set: { tonicPicker.tonality.accidental = $0 }
                                     )) {
                                         ForEach(Accidental.displayCases) { accidental in
                                             Text(accidental.icon)

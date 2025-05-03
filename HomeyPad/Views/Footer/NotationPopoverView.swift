@@ -51,8 +51,8 @@ struct NotationPopoverView: View {
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
                                 Picker("", selection: Binding<Accidental>(
-                                    get: { instrument.accidental },
-                                    set: { instrument.accidental = $0 }
+                                    get: { instrument.tonality.accidental },
+                                    set: { instrument.tonality.accidental = $0 }
                                 )) {
                                     ForEach(Accidental.displayCases) { acc in
                                         Text(acc.icon)

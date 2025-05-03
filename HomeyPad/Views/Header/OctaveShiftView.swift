@@ -10,22 +10,22 @@ public struct OctaveShiftView: View {
         HStack(spacing: 0) {
             // Downward octave shift button
             Button(action: {
-                instrument.shiftDownOneOctave()
+                instrument.tonality.shiftDownOneOctave()
                 buzz()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.down")
-                        .foregroundColor(instrument.canShiftDownOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(instrument.tonality.canShiftDownOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!instrument.canShiftDownOneOctave)
+            .disabled(!instrument.tonality.canShiftDownOneOctave)
             
             divider
             
             // Display the octave shift value
-            Text(instrument.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+            Text(instrument.tonality.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
                 .foregroundColor(.white)
                 .fixedSize(horizontal: true, vertical: false)
                 .frame(width: 44)
@@ -34,17 +34,17 @@ public struct OctaveShiftView: View {
             
             // Upward octave shift button
             Button(action: {
-                instrument.shiftUpOneOctave()
+                instrument.tonality.shiftUpOneOctave()
                 buzz()
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.up")
-                        .foregroundColor(instrument.canShiftUpOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(instrument.tonality.canShiftUpOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!instrument.canShiftUpOneOctave)
+            .disabled(!instrument.tonality.canShiftUpOneOctave)
         }
         .background(Color.systemGray6)
         .clipShape(RoundedRectangle(cornerRadius: 8))
