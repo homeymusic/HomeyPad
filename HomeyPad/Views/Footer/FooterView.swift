@@ -46,7 +46,7 @@ struct FooterView: View {
             }
             
             HStack {
-                if instrument.instrumentType.isStringInstrument {
+                if appContext.instrumentType.isStringInstrument {
                     Picker("", selection: $appContext.instrumentType) {
                         ForEach(InstrumentType.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)

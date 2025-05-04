@@ -19,7 +19,7 @@ public struct TonicModePickerView: View {
                 if areModeAndTonicPickersShown {modeAndTonicPickerToggleView(feetDirection: .right)}
                 VStack(spacing: 5) {
                     if appContext.showTonicPicker {
-                        TonicInstrumentView(tonicPicker: modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker)
+                        TonicaInstrumentView(tonica: modelContext.tonica)
                             .aspectRatio(horizontalCellCount, contentMode: .fit)
                     }
                     if appContext.showModePicker {

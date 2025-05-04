@@ -35,7 +35,7 @@ public struct NotationInstrumentPalletePickerView: View {
             }
             .popover(isPresented: $appContext.showLabelsPopover, content: {
                 VStack(spacing: 0) {
-                    Image(systemName: instrument.instrumentType.icon)
+                    Image(systemName: appContext.instrumentType.icon)
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
@@ -133,7 +133,7 @@ public struct NotationInstrumentPalletePickerView: View {
                             }
 #else
                             .sheet(isPresented: $appContext.showEditColorPaletteSheet) {
-                                ColorPaletteManagerView()
+                                ColorPaletteManagerView(instrument: instrument)
                             }
 #endif
                             .padding([.top, .bottom], 7)

@@ -3,12 +3,17 @@ import Foundation
 import HomeyMusicKit
 
 public extension ModelContext {
-    
+
     @MainActor
     func tonality() -> Tonality {
         fetchOrCreate(Tonality.self) { Tonality() }
     }
     
+    @MainActor
+    var tonica: Tonica {
+        fetchOrCreate(Tonica.self) { Tonica(tonality: tonality()) }
+    }
+
     @MainActor
     func singletonInstrument(for type: InstrumentType) -> any MusicalInstrument {
         let instrument: any MusicalInstrument
