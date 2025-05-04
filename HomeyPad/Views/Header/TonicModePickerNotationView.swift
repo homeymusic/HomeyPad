@@ -72,7 +72,7 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showTonicPicker ? MusicalInstrumentType.tonicPicker.filledIcon : MusicalInstrumentType.tonicPicker.icon)
+                        Image(systemName: appContext.showTonicPicker ? TonalityInstrumentType.tonicPicker.filledIcon : TonalityInstrumentType.tonicPicker.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -89,8 +89,8 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showModePicker ? MusicalInstrumentType.modePicker.filledIcon :
-                                MusicalInstrumentType.modePicker.icon)
+                        Image(systemName: appContext.showModePicker ? TonalityInstrumentType.modePicker.filledIcon :
+                                TonalityInstrumentType.modePicker.icon)
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )

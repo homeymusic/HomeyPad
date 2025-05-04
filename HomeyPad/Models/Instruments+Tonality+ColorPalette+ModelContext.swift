@@ -10,8 +10,8 @@ public extension ModelContext {
     }
     
     @MainActor
-    var tonica: Tonica {
-        fetchOrCreate(Tonica.self) { Tonica(tonality: tonality()) }
+    var tonalityInstrument: TonalityInstrument {
+        fetchOrCreate(TonalityInstrument.self) { TonalityInstrument(tonality: tonality()) }
     }
 
     @MainActor

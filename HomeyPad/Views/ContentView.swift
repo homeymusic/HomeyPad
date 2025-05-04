@@ -21,24 +21,25 @@ struct ContentView: View {
                     }
                     VStack(spacing: settingsBuffer) {
                         
-                        let tonicPicker = modelContext.singletonInstrument(for: MusicalInstrumentType.tonicPicker)
-                        TonicModePickerView(tonicPicker)
+                        let tonalityInstrument = modelContext.tonalityInstrument
+                        TonalityInstrumentView(tonalityInstrument)
+
+                        let musicalInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
                         
-                        let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)
-                        MusicalInstrumentView(instrument)
+                        MusicalInstrumentView(musicalInstrument)
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
-                                instrument.showModeOutlines = appContext.showModePicker
-                                instrumentCache.set([instrument])
-                                instrumentCache.selectInstrument(instrument)
+                                musicalInstrument.showModeOutlines = appContext.showModePicker
+                                instrumentCache.set([musicalInstrument])
+                                instrumentCache.selectInstrument(musicalInstrument)
                             }
                             .onChange(of: appContext.instrumentType) {
-                                if instrument.latching {
-                                    instrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
+                                if musicalInstrument.latching {
+                                    musicalInstrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
-                                instrumentCache.set([instrument])
-                                instrumentCache.selectInstrument(instrument)
+                                instrumentCache.set([musicalInstrument])
+                                instrumentCache.selectInstrument(musicalInstrument)
                             }
                     }
                     .frame(height: .infinity)
