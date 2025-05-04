@@ -15,7 +15,7 @@ public extension ModelContext {
     }
 
     @MainActor
-    func singletonInstrument(for type: InstrumentType) -> any MusicalInstrument {
+    func singletonInstrument(for type: MusicalInstrumentType) -> any MusicalInstrument {
         let instrument: any MusicalInstrument
         switch type {
         case .linear:

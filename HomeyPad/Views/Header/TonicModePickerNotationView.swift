@@ -36,10 +36,10 @@ public struct TonicModePickerNotationView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         if appContext.showTonicPicker {
-                            Image(systemName: InstrumentType.tonicPicker.filledIcon)
+                            Image(systemName: MusicalInstrumentType.tonicPicker.filledIcon)
                         }
                         if appContext.showModePicker {
-                            Image(systemName: InstrumentType.modePicker.filledIcon)
+                            Image(systemName: MusicalInstrumentType.modePicker.filledIcon)
                         }
                     }
                     .padding([.top, .bottom], 7)
@@ -72,7 +72,7 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showTonicPicker ? InstrumentType.tonicPicker.filledIcon : InstrumentType.tonicPicker.icon)
+                        Image(systemName: appContext.showTonicPicker ? MusicalInstrumentType.tonicPicker.filledIcon : MusicalInstrumentType.tonicPicker.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -89,8 +89,8 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: appContext.showModePicker ? InstrumentType.modePicker.filledIcon :
-                                InstrumentType.modePicker.icon)
+                        Image(systemName: appContext.showModePicker ? MusicalInstrumentType.modePicker.filledIcon :
+                                MusicalInstrumentType.modePicker.icon)
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )

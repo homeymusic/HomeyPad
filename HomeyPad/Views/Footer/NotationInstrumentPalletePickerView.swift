@@ -59,10 +59,10 @@ public struct NotationInstrumentPalletePickerView: View {
             HStack {
                 Picker("", selection: Binding(
                     get: { appContext.instrumentType },
-                    set: { newInstrumentType in
+                    set: { newMusicalInstrumentType in
                         // 1️⃣ Fetch the “old” and the “new” instrument
                         let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
-                        let newInstrument = modelContext.singletonInstrument(for: newInstrumentType)
+                        let newInstrument = modelContext.singletonInstrument(for: newMusicalInstrumentType)
                         
                         if oldInstrument.latching && newInstrument.latching {
                             appContext.latchedMIDINoteNumbers  = oldInstrument.tonality.activatedPitches.map { $0.midiNote.number }
@@ -75,10 +75,10 @@ public struct NotationInstrumentPalletePickerView: View {
                         tonicPicker.showModeOutlines = appContext.showModePicker
                         newInstrument.showModeOutlines = appContext.showModePicker
 
-                        appContext.instrumentType = newInstrumentType
+                        appContext.instrumentType = newMusicalInstrumentType
                     }
                 )) {
-                    ForEach(InstrumentType.keyboardInstruments + [appContext.stringInstrumentType], id:\.self) { instrument in
+                    ForEach(MusicalInstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
                         Image(systemName: instrument.icon)
                             .resizable()
                             .scaledToFit()

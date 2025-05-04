@@ -21,7 +21,7 @@ struct ContentView: View {
                     }
                     VStack(spacing: settingsBuffer) {
                         
-                        let tonicPicker = modelContext.singletonInstrument(for: InstrumentType.tonicPicker)
+                        let tonicPicker = modelContext.singletonInstrument(for: MusicalInstrumentType.tonicPicker)
                         TonicModePickerView(tonicPicker)
                         
                         let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)

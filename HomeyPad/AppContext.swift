@@ -18,17 +18,17 @@ public final class AppContext {
     
     @ObservationIgnored
     @AppStorage("instrumentType")
-    private var instrumentTypeRaw: Int = Int(InstrumentType.default.rawValue)
+    private var instrumentTypeRaw: Int = Int(MusicalInstrumentType.default.rawValue)
     
     @ObservationIgnored
-    @AppStorage("stringInstrumentType")
-    private var stringInstrumentTypeRaw: Int = Int(InstrumentType.defaultStringInstrumentType.rawValue)
+    @AppStorage("stringMusicalInstrumentType")
+    private var stringMusicalInstrumentTypeRaw: Int = Int(MusicalInstrumentType.defaultStringMusicalInstrumentType.rawValue)
     
-    public var beforeInstrumentChange: ((InstrumentType) -> Void)?
-    public var afterInstrumentChange: ((InstrumentType) -> Void)?
+    public var beforeInstrumentChange: ((MusicalInstrumentType) -> Void)?
+    public var afterInstrumentChange: ((MusicalInstrumentType) -> Void)?
 
     
-    public var instrumentType: InstrumentType = InstrumentType.default {
+    public var instrumentType: MusicalInstrumentType = MusicalInstrumentType.default {
         
         willSet {
             beforeInstrumentChange?(instrumentType)
@@ -36,23 +36,23 @@ public final class AppContext {
         
         didSet {
             instrumentTypeRaw = Int(instrumentType.rawValue)
-            // Keep stringInstrumentType in sync if the instrument is a string.
+            // Keep stringMusicalInstrumentType in sync if the instrument is a string.
             if instrumentType.isStringInstrument {
-                stringInstrumentType = instrumentType
-                stringInstrumentTypeRaw = Int(instrumentType.rawValue)
+                stringMusicalInstrumentType = instrumentType
+                stringMusicalInstrumentTypeRaw = Int(instrumentType.rawValue)
             }
             afterInstrumentChange?(instrumentType)
         }
     }
     
-    public var stringInstrumentType: InstrumentType  = InstrumentType.defaultStringInstrumentType {
+    public var stringMusicalInstrumentType: MusicalInstrumentType  = MusicalInstrumentType.defaultStringMusicalInstrumentType {
         didSet {
-            stringInstrumentTypeRaw = Int(stringInstrumentType.rawValue)
+            stringMusicalInstrumentTypeRaw = Int(stringMusicalInstrumentType.rawValue)
         }
     }
     
     public init() {
-        self.instrumentType = InstrumentType(rawValue: instrumentTypeRaw) ?? InstrumentType.default
-        self.stringInstrumentType = InstrumentType(rawValue: stringInstrumentTypeRaw) ?? InstrumentType.defaultStringInstrumentType
+        self.instrumentType = MusicalInstrumentType(rawValue: instrumentTypeRaw) ?? MusicalInstrumentType.default
+        self.stringMusicalInstrumentType = MusicalInstrumentType(rawValue: stringMusicalInstrumentTypeRaw) ?? MusicalInstrumentType.defaultStringMusicalInstrumentType
     }
 }
