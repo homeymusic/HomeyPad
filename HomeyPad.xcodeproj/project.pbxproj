@@ -13,7 +13,6 @@
 		B005B23F2DBDC2BE00737188 /* ColorPalettePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B23E2DBDC2BE00737188 /* ColorPalettePopoverView.swift */; };
 		B005B2412DBDCC7100737188 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2402DBDCC6E00737188 /* AppContext.swift */; };
 		B005B2452DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */; };
-		B005B2462DBDCDAA00737188 /* TonicModePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */; };
 		B005B2472DBDCDAA00737188 /* TonicModePickerNotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */; };
 		B005B24B2DBDCDBC00737188 /* OctaveShiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */; };
 		B005B24C2DBDCDBC00737188 /* PitchDirectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */; };
@@ -38,7 +37,6 @@
 		B005B2402DBDCC6E00737188 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerNotationPopoverView.swift; sourceTree = "<group>"; };
 		B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerNotationView.swift; sourceTree = "<group>"; };
-		B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonicModePickerView.swift; sourceTree = "<group>"; };
 		B005B2482DBDCDBC00737188 /* OctaveShiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctaveShiftView.swift; sourceTree = "<group>"; };
 		B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDirectionPickerView.swift; sourceTree = "<group>"; };
 		B02673402BAF6C7C00DDFA62 /* Homey Pad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homey Pad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +123,6 @@
 				B005B2492DBDCDBC00737188 /* PitchDirectionPickerView.swift */,
 				B005B2422DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift */,
 				B005B2432DBDCDAA00737188 /* TonicModePickerNotationView.swift */,
-				B005B2442DBDCDAA00737188 /* TonicModePickerView.swift */,
 				B093E1452CBD2DB800130B06 /* HeaderView.swift */,
 				B093E1462CBD2DB800130B06 /* HelpPopoverView.swift */,
 				B093E1472CBD2DB800130B06 /* HelpView.swift */,
@@ -225,7 +222,6 @@
 				B005B2412DBDCC7100737188 /* AppContext.swift in Sources */,
 				B093E1572CBD2DD600130B06 /* FooterView.swift in Sources */,
 				B005B2452DBDCDAA00737188 /* TonicModePickerNotationPopoverView.swift in Sources */,
-				B005B2462DBDCDAA00737188 /* TonicModePickerView.swift in Sources */,
 				B005B2472DBDCDAA00737188 /* TonicModePickerNotationView.swift in Sources */,
 				B02673462BAF6C7C00DDFA62 /* ContentView.swift in Sources */,
 				B093E14C2CBD2DB800130B06 /* HeaderView.swift in Sources */,

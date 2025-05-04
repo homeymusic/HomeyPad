@@ -19,7 +19,7 @@ struct HeaderView: View {
                 OctaveShiftView(instrument: instrument)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            TonicModePickerNotationView()
+            TonicModePickerNotationView(tonalityInstrument: modelContext.tonalityInstrument())
             HStack(spacing: 15) {
                 PitchDirectionPickerView(tonality: instrument.tonality)
                 HelpView()

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import HomeyMusicKit
 
 struct ContentView: View {
@@ -21,15 +22,14 @@ struct ContentView: View {
                     }
                     VStack(spacing: settingsBuffer) {
                         
-                        let tonalityInstrument = modelContext.tonalityInstrument
+                        let tonalityInstrument = modelContext.tonalityInstrument()
                         TonalityInstrumentView(tonalityInstrument)
 
-                        let musicalInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
-                        
+                        let musicalInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)                        
                         MusicalInstrumentView(musicalInstrument)
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
-                                musicalInstrument.showModeOutlines = appContext.showModePicker
+                                musicalInstrument.showModeOutlines = tonalityInstrument.showModePicker
                                 instrumentCache.set([musicalInstrument])
                                 instrumentCache.selectInstrument(musicalInstrument)
                             }

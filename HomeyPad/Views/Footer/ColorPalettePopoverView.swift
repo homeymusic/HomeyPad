@@ -56,7 +56,7 @@ struct ColorPalettePopoverView: View {
                         buzz()
 //                        if instrument.showOutlines == false {
 //                            withAnimation {
-//                                appContext.showModePicker = false
+//                                modelContext.tonalityInstrument().showModePicker = false
 //                            }
 //                        }
                     }

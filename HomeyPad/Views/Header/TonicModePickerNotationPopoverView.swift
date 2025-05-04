@@ -3,9 +3,10 @@ import HomeyMusicKit
 
 struct TonicModePickerNotationPopoverView: View {
     @Environment(\.modelContext)            private var modelContext
-
     @Environment(AppContext.self) var appContext
     
+    @Bindable public var tonalityInstrument: TonalityInstrument
+
     private var tonicPicker: TonicPicker {
         modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
     }
@@ -14,7 +15,7 @@ struct TonicModePickerNotationPopoverView: View {
         @Bindable var appContext = appContext
         VStack(spacing: 0.0) {
             Grid {
-                if appContext.showTonicPicker {
+                if tonalityInstrument.showTonicPicker {
                     ForEach(IntervalLabelType.intervalClassCases, id: \.self) {key in
                         if key == .symbol {
                             Divider()
@@ -49,8 +50,8 @@ struct TonicModePickerNotationPopoverView: View {
                                     Image(systemName: PitchLabelType.accidentals.icon)
                                         .gridCellAnchor(.center)
                                     Picker("", selection: Binding<Accidental>(
-                                        get: { tonicPicker.tonality.accidental },
-                                        set: { tonicPicker.tonality.accidental = $0 }
+                                        get: { tonicPicker.accidental },
+                                        set: { tonicPicker.accidental = $0 }
                                     )) {
                                         ForEach(Accidental.displayCases) { accidental in
                                             Text(accidental.icon)
@@ -63,10 +64,10 @@ struct TonicModePickerNotationPopoverView: View {
                         }
                     }
                 }
-                if appContext.showTonicPicker && appContext.showModePicker {
+                if tonalityInstrument.showTonicPicker && tonalityInstrument.showModePicker {
                     Divider()
                 }
-                if appContext.showModePicker {
+                if tonalityInstrument.showModePicker {
                     ForEach(PitchLabelType.modeCases, id: \.self) {key in
                         GridRow {
                             key.image

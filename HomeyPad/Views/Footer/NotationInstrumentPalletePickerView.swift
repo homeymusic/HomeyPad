@@ -69,11 +69,11 @@ public struct NotationInstrumentPalletePickerView: View {
                         } else {
                             oldInstrument.deactivateAllMIDINoteNumbers()
                         }
-                        if appContext.showModePicker {
+                        if modelContext.tonalityInstrument().showModePicker {
                             tonicPicker.showOutlines = true
                         }
-                        tonicPicker.showModeOutlines = appContext.showModePicker
-                        newInstrument.showModeOutlines = appContext.showModePicker
+                        tonicPicker.showModeOutlines = modelContext.tonalityInstrument().showModePicker
+                        newInstrument.showModeOutlines = modelContext.tonalityInstrument().showModePicker
 
                         appContext.instrumentType = newMusicalInstrumentType
                     }

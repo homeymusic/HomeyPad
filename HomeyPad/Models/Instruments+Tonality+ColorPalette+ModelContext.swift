@@ -10,7 +10,7 @@ public extension ModelContext {
     }
     
     @MainActor
-    var tonalityInstrument: TonalityInstrument {
+    func tonalityInstrument() -> TonalityInstrument {
         fetchOrCreate(TonalityInstrument.self) { TonalityInstrument(tonality: tonality()) }
     }
 
