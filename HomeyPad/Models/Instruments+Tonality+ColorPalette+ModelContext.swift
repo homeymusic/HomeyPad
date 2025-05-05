@@ -11,7 +11,17 @@ public extension ModelContext {
     
     @MainActor
     func tonalityInstrument() -> TonalityInstrument {
-        fetchOrCreate(TonalityInstrument.self) { TonalityInstrument(tonality: tonality()) }
+        fetchOrCreate(TonalityInstrument.self) {
+            TonalityInstrument(
+                tonality: tonality(),
+                showModePicker: false,
+                showTonicPicker: false,
+                areModeAndTonicLinked: true,
+                isAutoModeAndTonicEnabled: false,
+                showOutlines: true,
+                showModeOutlines: false
+            )
+        }
     }
 
     @MainActor
