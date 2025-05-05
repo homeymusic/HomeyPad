@@ -56,12 +56,11 @@ public struct NotationInstrumentPalletePickerView: View {
                 Picker("", selection: Binding(
                     get: { appContext.instrumentType },
                     set: { newMusicalInstrumentType in
-                        // 1️⃣ Fetch the “old” and the “new” instrument
                         let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
                         let newInstrument = modelContext.singletonInstrument(for: newMusicalInstrumentType)
                         
                         if oldInstrument.latching && newInstrument.latching {
-                            appContext.latchedMIDINoteNumbers  = oldInstrument.tonality.activatedPitches.map { $0.midiNote.number }
+                            appContext.latchedMIDINoteNumbers  = oldInstrument.activatedPitches.map { $0.midiNote.number }
                         } else {
                             oldInstrument.deactivateAllMIDINoteNumbers()
                         }
