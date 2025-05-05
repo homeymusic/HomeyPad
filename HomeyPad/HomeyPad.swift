@@ -38,6 +38,8 @@ struct HomeyPad: App {
         }
         .modelContainer(
             for: [
+                IntervalColorPalette.self,
+                PitchColorPalette.self,
                 Diamanti.self,
                 Linear.self,
                 Piano.self,
@@ -47,10 +49,8 @@ struct HomeyPad: App {
                 Cello.self,
                 Guitar.self,
                 Violin.self,
-                ModePicker.self,
-                TonicPicker.self,
-                IntervalColorPalette.self,
-                PitchColorPalette.self
+                TonalityInstrument.self,
+                Tonality.self
             ]
         )
     }

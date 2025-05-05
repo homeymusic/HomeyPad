@@ -36,10 +36,6 @@ public extension ModelContext {
             instrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality()) }
         case .guitar:
             instrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
-        case .modePicker:
-            instrument = fetchOrCreate(ModePicker.self) { ModePicker(tonality: tonality()) }
-        case .tonicPicker:
-            instrument = fetchOrCreate(TonicPicker.self) { TonicPicker(tonality: tonality()) }
         }
         
         ensureColorPalette(on: instrument)

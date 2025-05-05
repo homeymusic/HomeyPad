@@ -3,20 +3,16 @@ import SwiftData
 import HomeyMusicKit
 
 public struct NotationInstrumentPalletePickerView: View {
+    @Bindable public var tonalityInstrument: TonalityInstrument
+    
     @Environment(\.modelContext) private var modelContext
-
     @Environment(AppContext.self) var appContext
     @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
 
     private var instrument: any MusicalInstrument {
         modelContext.singletonInstrument(for: appContext.instrumentType)
     }
-    private var tonicPicker: TonicPicker {
-        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
-    }
 
-    public init() { }
-    
     public var body: some View {
         @Bindable var appContext = appContext
         
@@ -69,11 +65,11 @@ public struct NotationInstrumentPalletePickerView: View {
                         } else {
                             oldInstrument.deactivateAllMIDINoteNumbers()
                         }
-                        if modelContext.tonalityInstrument().showModePicker {
-                            tonicPicker.showOutlines = true
+                        if tonalityInstrument.showModePicker {
+                            tonalityInstrument.showOutlines = true
                         }
-                        tonicPicker.showModeOutlines = modelContext.tonalityInstrument().showModePicker
-                        newInstrument.showModeOutlines = modelContext.tonalityInstrument().showModePicker
+                        tonalityInstrument.showModeOutlines = tonalityInstrument.showModePicker
+                        newInstrument.showModeOutlines = tonalityInstrument.showModePicker
 
                         appContext.instrumentType = newMusicalInstrumentType
                     }
@@ -114,7 +110,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
-                        ColorPalettePopoverView()
+                        ColorPalettePopoverView(tonalityInstrument: tonalityInstrument)
                             .presentationCompactAdaptation(.none)
                     }
                     Divider()
@@ -143,9 +139,9 @@ public struct NotationInstrumentPalletePickerView: View {
                             Spacer()
                             Button(action: {
                                 instrument.colorPalette = defaultColorPalette
-                                tonicPicker.colorPalette = defaultColorPalette
+                                tonalityInstrument.colorPalette = defaultColorPalette
                                 instrument.showOutlines = true
-                                tonicPicker.showOutlines = true
+                                tonalityInstrument.showOutlines = true
                                 buzz()
                             }, label: {
                                 Image(systemName: "gobackward")

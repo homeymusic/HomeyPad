@@ -7,10 +7,6 @@ struct TonicModePickerNotationPopoverView: View {
     
     @Bindable public var tonalityInstrument: TonalityInstrument
 
-    private var tonicPicker: TonicPicker {
-        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
-    }
-
     var body: some View {
         @Bindable var appContext = appContext
         VStack(spacing: 0.0) {
@@ -50,8 +46,8 @@ struct TonicModePickerNotationPopoverView: View {
                                     Image(systemName: PitchLabelType.accidentals.icon)
                                         .gridCellAnchor(.center)
                                     Picker("", selection: Binding<Accidental>(
-                                        get: { tonicPicker.accidental },
-                                        set: { tonicPicker.accidental = $0 }
+                                        get: { tonalityInstrument.accidental },
+                                        set: { tonalityInstrument.accidental = $0 }
                                     )) {
                                         ForEach(Accidental.displayCases) { accidental in
                                             Text(accidental.icon)
@@ -88,15 +84,15 @@ struct TonicModePickerNotationPopoverView: View {
     private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonicPicker.pitchLabelTypes.contains(type)
+                tonalityInstrument.pitchLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        tonicPicker.pitchLabelTypes.insert(type)
+                        tonalityInstrument.pitchLabelTypes.insert(type)
                     } else {
-                        tonicPicker.pitchLabelTypes.remove(type)
+                        tonalityInstrument.pitchLabelTypes.remove(type)
                     }
                 }
             }
@@ -106,14 +102,14 @@ struct TonicModePickerNotationPopoverView: View {
     private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonicPicker.intervalLabelTypes.contains(type)
+                tonalityInstrument.intervalLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        tonicPicker.intervalLabelTypes.insert(type)
+                        tonalityInstrument.intervalLabelTypes.insert(type)
                     } else {
-                        tonicPicker.intervalLabelTypes.remove(type)
+                        tonalityInstrument.intervalLabelTypes.remove(type)
                     }
                 }
             }

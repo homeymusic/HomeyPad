@@ -7,6 +7,16 @@ struct ContentView: View {
     @Environment(AppContext.self) public var appContext
     @Environment(InstrumentCache.self) public var instrumentCache
 
+    private var musicalInstrument: MusicalInstrument {
+        // force-cast because we know all of your concrete models
+        modelContext.singletonInstrument(for: appContext.instrumentType)
+    }
+    
+    private var tonalityInstrument: TonalityInstrument {
+        // force-cast because we know all of your concrete models
+        modelContext.tonalityInstrument()
+    }
+    
     var body: some View {
         let settingsHeight = 30.0
         let settingsBuffer = 5.0
@@ -22,10 +32,8 @@ struct ContentView: View {
                     }
                     VStack(spacing: settingsBuffer) {
                         
-                        let tonalityInstrument = modelContext.tonalityInstrument()
                         TonalityInstrumentView(tonalityInstrument)
 
-                        let musicalInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)                        
                         MusicalInstrumentView(musicalInstrument)
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {

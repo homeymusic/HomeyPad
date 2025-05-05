@@ -6,11 +6,7 @@ public struct TonicModePickerNotationView: View {
     @Environment(\.modelContext) var modelContext
     @Bindable public var tonalityInstrument: TonalityInstrument
     
-    private var tonicPicker: TonicPicker {
-        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
-    }
-
-    private var instrument: MusicalInstrument {
+    private var musicalInstrument: MusicalInstrument {
         modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     
@@ -36,10 +32,10 @@ public struct TonicModePickerNotationView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         if tonalityInstrument.showTonicPicker {
-                            Image(systemName: MusicalInstrumentType.tonicPicker.filledIcon)
+                            Image(systemName: TonalityInstrumentType.tonicPicker.filledIcon)
                         }
                         if tonalityInstrument.showModePicker {
-                            Image(systemName: MusicalInstrumentType.modePicker.filledIcon)
+                            Image(systemName: TonalityInstrumentType.modePicker.filledIcon)
                         }
                     }
                     .padding([.top, .bottom], 7)
@@ -50,15 +46,15 @@ public struct TonicModePickerNotationView: View {
                     }
                     Divider()
                     Button(action: {
-                        tonicPicker.resetDefaultLabelTypes()
+                        tonalityInstrument.resetDefaultLabelTypes()
                         buzz()
                     }, label: {
                         Image(systemName: "gobackward")
                             .gridCellAnchor(.center)
-                            .foregroundColor(tonicPicker.areDefaultLabelTypes ? .gray : .white)
+                            .foregroundColor(tonalityInstrument.areDefaultLabelTypes ? .gray : .white)
                     })
                     .gridCellColumns(2)
-                    .disabled(tonicPicker.areDefaultLabelTypes)
+                    .disabled(tonalityInstrument.areDefaultLabelTypes)
                     .padding([.top, .bottom], 7)
                 }
             })
@@ -66,9 +62,7 @@ public struct TonicModePickerNotationView: View {
             
             Button(action: {
                 withAnimation {
-                    print("before toggle tonalityInstrument.showTonicPicker", tonalityInstrument.showTonicPicker)
                     tonalityInstrument.showTonicPicker.toggle()
-                    print("after toggle tonalityInstrument.showTonicPicker", tonalityInstrument.showTonicPicker)
                     buzz()
                 }
             }) {
@@ -102,19 +96,19 @@ public struct TonicModePickerNotationView: View {
             .onChange(of: tonalityInstrument.showModePicker) {
                 withAnimation {
                     if tonalityInstrument.showModePicker {
-                        instrument.showOutlines = true
+                        musicalInstrument.showOutlines = true
                     }
-                    instrument.showModeOutlines = tonalityInstrument.showModePicker
-                    tonicPicker.showModeOutlines = tonalityInstrument.showModePicker
+                    musicalInstrument.showModeOutlines = tonalityInstrument.showModePicker
+                    tonalityInstrument.showModeOutlines = tonalityInstrument.showModePicker
                 }
             }
         }
         .onChange(of: shouldAutoModeAndTonicBeEnabled) {
-            tonicPicker.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
+            tonalityInstrument.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
         }
         // also seed it once when the view first appears
         .onAppear {
-            tonicPicker.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
+            tonalityInstrument.isAutoModeAndTonicEnabled = shouldAutoModeAndTonicBeEnabled
         }
 
     }

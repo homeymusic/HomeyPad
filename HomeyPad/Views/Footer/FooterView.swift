@@ -41,7 +41,7 @@ struct FooterView: View {
             }
             
             HStack {
-                NotationInstrumentPalletePickerView()
+                NotationInstrumentPalletePickerView(tonalityInstrument: modelContext.tonalityInstrument())
                 .id(appContext.instrumentType)
             }
             

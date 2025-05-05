@@ -6,22 +6,23 @@ struct HeaderView: View {
     @Environment(AppContext.self) private var appContext
 
     // pull your instrument once
-    private var instrument: MusicalInstrument {
+    private var musicalInstrument: MusicalInstrument {
         // force-cast because we know all of your concrete models
-        modelContext
-          .singletonInstrument(for: appContext.instrumentType)
+        modelContext.singletonInstrument(for: appContext.instrumentType)
     }
     
     var body: some View {
         HStack {
             HStack(spacing: 15) {
-                ResetView(instrument: instrument)
-                OctaveShiftView(instrument: instrument)
+                ResetView(instrument: musicalInstrument)
+                OctaveShiftView(instrument: musicalInstrument)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            TonicModePickerNotationView(tonalityInstrument: modelContext.tonalityInstrument())
+            TonicModePickerNotationView(
+                tonalityInstrument: modelContext.tonalityInstrument()
+            )
             HStack(spacing: 15) {
-                PitchDirectionPickerView(tonality: instrument.tonality)
+                PitchDirectionPickerView(tonality: musicalInstrument.tonality)
                 HelpView()
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

@@ -6,6 +6,8 @@ struct ColorPalettePopoverView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) var appContext
     
+    @Bindable public var tonalityInstrument: TonalityInstrument
+
     @Query(
         sort: \IntervalColorPalette.position, order: .forward
     ) var intervalColorPalettes: [IntervalColorPalette]
@@ -13,10 +15,6 @@ struct ColorPalettePopoverView: View {
     @Query(
         sort: \PitchColorPalette.position, order: .forward
     ) var pitchColorPalettes: [PitchColorPalette]
-    
-    private var tonicPicker: TonicPicker {
-        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
-    }
     
     var body: some View {
         let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)
@@ -27,7 +25,7 @@ struct ColorPalettePopoverView: View {
             set: { newValue in
                 try? modelContext.transaction {
                     instrument.showOutlines = newValue
-                    tonicPicker.showOutlines = newValue
+                    tonalityInstrument.showOutlines = newValue
                 }
             }
         )
@@ -36,7 +34,7 @@ struct ColorPalettePopoverView: View {
             Grid {
                 
                 ForEach(intervalColorPalettes, id: \.self) {intervalColorPalette in
-                    ColorPaletteGridRow(colorPalette: intervalColorPalette)
+                    ColorPaletteGridRow(tonalityInstrument: tonalityInstrument, colorPalette: intervalColorPalette)
                         .id(intervalColorPalette.id)
                 }
                 
@@ -54,18 +52,18 @@ struct ColorPalettePopoverView: View {
                     .foregroundColor(.white)
                     .onChange(of: instrument.showOutlines) {
                         buzz()
-//                        if instrument.showOutlines == false {
-//                            withAnimation {
-//                                modelContext.tonalityInstrument().showModePicker = false
-//                            }
-//                        }
+                        if instrument.showOutlines == false {
+                            withAnimation {
+                                tonalityInstrument.showModePicker = false
+                            }
+                        }
                     }
                 }
                 
                 Divider()
                 
                 ForEach(pitchColorPalettes, id: \.self) {pitchColorPalette in
-                    ColorPaletteGridRow(colorPalette: pitchColorPalette)
+                    ColorPaletteGridRow(tonalityInstrument: tonalityInstrument, colorPalette: pitchColorPalette)
                         .id(pitchColorPalette.id)
                 }
                 
@@ -80,15 +78,12 @@ struct ColorPalettePopoverView: View {
 }
 
 struct ColorPaletteGridRow: View {
-    /// A single palette (either IntervalColorPalette or PitchColorPalette)
+    @Bindable public var tonalityInstrument: TonalityInstrument
+
     let colorPalette: ColorPalette
     
     @Environment(\.modelContext)           private var modelContext
     @Environment(AppContext.self) var appContext
-    
-    private var tonicPicker: TonicPicker {
-        modelContext.singletonInstrument(for: .tonicPicker) as! TonicPicker
-    }
     
     var body: some View {
         // 1) Fetch the exact instrument model we’re editing
@@ -153,11 +148,11 @@ struct ColorPaletteGridRow: View {
                 switch colorPalette {
                 case let intervalColorPalette as IntervalColorPalette:
                     instrument.colorPalette = intervalColorPalette
-                    tonicPicker.colorPalette = intervalColorPalette
+                    tonalityInstrument.colorPalette = intervalColorPalette
 
                 case let pitchColorPalette as PitchColorPalette:
                     instrument.colorPalette = pitchColorPalette
-                    tonicPicker.colorPalette = pitchColorPalette
+                    tonalityInstrument.colorPalette = pitchColorPalette
 
                 default:
                     break
