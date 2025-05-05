@@ -7,24 +7,24 @@ import HomeyMusicKit
 struct HomeyPad: App {
     @State private var appContext: AppContext
     @State private var synthConductor: SynthConductor
-    @State private var instrumentCache: InstrumentCache
+    @State private var musicalInstrumentCache: MusicalInstrumentCache
     @State private var midiConductor: MIDIConductor
     
     init() {
         let appContext      = AppContext()
         let synthConductor  = SynthConductor()
-        let instrumentCache = InstrumentCache()
+        let musicalInstrumentCache = MusicalInstrumentCache()
         let midiConductor   = MIDIConductor(
             clientName:      "Homey Pad",
             model:           "Homey Pad iOS",
             manufacturer:    "Homey Music",
-            instrumentCache: instrumentCache
+            musicalInstrumentCache: musicalInstrumentCache
         )
         midiConductor.setup()
         
         _appContext      = State(initialValue: appContext)
         _synthConductor  = State(initialValue: synthConductor)
-        _instrumentCache = State(initialValue: instrumentCache)
+        _musicalInstrumentCache = State(initialValue: musicalInstrumentCache)
         _midiConductor   = State(initialValue: midiConductor)
     }
     
@@ -32,7 +32,7 @@ struct HomeyPad: App {
         WindowGroup {
             ContentView()
                 .environment(appContext)
-                .environment(instrumentCache)
+                .environment(musicalInstrumentCache)
                 .environment(synthConductor)
                 .environment(midiConductor)
         }

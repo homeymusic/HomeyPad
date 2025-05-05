@@ -5,7 +5,7 @@ import HomeyMusicKit
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) public var appContext
-    @Environment(InstrumentCache.self) public var instrumentCache
+    @Environment(MusicalInstrumentCache.self) public var musicalInstrumentCache
 
     private var musicalInstrument: MusicalInstrument {
         // force-cast because we know all of your concrete models
@@ -38,16 +38,16 @@ struct ContentView: View {
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
                                 musicalInstrument.showModeOutlines = tonalityInstrument.showModePicker
-                                instrumentCache.set([musicalInstrument])
-                                instrumentCache.selectInstrument(musicalInstrument)
+                                musicalInstrumentCache.set([musicalInstrument])
+                                musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
                             }
                             .onChange(of: appContext.instrumentType) {
                                 if musicalInstrument.latching {
                                     musicalInstrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
-                                instrumentCache.set([musicalInstrument])
-                                instrumentCache.selectInstrument(musicalInstrument)
+                                musicalInstrumentCache.set([musicalInstrument])
+                                musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
                             }
                     }
                     .frame(height: .infinity)
