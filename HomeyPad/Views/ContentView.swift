@@ -6,6 +6,7 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) public var appContext
     @Environment(MusicalInstrumentCache.self) public var musicalInstrumentCache
+    @Environment(TonalityCache.self) public var tonalityCache
 
     private var musicalInstrument: MusicalInstrument {
         // force-cast because we know all of your concrete models
@@ -40,6 +41,7 @@ struct ContentView: View {
                                 musicalInstrument.showModeOutlines = tonalityInstrument.showModePicker
                                 musicalInstrumentCache.set([musicalInstrument])
                                 musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
+                                tonalityCache.set([tonalityInstrument.tonality])
                             }
                             .onChange(of: appContext.instrumentType) {
                                 if musicalInstrument.latching {
@@ -48,6 +50,7 @@ struct ContentView: View {
                                 appContext.latchedMIDINoteNumbers = []
                                 musicalInstrumentCache.set([musicalInstrument])
                                 musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
+                                tonalityCache.set([tonalityInstrument.tonality])
                             }
                     }
                     .frame(height: .infinity)
