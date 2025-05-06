@@ -2,6 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct OctaveShiftView: View {
+    @Bindable public var tonality: Tonality
     @Bindable public var tonalityInstrument: TonalityInstrument
 
     public var body: some View {
@@ -13,17 +14,17 @@ public struct OctaveShiftView: View {
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.down")
-                        .foregroundColor(tonalityInstrument.canShiftDownOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(tonality.canShiftDownOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!tonalityInstrument.canShiftDownOneOctave)
+            .disabled(!tonality.canShiftDownOneOctave)
             
             divider
             
             // Display the octave shift value
-            Text(tonalityInstrument.octaveShift.formatted(.number.sign(strategy: .always(includingZero: false))))
+            Text(tonality.octaveShiftStatus.formatted(.number.sign(strategy: .always(includingZero: false))))
                 .foregroundColor(.white)
                 .fixedSize(horizontal: true, vertical: false)
                 .frame(width: 44)
@@ -37,12 +38,12 @@ public struct OctaveShiftView: View {
             }, label: {
                 Color.clear.overlay(
                     Image(systemName: "water.waves.and.arrow.up")
-                        .foregroundColor(tonalityInstrument.canShiftUpOneOctave ? .white : Color.systemGray4)
+                        .foregroundColor(tonality.canShiftUpOneOctave ? .white : Color.systemGray4)
                 )
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 44)
             })
-            .disabled(!tonalityInstrument.canShiftUpOneOctave)
+            .disabled(!tonality.canShiftUpOneOctave)
         }
         .background(Color.systemGray6)
         .clipShape(RoundedRectangle(cornerRadius: 8))

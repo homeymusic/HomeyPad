@@ -15,9 +15,11 @@ struct HeaderView: View {
         HStack {
             HStack(spacing: 15) {
                 ResetView(
+                    tonality: modelContext.tonalityInstrument().tonality,
                     tonalityInstrument: modelContext.tonalityInstrument()
                 )
                 OctaveShiftView(
+                    tonality: modelContext.tonalityInstrument().tonality,
                     tonalityInstrument: modelContext.tonalityInstrument()
                 )
             }

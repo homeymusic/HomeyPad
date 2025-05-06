@@ -2,6 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 struct ResetView: View {
+    @Bindable public var tonality: Tonality
     @Bindable public var tonalityInstrument: TonalityInstrument
 
     var body: some View {
@@ -13,14 +14,14 @@ struct ResetView: View {
                 ZStack {
                     Color.clear.overlay(
                         Image(systemName: "gobackward")
-                            .foregroundColor(tonalityInstrument.isDefaultTonality ? .gray : .white)
+                            .foregroundColor(tonality.isDefaultTonality ? .gray : .white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
                     .aspectRatio(1.0, contentMode: .fit)
                 }
             }
             .transition(.scale)
-            .disabled(tonalityInstrument.isDefaultTonality)
+            .disabled(tonality.isDefaultTonality)
         }
     }
 }
