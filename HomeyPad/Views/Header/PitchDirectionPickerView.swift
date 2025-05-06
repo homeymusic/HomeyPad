@@ -2,7 +2,7 @@ import SwiftUI
 import HomeyMusicKit
 
 public struct PitchDirectionPickerView: View {
-    @Bindable var tonality: Tonality
+    @Bindable public var tonalityInstrument: TonalityInstrument
 
     public var body: some View {
         HStack(spacing: 0) {
@@ -19,21 +19,21 @@ public struct PitchDirectionPickerView: View {
     }
 
     private func pitchDirectionButton(_ pitchDirection: PitchDirection) -> some View {
-        let isSelected = (tonality.pitchDirection == pitchDirection)
+        let isSelected = (tonalityInstrument.pitchDirection == pitchDirection)
 
         return Button(action: {
             guard !isSelected else { return }
-            switch (tonality.pitchDirection, pitchDirection) {
+            switch (tonalityInstrument.pitchDirection, pitchDirection) {
             case (.upward, .downward):
-                tonality.shiftUpOneOctave()
+                tonalityInstrument.shiftUpOneOctave()
             case (.downward, .upward):
-                tonality.shiftDownOneOctave()
+                tonalityInstrument.shiftDownOneOctave()
             case (.downward, .mixed):
-                tonality.shiftDownOneOctave()
+                tonalityInstrument.shiftDownOneOctave()
             default:
                 break
             }
-            tonality.pitchDirection = pitchDirection
+            tonalityInstrument.pitchDirection = pitchDirection
             buzz()
         }) {
             Color.clear
