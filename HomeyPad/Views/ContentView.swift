@@ -34,6 +34,7 @@ struct ContentView: View {
                     VStack(spacing: settingsBuffer) {
                         
                         TonalityInstrumentView(tonalityInstrument)
+                            .aspectRatio(tonalityInstrument.viewRatio, contentMode: .fit)
 
                         MusicalInstrumentView(musicalInstrument)
                             .ignoresSafeArea(edges: .horizontal)
