@@ -48,6 +48,8 @@ public extension ModelContext {
             musicalInstrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
         }
         
+        musicalInstrument.midiInChannelMode  = .selected
+        musicalInstrument.midiOutChannelMode = .selected
         ensureColorPalette(on: musicalInstrument)
         return musicalInstrument
     }
