@@ -26,30 +26,30 @@ public extension ModelContext {
 
     @MainActor
     func singletonInstrument(for type: MusicalInstrumentType) -> any MusicalInstrument {
-        let instrument: any MusicalInstrument
+        let musicalInstrument: any MusicalInstrument
         switch type {
         case .linear:
-            instrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
         case .tonnetz:
-            instrument = fetchOrCreate(Tonnetz.self) { Tonnetz(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Tonnetz.self) { Tonnetz(tonality: tonality()) }
         case .diamanti:
-            instrument = fetchOrCreate(Diamanti.self) { Diamanti(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Diamanti.self) { Diamanti(tonality: tonality()) }
         case .piano:
-            instrument = fetchOrCreate(Piano.self) { Piano(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Piano.self) { Piano(tonality: tonality()) }
         case .violin:
-            instrument = fetchOrCreate(Violin.self) { Violin(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Violin.self) { Violin(tonality: tonality()) }
         case .cello:
-            instrument = fetchOrCreate(Cello.self) { Cello(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Cello.self) { Cello(tonality: tonality()) }
         case .bass:
-            instrument = fetchOrCreate(Bass.self) { Bass(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Bass.self) { Bass(tonality: tonality()) }
         case .banjo:
-            instrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality()) }
         case .guitar:
-            instrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
+            musicalInstrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
         }
         
-        ensureColorPalette(on: instrument)
-        return instrument
+        ensureColorPalette(on: musicalInstrument)
+        return musicalInstrument
     }
     
     @MainActor
@@ -67,30 +67,4 @@ public extension ModelContext {
         return newObject
     }
     
-    @MainActor
-    func ensureColorPalette(on instrument: any MusicalInstrument) {
-        guard
-            instrument.intervalColorPalette == nil,
-            instrument.pitchColorPalette    == nil
-        else { return }
-        
-        let descriptor = FetchDescriptor<IntervalColorPalette>(
-            sortBy: [SortDescriptor(\.position)]
-        )
-        
-        // Try to fetch any existing palettes
-        var palettes = (try? fetch(descriptor)) ?? []
-        
-        // If none exist, seed the system defaults and re-fetch
-        if palettes.isEmpty {
-            IntervalColorPalette.seedSystemIntervalPalettes(modelContext: self)
-            PitchColorPalette.seedSystemPitchPalettes(modelContext: self)
-            palettes = (try? fetch(descriptor)) ?? []
-        }
-        
-        // Assign the first available interval palette
-        if let first = palettes.first {
-            instrument.intervalColorPalette = first
-        }
-    }
 }
