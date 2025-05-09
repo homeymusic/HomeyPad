@@ -16,7 +16,6 @@ public extension ModelContext {
                 tonality: tonality(),
                 showModePicker: false,
                 showTonicPicker: false,
-                areModeAndTonicLinked: true,
                 isAutoModeAndTonicEnabled: false,
                 showOutlines: true,
                 showModeOutlines: false
