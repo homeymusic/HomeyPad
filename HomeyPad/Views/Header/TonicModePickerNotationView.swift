@@ -32,10 +32,10 @@ public struct TonicModePickerNotationView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         if tonalityInstrument.showTonicPicker {
-                            Image(systemName: TonalityInstrumentType.tonicPicker.filledIcon)
+                            Image(systemName: TonalityControlType.tonicPicker.filledIcon)
                         }
                         if tonalityInstrument.showModePicker {
-                            Image(systemName: TonalityInstrumentType.modePicker.filledIcon)
+                            Image(systemName: TonalityControlType.modePicker.filledIcon)
                         }
                     }
                     .padding([.top, .bottom], 7)
@@ -68,7 +68,7 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: tonalityInstrument.showTonicPicker ? TonalityInstrumentType.tonicPicker.filledIcon : TonalityInstrumentType.tonicPicker.icon)
+                        Image(systemName: tonalityInstrument.showTonicPicker ? TonalityControlType.tonicPicker.filledIcon : TonalityControlType.tonicPicker.icon)
                             .foregroundColor(.white)
                             .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
@@ -85,8 +85,8 @@ public struct TonicModePickerNotationView: View {
             }) {
                 ZStack {
                     Color.clear.overlay(
-                        Image(systemName: tonalityInstrument.showModePicker ? TonalityInstrumentType.modePicker.filledIcon :
-                                TonalityInstrumentType.modePicker.icon)
+                        Image(systemName: tonalityInstrument.showModePicker ? TonalityControlType.modePicker.filledIcon :
+                                TonalityControlType.modePicker.icon)
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                     )
