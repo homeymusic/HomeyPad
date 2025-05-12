@@ -33,7 +33,7 @@ struct ContentView: View {
                     }
                     VStack(spacing: settingsBuffer) {
                         
-                        TonalityInstrumentView(tonalityInstrument)
+                        TonicAndModePickersView(tonalityInstrument)
 
                         MusicalInstrumentView(musicalInstrument)
                             .ignoresSafeArea(edges: .horizontal)
