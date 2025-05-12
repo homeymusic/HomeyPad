@@ -14,23 +14,15 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             HStack(spacing: 15) {
-                ResetView(
-                    tonality: modelContext.tonalityInstrument().tonality,
-                    tonalityInstrument: modelContext.tonalityInstrument()
-                )
-                OctaveShiftView(
-                    tonality: modelContext.tonalityInstrument().tonality,
-                    tonalityInstrument: modelContext.tonalityInstrument()
-                )
+                ResetterView(modelContext.tonalityInstrument())
+                OctaveShifterView(modelContext.tonalityInstrument())
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             TonicModePickerNotationView(
                 tonalityInstrument: modelContext.tonalityInstrument()
             )
             HStack(spacing: 15) {
-                PitchDirectionPickerView(
-                    tonalityInstrument: modelContext.tonalityInstrument()
-                )
+                PitchDirectionPickerView(modelContext.tonalityInstrument())
                 HelpView()
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
