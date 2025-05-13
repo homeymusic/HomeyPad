@@ -13,8 +13,15 @@ struct FooterView: View {
     @Environment(\.modelContext)            private var modelContext
     @Environment(AppContext.self)  private var appContext
 
-    private var instrument: any MusicalInstrument {
-        modelContext.singletonInstrument(for: appContext.instrumentType)
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
     }
 
     var body: some View {
@@ -23,15 +30,15 @@ struct FooterView: View {
             HStack {
                 Button(action: {
                     withAnimation {
-                        instrument.latching.toggle()
+                        musicalInstrument.latching.toggle()
                         buzz()
                     }
                 }) {
                     ZStack {
                         Color.clear.overlay(
-                            Image(systemName: instrument.latching ? "pin.fill" : "pin.slash")
+                            Image(systemName: musicalInstrument.latching ? "pin.fill" : "pin.slash")
                                 .foregroundColor(.white)
-                                .font(Font.system(size: .leastNormalMagnitude, weight: instrument.latching ? .black : .thin))
+                                .font(Font.system(size: .leastNormalMagnitude, weight: musicalInstrument.latching ? .black : .thin))
                         )
                         .aspectRatio(1.0, contentMode: .fit)
                     }
@@ -41,20 +48,20 @@ struct FooterView: View {
             }
             
             HStack {
-                NotationInstrumentPalletePickerView(tonalityInstrument: modelContext.tonalityInstrument())
+                NotationInstrumentPalletePickerView(tonalityInstrument: modelContext.tonalityInstrument(midiConductor: midiConductor))
                 .id(appContext.instrumentType)
             }
             
             HStack {
                 if appContext.instrumentType.isStringInstrument {
                     Picker("", selection: $appContext.instrumentType) {
-                        ForEach(MusicalInstrumentType.stringInstruments) { stringInstrument in
+                        ForEach(MIDIInstrumentType.stringInstruments) { stringInstrument in
                             Text(stringInstrument.label.capitalized)
                                 .tag(stringInstrument)
                         }
                     }
                     .pickerStyle(.segmented)
-                } else if let keyboardInstrument = instrument as? KeyboardInstrument {
+                } else if let keyboardInstrument = musicalInstrument as? KeyboardInstrument {
                     RowsColsPickerView(
                         keyboardInstrument: keyboardInstrument
                     )

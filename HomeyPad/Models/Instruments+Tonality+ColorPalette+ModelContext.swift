@@ -10,8 +10,8 @@ public extension ModelContext {
     }
     
     @MainActor
-    func tonalityInstrument() -> TonalityInstrument {
-        fetchOrCreate(TonalityInstrument.self) {
+    func tonalityInstrument(midiConductor: MIDIConductor) -> TonalityInstrument {
+        let tonalityInstrument = fetchOrCreate(TonalityInstrument.self) {
             TonalityInstrument(
                 tonality: tonality(),
                 showModePicker: false,
@@ -21,10 +21,18 @@ public extension ModelContext {
                 showModeOutlines: false
             )
         }
+        tonalityInstrument.midiInChannelMode  = .selected
+        tonalityInstrument.midiOutChannelMode = .selected
+        tonalityInstrument.midiConductor = midiConductor
+        return tonalityInstrument
     }
 
     @MainActor
-    func singletonInstrument(for type: MusicalInstrumentType) -> any MusicalInstrument {
+    func singletonInstrument(
+        for type: MIDIInstrumentType,
+        midiConductor: MIDIConductor,
+        synthConductor: SynthConductor
+    ) -> any MusicalInstrument {
         let musicalInstrument: any MusicalInstrument
         switch type {
         case .linear:
@@ -45,10 +53,14 @@ public extension ModelContext {
             musicalInstrument = fetchOrCreate(Banjo.self) { Banjo(tonality: tonality()) }
         case .guitar:
             musicalInstrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
+        default:
+            fatalError("Unsupported instrument type: \(type)")
         }
         
         musicalInstrument.midiInChannelMode  = .selected
         musicalInstrument.midiOutChannelMode = .selected
+        musicalInstrument.midiConductor = midiConductor
+        musicalInstrument.synthConductor = synthConductor
         ensureColorPalette(on: musicalInstrument)
         return musicalInstrument
     }

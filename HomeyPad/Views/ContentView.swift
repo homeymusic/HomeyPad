@@ -5,17 +5,21 @@ import HomeyMusicKit
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(AppContext.self) public var appContext
-    @Environment(MusicalInstrumentCache.self) public var musicalInstrumentCache
-    @Environment(TonalityCache.self) public var tonalityCache
+    @Environment(InstrumentCache.self) public var instrumentCache
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
 
     private var musicalInstrument: MusicalInstrument {
         // force-cast because we know all of your concrete models
-        modelContext.singletonInstrument(for: appContext.instrumentType)
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
     }
     
     private var tonalityInstrument: TonalityInstrument {
-        // force-cast because we know all of your concrete models
-        modelContext.tonalityInstrument()
+        modelContext.tonalityInstrument(midiConductor: midiConductor)
     }
     
     var body: some View {
@@ -39,18 +43,16 @@ struct ContentView: View {
                             .ignoresSafeArea(edges: .horizontal)
                             .onAppear {
                                 musicalInstrument.showModeOutlines = tonalityInstrument.showModePicker
-                                musicalInstrumentCache.set([musicalInstrument])
-                                musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
-                                tonalityCache.set([tonalityInstrument.tonality])
+                                instrumentCache.set([musicalInstrument, tonalityInstrument])
+                                instrumentCache.selectInstrument(musicalInstrument)
                             }
                             .onChange(of: appContext.instrumentType) {
                                 if musicalInstrument.latching {
                                     musicalInstrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
-                                musicalInstrumentCache.set([musicalInstrument])
-                                musicalInstrumentCache.selectMusicalInstrument(musicalInstrument)
-                                tonalityCache.set([tonalityInstrument.tonality])
+                                instrumentCache.set([musicalInstrument, tonalityInstrument])
+                                instrumentCache.selectInstrument(musicalInstrument)
                             }
                     }
                     .frame(height: .infinity)

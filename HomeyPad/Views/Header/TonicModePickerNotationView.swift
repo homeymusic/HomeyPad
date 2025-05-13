@@ -5,9 +5,15 @@ public struct TonicModePickerNotationView: View {
     @Environment(AppContext.self) var appContext
     @Environment(\.modelContext) var modelContext
     @Bindable public var tonalityInstrument: TonalityInstrument
-    
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
     private var musicalInstrument: MusicalInstrument {
-        modelContext.singletonInstrument(for: appContext.instrumentType)
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
     }
     
     public var body: some View {
@@ -21,7 +27,7 @@ public struct TonicModePickerNotationView: View {
                 buzz()
             }) {
                 Color.clear.overlay(
-                    Image(systemName: "tag")
+                    Image(systemName: appContext.showTonicModeLabelsPopover ? "tag.fill" : "tag")
                         .foregroundColor(!(tonalityInstrument.showTonicPicker || tonalityInstrument.showModePicker) ? .gray : .white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                 )
@@ -41,7 +47,7 @@ public struct TonicModePickerNotationView: View {
                     .padding([.top, .bottom], 7)
                     Divider()
                     ScrollView(.vertical) {
-                        TonicModePickerNotationPopoverView(tonalityInstrument: modelContext.tonalityInstrument())
+                        TonicModePickerNotationPopoverView(tonalityInstrument: modelContext.tonalityInstrument(midiConductor: midiConductor))
                             .presentationCompactAdaptation(.none)
                     }
                     Divider()

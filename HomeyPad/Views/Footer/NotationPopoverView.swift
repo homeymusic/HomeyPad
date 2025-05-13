@@ -6,10 +6,17 @@ struct NotationPopoverView: View {
     @Environment(\.modelContext)            private var modelContext
     @Environment(AppContext.self)  private var appContext
     
-    private var instrument: any MusicalInstrument {
-        modelContext.singletonInstrument(for: appContext.instrumentType)
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             Grid {
@@ -51,8 +58,8 @@ struct NotationPopoverView: View {
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
                                 Picker("", selection: Binding<Accidental>(
-                                    get: { instrument.accidental },
-                                    set: { instrument.accidental = $0 }
+                                    get: { musicalInstrument.accidental },
+                                    set: { musicalInstrument.accidental = $0 }
                                 )) {
                                     ForEach(Accidental.displayCases) { acc in
                                         Text(acc.icon)
@@ -74,15 +81,15 @@ struct NotationPopoverView: View {
     private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                instrument.pitchLabelTypes.contains(type)
+                musicalInstrument.pitchLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        instrument.pitchLabelTypes.insert(type)
+                        musicalInstrument.pitchLabelTypes.insert(type)
                     } else {
-                        instrument.pitchLabelTypes.remove(type)
+                        musicalInstrument.pitchLabelTypes.remove(type)
                     }
                 }
             }
@@ -92,14 +99,14 @@ struct NotationPopoverView: View {
     private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                instrument.intervalLabelTypes.contains(type)
+                musicalInstrument.intervalLabelTypes.contains(type)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        instrument.intervalLabelTypes.insert(type)
+                        musicalInstrument.intervalLabelTypes.insert(type)
                     } else {
-                        instrument.intervalLabelTypes.remove(type)
+                        musicalInstrument.intervalLabelTypes.remove(type)
                     }
                 }
             }

@@ -16,17 +16,17 @@ public final class AppContext {
     
     @ObservationIgnored
     @AppStorage("instrumentType")
-    private var instrumentTypeRaw: Int = Int(MusicalInstrumentType.default.rawValue)
+    private var instrumentTypeRaw: Int = Int(MIDIInstrumentType.default.rawValue)
     
     @ObservationIgnored
     @AppStorage("stringMusicalInstrumentType")
-    private var stringMusicalInstrumentTypeRaw: Int = Int(MusicalInstrumentType.defaultStringMusicalInstrumentType.rawValue)
+    private var stringMusicalInstrumentTypeRaw: Int = Int(MIDIInstrumentType.defaultStringMusicalInstrumentType.rawValue)
     
-    public var beforeInstrumentChange: ((MusicalInstrumentType) -> Void)?
-    public var afterInstrumentChange: ((MusicalInstrumentType) -> Void)?
+    public var beforeInstrumentChange: ((MIDIInstrumentType) -> Void)?
+    public var afterInstrumentChange: ((MIDIInstrumentType) -> Void)?
 
     
-    public var instrumentType: MusicalInstrumentType = MusicalInstrumentType.default {
+    public var instrumentType: MIDIInstrumentType = MIDIInstrumentType.default {
         
         willSet {
             beforeInstrumentChange?(instrumentType)
@@ -43,14 +43,14 @@ public final class AppContext {
         }
     }
     
-    public var stringMusicalInstrumentType: MusicalInstrumentType  = MusicalInstrumentType.defaultStringMusicalInstrumentType {
+    public var stringMusicalInstrumentType: MIDIInstrumentType  = MIDIInstrumentType.defaultStringMusicalInstrumentType {
         didSet {
             stringMusicalInstrumentTypeRaw = Int(stringMusicalInstrumentType.rawValue)
         }
     }
     
     public init() {
-        self.instrumentType = MusicalInstrumentType(rawValue: instrumentTypeRaw) ?? MusicalInstrumentType.default
-        self.stringMusicalInstrumentType = MusicalInstrumentType(rawValue: stringMusicalInstrumentTypeRaw) ?? MusicalInstrumentType.defaultStringMusicalInstrumentType
+        self.instrumentType = MIDIInstrumentType(rawValue: instrumentTypeRaw) ?? MIDIInstrumentType.default
+        self.stringMusicalInstrumentType = MIDIInstrumentType(rawValue: stringMusicalInstrumentTypeRaw) ?? MIDIInstrumentType.defaultStringMusicalInstrumentType
     }
 }

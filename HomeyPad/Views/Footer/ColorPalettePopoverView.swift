@@ -16,15 +16,25 @@ struct ColorPalettePopoverView: View {
         sort: \PitchColorPalette.position, order: .forward
     ) var pitchColorPalettes: [PitchColorPalette]
     
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
+    }
+
     var body: some View {
-        let instrument = modelContext.singletonInstrument(for: appContext.instrumentType)
         
         // 2) Create a Binding<Bool> for showOutlines
         let showOutlinesBinding = Binding<Bool>(
-            get: { instrument.showOutlines },
+            get: { musicalInstrument.showOutlines },
             set: { newValue in
                 try? modelContext.transaction {
-                    instrument.showOutlines = newValue
+                    musicalInstrument.showOutlines = newValue
                     tonalityInstrument.showOutlines = newValue
                 }
             }
@@ -50,9 +60,9 @@ struct ColorPalettePopoverView: View {
                     )
                     .tint(Color.gray)
                     .foregroundColor(.white)
-                    .onChange(of: instrument.showOutlines) {
+                    .onChange(of: musicalInstrument.showOutlines) {
                         buzz()
-                        if instrument.showOutlines == false {
+                        if musicalInstrument.showOutlines == false {
                             withAnimation {
                                 tonalityInstrument.showModePicker = false
                             }
@@ -70,7 +80,7 @@ struct ColorPalettePopoverView: View {
             }
             .padding(10)
             .onAppear {
-                let selectedPalette = instrument.colorPalette
+                let selectedPalette = musicalInstrument.colorPalette
                 scrollProxy.scrollTo(selectedPalette.id, anchor: .center)
             }
         }
@@ -85,21 +95,28 @@ struct ColorPaletteGridRow: View {
     @Environment(\.modelContext)           private var modelContext
     @Environment(AppContext.self) var appContext
     
-    var body: some View {
-        // 1) Fetch the exact instrument model we’re editing
-        let instrument = modelContext.singletonInstrument(
-            for: appContext.instrumentType
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
         )
+    }
+    
+    var body: some View {
         
         // 2) Compute whether *this* palette is currently assigned to that instrument
         let isColorPaletteSelected: Bool = {
             switch colorPalette {
             case let intervalColorPalette as IntervalColorPalette:
-                return instrument.intervalColorPalette?.id
+                return musicalInstrument.intervalColorPalette?.id
                 == intervalColorPalette.id
                 
             case let pitchColorPalette as PitchColorPalette:
-                return instrument.pitchColorPalette?.id
+                return musicalInstrument.pitchColorPalette?.id
                 == pitchColorPalette.id
                 
             default:
@@ -147,11 +164,11 @@ struct ColorPaletteGridRow: View {
             try? modelContext.transaction {
                 switch colorPalette {
                 case let intervalColorPalette as IntervalColorPalette:
-                    instrument.colorPalette = intervalColorPalette
+                    musicalInstrument.colorPalette = intervalColorPalette
                     tonalityInstrument.colorPalette = intervalColorPalette
 
                 case let pitchColorPalette as PitchColorPalette:
-                    instrument.colorPalette = pitchColorPalette
+                    musicalInstrument.colorPalette = pitchColorPalette
                     tonalityInstrument.colorPalette = pitchColorPalette
 
                 default:

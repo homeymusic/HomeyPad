@@ -5,9 +5,20 @@ struct HelpPopoverView: View {
     @Environment(AppContext.self) var appContext
     @Environment(\.modelContext) var modelContext
 
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
+    }
+
     var body: some View {
         
-        let colorPalette: ColorPalette = modelContext.singletonInstrument(for: appContext.instrumentType).colorPalette
+        let colorPalette: ColorPalette = musicalInstrument.colorPalette
         
         HStack(alignment: .center) {
             Spacer()
@@ -112,7 +123,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(MusicalInstrumentType.allInstruments, id: \.self) { instrumentType in
+                ForEach(MIDIInstrumentType.allCases, id: \.self) { instrumentType in
                     GridRow {
                         Image(systemName: instrumentType.midiChannel.icon)
                             .aspectRatio(1.0, contentMode: .fit)
@@ -134,19 +145,34 @@ struct HelpPopoverView: View {
                     Image(systemName: "16.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
-                    Text("Tonic: 0 to 127 Notes")
+                    HStack {
+                        Image(systemName: TonalityControlType.tonicPicker.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 17, height: 17)
+                        Text("Tonic: 0 to 127 Notes")
+                    }
                 }
                 GridRow {
                     Image(systemName: "17.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
-                    Text("Direction: < 0, = 1, > 2")
+                    HStack {
+                        Image(systemName: TonalityControlType.pitchDirectionPicker.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 17, height: 17)
+                        Text("Direction: < 0, = 1, > 2")
+                    }
                 }
                 GridRow {
                     Image(systemName: "18.square")
                         .aspectRatio(1.0, contentMode: .fit)
                         .frame(width: 17, height: 17)
-                    Text("Mode: 0 ION to 11 LOC")
+                    HStack {
+                        Image(systemName: TonalityControlType.modePicker.icon)
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .frame(width: 17, height: 17)
+                        Text("Mode: 0 ION to 11 LOC")
+                    }
                 }
                 Divider()
                     .padding(3)

@@ -9,8 +9,15 @@ public struct NotationInstrumentPalletePickerView: View {
     @Environment(AppContext.self) var appContext
     @Query(sort: \IntervalColorPalette.position) private var intervalColorPalettes: [IntervalColorPalette]
 
-    private var instrument: any MusicalInstrument {
-        modelContext.singletonInstrument(for: appContext.instrumentType)
+    @Environment(SynthConductor.self) private var synthConductor
+    @Environment(MIDIConductor.self)  private var midiConductor
+
+    private var musicalInstrument: MusicalInstrument {
+        modelContext.singletonInstrument(
+            for: appContext.instrumentType,
+            midiConductor: midiConductor,
+            synthConductor: synthConductor
+        )
     }
 
     public var body: some View {
@@ -23,7 +30,7 @@ public struct NotationInstrumentPalletePickerView: View {
                 buzz()
             }) {
                 ZStack {
-                    Image(systemName: "tag")
+                    Image(systemName: appContext.showLabelsPopover ? "tag.fill" : "tag")
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         .aspectRatio(1.0, contentMode: .fit)
@@ -40,14 +47,14 @@ public struct NotationInstrumentPalletePickerView: View {
                     }
                     Divider()
                     Button(action: {
-                        instrument.resetDefaultLabelTypes()
+                        musicalInstrument.resetDefaultLabelTypes()
                         buzz()
                     }, label: {
                         Image(systemName: "gobackward")
-                            .foregroundColor(instrument.areDefaultLabelTypes ? .gray : .white)
+                            .foregroundColor(musicalInstrument.areDefaultLabelTypes ? .gray : .white)
                     })
                     .padding([.top, .bottom], 7)
-                    .disabled(instrument.areDefaultLabelTypes)
+                    .disabled(musicalInstrument.areDefaultLabelTypes)
                 }
             })
             .padding(.trailing, 5)
@@ -56,8 +63,16 @@ public struct NotationInstrumentPalletePickerView: View {
                 Picker("", selection: Binding(
                     get: { appContext.instrumentType },
                     set: { newMusicalInstrumentType in
-                        let oldInstrument = modelContext.singletonInstrument(for: appContext.instrumentType)
-                        let newInstrument = modelContext.singletonInstrument(for: newMusicalInstrumentType)
+                        let oldInstrument = modelContext.singletonInstrument(
+                            for: appContext.instrumentType,
+                            midiConductor: midiConductor,
+                            synthConductor: synthConductor
+                        )
+                        let newInstrument = modelContext.singletonInstrument(
+                            for: newMusicalInstrumentType,
+                            midiConductor: midiConductor,
+                            synthConductor: synthConductor
+                        )
                         
                         if oldInstrument.latching && newInstrument.latching {
                             appContext.latchedMIDINoteNumbers  = oldInstrument.activatedPitches.map { $0.midiNote.number }
@@ -73,7 +88,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         appContext.instrumentType = newMusicalInstrumentType
                     }
                 )) {
-                    ForEach(MusicalInstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
+                    ForEach(MIDIInstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
                         Image(systemName: instrument.icon)
                             .resizable()
                             .scaledToFit()
@@ -96,7 +111,7 @@ public struct NotationInstrumentPalletePickerView: View {
                 buzz()
             }) {
                 ZStack {
-                    Image(systemName: "paintpalette")
+                    Image(systemName: appContext.showColorPalettePopover ? "paintpalette.fill" : "paintpalette")
                         .foregroundColor(.white)
                         .font(Font.system(size: .leastNormalMagnitude, weight: .thin))
                         .aspectRatio(1.0, contentMode: .fit)
@@ -122,13 +137,13 @@ public struct NotationInstrumentPalletePickerView: View {
                             })
 #if !os(macOS)
                             .fullScreenCover(isPresented: $appContext.showEditColorPaletteSheet) {
-                                ColorPaletteManagerView(instrument: instrument)
+                                ColorPaletteManagerView(instrument: musicalInstrument)
                                     .background(Color.systemGray6)
                                     .scrollContentBackground(.hidden)
                             }
 #else
                             .sheet(isPresented: $appContext.showEditColorPaletteSheet) {
-                                ColorPaletteManagerView(instrument: instrument)
+                                ColorPaletteManagerView(instrument: musicalInstrument)
                             }
 #endif
                             .padding([.top, .bottom], 7)
@@ -137,9 +152,9 @@ public struct NotationInstrumentPalletePickerView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                instrument.colorPalette = defaultColorPalette
+                                musicalInstrument.colorPalette = defaultColorPalette
                                 tonalityInstrument.colorPalette = defaultColorPalette
-                                instrument.showOutlines = true
+                                musicalInstrument.showOutlines = true
                                 tonalityInstrument.showOutlines = true
                                 buzz()
                             }, label: {
@@ -163,7 +178,7 @@ public struct NotationInstrumentPalletePickerView: View {
     }
 
     var isDefaultColorPalette: Bool {
-        (defaultColorPalette == (instrument.colorPalette as? IntervalColorPalette)) &&
-        instrument.showOutlines == true
+        (defaultColorPalette == (musicalInstrument.colorPalette as? IntervalColorPalette)) &&
+        musicalInstrument.showOutlines == true
     }
 }
