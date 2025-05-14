@@ -48,7 +48,7 @@ struct ContentView: View {
                             }
                             .onChange(of: appContext.instrumentType) {
                                 if musicalInstrument.latching {
-                                    musicalInstrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers)
+                                    musicalInstrument.activateMIDINoteNumbers(midiNoteNumbers: appContext.latchedMIDINoteNumbers, midiVelocity: MIDIConductor.defaultMIDIVelocity)
                                 }
                                 appContext.latchedMIDINoteNumbers = []
                                 instrumentCache.set([musicalInstrument, tonalityInstrument])
