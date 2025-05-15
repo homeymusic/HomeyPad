@@ -89,7 +89,12 @@ public struct NotationInstrumentPalletePickerView: View {
                     }
                 )) {
                     ForEach(MIDIInstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
-                        Image(systemName: instrument.icon)
+                        
+                        let iconName = instrument == appContext.instrumentType
+                            ? instrument.filledIcon
+                            : instrument.icon
+
+                        Image(systemName: iconName)
                             .resizable()
                             .scaledToFit()
                             .frame(minWidth: 160, maxWidth: .infinity)
