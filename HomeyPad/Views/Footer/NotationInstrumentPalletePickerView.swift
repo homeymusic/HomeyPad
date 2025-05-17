@@ -88,7 +88,7 @@ public struct NotationInstrumentPalletePickerView: View {
                         appContext.instrumentType = newMusicalInstrumentType
                     }
                 )) {
-                    ForEach(MIDIInstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
+                    ForEach(InstrumentType.keyboardInstruments + [appContext.stringMusicalInstrumentType], id:\.self) { instrument in
                         
                         let iconName = instrument == appContext.instrumentType
                             ? instrument.filledIcon

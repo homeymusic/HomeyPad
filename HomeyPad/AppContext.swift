@@ -16,17 +16,17 @@ public final class AppContext {
     
     @ObservationIgnored
     @AppStorage("instrumentType")
-    private var instrumentTypeRaw: Int = Int(MIDIInstrumentType.default.rawValue)
+    private var instrumentTypeRaw: Int = Int(InstrumentType.default.rawValue)
     
     @ObservationIgnored
     @AppStorage("stringMusicalInstrumentType")
-    private var stringMusicalInstrumentTypeRaw: Int = Int(MIDIInstrumentType.defaultStringMusicalInstrumentType.rawValue)
+    private var stringMusicalInstrumentTypeRaw: Int = Int(InstrumentType.defaultStringMusicalInstrumentType.rawValue)
     
-    public var beforeInstrumentChange: ((MIDIInstrumentType) -> Void)?
-    public var afterInstrumentChange: ((MIDIInstrumentType) -> Void)?
+    public var beforeInstrumentChange: ((InstrumentType) -> Void)?
+    public var afterInstrumentChange: ((InstrumentType) -> Void)?
 
     
-    public var instrumentType: MIDIInstrumentType = MIDIInstrumentType.default {
+    public var instrumentType: InstrumentType = InstrumentType.default {
         
         willSet {
             beforeInstrumentChange?(instrumentType)
@@ -43,14 +43,14 @@ public final class AppContext {
         }
     }
     
-    public var stringMusicalInstrumentType: MIDIInstrumentType  = MIDIInstrumentType.defaultStringMusicalInstrumentType {
+    public var stringMusicalInstrumentType: InstrumentType  = InstrumentType.defaultStringMusicalInstrumentType {
         didSet {
             stringMusicalInstrumentTypeRaw = Int(stringMusicalInstrumentType.rawValue)
         }
     }
     
     public init() {
-        self.instrumentType = MIDIInstrumentType(rawValue: instrumentTypeRaw) ?? MIDIInstrumentType.default
-        self.stringMusicalInstrumentType = MIDIInstrumentType(rawValue: stringMusicalInstrumentTypeRaw) ?? MIDIInstrumentType.defaultStringMusicalInstrumentType
+        self.instrumentType = InstrumentType(rawValue: instrumentTypeRaw) ?? InstrumentType.default
+        self.stringMusicalInstrumentType = InstrumentType(rawValue: stringMusicalInstrumentTypeRaw) ?? InstrumentType.defaultStringMusicalInstrumentType
     }
 }

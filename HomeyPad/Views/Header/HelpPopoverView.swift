@@ -123,7 +123,7 @@ struct HelpPopoverView: View {
                         .font(.caption)
                         .gridCellColumns(2)
                 }
-                ForEach(MIDIInstrumentType.allCases, id: \.self) { instrumentType in
+                ForEach(InstrumentType.allCases, id: \.self) { instrumentType in
                     GridRow {
                         Image(systemName: instrumentType.midiChannel.icon)
                             .aspectRatio(1.0, contentMode: .fit)

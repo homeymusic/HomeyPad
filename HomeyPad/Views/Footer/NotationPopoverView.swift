@@ -21,15 +21,15 @@ struct NotationPopoverView: View {
         VStack(spacing: 0) {
             Grid {
                 // — INTERVAL LABELS —
-                ForEach(IntervalLabelType.allCases, id: \.self) { type in
-                    if type == .symbol {
+                ForEach(IntervalLabelType.allCases, id: \.self) { intervalLabelType in
+                    if intervalLabelType == .symbol {
                         Divider()
                     }
                     GridRow {
-                        type.image
+                        intervalLabelType.image
                             .gridCellAnchor(.center)
                             .foregroundColor(.white)
-                        Toggle(type.label, isOn: intervalBinding(for: type))
+                        Toggle(intervalLabelType.label, isOn: intervalBinding(for: intervalLabelType))
                             .gridCellAnchor(.leading)
                             .tint(.gray)
                     }
@@ -38,23 +38,23 @@ struct NotationPopoverView: View {
                 Divider()
                 
                 // — PITCH LABELS —
-                ForEach(PitchLabelType.pitchCases, id: \.self) { type in
+                ForEach(PitchLabelType.pitchCases, id: \.self) { pitchLabelType in
                     // skip any special ones if you like
-                    if type != .accidentals {
+                    if pitchLabelType != .accidentals {
                         GridRow {
-                            type.image
+                            pitchLabelType.image
                                 .gridCellAnchor(.center)
                                 .foregroundColor(.white)
-                            Toggle(type.label, isOn: pitchBinding(for: type))
+                            Toggle(pitchLabelType.label, isOn: pitchBinding(for: pitchLabelType))
                                 .gridCellAnchor(.leading)
                                 .tint(.gray)
                         }
                         
                         // if you need the “fixed Do” submenu
-                        if type == .fixedDo {
+                        if pitchLabelType == .fixedDo {
                             // Accidentals‐picker
                             GridRow {
-                                type.image
+                                pitchLabelType.image
                                     .gridCellAnchor(.center)
                                     .foregroundColor(.white)
                                 Picker("", selection: Binding<Accidental>(
@@ -78,35 +78,35 @@ struct NotationPopoverView: View {
     
     // MARK: – Helpers to bind each type to its array membership
     
-    private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
+    private func pitchBinding(for pitchLabelType: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                musicalInstrument.pitchLabelTypes.contains(type)
+                musicalInstrument.pitchLabelTypes.contains(pitchLabelType)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        musicalInstrument.pitchLabelTypes.insert(type)
+                        musicalInstrument.pitchLabelTypes.insert(pitchLabelType)
                     } else {
-                        musicalInstrument.pitchLabelTypes.remove(type)
+                        musicalInstrument.pitchLabelTypes.remove(pitchLabelType)
                     }
                 }
             }
         )
     }
     
-    private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
+    private func intervalBinding(for intervalLabelType: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                musicalInstrument.intervalLabelTypes.contains(type)
+                musicalInstrument.intervalLabelTypes.contains(intervalLabelType)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        musicalInstrument.intervalLabelTypes.insert(type)
+                        musicalInstrument.intervalLabelTypes.insert(intervalLabelType)
                     } else {
-                        musicalInstrument.intervalLabelTypes.remove(type)
+                        musicalInstrument.intervalLabelTypes.remove(intervalLabelType)
                     }
                 }
             }

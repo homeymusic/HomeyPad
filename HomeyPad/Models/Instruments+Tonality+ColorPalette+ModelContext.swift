@@ -29,12 +29,12 @@ public extension ModelContext {
 
     @MainActor
     func singletonInstrument(
-        for type: MIDIInstrumentType,
+        for instrumentType: InstrumentType,
         midiConductor: MIDIConductor,
         synthConductor: SynthConductor
     ) -> any MusicalInstrument {
         let musicalInstrument: any MusicalInstrument
-        switch type {
+        switch instrumentType {
         case .linear:
             musicalInstrument = fetchOrCreate(Linear.self) { Linear(tonality: tonality()) }
         case .tonnetz:
@@ -54,7 +54,7 @@ public extension ModelContext {
         case .guitar:
             musicalInstrument = fetchOrCreate(Guitar.self) { Guitar(tonality: tonality()) }
         default:
-            fatalError("Unsupported instrument type: \(type)")
+            fatalError("Unsupported instrument type: \(instrumentType)")
         }
         
         musicalInstrument.midiInChannelMode  = .selected

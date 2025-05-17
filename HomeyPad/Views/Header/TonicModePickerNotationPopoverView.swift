@@ -81,35 +81,35 @@ struct TonicModePickerNotationPopoverView: View {
             .padding(10)
         }
     }
-    private func pitchBinding(for type: PitchLabelType) -> Binding<Bool> {
+    private func pitchBinding(for pitchLabelType: PitchLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonalityInstrument.pitchLabelTypes.contains(type)
+                tonalityInstrument.pitchLabelTypes.contains(pitchLabelType)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
                         // inserting into a Set is idempotent
-                        tonalityInstrument.pitchLabelTypes.insert(type)
+                        tonalityInstrument.pitchLabelTypes.insert(pitchLabelType)
                     } else {
-                        tonalityInstrument.pitchLabelTypes.remove(type)
+                        tonalityInstrument.pitchLabelTypes.remove(pitchLabelType)
                     }
                 }
             }
         )
     }
     
-    private func intervalBinding(for type: IntervalLabelType) -> Binding<Bool> {
+    private func intervalBinding(for intervalLabelType: IntervalLabelType) -> Binding<Bool> {
         Binding(
             get: {
-                tonalityInstrument.intervalLabelTypes.contains(type)
+                tonalityInstrument.intervalLabelTypes.contains(intervalLabelType)
             },
             set: { isOn in
                 try? modelContext.transaction {
                     if isOn {
-                        tonalityInstrument.intervalLabelTypes.insert(type)
+                        tonalityInstrument.intervalLabelTypes.insert(intervalLabelType)
                     } else {
-                        tonalityInstrument.intervalLabelTypes.remove(type)
+                        tonalityInstrument.intervalLabelTypes.remove(intervalLabelType)
                     }
                 }
             }
